@@ -38,10 +38,11 @@ class Settings(BaseSettings):
     # residentes e o caminho quente nunca paga troca de modelo.
     ollama_host: str = "http://localhost:11434"
     ollama_model_extracao: str = "phi4-mini"   # classificar / extrair → JSON
-    ollama_model_redacao: str = "qwen3:4b"     # redigir / resumir (alvo do LoRA)
+    ollama_model_redacao: str = "gemma4:e4b"   # redigir / resumir (vencedor do bake-off)
     ollama_model_embedding: str = "bge-m3"     # vetor de 1024 dimensões
-    # Instalado para tarefas pontuais em que 6s de carga não incomodam. NÃO
-    # convive com o embedder residente — por isso não está em nenhuma rota.
+    # Instalado para tarefas pontuais em que 15s de carga não incomodam. Fora
+    # das rotas por medição, não por preconceito: 22 tok/s contra 66 do
+    # gemma4:e4b, e não fica residente junto do embedder.
     ollama_model_pesado: str = "llama3.1:8b"
 
     llm_timeout_s: float = 180.0      # 4B em 6 GB gerando 800 tokens passa de 60s

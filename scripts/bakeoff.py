@@ -24,13 +24,13 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from app.llm.providers.ollama import OllamaProvider  # noqa: E402
+from app.llm.voz import checar, texto_da_spec  # noqa: E402
 
 RAIZ = Path(__file__).resolve().parent.parent
 SAIDA = RAIZ / "data" / "bakeoff"
-VOZ = SAIDA / "voz.md"          # especificação de voz (escrita pelo Pablo)
-EXEMPLOS = SAIDA / "exemplos"   # textos reais dele, um por arquivo
+EXEMPLOS = SAIDA / "exemplos"   # textos reais do Pablo, um por arquivo
 
-MODELOS_PADRAO = ["qwen3:4b", "gemma3:4b"]
+MODELOS_PADRAO = ["qwen3.5:4b", "gemma4:e4b"]
 
 # Um caso de cada tipo que o sistema vai pedir de verdade. Curtos de propósito:
 # formato rígido é onde um 4B tem chance real, e é 90% do que o produto precisa.
@@ -52,19 +52,10 @@ CASOS = {
     ),
 }
 
-VOZ_PADRAO = """- Frases curtas. No máximo 120 palavras no corpo.
-- Sem "espero que esteja bem", "gostaria de apresentar", "não apenas X mas também Y".
-- Sem adjetivo de venda: inovador, robusto, poderoso, revolucionário, solução completa.
-- A primeira frase menciona algo concreto do destinatário.
-- Um único pedido no final. Nunca dois.
-- Português do Brasil, direto, sem formalidade de escritório."""
-
-
 def montar_prompt(caso: str) -> str:
-    voz = VOZ.read_text().strip() if VOZ.exists() else VOZ_PADRAO
     partes = [
         "Você escreve no lugar do Pablo. Siga a especificação de voz à risca.",
-        f"\n## Voz\n{voz}",
+        f"\n## Voz\n{texto_da_spec()}",
     ]
     if EXEMPLOS.exists():
         textos = sorted(EXEMPLOS.glob("*.md")) or sorted(EXEMPLOS.glob("*.txt"))
@@ -87,6 +78,7 @@ async def main() -> None:
 
     SAIDA.mkdir(parents=True, exist_ok=True)
     mapa: dict[str, dict] = {}
+    placar: dict[str, dict[str, float]] = {m: {"violacoes": 0, "s": 0.0} for m in modelos}
 
     for caso, texto in CASOS.items():
         prompt = montar_prompt(texto)
@@ -97,29 +89,40 @@ async def main() -> None:
             t0 = time.perf_counter()
             r = await provider.gerar(prompt, modelo=modelo, temperatura=0.7)
             ms = int((time.perf_counter() - t0) * 1000)
-            (pasta / f"{letra}.md").write_text(r.texto.strip() + "\n")
+            saida = r.texto.strip()
+            (pasta / f"{letra}.md").write_text(saida + "\n")
+
+            problemas = checar(saida)
+            placar[modelo]["violacoes"] += len(problemas)
+            placar[modelo]["s"] += ms / 1000
             mapa.setdefault(caso, {})[letra] = {
                 "modelo": modelo,
                 "ms": ms,
                 "tokens_saida": r.tokens_output,
                 "thinking_chars": len(r.thinking),
-                "palavras": len(r.texto.split()),
+                "palavras": len(saida.split()),
+                "violacoes": problemas,
             }
             print(
-                f"   {letra}.md  {ms/1000:>6.1f}s  {len(r.texto.split()):>4} palavras"
-                f"  (raciocínio: {len(r.thinking)} chars)"
+                f"   {letra}.md  {ms/1000:>6.1f}s  {len(saida.split()):>4} palavras"
+                f"  {len(problemas)} violações"
+                + (f" → {problemas[0]}" if problemas else "")
             )
 
     (SAIDA / "GABARITO.json").write_text(json.dumps(mapa, indent=2, ensure_ascii=False))
 
+    # A parte objetiva do julgamento. Não decide sozinha qual texto é melhor —
+    # decide qual modelo consegue OBEDECER a spec, que é pré-requisito.
+    print(f"\n{'modelo':<16} {'violações':>10} {'tempo total':>12}")
+    print("─" * 40)
+    for modelo, p in sorted(placar.items(), key=lambda kv: (kv[1]["violacoes"], kv[1]["s"])):
+        print(f"{modelo:<16} {int(p['violacoes']):>10} {p['s']:>10.1f}s")
+
     print(f"\nSaídas em {SAIDA}")
     print("Leia os .md SEM abrir o GABARITO.json, escolha o melhor de cada caso,")
     print("anote a letra, e só então confira quem era quem.")
-    if not VOZ.exists():
-        print("\n⚠  Sem especificação de voz própria — usando a genérica.")
-        print(f"   Escreva a sua em {VOZ} e rode de novo.")
-    if not EXEMPLOS.exists():
-        print("⚠  Sem exemplos reais — o few-shot é o degrau de maior retorno.")
+    if not EXEMPLOS.exists() or not any(EXEMPLOS.glob("*")):
+        print("\n⚠  Sem exemplos reais — o few-shot é o degrau de maior retorno.")
         print(f"   Ponha 3 textos seus em {EXEMPLOS}/ e rode de novo.")
 
 
