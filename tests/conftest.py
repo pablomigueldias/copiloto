@@ -37,6 +37,7 @@ TABELAS_DE_DADOS = (
     "pessoal_candidatura_emails",
     "pessoal_vagas",
     "pessoal_perfil_mestre",
+    "conhecimento_chunk",
 )
 
 

@@ -7,6 +7,7 @@ novo precisa aparecer aqui, senão some do autogenerate.
 from app.db.models.agente_evento import AgenteEvento
 from app.db.models.ai_call import AiCall
 from app.db.models.auth import Sessao, TentativaLogin, Usuario
+from app.db.models.conhecimento import ConhecimentoChunk
 from app.db.models.pessoal import CandidaturaEmail, PerfilMestre, Vaga
 from app.db.models.pipeline_event import PipelineEvent
 
@@ -14,6 +15,7 @@ __all__ = [
     "AgenteEvento",
     "AiCall",
     "CandidaturaEmail",
+    "ConhecimentoChunk",
     "PerfilMestre",
     "PipelineEvent",
     "Sessao",

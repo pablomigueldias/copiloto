@@ -17,6 +17,7 @@ dependencies = [
     "psycopg[binary]==3.2.3",    # driver sync do Alembic
     "alembic==1.13.3",
     "argon2-cffi==23.1.0",       # hash de senha (Argon2id)
+    "pgvector==0.3.6",           # tipo vector no SQLAlchemy (Fase 2)
     "httpx==0.27.2",             # cliente do Ollama (Fase 1)
     "loguru==0.7.2",
 ]
