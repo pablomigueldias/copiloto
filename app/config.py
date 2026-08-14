@@ -32,11 +32,22 @@ class Settings(BaseSettings):
     observer_enabled: bool = True
     observ_store_payloads: bool = True
 
-    # ── LLM local (usado a partir da Fase 1) ──────────────────────
+    # ── LLM local ─────────────────────────────────────────────────
+    # Um modelo por TAREFA, não um generalista: em 6 GB o que decide não é
+    # caber, é caber junto. phi4-mini (2,5 GB) + bge-m3 (1,2 GB) ficam os dois
+    # residentes e o caminho quente nunca paga troca de modelo.
     ollama_host: str = "http://localhost:11434"
-    ollama_model_redacao: str = "qwen3:4b"
-    ollama_model_analise: str = "qwen3:8b"
-    ollama_model_embedding: str = "bge-m3"
+    ollama_model_extracao: str = "phi4-mini"   # classificar / extrair → JSON
+    ollama_model_redacao: str = "qwen3:4b"     # redigir / resumir (alvo do LoRA)
+    ollama_model_embedding: str = "bge-m3"     # vetor de 1024 dimensões
+    # Instalado para tarefas pontuais em que 6s de carga não incomodam. NÃO
+    # convive com o embedder residente — por isso não está em nenhuma rota.
+    ollama_model_pesado: str = "llama3.1:8b"
+
+    llm_timeout_s: float = 180.0      # 4B em 6 GB gerando 800 tokens passa de 60s
+    llm_max_tentativas: int = 3       # vale para JSON inválido e para erro de rede
+    llm_breaker_falhas: int = 3       # falhas seguidas que abrem o circuito
+    llm_breaker_minutos: int = 5      # tempo que ele fica aberto
 
     # ── Sessão ────────────────────────────────────────────────────
     # Em produção (HTTPS) fica true → cookie __Host-sessao. Em dev http puro

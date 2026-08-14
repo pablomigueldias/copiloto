@@ -49,6 +49,21 @@ python scripts/seed_admin.py      # usa ADMIN_EMAIL / ADMIN_SENHA_INICIAL
 uvicorn app.api.main:app --reload --port 8010
 ```
 
+## LLM local
+
+O Ollama roda **nativo, fora do Docker** (precisa da GPU). As variáveis que
+fazem dois modelos caberem em 6 GB estão versionadas no script:
+
+```bash
+./scripts/ollama-serve.sh &       # ou num terminal separado
+
+ollama pull phi4-mini             # classificar / extrair → JSON
+ollama pull qwen3:4b              # redigir / resumir
+ollama pull bge-m3                # embeddings (1024 dim)
+
+python scripts/bench_modelos.py   # tokens/s, VRAM pico, tempo de carga
+```
+
 ## Desenvolver
 
 ```bash
