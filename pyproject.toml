@@ -1,0 +1,58 @@
+[project]
+name = "copiloto"
+version = "0.1.0"
+description = "Assistente pessoal autônomo, local-first."
+requires-python = ">=3.12"
+
+# Doze dependências. Cada uma volta na fase que precisar dela: playwright +
+# beautifulsoup4 na F3.2 (scraping de vaga), arq na F4.2 (worker),
+# python-multipart quando houver upload.
+dependencies = [
+    "fastapi==0.115.0",
+    "uvicorn[standard]==0.32.0",
+    "pydantic==2.9.0",
+    "pydantic-settings==2.6.0",
+    "sqlalchemy[asyncio]==2.0.36",
+    "asyncpg==0.30.0",           # driver async da aplicação
+    "psycopg[binary]==3.2.3",    # driver sync do Alembic
+    "alembic==1.13.3",
+    "argon2-cffi==23.1.0",       # hash de senha (Argon2id)
+    "httpx==0.27.2",             # cliente do Ollama (Fase 1)
+    "loguru==0.7.2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.1.0",
+    "pytest-asyncio==1.3.0",
+    "ruff",
+    "coverage",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["app*"]
+
+# ── Lint ──────────────────────────────────────────────────────────
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["alembic/versions"]
+
+[tool.ruff.lint]
+#   F  pyflakes · E,W pycodestyle · I isort · B bugbear · UP pyupgrade
+select = ["F", "E", "W", "I", "B", "UP"]
+ignore = ["E501"]  # prompts longos em pt-BR
+
+[tool.ruff.lint.isort]
+known-first-party = ["app"]
+
+# ── Testes ────────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q -p no:cacheprovider"
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"

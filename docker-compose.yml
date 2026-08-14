@@ -1,0 +1,51 @@
+# Infraestrutura local do Copiloto.
+#
+#   docker compose up -d      # sobe em background
+#   docker compose down       # para (mantém dados)
+#   docker compose down -v    # para e APAGA dados
+#
+# Portas deslocadas de propósito (5434/6380): o `reative-db` do prospector
+# antigo continua no ar em 5433 enquanto a migração acontece.
+
+services:
+  db:
+    image: pgvector/pgvector:pg16
+    container_name: copiloto-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: copiloto
+      POSTGRES_PASSWORD: copiloto_dev
+      POSTGRES_DB: copiloto
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --locale=C.UTF-8"
+    ports:
+      - "5434:5432"
+    volumes:
+      - copiloto_db_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U copiloto -d copiloto"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Broker do worker `arq` (Fase 4). Sobe desde já para não haver surpresa de
+  # infra no meio de uma fase de código.
+  redis:
+    image: redis:7-alpine
+    container_name: copiloto-redis
+    restart: unless-stopped
+    command: redis-server --save 60 1 --loglevel warning
+    ports:
+      - "6380:6379"
+    volumes:
+      - copiloto_redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  copiloto_db_data:
+    name: copiloto_db_data
+  copiloto_redis_data:
+    name: copiloto_redis_data
