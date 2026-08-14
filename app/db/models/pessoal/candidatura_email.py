@@ -4,7 +4,7 @@ import uuid
 from datetime import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey, Index, String, Text
+from sqlalchemy import DateTime, ForeignKey, Index, String, Text
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -45,7 +45,7 @@ class CandidaturaEmail(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     status: Mapped[str] = mapped_column(
         String(30), default="rascunho", server_default="rascunho", nullable=False
     )
-    enviado_em: Mapped[datetime | None] = mapped_column()
+    enviado_em: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     # variantes A/B e contexto usado na geração (pra revisar/treinar)
     variantes: Mapped[list | None] = mapped_column(JSONB)

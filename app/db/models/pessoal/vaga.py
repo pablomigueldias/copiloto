@@ -71,7 +71,7 @@ class Vaga(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     # curriculo_json: CurriculoVaga adaptado a ESTA vaga (resumo/competências/
     #   experiências/projetos). Dados factuais ainda saem do perfil ao gerar.
     curriculo_json: Mapped[dict | None] = mapped_column(JSONB)
-    curriculo_gerado_em: Mapped[datetime | None] = mapped_column(DateTime)
+    curriculo_gerado_em: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
     emails: Mapped[list[CandidaturaEmail]] = relationship(
         back_populates="vaga",

@@ -3,7 +3,7 @@ from __future__ import annotations
 import uuid
 from datetime import datetime
 
-from sqlalchemy import func
+from sqlalchemy import DateTime, func
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from sqlalchemy.sql import expression
@@ -24,11 +24,17 @@ class UUIDPrimaryKeyMixin:
 
 
 class TimestampMixin:
+    """Sempre ``timestamptz``. Guardar timestamp sem fuso é o erro clássico de
+    Postgres: some a informação de offset e a conta volta errada em qualquer
+    máquina que não esteja em UTC."""
+
     created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
         server_default=func.now(),
         nullable=False,
     )
     updated_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True),
         server_default=func.now(),
         onupdate=func.now(),
         nullable=False,
