@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.routers import auth as auth_router
+from app.api.routers import observabilidade as observabilidade_router
 from app.api.services.auth.cookie import cookie_name
 from app.api.services.auth.csrf import valido as csrf_valido
 from app.config import settings
@@ -74,3 +75,4 @@ async def health() -> dict:
 
 
 app.include_router(auth_router.router)
+app.include_router(observabilidade_router.router)
