@@ -45,6 +45,20 @@ class Settings(BaseSettings):
     # gemma4:e4b, e não fica residente junto do embedder.
     ollama_model_pesado: str = "llama3.1:8b"
 
+    # ── Base de conhecimento ──────────────────────────────────────
+    # Pastas varridas pelo indexador, separadas por vírgula. Não é "o vault do
+    # Obsidian" de propósito: hoje não existe vault nesta máquina, e o parser
+    # entende frontmatter/tag/wikilink de qualquer jeito — no dia em que o
+    # vault nascer, entra aqui sem código novo.
+    conhecimento_fontes: str = (
+        "~/Documentos/Estudos,~/Documentos/prospector/docs,~/Documentos/copiloto"
+    )
+    conhecimento_lote_embedding: int = 16
+
+    @property
+    def conhecimento_fontes_list(self) -> list[str]:
+        return [p.strip() for p in self.conhecimento_fontes.split(",") if p.strip()]
+
     llm_timeout_s: float = 180.0      # 4B em 6 GB gerando 800 tokens passa de 60s
     llm_max_tentativas: int = 3       # vale para JSON inválido e para erro de rede
     llm_breaker_falhas: int = 3       # falhas seguidas que abrem o circuito
