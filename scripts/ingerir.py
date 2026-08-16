@@ -42,13 +42,14 @@ async def _listar() -> int:
         return 0
 
     print(f"{total} fontes indexadas\n")
-    print(f"{'TIPO':<8} {'CHUNKS':>7}  {'ATUALIZADO':<17} FONTE")
+    print(f"{'TIPO':<8} {'CHUNKS':>7} {'PARTES':>7}  {'ATUALIZADO':<17} FONTE")
     for f in fontes:
         print(
-            f"{f.fonte_tipo:<8} {f.chunks:>7}  "
+            f"{f.fonte_tipo:<8} {f.chunks:>7} {f.partes:>7}  "
             f"{f.atualizado_em:%d/%m/%Y %H:%M}  {f.fonte_ref}"
         )
-    print("\nchunks por tipo:", ", ".join(f"{t}={n}" for t, n in sorted((await totais_por_tipo()).items())))
+    por_tipo = ", ".join(f"{t}={n}" for t, n in sorted((await totais_por_tipo()).items()))
+    print(f"\nchunks por tipo: {por_tipo}")
     return 0
 
 

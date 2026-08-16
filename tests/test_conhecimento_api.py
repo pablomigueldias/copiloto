@@ -153,3 +153,45 @@ async def test_apagar_fonte_inexistente_e_404(logado, indexado):
         headers=_csrf(logado),
     )
     assert r.status_code == 404
+
+
+@pytest.fixture
+async def pdf_de_muitas_paginas():
+    """Um PDF vira um documento por página — o inventário não pode virar 200 linhas."""
+    gateway.usar_provider(EmbedderFalso())
+    await indexar(
+        [
+            Documento(
+                fonte_tipo="pdf",
+                fonte_ref=f"/livros/edital.pdf#p{n}",
+                titulo=f"edital > p. {n}",
+                conteudo=f"Página {n}. {CORPO}",
+                metadados={"pagina": n, "caminho": "/livros/edital.pdf"},
+            )
+            for n in range(1, 4)
+        ],
+        fonte_tipo="pdf",
+    )
+    yield
+    gateway.usar_provider(gateway.OllamaProvider())
+
+
+async def test_inventario_agrupa_as_paginas_do_pdf(logado, pdf_de_muitas_paginas):
+    corpo = (await logado.get("/api/conhecimento/fontes", params={"fonte_tipo": "pdf"})).json()
+    assert corpo["total"] == 1
+
+    (item,) = corpo["itens"]
+    assert item["fonte_ref"] == "/livros/edital.pdf"
+    assert item["partes"] == 3 and item["chunks"] >= 3
+
+
+async def test_apagar_pdf_leva_todas_as_paginas(logado, pdf_de_muitas_paginas):
+    r = await logado.delete(
+        "/api/conhecimento/fonte",
+        params={"fonte_tipo": "pdf", "fonte_ref": "/livros/edital.pdf"},
+        headers=_csrf(logado),
+    )
+    assert r.status_code == 200 and r.json()["chunks_removidos"] >= 3
+
+    corpo = (await logado.get("/api/conhecimento/fontes", params={"fonte_tipo": "pdf"})).json()
+    assert corpo["total"] == 0

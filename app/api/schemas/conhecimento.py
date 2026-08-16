@@ -36,6 +36,8 @@ class FonteResponse(BaseModel):
     fonte_ref: str
     titulo: str | None = None
     chunks: int
+    # Páginas do PDF ou blocos do perfil; 1 quando a fonte é um arquivo só.
+    partes: int
     atualizado_em: datetime
 
 

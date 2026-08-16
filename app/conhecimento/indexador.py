@@ -172,13 +172,20 @@ class FonteIndexada:
     fonte_ref: str
     titulo: str | None
     chunks: int
+    partes: int
     atualizado_em: datetime
+
+
+# `#` separa o documento da sua parte: `livro.pdf#p47`, `perfil:<id>#projetos`.
+# O indexador trabalha na parte (reindexa e apaga por ela); o inventário mostra
+# o documento — senão um PDF de 800 páginas vira 800 linhas de listagem.
+_DOCUMENTO = func.split_part(ConhecimentoChunk.fonte_ref, "#", 1)
 
 
 async def inventario(
     *, fonte_tipo: str | None = None, limite: int = 200, offset: int = 0
 ) -> tuple[int, list[FonteIndexada]]:
-    """O que está indexado: uma linha por fonte, com quantos chunks e de quando.
+    """O que está indexado: uma linha por documento, com chunks e de quando.
 
     É a tela "Conhecimento" do plano (§12) em forma de dado: sem isto, a única
     maneira de saber o que a IA sabe é perguntar e torcer.
@@ -186,14 +193,16 @@ async def inventario(
     agrupado = (
         select(
             ConhecimentoChunk.fonte_tipo,
-            ConhecimentoChunk.fonte_ref,
+            _DOCUMENTO.label("fonte_ref"),
             # Um dos títulos do grupo — todos compartilham a mesma raiz de
             # trilha, então qualquer um identifica a fonte.
             func.min(ConhecimentoChunk.titulo).label("titulo"),
             func.count().label("chunks"),
+            # Páginas do PDF, blocos do perfil: 1 quando a fonte é um arquivo só.
+            func.count(func.distinct(ConhecimentoChunk.fonte_ref)).label("partes"),
             func.max(ConhecimentoChunk.atualizado_em).label("atualizado_em"),
         )
-        .group_by(ConhecimentoChunk.fonte_tipo, ConhecimentoChunk.fonte_ref)
+        .group_by(ConhecimentoChunk.fonte_tipo, _DOCUMENTO)
         .order_by(func.max(ConhecimentoChunk.atualizado_em).desc())
     )
     if fonte_tipo:
@@ -219,11 +228,16 @@ async def totais_por_tipo() -> dict[str, int]:
 
 
 async def apagar_fonte(fonte_tipo: str, fonte_ref: str) -> int:
+    """Tira uma fonte do índice — o documento inteiro, não só a parte.
+
+    Apagar `livro.pdf` tem que levar as 200 páginas junto: quem pede a remoção
+    pensa no arquivo, e deixar 199 páginas órfãs seria pior que não apagar.
+    """
     async with get_session() as session:
         r = await session.execute(
             delete(ConhecimentoChunk).where(
                 ConhecimentoChunk.fonte_tipo == fonte_tipo,
-                ConhecimentoChunk.fonte_ref == fonte_ref,
+                _DOCUMENTO == fonte_ref.split("#")[0],
             )
         )
         await session.commit()
