@@ -173,3 +173,161 @@ async def test_metricas(logado, perfil):
     corpo = (await logado.get("/api/vagas/metricas")).json()
     assert corpo["funil"]["enviada"] == 1
     assert corpo["por_status"] == {"candidatei": 1}
+
+
+# ── Baixar o PDF ──────────────────────────────────────────────────
+
+
+async def test_baixar_pdf_do_curriculo(logado, perfil):
+    vaga = await vagas.criar(descricao=JD, empresa="Nexus")
+    await logado.post(f"/api/vagas/{vaga.id}/curriculo", headers=_csrf(logado))
+
+    r = await logado.get(f"/api/vagas/{vaga.id}/curriculo.pdf")
+    assert r.status_code == 200
+    assert r.headers["content-type"] == "application/pdf"
+    # PDF de verdade começa com %PDF — se vier HTML de erro, o teste pega.
+    assert r.content[:4] == b"%PDF"
+    assert "curriculo-pablo" in r.headers["content-disposition"]
+
+
+async def test_pdf_e_reimpresso_mesmo_se_o_arquivo_sumiu(logado, perfil):
+    from pathlib import Path
+
+    vaga = await vagas.criar(descricao=JD)
+    corpo = (await logado.post(f"/api/vagas/{vaga.id}/curriculo", headers=_csrf(logado))).json()
+    Path(corpo["pdf"]).unlink()
+
+    # O texto vive no banco; o arquivo em disco é cache.
+    r = await logado.get(f"/api/vagas/{vaga.id}/curriculo.pdf")
+    assert r.status_code == 200 and r.content[:4] == b"%PDF"
+
+
+async def test_pdf_de_vaga_sem_curriculo_e_409(logado, perfil):
+    vaga = await vagas.criar(descricao=JD)
+    r = await logado.get(f"/api/vagas/{vaga.id}/curriculo.pdf")
+    assert r.status_code == 409 and "ainda não tem currículo" in r.json()["detail"]
+
+
+async def test_pdf_exige_sessao(client, perfil):
+    vaga = await vagas.criar(descricao=JD)
+    assert (await client.get(f"/api/vagas/{vaga.id}/curriculo.pdf")).status_code == 401
+
+
+# ── PATCH: editar a vaga pela tela ──────────────────────────────
+
+
+async def test_patch_edita_so_o_que_veio(logado):
+    vaga = (await logado.post("/api/vagas", json={"descricao": JD, "empresa": "Nexus"},
+                              headers=_csrf(logado))).json()
+
+    r = await logado.patch(
+        f"/api/vagas/{vaga['id']}",
+        json={"senioridade": "pleno", "modelo": "remoto"},
+        headers=_csrf(logado),
+    )
+    assert r.status_code == 200
+    corpo = r.json()
+    assert corpo["senioridade"] == "pleno"
+    assert corpo["modelo"] == "remoto"
+    # O que não foi enviado continua onde estava — é PATCH, não PUT.
+    assert corpo["empresa"] == "Nexus"
+
+
+async def test_patch_registra_no_historico(logado):
+    vaga = (await logado.post("/api/vagas", json={"descricao": JD},
+                              headers=_csrf(logado))).json()
+    await logado.patch(f"/api/vagas/{vaga['id']}", json={"empresa": "Acme"},
+                       headers=_csrf(logado))
+
+    detalhe = (await logado.get(f"/api/vagas/{vaga['id']}")).json()
+    eventos = [e["evento"] for e in detalhe["historico"]]
+    assert "editada" in eventos
+
+
+async def test_patch_recusa_campo_que_nao_e_meu(logado):
+    """`match_score` é saída do pipeline: editar à mão faria a métrica mentir."""
+    vaga = (await logado.post("/api/vagas", json={"descricao": JD},
+                              headers=_csrf(logado))).json()
+    r = await logado.patch(f"/api/vagas/{vaga['id']}", json={"match_score": 99},
+                           headers=_csrf(logado))
+    # Pydantic ignora o desconhecido; sobra um corpo vazio, que é 422.
+    assert r.status_code == 422
+
+
+async def test_patch_recusa_status_invalido(logado):
+    vaga = (await logado.post("/api/vagas", json={"descricao": JD},
+                              headers=_csrf(logado))).json()
+    r = await logado.patch(f"/api/vagas/{vaga['id']}", json={"status": "inventado"},
+                           headers=_csrf(logado))
+    assert r.status_code == 422
+
+
+async def test_patch_em_vaga_inexistente_e_404(logado):
+    r = await logado.patch(
+        "/api/vagas/00000000-0000-0000-0000-000000000000",
+        json={"empresa": "Acme"},
+        headers=_csrf(logado),
+    )
+    assert r.status_code == 404
+
+
+async def test_gerar_com_reanalisar_devolve_a_vaga_junto(logado, perfil):
+    """O botão 'analisar + gerar': uma chamada, score novo na mesma resposta."""
+    vaga = (await logado.post("/api/vagas", json={"descricao": JD},
+                              headers=_csrf(logado))).json()
+
+    r = await logado.post(
+        f"/api/vagas/{vaga['id']}/curriculo?reanalisar=true", headers=_csrf(logado)
+    )
+    assert r.status_code == 200
+    corpo = r.json()
+    assert corpo["curriculo"]["titulo"]
+    assert corpo["vaga"] is not None
+    assert corpo["vaga"]["match_score"] is not None
+    assert corpo["vaga"]["curriculo_gerado_em"] is not None
+
+
+async def test_apagar_vaga_leva_o_historico_junto(logado):
+    """Vaga colada errada ficava para sempre — e sujava a métrica de funil."""
+    vaga = (await logado.post("/api/vagas", json={"descricao": JD},
+                              headers=_csrf(logado))).json()
+
+    r = await logado.delete(f"/api/vagas/{vaga['id']}", headers=_csrf(logado))
+    assert r.status_code == 204
+
+    assert (await logado.get(f"/api/vagas/{vaga['id']}")).status_code == 404
+    # O evento 'salva' existia; o CASCADE tem que ter levado.
+    from sqlalchemy import func, select
+
+    from app.db.models.pessoal.candidatura_evento import CandidaturaEvento
+    from app.db.session import get_session
+
+    async with get_session() as s:
+        sobraram = await s.scalar(select(func.count(CandidaturaEvento.id)))
+    assert sobraram == 0
+
+
+async def test_apagar_vaga_inexistente_e_404(logado):
+    r = await logado.delete(
+        "/api/vagas/00000000-0000-0000-0000-000000000000", headers=_csrf(logado)
+    )
+    assert r.status_code == 404
+
+
+async def test_listagem_nao_manda_os_blocos_json(logado, perfil):
+    """87% do payload eram `curriculo_json` e amigos, que a tabela não usa."""
+    vaga = (await logado.post("/api/vagas", json={"descricao": JD},
+                              headers=_csrf(logado))).json()
+    await logado.post(f"/api/vagas/{vaga['id']}/curriculo", headers=_csrf(logado))
+
+    linha = (await logado.get("/api/vagas")).json()["itens"][0]
+    assert "curriculo_json" not in linha
+    assert "match_json" not in linha
+    assert "analise_json" not in linha
+    # O que a tabela precisa continua lá — inclusive o ✓ de currículo pronto.
+    assert linha["tem_curriculo"] is True
+    assert linha["titulo"]
+
+    # E o detalhe, que a gaveta usa, continua trazendo tudo.
+    detalhe = (await logado.get(f"/api/vagas/{vaga['id']}")).json()
+    assert detalhe["curriculo_json"] and detalhe["analise_json"]

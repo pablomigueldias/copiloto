@@ -21,6 +21,7 @@ from app.db.base import Base, UUIDPrimaryKeyMixin
 # A ordem importa: é a ordem do funil no painel.
 EVENTOS = (
     "salva",         # colei a vaga
+    "editada",       # corrigi um campo na tela (fora do funil: não é progresso)
     "analisada",     # requisitos extraídos + match calculado
     "gerada",        # currículo e carta prontos
     "enviada",       # eu mandei (a F5 não manda; ela registra que eu mandei)

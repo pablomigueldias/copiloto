@@ -143,6 +143,66 @@ async def obter(vaga_id: UUID) -> Vaga:
     return vaga
 
 
+# O que dá para corrigir na tela. `analise_json`, `match_score` e
+# `curriculo_json` ficam de fora de propósito: são saída do pipeline, e editá-los
+# à mão faria a métrica medir a minha edição em vez do modelo.
+CAMPOS_EDITAVEIS = (
+    "titulo", "empresa", "link", "fonte", "localizacao", "modelo",
+    "senioridade", "contato_nome", "contato_email", "descricao", "notas", "status",
+)
+
+# Limite de coluna no banco. Cortar aqui devolve "salvo com o texto cortado" em
+# vez de um 500 vindo do driver.
+_TAMANHOS = {
+    "titulo": 300, "empresa": 300, "link": 800, "fonte": 100, "localizacao": 200,
+    "modelo": 30, "senioridade": 50, "contato_nome": 200, "contato_email": 300,
+    "status": 30,
+}
+
+
+async def atualizar(vaga_id: UUID, campos: dict) -> Vaga:
+    """Edita a vaga campo a campo — o que o painel salva ao sair do input.
+
+    Só o que veio no dicionário é tocado: um PATCH que zera o que não foi
+    enviado transformaria "corrigi o título" em "apaguei a empresa".
+    """
+    desconhecidos = set(campos) - set(CAMPOS_EDITAVEIS)
+    if desconhecidos:
+        raise VagaErro(f"Campo não editável: {', '.join(sorted(desconhecidos))}")
+
+    if "status" in campos and campos["status"] not in STATUS_VAGA:
+        raise VagaErro(f"Status inválido: {campos['status']}. Use um de {list(STATUS_VAGA)}.")
+
+    if "descricao" in campos and len((campos["descricao"] or "").strip()) < 50:
+        raise VagaErro("Descrição curta demais (mínimo 50 caracteres).")
+
+    async with get_session() as session:
+        vaga = await session.get(Vaga, vaga_id)
+        if vaga is None:
+            raise VagaNaoEncontrada(f"Vaga {vaga_id} não existe.")
+
+        mudou = []
+        for campo, valor in campos.items():
+            if isinstance(valor, str):
+                valor = valor.strip()[: _TAMANHOS.get(campo)] or None
+            if campo == "titulo" and not valor:
+                raise VagaErro("A vaga precisa de um título.")
+            if getattr(vaga, campo) != valor:
+                setattr(vaga, campo, valor)
+                mudou.append(campo)
+
+        if not mudou:
+            return vaga
+        await session.commit()
+        await session.refresh(vaga)
+
+    # Histórico: editei a vaga e o quê. Sem isso, "por que o score mudou?" não
+    # tem resposta quando a edição foi na descrição.
+    await registrar_evento(vaga_id, "editada", detalhe=", ".join(mudou))
+    logger.info(f"Vaga {str(vaga_id)[:8]} editada: {', '.join(mudou)}")
+    return vaga
+
+
 async def listar(
     *,
     status: str | Sequence[str] | None = None,
@@ -167,6 +227,23 @@ async def listar(
             )
         ).all()
     return int(total), list(itens)
+
+
+async def apagar(vaga_id: UUID) -> None:
+    """Tira a vaga do banco. O histórico vai junto, pelo `ON DELETE CASCADE`.
+
+    Existe porque colar a vaga errada era permanente: a lista é a tela que eu
+    olho todo dia, e uma linha que eu não posso remover suja a métrica de funil
+    para sempre.
+    """
+    async with get_session() as session:
+        vaga = await session.get(Vaga, vaga_id)
+        if vaga is None:
+            raise VagaNaoEncontrada(f"Vaga {vaga_id} não existe.")
+        titulo = vaga.titulo
+        await session.delete(vaga)
+        await session.commit()
+    logger.info(f"Vaga apagada: {titulo!r}")
 
 
 async def historico(vaga_id: UUID) -> list[CandidaturaEvento]:
