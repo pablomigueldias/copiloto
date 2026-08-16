@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Copiloto</title>
-  <link rel="stylesheet" href="/painel.css?v={{v}}">
+  <link rel="stylesheet" href="/painel.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🧭</text></svg>">
 </head>
 <body>
@@ -176,8 +176,9 @@
   </footer>
 </aside>
 
-<!-- Módulos ES nativos, sem build: o navegador resolve os imports.
-     Ver app/web/js/ui.js para o porquê da divisão. -->
-<script type="module" src="/js/main.js?v={{v}}"></script>
+<!-- Módulos ES nativos, sem build: o navegador resolve os imports. Sem `?v=`
+     de propósito — versionar URL não alcança os `import` de dentro do módulo;
+     quem garante o JS fresco é o `no-cache` do PainelEstatico. -->
+<script type="module" src="/js/main.js"></script>
 </body>
 </html>

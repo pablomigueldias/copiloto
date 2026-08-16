@@ -8,7 +8,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.api.routers import auth as auth_router
@@ -94,39 +94,30 @@ app.include_router(transcricao_router.router)
 WEB_DIR = BASE_DIR / "app" / "web"
 
 
-def _versao_dos_assets() -> str:
-    """Impressão digital do front, para o navegador não servir JS velho.
+class PainelEstatico(StaticFiles):
+    """Os arquivos do painel, sempre revalidados.
 
-    Sem carimbo, a aba aberta fica com o JS de antes do deploy e um botão novo
-    simplesmente não existe nela — o defeito parece do botão e é do cache.
+    A versão anterior carimbava `?v=<mtime>` nas URLs do `index.html`. Isso
+    funciona para um arquivo e **não funciona para módulos ES**: o `main.js`
+    ganhava URL nova, mas os `import "./vagas.js"` dentro dele são strings
+    estáticas, sem versão nenhuma — o navegador servia os seis submódulos do
+    cache. O sintoma foi `[object Object]` na tela: front velho lendo backend
+    novo. Foi o próprio conserto do cache que criou o buraco, ao dividir o
+    `painel.js` em módulos logo depois.
 
-    O mtime mais recente dos arquivos servidos: muda quando eu edito, não muda
-    a cada request, e não exige build nem hash de conteúdo.
+    Versionar URL exige alcançar o grafo inteiro de imports, e sem build não há
+    como. Revalidar não exige: `no-cache` manda o navegador perguntar, o ETag
+    que o `StaticFiles` já emite responde 304, e ninguém precisa manter esquema
+    de versão em dia. Num app local o custo é um round-trip de 150 bytes por
+    arquivo.
     """
-    if not WEB_DIR.is_dir():
-        return "0"
-    mtimes = [
-        p.stat().st_mtime
-        for p in WEB_DIR.rglob("*")
-        if p.is_file() and p.suffix in {".js", ".css", ".html"}
-    ]
-    return str(int(max(mtimes))) if mtimes else "0"
+
+    def file_response(self, *args, **kwargs):  # type: ignore[override]
+        resposta = super().file_response(*args, **kwargs)
+        # `no-cache` não é "não guarde": é "guarde, mas pergunte antes de usar".
+        resposta.headers["Cache-Control"] = "no-cache, must-revalidate"
+        return resposta
 
 
 if WEB_DIR.is_dir():
-
-    @app.get("/", include_in_schema=False)
-    async def painel_index() -> HTMLResponse:
-        """O `index.html` com `?v=<mtime>` nos assets, sem cache.
-
-        Só o HTML precisa chegar sempre fresco; JS e CSS podem ser cacheados
-        para sempre, porque a URL deles muda quando o conteúdo muda.
-        """
-        html = (WEB_DIR / "index.html").read_text(encoding="utf-8")
-        html = html.replace("{{v}}", _versao_dos_assets())
-        return HTMLResponse(
-            html,
-            headers={"Cache-Control": "no-cache, must-revalidate", "Pragma": "no-cache"},
-        )
-
-    app.mount("/", StaticFiles(directory=WEB_DIR, html=True), name="painel")
+    app.mount("/", PainelEstatico(directory=WEB_DIR, html=True), name="painel")

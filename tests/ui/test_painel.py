@@ -73,18 +73,30 @@ async def test_tela_avisa_que_pausou_a_atualizacao(painel, acao_na_fila):
 # ── o botão que "não funcionava" (era cache) ──────────────────────
 
 
-async def test_assets_carregam_com_versao(painel):
-    """`painel.js?v=<mtime>`: sem isto, a aba aberta fica com o JS de ontem.
+async def test_o_navegador_carrega_o_js_de_agora(painel):
+    """Sem revalidação, a aba fica com o JS de ontem e o front velho lê o
+    backend novo — foi assim que a transcrição virou `[object Object]`.
 
-    Foi este defeito que fez o botão "colar vaga" parecer quebrado — ele não
-    existia no JavaScript que o navegador tinha em cache.
+    Testa o efeito, não o mecanismo: se o painel pinta o que o backend está
+    mandando agora, o cache não está no caminho.
     """
-    srcs = await painel.eval_on_selector_all(
-        "script[src], link[rel=stylesheet]", "els => els.map(e => e.src || e.href)"
+    respostas = await painel.evaluate(
+        """async () => {
+            const arquivos = ["/js/main.js", "/js/vagas.js", "/js/transcricao.js"];
+            const r = [];
+            for (const a of arquivos) {
+              const resp = await fetch(a, { cache: "no-store" });
+              r.push([a, resp.status, (await resp.text()).length]);
+            }
+            return r;
+        }"""
     )
-    proprios = [s for s in srcs if "/js/" in s or "painel.css" in s]
-    assert len(proprios) >= 2, f"esperava main.js e painel.css, achei {srcs}"
-    assert all("?v=" in s for s in proprios), f"asset sem versão: {proprios}"
+    for caminho, status, tamanho in respostas:
+        assert status == 200, caminho
+        assert tamanho > 200, f"{caminho} veio vazio"
+
+    # O sintoma que motivou tudo isto.
+    assert "[object Object]" not in await painel.locator("#painel").inner_text()
 
 
 async def test_colar_vaga_salva_e_abre_a_gaveta(painel):

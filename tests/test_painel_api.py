@@ -101,17 +101,25 @@ async def test_a_pagina_e_servida(client):
     assert (await client.get("/painel.css")).status_code == 200
 
 
-async def test_assets_saem_versionados_e_o_html_nao_e_cacheado(client):
+async def test_todo_asset_do_painel_e_revalidado(client):
     """O defeito que fazia um botão novo "não funcionar".
 
-    Sem `?v=<mtime>`, a aba aberta continuava com o JavaScript de antes do
-    deploy — o botão simplesmente não existia naquele arquivo, e o sintoma
-    parecia ser do botão. Ver docs/fase06.md.
+    Primeiro tentei `?v=<mtime>` nas URLs do HTML. Funciona para um arquivo e
+    não para módulos ES: `main.js` ganhava URL nova, mas os `import` dentro
+    dele são strings estáticas sem versão, e o navegador servia os submódulos
+    do cache. O sintoma foi `[object Object]` na tela — front velho lendo
+    backend novo. Ver docs/fase06.md.
+
+    **Este teste tem que valer para cada arquivo servido**, não só para o de
+    entrada: é exatamente a diferença que deixou o buraco passar.
     """
-    r = await client.get("/")
-    assert "/js/main.js?v=" in r.text
-    assert "/painel.css?v=" in r.text
-    assert "{{v}}" not in r.text, "o carimbo de versão não foi substituído"
-    # O HTML é o único que precisa chegar sempre fresco; ele é quem carrega as
-    # URLs novas dos assets.
-    assert "no-cache" in r.headers.get("cache-control", "")
+    for caminho in ("/", "/painel.css", "/js/main.js", "/js/vagas.js", "/js/transcricao.js"):
+        r = await client.get(caminho)
+        assert r.status_code == 200, caminho
+        assert "no-cache" in r.headers.get("cache-control", ""), caminho
+
+    # E revalidar tem que ser barato, senão a tentação de cachear volta.
+    etag = (await client.get("/js/main.js")).headers["etag"]
+    r = await client.get("/js/main.js", headers={"If-None-Match": etag})
+    assert r.status_code == 304
+    assert not r.content
