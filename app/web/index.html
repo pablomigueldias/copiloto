@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="pt-BR" data-tema="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Copiloto</title>
+  <link rel="stylesheet" href="/painel.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🧭</text></svg>">
+</head>
+<body>
+
+<!-- Login: a mesma sessão do resto do sistema, sem rota nova. -->
+<div id="login" hidden>
+  <form id="form-login">
+    <h1>Copiloto</h1>
+    <p class="sub">assistente pessoal local-first</p>
+    <input type="email" id="email" placeholder="e-mail" autocomplete="username" required>
+    <input type="password" id="senha" placeholder="senha" autocomplete="current-password" required>
+    <button type="submit">entrar</button>
+    <p class="erro" id="erro-login" hidden></p>
+  </form>
+</div>
+
+<div id="painel" hidden>
+  <header>
+    <h1>Copiloto</h1>
+    <div class="saude" id="saude"></div>
+    <button class="ghost" id="atualizar" title="Atualizar agora">↻</button>
+    <button class="ghost" id="sair" title="Sair">sair</button>
+  </header>
+
+  <!-- Perguntar: o copiloto v0 da F3, agora com botão. -->
+  <section class="perguntar">
+    <form id="form-pergunta">
+      <input id="pergunta" placeholder="o que eu estudei sobre…?" autocomplete="off">
+      <button type="submit" id="btn-perguntar">perguntar</button>
+    </form>
+    <div id="resposta" hidden></div>
+  </section>
+
+  <main>
+    <section class="card" id="card-fila">
+      <h2>Fila <span class="badge" id="fila-total">0</span></h2>
+      <div id="fila"></div>
+    </section>
+
+    <section class="card" id="card-candidaturas">
+      <h2>Candidaturas</h2>
+      <div id="candidaturas"></div>
+    </section>
+
+    <section class="card" id="card-conhecimento">
+      <h2>Conhecimento</h2>
+      <div id="conhecimento"></div>
+    </section>
+
+    <section class="card" id="card-modelo">
+      <h2>Modelo</h2>
+      <div id="modelo"></div>
+    </section>
+  </main>
+
+  <footer id="rodape"></footer>
+</div>
+
+<script src="/painel.js"></script>
+</body>
+</html>

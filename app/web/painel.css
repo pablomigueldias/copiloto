@@ -1,0 +1,273 @@
+/* Painel do Copiloto — claro e escuro, sem framework.
+   Uma folha de estilo de 200 linhas contra um build de Tailwind: a tela é
+   informação densa em quatro cartões, e isso CSS puro faz bem. */
+
+:root {
+  --fundo: #fbfaf8;
+  --cartao: #ffffff;
+  --borda: #e6e2dc;
+  --texto: #1c1a17;
+  --fraco: #6b665e;
+  --tenue: #97918a;
+  --acento: #b45309;
+  --ok: #15803d;
+  --alerta: #b45309;
+  --erro: #b91c1c;
+  --sombra: 0 1px 2px rgb(28 26 23 / 6%), 0 4px 12px rgb(28 26 23 / 4%);
+  --raio: 10px;
+  --mono: ui-monospace, "SF Mono", "JetBrains Mono", Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fundo: #16150f;
+    --cartao: #1e1c16;
+    --borda: #322f26;
+    --texto: #ece7dd;
+    --fraco: #a49d90;
+    --tenue: #736d62;
+    --acento: #e8a33d;
+    --ok: #6ee7a0;
+    --alerta: #e8a33d;
+    --erro: #f87171;
+    --sombra: none;
+  }
+}
+
+* { box-sizing: border-box; }
+
+/* `display` de regra própria vence o atributo `hidden`, que só define
+   `display: none` no user-agent stylesheet. Sem esta linha, o login continua
+   ocupando a tela inteira acima do painel depois de autenticar. */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font: 15px/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Login ───────────────────────────────────────────────────── */
+
+#login {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+}
+
+#form-login {
+  width: min(340px, 100%);
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 32px 28px;
+  box-shadow: var(--sombra);
+}
+
+#form-login h1 { margin: 0; font-size: 22px; letter-spacing: -0.01em; }
+#form-login .sub { margin: 4px 0 24px; color: var(--tenue); font-size: 13px; }
+
+input, button, textarea {
+  font: inherit;
+  border-radius: 8px;
+}
+
+#form-login input {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  background: var(--fundo);
+  border: 1px solid var(--borda);
+  color: var(--texto);
+}
+
+#form-login input:focus, #pergunta:focus, textarea:focus {
+  outline: 2px solid var(--acento);
+  outline-offset: -1px;
+}
+
+#form-login button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 6px;
+  background: var(--texto);
+  color: var(--fundo);
+  border: 0;
+  cursor: pointer;
+  font-weight: 550;
+}
+
+.erro { color: var(--erro); font-size: 13px; margin: 12px 0 0; }
+
+/* ── Cabeçalho ───────────────────────────────────────────────── */
+
+#painel { max-width: 1100px; margin: 0 auto; padding: 20px 20px 48px; }
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 16px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--borda);
+}
+
+header h1 { margin: 0; font-size: 18px; letter-spacing: -0.01em; }
+
+.saude { display: flex; gap: 14px; margin-left: auto; font-size: 12.5px; color: var(--fraco); }
+.saude b { font-weight: 550; color: var(--texto); }
+.ponto { display: inline-block; width: 7px; height: 7px; border-radius: 50%; margin-right: 5px; }
+.ponto.on { background: var(--ok); }
+.ponto.off { background: var(--erro); }
+
+.ghost {
+  background: none;
+  border: 1px solid var(--borda);
+  color: var(--fraco);
+  padding: 5px 10px;
+  cursor: pointer;
+}
+.ghost:hover { color: var(--texto); border-color: var(--tenue); }
+
+/* ── Perguntar ───────────────────────────────────────────────── */
+
+.perguntar { margin-bottom: 20px; }
+#form-pergunta { display: flex; gap: 8px; }
+
+#pergunta {
+  flex: 1;
+  padding: 11px 14px;
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  color: var(--texto);
+}
+
+#form-pergunta button {
+  padding: 11px 18px;
+  background: var(--acento);
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+  font-weight: 550;
+}
+#form-pergunta button:disabled { opacity: 0.55; cursor: wait; }
+
+#resposta {
+  margin-top: 12px;
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 16px 18px;
+  box-shadow: var(--sombra);
+}
+#resposta .texto { white-space: pre-wrap; }
+#resposta .vazio { color: var(--fraco); font-style: italic; }
+#resposta .fontes { margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--borda); }
+#resposta .fontes div { font-size: 12.5px; color: var(--fraco); margin-bottom: 3px; }
+#resposta .fontes .arquivo { color: var(--tenue); font-family: var(--mono); font-size: 11px; margin-left: 8px; }
+#resposta .medida { margin-top: 10px; font-size: 11.5px; color: var(--tenue); font-family: var(--mono); }
+
+/* ── Cartões ─────────────────────────────────────────────────── */
+
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+/* A fila tem textarea de texto inteiro: numa tela larga ela merece o dobro. */
+@media (min-width: 1000px) {
+  #card-fila { grid-column: span 2; }
+}
+
+.card {
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: 16px 18px;
+  box-shadow: var(--sombra);
+}
+
+.card h2 {
+  margin: 0 0 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--tenue);
+  font-weight: 600;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--acento);
+  color: #fff;
+  border-radius: 20px;
+  padding: 1px 8px;
+  font-size: 11px;
+  letter-spacing: 0;
+  margin-left: 4px;
+}
+.badge[data-zero="1"] { background: var(--borda); color: var(--tenue); }
+
+/* linha de número */
+.linha { display: flex; justify-content: space-between; gap: 12px; padding: 4px 0; }
+.linha span:last-child { font-variant-numeric: tabular-nums; font-weight: 550; }
+.linha.sutil span { color: var(--fraco); font-weight: 400; font-size: 13px; }
+
+.numerao { font-size: 26px; font-weight: 600; letter-spacing: -0.02em; }
+.rotulo { font-size: 12px; color: var(--tenue); }
+
+/* barra do funil */
+.funil { margin: 2px 0 12px; }
+.funil-linha { display: grid; grid-template-columns: 84px 1fr 32px; align-items: center; gap: 8px; padding: 2px 0; font-size: 13px; }
+.funil-linha .barra { height: 7px; background: var(--borda); border-radius: 4px; overflow: hidden; }
+.funil-linha .barra i { display: block; height: 100%; background: var(--acento); border-radius: 4px; }
+.funil-linha .n { text-align: right; font-variant-numeric: tabular-nums; color: var(--fraco); }
+
+/* cards da fila */
+.acao { border: 1px solid var(--borda); border-radius: 8px; padding: 12px; margin-bottom: 10px; }
+.acao .topo { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 4px 10px; align-items: baseline; }
+.acao .topo .titulo { flex: 1 1 auto; min-width: 0; }
+.acao .titulo { font-weight: 550; font-size: 14px; }
+.acao .meta { font-size: 11.5px; color: var(--tenue); font-family: var(--mono); }
+.acao .contexto { font-size: 12.5px; color: var(--fraco); margin: 4px 0 8px; }
+.acao textarea {
+  width: 100%;
+  min-height: 190px;
+  padding: 10px;
+  background: var(--fundo);
+  border: 1px solid var(--borda);
+  color: var(--texto);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.5;
+  resize: vertical;
+}
+.acao .botoes { display: flex; gap: 8px; margin-top: 8px; }
+.acao button { padding: 6px 12px; border: 1px solid var(--borda); background: var(--fundo); color: var(--texto); cursor: pointer; font-size: 13px; }
+.acao button.aprovar { background: var(--ok); border-color: var(--ok); color: #06240f; font-weight: 550; }
+.acao button.rejeitar:hover { color: var(--erro); border-color: var(--erro); }
+.acao .aviso { font-size: 12px; color: var(--alerta); margin-top: 6px; }
+
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.tag { font-size: 11.5px; background: var(--fundo); border: 1px solid var(--borda); border-radius: 20px; padding: 2px 9px; color: var(--fraco); }
+.tag b { color: var(--texto); font-weight: 550; }
+
+.lista { font-size: 13px; }
+.lista .item { display: flex; justify-content: space-between; gap: 10px; padding: 3px 0; color: var(--fraco); }
+.lista .item .ref { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lista .item .n { font-family: var(--mono); font-size: 11.5px; color: var(--tenue); flex-shrink: 0; }
+
+.vazio { color: var(--tenue); font-size: 13px; font-style: italic; }
+.falhou { color: var(--erro); font-size: 12.5px; font-family: var(--mono); }
+
+footer { margin-top: 22px; font-size: 11.5px; color: var(--tenue); text-align: center; font-family: var(--mono); }
+
+@media (max-width: 620px) {
+  .saude { display: none; }
+  #painel { padding: 14px 12px 32px; }
+}

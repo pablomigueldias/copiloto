@@ -9,15 +9,17 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api.routers import auth as auth_router
 from app.api.routers import candidatura as candidatura_router
 from app.api.routers import conhecimento as conhecimento_router
 from app.api.routers import fila as fila_router
 from app.api.routers import observabilidade as observabilidade_router
+from app.api.routers import painel as painel_router
 from app.api.services.auth.cookie import cookie_name
 from app.api.services.auth.csrf import valido as csrf_valido
-from app.config import settings
+from app.config import BASE_DIR, settings
 from app.db.session import dispose_engine
 from app.utils.logger import get_logger
 
@@ -82,3 +84,11 @@ app.include_router(observabilidade_router.router)
 app.include_router(conhecimento_router.router)
 app.include_router(fila_router.router)
 app.include_router(candidatura_router.router)
+app.include_router(painel_router.router)
+
+# O painel é servido pelo mesmo processo: um `uvicorn` sobe API e tela juntos.
+# HTML+CSS+JS puro, sem build — ver docs/fase-painel.md §2 para o porquê de não
+# ser Next.js ainda. Fica por último para não sombrear nenhuma rota /api/*.
+WEB_DIR = BASE_DIR / "app" / "web"
+if WEB_DIR.is_dir():
+    app.mount("/", StaticFiles(directory=WEB_DIR, html=True), name="painel")
