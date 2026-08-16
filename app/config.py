@@ -62,6 +62,14 @@ class Settings(BaseSettings):
     )
     conhecimento_lote_embedding: int = 16
 
+    # ── Transcrição (aula, curso, reunião) ────────────────────────
+    # Roda na CPU de propósito: a GPU fica livre para o Ollama, que é quem
+    # reescreve a transcrição depois. `small` num Ryzen 5600 dá ~6,6× tempo
+    # real — folga para acompanhar ao vivo. `medium` fica melhor em português
+    # e ainda acompanha; `large-v3` já não.
+    whisper_modelo: str = "small"
+    whisper_idioma: str = "pt"        # 'pt', 'en' ou 'auto'
+
     @property
     def conhecimento_fontes_list(self) -> list[tuple[str, str]]:
         """`[(tipo, caminho), ...]` — sem prefixo, o tipo é `nota`."""

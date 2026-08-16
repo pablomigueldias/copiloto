@@ -1,0 +1,471 @@
+{
+  "_leia_me": "O que o Whisper erra. Formato: \"termo certo\": [\"como ele escreve errado\", ...]. Casa sem acento e sem caixa, e o termo mais longo ganha do mais curto. Depois de cada transcricao, a nota traz uma secao 'Revisao da transcricao' com o que foi trocado — o que ficou errado ali, voce corrige aqui. Este arquivo e a razao de a transcricao melhorar com o uso.",
+  "FastAPI": [
+    "fast api",
+    "fast a p i",
+    "fastapy",
+    "faste api",
+    "fest api"
+  ],
+  "SQLAlchemy": [
+    "sql alchemy",
+    "sequel alchemy",
+    "sql alquimia",
+    "sqlalquemy"
+  ],
+  "PostgreSQL": [
+    "postgre sql",
+    "post gray sql",
+    "postgres ql",
+    "postgrey"
+  ],
+  "pgvector": [
+    "pigvector",
+    "pg vetor",
+    "p g vector",
+    "pgvetor",
+    "pig vector"
+  ],
+  "Alembic": [
+    "alembique",
+    "alambique",
+    "alembik"
+  ],
+  "Pydantic": [
+    "paidantic",
+    "pai dantic",
+    "pydantik",
+    "pedantic"
+  ],
+  "Python": [
+    "paiton",
+    "pyton",
+    "pai ton",
+    "python 3",
+    "phyton"
+  ],
+  "asyncio": [
+    "assincio",
+    "async io",
+    "a sync io"
+  ],
+  "Docker": [
+    "doquer",
+    "docar",
+    "docker compose"
+  ],
+  "docker compose": [
+    "docker compouse",
+    "doquer compose"
+  ],
+  "Kubernetes": [
+    "kubernetis",
+    "cubernetes",
+    "kuberneti"
+  ],
+  "Redis": [
+    "hedis",
+    "redes",
+    "reddis"
+  ],
+  "Ollama": [
+    "olama",
+    "o lama",
+    "ollamma",
+    "holama"
+  ],
+  "LLM": [
+    "l l m",
+    "elelemi",
+    "ele eme"
+  ],
+  "RAG": [
+    "hag",
+    "rague",
+    "r a g",
+    "hague"
+  ],
+  "embedding": [
+    "embeding",
+    "embedin",
+    "embbeding",
+    "in beding"
+  ],
+  "embeddings": [
+    "embedings",
+    "embedins",
+    "in bedings"
+  ],
+  "prompt": [
+    "promt",
+    "promp",
+    "pronto de ia"
+  ],
+  "token": [
+    "tokem",
+    "toquem"
+  ],
+  "tokens": [
+    "tokens de ia",
+    "toquens",
+    "tokems"
+  ],
+  "fine-tuning": [
+    "fine tunning",
+    "fain tuning",
+    "faine tuning",
+    "fine tunin"
+  ],
+  "LoRA": [
+    "lora de ia",
+    "lohra"
+  ],
+  "Hugging Face": [
+    "haguing face",
+    "raguing face",
+    "hugging fase",
+    "haguin feice"
+  ],
+  "transformer": [
+    "transformador de ia",
+    "transformer model"
+  ],
+  "Whisper": [
+    "uisper",
+    "wisper",
+    "whisp"
+  ],
+  "TypeScript": [
+    "type script",
+    "taipe script",
+    "typescrit"
+  ],
+  "JavaScript": [
+    "java script",
+    "javascrit"
+  ],
+  "Next.js": [
+    "next js",
+    "nexjs",
+    "nekst js"
+  ],
+  "React": [
+    "heact",
+    "reagi",
+    "reactjs"
+  ],
+  "Tailwind": [
+    "tail wind",
+    "teilwind",
+    "tailuind"
+  ],
+  "Node.js": [
+    "node js",
+    "nod js"
+  ],
+  "npm": [
+    "n p m",
+    "enepeeme"
+  ],
+  "API": [
+    "a p i",
+    "apis rest"
+  ],
+  "APIs REST": [
+    "api rest",
+    "apis rest",
+    "restful"
+  ],
+  "JSON": [
+    "jason",
+    "jeison",
+    "j son"
+  ],
+  "endpoint": [
+    "end point",
+    "endipoint"
+  ],
+  "backend": [
+    "back end",
+    "bekend"
+  ],
+  "frontend": [
+    "front end",
+    "frontend web"
+  ],
+  "deploy": [
+    "deploi",
+    "diploi"
+  ],
+  "commit": [
+    "comite",
+    "comit"
+  ],
+  "branch": [
+    "brenchi",
+    "brantch"
+  ],
+  "merge": [
+    "merdge",
+    "merji"
+  ],
+  "pull request": [
+    "pul request",
+    "pull requeste"
+  ],
+  "GitHub": [
+    "git rube",
+    "guit hub",
+    "gitrabe",
+    "git hub"
+  ],
+  "Git": [
+    "guit",
+    "guiti"
+  ],
+  "query": [
+    "quiri",
+    "cuéri",
+    "kuery"
+  ],
+  "queries": [
+    "quiris",
+    "cuéris"
+  ],
+  "index": [
+    "indice do banco"
+  ],
+  "primary key": [
+    "praimari qui",
+    "chave primaria pk"
+  ],
+  "foreign key": [
+    "forein qui",
+    "foreing key"
+  ],
+  "JOIN": [
+    "joim",
+    "djoin"
+  ],
+  "SELECT": [
+    "selecti"
+  ],
+  "schema": [
+    "esquema do banco",
+    "skima",
+    "esquema sql"
+  ],
+  "migration": [
+    "maigration",
+    "migração de banco"
+  ],
+  "migrations": [
+    "maigrations"
+  ],
+  "cache": [
+    "quexe",
+    "keiche"
+  ],
+  "log": [
+    "logue"
+  ],
+  "logs": [
+    "logues"
+  ],
+  "debug": [
+    "debugue",
+    "dibague"
+  ],
+  "pytest": [
+    "pai test",
+    "py test",
+    "paitest"
+  ],
+  "unit test": [
+    "iunit test"
+  ],
+  "framework": [
+    "freimuork",
+    "frame work",
+    "framewok"
+  ],
+  "container": [
+    "conteiner",
+    "contêiner"
+  ],
+  "webhook": [
+    "web hook",
+    "uebruque"
+  ],
+  "middleware": [
+    "midiuer",
+    "middle ware"
+  ],
+  "async": [
+    "assínc",
+    "a sync"
+  ],
+  "await": [
+    "a uait",
+    "auait"
+  ],
+  "machine learning": [
+    "machin learning",
+    "méchine learning",
+    "machine lerning"
+  ],
+  "scikit-learn": [
+    "sai kit learn",
+    "scikit learn",
+    "psaikit lern"
+  ],
+  "pandas": [
+    "pandas python",
+    "pandaz"
+  ],
+  "NumPy": [
+    "num pai",
+    "numpai",
+    "num py"
+  ],
+  "dataset": [
+    "deitaset",
+    "data set"
+  ],
+  "overfitting": [
+    "over fiting",
+    "overfiting"
+  ],
+  "n8n": [
+    "n oito n",
+    "n 8 n",
+    "ene oito ene"
+  ],
+  "Zapier": [
+    "zapiér",
+    "zepier",
+    "zapie"
+  ],
+  "webhooks": [
+    "web hooks"
+  ],
+  "Zoho": [
+    "zoro",
+    "zorro",
+    "sohô",
+    "zorô"
+  ],
+  "CRM": [
+    "c r m",
+    "cerreeme"
+  ],
+  "SaaS": [
+    "sés",
+    "sas software"
+  ],
+  "ATS": [
+    "a t s",
+    "atis"
+  ],
+  "VPS": [
+    "v p s",
+    "vepess"
+  ],
+  "SSH": [
+    "s s h",
+    "esseesseaga"
+  ],
+  "Linux": [
+    "linuquis",
+    "linucs"
+  ],
+  "terminal": [
+    "terminau"
+  ],
+  "localhost": [
+    "local host",
+    "locau rost"
+  ],
+  "CESPE": [
+    "sespe",
+    "sesp",
+    "cespi",
+    "sespi",
+    "cesp"
+  ],
+  "Cebraspe": [
+    "cebrasp",
+    "sebraspe",
+    "cebraspi"
+  ],
+  "FUNCAB": [
+    "funcabe",
+    "funcab e",
+    "fun cab"
+  ],
+  "VUNESP": [
+    "vunespi",
+    "vu nesp",
+    "vunesp e"
+  ],
+  "IBFC": [
+    "i b f c",
+    "ibefece"
+  ],
+  "FGV": [
+    "f g v",
+    "efegevê"
+  ],
+  "ENEM": [
+    "enei",
+    "e n e m",
+    "enen"
+  ],
+  "Banco do Brasil": [
+    "bcc do brasil",
+    "banco do brazil"
+  ],
+  "movimento estudantil": [
+    "movimento estudativo"
+  ],
+  "descortinar": [
+    "descurtir",
+    "descurtidas",
+    "descurtido"
+  ],
+  "lógica sentencial": [
+    "logica senten cial"
+  ],
+  "tabela verdade": [
+    "tabela-verdade",
+    "tabela da verdade"
+  ],
+  "proposição": [
+    "preposição",
+    "preposicao"
+  ],
+  "proposições": [
+    "preposições",
+    "preposicoes"
+  ],
+  "conectivo": [
+    "conetivo"
+  ],
+  "conectivos": [
+    "conetivos"
+  ],
+  "Aristóteles": [
+    "aristoteles",
+    "aristotelis"
+  ],
+  "álgebra de Boole": [
+    "algebra de bull",
+    "algebra de bule",
+    "álgebra de bul"
+  ],
+  "V/F": [
+    "vif",
+    "v i f",
+    "vê i efe"
+  ]
+}

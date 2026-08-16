@@ -33,6 +33,19 @@ dev = [
     "ruff",
     "coverage",
 ]
+# Transcrição de aula/reunião (scripts/transcrever.py). Fora do núcleo porque
+# arrasta ~200 MB de ctranslate2 + o peso do modelo, e o resto do sistema
+# funciona sem. O tratamento do texto (`app/conhecimento/transcricao.py`) não
+# depende disto — só o passo de virar áudio em letra.
+transcricao = [
+    "faster-whisper==1.2.1",
+]
+# Testes de navegador (tests/ui). Separado do `dev` porque baixa ~130 MB de
+# Chromium e porque a suíte padrão não depende dele — ver docs/fase06.md §E1.
+#   pip install -e ".[dev,ui]" && playwright install chromium
+ui = [
+    "playwright==1.58.0",
+]
 
 [build-system]
 requires = ["setuptools>=68"]
@@ -58,7 +71,13 @@ known-first-party = ["app"]
 # ── Testes ────────────────────────────────────────────────────────
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-addopts = "-q -p no:cacheprovider"
+# Os testes de navegador ficam de fora do `pytest` puro: sobem um uvicorn e um
+# Chromium, e levam ~30 s. Rode-os de propósito com `pytest -m ui` quando mexer
+# no front — ver docs/fase06.md §E1.
+addopts = "-q -p no:cacheprovider -m 'not ui'"
+markers = [
+    "ui: teste de navegador (precisa de `pip install -e '.[ui]'` + playwright install chromium)",
+]
 asyncio_mode = "auto"
 # Um único event loop para a suíte inteira. O engine do SQLAlchemy é singleton
 # de módulo e seu pool fica preso ao loop que o criou — com loop por teste, o

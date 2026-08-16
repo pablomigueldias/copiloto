@@ -16,7 +16,12 @@ docs/
 
 # Runtime
 logs/
-data/
+# `data/*` e não `data/`: o git não desfaz o ignore de um arquivo dentro de uma
+# pasta ignorada, e o glossário precisa entrar. Ele não é dado pessoal — é a
+# tabela que corrige o que o Whisper erra, e é o motivo de a transcrição
+# melhorar com o uso. Perder o arquivo apaga esse aprendizado.
+data/*
+!data/glossario.json
 
 # Ferramentas
 .ruff_cache/
