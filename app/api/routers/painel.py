@@ -12,6 +12,7 @@ sistema caiu é painel inútil justamente na hora em que ele seria útil.
 from __future__ import annotations
 
 from datetime import UTC, datetime, timedelta
+from time import monotonic
 from typing import Annotated
 
 from fastapi import APIRouter, Depends
@@ -28,6 +29,7 @@ from app.db.session import get_session
 from app.fila import servico as fila
 from app.llm.providers.ollama import OllamaProvider
 from app.utils.logger import get_logger
+from app.worker import vida
 
 logger = get_logger()
 
@@ -36,9 +38,33 @@ UsuarioLogado = Annotated[Usuario, Depends(usuario_atual)]
 router = APIRouter(prefix="/api/painel", tags=["painel"])
 
 
+# O health check do Ollama não pode herdar o timeout de inferência (180 s): ele
+# roda a cada refresco do painel, e um Ollama travado (OOM de VRAM, porta num
+# firewall que faz DROP) penduraria `/api/painel` por três minutos a cada quinze
+# segundos, empilhando conexões. Um servidor que não responde `/api/version` em
+# 1,5 s não está saudável para a tela — que é a pergunta sendo feita.
+TIMEOUT_SAUDE_S = 1.5
+# E não precisa ser perguntado a cada refresco: memoizar por 10 s tira uma
+# chamada HTTP de cada ciclo sem atrasar a notícia de que o Ollama caiu.
+CACHE_SAUDE_S = 10.0
+
+_ollama_visto: tuple[float, bool] | None = None
+
+
+async def _ollama_vivo() -> bool:
+    global _ollama_visto
+    agora = monotonic()
+    if _ollama_visto and agora - _ollama_visto[0] < CACHE_SAUDE_S:
+        return _ollama_visto[1]
+
+    vivo = await OllamaProvider(timeout_s=TIMEOUT_SAUDE_S).disponivel()
+    _ollama_visto = (agora, vivo)
+    return vivo
+
+
 async def _saude() -> dict:
     """Está tudo de pé? A pergunta que se faz antes de olhar qualquer número."""
-    ollama = await OllamaProvider().disponivel()
+    ollama = await _ollama_vivo()
 
     async with get_session() as session:
         ultima_varredura = await session.scalar(
@@ -50,8 +76,15 @@ async def _saude() -> dict:
         # prova de vida é a última chamada de embedding que ele fez.
         ultima_atividade = await session.scalar(select(func.max(AiCall.created_at)))
 
+    # O worker está vivo? Era a pergunta que ninguém estava fazendo — e por isso
+    # 42 PDFs ficaram 14 h fora do índice sem nada na tela indicar. Ver
+    # `app/worker/vida.py` para o porquê de o batimento morar no Redis.
+    worker_visto_em = await vida.visto_em()
+
     return {
         "ollama": ollama,
+        "worker": worker_visto_em is not None,
+        "worker_visto_em": worker_visto_em,
         "ultima_varredura": ultima_varredura.isoformat() if ultima_varredura else None,
         "ultima_atividade": ultima_atividade.isoformat() if ultima_atividade else None,
     }

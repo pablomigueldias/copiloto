@@ -23,7 +23,7 @@ from arq.connections import RedisSettings
 from app.config import settings
 from app.db.session import dispose_engine
 from app.utils.logger import get_logger
-from app.worker.jobs import embedar_exemplos, marcar_followup, reindexar
+from app.worker.jobs import bater_ponto, embedar_exemplos, marcar_followup, reindexar
 
 logger = get_logger()
 
@@ -53,8 +53,11 @@ def _minutos(intervalo: int) -> set[int]:
 
 class WorkerSettings:
     redis_settings = redis_settings()
-    functions = [reindexar, embedar_exemplos, marcar_followup]
+    functions = [bater_ponto, reindexar, embedar_exemplos, marcar_followup]
     cron_jobs = [
+        # De minuto em minuto, para o painel notar rápido que o worker caiu. É
+        # um SET no Redis: mais barato que o cron que o agenda.
+        cron(bater_ponto, minute=set(range(60)), run_at_startup=True),
         # O índice se atualiza sozinho: salvei a nota, ela entra. Não é watcher
         # de filesystem de propósito — ver §2 de docs/fase04.md.
         cron(reindexar, minute=_minutos(settings.worker_reindexar_minutos), run_at_startup=True),

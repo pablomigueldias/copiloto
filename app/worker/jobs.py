@@ -10,14 +10,29 @@ envelhece: o índice fica velho e os exemplos ficam sem vetor.
 from __future__ import annotations
 
 import time
+from datetime import UTC, datetime
 
 from app.candidatura import vagas
 from app.conhecimento import varredura
 from app.db.observability import registrar_evento
 from app.fila import exemplos
 from app.utils.logger import get_logger
+from app.worker import vida
 
 logger = get_logger()
+
+
+async def bater_ponto(ctx: dict) -> str:
+    """"Estou aqui." O batimento que faz o painel saber que o worker existe.
+
+    Job separado, e não uma linha dentro do `reindexar`, por dois motivos: ele
+    continua batendo se a varredura estiver demorando, e a periodicidade dele é
+    escolhida pela tela (quero saber rápido que o worker caiu), não pelo custo
+    da varredura. Ver `app/worker/vida.py`.
+    """
+    agora = datetime.now(UTC).isoformat()
+    await vida.marcar_vivo(agora)
+    return agora
 
 
 async def reindexar(ctx: dict, *, forcar: bool = False) -> dict:
@@ -26,6 +41,8 @@ async def reindexar(ctx: dict, *, forcar: bool = False) -> dict:
     Varredura completa, mas incremental: arquivo sem mudança não é lido nem
     embedado. Quando nada mudou, é o custo de calcular hashes — segundos.
     """
+    # Também aqui: uma varredura longa não pode deixar o batimento vencer.
+    await vida.marcar_vivo(datetime.now(UTC).isoformat())
     t0 = time.perf_counter()
     resultados = await varredura.ingerir(forcar=forcar)
     duracao = int((time.perf_counter() - t0) * 1000)

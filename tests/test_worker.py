@@ -62,9 +62,33 @@ def test_minutos_do_cron():
 
 def test_worker_registra_os_jobs():
     nomes = {f.__name__ for f in WorkerSettings.functions}
-    assert nomes == {"reindexar", "embedar_exemplos", "marcar_followup"}
+    assert nomes == {"bater_ponto", "reindexar", "embedar_exemplos", "marcar_followup"}
     # A GPU é uma só: o worker nunca roda dois jobs ao mesmo tempo.
     assert WorkerSettings.max_jobs == 1
+
+
+async def test_bater_ponto_marca_o_worker_como_vivo(monkeypatch):
+    """O batimento que o painel lê. Ver app/worker/vida.py."""
+    marcados: list[str] = []
+
+    async def falso(quando: str) -> None:
+        marcados.append(quando)
+
+    monkeypatch.setattr(jobs.vida, "marcar_vivo", falso)
+    quando = await jobs.bater_ponto({})
+    assert marcados == [quando]
+
+
+async def test_reindexar_tambem_bate_ponto(vault, embedder, monkeypatch):
+    """Varredura longa não pode deixar o batimento vencer e acender o alarme."""
+    marcados: list[str] = []
+
+    async def falso(quando: str) -> None:
+        marcados.append(quando)
+
+    monkeypatch.setattr(jobs.vida, "marcar_vivo", falso)
+    await jobs.reindexar({})
+    assert len(marcados) == 1
 
 
 # ── reindexar ─────────────────────────────────────────────────────
