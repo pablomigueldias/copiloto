@@ -38,6 +38,8 @@ TABELAS_DE_DADOS = (
     "pessoal_vagas",
     "pessoal_perfil_mestre",
     "conhecimento_chunk",
+    "exemplo_estilo",
+    "acao_pendente",
 )
 
 
