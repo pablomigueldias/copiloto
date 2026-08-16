@@ -22,7 +22,7 @@ logger = get_logger()
 IGNORAR = {
     "node_modules", ".git", ".venv", "venv", "__pycache__", ".next", "dist",
     "build", ".ruff_cache", ".pytest_cache", "site-packages", ".cache",
-    "target", "vendor", ".obsidian", ".trash",
+    "target", "vendor", ".obsidian", ".trash", ".claude",
 }
 
 _FRONTMATTER = re.compile(r"^---\s*\n(.*?)\n---\s*\n", re.DOTALL)

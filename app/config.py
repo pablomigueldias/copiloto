@@ -55,9 +55,10 @@ class Settings(BaseSettings):
     # O tipo importa porque é a unidade de reindexação e de filtro na busca:
     # "só nas minhas notas" e "só nos READMEs" são perguntas diferentes.
     conhecimento_fontes: str = (
+        "nota:/mnt/dados/Second-Brain,"  # o vault do Obsidian — a fonte principal
         "nota:~/Documentos/Estudos,"
-        "repo:~/Documentos/copiloto,"   # inclui docs/ — planejamento fora do git
-        "pdf:~/Documentos/Estudos"
+        "repo:~/Documentos/copiloto,"    # inclui docs/ — planejamento fora do git
+        "pdf:/mnt/dados/Second-Brain"
     )
     conhecimento_lote_embedding: int = 16
 
