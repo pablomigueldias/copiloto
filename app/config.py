@@ -56,8 +56,7 @@ class Settings(BaseSettings):
     # "só nas minhas notas" e "só nos READMEs" são perguntas diferentes.
     conhecimento_fontes: str = (
         "nota:~/Documentos/Estudos,"
-        "repo:~/Documentos/copiloto,"
-        "repo:~/Documentos/prospector/docs,"
+        "repo:~/Documentos/copiloto,"   # inclui docs/ — planejamento fora do git
         "pdf:~/Documentos/Estudos"
     )
     conhecimento_lote_embedding: int = 16

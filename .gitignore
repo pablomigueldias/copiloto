@@ -10,6 +10,10 @@ dist/
 # Ambiente
 .env
 
+# Planejamento — mora aqui para o indexador ler (CONHECIMENTO_FONTES), mas é
+# material pessoal e fica fora do repositório.
+docs/
+
 # Runtime
 logs/
 data/
