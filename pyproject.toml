@@ -19,6 +19,7 @@ dependencies = [
     "pgvector==0.3.6",           # tipo vector no SQLAlchemy (Fase 2)
     "httpx==0.27.2",             # cliente do Ollama (Fase 1)
     "arq==0.26.3",               # worker sobre Redis (Fase 4)
+    "reportlab==4.2.5",          # PDF do currículo, ATS-friendly (Fase 5)
     # Leitura de PDF (Fase 2.6). AGPL: ok porque este sistema é pessoal e não é
     # SaaS (§16 do plano). Se um dia for, a troca é por pypdfium2.
     "pymupdf==1.24.14",

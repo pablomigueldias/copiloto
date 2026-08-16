@@ -34,6 +34,7 @@ TABELAS_DE_DADOS = (
     "ai_calls",
     "pipeline_events",
     "agente_eventos",
+    "candidatura_evento",
     "pessoal_candidatura_emails",
     "pessoal_vagas",
     "pessoal_perfil_mestre",
