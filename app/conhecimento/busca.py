@@ -62,6 +62,13 @@ class Trecho:
     score: float = 0.0
     posicao_vetorial: int | None = None
     posicao_lexical: int | None = None
+    # Distância de cosseno até a pergunta (0 = idêntico). `None` quando o chunk
+    # veio só do full-text. É a **única** medida de confiança que a busca
+    # produz: o `score` do RRF é função da posição, então um resultado ruim que
+    # ficou em primeiro numa lista empata com um ótimo que ficou em primeiro na
+    # outra. Medido neste índice: pergunta com resposta 0,27–0,48; sem resposta
+    # 0,48–0,75.
+    distancia: float | None = None
 
     @property
     def origem(self) -> str:
@@ -107,10 +114,13 @@ async def _embedar_consulta(q: str) -> list[float] | None:
 
 
 def _stmt_vetorial(vetor: list[float], n: int) -> Select:
+    # A distância vem junto do chunk: ordenar por ela e depois jogá-la fora
+    # (como a F2 fazia) descarta a única medida de confiança da busca.
+    distancia = ConhecimentoChunk.embedding.cosine_distance(vetor)
     return (
-        select(ConhecimentoChunk)
+        select(ConhecimentoChunk, distancia.label("distancia"))
         .where(ConhecimentoChunk.embedding.is_not(None))
-        .order_by(ConhecimentoChunk.embedding.cosine_distance(vetor))
+        .order_by(distancia)
         .limit(n)
     )
 
@@ -131,14 +141,15 @@ def _stmt_lexical(q: str, n: int) -> Select:
 
 
 def _fundir(
-    vetorial: Iterable[ConhecimentoChunk],
+    vetorial: Iterable[tuple[ConhecimentoChunk, float] | ConhecimentoChunk],
     lexical: Iterable[ConhecimentoChunk],
 ) -> list[Trecho]:
     """RRF: soma 1/(K + posição) das listas em que o chunk apareceu."""
     achados: dict[UUID, Trecho] = {}
 
-    def registrar(chunks: Iterable[ConhecimentoChunk], *, lista: str) -> None:
-        for posicao, c in enumerate(chunks, start=1):
+    def registrar(itens: Iterable, *, lista: str) -> None:
+        for posicao, item in enumerate(itens, start=1):
+            c, distancia = item if isinstance(item, tuple) else (item, None)
             t = achados.get(c.id)
             if t is None:
                 t = achados[c.id] = Trecho(
@@ -150,6 +161,8 @@ def _fundir(
                     conteudo=c.conteudo,
                     metadados=c.metadados or {},
                 )
+            if distancia is not None:
+                t.distancia = float(distancia)
             t.score += 1 / (K_RRF + posicao)
             setattr(t, f"posicao_{lista}", posicao)
 
@@ -181,10 +194,10 @@ async def buscar(
     vetor = await _embedar_consulta(q)
 
     async with get_session() as session:
-        vetorial: list[ConhecimentoChunk] = []
+        vetorial: list[tuple[ConhecimentoChunk, float]] = []
         if vetor is not None:
             stmt = _filtrar(_stmt_vetorial(vetor, candidatos), fonte_tipo, tags)
-            vetorial = list((await session.scalars(stmt)).all())
+            vetorial = [(c, d) for c, d in (await session.execute(stmt)).all()]
 
         stmt = _filtrar(_stmt_lexical(q, candidatos), fonte_tipo, tags)
         lexical = list((await session.scalars(stmt)).all())

@@ -229,3 +229,27 @@ async def test_devolve_titulo_e_caminho_para_citar(indexado):
     assert t.fonte_ref.endswith("banco.md")
     assert t.titulo and "Banco" in t.titulo
     assert t.metadados.get("tags") == ["infra", "postgres"]
+
+
+# ── Distância (a medida de confiança da F3) ───────────────────────
+
+
+async def test_trecho_traz_a_distancia_de_cosseno(indexado):
+    usar(EmbedderTrigrama())
+    for tipo in ("nota", "repo"):
+        await indexar([d for d in DOCS if d.fonte_tipo == tipo], fonte_tipo=tipo, forcar=True)
+
+    trechos = await buscar("armazenamento de vetores")
+    assert trechos[0].distancia is not None
+    # Cosseno normalizado: 0 = idêntico, 2 = oposto.
+    assert 0.0 <= trechos[0].distancia <= 2.0
+    # O primeiro colocado é o mais próximo — a lista vetorial vem ordenada por
+    # distância, e é isso que o piso da F3 vai ler.
+    distancias = [t.distancia for t in trechos if t.distancia is not None]
+    assert distancias == sorted(distancias)
+
+
+async def test_chunk_que_veio_so_do_full_text_nao_tem_distancia(indexado):
+    usar(EmbedderQuebrado())
+    (t, *_) = await buscar("pgvector")
+    assert t.origem == "lexical" and t.distancia is None
