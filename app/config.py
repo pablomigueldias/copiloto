@@ -46,18 +46,33 @@ class Settings(BaseSettings):
     ollama_model_pesado: str = "llama3.1:8b"
 
     # ── Base de conhecimento ──────────────────────────────────────
-    # Pastas varridas pelo indexador, separadas por vírgula. Não é "o vault do
-    # Obsidian" de propósito: hoje não existe vault nesta máquina, e o parser
-    # entende frontmatter/tag/wikilink de qualquer jeito — no dia em que o
-    # vault nascer, entra aqui sem código novo.
+    # Pastas varridas pelo indexador: `tipo:caminho`, separadas por vírgula.
+    # Sem prefixo, o tipo é `nota`. Não é "o vault do Obsidian" de propósito:
+    # hoje não existe vault nesta máquina, e o parser entende
+    # frontmatter/tag/wikilink de qualquer jeito — no dia em que o vault
+    # nascer, entra aqui sem código novo.
+    #
+    # O tipo importa porque é a unidade de reindexação e de filtro na busca:
+    # "só nas minhas notas" e "só nos READMEs" são perguntas diferentes.
     conhecimento_fontes: str = (
-        "~/Documentos/Estudos,~/Documentos/prospector/docs,~/Documentos/copiloto"
+        "nota:~/Documentos/Estudos,"
+        "repo:~/Documentos/copiloto,"
+        "repo:~/Documentos/prospector/docs,"
+        "pdf:~/Documentos/Estudos"
     )
     conhecimento_lote_embedding: int = 16
 
     @property
-    def conhecimento_fontes_list(self) -> list[str]:
-        return [p.strip() for p in self.conhecimento_fontes.split(",") if p.strip()]
+    def conhecimento_fontes_list(self) -> list[tuple[str, str]]:
+        """`[(tipo, caminho), ...]` — sem prefixo, o tipo é `nota`."""
+        saida: list[tuple[str, str]] = []
+        for bruto in self.conhecimento_fontes.split(","):
+            entrada = bruto.strip()
+            if not entrada:
+                continue
+            tipo, sep, caminho = entrada.partition(":")
+            saida.append((tipo.strip(), caminho.strip()) if sep else ("nota", entrada))
+        return saida
 
     llm_timeout_s: float = 180.0      # 4B em 6 GB gerando 800 tokens passa de 60s
     llm_max_tentativas: int = 3       # vale para JSON inválido e para erro de rede

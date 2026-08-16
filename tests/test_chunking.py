@@ -108,3 +108,16 @@ def test_metadados_sao_copiados_em_cada_chunk():
     # Cópia, não referência compartilhada.
     chunks[0].metadados["tags"] = []
     assert chunks[1].metadados["tags"] == ["rag"]
+
+
+def test_sobra_curta_no_fim_da_secao_gruda_no_bloco_anterior():
+    """Separador solto depois de um parágrafo gigante não vira chunk próprio.
+
+    Foi o que apareceu na primeira varredura real: um chunk contendo só `---`,
+    que paga embedding e ocupa vaga no ranking sem nunca responder nada.
+    """
+    gigante = "Parágrafo longo o suficiente para estourar o teto sozinho. " * 30
+    chunks = chunkar(f"# Nota\n\n{gigante}\n\n---")
+
+    assert all(c.conteudo.strip() != "---" for c in chunks)
+    assert chunks[-1].conteudo.endswith("---")

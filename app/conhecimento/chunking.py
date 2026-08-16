@@ -80,7 +80,22 @@ def _secoes(texto: str) -> list[_Secao]:
     return [s for s in saida if s.texto]
 
 
-def _quebrar_longo(texto: str, teto: int) -> list[str]:
+def _emitir(blocos: list[str], atual: list[str], minimo: int) -> None:
+    """Fecha um bloco — grudando no anterior se ele sair curto demais.
+
+    Sem isto, um `---` ou uma linha solta depois de um parágrafo gigante vira
+    chunk próprio: paga um embedding, ocupa uma vaga no ranking e nunca é a
+    resposta de nada. Apareceu na primeira varredura real, com o separador de
+    seção de uma nota.
+    """
+    bloco = "\n\n".join(atual)
+    if blocos and len(bloco) < minimo:
+        blocos[-1] = f"{blocos[-1]}\n\n{bloco}"
+    else:
+        blocos.append(bloco)
+
+
+def _quebrar_longo(texto: str, teto: int, minimo: int = MINIMO_CHARS) -> list[str]:
     """Seção maior que o teto: quebra por parágrafo, sem partir bloco de código.
 
     A sobreposição é de um parágrafo: o custo é baixo e evita que a resposta
@@ -95,7 +110,7 @@ def _quebrar_longo(texto: str, teto: int) -> list[str]:
         if not p:
             continue
         if tamanho + len(p) > teto and atual:
-            blocos.append("\n\n".join(atual))
+            _emitir(blocos, atual, minimo)
             # Sobreposição: o último parágrafo do bloco anterior abre o próximo.
             atual = [atual[-1]] if len(atual) > 1 else []
             tamanho = sum(len(x) for x in atual)
@@ -103,7 +118,7 @@ def _quebrar_longo(texto: str, teto: int) -> list[str]:
         tamanho += len(p)
 
     if atual:
-        blocos.append("\n\n".join(atual))
+        _emitir(blocos, atual, minimo)
 
     # Um parágrafo único maior que o teto (tabela grande, bloco de código
     # longo) fica inteiro de propósito: partir no meio destrói mais do que o
@@ -143,7 +158,9 @@ def chunkar(
         if len(conteudo) <= teto:
             partes.append((secao.titulo, conteudo))
         else:
-            partes.extend((secao.titulo, bloco) for bloco in _quebrar_longo(conteudo, teto))
+            partes.extend(
+                (secao.titulo, bloco) for bloco in _quebrar_longo(conteudo, teto, minimo)
+            )
 
     if pendente is not None:
         # A sobra final gruda no último chunk, ou vira chunk se for a única.

@@ -11,8 +11,9 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 from dataclasses import dataclass
+from datetime import datetime
 
-from sqlalchemy import delete, select
+from sqlalchemy import delete, func, select
 
 from app.config import settings
 from app.conhecimento.chunking import chunkar
@@ -163,6 +164,58 @@ async def _remover_ausentes(fonte_tipo: str, vistos: set[str]) -> int:
         await session.commit()
     logger.info(f"{len(sumiram)} fonte(s) sumiram do disco e saíram do índice")
     return len(sumiram)
+
+
+@dataclass(slots=True)
+class FonteIndexada:
+    fonte_tipo: str
+    fonte_ref: str
+    titulo: str | None
+    chunks: int
+    atualizado_em: datetime
+
+
+async def inventario(
+    *, fonte_tipo: str | None = None, limite: int = 200, offset: int = 0
+) -> tuple[int, list[FonteIndexada]]:
+    """O que está indexado: uma linha por fonte, com quantos chunks e de quando.
+
+    É a tela "Conhecimento" do plano (§12) em forma de dado: sem isto, a única
+    maneira de saber o que a IA sabe é perguntar e torcer.
+    """
+    agrupado = (
+        select(
+            ConhecimentoChunk.fonte_tipo,
+            ConhecimentoChunk.fonte_ref,
+            # Um dos títulos do grupo — todos compartilham a mesma raiz de
+            # trilha, então qualquer um identifica a fonte.
+            func.min(ConhecimentoChunk.titulo).label("titulo"),
+            func.count().label("chunks"),
+            func.max(ConhecimentoChunk.atualizado_em).label("atualizado_em"),
+        )
+        .group_by(ConhecimentoChunk.fonte_tipo, ConhecimentoChunk.fonte_ref)
+        .order_by(func.max(ConhecimentoChunk.atualizado_em).desc())
+    )
+    if fonte_tipo:
+        agrupado = agrupado.where(ConhecimentoChunk.fonte_tipo == fonte_tipo)
+
+    async with get_session() as session:
+        total = await session.scalar(
+            select(func.count()).select_from(agrupado.order_by(None).subquery())
+        )
+        linhas = (await session.execute(agrupado.limit(limite).offset(offset))).all()
+
+    return int(total or 0), [FonteIndexada(*linha) for linha in linhas]
+
+
+async def totais_por_tipo() -> dict[str, int]:
+    async with get_session() as session:
+        linhas = await session.execute(
+            select(ConhecimentoChunk.fonte_tipo, func.count()).group_by(
+                ConhecimentoChunk.fonte_tipo
+            )
+        )
+    return {tipo: int(n) for tipo, n in linhas}
 
 
 async def apagar_fonte(fonte_tipo: str, fonte_ref: str) -> int:
