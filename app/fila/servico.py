@@ -25,7 +25,6 @@ from sqlalchemy import func, select
 from app.db.models.acao_pendente import AcaoPendente
 from app.db.observability import registrar_evento
 from app.db.session import get_session
-from app.integrations import telegram
 from app.utils.logger import get_logger
 
 logger = get_logger()
@@ -76,8 +75,6 @@ async def criar(
     await registrar_evento(
         "fila.criada", status="ok", detalhe=f"{acao.agente}/{acao.tipo}", alvo_ref=alvo_ref
     )
-    # Desligado sem token no .env, e nunca levanta: o aviso é conveniência.
-    await telegram.avisar_acao_pendente(acao)
     return acao
 
 

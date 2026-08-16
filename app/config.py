@@ -82,12 +82,6 @@ class Settings(BaseSettings):
     # "instantâneo" não paga uma dependência de watcher (§2 da fase04).
     worker_reindexar_minutos: int = 10
 
-    # ── Telegram (Fase 4) ─────────────────────────────────────────
-    # Vazio = desligado. O aviso é conveniência: sem token, o sistema
-    # funciona igual, só não avisa.
-    telegram_bot_token: str = ""
-    telegram_chat_id: str = ""
-
     llm_timeout_s: float = 180.0      # 4B em 6 GB gerando 800 tokens passa de 60s
     llm_max_tentativas: int = 3       # vale para JSON inválido e para erro de rede
     llm_breaker_falhas: int = 3       # falhas seguidas que abrem o circuito
