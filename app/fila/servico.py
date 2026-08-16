@@ -139,6 +139,33 @@ def _resolver_status(decisao: Decisao, acao: AcaoPendente, texto_final: str | No
     return "editada" if mudou else "aprovada"
 
 
+async def _devolver_ao_alvo(acao: AcaoPendente) -> None:
+    """Leva o texto aprovado de volta ao objeto que ele descreve.
+
+    A fila guarda a decisão; o **documento** vive noutro lugar. Sem este passo,
+    corrigir um currículo na fila não muda o PDF que eu vou anexar — a fila
+    vira um caderno de anotações em vez do lugar onde eu decido.
+
+    Nunca levanta: a decisão já está gravada e não pode ser desfeita por uma
+    falha aqui. O pior caso é o PDF ficar desatualizado, com aviso no log.
+    """
+    vaga_id = (acao.payload or {}).get("vaga_id")
+    if acao.tipo != "curriculo" or not vaga_id:
+        return
+
+    try:
+        from uuid import UUID as _UUID
+
+        from app.candidatura import servico as candidatura
+
+        await candidatura.aplicar_texto_aprovado(_UUID(str(vaga_id)), acao.texto_final or "")
+    except Exception as e:  # noqa: BLE001
+        logger.warning(
+            f"Decisão gravada, mas o currículo da vaga não foi atualizado: "
+            f"{type(e).__name__}: {e}"
+        )
+
+
 async def decidir(
     acao_id: UUID,
     *,
@@ -178,6 +205,8 @@ async def decidir(
             await exemplos.registrar(acao)
         except Exception as e:  # noqa: BLE001
             logger.warning(f"Decisão gravada, exemplo de estilo não: {type(e).__name__}: {e}")
+
+        await _devolver_ao_alvo(acao)
 
     logger.info(f"Fila: {acao.status} — {acao.titulo[:60]!r}")
     await registrar_evento(

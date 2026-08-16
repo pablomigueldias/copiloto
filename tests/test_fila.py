@@ -41,6 +41,27 @@ class EmbedderFalso:
 
 
 @pytest.fixture
+async def perfil_mestre():
+    """Um Perfil Mestre mínimo — o PDF precisa do nome e do contato."""
+    from app.db.models.pessoal.perfil_mestre import PerfilMestre
+
+    async with get_session() as s:
+        s.add(
+            PerfilMestre(
+                nome="Pablo Miguel Dias Ortiz",
+                resumo="Dev Python.",
+                contato={"email": "pablo@exemplo.dev"},
+                habilidades=[{"nome": "Python"}, {"nome": "FastAPI"}],
+                experiencias=[
+                    {"empresa": "Sechat", "cargo": "Analista", "periodo": "2025",
+                     "descricao": "Zoho One"}
+                ],
+            )
+        )
+        await s.commit()
+
+
+@pytest.fixture
 def embedder():
     p = EmbedderFalso()
     gateway.usar_provider(p)
@@ -258,3 +279,87 @@ async def test_bloco_few_shot_traz_situacao_e_texto(embedder):
 
     assert "agência pequena" in bloco and GERADO in bloco
     assert "voz" in bloco.lower()
+
+
+# ── o texto aprovado tem que virar o documento ────────────────────
+
+
+async def test_aprovar_curriculo_editado_atualiza_a_vaga_e_o_pdf(perfil_mestre):
+    """O defeito relatado: eu corrigia na fila, aprovava, e o PDF que eu ia
+    anexar continuava com o texto do modelo."""
+    from app.candidatura import curriculo as gerador
+    from app.candidatura import perfil as perfil_mod
+    from app.candidatura import servico as candidatura
+    from app.candidatura import vagas
+
+    vaga = await vagas.criar(
+        descricao="Vaga de Dev Python com FastAPI e PostgreSQL. " * 3,
+        titulo="Dev Python",
+    )
+    fatos = await perfil_mod.carregar()
+    original = gerador.Curriculo(
+        titulo="Dev Python",
+        resumo="Resumo do modelo.",
+        experiencias=[
+            {"empresa": "Sechat", "cargo": "Analista", "periodo": "2025",
+             "bullets": ["Texto que o modelo escreveu."]}
+        ],
+    )
+
+    from app.db.models.pessoal.vaga import Vaga
+    from app.db.session import get_session
+
+    async with get_session() as s:
+        alvo = await s.get(Vaga, vaga.id)
+        alvo.curriculo_json = original.como_json()
+        await s.commit()
+
+    acao = await servico.criar(
+        agente="candidatura", tipo="curriculo", titulo="Currículo para Dev Python",
+        texto_gerado=gerador.como_texto(original, fatos),
+        payload={"vaga_id": str(vaga.id)},
+    )
+
+    meu_texto = gerador.como_texto(original, fatos).replace(
+        "Texto que o modelo escreveu.", "Reduzi de 3h para 20min o fechamento."
+    )
+    await servico.decidir(acao.id, decisao="aprovar", texto_final=meu_texto)
+
+    atualizada = await vagas.obter(vaga.id)
+    bullets = atualizada.curriculo_json["experiencias"][0]["bullets"]
+    assert bullets == ["Reduzi de 3h para 20min o fechamento."]
+
+    # E o PDF, que reimprime do JSON, sai com o meu texto.
+    caminho, _ = await candidatura.pdf_da_vaga(vaga.id)
+    import pymupdf
+
+    with pymupdf.open(caminho) as doc:
+        lido = "".join(p.get_text() for p in doc)
+    assert "Reduzi de 3h para 20min" in lido
+    assert "Texto que o modelo escreveu" not in lido
+
+
+async def test_aprovar_sem_editar_nao_mexe_no_curriculo(perfil_mestre):
+    from app.candidatura import curriculo as gerador
+    from app.candidatura import perfil as perfil_mod
+    from app.candidatura import vagas
+
+    vaga = await vagas.criar(descricao="Vaga de Dev Python. " * 6, titulo="Dev")
+    fatos = await perfil_mod.carregar()
+    c = gerador.Curriculo(titulo="Dev", resumo="Como saiu do modelo.")
+
+    from app.db.models.pessoal.vaga import Vaga
+    from app.db.session import get_session
+
+    async with get_session() as s:
+        alvo = await s.get(Vaga, vaga.id)
+        alvo.curriculo_json = c.como_json()
+        await s.commit()
+
+    acao = await servico.criar(
+        agente="candidatura", tipo="curriculo", titulo="Currículo",
+        texto_gerado=gerador.como_texto(c, fatos), payload={"vaga_id": str(vaga.id)},
+    )
+    await servico.decidir(acao.id, decisao="aprovar")
+
+    assert (await vagas.obter(vaga.id)).curriculo_json == c.como_json()

@@ -19,6 +19,8 @@ hora de gerar, o que existe é uma situação nova — comparar situação com s
 """
 from __future__ import annotations
 
+import re
+
 from sqlalchemy import select
 
 from app.db.models.acao_pendente import AcaoPendente
@@ -34,6 +36,42 @@ logger = get_logger()
 N_EXEMPLOS = 3
 
 
+# O `tipo` da ação e a `tarefa` que o gerador procura no few-shot **não são a
+# mesma palavra**, e essa diferença de nome custou seis currículos corrigidos que
+# nunca voltaram para o modelo:
+#
+#     ação de currículo  →  tipo = "curriculo"
+#     app/candidatura/curriculo.py  →  exemplos_para("bullet_curriculo", ...)
+#
+# Cada correção era gravada e nunca lida. A tradução mora aqui, num lugar só,
+# porque quem sabe o nome que o gerador usa é este módulo — e uma constante é
+# mais fácil de conferir que dois literais em arquivos diferentes.
+TAREFA_DO_TIPO = {"curriculo": "bullet_curriculo"}
+
+# Bullet do `como_texto()` do currículo: duas casas de indentação e um hífen.
+_BULLET = re.compile(r"^\s{2}-\s+(.+)$", re.MULTILINE)
+# Um bullet de currículo tem substância; "  - x" é lixo de formatação.
+MINIMO_BULLET = 25
+
+
+def _texto_do_exemplo(acao: AcaoPendente) -> str:
+    """O que vale guardar da ação aprovada.
+
+    Para currículo, **só os bullets**. O texto aprovado é o documento inteiro
+    (contato, seções, formação), e o few-shot dele entra no `PROMPT_BULLETS`,
+    que pede bullets. Colar 2.000 caracteres de currículo ali gasta metade do
+    contexto de 8k e ensina o modelo a repetir a estrutura do documento, em vez
+    de a escrever como eu escrevo.
+    """
+    texto = (acao.texto_final or acao.texto_gerado or "").strip()
+    if acao.tipo != "curriculo":
+        return texto
+
+    bullets = [b.strip() for b in _BULLET.findall(texto)]
+    bullets = [b for b in bullets if len(b) >= MINIMO_BULLET]
+    return "\n".join(f"- {b}" for b in bullets)
+
+
 async def registrar(acao: AcaoPendente) -> ExemploEstilo | None:
     """Ação decidida vira exemplo — se foi aprovada e tem texto.
 
@@ -42,13 +80,13 @@ async def registrar(acao: AcaoPendente) -> ExemploEstilo | None:
     """
     if acao.status not in ("aprovada", "editada"):
         return None
-    texto = (acao.texto_final or acao.texto_gerado or "").strip()
+    texto = _texto_do_exemplo(acao)
     if not texto:
         return None
 
     async with get_session() as session:
         exemplo = ExemploEstilo(
-            tarefa=acao.tipo,
+            tarefa=TAREFA_DO_TIPO.get(acao.tipo, acao.tipo),
             # Sem contexto explícito, o título é a melhor descrição da situação
             # que existe — e é melhor que string vazia no embedding.
             contexto=(acao.contexto or acao.titulo).strip(),
