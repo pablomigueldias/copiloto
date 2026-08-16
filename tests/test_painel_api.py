@@ -97,4 +97,21 @@ async def test_a_pagina_e_servida(client):
     r = await client.get("/")
     assert r.status_code == 200
     assert "Copiloto" in r.text
-    assert (await client.get("/painel.js")).status_code == 200
+    assert (await client.get("/js/main.js")).status_code == 200
+    assert (await client.get("/painel.css")).status_code == 200
+
+
+async def test_assets_saem_versionados_e_o_html_nao_e_cacheado(client):
+    """O defeito que fazia um botão novo "não funcionar".
+
+    Sem `?v=<mtime>`, a aba aberta continuava com o JavaScript de antes do
+    deploy — o botão simplesmente não existia naquele arquivo, e o sintoma
+    parecia ser do botão. Ver docs/fase06.md.
+    """
+    r = await client.get("/")
+    assert "/js/main.js?v=" in r.text
+    assert "/painel.css?v=" in r.text
+    assert "{{v}}" not in r.text, "o carimbo de versão não foi substituído"
+    # O HTML é o único que precisa chegar sempre fresco; ele é quem carrega as
+    # URLs novas dos assets.
+    assert "no-cache" in r.headers.get("cache-control", "")
