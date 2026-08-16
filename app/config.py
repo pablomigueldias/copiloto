@@ -74,6 +74,14 @@ class Settings(BaseSettings):
             saida.append((tipo.strip(), caminho.strip()) if sep else ("nota", entrada))
         return saida
 
+    # ── Worker (Fase 4) ───────────────────────────────────────────
+    # Porta 6380 no compose: a 6379 pode estar ocupada por outro projeto.
+    redis_url: str = "redis://localhost:6380"
+    # Intervalo da varredura do conhecimento. Dez minutos porque a varredura
+    # incremental custa segundos quando nada mudou, e "em até 10 min" contra
+    # "instantâneo" não paga uma dependência de watcher (§2 da fase04).
+    worker_reindexar_minutos: int = 10
+
     llm_timeout_s: float = 180.0      # 4B em 6 GB gerando 800 tokens passa de 60s
     llm_max_tentativas: int = 3       # vale para JSON inválido e para erro de rede
     llm_breaker_falhas: int = 3       # falhas seguidas que abrem o circuito
