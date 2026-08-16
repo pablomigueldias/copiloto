@@ -36,18 +36,34 @@ Tudo com licença permissiva e self-hostável. Sem API paga em regime permanente
 
 ## Subir
 
+Primeira vez:
+
 ```bash
 cp .env.example .env
-
-docker compose up -d              # postgres:5434 + redis:6380
 python3 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev]"
-
+docker compose up -d              # postgres:5434 + redis:6380
 alembic upgrade head
 python scripts/seed_admin.py      # usa ADMIN_EMAIL / ADMIN_SENHA_INICIAL
-
-uvicorn app.api.main:app --reload --port 8010
 ```
+
+Depois disso, um comando só:
+
+```bash
+./scripts/copiloto.sh up          # docker + ollama + migration + worker + api
+./scripts/copiloto.sh status      # o que está de pé (e o que não está)
+./scripts/copiloto.sh down
+```
+
+O painel abre em **http://localhost:8010**.
+
+> **O worker precisa estar rodando.** É ele que reindexa o conhecimento, embeda
+> os exemplos de estilo e marca follow-up vencido. Sem ele o sistema *parece*
+> funcionar e vai envelhecendo em silêncio — foi assim que 42 PDFs ficaram 14 h
+> fora do índice. O cabeçalho do painel mostra um ponto para ele, e o
+> `status` responde a mesma pergunta no terminal.
+>
+> Para ele subir junto com a sessão: `scripts/systemd/` tem os units.
 
 ## LLM local
 
@@ -64,12 +80,38 @@ ollama pull bge-m3                # embeddings (1024 dim)
 python scripts/bench_modelos.py   # tokens/s, VRAM pico, tempo de carga
 ```
 
+## Transcrever aula, curso ou reunião
+
+No painel, o card **Transcrever**: escolha a fonte (áudio do sistema ou
+microfone), clique em **gravar** antes de dar play, e o texto vai aparecendo na
+tela. Ao parar, o modelo local reescreve, sugere título, pasta e tags — você
+confirma e a nota entra no vault já indexada.
+
+```bash
+pip install -e ".[transcricao]"   # faster-whisper (~200 MB)
+sudo apt install ffmpeg
+```
+
+Pelo terminal, o mesmo caminho: `python scripts/transcrever.py`.
+
+O Whisper roda na **CPU** de propósito: a GPU fica livre para o Ollama, que é
+quem reescreve depois. Num Ryzen 5600 o `small` transcreve a ~6,6× tempo real.
+
+> `data/glossario.json` é o que faz a transcrição melhorar com o uso: cada nota
+> mostra o que foi corrigido (`pigvector → pgvector`), e o que o Whisper errou e
+> ficou faltando você acrescenta ali.
+
 ## Desenvolver
 
 ```bash
 ruff check .          # lint
 pytest                # suíte (precisa do Postgres de pé)
+pytest -m ui          # testes de navegador (pip install -e ".[ui]")
 alembic revision -m "..."   # nova migration
 ```
+
+Os testes de navegador ficam fora do `pytest` padrão porque sobem um `uvicorn` e
+um Chromium. **Rode-os sempre que mexer no front:** os defeitos que motivaram a
+Fase 6 passaram por 375 testes verdes — nenhum deles abria um navegador.
 
 Regra do projeto: **1 passo = 1 commit**, com a suíte passando ao fim de cada um.

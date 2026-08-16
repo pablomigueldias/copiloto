@@ -1,0 +1,38 @@
+# O worker do Copiloto, subindo junto com a sessão.
+#
+# `systemd --user` e não unit de sistema: o Ollama precisa da sessão gráfica
+# para enxergar a GPU, e um serviço de sistema subiria antes dela — ver o
+# cabeçalho de scripts/ollama-serve.sh.
+#
+# Instalar:
+#   mkdir -p ~/.config/systemd/user
+#   cp scripts/systemd/*.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now copiloto-worker
+#
+# Para o worker continuar rodando com a sessão fechada (útil num desktop que
+# fica ligado): sudo loginctl enable-linger $USER
+#
+# Conferir:  systemctl --user status copiloto-worker
+#            ./scripts/copiloto.sh status
+
+[Unit]
+Description=Copiloto — worker de fundo (arq)
+# O worker não fala com o Ollama no caminho crítico, mas a reindexação embeda:
+# subir junto evita uma primeira passada inteira falhando por LLM fora.
+After=copiloto-ollama.service
+Wants=copiloto-ollama.service
+
+[Service]
+Type=simple
+WorkingDirectory=%h/Documentos/copiloto
+ExecStart=%h/Documentos/copiloto/.venv/bin/python -m arq app.worker.main.WorkerSettings
+Restart=on-failure
+RestartSec=10
+# O Postgres e o Redis vivem no Docker e podem demorar a aceitar conexão depois
+# do boot; falhar e tentar de novo é mais simples que orquestrar dependência.
+StandardOutput=append:%h/Documentos/copiloto/logs/worker.log
+StandardError=append:%h/Documentos/copiloto/logs/worker.log
+
+[Install]
+WantedBy=default.target

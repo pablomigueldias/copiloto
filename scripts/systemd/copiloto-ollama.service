@@ -1,0 +1,19 @@
+# O Ollama com as variáveis de VRAM que fazem dois modelos caberem em 6 GB.
+#
+# Não use o unit que vem com o pacote: ele roda como usuário `ollama`, sem as
+# variáveis deste projeto, e editá-lo exige sudo. Este roda como eu.
+
+[Unit]
+Description=Copiloto — Ollama (modelos locais)
+
+[Service]
+Type=simple
+WorkingDirectory=%h/Documentos/copiloto
+ExecStart=%h/Documentos/copiloto/scripts/ollama-serve.sh
+Restart=on-failure
+RestartSec=5
+StandardOutput=append:%h/Documentos/copiloto/logs/ollama.log
+StandardError=append:%h/Documentos/copiloto/logs/ollama.log
+
+[Install]
+WantedBy=default.target
