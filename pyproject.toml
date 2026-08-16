@@ -19,6 +19,9 @@ dependencies = [
     "argon2-cffi==23.1.0",       # hash de senha (Argon2id)
     "pgvector==0.3.6",           # tipo vector no SQLAlchemy (Fase 2)
     "httpx==0.27.2",             # cliente do Ollama (Fase 1)
+    # Leitura de PDF (Fase 2.6). AGPL: ok porque este sistema é pessoal e não é
+    # SaaS (§16 do plano). Se um dia for, a troca é por pypdfium2.
+    "pymupdf==1.24.14",
     "loguru==0.7.2",
 ]
 
