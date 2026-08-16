@@ -26,6 +26,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import re
 import shutil
 import sys
 from pathlib import Path
@@ -45,6 +46,31 @@ _MARCA_CONTEUDO = "## Conteúdo"
 _MARCAS_FIM = ("## Relacionado", "## Revisão da transcrição")
 
 
+# `⏱ 08:20` no começo de um bloco. Reprocessar sem ler isto apagava os carimbos
+# da nota: a gravação original sabia o instante de cada pedaço, e o texto é a
+# única cópia dessa informação depois que o áudio foi embora.
+_CARIMBO = re.compile(r"^`⏱ (\d+):(\d\d)`\s*$", re.MULTILINE)
+
+
+def marcas_do_corpo(corpo: str) -> list[tuple[int, str]] | None:
+    """Reconstrói `[(segundo, texto)]` a partir dos carimbos que a nota já tem.
+
+    Sem isto, reprocessar uma nota gravada devolvia uma nota sem `⏱` — o
+    pipeline melhorava e a navegação pelo vídeo se perdia junto.
+    """
+    marcas: list[tuple[int, str]] = []
+    achados = list(_CARIMBO.finditer(corpo))
+    if not achados:
+        return None
+
+    for i, m in enumerate(achados):
+        fim = achados[i + 1].start() if i + 1 < len(achados) else len(corpo)
+        trecho = corpo[m.end() : fim].strip()
+        if trecho:
+            marcas.append((int(m.group(1)) * 60 + int(m.group(2)), trecho))
+    return marcas or None
+
+
 def corpo_da_nota(texto: str) -> str:
     """Só o conteúdo — sem frontmatter, sem as seções que o fichamento monta."""
     _, sem_fm = _frontmatter(texto)
@@ -55,7 +81,9 @@ def corpo_da_nota(texto: str) -> str:
     return sem_fm.strip()
 
 
-async def reprocessar(caminho: Path, *, aplicar: bool, vault: Path) -> int:
+async def reprocessar(
+    caminho: Path, *, aplicar: bool, vault: Path, refazer_titulo: bool = False
+) -> int:
     if not caminho.is_file():
         sys.exit(f"Nota não encontrada: {caminho}")
 
@@ -68,22 +96,35 @@ async def reprocessar(caminho: Path, *, aplicar: bool, vault: Path) -> int:
     print(f"{NEGRITO}{caminho.name}{FIM}  {CINZA}{len(corpo.split())} palavras{FIM}")
     print(f"{CINZA}o modelo local está reprocessando…{FIM}\n")
 
+    marcas = marcas_do_corpo(corpo)
+    if marcas:
+        # Recuperados, os carimbos viram metadado e saem do texto. Deixá-los
+        # ali fazia o filtro de ruído engolir um junto com a frase seguinte —
+        # `⏱ 00:00` não tem ponto final, então grudava em "Professor X aqui".
+        corpo = _CARIMBO.sub("", corpo).strip()
+        print(f"{CINZA}{len(marcas)} carimbo(s) de tempo recuperados do texto{FIM}")
+
     nota = await tr.processar(
         corpo,
         tema=str(fm.get("titulo") or caminho.stem),
         raiz_vault=vault,
         # Senão a nota vira vizinha de si mesma e linka para o próprio arquivo.
         excluir=caminho,
+        marcas=marcas,
     )
 
     # O que eu escolhi na tela continua meu: reprocessar não desfaz correção.
+    # Mas o script não distingue "título que eu corrigi" de "título que o modelo
+    # errou e ninguém tocou" — daí o `--refazer-titulo`.
     ficha = nota.fichamento
-    ficha.titulo = str(fm.get("titulo") or ficha.titulo)
+    if not refazer_titulo:
+        ficha.titulo = str(fm.get("titulo") or ficha.titulo)
     ficha.pasta = str(caminho.parent.relative_to(vault))
-    if fm.get("tags"):
+    if fm.get("tags") and not refazer_titulo:
         ficha.tags = [str(t).strip() for t in fm["tags"] if str(t).strip()]
 
-    print(f"{NEGRITO}título{FIM}   {ficha.titulo}   {CINZA}(preservado){FIM}")
+    marca = "(refeito)" if refazer_titulo else "(preservado)"
+    print(f"{NEGRITO}título{FIM}   {ficha.titulo}   {CINZA}{marca}{FIM}")
     print(f"{NEGRITO}pasta{FIM}    {ficha.pasta}   {CINZA}(preservada){FIM}")
     print(f"{NEGRITO}tags{FIM}     {', '.join(ficha.tags)}")
     if ficha.destaques:
@@ -127,6 +168,11 @@ async def main() -> int:
     p = argparse.ArgumentParser(description=(__doc__ or "").splitlines()[0])
     p.add_argument("nota", help="Caminho do .md a reprocessar.")
     p.add_argument("--aplicar", action="store_true")
+    p.add_argument(
+        "--refazer-titulo",
+        action="store_true",
+        help="Deixa o modelo propor titulo e tags de novo (use quando eu nunca os corrigi).",
+    )
     p.add_argument("--vault", help="Raiz do vault (padrão: a fonte 'nota' do .env).")
     args = p.parse_args()
 
@@ -134,7 +180,12 @@ async def main() -> int:
 
     vault = Path(args.vault).expanduser() if args.vault else vault_padrao()
     try:
-        return await reprocessar(Path(args.nota).expanduser(), aplicar=args.aplicar, vault=vault)
+        return await reprocessar(
+            Path(args.nota).expanduser(),
+            aplicar=args.aplicar,
+            vault=vault,
+            refazer_titulo=args.refazer_titulo,
+        )
     finally:
         await dispose_engine()
 

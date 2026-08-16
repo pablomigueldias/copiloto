@@ -81,6 +81,10 @@ class Sessao:
     fonte: str = "sistema"
     trechos: list[Trecho] = field(default_factory=list)
     comecou_em: float | None = None
+    # Congelado quando a captura para. Sem isto o cronômetro continuava correndo
+    # durante o `processando`, e uma aula de 26 min virava `duracao_min: 30` —
+    # o tempo do LLM entrando na duração do vídeo.
+    parou_em: float | None = None
     erro: str | None = None
 
     # Preenchidos na etapa `processando`.
@@ -93,7 +97,9 @@ class Sessao:
 
     @property
     def segundos(self) -> int:
-        return int(time.monotonic() - self.comecou_em) if self.comecou_em else 0
+        if not self.comecou_em:
+            return 0
+        return int((self.parou_em or time.monotonic()) - self.comecou_em)
 
     @property
     def texto(self) -> str:
@@ -235,6 +241,7 @@ async def parar() -> Sessao:
         raise GravacaoErro("Não há gravação em andamento.")
 
     _sessao.estado = "processando"
+    _sessao.parou_em = time.monotonic()
     if _sessao.ffmpeg:
         _sessao.ffmpeg.send_signal(signal.SIGINT)
         try:

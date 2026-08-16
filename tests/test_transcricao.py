@@ -489,3 +489,63 @@ def test_amostra_do_fichamento_cobre_a_aula_inteira():
 def test_nota_curta_vai_inteira_para_o_fichamento():
     corpo = "uma nota curta de estudo."
     assert tr._amostra_para_fichar(corpo) == corpo
+
+
+def test_professor_x_aqui_tambem_e_ruido():
+    """A ordem invertida ("Professor Vaguinho aqui") escapou na segunda aula:
+    o padrão só cobria "aqui é o professor"."""
+    limpo, removidas = tr.limpar_ruido(
+        "Professor Vaguinho aqui. Negar é dizer a ideia contraria."
+    )
+    assert removidas == ["Professor Vaguinho aqui."]
+    assert "ideia contraria" in limpo
+
+
+def test_correcao_com_contexto_nao_pega_a_palavra_legitima():
+    """`tosse -> torce` so vale com a preposicao de torcida junto: "tosse" e
+    palavra de verdade, e uma regra global estragaria "tosse muito de gripe"."""
+    g = tr.carregar_glossario()
+    texto, trocas = tr.aplicar_glossario(
+        "Jose tosse pro Bahia, mas ele tosse muito quando esta gripado.", g
+    )
+    assert "torce pro Bahia" in texto
+    assert "ele tosse muito" in texto
+    assert trocas == ["tosse pro → torce pro"]
+
+
+def test_amostra_abre_pelo_roteiro_e_nao_pelo_comeco():
+    """Abrindo com 2.500 caracteres do inicio, o modelo ancorava neles: uma aula
+    de 26 min sobre quatro conectivos virou a nota "Negacao em Logica
+    Proposicional", com os dois destaques falando so de negacao."""
+    corpo = (
+        "so sobre negacao " * 300
+        + "\n## Conjuncao\n" + "texto " * 400
+        + "\n## Disjuncao Exclusiva\n" + "texto " * 400
+    )
+    amostra = tr._amostra_para_fichar(corpo)
+
+    assert amostra.startswith("ROTEIRO DA AULA")
+    # O escopo inteiro aparece antes de qualquer detalhe.
+    assert amostra.index("## Disjuncao Exclusiva") < amostra.index("COMEÇO DA AULA")
+
+
+def test_titulos_do_modelo_ficam_dentro_de_conteudo():
+    """O modelo escreve `##`, que no documento final fica no mesmo nivel de
+    "Para lembrar" — o indice do Obsidian mostrava os assuntos da aula como
+    irmaos das secoes da nota."""
+    assert tr._aninhar_titulos("## Conectivos\ntexto\n### Negacao\n") == (
+        "### Conectivos\ntexto\n#### Negacao\n"
+    )
+    # Texto sem titulo passa intacto.
+    assert tr._aninhar_titulos("so um paragrafo") == "so um paragrafo"
+
+
+def test_destaque_que_so_afirma_importancia_e_descartado():
+    """"A logica proposicional e fundamental para as provas" ocupa uma linha da
+    secao que existe para eu nao reassistir o video, e nao diz uma regra."""
+    limpos = tr._destaques_limpos([
+        "A logica proposicional e fundamental para o raciocinio logico e as provas.",
+        "Os recursos de estudo incluem o treinamento pratico com o conectivo OU.",
+        "A negacao de P e verdadeira exatamente quando P e falsa.",
+    ])
+    assert limpos == ["A negacao de P e verdadeira exatamente quando P e falsa."]

@@ -190,6 +190,8 @@ _RUIDO_DE_VIDEO = re.compile(
     r"assine (o|a|meu|minha) (canal|curso|newsletter|plano)|"
     # saudação e despedida
     r"ol[áa],? (meus? )?(amigos|pessoal|gente)|aqui [ée] o (professor|prof)|"
+    # "Professor Vaguinho aqui" — a ordem invertida escapou na segunda aula.
+    r"(professor|prof)\.? \w+ aqui\b|"
     r"sejam? bem[- ]vind|um (beijo|abra[çc]o) (grande )?(para|pra) voc[êe]s|"
     r"at[ée] (a )?pr[óo]xima|fiquem com deus|obrigado por (terem )?me assistir|"
     r"obrigado por (terem )?me assistido|por ter deixado eu entrar|tchau[,. ]*$|"
@@ -315,11 +317,20 @@ TÍTULO QUE EU DEI: {tema}
 INÍCIO DA NOTA:
 {amostra}
 
+Use os SÍMBOLOS direto (¬ ∧ ∨ → ↔ ∀ ∃), nunca LaTeX com barra invertida. Numa
+string JSON a barra invertida é escape: "\\neg" vira quebra de linha e "\\land"
+invalida o JSON inteiro.
+
 Responda só com este JSON:
 
 {{
-  "titulo": "<título curto e específico, sem 'Aula 1' nem 'Vídeo sobre'>",
-  "resumo": "<3 frases: o que a nota ensina e para que serve. Sem adjetivo de venda>",
+  "titulo": "<título curto e específico que cobre a AULA INTEIRA, do primeiro
+              ao último assunto do roteiro — não só o primeiro tópico. Se ela
+              ensina quatro conectivos, o título é sobre conectivos, não sobre
+              o primeiro deles. Sem 'Aula 1' nem 'Vídeo sobre'>",
+  "resumo": "<3 frases dizendo o que a aula ensina, cobrindo o roteiro todo.
+              Descreva o conteúdo — nunca comente o que a aula deixou de
+              fazer nem cite estas instruções>",
   "destaques": ["<3 a 5 AFIRMAÇÕES tiradas da aula: a regra, a fórmula, a
                  definição, o macete. Cada uma tem que ser útil sozinha, sem eu
                  reabrir a nota.
@@ -330,7 +341,9 @@ Responda só com este JSON:
                  NÃO: 'Entenda a importância da lógica'  ← não diz nada
                  Proibido começar com Entenda/Aprenda/Compreenda/Domine/Observe.
                  Só o que a aula afirmou: NÃO explique sigla que ela não
-                 explicou, NÃO invente o significado de abreviação>"],
+                 explicou, NÃO invente o significado de abreviação.
+                 ESPALHE pelo roteiro: se a aula tem quatro assuntos, não tire
+                 os cinco destaques do primeiro>"],
   "conceitos": ["<5 a 8 conceitos-chave que a nota explica>"],
   "tags": ["<4 a 7 tags em minúsculo-com-hifen, das que já existem quando servir>"],
   "pasta": "<uma das pastas listadas acima; só invente outra se nenhuma servir>",
@@ -345,6 +358,20 @@ NOTAS QUE EU JÁ TENHO SOBRE ASSUNTO PARECIDO (a busca semântica achou estas):
 
 A pasta de uma dessas notas é quase sempre a pasta certa para esta também.
 """
+
+
+_TITULO_MD = re.compile(r"^(#{1,5})(\s)", re.MULTILINE)
+
+
+def _aninhar_titulos(texto: str) -> str:
+    """`## Conectivos` → `### Conectivos`, para caberem dentro de `## Conteúdo`.
+
+    O modelo escreve `##`, que no documento final fica no mesmo nível de
+    "Para lembrar" e "Conteúdo" — o índice do Obsidian mostra os assuntos da
+    aula como irmãos das seções da nota, e uma aula com dez subtítulos vira uma
+    lista chapada de treze itens sem hierarquia.
+    """
+    return _TITULO_MD.sub(r"\1#\2", texto)
 
 
 async def _reescrever_bloco(trecho: str, tema: str, indice: int) -> str:
@@ -370,7 +397,7 @@ async def _reescrever_bloco(trecho: str, tema: str, indice: int) -> str:
             f"{len(trecho.split())} palavras); mantendo o texto original."
         )
         return trecho
-    return texto
+    return _aninhar_titulos(texto)
 
 
 def blocos_com_tempo(
@@ -443,23 +470,34 @@ AMOSTRA_FATIAS = 4
 
 
 def _amostra_para_fichar(corpo: str) -> str:
-    """O começo, os subtítulos, e fatias espalhadas pelo resto.
+    """O roteiro da aula primeiro, depois o começo e fatias do resto.
 
-    Os subtítulos entram inteiros porque são o índice do que a aula cobriu — em
-    ~200 caracteres eles dizem ao modelo que existe uma parte sobre tabela
-    verdade, mesmo que a fatia sorteada caia noutro lugar.
+    **A ordem é a correção.** Na versão anterior a amostra abria com 2.500
+    caracteres do início, e o modelo ancorava neles: uma aula de 26 minutos
+    sobre quatro conectivos virou a nota "Negação em Lógica Proposicional",
+    com os dois destaques falando só de negação — o conteúdo estava completo,
+    o fichamento é que enxergou o primeiro tópico e parou.
+
+    Os subtítulos são o índice do que a aula cobriu e vêm na frente, para o
+    modelo ver o escopo inteiro antes de qualquer detalhe. É o mesmo motivo de
+    um sumário abrir um livro.
     """
     if len(corpo) <= AMOSTRA_INICIO + AMOSTRA_FATIA:
         return corpo
 
-    titulos = [linha for linha in corpo.splitlines() if linha.startswith("##")]
+    titulos = [linha for linha in corpo.splitlines() if linha.lstrip().startswith("#")]
     resto = corpo[AMOSTRA_INICIO:]
     passo = max(1, len(resto) // AMOSTRA_FATIAS)
     fatias = [resto[i : i + AMOSTRA_FATIA] for i in range(0, len(resto), passo)]
 
-    partes = [corpo[:AMOSTRA_INICIO]]
+    partes = []
     if titulos:
-        partes.append("\n\nSEÇÕES DA NOTA:\n" + "\n".join(titulos))
+        partes.append(
+            "ROTEIRO DA AULA (todos os assuntos cobertos, do começo ao fim):\n"
+            + "\n".join(titulos)
+            + "\n\n"
+        )
+    partes.append("COMEÇO DA AULA:\n" + corpo[:AMOSTRA_INICIO])
     partes.append("\n\nTRECHOS DO RESTO DA AULA:\n\n" + "\n\n[...]\n\n".join(fatias))
     return "".join(partes)
 
@@ -494,7 +532,10 @@ async def fichar(
             tarefa="extrair",
             agente="conhecimento.transcricao.fichamento",
             json_schema=SCHEMA_FICHAMENTO,
-            temperatura=0.2,
+            # Catalogar é a tarefa mais determinística do módulo: título, tags e
+            # pasta não ganham nada com variedade. Em 0.2 a mesma nota rendia 5
+            # destaques numa rodada e 1 na seguinte.
+            temperatura=0.1,
         )
         # Modelo pequeno às vezes responde `[...]` no lugar de `{...}`; sem a
         # checagem o `.get` estoura e derruba o fichamento inteiro.
@@ -576,14 +617,27 @@ _DESTAQUE_VAZIO = re.compile(
     re.IGNORECASE,
 )
 
+# Afirmar que o assunto importa não é afirmar nada sobre o assunto. "A lógica
+# proposicional é fundamental para as provas" ocupa uma linha da seção que
+# existe para eu não reassistir o vídeo, e não me diz uma regra sequer.
+_DESTAQUE_VAGO = re.compile(
+    r"\b(é|e) (muito |bastante )?(importante|fundamental|essencial|crucial|"
+    r"indispens[áa]vel)\b|^\W*(os |as )?(recursos|materiais|t[óo]picos|conte[úu]dos) "
+    r"(de estudo )?(inclu|abordad|apresentad)",
+    re.IGNORECASE,
+)
+
 
 def _destaques_limpos(bruto) -> list[str]:
     """Só afirmações. O prompt pede e o código confere — o modelo escorrega."""
     saida: list[str] = []
     for d in bruto or []:
-        texto = str(d).strip()
+        # Colapsa espaço: o modelo escreve LaTeX (`\neg`) e a barra invertida
+        # vira escape de JSON — `\n` sai como quebra de linha no meio da frase,
+        # `\t` como tabulação. O prompt pede o símbolo; isto é a rede.
+        texto = _ESPACOS.sub(" ", " ".join(str(d).split())).strip()
         # Curto demais é rótulo ("Tabela verdade"), não afirmação.
-        if len(texto) < 25 or _DESTAQUE_VAZIO.match(texto):
+        if len(texto) < 25 or _DESTAQUE_VAZIO.match(texto) or _DESTAQUE_VAGO.search(texto):
             continue
         if texto not in saida:
             saida.append(texto)

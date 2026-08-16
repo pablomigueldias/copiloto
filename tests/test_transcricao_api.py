@@ -206,3 +206,17 @@ async def test_cortar_trecho_inexistente_e_409(logado, gravando_com_anuncio):
 async def test_trecho_traz_o_relogio_do_video(logado, gravando_com_anuncio):
     trechos = (await logado.get("/api/transcricao/estado")).json()["trechos"]
     assert [t["relogio"] for t in trechos] == ["00:00", "00:20", "00:40"]
+
+
+async def test_duracao_para_de_contar_quando_a_captura_para(logado, monkeypatch):
+    """26 min de aula viravam `duracao_min: 30`: o cronometro seguia correndo
+    durante o `processando`, e o tempo do LLM entrava na duracao do video."""
+    import time
+
+    gravacao._sessao.estado = "gravando"
+    gravacao._sessao.comecou_em = time.monotonic() - 600      # 10 min gravados
+    gravacao._sessao.parou_em = time.monotonic() - 120        # parou ha 2 min
+    gravacao._sessao.estado = "processando"
+
+    segundos = (await logado.get("/api/transcricao/estado")).json()["segundos"]
+    assert 470 < segundos < 490, f"esperava ~480 s (8 min de captura), veio {segundos}"

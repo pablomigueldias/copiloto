@@ -434,11 +434,14 @@
     "descurtido"
   ],
   "lógica sentencial": [
-    "logica senten cial"
+    "logica senten cial",
+    "lógica sequencial",
+    "logica sequencial"
   ],
   "tabela verdade": [
-    "tabela-verdade",
-    "tabela da verdade"
+    "tabela da verdade",
+    "tabela verde",
+    "tabela-verde"
   ],
   "proposição": [
     "preposição",
@@ -467,5 +470,36 @@
     "vif",
     "v i f",
     "vê i efe"
+  ],
+  "quantificacional": [
+    "quantitativa em logica"
+  ],
+  "torce pro": [
+    "tosse pro"
+  ],
+  "torce para o": [
+    "tosse para o"
+  ],
+  "torce pelo": [
+    "tosse pelo"
+  ],
+  "conjunção": [
+    "conjuncao logica",
+    "conjunsao"
+  ],
+  "disjunção": [
+    "disjuncao logica",
+    "disjunsao"
+  ],
+  "disjunção exclusiva": [
+    "disjuncao exclusiva ou",
+    "ou exclusivo"
+  ],
+  "bicondicional": [
+    "bi condicional",
+    "bicondicionau"
+  ],
+  "condicional": [
+    "condicionau"
   ]
 }
