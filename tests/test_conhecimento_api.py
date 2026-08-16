@@ -195,3 +195,87 @@ async def test_apagar_pdf_leva_todas_as_paginas(logado, pdf_de_muitas_paginas):
 
     corpo = (await logado.get("/api/conhecimento/fontes", params={"fonte_tipo": "pdf"})).json()
     assert corpo["total"] == 0
+
+
+# ── Pergunta ancorada ─────────────────────────────────────────────
+
+
+class LLMFalso(EmbedderFalso):
+    """Embedder previsível + resposta fixa, para exercitar o endpoint."""
+
+    def __init__(self, resposta: str = "O índice usa pgvector [1].") -> None:
+        self.resposta = resposta
+
+    async def gerar(self, prompt, *, modelo, json_mode=False, temperatura=None, opcoes=None):
+        from app.llm.tipos import RespostaCrua
+
+        return RespostaCrua(
+            texto=self.resposta, modelo=modelo, tokens_input=90, tokens_output=10
+        )
+
+    async def embedar(self, textos, *, modelo):
+        # Bag-of-words: quem compartilha palavra com o chunk fica perto dele.
+        v = []
+        for t in textos:
+            vetor = [0.0] * 1024
+            for palavra in t.lower().split():
+                vetor[hash(palavra) % 1024] += 1.0
+            norma = sum(x * x for x in vetor) ** 0.5
+            v.append([x / norma for x in vetor] if norma else [1.0] + [0.0] * 1023)
+        return v
+
+
+@pytest.fixture
+async def com_llm(indexado):
+    p = LLMFalso()
+    gateway.usar_provider(p)
+    yield p
+    gateway.usar_provider(gateway.OllamaProvider())
+
+
+async def test_perguntar_exige_sessao(client, com_llm):
+    r = await client.post("/api/conhecimento/perguntar", json={"pergunta": "o que é pgvector"})
+    assert r.status_code == 401
+
+
+async def test_perguntar_devolve_resposta_e_fontes(logado, com_llm):
+    r = await logado.post(
+        "/api/conhecimento/perguntar",
+        json={"pergunta": "O índice usa pgvector com HNSW?"},
+        headers=_csrf(logado),
+    )
+    assert r.status_code == 200
+
+    corpo = r.json()
+    assert corpo["respondeu"] is True
+    assert corpo["fontes"] and corpo["fontes"][0]["fonte_ref"] == "/notas/banco.md"
+    assert corpo["trechos"], "o que embasou volta junto, para poder desconfiar"
+    assert corpo["modelo"] and corpo["distancia"] is not None
+
+
+async def test_pergunta_fora_do_indice_responde_200_com_respondeu_false(logado, com_llm):
+    r = await logado.post(
+        "/api/conhecimento/perguntar",
+        json={"pergunta": "receita caseira de bolo cenoura cobertura brigadeiro granulado"},
+        headers=_csrf(logado),
+    )
+    # Não é erro: "não tenho isso indexado" é resposta legítima.
+    assert r.status_code == 200
+    corpo = r.json()
+    assert corpo["respondeu"] is False and corpo["motivo"] == "sem_indice"
+
+
+async def test_perguntar_recusa_pergunta_curta_demais(logado, com_llm):
+    r = await logado.post(
+        "/api/conhecimento/perguntar", json={"pergunta": "a"}, headers=_csrf(logado)
+    )
+    assert r.status_code == 422
+
+
+async def test_perguntar_recusa_fonte_tipo_invalido(logado, com_llm):
+    r = await logado.post(
+        "/api/conhecimento/perguntar",
+        json={"pergunta": "o que é pgvector", "fonte_tipo": ["obsidian"]},
+        headers=_csrf(logado),
+    )
+    assert r.status_code == 422

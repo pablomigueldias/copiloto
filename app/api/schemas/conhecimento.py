@@ -3,7 +3,7 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class TrechoResponse(BaseModel):
@@ -23,12 +23,43 @@ class TrechoResponse(BaseModel):
     metadados: dict = {}
     score: float
     origem: str
+    # Distância de cosseno até a pergunta; `null` quando o trecho veio só do
+    # full-text. É a medida de confiança — o `score` não é.
+    distancia: float | None = None
 
 
 class BuscaResponse(BaseModel):
     consulta: str
     total: int
     trechos: list[TrechoResponse]
+
+
+class PerguntaRequest(BaseModel):
+    pergunta: str = Field(min_length=3, max_length=500)
+    fonte_tipo: list[str] | None = None
+    tag: list[str] | None = None
+    limite: int = Field(default=5, ge=1, le=10)
+
+
+class RespostaResponse(BaseModel):
+    """A resposta e tudo que permite conferi-la.
+
+    `respondeu=False` com `motivo` é resultado legítimo, não erro: "não tenho
+    isso indexado" é a resposta certa quando o índice não cobre o assunto.
+    """
+
+    pergunta: str
+    texto: str
+    respondeu: bool
+    motivo: str | None = None
+    # O que a resposta citou — é o que a tela mostra como fonte clicável.
+    fontes: list[TrechoResponse] = []
+    # Tudo que a busca trouxe, citado ou não: serve para desconfiar da resposta.
+    trechos: list[TrechoResponse] = []
+    distancia: float | None = None
+    modelo: str | None = None
+    latencia_ms: int | None = None
+    tokens: int | None = None
 
 
 class FonteResponse(BaseModel):

@@ -18,16 +18,24 @@ from app.api.dependencies.auth import usuario_atual
 from app.api.schemas.conhecimento import (
     BuscaResponse,
     InventarioResponse,
+    PerguntaRequest,
     RemocaoResponse,
+    RespostaResponse,
 )
 from app.conhecimento.busca import buscar
 from app.conhecimento.indexador import apagar_fonte, inventario, totais_por_tipo
+from app.conhecimento.pergunta import perguntar
 from app.conhecimento.varredura import TIPOS
 from app.db.models.auth.usuario import Usuario
 
 UsuarioLogado = Annotated[Usuario, Depends(usuario_atual)]
 
 router = APIRouter(prefix="/api/conhecimento", tags=["conhecimento"])
+
+
+def _trecho_json(t) -> dict:
+    # Propriedade, não campo: `asdict` não traz `origem`.
+    return {**asdict(t), "id": str(t.id), "origem": t.origem}
 
 
 @router.get("/buscar", response_model=BuscaResponse, summary="Busca híbrida no conhecimento")
@@ -50,15 +58,47 @@ async def get_buscar(
     return BuscaResponse(
         consulta=q,
         total=len(trechos),
-        trechos=[
-            {
-                **asdict(t),
-                "id": str(t.id),
-                # Propriedade, não campo: `asdict` não a traz.
-                "origem": t.origem,
-            }
-            for t in trechos
-        ],
+        trechos=[_trecho_json(t) for t in trechos],
+    )
+
+
+@router.post(
+    "/perguntar",
+    response_model=RespostaResponse,
+    summary="Pergunta ancorada no conhecimento indexado",
+)
+async def post_perguntar(_: UsuarioLogado, req: PerguntaRequest) -> RespostaResponse:
+    """Responde a partir dos trechos indexados — ou admite que não tem o assunto.
+
+    POST porque prende a GPU por alguns segundos e não é cacheável; `respondeu:
+    false` é resposta legítima, com 200, não erro.
+    """
+    if req.fonte_tipo:
+        invalidos = [t for t in req.fonte_tipo if t not in TIPOS]
+        if invalidos:
+            raise HTTPException(
+                status_code=422,
+                detail=f"fonte_tipo inválido: {', '.join(invalidos)}. Use um de {list(TIPOS)}.",
+            )
+
+    r = await perguntar(
+        req.pergunta,
+        limite=req.limite,
+        fonte_tipo=req.fonte_tipo,
+        tags=req.tag,
+        agente="copiloto.api",
+    )
+    return RespostaResponse(
+        pergunta=r.pergunta,
+        texto=r.texto,
+        respondeu=r.respondeu,
+        motivo=r.motivo,
+        fontes=[_trecho_json(t) for t in r.fontes],
+        trechos=[_trecho_json(t) for t in r.trechos],
+        distancia=r.distancia,
+        modelo=r.modelo,
+        latencia_ms=r.latencia_ms,
+        tokens=r.tokens,
     )
 
 
