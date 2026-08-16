@@ -62,7 +62,7 @@ def test_minutos_do_cron():
 
 def test_worker_registra_os_jobs():
     nomes = {f.__name__ for f in WorkerSettings.functions}
-    assert nomes == {"reindexar", "embedar_exemplos"}
+    assert nomes == {"reindexar", "embedar_exemplos", "marcar_followup"}
     # A GPU é uma só: o worker nunca roda dois jobs ao mesmo tempo.
     assert WorkerSettings.max_jobs == 1
 
@@ -105,6 +105,29 @@ async def test_reindexar_pega_arquivo_apagado(vault, embedder):
 
 
 # ── embedar_exemplos ──────────────────────────────────────────────
+
+
+async def test_marcar_followup_pega_candidatura_esquecida(embedder):
+    from datetime import UTC, datetime, timedelta
+
+    from sqlalchemy import update
+
+    from app.candidatura import vagas
+    from app.db.models.pessoal.candidatura_evento import CandidaturaEvento
+
+    v = await vagas.criar(descricao="Vaga de dados com Python e SQL. " * 3)
+    await vagas.registrar_evento(v.id, "enviada")
+    async with get_session() as s:
+        await s.execute(
+            update(CandidaturaEvento)
+            .where(CandidaturaEvento.vaga_id == v.id)
+            .values(ocorreu_em=datetime.now(UTC) - timedelta(days=10))
+        )
+        await s.commit()
+
+    assert await jobs.marcar_followup({}) == 1
+    # Roda todo dia: marcar de novo encheria o histórico de ruído.
+    assert await jobs.marcar_followup({}) == 0
 
 
 async def test_embedar_exemplos_preenche_o_que_a_aprovacao_deixou(embedder):

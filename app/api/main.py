@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.api.routers import auth as auth_router
+from app.api.routers import candidatura as candidatura_router
 from app.api.routers import conhecimento as conhecimento_router
 from app.api.routers import fila as fila_router
 from app.api.routers import observabilidade as observabilidade_router
@@ -80,3 +81,4 @@ app.include_router(auth_router.router)
 app.include_router(observabilidade_router.router)
 app.include_router(conhecimento_router.router)
 app.include_router(fila_router.router)
+app.include_router(candidatura_router.router)

@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import time
 
+from app.candidatura import vagas
 from app.conhecimento import varredura
 from app.db.observability import registrar_evento
 from app.fila import exemplos
@@ -53,3 +54,18 @@ async def reindexar(ctx: dict, *, forcar: bool = False) -> dict:
 async def embedar_exemplos(ctx: dict) -> int:
     """Preenche o vetor dos exemplos aprovados desde a última passada."""
     return await exemplos.embedar_pendentes()
+
+
+async def marcar_followup(ctx: dict) -> int:
+    """Candidatura enviada e esquecida vira item de lista, uma vez por dia.
+
+    É a coisa que o sistema faz e eu nunca faria: currículo dá para escrever à
+    mão em uma hora; lembrar da vaga de três semanas atrás, não.
+    """
+    marcadas = await vagas.marcar_sem_retorno()
+    if marcadas:
+        await registrar_evento(
+            "worker.followup", status="ok", detalhe=f"{marcadas} candidatura(s) sem retorno"
+        )
+        logger.info(f"{marcadas} candidatura(s) entraram no follow-up")
+    return marcadas

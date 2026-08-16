@@ -23,7 +23,7 @@ from arq.connections import RedisSettings
 from app.config import settings
 from app.db.session import dispose_engine
 from app.utils.logger import get_logger
-from app.worker.jobs import embedar_exemplos, reindexar
+from app.worker.jobs import embedar_exemplos, marcar_followup, reindexar
 
 logger = get_logger()
 
@@ -53,13 +53,16 @@ def _minutos(intervalo: int) -> set[int]:
 
 class WorkerSettings:
     redis_settings = redis_settings()
-    functions = [reindexar, embedar_exemplos]
+    functions = [reindexar, embedar_exemplos, marcar_followup]
     cron_jobs = [
         # O índice se atualiza sozinho: salvei a nota, ela entra. Não é watcher
         # de filesystem de propósito — ver §2 de docs/fase04.md.
         cron(reindexar, minute=_minutos(settings.worker_reindexar_minutos), run_at_startup=True),
         # Barato e idempotente: se não há exemplo novo, é um SELECT que volta vazio.
         cron(embedar_exemplos, minute=_minutos(5)),
+        # Uma vez por dia, de manhã: quem venceu o prazo aparece na lista antes
+        # de eu abrir o terminal.
+        cron(marcar_followup, hour={8}, minute={5}),
     ]
     on_startup = startup
     on_shutdown = shutdown
