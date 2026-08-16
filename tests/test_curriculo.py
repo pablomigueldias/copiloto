@@ -252,3 +252,177 @@ async def test_certificacoes_relevantes_primeiro():
     c = await gerar(BOA)
     # Vaga de banco de dados: a certificação de SQL vem antes da de ML.
     assert c.certificacoes[0]["nome"].startswith("SQL")
+
+
+# ── competências: sem repetir, sem nome de projeto ────────────────
+
+
+def test_competencia_nao_repete_entre_categorias():
+    """O mesmo termo em dois grupos parece revisão malfeita, não reforço."""
+    bruto = [
+        {"categoria": "Banco de Dados", "itens": ["PostgreSQL", "Python"]},
+        {"categoria": "Backend", "itens": ["Python", "FastAPI"]},
+    ]
+    grupos = cur._competencias_limpas(bruto, FATOS, REQ)
+    todos = [i for g in grupos for i in g["itens"]]
+    assert todos.count("Python") == 1
+
+
+def test_competencia_nao_repete_o_termo_dentro_de_outro():
+    """'Machine Learning (scikit-learn)' e 'scikit-learn' são o mesmo termo."""
+    bruto = [{"categoria": "IA", "itens": ["Python", "Python (async)"]}]
+    grupos = cur._competencias_limpas(bruto, FATOS, REQ)
+    itens = grupos[0]["itens"]
+    assert len(itens) == 1
+    # Fica o mais informativo dos dois.
+    assert itens[0] == "Python (async)"
+
+
+def test_nome_de_projeto_nao_vira_competencia():
+    """'Churn Prediction' na linha de habilidades manda o recrutador procurar
+    uma tecnologia que não existe. O projeto tem seção própria."""
+    bruto = [{"categoria": "Ciência de Dados", "itens": ["Churn Prediction", "Python"]}]
+    grupos = cur._competencias_limpas(bruto, FATOS, REQ)
+    todos = [i for g in grupos for i in g["itens"]]
+    assert "Churn Prediction" not in todos
+    assert "Python" in todos
+
+
+def test_grupo_que_esvaziou_nao_vira_categoria_vazia():
+    bruto = [
+        {"categoria": "Fantasmas", "itens": ["Churn Prediction"]},
+        {"categoria": "Backend", "itens": ["Python"]},
+    ]
+    grupos = cur._competencias_limpas(bruto, FATOS, REQ)
+    assert [g["categoria"] for g in grupos] == ["Backend"]
+
+
+def test_sql_nao_e_confundido_com_sqlalchemy():
+    """O bug que a primeira versão do filtro criou: 'SQL' é prefixo de
+    'SQLAlchemy', e sumia do currículo — sendo requisito obrigatório da vaga."""
+    assert not cur._mesmo_termo("sql", "sqlalchemy 2.0 async")
+    assert cur._mesmo_termo("scikit-learn", "machine learning scikit-learn")
+    assert cur._mesmo_termo("python", "python async")
+
+    bruto = [{"categoria": "Banco de Dados", "itens": ["SQL", "PostgreSQL"]}]
+    itens = cur._competencias_limpas(bruto, FATOS, REQ)[0]["itens"]
+    assert "PostgreSQL" in itens
+
+
+# ── o caminho de volta: o que eu editei vira o documento ──────────
+
+
+def _curriculo_base() -> cur.Curriculo:
+    return cur.Curriculo(
+        titulo="Dev Python",
+        resumo="Resumo do modelo.",
+        competencias=[{"categoria": "Backend", "itens": ["Python", "FastAPI"]}],
+        experiencias=[
+            {"empresa": "Sechat", "cargo": "Analista", "periodo": "2025",
+             "bullets": ["Bullet do modelo."]}
+        ],
+        projetos=[
+            {"nome": "Copiloto", "stack": ["Python", "pgvector"],
+             "link": "https://github.com/x", "bullets": ["Bullet do modelo."]}
+        ],
+        formacao=[{"instituicao": "Impacta", "curso": "ADS", "periodo": "2026"}],
+    )
+
+
+def test_texto_aprovado_volta_para_o_curriculo():
+    """Eu editava na fila, aprovava, e o PDF continuava com o texto do modelo."""
+    base = _curriculo_base()
+    texto = cur.como_texto(base, FATOS).replace(
+        "Bullet do modelo.", "Reduzi de 3h para 20min o fechamento mensal."
+    ).replace("Resumo do modelo.", "Meu resumo, escrito por mim.")
+
+    novo = cur.de_texto(texto, base)
+    assert novo.resumo == "Meu resumo, escrito por mim."
+    assert novo.experiencias[0]["bullets"] == ["Reduzi de 3h para 20min o fechamento mensal."]
+    assert novo.projetos[0]["bullets"] == ["Reduzi de 3h para 20min o fechamento mensal."]
+
+
+def test_o_que_o_texto_nao_carrega_vem_da_base():
+    """`stack`, `link`, `cargo` e `periodo` não são reconstruíveis do texto."""
+    base = _curriculo_base()
+    novo = cur.de_texto(cur.como_texto(base, FATOS), base)
+
+    assert novo.projetos[0]["stack"] == ["Python", "pgvector"]
+    assert novo.projetos[0]["link"] == "https://github.com/x"
+    assert novo.experiencias[0]["cargo"] == "Analista"
+    assert novo.experiencias[0]["periodo"] == "2025"
+    assert novo.formacao == base.formacao
+
+
+def test_competencias_editadas_no_texto_valem():
+    base = _curriculo_base()
+    texto = cur.como_texto(base, FATOS).replace(
+        "Backend: Python · FastAPI", "Backend: Python · FastAPI · SQLAlchemy"
+    )
+    novo = cur.de_texto(texto, base)
+    assert novo.competencias == [
+        {"categoria": "Backend", "itens": ["Python", "FastAPI", "SQLAlchemy"]}
+    ]
+
+
+def test_texto_irreconhecivel_nao_apaga_nada():
+    """Perder a formatação é reversível; jogar fora o meu texto, não."""
+    base = _curriculo_base()
+    novo = cur.de_texto("escrevi tudo de outro jeito, sem seção nenhuma", base)
+    assert novo.como_json() == base.como_json()
+
+
+def test_ida_e_volta_nao_muda_nada():
+    """`de_texto(como_texto(c)) == c` é o que garante que aprovar sem editar
+    não mexe no documento."""
+    base = _curriculo_base()
+    assert cur.de_texto(cur.como_texto(base, FATOS), base).como_json() == base.como_json()
+
+
+def test_projeto_apagado_do_texto_sai_do_curriculo():
+    """O gerador escolhe três projetos; às vezes o terceiro não ajuda naquela
+    candidatura, e apagá-lo do texto é uma decisão legítima minha."""
+    base = _curriculo_base()
+    base.projetos.append({"nome": "Churn", "stack": ["pandas"], "bullets": ["Bullet."]})
+    texto = cur.como_texto(base, FATOS)
+    # Tira o bloco do Churn, como eu faria à mão.
+    texto = "\n".join(
+        linha for linha in texto.splitlines()
+        if "Churn" not in linha and "Bullet." not in linha
+    )
+
+    novo = cur.de_texto(texto, base)
+    assert [p["nome"] for p in novo.projetos] == ["Copiloto"]
+
+
+def test_secao_de_projetos_ilegivel_mantem_tudo():
+    """Se a seção inteira ficou irreconhecível, o certo é manter, não zerar."""
+    base = _curriculo_base()
+    texto = cur.como_texto(base, FATOS).replace("Copiloto —", "escrevi outra coisa aqui")
+    novo = cur.de_texto(texto, base)
+    assert len(novo.projetos) == len(base.projetos)
+
+
+def test_contato_no_texto_sai_sem_https_como_no_pdf():
+    """O texto da fila é o que eu reviso: tem que ser o mesmo documento que
+    sai impresso."""
+    from app.candidatura.perfil import montar_fatos
+    from app.db.models.pessoal.perfil_mestre import PerfilMestre
+
+    fatos = montar_fatos(
+        PerfilMestre(
+            nome="Pablo",
+            contato={"github": "https://github.com/pablomigueldias/"},
+            habilidades=[], projetos=[], experiencias=[], formacao=[], certificacoes=[],
+        )
+    )
+    texto = cur.como_texto(cur.Curriculo(titulo="Dev"), fatos)
+    assert "github: github.com/pablomigueldias" in texto
+    assert "https://" not in texto
+
+
+def test_ai_em_ingles_nao_derruba_o_resumo():
+    """"IA" estava na lista branca e "AI" não: o resumo inteiro — o parágrafo
+    mais importante da página — era descartado por uma tradução."""
+    assert FATOS.conheco("IA") == FATOS.conheco("AI")
+    assert FATOS.conheco("inteligência artificial") == FATOS.conheco("IA")

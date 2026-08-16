@@ -25,6 +25,10 @@ from app.utils.logger import get_logger
 logger = get_logger()
 
 
+class SemCurriculo(Exception):
+    """Pediram o PDF de uma vaga que ainda não passou pelo gerador."""
+
+
 @dataclass(slots=True)
 class Analise:
     vaga: Vaga
@@ -150,3 +154,55 @@ async def gerar_curriculo(
     )
     logger.info(f"Currículo gerado para {vaga.titulo!r} · PDF: {saida.pdf}")
     return saida
+
+
+async def aplicar_texto_aprovado(vaga_id: UUID, texto: str) -> Path | None:
+    """O currículo que eu editei na fila vira o currículo da vaga.
+
+    Sem isto, aprovar com edição gravava `texto_final` na ação e mais nada: o
+    `curriculo_json` continuava com a saída do modelo, e `curriculo.pdf` — que
+    reimprime a partir dele — devolvia o texto que eu tinha acabado de corrigir.
+    A correção existia no banco e não chegava ao documento que eu ia enviar.
+
+    Devolve o PDF reimpresso, ou `None` quando nada mudou.
+    """
+    vaga = await vagas.obter(vaga_id)
+    if not vaga.curriculo_json or not (texto or "").strip():
+        return None
+
+    fatos = await perfil.carregar()
+    base = gerador.Curriculo(**vaga.curriculo_json)
+    editado = gerador.de_texto(texto, base)
+
+    if editado.como_json() == base.como_json():
+        return None
+
+    async with get_session() as session:
+        alvo = await session.get(Vaga, vaga_id)
+        alvo.curriculo_json = editado.como_json()
+        await session.commit()
+
+    caminho = pdf.gerar_pdf(editado, fatos, empresa=vaga.empresa)
+    await vagas.registrar_evento(vaga_id, "editada", detalhe="currículo corrigido na fila")
+    logger.info(f"Currículo da vaga {str(vaga_id)[:8]} atualizado com o texto aprovado")
+    return caminho
+
+
+async def pdf_da_vaga(vaga_id: UUID) -> tuple[Path, str]:
+    """O PDF do currículo já gerado — devolve o caminho e o nome para baixar.
+
+    Renderiza a partir do `curriculo_json` guardado, em vez de confiar no
+    arquivo em disco: o caminho salvo no payload pode ter sido apagado, movido
+    ou nem existir se a geração rodou com `com_pdf=False`. Reimprimir custa
+    milissegundos e nenhuma inferência — o texto já está decidido.
+    """
+    vaga = await vagas.obter(vaga_id)
+    if not vaga.curriculo_json:
+        raise SemCurriculo(
+            f"A vaga {vaga.titulo!r} ainda não tem currículo gerado."
+        )
+
+    fatos = await perfil.carregar()
+    curriculo = gerador.Curriculo(**vaga.curriculo_json)
+    caminho = pdf.gerar_pdf(curriculo, fatos, empresa=vaga.empresa)
+    return caminho, pdf.nome_do_arquivo(fatos.perfil.nome, curriculo.titulo, vaga.empresa)

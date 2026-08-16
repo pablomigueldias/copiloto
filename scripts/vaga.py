@@ -39,6 +39,7 @@ def _argumentos() -> argparse.Namespace:
     p.add_argument("--ver", metavar="ID")
     p.add_argument("--analisar", metavar="ID")
     p.add_argument("--gerar", metavar="ID")
+    p.add_argument("--pdf", metavar="ID", help="Reimprime e abre o PDF já gerado.")
     p.add_argument("--evento", nargs=2, metavar=("ID", "EVENTO"), help=f"Um de: {', '.join(EVENTOS)}")
     p.add_argument("--metricas", action="store_true")
     p.add_argument("--followup", action="store_true")
@@ -134,6 +135,7 @@ async def _gerar(args) -> int:
     c = g.curriculo
     print(f"\n{VERDE}gerado{FIM}  {c.titulo}")
     print(f"{CINZA}{g.pdf}{FIM}")
+    print(f"{CINZA}abra com: python scripts/vaga.py --pdf {str(g.vaga.id)[:8]}{FIM}")
     if c.rejeitados:
         print(f"\n{AMARELO}anti-alucinação derrubou {len(c.rejeitados)}:{FIM}")
         for r in c.rejeitados:
@@ -144,6 +146,22 @@ async def _gerar(args) -> int:
             print(f"  · {a}")
     if g.acao_id:
         print(f"\n{CINZA}na fila: python scripts/fila.py --ver {str(g.acao_id)[:8]}{FIM}")
+    return 0
+
+
+async def _pdf(args) -> int:
+    """Reimprime do `curriculo_json` guardado — sem LLM, sem regerar texto."""
+    import subprocess
+
+    try:
+        caminho, _ = await servico.pdf_da_vaga(await _resolver(args.pdf))
+    except servico.SemCurriculo as e:
+        print(f"{VERMELHO}{e}{FIM}\n{CINZA}gere com: python scripts/vaga.py --gerar {args.pdf}{FIM}")
+        return 1
+
+    print(f"{VERDE}{caminho}{FIM}")
+    # `xdg-open` falha em servidor sem sessão gráfica; o caminho já foi impresso.
+    subprocess.run(["xdg-open", str(caminho)], check=False, capture_output=True)
     return 0
 
 
@@ -205,6 +223,8 @@ async def main() -> int:
             return await _analisar(args)
         if args.gerar:
             return await _gerar(args)
+        if args.pdf:
+            return await _pdf(args)
         if args.evento:
             return await _evento(args)
         if args.followup:

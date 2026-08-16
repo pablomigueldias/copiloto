@@ -56,6 +56,14 @@ SINONIMOS: dict[str, str] = {
     "ia generativa": "llms",
     "gen ai": "llms",
     "genai": "llms",
+    # "IA" estava na lista branca e "AI" não. O modelo escreveu a variante em
+    # inglês no resumo e a anti-alucinação **jogou o resumo inteiro fora** —
+    # o parágrafo mais importante da página, derrubado por uma tradução. É o
+    # falso positivo que o comentário logo abaixo avisa ser o pior caso.
+    "ai": "ia",
+    "a.i.": "ia",
+    "inteligencia artificial": "ia",
+    "artificial intelligence": "ia",
     "rag": "rag",
     "banco vetorial": "pgvector",
     "bancos vetoriais": "pgvector",

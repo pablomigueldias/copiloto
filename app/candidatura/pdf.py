@@ -20,10 +20,11 @@ from __future__ import annotations
 
 import re
 import unicodedata
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
-from reportlab.lib.enums import TA_JUSTIFY
+from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
@@ -38,19 +39,90 @@ logger = get_logger()
 
 PASTA = DATA_DIR / "curriculos"
 
-_NOME = ParagraphStyle("nome", fontName="Helvetica-Bold", fontSize=16, leading=19, spaceAfter=2)
-_CARGO = ParagraphStyle("cargo", fontName="Helvetica", fontSize=11, leading=14, spaceAfter=2)
-_CONTATO = ParagraphStyle("contato", fontName="Helvetica", fontSize=9, leading=12, spaceAfter=10)
-_SECAO = ParagraphStyle(
-    "secao", fontName="Helvetica-Bold", fontSize=10.5, leading=13, spaceBefore=10, spaceAfter=4
+@dataclass(frozen=True, slots=True)
+class Estilos:
+    """Os estilos do documento numa escala. Ver `_ESCALAS` e `gerar_pdf`."""
+
+    nome: ParagraphStyle
+    cargo: ParagraphStyle
+    contato: ParagraphStyle
+    secao: ParagraphStyle
+    corpo: ParagraphStyle
+    item: ParagraphStyle
+    subtitulo: ParagraphStyle
+    stack: ParagraphStyle
+    margem_mm: float
+    certificacoes_em_linha: bool
+
+
+def _estilos(*, fonte: float, entrelinha: float, respiro: float, margem: float,
+             cert_em_linha: bool) -> Estilos:
+    """Monta os estilos a partir de três números: corpo, entrelinha e respiro.
+
+    Tudo escala junto de propósito. Encolher só a fonte e manter o espaço entre
+    seções produz uma página com letra miúda e buraco — que fica pior que a
+    segunda página que se queria evitar.
+    """
+    # Alinhado à esquerda, não justificado: justificar abre buracos no meio da
+    # linha e não ajuda parser nenhum — é enfeite que atrapalha a leitura.
+    corpo = ParagraphStyle(
+        "corpo", fontName="Helvetica", fontSize=fonte,
+        leading=fonte * entrelinha, spaceAfter=2 * respiro,
+    )
+    return Estilos(
+        nome=ParagraphStyle(
+            "nome", fontName="Helvetica-Bold", fontSize=fonte + 6.5,
+            leading=(fonte + 6.5) * 1.18, spaceAfter=2,
+        ),
+        cargo=ParagraphStyle(
+            "cargo", fontName="Helvetica", fontSize=fonte + 1.5,
+            leading=(fonte + 1.5) * 1.27, spaceAfter=2,
+        ),
+        contato=ParagraphStyle(
+            "contato", fontName="Helvetica", fontSize=fonte - 0.5,
+            leading=(fonte - 0.5) * 1.33, spaceAfter=10 * respiro,
+        ),
+        secao=ParagraphStyle(
+            "secao", fontName="Helvetica-Bold", fontSize=fonte + 1,
+            leading=(fonte + 1) * 1.24,
+            spaceBefore=10 * respiro, spaceAfter=4 * respiro,
+        ),
+        corpo=corpo,
+        item=ParagraphStyle(
+            "item", parent=corpo, leftIndent=10, bulletIndent=2, spaceAfter=1.5 * respiro
+        ),
+        subtitulo=ParagraphStyle(
+            "sub", fontName="Helvetica-Bold", fontSize=fonte,
+            leading=fonte * 1.26, spaceBefore=5 * respiro, spaceAfter=0,
+        ),
+        # A stack em linha própria, cinza e pequena: ela é palavra-chave para o
+        # ATS, não manchete. Em negrito junto do nome, o cabeçalho do projeto
+        # virava um bloco de três linhas gritando.
+        stack=ParagraphStyle(
+            "stack", fontName="Helvetica", fontSize=fonte - 1,
+            leading=(fonte - 1) * 1.24,
+            textColor=colors.HexColor("#555555"), spaceAfter=2 * respiro,
+        ),
+        margem_mm=margem,
+        certificacoes_em_linha=cert_em_linha,
+    )
+
+
+# A escada da compactação, do confortável ao apertado. `gerar_pdf` desce um
+# degrau por vez até caber em uma página — e para no último, porque abaixo de
+# 8,5 pt o currículo fica desagradável de ler e a economia é de duas linhas.
+#
+# O degrau 0 é o layout que eu escolheria se o conteúdo coubesse sempre.
+_ESCALAS = (
+    dict(fonte=9.5, entrelinha=1.33, respiro=1.0,  margem=15, cert_em_linha=False),
+    dict(fonte=9.5, entrelinha=1.28, respiro=0.85, margem=13, cert_em_linha=True),
+    dict(fonte=9.0, entrelinha=1.24, respiro=0.72, margem=12, cert_em_linha=True),
+    dict(fonte=8.5, entrelinha=1.20, respiro=0.60, margem=11, cert_em_linha=True),
 )
-_CORPO = ParagraphStyle(
-    "corpo", fontName="Helvetica", fontSize=9.5, leading=13, alignment=TA_JUSTIFY, spaceAfter=3
-)
-_ITEM = ParagraphStyle("item", parent=_CORPO, leftIndent=10, bulletIndent=2, spaceAfter=2)
-_SUBTITULO = ParagraphStyle(
-    "sub", fontName="Helvetica-Bold", fontSize=9.5, leading=12, spaceBefore=5, spaceAfter=1
-)
+
+# Stack inteira de um projeto passa de 12 itens; o que ranqueia são os
+# primeiros, e o resto vira ruído visual.
+MAX_STACK = 8
 
 
 def _escapar(texto: str) -> str:
@@ -80,33 +152,12 @@ def nome_do_arquivo(nome_pessoa: str, titulo_vaga: str, empresa: str | None = No
     return "-".join(p for p in partes if p)[:120] + ".pdf"
 
 
-def gerar_pdf(
-    curriculo: Curriculo,
-    fatos: Fatos,
-    *,
-    empresa: str | None = None,
-    caminho: Path | None = None,
-) -> Path:
-    """Monta o PDF e devolve onde ele foi parar."""
+def _montar(curriculo: Curriculo, fatos: Fatos, est: Estilos) -> list:
+    """O conteúdo do documento, nos estilos de um degrau da escada."""
     perfil = fatos.perfil
-    destino = caminho or (
-        PASTA / f"{datetime.now(UTC):%Y-%m-%d}" /
-        nome_do_arquivo(perfil.nome, curriculo.titulo, empresa)
-    )
-    destino.parent.mkdir(parents=True, exist_ok=True)
-
-    doc = SimpleDocTemplate(
-        str(destino),
-        pagesize=A4,
-        leftMargin=18 * mm, rightMargin=18 * mm,
-        topMargin=15 * mm, bottomMargin=15 * mm,
-        title=f"{perfil.nome} — {curriculo.titulo}",
-        author=perfil.nome,
-    )
-
     fluxo = [
-        Paragraph(_escapar(perfil.nome), _NOME),
-        Paragraph(_escapar(curriculo.titulo), _CARGO),
+        Paragraph(_escapar(perfil.nome), est.nome),
+        Paragraph(_escapar(curriculo.titulo), est.cargo),
     ]
 
     contato = perfil.contato or {}
@@ -114,67 +165,134 @@ def gerar_pdf(
         # Rótulo escrito, não ícone: ícone vira caractere estranho no parser.
         rotulos = {"email": "email", "telefone": "tel", "linkedin": "linkedin",
                    "github": "github", "portfolio": "site"}
+        # Sem "https://": ocupa duas linhas e não acrescenta nada — o
+        # recrutador copia, e o parser reconhece o domínio do mesmo jeito.
         partes = [
-            f"{rotulos.get(k, k)}: {v}" for k, v in contato.items() if v
+            f"{rotulos.get(k, k)}: {re.sub(r'^https?://', '', str(v)).rstrip('/')}"
+            for k, v in contato.items()
+            if v
         ]
-        fluxo.append(Paragraph(_escapar(" · ".join(partes)), _CONTATO))
+        fluxo.append(Paragraph(_escapar(" · ".join(partes)), est.contato))
 
     if curriculo.resumo:
-        fluxo += [Paragraph("RESUMO", _SECAO), Paragraph(_escapar(curriculo.resumo), _CORPO)]
+        fluxo += [Paragraph("RESUMO", est.secao), Paragraph(_escapar(curriculo.resumo), est.corpo)]
 
     # Competências agrupadas por categoria: o parser lê a linha inteira, e
     # "Backend: FastAPI · SQLAlchemy" diz mais ao humano que uma lista de 30.
     if curriculo.competencias:
-        fluxo.append(Paragraph("COMPETÊNCIAS", _SECAO))
+        fluxo.append(Paragraph("COMPETÊNCIAS", est.secao))
         for grupo in curriculo.competencias:
             itens = _escapar(" · ".join(grupo.get("itens") or []))
             categoria = _escapar(grupo.get("categoria") or "")
-            fluxo.append(Paragraph(f"<b>{categoria}:</b> {itens}", _CORPO))
+            fluxo.append(Paragraph(f"<b>{categoria}:</b> {itens}", est.corpo))
 
     # Experiência antes de projetos: é a ordem que o parser espera, e entrada
     # de trabalho é o que ele procura primeiro para calcular tempo de carreira.
     if curriculo.experiencias:
-        fluxo.append(Paragraph("EXPERIÊNCIA PROFISSIONAL", _SECAO))
+        fluxo.append(Paragraph("EXPERIÊNCIA PROFISSIONAL", est.secao))
         for e in curriculo.experiencias:
             titulo = f"{e.get('cargo', '')} · {e.get('empresa', '')}"
             if e.get("periodo"):
                 titulo += f" ({e['periodo']})"
-            fluxo.append(Paragraph(_escapar(titulo), _SUBTITULO))
+            fluxo.append(Paragraph(_escapar(titulo), est.subtitulo))
             for b in e.get("bullets") or []:
-                fluxo.append(Paragraph(_escapar(b), _ITEM, bulletText="•"))
+                fluxo.append(Paragraph(_escapar(b), est.item, bulletText="•"))
 
     if curriculo.projetos:
-        fluxo.append(Paragraph("PROJETOS", _SECAO))
+        fluxo.append(Paragraph("PROJETOS", est.secao))
         for p in curriculo.projetos:
-            cabecalho = _escapar(p.get("nome", ""))
-            if p.get("stack"):
-                cabecalho += f" — {_escapar(', '.join(p['stack']))}"
+            nome = _escapar(p.get("nome", ""))
             if p.get("link"):
-                cabecalho += f" — {_escapar(p['link'])}"
-            fluxo.append(Paragraph(cabecalho, _SUBTITULO))
+                enxuto = re.sub(r"^https?://", "", str(p["link"])).rstrip("/")
+                nome += f"  ·  {_escapar(enxuto)}"
+            fluxo.append(Paragraph(nome, est.subtitulo))
+            if p.get("stack"):
+                fluxo.append(
+                    Paragraph(_escapar(" · ".join(p["stack"][:MAX_STACK])), est.stack)
+                )
             for b in p.get("bullets") or []:
-                fluxo.append(Paragraph(_escapar(b), _ITEM, bulletText="•"))
+                fluxo.append(Paragraph(_escapar(b), est.item, bulletText="•"))
 
     if curriculo.formacao:
-        fluxo.append(Paragraph("FORMAÇÃO ACADÊMICA", _SECAO))
+        fluxo.append(Paragraph("FORMAÇÃO ACADÊMICA", est.secao))
         for f in curriculo.formacao:
             linha = f"{f.get('instituicao', '')} — {f.get('curso', '')}"
             if f.get("periodo"):
                 linha += f" ({f['periodo']})"
-            fluxo.append(Paragraph(_escapar(linha), _CORPO))
+            fluxo.append(Paragraph(_escapar(linha), est.corpo))
 
     if curriculo.certificacoes:
-        fluxo.append(Paragraph("CERTIFICAÇÕES", _SECAO))
+        fluxo.append(Paragraph("CERTIFICAÇÕES", est.secao))
+        nomes = []
         for c in curriculo.certificacoes:
             linha = c.get("nome", "")
             if c.get("instituicao"):
                 linha += f" — {c['instituicao']}"
             if c.get("ano"):
                 linha += f" ({c['ano']})"
-            fluxo.append(Paragraph(_escapar(linha), _ITEM, bulletText="•"))
+            nomes.append(linha)
+        if est.certificacoes_em_linha:
+            # Uma linha corrida em vez de um item por linha: economiza quatro
+            # linhas e continua sendo texto que o parser lê igual.
+            fluxo.append(Paragraph(_escapar(" · ".join(nomes)), est.corpo))
+        else:
+            fluxo += [Paragraph(_escapar(n), est.item, bulletText="•") for n in nomes]
 
     fluxo.append(Spacer(1, 4))
-    doc.build(fluxo)
+    return fluxo
 
-    logger.info(f"PDF: {destino}")
+
+def gerar_pdf(
+    curriculo: Curriculo,
+    fatos: Fatos,
+    *,
+    empresa: str | None = None,
+    caminho: Path | None = None,
+) -> Path:
+    """Monta o PDF e devolve onde ele foi parar.
+
+    Monta no layout confortável; se vazar para a segunda página, **desce um
+    degrau da escada de compactação e monta de novo**, até caber ou acabarem os
+    degraus. Currículo de duas páginas é legítimo — currículo cuja segunda
+    página tem três linhas parece descuido, e é a primeira coisa que um
+    recrutador nota antes de ler qualquer conteúdo.
+
+    Por que tentativa e erro em vez de calcular a altura: o `reportlab` só sabe
+    quantas páginas deu depois de quebrar as linhas, e quebrar linha depende da
+    fonte, da largura e do texto. Cada tentativa custa ~15 ms; medir de outro
+    jeito custaria reimplementar o paginador.
+    """
+    perfil = fatos.perfil
+    destino = caminho or (
+        PASTA / f"{datetime.now(UTC):%Y-%m-%d}" /
+        nome_do_arquivo(perfil.nome, curriculo.titulo, empresa)
+    )
+    destino.parent.mkdir(parents=True, exist_ok=True)
+
+    paginas = 0
+    for degrau, escala in enumerate(_ESCALAS):
+        estilos = _estilos(**escala)
+        doc = SimpleDocTemplate(
+            str(destino),
+            pagesize=A4,
+            leftMargin=18 * mm, rightMargin=18 * mm,
+            topMargin=estilos.margem_mm * mm, bottomMargin=estilos.margem_mm * mm,
+            title=f"{perfil.nome} — {curriculo.titulo}",
+            author=perfil.nome,
+        )
+        doc.build(_montar(curriculo, fatos, estilos))
+        paginas = doc.page
+        if paginas == 1:
+            if degrau:
+                logger.info(f"PDF compactado no degrau {degrau} para caber em 1 página")
+            break
+    else:
+        # Conteúdo que não cabe nem no degrau mais apertado é conteúdo demais,
+        # não layout ruim — e a correção é cortar bullet, não diminuir a fonte.
+        logger.warning(
+            f"O currículo ficou com {paginas} páginas mesmo compactado ao máximo. "
+            "Considere reduzir projetos ou bullets."
+        )
+
+    logger.info(f"PDF: {destino} · {paginas} página(s)")
     return destino

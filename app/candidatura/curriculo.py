@@ -49,6 +49,7 @@ from dataclasses import asdict, dataclass, field
 from app.candidatura.extrator import Requisitos
 from app.candidatura.match import Match
 from app.candidatura.perfil import Fatos, normalizar, tecnologias_citadas
+from app.candidatura.pessoa import primeira_pessoa, tem_terceira_pessoa
 from app.fila import exemplos as few_shot
 from app.llm import gateway
 from app.llm.tipos import LLMErro
@@ -106,6 +107,11 @@ ESPELHE OS TERMOS DA VAGA quando o perfil sustentar: se a vaga escreve
 "APIs REST". O filtro ranqueia por casamento exato de palavra. Espelhar o termo
 de algo que você tem NÃO é inventar. Nunca crie seção de palavras-chave.
 
+VOZ: quem escreve é o Pablo, sobre o Pablo. PRIMEIRA PESSOA do singular,
+sempre — "Desenvolvi", "Implementei", "Reduzi", "Construo", "Tenho". NUNCA
+terceira pessoa: "desenvolveu", "implementou", "possui", "o candidato".
+Não escreva o pronome "eu"; a conjugação já diz quem é.
+
 PERFIL (a única verdade disponível):
 {perfil}
 
@@ -118,8 +124,11 @@ Produza EXATAMENTE este JSON, com as duas chaves:
 
 {{
   "titulo": "<o cargo da vaga, curto, se o perfil sustentar>",
-  "resumo": "<2 ou 3 frases ligando o que o Pablo já fez ao que esta vaga pede.
-              Sem 'eu', sem adjetivo de venda, sem frase de efeito>",
+  "resumo": "<2 ou 3 frases, NA PRIMEIRA PESSOA, ligando o que eu já fiz ao que
+              esta vaga pede. Comece pelo que eu faço ('Desenvolvo...',
+              'Trabalho com...'), não por 'Experiência em' nem 'Possui'.
+              Sem escrever o pronome 'eu', sem adjetivo de venda,
+              sem frase de efeito>",
   "competencias": [
     {{"categoria": "<rótulo de 1-2 palavras>", "itens": ["<habilidades DO PERFIL>"]}}
   ]
@@ -135,17 +144,29 @@ Produza EXATAMENTE este JSON, com as duas chaves:
 {{
   "experiencias": [
     {{"empresa": "<nome exato do perfil>",
-      "bullets": ["<2 ou 3 realizações, verbo no passado no início>"]}}
+      "bullets": ["<2 ou 3 realizações. Comece com verbo na PRIMEIRA PESSOA do
+                   passado: 'Administrei', 'Implementei', 'Reduzi'. Jamais
+                   'Administrou', 'Implementou', 'Reduziu'>"]}}
   ],
   "projetos": [
     {{"nome": "<nome exato do perfil>",
-      "bullets": ["<2 ou 3 linhas do que foi construído e com quê>"]}}
+      "bullets": ["<2 ou 3 linhas do que EU construí e com quê, também na
+                   primeira pessoa: 'Construí', 'Integrei', 'Obtive'>"]}}
   ]
 }}
 
 Escreva bullets para TODAS as experiências do perfil e para os 3 projetos mais
 relevantes. Se um projeto tem resultado medido no perfil, o número aparece num
 bullet — é a informação mais valiosa da página.
+
+Cada bullet diz uma coisa NOVA. Não repita em bullet o que já está na linha de
+stack do projeto: "Utilizei FastAPI, SQLAlchemy e PostgreSQL" não é realização,
+é a stack escrita duas vezes. Prefira o que o sistema faz, para quem, e o
+resultado.
+
+Todos os bullets da MESMA entrada ficam no mesmo tempo verbal — passado.
+Misturar "Administrei" com "Mantenho" na mesma experiência é erro de revisão, e
+é a primeira coisa que um recrutador nota.
 
 JSON:"""
 
@@ -332,6 +353,14 @@ def _resumo_limpo(bruto, fatos: Fatos, curriculo: Curriculo, extras: frozenset[s
         # fica suspeito. Cai para o resumo do próprio perfil.
         curriculo.rejeitados.append(f"resumo (citou {inventada})")
         return fatos.perfil.resumo or ""
+
+    texto = primeira_pessoa(texto)
+    if tem_terceira_pessoa(texto):
+        # O resumo é prosa, não bullet: aqui a 3ª pessoa pode estar no meio da
+        # frase, onde a conversão não entra. O resumo do perfil já está na voz
+        # certa e foi escrito pelo Pablo — é melhor que um remendo.
+        curriculo.rejeitados.append("resumo (3ª pessoa)")
+        return fatos.perfil.resumo or ""
     return texto
 
 
@@ -345,24 +374,84 @@ def _agrupar_por_padrao(fatos: Fatos, requisitos: Requisitos) -> list[dict]:
     return [{"categoria": "Competências", "itens": list(ordenadas)[:14]}]
 
 
+def _mesmo_termo(a: str, b: str) -> bool:
+    """Um destes dois termos normalizados é o outro escrito por extenso?
+
+    A comparação é **por palavra inteira**, não por substring, e a diferença é
+    a que separa um filtro útil de um que apaga palavra-chave:
+
+        "scikit-learn" ⊂ "machine learning (scikit-learn)"  → mesmo termo ✓
+        "sql"          ⊂ "sqlalchemy 2.0 async"             → termos DIFERENTES
+
+    Na primeira versão isto era `a in b`, e "SQL" — requisito obrigatório da
+    vaga — sumia do currículo por ser prefixo de "SQLAlchemy".
+    """
+    curto, longo = sorted((a, b), key=len)
+    if curto == longo:
+        return True
+    return bool(re.search(rf"(?<![\w+#.]){re.escape(curto)}(?![\w+#.])", longo))
+
+
 def _competencias_limpas(bruto, fatos: Fatos, requisitos: Requisitos) -> list[dict]:
+    """As competências, sem repetição e sem nome de projeto.
+
+    Três filtros que o `conheco()` sozinho não faz, porque a lista branca da
+    anti-alucinação é deliberadamente generosa — ela responde *"isto é verdade?"*,
+    e aqui a pergunta é outra: *"isto é uma competência?"*.
+
+    1. **Nome de projeto não é habilidade.** "Churn Prediction" na linha de
+       Ciência de Dados faz o recrutador procurar uma tecnologia que não existe.
+       O projeto tem seção própria, com bullets.
+    2. **Sem repetir entre categorias.** "SQLAlchemy 2.0 async" em *Banco de
+       Dados* e em *Backend* não dobra a chance no ATS: parece revisão malfeita.
+    3. **Sem repetir dentro do mesmo item.** "Machine Learning (scikit-learn)"
+       e "scikit-learn" lado a lado é o mesmo termo escrito duas vezes — o
+       filtro derruba o mais curto quando um contém o outro.
+    """
     if not isinstance(bruto, list) or not bruto:
         return _agrupar_por_padrao(fatos, requisitos)
 
+    projetos = {normalizar(p.get("nome", "")) for p in fatos.projetos}
+    ja_listados: dict[str, str] = {}     # normalizado → como foi escrito
     grupos: list[dict] = []
+
     for g in bruto:
         if not isinstance(g, dict):
             continue
         itens: list[str] = []
         for item in g.get("itens") or []:
             nome = str(item.get("nome") if isinstance(item, dict) else item or "").strip()
+            n = normalizar(nome)
             # Competência é a mais fácil de inventar e a mais lida pelo ATS.
-            if nome and fatos.conheco(nome) and nome not in itens:
-                itens.append(nome)
+            if not nome or not n or not fatos.conheco(nome) or n in projetos:
+                continue
+            # Um termo que contém outro já listado (ou está contido nele) é o
+            # mesmo termo: fica o mais informativo, que é o mais longo.
+            colisao = next(
+                (visto for visto in ja_listados if _mesmo_termo(visto, n)), None
+            )
+            if colisao:
+                if len(n) > len(colisao):
+                    antigo = ja_listados.pop(colisao)
+                    for grupo in grupos:
+                        if antigo in grupo["itens"]:
+                            grupo["itens"][grupo["itens"].index(antigo)] = nome
+                            ja_listados[n] = nome
+                            break
+                    else:
+                        if antigo in itens:
+                            itens[itens.index(antigo)] = nome
+                            ja_listados[n] = nome
+                continue
+            ja_listados[n] = nome
+            itens.append(nome)
+
         categoria = str(g.get("categoria") or "").strip()[:40]
         if itens and categoria:
             grupos.append({"categoria": categoria, "itens": itens})
 
+    # Um grupo pode ter ficado vazio depois dos filtros.
+    grupos = [g for g in grupos if g["itens"]]
     return grupos[:MAX_GRUPOS_COMPETENCIA] or _agrupar_por_padrao(fatos, requisitos)
 
 
@@ -378,7 +467,9 @@ def _bullets_limpos(
         if inventada:
             curriculo.rejeitados.append(f"{origem}: citou {inventada}")
             continue
-        bullets.append(texto)
+        # Depois da verificação, não antes: a conversão mexe só no verbo, e
+        # trocar o texto antes de conferir os fatos seria conferir outra coisa.
+        bullets.append(primeira_pessoa(texto))
     return bullets[:MAX_BULLETS]
 
 
@@ -474,7 +565,13 @@ def como_texto(c: Curriculo, fatos: Fatos) -> str:
     linhas = [
         p.nome,
         c.titulo,
-        " · ".join(f"{k}: {v}" for k, v in contato.items() if v),
+        # Sem "https://", como o PDF já faz: o texto da fila é o que eu reviso, e
+        # ele tem que ser o mesmo documento que sai impresso. Ver `pdf._montar`.
+        " · ".join(
+            f"{k}: {re.sub(r'^https?://', '', str(v)).rstrip('/')}"
+            for k, v in contato.items()
+            if v
+        ),
         "",
         "RESUMO",
         c.resumo,
@@ -510,3 +607,92 @@ def como_texto(c: Curriculo, fatos: Fatos) -> str:
 
 def como_json_texto(c: Curriculo) -> str:
     return json.dumps(c.como_json(), ensure_ascii=False, indent=2)
+
+
+# ── O caminho de volta: o que eu editei vira o documento ──────────
+
+_SECAO_TEXTO = re.compile(
+    r"^(RESUMO|COMPET[ÊE]NCIAS|EXPERI[ÊE]NCIA PROFISSIONAL|PROJETOS|FORMA[ÇC][ÃA]O|"
+    r"CERTIFICA[ÇC][ÕO]ES)\s*$"
+)
+_BULLET_TEXTO = re.compile(r"^\s{2}-\s+(.+)$")
+
+
+def de_texto(texto: str, base: Curriculo) -> Curriculo:
+    """O texto que eu aprovei na fila → `Curriculo`, sobre a base gerada.
+
+    **Por que existe.** Eu editava o currículo no textarea da fila, aprovava, e
+    o PDF continuava saindo do `curriculo_json` original — o texto do modelo, não
+    o meu. A correção era gravada e o documento que eu ia mandar não mudava.
+
+    **Por que "sobre a base" e não do zero.** O texto não carrega tudo: `stack`
+    e `link` de projeto, e o `cargo`/`periodo` de cada experiência, existem no
+    JSON e não aparecem em formato reconstruível. Então só se sobrescreve o que
+    o texto realmente diz — resumo, competências e bullets, que é justamente o
+    que eu edito — e o resto continua vindo do gerador.
+
+    Formato desconhecido não é erro: se eu reescrever a seção inteira à mão, a
+    parte que não deu para ler fica como estava. Perder a formatação é
+    reversível; jogar fora o meu texto, não.
+    """
+    novo = Curriculo(**base.como_json())
+    secao: str | None = None
+    resumo: list[str] = []
+    competencias: list[dict] = []
+    # `None` para "esta entrada não é do perfil": bullets órfãos são ignorados
+    # em vez de irem parar na experiência errada.
+    bullets_exp: dict[str, list[str]] = {}
+    bullets_proj: dict[str, list[str]] = {}
+    atual: list[str] | None = None
+
+    for linha in (texto or "").splitlines():
+        nu = linha.strip()
+        if _SECAO_TEXTO.match(nu):
+            secao = normalizar(nu)
+            atual = None
+            continue
+        if not nu:
+            continue
+
+        m = _BULLET_TEXTO.match(linha)
+        if m:
+            if atual is not None:
+                atual.append(m.group(1).strip())
+            continue
+
+        if secao == "resumo":
+            resumo.append(nu)
+        elif secao == "competencias" and ":" in nu:
+            categoria, _, itens = nu.partition(":")
+            valores = [i.strip() for i in itens.split("·") if i.strip()]
+            if categoria.strip() and valores:
+                competencias.append({"categoria": categoria.strip(), "itens": valores})
+        elif secao == "experiencia profissional":
+            # "Cargo · Empresa (período)" — a empresa é a chave.
+            empresa = nu.split("·")[-1].split("(")[0].strip() if "·" in nu else nu
+            atual = bullets_exp.setdefault(normalizar(empresa), [])
+        elif secao == "projetos":
+            nome = nu.split("—")[0].strip()
+            atual = bullets_proj.setdefault(normalizar(nome), [])
+
+    if resumo:
+        novo.resumo = " ".join(resumo)
+    if competencias:
+        novo.competencias = competencias
+    for e in novo.experiencias:
+        achados = bullets_exp.get(normalizar(e.get("empresa", "")))
+        if achados:
+            e["bullets"] = achados
+
+    reconhecidos = [p for p in novo.projetos if normalizar(p.get("nome", "")) in bullets_proj]
+    if reconhecidos:
+        # Apagar um projeto do texto é uma decisão minha sobre esta vaga — o
+        # gerador escolhe três, e às vezes o terceiro não ajuda naquela
+        # candidatura. Só vale quando pelo menos um foi reconhecido: se a seção
+        # inteira ficou ilegível, o certo é manter tudo, não zerar.
+        novo.projetos = reconhecidos
+        for p in novo.projetos:
+            achados = bullets_proj.get(normalizar(p.get("nome", "")))
+            if achados:
+                p["bullets"] = achados
+    return novo
