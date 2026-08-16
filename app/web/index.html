@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Copiloto</title>
-  <link rel="stylesheet" href="/painel.css">
+  <link rel="stylesheet" href="/painel.css?v={{v}}">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='26' font-size='26'>🧭</text></svg>">
 </head>
 <body>
@@ -38,14 +38,107 @@
     <div id="resposta" hidden></div>
   </section>
 
+  <!-- Transcrever: ligar a gravação é o gesto que compete com "só assistir",
+       então mora no topo, a um clique, e não atrás de um terminal. -->
+  <section class="card largura-total" id="card-transcricao">
+    <h2>
+      Transcrever <span class="badge" id="transcricao-tempo" data-zero="1">•</span>
+      <span class="acoes-titulo">
+        <select id="fonte-audio" class="ghost" title="De onde gravar">
+          <option value="sistema">áudio do sistema (vídeo/reunião)</option>
+          <option value="mic">microfone (aula presencial)</option>
+        </select>
+        <button class="ghost" id="btn-gravar">● gravar</button>
+      </span>
+    </h2>
+
+    <p class="rotulo" id="transcricao-dica">
+      Ligue antes de dar play. O texto aparece aqui enquanto o vídeo roda, e no
+      fim você dá nome e escolhe a pasta do Second Brain.
+    </p>
+
+    <!-- O texto ao vivo. Rola sozinho para o fim enquanto grava. -->
+    <div id="transcricao-viva" hidden></div>
+
+    <!-- A tela do fim: o modelo local sugere, eu confirmo. -->
+    <form id="form-nota" hidden>
+      <div class="campos-nota">
+        <label>título da nota<input id="nota-titulo" required></label>
+        <label>nome do arquivo<input id="nota-arquivo"></label>
+        <label>tags (vírgula)<input id="nota-tags"></label>
+      </div>
+
+      <!-- A pasta era um input com datalist: só aparecia se você digitasse, e
+           ninguém adivinha isso. Agora a lista está na tela. -->
+      <div class="escolher-pasta">
+        <div class="rotulo">
+          onde salvar
+          <button type="button" class="ghost" id="btn-recarregar-pastas"
+                  title="acabei de criar uma pasta no Obsidian">↻ pastas</button>
+        </div>
+        <input id="nota-pasta" list="pastas-do-vault" placeholder="Pessoal/… (ou digite uma pasta nova)">
+        <datalist id="pastas-do-vault"></datalist>
+        <div class="pastas-sugeridas" id="pastas-sugeridas"></div>
+      </div>
+
+      <div id="nota-resumo" class="rotulo"></div>
+      <div id="nota-corrigidos"></div>
+      <div class="botoes">
+        <button type="submit" class="primario">salvar no Second Brain</button>
+        <button type="button" id="btn-descartar" class="ghost">descartar</button>
+      </div>
+    </form>
+  </section>
+
+  <!-- Candidaturas em tabela: a lista é o objeto principal da tela, não um
+       cartão de resumo. O resumo virou a faixa de métricas logo abaixo. -->
+  <section class="card largura-total" id="card-vagas">
+    <h2>
+      Candidaturas <span class="badge" id="vagas-total" data-zero="1">0</span>
+      <span class="acoes-titulo">
+        <select id="filtro-status" class="ghost" title="Filtrar por status">
+          <option value="">todos os status</option>
+        </select>
+        <button class="ghost" id="btn-nova">+ colar vaga</button>
+      </span>
+    </h2>
+
+    <!-- Colar a vaga e decidir ali mesmo o que fazer com ela. -->
+    <form id="form-vaga" hidden>
+      <div class="campos-vaga">
+        <input id="nova-titulo" placeholder="título da vaga (opcional — sai da 1ª linha)">
+        <input id="nova-empresa" placeholder="empresa">
+        <input id="nova-link" placeholder="link">
+      </div>
+      <textarea id="nova-descricao" rows="9"
+        placeholder="cole aqui a descrição inteira da vaga…"></textarea>
+      <div class="botoes">
+        <button type="submit" data-fluxo="salvar" class="secundario">só salvar</button>
+        <button type="submit" data-fluxo="analisar">analisar</button>
+        <button type="submit" data-fluxo="gerar" class="primario">analisar + gerar</button>
+        <button type="button" id="btn-cancelar-vaga" class="ghost">cancelar</button>
+      </div>
+      <!-- Erro e progresso saíram daqui: o botão conta que está trabalhando
+           (`ocupado()`) e a falha vira aviso, que não some sem eu ler. -->
+    </form>
+
+    <div id="tabela-vagas"></div>
+  </section>
+
   <main>
     <section class="card" id="card-fila">
       <h2>Fila <span class="badge" id="fila-total">0</span></h2>
+      <!-- Enquanto eu edito, a fila não é repintada. Não atualizar em silêncio
+           seria trocar um bug por outro, então a tela conta. -->
+      <p class="pausada" id="fila-pausada" hidden>
+        atualização pausada — você está editando
+        <button class="ghost" id="btn-forcar-fila">atualizar mesmo assim</button>
+      </p>
       <div id="fila"></div>
     </section>
 
     <section class="card" id="card-candidaturas">
-      <h2>Candidaturas</h2>
+      <h2>Funil</h2>
       <div id="candidaturas"></div>
     </section>
 
@@ -63,6 +156,28 @@
   <footer id="rodape"></footer>
 </div>
 
-<script src="/painel.js"></script>
+<!-- Painel lateral: entra da direita, como no Notion. Fora do #painel para
+     que o backdrop cubra a tela inteira sem depender do scroll da página. -->
+<div id="gaveta-fundo" hidden></div>
+<aside id="gaveta" hidden aria-modal="true" role="dialog" aria-labelledby="gaveta-titulo">
+  <header class="gaveta-topo">
+    <div class="gaveta-identidade">
+      <span class="rotulo" id="gaveta-etiqueta">Vaga</span>
+      <h2 id="gaveta-titulo" contenteditable="plaintext-only" data-campo="titulo"
+          spellcheck="false"></h2>
+    </div>
+    <button class="ghost" id="gaveta-fechar" title="Fechar (Esc)">✕</button>
+  </header>
+  <div class="gaveta-corpo" id="gaveta-corpo"></div>
+  <!-- `Esc` desfazer é intencional, mas ninguém adivinha: sem esta linha, o
+       comportamento é indistinguível de perda de dado. -->
+  <footer class="gaveta-ajuda" id="gaveta-ajuda">
+    clique num campo para editar · <b>Enter</b> salva · <b>Esc</b> desfaz
+  </footer>
+</aside>
+
+<!-- Módulos ES nativos, sem build: o navegador resolve os imports.
+     Ver app/web/js/ui.js para o porquê da divisão. -->
+<script type="module" src="/js/main.js?v={{v}}"></script>
 </body>
 </html>
