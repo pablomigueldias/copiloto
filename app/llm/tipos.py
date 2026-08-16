@@ -6,7 +6,7 @@ from typing import Literal, Protocol, runtime_checkable
 
 # As quatro tarefas do sistema. Não é enfeite: é por este campo que o gateway
 # escolhe o modelo e que a observabilidade responde "qual tarefa gasta token".
-Tarefa = Literal["classificar", "extrair", "redigir", "resumir"]
+Tarefa = Literal["classificar", "extrair", "compreender", "redigir", "resumir"]
 
 
 class LLMErro(Exception):

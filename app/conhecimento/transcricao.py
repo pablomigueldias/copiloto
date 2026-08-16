@@ -529,7 +529,7 @@ async def fichar(
     try:
         r = await gateway.gerar(
             prompt,
-            tarefa="extrair",
+            tarefa="compreender",
             agente="conhecimento.transcricao.fichamento",
             json_schema=SCHEMA_FICHAMENTO,
             # Catalogar é a tarefa mais determinística do módulo: título, tags e

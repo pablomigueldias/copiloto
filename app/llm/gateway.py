@@ -63,6 +63,14 @@ def rota(tarefa: Tarefa) -> Rota:
     if tarefa in ("classificar", "extrair"):
         # Saída estruturada, temperatura baixa: aqui criatividade é defeito.
         return Rota(modelo=settings.ollama_model_extracao, json_mode=True, temperatura=0.1)
+    if tarefa == "compreender":
+        # Também devolve JSON, mas a semelhança para aí: "extrair" é achar o que
+        # está escrito, e isto é **ler 3.000 palavras e dizer do que elas
+        # tratam**. Medido no fichamento de uma aula de 26 min: o phi4-mini
+        # (2,5 GB) propôs 2 destaques e um título que repetia a mesma palavra
+        # duas vezes; o llama3.1:8b propôs 5 fatos com os símbolos certos. Custa
+        # 37 s contra 7 s, numa nota que já leva 3 min de reescrita.
+        return Rota(modelo=settings.ollama_model_pesado, json_mode=True, temperatura=0.1)
     return Rota(modelo=settings.ollama_model_redacao, temperatura=0.7)
 
 

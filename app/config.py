@@ -40,9 +40,10 @@ class Settings(BaseSettings):
     ollama_model_extracao: str = "phi4-mini"   # classificar / extrair → JSON
     ollama_model_redacao: str = "gemma4:e4b"   # redigir / resumir (vencedor do bake-off)
     ollama_model_embedding: str = "bge-m3"     # vetor de 1024 dimensões
-    # Instalado para tarefas pontuais em que 15s de carga não incomodam. Fora
-    # das rotas por medição, não por preconceito: 22 tok/s contra 66 do
-    # gemma4:e4b, e não fica residente junto do embedder.
+    # Atende a tarefa `compreender`: ler um texto longo e dizer do que ele trata.
+    # É lento (22 tok/s contra 66 do gemma4:e4b) e não fica residente junto do
+    # embedder, então só vale onde a chamada é uma só e a qualidade decide o
+    # resultado — o fichamento de uma transcrição é exatamente isso.
     ollama_model_pesado: str = "llama3.1:8b"
 
     # ── Base de conhecimento ──────────────────────────────────────

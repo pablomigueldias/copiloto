@@ -265,3 +265,20 @@ async def test_embedar_em_lote():
     vetores = await gateway.embedar(["a", "b", "c"])
     assert len(vetores) == 3
     assert len(vetores[0]) == 1024
+
+
+def test_compreender_vai_para_o_modelo_pesado():
+    """"extrair" e achar o que esta escrito; "compreender" e ler 3.000 palavras
+    e dizer do que elas tratam. O fichamento de uma transcricao caia na
+    primeira e rodava no menor modelo instalado: 2 destaques contra 5, e um
+    titulo que repetia a mesma palavra duas vezes."""
+    from app.config import settings
+
+    assert gateway.rota("compreender").modelo == settings.ollama_model_pesado
+    assert gateway.rota("compreender").json_mode
+    # Catalogar nao ganha nada com variedade.
+    assert gateway.rota("compreender").temperatura <= 0.2
+
+    # E continua distinto das outras duas rotas.
+    assert gateway.rota("extrair").modelo == settings.ollama_model_extracao
+    assert gateway.rota("redigir").modelo == settings.ollama_model_redacao
