@@ -19,6 +19,9 @@ class TrechoVivo(BaseModel):
     # Pré-marcado, nunca removido sozinho: "assine o curso completo" aparece em
     # aula sobre marketing, e apagar por conta própria perderia conteúdo real.
     anuncio: bool = False
+    # Já entrou num bloco reescrito: o ✕ desabilita, porque cortar agora
+    # obrigaria a refazer a reescrita daquele bloco.
+    processado: bool = False
 
 
 class Sugestao(BaseModel):
@@ -41,9 +44,16 @@ class Sugestao(BaseModel):
 
 class EstadoTranscricao(BaseModel):
     estado: str                      # ocioso | gravando | processando | revisar
+    # O que o servidor está fazendo agora — transcrevendo | reescrevendo |
+    # fichando. Sem isto a tela só sabia "processando", e ficava muda 3 minutos.
+    etapa: str | None = None
     fonte: str = "sistema"
     segundos: int = 0
     palavras: int = 0
+    # "bloco 3 de 6": quantos blocos já foram reescritos, e quantos a nota terá.
+    # Durante a gravação o total é uma previsão que cresce; depois do parar, exato.
+    bloco: int = 0
+    blocos: int = 0
     trechos: list[TrechoVivo] = []
     erro: str | None = None
     sugestao: Sugestao | None = None

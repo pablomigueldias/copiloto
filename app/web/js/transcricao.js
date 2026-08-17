@@ -31,6 +31,22 @@ let destinos = { pastas: [], tags: [] };
 const relogio = (s) =>
   `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(s % 60).padStart(2, "0")}`;
 
+/** O que o servidor está fazendo agora, em uma linha.
+ *
+ * O `processando` durava 3 min 30 mostrando "organizando…", e três minutos sem
+ * retorno é onde eu penso que travou. O servidor sempre soube em que bloco
+ * estava — `logger.info("bloco 3/6 pronto")`; agora a tela também.
+ *
+ * `bloco` conta os que já ficaram prontos, então o que está no forno é o
+ * seguinte. O `min` é o cinto de segurança contra um "bloco 7 de 6".
+ */
+function progresso(e) {
+  if (e.etapa === "fichando") return "escolhendo título, tags e pasta…";
+  if (e.etapa === "reescrevendo" && e.blocos)
+    return `organizando o bloco ${Math.min(e.bloco + 1, e.blocos)} de ${e.blocos}`;
+  return "organizando…";
+}
+
 /** Grava enquanto a aba estiver aberta — mas o estado real mora no servidor. */
 function pintar(e) {
   const gravando = e.estado === "gravando";
@@ -45,9 +61,12 @@ function pintar(e) {
 
   const marcador = $("transcricao-tempo");
   marcador.textContent = gravando
-    ? `${relogio(e.segundos)} · ${e.palavras} palavras`
+    ? // Os blocos prontos no meio da gravação contam algo novo e útil: quanto
+      // da aula já está organizado enquanto ela ainda está acontecendo.
+      `${relogio(e.segundos)} · ${e.palavras} palavras` +
+      (e.bloco ? ` · ${e.bloco} bloco${e.bloco > 1 ? "s" : ""} pronto${e.bloco > 1 ? "s" : ""}` : "")
     : processando
-      ? "organizando…"
+      ? progresso(e)
       : "•";
   marcador.dataset.zero = gravando || processando ? "0" : "1";
 
@@ -61,7 +80,7 @@ function pintar(e) {
       e.trechos.map(pintarTrecho).join("") ||
       '<p class="vazio">ouvindo… (o primeiro trecho sai em ~20 s)</p>';
     if (processando) {
-      viva.innerHTML += '<p class="rotulo">o modelo local está organizando o texto…</p>';
+      viva.innerHTML += `<p class="rotulo" id="transcricao-progresso">${escapar(progresso(e))}</p>`;
     }
     // Só rola sozinho enquanto grava e se eu já estava no fim: senão, ler o
     // começo (ou revisar) vira briga com a rolagem.
@@ -80,12 +99,24 @@ function pintar(e) {
   ultimoEstado = e.estado;
 }
 
-/** Um trecho com o instante do vídeo e o ✕ para cortar anúncio. */
+/** Um trecho com o instante do vídeo e o ✕ para cortar anúncio.
+ *
+ * O ✕ desabilita no trecho que já virou bloco reescrito. Cortar depois disso
+ * obrigaria a pagar a reescrita do bloco de novo — e o ✕ existe para o anúncio,
+ * que eu vejo em 20 s, não em 5 min. O servidor recusa igual; aqui é só para eu
+ * não descobrir isso clicando.
+ */
 function pintarTrecho(t) {
-  return `<p class="trecho" data-indice="${t.indice}" ${t.anuncio ? 'data-anuncio="1"' : ""}>
+  const travado = t.processado;
+  const dica = travado
+    ? "já organizado num bloco — corrija na revisão, antes de salvar"
+    : "cortar este trecho (anúncio, ruído)";
+  return `<p class="trecho" data-indice="${t.indice}" ${t.anuncio ? 'data-anuncio="1"' : ""} ${
+    travado ? 'data-processado="1"' : ""
+  }>
     <span class="trecho-tempo">${escapar(t.relogio)}</span>
     <span class="trecho-texto">${escapar(t.texto)}</span>
-    <button class="trecho-cortar" title="cortar este trecho (anúncio, ruído)">✕</button>
+    <button class="trecho-cortar" ${travado ? "disabled" : ""} title="${dica}">✕</button>
   </p>`;
 }
 

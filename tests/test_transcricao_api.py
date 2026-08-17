@@ -9,11 +9,16 @@ mão com áudio real; ver docs/fase06.md.
 """
 from __future__ import annotations
 
+import asyncio
+import time
+
 import pytest
 
 from app.api.services.auth.csrf import csrf_cookie_name
 from app.conhecimento import gravacao
 from app.conhecimento import transcricao as tr
+from app.llm import gateway
+from app.llm.tipos import RespostaCrua
 
 
 def _csrf(cliente) -> dict:
@@ -206,6 +211,207 @@ async def test_cortar_trecho_inexistente_e_409(logado, gravando_com_anuncio):
 async def test_trecho_traz_o_relogio_do_video(logado, gravando_com_anuncio):
     trechos = (await logado.get("/api/transcricao/estado")).json()["trechos"]
     assert [t["relogio"] for t in trechos] == ["00:00", "00:20", "00:40"]
+
+
+# ── a reescrita durante a aula (fase-transcricao §P1) ─────────────
+
+
+class LLMContado:
+    """Provider falso que **conta as chamadas** e diagrama o trecho que recebeu.
+
+    A contagem é o teste do §P1. O resultado da nota não mudou; o que mudou é
+    quantas chamadas sobram para depois do `parar` — era 6 blocos + fichamento
+    (3 min 30 de tela muda), tem que virar 1 bloco + fichamento.
+    """
+
+    nome = "falso"
+
+    def __init__(self) -> None:
+        self.chamadas: list[str] = []
+
+    async def gerar(self, prompt, *, modelo, json_mode=False, temperatura=None, opcoes=None):
+        self.chamadas.append("json" if json_mode else "texto")
+        if json_mode:
+            return RespostaCrua(
+                texto='{"titulo": "Aula de teste", "resumo": "r", "tags": ["logica"]}',
+                modelo=modelo,
+            )
+        # Devolver o trecho pontuado é o que um modelo que diagrama faz — e é o
+        # que passa pelo guarda de tamanho de `reescrever_um`.
+        trecho = prompt.split("TRECHO:")[-1].split("TEXTO REESCRITO:")[0].strip()
+        return RespostaCrua(texto=trecho.replace("palavra", "Palavra."), modelo=modelo)
+
+    async def embedar(self, textos, *, modelo):
+        return [[0.01] * 1024 for _ in textos]
+
+
+@pytest.fixture
+async def ao_vivo(monkeypatch, tmp_path):
+    """Uma gravação em andamento com a reescrita ao vivo ligada, e sem áudio.
+
+    Pula o `ffmpeg` e o Whisper de propósito: o que se testa aqui é **quando** o
+    LLM é chamado, e isso não depende de placa de som.
+    """
+    provider = LLMContado()
+    gateway.usar_provider(provider)
+    monkeypatch.setattr(gravacao, "vault", lambda: tmp_path)
+    # Glossário vazio: esta seção mede o momento da reescrita, não a correção.
+    monkeypatch.setattr(tr, "carregar_glossario", lambda *a, **k: {})
+
+    s = gravacao._sessao
+    s.__init__()
+    s.estado = "gravando"
+    s.etapa = "transcrevendo"
+    s.comecou_em = time.monotonic()
+    s.fila = asyncio.Queue()
+    s.tarefa_llm = asyncio.create_task(gravacao._reescrever_ao_vivo(s))
+
+    yield s, provider
+
+    gateway.usar_provider(gateway.OllamaProvider())
+
+
+def _falar(sessao, quantos: int, *, palavras: int = 100) -> None:
+    """`quantos` pedaços de 20 s chegando do Whisper, como no laço real."""
+    base = len(sessao.trechos)
+    for i in range(base, base + quantos):
+        sessao.trechos.append(
+            gravacao.Trecho(indice=i, segundo=i * 20, texto=" ".join(["palavra"] * palavras))
+        )
+
+
+async def _ate(condicao, prazo: float = 20.0) -> None:
+    """Espera a tarefa de reescrita avançar — ela roda fora deste `await`."""
+    limite = time.monotonic() + prazo
+    while time.monotonic() < limite:
+        if condicao():
+            return
+        await asyncio.sleep(0.02)
+    raise AssertionError("a reescrita ao vivo não avançou no prazo")
+
+
+async def test_bloco_fechado_e_reescrito_com_o_video_rodando(ao_vivo):
+    """O passo que vale a fase: a GPU trabalha no minuto 5, não depois do parar."""
+    s, provider = ao_vivo
+    _falar(s, 6)                                  # 600 palavras = um bloco cheio
+    await gravacao._fechar_bloco_se_cheio(s)
+    await _ate(lambda: len(s.blocos) == 1)
+
+    assert s.estado == "gravando", "a captura tem que continuar durante a reescrita"
+    assert provider.chamadas == ["texto"]
+    assert s.blocos[0][0] == 0                    # o bloco começa aos 00:00
+    # Os pedaços que entraram no bloco ficam marcados — é o que trava o ✕.
+    assert all(t.processado for t in s.trechos)
+
+
+async def test_meio_bloco_espera_o_resto_da_aula(ao_vivo):
+    """Bloco pela metade não vai para o LLM: 300 palavras viram um subtítulo solto."""
+    s, provider = ao_vivo
+    _falar(s, 3)
+    await gravacao._fechar_bloco_se_cheio(s)
+    await asyncio.sleep(0.2)
+
+    assert s.blocos == []
+    assert provider.chamadas == []
+    assert not any(t.processado for t in s.trechos)
+
+
+async def test_depois_do_parar_sobra_um_bloco_e_o_fichamento(ao_vivo):
+    """A medida da fase: 6 reescritas + fichamento depois do parar viram 2 chamadas."""
+    s, provider = ao_vivo
+    for _ in range(3):                            # três blocos durante a aula
+        _falar(s, 6)
+        await gravacao._fechar_bloco_se_cheio(s)
+    await _ate(lambda: len(s.blocos) == 3)
+    _falar(s, 2)                                  # e um resto que não fechou
+
+    durante_a_aula = len(provider.chamadas)
+    s.estado = "processando"
+    s.etapa = "reescrevendo"
+    await gravacao._organizar(s)
+
+    assert durante_a_aula == 3
+    assert provider.chamadas[durante_a_aula:] == ["texto", "json"]
+    assert s.erro is None, f"o caminho caiu no fallback: {s.erro}"
+    assert s.estado == "revisar"
+    assert s.etapa is None
+    assert len(s.blocos) == 4
+    # E a nota continua carimbada com o instante de cada bloco.
+    assert "`⏱ 02:00`" in s.nota.corpo
+    assert s.nota.fichamento.titulo == "Aula de teste"
+
+
+async def test_nao_corta_trecho_que_ja_virou_bloco(logado, ao_vivo):
+    """Desabilitar, e não reprocessar: o ✕ é para o anúncio, que eu vejo em 20 s.
+
+    Cortar depois da reescrita obrigaria a pagar o bloco de novo — e o bloco
+    reescrito ficaria contendo um trecho que já não existe.
+    """
+    s, _ = ao_vivo
+    _falar(s, 6)
+    await gravacao._fechar_bloco_se_cheio(s)
+    await _ate(lambda: len(s.blocos) == 1)
+
+    r = await logado.delete("/api/transcricao/trecho/0", headers=_csrf(logado))
+    assert r.status_code == 409
+    assert "já foi organizado" in r.json()["detail"]
+
+    # E a tela sabe disso antes de eu clicar.
+    trechos = (await logado.get("/api/transcricao/estado")).json()["trechos"]
+    assert all(t["processado"] for t in trechos)
+
+
+async def test_trecho_ainda_pendente_continua_cortavel(logado, ao_vivo):
+    """O ✕ não pode endurecer para o trecho que ainda está na fila de acumular."""
+    s, _ = ao_vivo
+    _falar(s, 6)
+    await gravacao._fechar_bloco_se_cheio(s)
+    await _ate(lambda: len(s.blocos) == 1)
+    _falar(s, 1)                                  # o pedaço 6, ainda solto
+
+    r = await logado.delete("/api/transcricao/trecho/6", headers=_csrf(logado))
+    assert r.status_code == 200
+    assert [t["indice"] for t in r.json()["trechos"]] == [0, 1, 2, 3, 4, 5]
+
+
+async def test_reescrita_nao_sobrevive_ao_fim_da_sessao(ao_vivo):
+    """A tarefa da reescrita espera na fila para sempre — e o reset é na mesma
+    instância de `Sessao`, então uma tarefa esquecida acordaria depois e
+    escreveria bloco na **gravação seguinte**.
+
+    O caminho que expõe isso é o `parar` que não achou texto: o `_organizar`, que
+    é quem põe a sentinela na fila, nunca roda.
+    """
+    s, _ = ao_vivo
+    tarefa = s.tarefa_llm
+
+    await gravacao.descartar()
+    await asyncio.sleep(0)
+
+    assert tarefa.cancelled() or tarefa.done()
+    assert s.estado == "ocioso"
+
+
+# ── o progresso na tela (fase-transcricao §U1) ────────────────────
+
+
+async def test_estado_diz_em_que_bloco_esta(logado, ao_vivo):
+    """Três minutos de "organizando…" é onde eu penso que travou."""
+    s, _ = ao_vivo
+    _falar(s, 6)
+    await gravacao._fechar_bloco_se_cheio(s)
+    await _ate(lambda: len(s.blocos) == 1)
+    _falar(s, 2)                                  # o bloco 2 começou a acumular
+
+    corpo = (await logado.get("/api/transcricao/estado")).json()
+    assert corpo["etapa"] == "transcrevendo"
+    assert (corpo["bloco"], corpo["blocos"]) == (1, 2)
+
+
+async def test_ocioso_nao_finge_progresso(logado):
+    corpo = (await logado.get("/api/transcricao/estado")).json()
+    assert corpo["etapa"] is None
+    assert (corpo["bloco"], corpo["blocos"]) == (0, 0)
 
 
 async def test_duracao_para_de_contar_quando_a_captura_para(logado, monkeypatch):

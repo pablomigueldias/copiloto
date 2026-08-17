@@ -405,6 +405,12 @@ table.vagas .cel-limitada { max-width: 340px; overflow: hidden; text-overflow: e
 .trecho[data-anuncio="1"] .trecho-cortar { opacity: 1; color: var(--alerta); }
 .trecho[data-anuncio="1"] .trecho-tempo::after { content: " ⚠"; }
 
+/* Já reescrito pelo modelo, durante a própria aula: o ✕ não corta mais. O ✓ no
+   lugar do relógio conta o que aconteceu — sem ele, o botão sumindo pareceria
+   defeito. */
+.trecho[data-processado="1"] .trecho-cortar { display: none; }
+.trecho[data-processado="1"] .trecho-tempo::before { content: "✓ "; color: var(--ok); }
+
 /* ── Escolher a pasta ────────────────────────────────────────── */
 
 .escolher-pasta { margin-top: 12px; }

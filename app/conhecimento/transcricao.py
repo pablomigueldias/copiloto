@@ -19,6 +19,17 @@ sempre igual, e o modelo fica só com o que exige ler.
    Não resume: transcrição resumida perde o detalhe pelo qual eu assisti.
 5. **fichamento** (LLM, uma chamada) — título, resumo, destaques, tags e pasta.
 
+## Quando cada etapa acontece
+
+As cinco valem para os dois caminhos, mas o **momento** é diferente e é isso que
+divide o módulo em duas metades encaixáveis:
+
+- **arquivo, YouTube, reprocessar** — tudo de uma vez: `processar`.
+- **gravação pela tela** — as etapas 1 a 4 rodam **durante a aula**, um bloco por
+  vez (`limpar` + `reescrever_um`, chamados por `gravacao.py`), e ao apertar
+  parar só sobra `juntar_blocos` + `catalogar`. Esperar 3 min 30 depois do parar
+  virou esperar ~1 min: docs/fase-transcricao.md §P1.
+
 ## Onde a nota mora
 
 A pasta e as tags são **como a busca vai achar isso depois**, e a escolha vem
@@ -234,6 +245,21 @@ def limpar_ruido(texto: str) -> tuple[str, list[str]]:
     return _ESPACOS.sub(" ", " ".join(mantidas)).strip(), removidas
 
 
+def limpar(texto: str, glossario: dict[str, str]) -> tuple[str, list[str], list[str]]:
+    """As três etapas de código, na ordem: glossário, muleta de fala, ruído.
+
+    Existe como função porque agora há **dois** lugares que precisam desta
+    sequência exata: `processar`, com o texto inteiro, e a gravação ao vivo, com
+    um bloco de ~600 palavras que fechou no meio da aula
+    (docs/fase-transcricao.md §P1). Duas cópias da sequência é como uma delas
+    fica para trás no dia em que a quarta etapa aparecer.
+    """
+    texto, corrigidos = aplicar_glossario(texto, glossario)
+    texto = limpar_fala(texto)
+    texto, ruido = limpar_ruido(texto)
+    return texto, corrigidos, ruido
+
+
 # ── 2. Segmentação ────────────────────────────────────────────────
 
 
@@ -374,8 +400,14 @@ def _aninhar_titulos(texto: str) -> str:
     return _TITULO_MD.sub(r"\1#\2", texto)
 
 
-async def _reescrever_bloco(trecho: str, tema: str, indice: int) -> str:
-    """Um bloco. Falhar aqui devolve o trecho cru — pior formatado, nunca perdido."""
+async def reescrever_um(trecho: str, *, tema: str, indice: int) -> str:
+    """Um bloco, sozinho. Falhar aqui devolve o trecho cru — nunca perdido.
+
+    Público porque é o ponto de entrada da reescrita ao vivo: a gravação fecha um
+    bloco no minuto 5 da aula e chama isto ali mesmo, enquanto o vídeo continua
+    rodando (docs/fase-transcricao.md §P1). `reescrever` é o laço em cima dele,
+    para quem tem o texto inteiro de uma vez (arquivo, YouTube).
+    """
     try:
         r = await gateway.gerar(
             PROMPT_BLOCO.format(tema=tema, trecho=trecho),
@@ -432,10 +464,33 @@ def relogio(segundo: int) -> str:
     return f"{segundo // 60:02d}:{segundo % 60:02d}"
 
 
+def juntar_blocos(prontos: list[tuple[int | None, str]]) -> str:
+    """Os blocos já reescritos viram o corpo da nota, na ordem, carimbados.
+
+    Separado do laço da reescrita porque a gravação ao vivo chega aqui com os
+    blocos **prontos há vários minutos** — cada um reescrito no instante em que
+    fechou — e só precisa da montagem.
+
+    O carimbo é decidido aqui, e não quando o bloco é reescrito, por causa da
+    regra do primeiro: `⏱ 00:00` só entra se houver um segundo bloco depois. Ao
+    vivo isso não se sabe no minuto 5; na montagem, sim.
+    """
+    saida = []
+    for segundo, texto in prontos:
+        if segundo is not None and (segundo > 0 or len(prontos) > 1):
+            texto = f"`⏱ {relogio(segundo)}`\n\n{texto}"
+        saida.append(texto)
+    return "\n\n".join(saida)
+
+
 async def reescrever(
     texto: str, *, tema: str, marcas: list[tuple[int, str]] | None = None
 ) -> str:
     """A transcrição inteira, bloco a bloco, na ordem.
+
+    O caminho de quem tem o texto todo de uma vez: `--arquivo`, `--sem-llm` e o
+    reprocessamento de uma nota que já está no vault. A gravação pela tela não
+    passa mais por aqui — ela reescreve bloco a bloco durante a própria aula.
 
     Com `marcas`, cada bloco entra na nota precedido do instante do vídeo em que
     ele começa. Sem elas (arquivo, YouTube), a nota sai sem carimbo — é melhor
@@ -448,16 +503,11 @@ async def reescrever(
         partes = [(None, b) for b in blocos(texto)]
 
     logger.info(f"Reescrevendo {len(partes)} bloco(s) de transcrição...")
-    saida = []
+    prontos: list[tuple[int | None, str]] = []
     for i, (segundo, bloco) in enumerate(partes, start=1):
-        reescrito = await _reescrever_bloco(bloco, tema, i)
-        # O carimbo só vale a partir do segundo bloco: o primeiro começa em
-        # 00:00 e dizer isso é ruído.
-        if segundo is not None and (segundo > 0 or len(partes) > 1):
-            reescrito = f"`⏱ {relogio(segundo)}`\n\n{reescrito}"
-        saida.append(reescrito)
+        prontos.append((segundo, await reescrever_um(bloco, tema=tema, indice=i)))
         logger.info(f"  bloco {i}/{len(partes)} pronto")
-    return "\n\n".join(saida)
+    return juntar_blocos(prontos)
 
 
 # Quanto da nota o fichamento enxerga. Com os 3.000 caracteres da primeira
@@ -996,34 +1046,27 @@ def tags_do_vault(raiz: Path, *, limite_arquivos: int = 400) -> list[str]:
 # ── O caminho inteiro ─────────────────────────────────────────────
 
 
-async def processar(
-    bruto: str,
+async def catalogar(
+    corpo: str,
     *,
     tema: str,
     raiz_vault: Path,
-    glossario: dict[str, str] | None = None,
-    reescrever_com_llm: bool = True,
-    marcas: list[tuple[int, str]] | None = None,
+    texto_da_busca: str | None = None,
+    corrigidos: list[str] | None = None,
+    ruido: list[str] | None = None,
     excluir: Path | None = None,
 ) -> Nota:
-    """Transcrição crua → `Nota` pronta para salvar. Não escreve em disco."""
-    texto, corrigidos = aplicar_glossario(bruto, glossario or carregar_glossario())
-    texto = limpar_fala(texto)
-    texto, ruido = limpar_ruido(texto)
+    """Corpo já reescrito → `Nota` catalogada: vizinhos, pasta, título, tags.
 
-    if marcas:
-        # Glossário e filtro de ruído valem para os pedaços também: são eles que
-        # viram os blocos quando a nota vem de gravação.
-        g = glossario or carregar_glossario()
-        marcas = [(seg, limpar_ruido(aplicar_glossario(t, g)[0])[0]) for seg, t in marcas]
-        marcas = [(seg, t) for seg, t in marcas if t.strip()]
-    corpo = (
-        await reescrever(texto, tema=tema, marcas=marcas) if reescrever_com_llm else texto
-    )
+    A segunda metade de `processar`, separada porque a gravação ao vivo chega
+    aqui com o corpo **pronto**: os blocos foram reescritos durante a aula, e o
+    que sobrou para depois do `parar` é só isto.
 
-    # A vizinhança vem do texto **já corrigido pelo glossário**: buscar por
-    # "pigvector" no índice não acha as notas sobre pgvector.
-    proximos = await vizinhos(texto, raiz_vault, excluir=excluir)
+    `texto_da_busca` é o texto limpo, e não o reescrito, porque é dele que sai a
+    vizinhança — e o reescrito ainda pode estar sem um bloco quando o LLM caiu no
+    meio. Sem ele, a busca usa o próprio corpo.
+    """
+    proximos = await vizinhos(texto_da_busca or corpo, raiz_vault, excluir=excluir)
     if proximos:
         logger.info(
             "Vizinhos: " + ", ".join(f"{v.titulo!r} ({v.pasta})" for v in proximos[:3])
@@ -1036,4 +1079,42 @@ async def processar(
         tags_do_vault=tags_do_vault(raiz_vault),
         proximos=proximos,
     )
-    return Nota(fichamento=ficha, corpo=corpo, corrigidos=corrigidos, ruido=ruido)
+    return Nota(
+        fichamento=ficha, corpo=corpo, corrigidos=corrigidos or [], ruido=ruido or []
+    )
+
+
+async def processar(
+    bruto: str,
+    *,
+    tema: str,
+    raiz_vault: Path,
+    glossario: dict[str, str] | None = None,
+    reescrever_com_llm: bool = True,
+    marcas: list[tuple[int, str]] | None = None,
+    excluir: Path | None = None,
+) -> Nota:
+    """Transcrição crua → `Nota` pronta para salvar. Não escreve em disco."""
+    g = glossario or carregar_glossario()
+    texto, corrigidos, ruido = limpar(bruto, g)
+
+    if marcas:
+        # Glossário e filtro de ruído valem para os pedaços também: são eles que
+        # viram os blocos quando a nota vem de gravação.
+        marcas = [(seg, limpar(t, g)[0]) for seg, t in marcas]
+        marcas = [(seg, t) for seg, t in marcas if t.strip()]
+    corpo = (
+        await reescrever(texto, tema=tema, marcas=marcas) if reescrever_com_llm else texto
+    )
+
+    # A vizinhança vem do texto **já corrigido pelo glossário**: buscar por
+    # "pigvector" no índice não acha as notas sobre pgvector.
+    return await catalogar(
+        corpo,
+        tema=tema,
+        raiz_vault=raiz_vault,
+        texto_da_busca=texto,
+        corrigidos=corrigidos,
+        ruido=ruido,
+        excluir=excluir,
+    )

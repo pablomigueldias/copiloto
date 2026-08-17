@@ -346,6 +346,18 @@ async def test_reescrita_carimba_o_instante_do_video(llm):
     assert "`⏱ 01:00`" in corpo
 
 
+def test_bloco_sozinho_nao_leva_carimbo():
+    """`⏱ 00:00` no topo de uma nota de um bloco só é ruído: ela começa no começo.
+
+    A regra vive no `juntar_blocos` porque é lá que se sabe quantos blocos há —
+    a gravação ao vivo reescreve o primeiro no minuto 5, sem saber se vem outro.
+    """
+    assert tr.juntar_blocos([(0, "Texto único.")]) == "Texto único."
+    assert tr.juntar_blocos([(0, "Um."), (120, "Dois.")]) == (
+        "`⏱ 00:00`\n\nUm.\n\n`⏱ 02:00`\n\nDois."
+    )
+
+
 async def test_sem_marcas_nao_inventa_timestamp(llm):
     """Arquivo e YouTube não têm instante conhecido: melhor sem do que chutado."""
     llm(" ".join(["Palavra."] * 100))
