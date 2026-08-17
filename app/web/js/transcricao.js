@@ -53,7 +53,6 @@ function pintar(e) {
 
   $("transcricao-dica").hidden = gravando || processando || revisando;
 
-  // Texto ao vivo
   const viva = $("transcricao-viva");
   if (gravando || processando || revisando) {
     viva.hidden = false;
@@ -72,7 +71,9 @@ function pintar(e) {
     viva.innerHTML = "";
   }
 
-  // A tela de revisão
+  // O `ultimoEstado` é o que impede o formulário de ser repreenchido a cada
+  // segundo: sem ele, o pulso apagaria o título que eu estou digitando. É o
+  // mesmo defeito da fila, que apagava o textarea a cada refresco.
   if (revisando && ultimoEstado !== "revisar") preencherFormulario(e);
   $("form-nota").hidden = !revisando;
 
@@ -96,8 +97,7 @@ function preencherFormulario(e) {
   $("nota-tags").value = (s.tags || []).join(", ");
   $("nota-resumo").textContent = s.resumo || "";
 
-  // Busca agora, não no carregamento da página: criar a pasta no Obsidian no
-  // meio da aula é o caso comum, e ela precisa aparecer aqui.
+  // Busca agora, e não no carregamento da página — ver `ligar()`.
   carregarPastas(s.pasta).catch(() => pintarPastas(s.pasta));
 
   // Por que esta pasta: as notas que a busca semântica achou parecidas. É a
@@ -183,6 +183,8 @@ async function consultar() {
   }
 }
 
+/** Liga e desliga o pulso. Sempre limpa antes: dois `setInterval` vivos ao
+ *  mesmo tempo dobrariam as requisições e nunca mais dariam para desligar. */
 function pulsar(ligado) {
   clearInterval(pulso);
   if (ligado) pulso = setInterval(consultar, PULSO_MS);
@@ -270,14 +272,11 @@ export function ligar() {
     }
   });
 
-  // Escolher a pasta com um clique.
   $("pastas-sugeridas").addEventListener("click", (ev) => {
     const chip = ev.target.closest(".pasta-chip");
     if (chip) pintarPastas(chip.dataset.pasta);
   });
 
-  // "acabei de criar uma pasta no Obsidian": a lista é do momento em que a
-  // página carregou, e criar pasta no meio da aula é exatamente o caso comum.
   $("btn-recarregar-pastas").addEventListener("click", async (ev) => {
     await ocupado(ev.currentTarget, "lendo…", () => carregarPastas());
   });
@@ -288,11 +287,11 @@ export function ligar() {
     pintarPastas(undefined, { filtro: ev.target.value })
   );
 
-  // A lista de pastas é buscada quando ela é necessária (ao entrar em
-  // `revisar`), e **não aqui**: `ligar()` roda antes de `iniciar()`, ou seja,
-  // antes do login. A chamada tomava 401, o `destinos` ficava vazio e o
-  // seletor nascia sem nenhuma pasta — que é como uma nota vai para o `_inbox`
-  // mesmo existindo a pasta certa.
+  // A lista de pastas NÃO é buscada aqui: `ligar()` roda antes de `iniciar()`,
+  // ou seja antes do login, e a chamada tomava 401 — o seletor nascia vazio e a
+  // nota ia para o `_inbox` mesmo existindo a pasta certa. Ela é buscada ao
+  // entrar em `revisar`, e de novo no botão `↻ pastas` (criar pasta no Obsidian
+  // no meio da aula é o caso comum).
 
   // Se eu recarregar a aba no meio de uma gravação, a tela reencontra a sessão:
   // ela vive no servidor, não aqui.

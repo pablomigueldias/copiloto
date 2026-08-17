@@ -81,9 +81,8 @@ class Sessao:
     fonte: str = "sistema"
     trechos: list[Trecho] = field(default_factory=list)
     comecou_em: float | None = None
-    # Congelado quando a captura para. Sem isto o cronômetro continuava correndo
-    # durante o `processando`, e uma aula de 26 min virava `duracao_min: 30` —
-    # o tempo do LLM entrando na duração do vídeo.
+    # Congelado no `parar`. Sem isto o cronômetro corria durante o
+    # `processando` e o tempo do LLM entrava na duração do vídeo (26 min → 30).
     parou_em: float | None = None
     erro: str | None = None
 
@@ -106,6 +105,10 @@ class Sessao:
         return " ".join(t.texto for t in self.trechos).strip()
 
 
+# Estado de módulo, e não tabela: uma gravação não sobrevive a restart do
+# servidor de propósito — o áudio já teria ido junto. O lock protege só o
+# `iniciar`, que é o único ponto onde duas requisições poderiam abrir sessão
+# ao mesmo tempo.
 _sessao = Sessao()
 _modelo = None
 _lock = asyncio.Lock()
@@ -190,6 +193,8 @@ async def _consumir(sessao: Sessao) -> None:
                 logger.warning(f"Pedaço {i} falhou: {type(e).__name__}: {e}")
             atual.unlink(missing_ok=True)
             i += 1
+        # Parando e o pedaço `i` nem existe: o ffmpeg já fechou tudo e não vem
+        # mais nada. É a única saída do laço — sem ela ele giraria para sempre.
         elif parando and not atual.exists():
             return
         else:
@@ -223,7 +228,11 @@ async def iniciar(fonte: str = "sistema") -> Sessao:
             stderr=subprocess.PIPE,
         )
 
-        _sessao.__init__()  # zera tudo que sobrou da sessão anterior
+        # `__init__` na instância existente zera todos os campos de uma vez e
+        # mantém o mesmo objeto — que é o que os `_sessao.` espalhados pelo
+        # módulo referenciam. Reatribuir `_sessao = Sessao()` funcionaria aqui,
+        # mas deixaria a tarefa em voo apontando para a sessão velha.
+        _sessao.__init__()
         _sessao.estado = "gravando"
         _sessao.fonte = fonte
         _sessao.comecou_em = time.monotonic()
@@ -344,11 +353,10 @@ async def descartar() -> None:
     _sessao.__init__()
 
 
-# Anúncio no meio da aula é ruído que entra na nota e no índice — e depois volta
-# como resposta quando eu perguntar alguma coisa. Estas marcas **não apagam
-# nada**: elas acendem o trecho na tela para eu decidir. Auto-remover seria
-# apostar que a frase nunca aparece no conteúdo de verdade, e "assine o curso
-# completo" aparece em aula sobre marketing.
+# Anúncio entra na nota, vai para o índice e volta como resposta depois. Estas
+# marcas **acendem** o trecho na tela; não apagam. Auto-remover apostaria que a
+# frase nunca é conteúdo — e "assine o curso completo" aparece em aula de
+# marketing.
 _MARCAS_DE_ANUNCIO = re.compile(
     r"\b(patrocinad|publicidade|anúncio|propaganda|cupom|código de desconto|"
     r"link na descrição|link abaixo|primeiro link|use o código|"
@@ -391,8 +399,6 @@ def estado() -> dict:
         "fonte": _sessao.fonte,
         "segundos": _sessao.segundos,
         "palavras": len(_sessao.texto.split()),
-        # Os trechos na ordem em que saíram: é isto que aparece ao vivo, com o
-        # ✕ para cortar anúncio e o instante para eu voltar no vídeo.
         "trechos": [
             {
                 "indice": t.indice,
