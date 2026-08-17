@@ -5,6 +5,8 @@ que garante que nada disso responde sem sessão.
 """
 from __future__ import annotations
 
+from zlib import crc32
+
 import pytest
 
 from app.api.services.auth.csrf import csrf_cookie_name
@@ -14,6 +16,14 @@ from app.llm import gateway
 
 CORPO = "Anotação com corpo suficiente para o chunker tratar como seção. " * 5
 
+
+
+# `hash()` de str é salgado por processo (PYTHONHASHSEED): o mesmo texto dá
+# vetores diferentes a cada execução, e o ranking vira sorteio. Custou um teste
+# que falhava em ~5% das rodadas — e, pior, uma vez em que eu commitei no
+# vermelho achando que era instabilidade sem causa. `crc32` é estável.
+def _estavel(texto: str) -> int:
+    return crc32(texto.encode())
 
 class EmbedderFalso:
     nome = "falso"
@@ -219,7 +229,7 @@ class LLMFalso(EmbedderFalso):
         for t in textos:
             vetor = [0.0] * 1024
             for palavra in t.lower().split():
-                vetor[hash(palavra) % 1024] += 1.0
+                vetor[_estavel(palavra) % 1024] += 1.0
             norma = sum(x * x for x in vetor) ** 0.5
             v.append([x / norma for x in vetor] if norma else [1.0] + [0.0] * 1023)
         return v

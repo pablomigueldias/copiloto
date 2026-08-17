@@ -10,6 +10,8 @@ Sem Ollama. Dois embedders falsos e determinísticos:
 """
 from __future__ import annotations
 
+from zlib import crc32
+
 import pytest
 
 from app.conhecimento.busca import K_RRF, Trecho, _fundir, buscar
@@ -20,6 +22,14 @@ from app.llm import gateway
 
 DIM = 1024
 
+
+
+# `hash()` de str é salgado por processo (PYTHONHASHSEED): o mesmo texto dá
+# vetores diferentes a cada execução, e o ranking vira sorteio. Custou um teste
+# que falhava em ~5% das rodadas — e, pior, uma vez em que eu commitei no
+# vermelho achando que era instabilidade sem causa. `crc32` é estável.
+def _estavel(texto: str) -> int:
+    return crc32(texto.encode())
 
 class EmbedderCego:
     nome = "cego"
@@ -42,7 +52,7 @@ class EmbedderTrigrama(EmbedderCego):
         v = [0.0] * DIM
         t = texto.lower()
         for i in range(len(t) - 2):
-            v[hash(t[i : i + 3]) % DIM] += 1.0
+            v[_estavel(t[i : i + 3]) % DIM] += 1.0
         norma = sum(x * x for x in v) ** 0.5
         return [x / norma for x in v] if norma else [1.0] + [0.0] * (DIM - 1)
 

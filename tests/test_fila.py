@@ -6,6 +6,8 @@ falhar em silêncio, só se descobre daqui a seis meses, na hora de treinar.
 """
 from __future__ import annotations
 
+from zlib import crc32
+
 import pytest
 from sqlalchemy import select
 
@@ -17,6 +19,14 @@ from app.llm import gateway
 GERADO = "Vi que vocês publicaram a vaga de dados. Trabalhei com Airflow por dois anos."
 MEU = "Vi a vaga de dados de vocês. Rodei Airflow em produção por dois anos."
 
+
+
+# `hash()` de str é salgado por processo (PYTHONHASHSEED): o mesmo texto dá
+# vetores diferentes a cada execução, e o ranking vira sorteio. Custou um teste
+# que falhava em ~5% das rodadas — e, pior, uma vez em que eu commitei no
+# vermelho achando que era instabilidade sem causa. `crc32` é estável.
+def _estavel(texto: str) -> int:
+    return crc32(texto.encode())
 
 class EmbedderFalso:
     nome = "falso"
@@ -35,7 +45,7 @@ class EmbedderFalso:
     def _vetor(texto: str) -> list[float]:
         v = [0.0] * 1024
         for palavra in texto.lower().split():
-            v[hash(palavra) % 1024] += 1.0
+            v[_estavel(palavra) % 1024] += 1.0
         norma = sum(x * x for x in v) ** 0.5
         return [x / norma for x in v] if norma else [1.0] + [0.0] * 1023
 

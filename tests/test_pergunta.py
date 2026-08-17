@@ -6,6 +6,8 @@ numerados, com fonte, e a pergunta chegou até o modelo.
 """
 from __future__ import annotations
 
+from zlib import crc32
+
 import pytest
 from sqlalchemy import select
 
@@ -37,6 +39,14 @@ FILA = (
 )
 
 
+
+# `hash()` de str é salgado por processo (PYTHONHASHSEED): o mesmo texto dá
+# vetores diferentes a cada execução, e o ranking vira sorteio. Custou um teste
+# que falhava em ~5% das rodadas — e, pior, uma vez em que eu commitei no
+# vermelho achando que era instabilidade sem causa. `crc32` é estável.
+def _estavel(texto: str) -> int:
+    return crc32(texto.encode())
+
 class LLMFalso:
     """Devolve `resposta` e guarda o prompt que recebeu."""
 
@@ -63,7 +73,7 @@ class LLMFalso:
     def _vetor(texto: str) -> list[float]:
         v = [0.0] * DIM
         for palavra in texto.lower().split():
-            v[hash(palavra) % DIM] += 1.0
+            v[_estavel(palavra) % DIM] += 1.0
         norma = sum(x * x for x in v) ** 0.5
         return [x / norma for x in v] if norma else [1.0] + [0.0] * (DIM - 1)
 
