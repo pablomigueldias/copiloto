@@ -57,3 +57,31 @@ def test_vazio_e_lixo_retornam_none():
     assert extrair_json("") is None
     assert extrair_json("   ") is None
     assert extrair_json("desculpe, não posso ajudar com isso") is None
+
+
+# ── LaTeX que o modelo escreve dentro do JSON ─────────────────────
+
+
+def test_comando_latex_sobrevive_ao_parser():
+    """`\\rightarrow` e JSON **valido**: `\\r` e retorno de carro, entao o parse
+    passa de primeira e entrega `ightarrow` no meio da palavra. Uma nota de
+    estudo com isso ensina que o bicondicional tem o simbolo do condicional."""
+    assert extrair_json(r'{"d": "$p \rightarrow q$"}') == {"d": r"$p \rightarrow q$"}
+    assert extrair_json(r'{"d": "\neg P"}') == {"d": r"\neg P"}
+    assert extrair_json(r'{"d": "\forall x"}') == {"d": r"\forall x"}
+
+
+def test_comando_latex_que_invalidava_o_json_inteiro():
+    """`\\land`, `\\lor` e `\\leftrightarrow` nao sao escapes validos: derrubavam
+    o fichamento completo, nao so um campo."""
+    assert extrair_json(r'{"d": "P \land Q \lor R"}') == {"d": r"P \land Q \lor R"}
+    assert extrair_json(r'{"d": "p \leftrightarrow q"}') == {"d": r"p \leftrightarrow q"}
+
+
+def test_escape_legitimo_continua_funcionando():
+    """A quebra de linha de verdade nao pode virar barra literal — o texto do
+    curriculo tem `\\n` de propósito."""
+    assert extrair_json('{"d": "linha1\\nlinha2"}') == {"d": "linha1\nlinha2"}
+    assert extrair_json('{"d": "col1\\tcol2"}') == {"d": "col1\tcol2"}
+    assert extrair_json('{"d": "ele disse \\"oi\\""}') == {"d": 'ele disse "oi"'}
+    assert extrair_json('{"caminho": "C:\\\\Users"}') == {"caminho": "C:\\Users"}

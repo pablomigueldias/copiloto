@@ -549,3 +549,20 @@ def test_destaque_que_so_afirma_importancia_e_descartado():
         "A negacao de P e verdadeira exatamente quando P e falsa.",
     ])
     assert limpos == ["A negacao de P e verdadeira exatamente quando P e falsa."]
+
+
+def test_latex_vira_simbolo_de_verdade():
+    """A nota tem que mostrar `p → q`, nao `$p \\rightarrow q$`. O prompt pede o
+    simbolo e o modelo escreve LaTeX assim mesmo — as duas ultimas aulas
+    gravadas sairam com `\\neg` e `\\rightarrow` nos destaques."""
+    f = tr.latex_para_simbolo
+    assert f(r"$p \rightarrow q$") == "p → q"
+    assert f(r"$p \leftrightarrow q$") == "p ↔ q"
+    assert f(r"\neg P, P \land Q, P \lor Q, P \oplus Q") == "¬ P, P ∧ Q, P ∨ Q, P ⊕ Q"
+    assert f("texto sem latex") == "texto sem latex"
+    assert f("$P$") == "P"
+
+
+def test_destaque_com_latex_sai_legivel():
+    limpos = tr._destaques_limpos([r"O condicional e representado por $p \rightarrow q$ na tabela."])
+    assert limpos == ["O condicional e representado por p → q na tabela."]

@@ -545,10 +545,10 @@ async def fichar(
         dado = {}
 
     return Fichamento(
-        titulo=str(dado.get("titulo") or tema).strip()[:120],
-        resumo=str(dado.get("resumo") or "").strip(),
+        titulo=latex_para_simbolo(dado.get("titulo") or tema).strip()[:120],
+        resumo=latex_para_simbolo(dado.get("resumo") or "").strip(),
         destaques=_destaques_limpos(dado.get("destaques")),
-        conceitos=[str(c).strip() for c in (dado.get("conceitos") or [])][:8],
+        conceitos=[latex_para_simbolo(c).strip() for c in (dado.get("conceitos") or [])][:8],
         tags=_tags_limpas(dado.get("tags"), tema),
         pasta=_pasta_escolhida(dado.get("pasta"), pastas, proximos),
         perguntas=[str(p).strip() for p in (dado.get("perguntas") or [])][:5],
@@ -617,6 +617,37 @@ _DESTAQUE_VAZIO = re.compile(
     re.IGNORECASE,
 )
 
+# O modelo escreve lógica em LaTeX mesmo quando o prompt pede o símbolo. Com a
+# barra invertida já preservada pelo `json_extract`, a conversão aqui é uma
+# tabela — e uma nota de estudo tem que mostrar `p → q`, não `$p \rightarrow q$`.
+_SIMBOLOS = {
+    r"\leftrightarrow": "↔", r"\Leftrightarrow": "↔", r"\rightarrow": "→",
+    r"\Rightarrow": "→", r"\leftarrow": "←", r"\longrightarrow": "→",
+    r"\to": "→", r"\neg": "¬", r"\lnot": "¬", r"\land": "∧", r"\wedge": "∧",
+    r"\lor": "∨", r"\vee": "∨", r"\oplus": "⊕", r"\forall": "∀",
+    r"\exists": "∃", r"\nexists": "∄", r"\in": "∈", r"\notin": "∉",
+    r"\cup": "∪", r"\cap": "∩", r"\subset": "⊂", r"\supset": "⊃",
+    r"\emptyset": "∅", r"\equiv": "≡", r"\therefore": "∴", r"\neq": "≠",
+    r"\leq": "≤", r"\geq": "≥", r"\approx": "≈", r"\times": "×",
+    r"\div": "÷", r"\pm": "±", r"\cdot": "·", r"\ldots": "…", r"\dots": "…",
+    r"\infty": "∞",
+}
+_CIFRAO = re.compile(r"\$+([^$]*)\$+")
+
+
+def latex_para_simbolo(texto: str) -> str:
+    r"""`$p \rightarrow q$` → `p → q`. Tabela, não modelo.
+
+    O prompt pede o símbolo e o modelo escreve LaTeX assim mesmo — as duas
+    últimas aulas gravadas saíram com `\neg` e `\rightarrow` nos destaques.
+    """
+    texto = str(texto or "")
+    for comando, simbolo in sorted(_SIMBOLOS.items(), key=lambda kv: -len(kv[0])):
+        texto = texto.replace(comando, simbolo)
+    # `$...$` sem comando nenhum dentro é enfeite de modelo: `$P$` é só P.
+    return _CIFRAO.sub(r"\1", texto)
+
+
 # Afirmar que o assunto importa não é afirmar nada sobre o assunto. "A lógica
 # proposicional é fundamental para as provas" ocupa uma linha da seção que
 # existe para eu não reassistir o vídeo, e não me diz uma regra sequer.
@@ -632,10 +663,7 @@ def _destaques_limpos(bruto) -> list[str]:
     """Só afirmações. O prompt pede e o código confere — o modelo escorrega."""
     saida: list[str] = []
     for d in bruto or []:
-        # Colapsa espaço: o modelo escreve LaTeX (`\neg`) e a barra invertida
-        # vira escape de JSON — `\n` sai como quebra de linha no meio da frase,
-        # `\t` como tabulação. O prompt pede o símbolo; isto é a rede.
-        texto = _ESPACOS.sub(" ", " ".join(str(d).split())).strip()
+        texto = _ESPACOS.sub(" ", " ".join(latex_para_simbolo(d).split())).strip()
         # Curto demais é rótulo ("Tabela verdade"), não afirmação.
         if len(texto) < 25 or _DESTAQUE_VAZIO.match(texto) or _DESTAQUE_VAGO.search(texto):
             continue

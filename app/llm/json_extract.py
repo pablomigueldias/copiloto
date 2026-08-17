@@ -37,6 +37,71 @@ def _limpar_texto(texto: str) -> str:
     return t.strip()
 
 
+# Escapes que o JSON entende. Qualquer outra barra invertida dentro de uma
+# string é do modelo escrevendo LaTeX, não sintaxe.
+_ESCAPES_VALIDOS = set('"\\/bfnrtu')
+
+# O caso difícil: `\r`, `\n`, `\t`, `\f` e `\b` **são** escapes válidos, então
+# `\rightarrow` faz o parse passar de primeira e entrega um retorno de carro no
+# meio da palavra. Não dá para decidir pelo caractere; decide-se pelo nome do
+# comando. Se o que vem depois da barra é um comando LaTeX conhecido, era LaTeX.
+_COMANDOS_LATEX = (
+    "neg|land|lor|lnot|leftrightarrow|rightarrow|leftarrow|Leftrightarrow|"
+    "Rightarrow|longrightarrow|to|forall|exists|nexists|in|notin|ni|cup|cap|"
+    "subset|supset|subseteq|supseteq|emptyset|equiv|therefore|because|oplus|"
+    "otimes|vee|wedge|times|div|pm|leq|geq|neq|approx|sim|infty|cdot|ldots|"
+    "dots|frac|sqrt|sum|prod|int|alpha|beta|gamma|delta|theta|lambda|mu|pi|"
+    "sigma|phi|omega|Delta|Sigma|Omega|mathbb|mathrm|text|begin|end|quad|qquad"
+)
+_LATEX_NA_STRING = re.compile(rf"\\({_COMANDOS_LATEX})(?![a-zA-Z])")
+
+
+def _preservar_barra_invertida(texto: str) -> str:
+    r"""`\rightarrow` vira `\\rightarrow` — o LaTeX sobrevive ao parser.
+
+    Modelo escrevendo lógica escreve `$p \rightarrow q$`, e o JSON lê `\r` como
+    retorno de carro: chega `ightarrow` do outro lado. Três dos seis conectivos
+    são piores que isso — `\land`, `\lor` e `\leftrightarrow` **invalidam o JSON
+    inteiro**, derrubando o fichamento completo.
+
+    Uma nota de estudo com isso está pior que errada: ela ensina que o
+    bicondicional tem o mesmo símbolo do condicional, porque os dois viraram a
+    mesma sequência quebrada.
+
+    Só mexe **dentro de string**: fora dela a barra invertida não é legítima em
+    JSON nenhum, e reescrever ali esconderia sintaxe realmente quebrada.
+    """
+    saida: list[str] = []
+    dentro_string = False
+    i = 0
+    while i < len(texto):
+        ch = texto[i]
+        if ch == '"' and not (saida and saida[-1] == "\\" and dentro_string):
+            dentro_string = not dentro_string
+            saida.append(ch)
+            i += 1
+            continue
+        if ch == "\\" and dentro_string:
+            # Comando LaTeX ganha da regra do escape: `\rightarrow` é seta, não
+            # retorno de carro seguido de "ightarrow".
+            if _LATEX_NA_STRING.match(texto, i):
+                saida.append("\\\\")
+                i += 1
+                continue
+            seguinte = texto[i + 1] if i + 1 < len(texto) else ""
+            if seguinte in _ESCAPES_VALIDOS:
+                saida.append(ch)
+                saida.append(seguinte)
+                i += 2
+                continue
+            saida.append("\\\\")     # barra do modelo: vira barra literal
+            i += 1
+            continue
+        saida.append(ch)
+        i += 1
+    return "".join(saida)
+
+
 def _reparar_json_truncado(texto: str) -> str | None:
     """Fecha um JSON cortado no meio (limite de tokens da LLM)."""
     t = texto.rstrip()
@@ -90,6 +155,11 @@ def extrair_json(texto_cru: str) -> dict | list | None:
         return None
 
     limpo = _limpar_texto(texto_cru)
+
+    # Antes de qualquer parse: `\rightarrow` é JSON **válido** e entrega um
+    # retorno de carro no meio da palavra. Deixar o parse acontecer primeiro
+    # significaria aceitar a corrupção calado.
+    limpo = _preservar_barra_invertida(limpo)
 
     try:
         return json.loads(limpo)
