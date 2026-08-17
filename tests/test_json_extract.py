@@ -85,3 +85,15 @@ def test_escape_legitimo_continua_funcionando():
     assert extrair_json('{"d": "col1\\tcol2"}') == {"d": "col1\tcol2"}
     assert extrair_json('{"d": "ele disse \\"oi\\""}') == {"d": 'ele disse "oi"'}
     assert extrair_json('{"caminho": "C:\\\\Users"}') == {"caminho": "C:\\Users"}
+
+
+def test_bigvee_nao_vira_caractere_de_controle():
+    r"""`\bigvee` faltava na lista branca, e `\b` **é** escape válido em JSON:
+    a nota real ficou com um backspace dentro do destaque e "igvee" como texto.
+
+    Achado numa nota do vault, não em teste: `"A disjunção é representada por
+    P ∨ Q ou <0x08>igvee P, Q."`.
+    """
+    assert extrair_json(r'{"d": "P \bigvee Q"}') == {"d": r"P \bigvee Q"}
+    assert extrair_json(r'{"d": "P \bigwedge Q"}') == {"d": r"P \bigwedge Q"}
+    assert "\x08" not in extrair_json(r'{"d": "P \bigvee Q"}')["d"]

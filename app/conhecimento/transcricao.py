@@ -728,6 +728,10 @@ _SIMBOLOS = {
     r"\Rightarrow": "→", r"\leftarrow": "←", r"\longrightarrow": "→",
     r"\to": "→", r"\neg": "¬", r"\lnot": "¬", r"\land": "∧", r"\wedge": "∧",
     r"\lor": "∨", r"\vee": "∨", r"\oplus": "⊕", r"\forall": "∀",
+    # As formas grandes: numa nota de lógica proposicional o que se quer ler é
+    # `∨`, não `⋁`. A substituição é por tamanho decrescente, então estas ganham
+    # de `\vee` e `\wedge`.
+    r"\bigvee": "∨", r"\bigwedge": "∧", r"\bigcup": "∪", r"\bigcap": "∩",
     r"\exists": "∃", r"\nexists": "∄", r"\in": "∈", r"\notin": "∉",
     r"\cup": "∪", r"\cap": "∩", r"\subset": "⊂", r"\supset": "⊃",
     r"\emptyset": "∅", r"\equiv": "≡", r"\therefore": "∴", r"\neq": "≠",
@@ -737,6 +741,12 @@ _SIMBOLOS = {
 }
 _CIFRAO = re.compile(r"\$+([^$]*)\$+")
 
+# Escape de JSON que era LaTeX: `"\bigvee"` vira <backspace> + "igvee", porque
+# `\b` é escape válido. `json_extract` cobre os comandos que ele conhece; isto é
+# a rede para o comando que ainda não está na lista dele — nenhum caractere de
+# controle tem o que fazer numa nota de estudo, e um deles chegou a entrar numa.
+_CONTROLE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
+
 
 def latex_para_simbolo(texto: str) -> str:
     r"""`$p \rightarrow q$` → `p → q`. Tabela, não modelo.
@@ -744,7 +754,7 @@ def latex_para_simbolo(texto: str) -> str:
     O prompt pede o símbolo e o modelo escreve LaTeX assim mesmo — as duas
     últimas aulas gravadas saíram com `\neg` e `\rightarrow` nos destaques.
     """
-    texto = str(texto or "")
+    texto = _CONTROLE.sub("", str(texto or ""))
     for comando, simbolo in sorted(_SIMBOLOS.items(), key=lambda kv: -len(kv[0])):
         texto = texto.replace(comando, simbolo)
     # `$...$` sem comando nenhum dentro é enfeite de modelo: `$P$` é só P.

@@ -49,6 +49,11 @@ _COMANDOS_LATEX = (
     "neg|land|lor|lnot|leftrightarrow|rightarrow|leftarrow|Leftrightarrow|"
     "Rightarrow|longrightarrow|to|forall|exists|nexists|in|notin|ni|cup|cap|"
     "subset|supset|subseteq|supseteq|emptyset|equiv|therefore|because|oplus|"
+    # As formas grandes vieram de uma nota real: o modelo escreveu `\bigvee` para
+    # "ou", e como `bigvee` não estava aqui, o `\b` caiu na regra do escape
+    # válido — a nota ficou com um **caractere de backspace** dentro de um
+    # destaque, e o resto do comando ("igvee") virou texto.
+    "bigvee|bigwedge|bigcup|bigcap|"
     "otimes|vee|wedge|times|div|pm|leq|geq|neq|approx|sim|infty|cdot|ldots|"
     "dots|frac|sqrt|sum|prod|int|alpha|beta|gamma|delta|theta|lambda|mu|pi|"
     "sigma|phi|omega|Delta|Sigma|Omega|mathbb|mathrm|text|begin|end|quad|qquad"

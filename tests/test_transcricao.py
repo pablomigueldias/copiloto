@@ -645,3 +645,18 @@ def test_latex_vira_simbolo_de_verdade():
 def test_destaque_com_latex_sai_legivel():
     limpos = tr._destaques_limpos([r"O condicional e representado por $p \rightarrow q$ na tabela."])
     assert limpos == ["O condicional e representado por p → q na tabela."]
+
+
+def test_forma_grande_do_ou_vira_simbolo_legivel():
+    r"""Numa nota de lógica proposicional o que se lê é `∨`, não `\bigvee`."""
+    assert tr.latex_para_simbolo(r"P \bigvee Q") == "P ∨ Q"
+    assert tr.latex_para_simbolo(r"P \bigwedge Q") == "P ∧ Q"
+
+
+def test_caractere_de_controle_nunca_entra_na_nota():
+    """A rede para o comando LaTeX que ainda não está na lista do `json_extract`:
+    um backspace chegou a entrar num destaque de nota de verdade."""
+    assert tr.latex_para_simbolo("P ∨ Q ou \x08igvee P") == "P ∨ Q ou igvee P"
+    assert tr._destaques_limpos(["A disjunção é P \x08igvee Q na notação grande."]) == [
+        "A disjunção é P igvee Q na notação grande."
+    ]
