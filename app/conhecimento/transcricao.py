@@ -217,9 +217,12 @@ _RUIDO_DE_VIDEO = re.compile(
     r"link (abaixo|aqui embaixo)|oferta por tempo limitado|"
     r"assine (o|a|meu|minha) (canal|curso|newsletter|plano)|"
     # "Peçam lá no Instagram um resumo teórico que eu fiz" — venda de material
-    # por fora, que na nota vira instrução para abrir outro app.
-    r"(pe[çc]am?|sig(a|am)|me sig(a|am)|chama) (l[áa] )?(no|pelo) "
-    r"(instagram|insta|telegram|whats|face)|"
+    # por fora, que na nota vira instrução para abrir outro app. O `pedir` e o
+    # `manda o direct` entraram depois, da segunda aula: "vocês vão me pedir lá
+    # pelo Instagram. Manda o direct no Instagram."
+    r"(pe[çc]am?|pedir|sig(a|am)|me sig(a|am)|cham(a|e|em|ar)|manda) "
+    r"(l[áa] |o direct |me )?(no|pelo) (instagram|insta|telegram|whats|face)|"
+    r"manda o direct|"
     # saudação e abertura
     r"ol[áa],? (meus? )?(amigos|pessoal|gente)|aqui [ée] o (professor|prof)|"
     # "Professor Vaguinho aqui" — a ordem invertida escapou na segunda aula.

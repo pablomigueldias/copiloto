@@ -524,8 +524,11 @@ RUIDO_REAL = [
     "Meu compromisso é descomplicar a matemática e o raciocínio lógico.",
     "Apresento a vocês o nosso conteúdo de hoje: Lógica Proposicional.",
     "Para o vídeo de hoje, eu trouxe um conteúdo super especial.",
-    # venda por fora
+    # venda por fora — as três formas que as quatro aulas usam
     "Peçam lá no Instagram um resumo teórico que eu fiz sobre esse assunto.",
+    "Vocês vão me pedir lá pelo Instagram.",
+    "Manda o direct no Instagram.",
+    "Se quiser o resumo, me chamem no Instagram.",
     # encerramento
     "Obrigado pela audiência.",
     "Compartilhe o vídeo pelo WhatsApp.",
@@ -569,6 +572,11 @@ CONTEUDO_REAL = [
     "Quem ainda não viu os outros vídeos, eu sugiro que veja primeiro.",
     "A aprendizagem matemática está muito atrelada à resolução de exercícios.",
     "Para ser verdadeiro, todas têm que ser verdade.",
+    # O plug do Instagram é pedido/chamado; "pedir" e "chamar" no sentido da
+    # aula são as duas palavras mais comuns do quadro, e não podem sair.
+    "Vou chamar de P e não vou ficar pensando em Juvenal, nem em trabalho.",
+    "Eu vou pedir para vocês contarem quantas proposições tem aqui.",
+    "Eu vou chamar isso aqui de Q, e a outra de R.",
     "O número de linhas de uma tabela verdade é 2^n.",
 ]
 
