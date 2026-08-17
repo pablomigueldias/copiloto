@@ -189,27 +189,80 @@ def limpar_fala(texto: str) -> str:
 # o conteúdo caía 13%, noutra 25%, e a que cortou mais manteve a abertura.
 # Frase a frase, para não perder o parágrafo quando o "se inscreve" vem grudado
 # numa explicação.
+#
+# ## Esta lista é um vocabulário que cresce, como o glossário
+#
+# Medido nas quatro aulas que já estão no vault (17/08/2026): **as quatro tinham
+# zero frases descartadas**. O filtro não estava errado — estava cobrindo as
+# fórmulas de um canal que não é o que eu assisto. Cada bloco abaixo tem o
+# contra-exemplo real que o forçou a existir, no comentário.
+#
+# O critério para entrar aqui é o de sempre: fórmula fechada de vídeo, que não
+# diz nada sobre a matéria. Frase que é *conselho de estudo* ("vão estudar um
+# pouco", "ter um caderno organizado é importante") **fica** — é opinião do
+# professor sobre o assunto, e cortar isso é cortar conteúdo. E o que sai vai
+# para a seção de revisão da nota, então um falso positivo é visível.
 _RUIDO_DE_VIDEO = re.compile(
     r"("
     r"se inscrev|inscreva-se|clica(r|ndo)? (n)?o (bot[ãa]o|link|sininho)|"
     r"ativ(e|ar) o sininho|dá?( um)? like|deixa o like|deixe seu like|"
     r"curt(a|e|ir) o v[íi]deo|comenta a[íi]|deixe (seu|um) coment[áa]rio|"
-    r"compartilh(e|a) (esse|este) v[íi]deo|"
+    # "Compartilhe o vídeo pelo WhatsApp" — o `(esse|este)` não cobria "o".
+    r"compartilh(e|a|em) (esse|este|o) v[íi]deo|"
+    # "Manda aí para a prima, para o primo que quer estudar" — o mesmo pedido
+    # sem a palavra "compartilhe".
+    r"manda a[íi] (o v[íi]deo )?(para|pra)|"
     # patrocínio e venda
     r"patrocinad|cupom|c[óo]digo de desconto|link na descri[çc][ãa]o|"
     r"link (abaixo|aqui embaixo)|oferta por tempo limitado|"
     r"assine (o|a|meu|minha) (canal|curso|newsletter|plano)|"
-    # saudação e despedida
+    # "Peçam lá no Instagram um resumo teórico que eu fiz" — venda de material
+    # por fora, que na nota vira instrução para abrir outro app.
+    r"(pe[çc]am?|sig(a|am)|me sig(a|am)|chama) (l[áa] )?(no|pelo) "
+    r"(instagram|insta|telegram|whats|face)|"
+    # saudação e abertura
     r"ol[áa],? (meus? )?(amigos|pessoal|gente)|aqui [ée] o (professor|prof)|"
     # "Professor Vaguinho aqui" — a ordem invertida escapou na segunda aula.
     r"(professor|prof)\.? \w+ aqui\b|"
-    r"sejam? bem[- ]vind|um (beijo|abra[çc]o) (grande )?(para|pra) voc[êe]s|"
-    r"at[ée] (a )?pr[óo]xima|fiquem com deus|obrigado por (terem )?me assistir|"
-    r"obrigado por (terem )?me assistido|por ter deixado eu entrar|tchau[,. ]*$|"
+    # "Bem-vindos ao canal Descomplicando RLM": sem "sejam" antes, e o antigo
+    # `sejam? bem[- ]vind` exigia. O `ao canal|ao v[íi]deo` é o que mantém a
+    # regra fechada — "bem-vindo" solto pode ser conteúdo.
+    r"sejam? bem[- ]vind|bem[- ]vind[oa]s? ao (meu )?(canal|v[íi]deo)|"
+    # "Olá!" sozinho, uma frase inteira. Ancorado justo por ser curto demais.
+    r"^\W*ol[áa]\W*$|"
+    # A missão do canal, dita na abertura: "Meu compromisso é descomplicar a
+    # matemática", "Apresento a vocês o nosso conteúdo de hoje".
+    r"meu compromisso [ée]|apresento a voc[êe]s o (nosso|meu) conte[úu]do|"
+    r"(para o|no) v[íi]deo de hoje,? eu (trouxe|vou)|"
+    # despedida
+    r"um (beijo|abra[çc]o) (grande )?(para|pra) voc[êe]s|"
+    # "Um beijo grande." / "Um beijo grande e um abraço." — sem o "para vocês".
+    r"^\W*um (beijo|abra[çc]o)( grande)?( e um (beijo|abra[çc]o)( grande)?)?\W*$|"
+    r"at[ée] (a )?pr[óo]xima|fiquem (com deus|em paz)|"
+    r"^\W*estamos juntos\W*$|"
+    r"obrigado por (terem )?me assistir|"
+    r"obrigado por (terem )?me assistido|por ter deixado eu entrar|"
+    # "Obrigado pela audiência." fecha o vídeo e não diz nada da matéria.
+    r"obrigado (pela|por sua) (audi[êe]ncia|aten[çc][ãa]o)|"
+    r"desejo (essa|a sua|sua) aprova[çc][ãa]o|espero estar contribuindo|"
+    # `!` faltava na classe, e "Tchau!" é como as duas aulas terminam.
+    r"tchau[,.! ]*$|"
     # autopromoção e meta sobre o canal
-    r"(meu|nosso) canal|d(ou|ando) aula (para|há|ha) \w+ (anos|concursos)|"
+    r"(meu|nosso) canal|(abrir|abri) (este|esse|meu|o meu) canal|"
+    # "dando aula em pré-vestibular" — o antigo exigia "para|há" e um "anos"
+    # depois, então a variante com "em" passava.
+    r"d(ou|ando) aula (em|para|há|ha)|(meus|nossos) cursos online|"
     r"h[áa] mais de \d+ anos|"
-    r"(esse|este) v[íi]deo (ficou|foi)|no (pr[óo]ximo|nosso) v[íi]deo eu"
+    r"(esse|este) v[íi]deo (ficou|foi)|"
+    # "No próximo vídeo eu…", "Nos próximos vídeos, ainda temos dois vídeos" e
+    # "O próximo vídeo que eu voltar" — daí o `n?`, para o "o" sozinho.
+    # A lista de verbos depois é o que protege a referência estrutural legítima
+    # ("no próximo vídeo falaremos da Parte 2 dos conectivos"), que é conteúdo.
+    r"\bn?(o|os) pr[óo]ximos? v[íi]deos?,? (eu|ainda|vamos|vou|n[óo]s|que)|"
+    # `nosso` fica no formato estreito de origem. Aberto junto do `próximo`, ele
+    # comia "para encerrar o nosso vídeo, vou para esse exemplo" — que é a
+    # transição para um exercício resolvido, e levava o `### Exemplo Prático`.
+    r"no nosso v[íi]deo eu"
     r")",
     re.IGNORECASE,
 )

@@ -513,6 +513,73 @@ def test_professor_x_aqui_tambem_e_ruido():
     assert "ideia contraria" in limpo
 
 
+# As frases abaixo são **literais** das quatro aulas que estão no vault. Medido
+# em 17/08/2026: as quatro tinham ZERO frases descartadas — o filtro cobria as
+# fórmulas de um canal que não é o que eu assisto. Cada uma destas passou batida
+# e foi para dentro de uma nota de estudo.
+RUIDO_REAL = [
+    # abertura
+    "Bem-vindos ao canal Descomplicando RLM e Corvaguinho.",
+    "Olá!",
+    "Meu compromisso é descomplicar a matemática e o raciocínio lógico.",
+    "Apresento a vocês o nosso conteúdo de hoje: Lógica Proposicional.",
+    "Para o vídeo de hoje, eu trouxe um conteúdo super especial.",
+    # venda por fora
+    "Peçam lá no Instagram um resumo teórico que eu fiz sobre esse assunto.",
+    # encerramento
+    "Obrigado pela audiência.",
+    "Compartilhe o vídeo pelo WhatsApp.",
+    "Manda aí para a prima, para o primo que quer estudar.",
+    "Um beijo grande.",
+    "Um beijo grande e um abraço.",
+    "Fiquem em paz.",
+    "Estamos juntos.",
+    "Desejo essa aprovação, seja no vestibular, no ENEM, no concurso.",
+    "Espero estar contribuindo para vocês.",
+    "Tchau!",
+    # meta sobre o canal
+    "Eu só quis abrir este canal do YouTube quando eu estivesse preparado.",
+    "Vou trazer toda a minha experiência de anos dando aula em pré-vestibular.",
+    "Nos próximos vídeos, ainda temos dois vídeos de Lógica Proposicional.",
+    "O próximo vídeo que eu voltar será para trazer questões sobre conectivos.",
+]
+
+
+@pytest.mark.parametrize("frase", RUIDO_REAL)
+def test_ruido_que_passou_nas_quatro_aulas_agora_sai(frase):
+    _, removidas = tr.limpar_ruido(frase)
+    assert removidas == [frase], f"ainda passa: {frase!r}"
+
+
+# E estas também são literais das mesmas aulas — e **têm que ficar**. É o outro
+# lado do filtro: conselho de estudo e referência estrutural são opinião do
+# professor sobre a matéria, não fórmula de vídeo.
+CONTEUDO_REAL = [
+    "Vão estudar um pouco, refletir sobre essas aulas.",
+    "Ter um caderno organizado é muito importante.",
+    "Não fiquem muito preocupados.",
+    "Estude por aqui, vá por esse caminho.",
+    "Neste vídeo de hoje, falaremos da Parte 1 dos conectivos, e no próximo"
+    " vídeo falaremos da Parte 2 dos conectivos.",
+    # Este foi um falso positivo meu, pego no ensaio contra as quatro notas:
+    # abrir `nosso` junto do `próximo` comia a transição para um exercício
+    # resolvido — e levava o subtítulo `### Exemplo Prático` na frente dela.
+    "Para encerrar o nosso vídeo, vou para esse exemplo, que é a saideira.",
+    "Este é o terceiro vídeo de lógica proposicional.",
+    "Quem ainda não viu os outros vídeos, eu sugiro que veja primeiro.",
+    "A aprendizagem matemática está muito atrelada à resolução de exercícios.",
+    "Para ser verdadeiro, todas têm que ser verdade.",
+    "O número de linhas de uma tabela verdade é 2^n.",
+]
+
+
+@pytest.mark.parametrize("frase", CONTEUDO_REAL)
+def test_o_filtro_nao_come_conteudo_das_quatro_aulas(frase):
+    limpo, removidas = tr.limpar_ruido(frase)
+    assert removidas == [], f"o filtro ficou ganancioso e comeu: {frase!r}"
+    assert limpo == frase
+
+
 def test_correcao_com_contexto_nao_pega_a_palavra_legitima():
     """`tosse -> torce` so vale com a preposicao de torcida junto: "tosse" e
     palavra de verdade, e uma regra global estragaria "tosse muito de gripe"."""
