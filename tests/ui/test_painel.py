@@ -6,6 +6,8 @@ detalhe de implementação.
 """
 from __future__ import annotations
 
+import json
+
 import pytest
 
 pytestmark = pytest.mark.ui
@@ -264,3 +266,118 @@ async def test_apagar_pede_confirmacao(vaga_aberta):
     await vaga_aberta.wait_for_timeout(800)
 
     assert await vaga_aberta.locator("table.vagas tbody tr").count() == 1
+
+
+# ── a transcrição na tela (fase-transcricao §P1, §U1 e §E1) ───────
+
+ESTADO_OCIOSO = {
+    "estado": "ocioso",
+    "etapa": None,
+    "fonte": "sistema",
+    "segundos": 0,
+    "palavras": 0,
+    "bloco": 0,
+    "blocos": 0,
+    "trechos": [],
+    "erro": None,
+    "sugestao": None,
+}
+
+
+def _trecho(indice: int, texto: str, *, processado: bool = False) -> dict:
+    return {
+        "indice": indice,
+        "segundo": indice * 20,
+        "relogio": f"00:{indice * 20:02d}",
+        "texto": texto,
+        "anuncio": False,
+        "processado": processado,
+    }
+
+
+async def _fingir_estado(pagina, **campos):
+    """Faz `/api/transcricao/estado` responder o que o teste quiser.
+
+    Gravar de verdade aqui exigiria uma placa de som — e o que estes testes
+    cobrem é o **JavaScript**, que é justo o que a suíte de 455 testes não vê. O
+    contrato do endpoint tem teste próprio em `tests/test_transcricao_api.py`.
+
+    O `reload` é necessário porque `transcricao.ligar()` lê o estado uma vez na
+    partida da página, e é dessa leitura que sai o pulso de 1 s.
+    """
+    corpo = json.dumps({**ESTADO_OCIOSO, **campos})
+
+    async def responder(rota):
+        await rota.fulfill(status=200, content_type="application/json", body=corpo)
+
+    await pagina.route("**/api/transcricao/estado", responder)
+    await pagina.reload(wait_until="networkidle")
+
+
+async def test_a_tela_diz_em_que_bloco_a_reescrita_esta(painel):
+    """Três minutos de "organizando…" é onde eu penso que travou (§U1).
+
+    O servidor sempre soube o bloco — `logger.info("bloco 3/6 pronto")`. O que
+    faltava era ele contar, e a tela pintar.
+    """
+    await _fingir_estado(
+        painel,
+        estado="processando",
+        etapa="reescrevendo",
+        bloco=3,
+        blocos=6,
+        segundos=1_560,
+        palavras=3_900,
+        trechos=[_trecho(0, "Uma tabela verdade tem 2^n linhas.", processado=True)],
+    )
+
+    await painel.wait_for_selector("#transcricao-progresso", timeout=10_000)
+    assert "bloco 4 de 6" in await painel.locator("#transcricao-progresso").inner_text()
+    # E também no badge do título, que é o que eu vejo sem rolar a página. O
+    # `lower` é porque o badge é maiúsculo por CSS, e `inner_text` vê o renderizado.
+    badge = (await painel.locator("#transcricao-tempo").inner_text()).lower()
+    assert "bloco 4 de 6" in badge
+    assert not painel.erros_de_js
+
+
+async def test_a_tela_diz_o_que_o_fichamento_esta_fazendo(painel):
+    """A última etapa tem nome próprio: são mais 31 s, e não é reescrita."""
+    await _fingir_estado(painel, estado="processando", etapa="fichando", bloco=6, blocos=6)
+
+    await painel.wait_for_selector("#transcricao-progresso", timeout=10_000)
+    texto = await painel.locator("#transcricao-progresso").inner_text()
+    assert "título" in texto and "pasta" in texto
+    assert not painel.erros_de_js
+
+
+async def test_trecho_ja_organizado_nao_oferece_o_x(painel):
+    """O ✕ do trecho que já virou bloco reescrito sai da tela (§P1).
+
+    Cortar depois da reescrita obrigaria a pagar o bloco de novo. O servidor
+    recusa igual — isto é para eu não descobrir a recusa clicando.
+    """
+    await _fingir_estado(
+        painel,
+        estado="gravando",
+        etapa="transcrevendo",
+        bloco=1,
+        blocos=2,
+        segundos=140,
+        palavras=700,
+        trechos=[
+            _trecho(0, "Conectivo lógico é o que liga duas proposições.", processado=True),
+            _trecho(1, "E a negação inverte o valor de verdade.", processado=False),
+        ],
+    )
+
+    await painel.wait_for_selector(".trecho", timeout=10_000)
+    travado = painel.locator('.trecho[data-processado="1"] .trecho-cortar')
+    assert await travado.is_disabled()
+    assert await travado.is_hidden()
+    # O trecho ainda solto continua cortável: é para ele que o ✕ existe.
+    assert await painel.locator('.trecho:not([data-processado="1"]) .trecho-cortar').count() == 1
+
+    # E o badge conta quanto da aula já está organizado — durante a aula.
+    badge = (await painel.locator("#transcricao-tempo").inner_text()).lower()
+    assert "1 bloco pronto" in badge
+    assert not painel.erros_de_js
