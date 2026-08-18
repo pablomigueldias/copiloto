@@ -90,6 +90,10 @@ class Fichamento:
     perguntas: list[str] = field(default_factory=list)
     # O que decide se a nota vale a releitura. Sem isto eu reassisto o vídeo.
     destaques: list[str] = field(default_factory=list)
+    # Os que citam número, fórmula ou símbolo que **não existe** no corpo da
+    # aula. Ficam na nota marcados, não apagados: o modelo pode estar certo e o
+    # corpo incompleto — mas eu preciso saber qual conferir. Ver `ancorar`.
+    suspeitos: list[str] = field(default_factory=list)
     # Wikilinks para notas do mesmo assunto. 146 das 232 notas do vault se ligam
     # entre si; a que nasce órfã fica fora da teia e some.
     relacionadas: list[str] = field(default_factory=list)
@@ -435,11 +439,20 @@ Responda só com este JSON:
 JSON:"""
 
 _BLOCO_VIZINHOS = """
-NOTAS QUE EU JÁ TENHO SOBRE ASSUNTO PARECIDO (a busca semântica achou estas):
+O QUE EU JÁ TENHO NO VAULT SOBRE ESTE ASSUNTO (a busca semântica achou):
 {lista}
 
-A pasta de uma dessas notas é quase sempre a pasta certa para esta também.
+Use isto para TRÊS coisas, e só para estas três:
+1. escolher a pasta — a de uma dessas notas é quase sempre a certa;
+2. reaproveitar o vocabulário e o padrão de título da série (se as irmãs se
+   chamam "Assunto 1 — Tema", esta é a próxima da sequência, não um nome novo);
+3. conferir uma fórmula ou definição que a transcrição deixou ambígua.
+
+PROIBIDO tirar destaque daqui. Os destaques saem SÓ da aula transcrita abaixo.
+Se um fato aparece nas notas do vault e não aparece na aula, ele não entra.
 """
+
+_TRECHO_VIZINHO = 400  # o bastante para conferir uma fórmula, sem virar contexto
 
 
 _TITULO_MD = re.compile(r"^(#{1,5})(\s)", re.MULTILINE)
@@ -608,6 +621,96 @@ def _amostra_para_fichar(corpo: str) -> str:
     return "".join(partes)
 
 
+# ── Q3: o destaque tem que estar ancorado no corpo ────────────────
+
+# Número e potência: o que uma aula ou disse, ou não disse, sem meio-termo.
+# Comparados como TOKEN e não como substring — "2" casava dentro de "2019" e
+# deixava passar o `2^n` do §7.3, que é justamente o caso que isto existe para
+# pegar.
+_NUMERO = re.compile(r"\d+(?:[.,]\d+)?%?|\^\s*\w+")
+
+# Símbolo lógico ficou **fora** de propósito. O modelo escreve `¬P ∨ ¬Q` onde a
+# aula fala "não P ou não Q": comparar símbolo contra palavra marcaria como
+# suspeito todo destaque bem escrito, e o ⚠ viraria ruído em duas notas.
+
+# Palavra de conteúdo: 6 letras ou mais. Abaixo disso é artigo, preposição e
+# verbo de ligação, que aparecem em qualquer texto e não discriminam nada.
+_PALAVRA = re.compile(r"[a-zà-ÿ]{6,}", re.IGNORECASE)
+
+# Quanto do vocabulário próprio do destaque precisa existir na aula. Meio, e não
+# tudo, porque o modelo reformula: ele diz "conjunção" onde a aula disse "o e".
+# Um sinônimo ou dois é reformulação; a metade ausente é outro assunto.
+_FRACAO_MINIMA = 0.5
+
+# Prefixo em vez de palavra inteira, para "proposição" casar com "proposições"
+# sem arrastar um stemmer para dentro do projeto.
+_PREFIXO = 6
+
+
+def _radicais(texto: str) -> set[str]:
+    """Prefixos das palavras de conteúdo, sem acento e em minúsculo."""
+    sem_acento = "".join(
+        c for c in unicodedata.normalize("NFD", texto.lower())
+        if unicodedata.category(c) != "Mn"
+    )
+    return {p[:_PREFIXO] for p in _PALAVRA.findall(sem_acento)}
+
+
+def ancorar(destaques: list[str], corpo: str) -> tuple[list[str], list[str]]:
+    """Separa os destaques em `(ancorados, suspeitos)`.
+
+    **O que este teste pega, e o que ele não pega — a distinção importa.**
+
+    Pega a *invenção de fato*: o §7.3 dos docs registra dois destaques que não
+    existiam na aula ("o número de linhas de uma tabela verdade é 2^n",
+    "sentença aberta com incógnita não é proposição"). Eram verdade sobre
+    lógica e vieram do que o modelo já sabia. Dois sinais os denunciam:
+
+    1. **número ausente** — `2^n` não aparece em lugar nenhum daquela aula;
+    2. **vocabulário ausente** — "sentença", "aberta" e "incógnita" também não.
+
+    **Não pega a fórmula invertida.** "A negação de P ou Q é P e Q" — o erro
+    real do llama3.1:8b em 17/08/2026 — tem todas as palavras presentes no
+    corpo; o que está errado é a relação entre elas, e isso é semântica, não
+    presença. Para essa classe o remédio é o contexto do vault no prompt, que
+    põe o enunciado certo na frente do modelo.
+
+    As duas peças são complementares de propósito, e nenhuma sozinha cobre as
+    duas classes de erro. Fingir que este filtro resolve tudo seria pior que
+    não tê-lo: eu pararia de conferir.
+
+    Marca, não apaga — a regra do §Q3. O modelo pode estar certo e o corpo
+    incompleto (o Whisper perde número o tempo todo); quem decide sou eu.
+    """
+    numeros_corpo = {n.replace(" ", "") for n in _NUMERO.findall(corpo)}
+    radicais_corpo = _radicais(corpo)
+    ancorados: list[str] = []
+    suspeitos: list[str] = []
+
+    for d in destaques:
+        numeros = {n.replace(" ", "") for n in _NUMERO.findall(d)}
+        if numeros and not (numeros & numeros_corpo):
+            suspeitos.append(d)
+            continue
+
+        radicais = _radicais(d)
+        # Sem palavra de conteúdo não há o que conferir, e acusar seria pior que
+        # não testar: um destaque curto em prosa comum não é acusável.
+        if radicais:
+            presentes = len(radicais & radicais_corpo) / len(radicais)
+            if presentes < _FRACAO_MINIMA:
+                suspeitos.append(d)
+                continue
+        ancorados.append(d)
+
+    if suspeitos:
+        logger.warning(
+            f"{len(suspeitos)} destaque(s) sem âncora no corpo da aula: "
+            + " | ".join(s[:70] for s in suspeitos)
+        )
+    return ancorados, suspeitos
+
+
 async def fichar(
     corpo: str,
     *,
@@ -620,7 +723,11 @@ async def fichar(
     proximos = proximos or []
     vizinhanca = (
         _BLOCO_VIZINHOS.format(
-            lista="\n".join(f'- "{v.titulo}" — está em: {v.pasta or "(raiz)"}' for v in proximos)
+            lista="\n".join(
+                f'- "{v.titulo}" — está em: {v.pasta or "(raiz)"}'
+                + (f"\n  trecho: {v.trecho}" if v.trecho else "")
+                for v in proximos
+            )
         )
         if proximos
         else ""
@@ -650,10 +757,16 @@ async def fichar(
         logger.warning(f"Fichamento sem LLM ({type(e).__name__}); usando o título dado.")
         dado = {}
 
+    # Q3: o que cita número ou fórmula ausente do corpo vai marcado. Roda depois
+    # dos filtros de forma — não adianta conferir a âncora de um destaque que já
+    # foi descartado por ser vago.
+    ancorados, suspeitos = ancorar(_destaques_limpos(dado.get("destaques")), corpo)
+
     return Fichamento(
         titulo=latex_para_simbolo(dado.get("titulo") or tema).strip()[:120],
         resumo=latex_para_simbolo(dado.get("resumo") or "").strip(),
-        destaques=_destaques_limpos(dado.get("destaques")),
+        destaques=ancorados,
+        suspeitos=suspeitos,
         conceitos=[latex_para_simbolo(c).strip() for c in (dado.get("conceitos") or [])][:8],
         tags=_tags_limpas(dado.get("tags"), tema),
         pasta=_pasta_escolhida(dado.get("pasta"), pastas, proximos),
@@ -843,10 +956,25 @@ def montar_markdown(nota: Nota, *, fonte: str, duracao_min: float | None = None)
     if f.resumo:
         partes += ["> [!resumo] Do que se trata", f"> {f.resumo}", ""]
 
-    if f.destaques:
+    if f.destaques or f.suspeitos:
         partes += ["## Para lembrar", ""]
         partes += [f"- **{d}**" if d.endswith((".", "!", "?")) else f"- **{d}.**"
                    for d in f.destaques]
+        # Marcados, não escondidos: o modelo pode estar certo e o corpo
+        # incompleto. O `⚠` é o que me faz conferir só estes, em vez de reler
+        # os cinco — ou, pior, confiar nos cinco.
+        partes += [
+            f"- ⚠ **{d}**" if d.endswith((".", "!", "?")) else f"- ⚠ **{d}.**"
+            for d in f.suspeitos
+        ]
+        if f.suspeitos:
+            partes += [
+                "",
+                "> [!atenção] Confira os marcados com ⚠",
+                "> Citam um número ou fórmula que não aparece na transcrição. "
+                "Pode ser erro do modelo, ou pode ser a aula tendo dito e o "
+                "Whisper não ter ouvido.",
+            ]
         partes.append("")
 
     if f.perguntas:
@@ -1021,12 +1149,21 @@ DISTANCIA_MESMO_ASSUNTO = 0.44
 
 @dataclass(slots=True)
 class Vizinho:
-    """Uma nota que já existe e fala do mesmo assunto."""
+    """Uma nota que já existe e fala do mesmo assunto.
+
+    `trecho` é o pedaço que a busca casou. Ele já vinha do índice e era jogado
+    fora: a busca custava 13 s, trazia o texto dos chunks mais parecidos, e o
+    código guardava só o nome do arquivo. Numa aula de lógica isso significou
+    descartar o enunciado **correto** da Lei de Morgan — que estava numa nota
+    irmã, no mesmo resultado de busca — e deixar o modelo deduzi-la de uma
+    transcrição embaralhada.
+    """
 
     titulo: str
     caminho: Path
     pasta: str
     distancia: float | None = None
+    trecho: str = ""
 
     @property
     def wikilink(self) -> str:
@@ -1082,6 +1219,9 @@ async def vizinhos(
             caminho=caminho,
             pasta="" if pasta == "." else pasta,
             distancia=t.distancia,
+            # O primeiro chunk de cada nota é o mais próximo: `trechos` vem
+            # ordenado, e só o primeiro de cada caminho chega aqui.
+            trecho=" ".join((t.conteudo or "").split())[:_TRECHO_VIZINHO],
         )
         if len(achados) >= n:
             break

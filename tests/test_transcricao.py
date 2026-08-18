@@ -668,3 +668,105 @@ def test_caractere_de_controle_nunca_entra_na_nota():
     assert tr._destaques_limpos(["A disjunção é P \x08igvee Q na notação grande."]) == [
         "A disjunção é P igvee Q na notação grande."
     ]
+
+
+# ── Q3: o destaque ancorado no corpo ──────────────────────────────
+
+
+CORPO_AULA = """
+A negação de P e Q é não P ou não Q, e isso é a Lei de Morgan.
+No ou você coloca o e no meio e nega as duas proposições.
+A regra do inverte negando troca a ordem e nega as duas partes.
+Em 2019 e 2020 choveram questões de negação do bicondicional.
+"""
+
+
+def test_destaque_com_formula_ausente_fica_suspeito():
+    """O caso do §7.3: "o número de linhas é 2^n" numa aula que nunca disse isso.
+
+    Era verdade sobre lógica e veio do que o modelo já sabia. O que o denuncia é
+    o token raro — `2^n` não existe em lugar nenhum daquela transcrição.
+    """
+    ok, suspeitos = tr.ancorar(
+        [
+            "A negação de P e Q é não P ou não Q",
+            "O número de linhas de uma tabela verdade é 2^n",
+        ],
+        CORPO_AULA,
+    )
+    assert ok == ["A negação de P e Q é não P ou não Q"]
+    assert suspeitos == ["O número de linhas de uma tabela verdade é 2^n"]
+
+
+def test_numero_que_a_aula_disse_passa():
+    ok, suspeitos = tr.ancorar(["Choveram questões disso em 2019"], CORPO_AULA)
+    assert ok and not suspeitos
+
+
+def test_prosa_com_o_vocabulario_da_aula_passa():
+    """Reformular não é inventar.
+
+    O destaque não precisa repetir a frase: "negação" e "proposições" vieram da
+    aula, e o resto é o modelo escrevendo. Meia palavra própria presente basta —
+    exigir todas marcaria toda reformulação, que é o que se quer que ele faça.
+    """
+    ok, suspeitos = tr.ancorar(
+        ["A negação da conjunção troca o conectivo e nega as proposições"], CORPO_AULA
+    )
+    assert ok and not suspeitos
+
+
+def test_a_formula_invertida_passa_e_isso_e_sabido():
+    """O limite deste teste, documentado de propósito.
+
+    "A negação de P ou Q é P e Q" — o erro real do llama3.1:8b em 17/08/2026 —
+    tem todos os tokens no corpo; o que está errado é a relação entre eles.
+    Presença não pega semântica. Para essa classe o remédio é o contexto do
+    vault no prompt, não este filtro.
+    """
+    ok, suspeitos = tr.ancorar(["A negação de P ou Q é P e Q"], CORPO_AULA)
+    assert ok and not suspeitos
+
+
+def test_simbolo_logico_nao_e_ancora_de_proposito():
+    """`¬P ∨ ¬Q` contra "não P ou não Q" — comparar símbolo com palavra marcaria
+    como suspeito todo destaque bem escrito, e o ⚠ viraria ruído."""
+    ok, suspeitos = tr.ancorar(["A negação de P ∧ Q é ¬P ∨ ¬Q, a Lei de Morgan"], CORPO_AULA)
+    assert ok and not suspeitos
+
+
+def test_vocabulario_estranho_a_aula_fica_suspeito():
+    """O segundo caso do §7.3, que número nenhum denunciaria.
+
+    "Sentença aberta (com incógnita) não é proposição" é verdade sobre lógica e
+    não foi dito naquela aula. Quem entrega é o vocabulário próprio: "sentença",
+    "aberta" e "incógnita" não aparecem em lugar nenhum da transcrição.
+    """
+    ok, suspeitos = tr.ancorar(
+        ["Sentença aberta, com incógnita, não é proposição"], CORPO_AULA
+    )
+    assert suspeitos and not ok
+
+
+# ── o contexto do vault no prompt ─────────────────────────────────
+
+
+def test_vizinho_carrega_o_trecho_e_ele_vai_para_o_prompt():
+    """A busca já trazia o texto; o código guardava só o nome do arquivo.
+
+    Numa aula de lógica isso significou descartar o enunciado correto da Lei de
+    Morgan, que estava numa nota irmã no mesmo resultado de busca.
+    """
+    v = tr.Vizinho(
+        titulo="Lógica Proposicional 3",
+        caminho=Path("/vault/logica-3.md"),
+        pasta="Pessoal/Matemática",
+        trecho="A negação de P ∨ Q é ¬P ∧ ¬Q, pela Lei de Morgan.",
+    )
+    bloco = tr._BLOCO_VIZINHOS.format(
+        lista=f'- "{v.titulo}" — está em: {v.pasta}\n  trecho: {v.trecho}'
+    )
+    assert "¬P ∧ ¬Q" in bloco
+    # E o prompt tem que dizer que aquilo NÃO é fonte de destaque, senão o
+    # contexto vira a próxima causa do §7.3.
+    assert "PROIBIDO tirar destaque daqui" in bloco
