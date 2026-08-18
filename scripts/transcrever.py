@@ -23,10 +23,11 @@ volto para corrigir — e nome ruim de nota é o que faz a busca não achar depo
 
 ## Por que Whisper local e não uma API
 
-Reunião de trabalho e aula com dados de cliente não saem desta máquina. O
-`small` num Ryzen 5600 roda em ~4× tempo real com 12 threads, o que sobra para
-transcrever ao vivo sem atrasar. `--modelo medium` fica melhor em português e
-ainda acompanha; a GPU fica livre para o Ollama, que é quem reescreve depois.
+Reunião de trabalho e aula com dados de cliente não saem desta máquina. E desde
+que o Whisper foi para a GPU, "local" deixou de custar qualidade: `--arquivo`
+usa o `large-v3` inteiro, e a gravação ao vivo usa o `turbo`, que divide a placa
+com o Ollama sem atrasar. `--modelo` e `--dispositivo` forçam outra escolha numa
+rodada, para medir uma contra a outra sem editar o `.env`.
 """
 from __future__ import annotations
 
@@ -43,6 +44,7 @@ from pathlib import Path
 
 from app.config import settings
 from app.conhecimento import transcricao as tr
+from app.conhecimento import whisper as wh
 from app.conhecimento.varredura import ingerir
 from app.db.session import dispose_engine
 
@@ -88,20 +90,26 @@ def listar_fontes() -> None:
 
 
 class Whisper:
-    """O modelo, carregado uma vez. Import tardio: `faster_whisper` custa 3 s."""
+    """O modelo, carregado uma vez, pela mesma regra que o painel usa.
 
-    def __init__(self, nome: str, *, idioma: str | None, dispositivo: str = "cpu") -> None:
-        from faster_whisper import WhisperModel
+    `folgado` diz se alguém mais está na GPU: transcrever um arquivo tem a placa
+    inteira e leva o `large-v3`; gravar ao vivo divide com o Ollama e leva o
+    `turbo` quantizado. A regra mora em `app/conhecimento/whisper.py`.
+    """
 
-        print(f"{CINZA}carregando Whisper '{nome}' ({dispositivo})…{FIM}", flush=True)
-        # int8 na CPU: metade da RAM e praticamente a mesma qualidade num modelo
-        # deste tamanho. `cpu_threads=0` deixa o ctranslate2 usar todos os núcleos.
-        self.modelo = WhisperModel(
-            nome,
-            device=dispositivo,
-            compute_type="int8" if dispositivo == "cpu" else "float16",
-            cpu_threads=0,
+    def __init__(
+        self,
+        *,
+        folgado: bool,
+        idioma: str | None,
+        modelo: str | None = None,
+        dispositivo: str | None = None,
+    ) -> None:
+        nome, onde, precisao = wh.escolher(
+            folgado=folgado, modelo=modelo, dispositivo=dispositivo
         )
+        print(f"{CINZA}carregando Whisper '{nome}' ({onde}/{precisao})…{FIM}", flush=True)
+        self.modelo = wh.carregar(folgado=folgado, modelo=modelo, dispositivo=dispositivo)
         self.idioma = idioma
 
     def transcrever(self, caminho: Path) -> str:
@@ -114,7 +122,7 @@ class Whisper:
         return " ".join(s.text.strip() for s in segmentos).strip()
 
 
-def gravar_ao_vivo(whisper: Whisper, fonte: str, pasta: Path) -> tuple[str, float]:
+def gravar_ao_vivo(motor: Whisper, fonte: str, pasta: Path) -> tuple[str, float]:
     """Grava e transcreve em paralelo até eu mandar parar. Devolve texto e minutos."""
     _exige("ffmpeg")
     _exige("pactl")
@@ -147,7 +155,7 @@ def gravar_ao_vivo(whisper: Whisper, fonte: str, pasta: Path) -> tuple[str, floa
             atual, proximo = pasta / f"p{i:05d}.wav", pasta / f"p{i + 1:05d}.wav"
             if atual.exists() and (proximo.exists() or parar.is_set()):
                 try:
-                    texto = whisper.transcrever(atual)
+                    texto = motor.transcrever(atual)
                     if texto:
                         trechos.append(texto)
                         print(f"{VERDE}▸{FIM} {texto}\n", flush=True)
@@ -229,17 +237,24 @@ async def executar(args: argparse.Namespace) -> int:
         sys.exit(f"Vault não encontrado: {vault}. Use --vault.")
 
     idioma = None if args.idioma == "auto" else args.idioma
-    whisper = Whisper(args.modelo, idioma=idioma, dispositivo=args.dispositivo)
+    # Transcrever um arquivo não disputa a GPU com nada: ninguém está reescrevendo
+    # bloco ao vivo. É o caso `folgado`, e é onde o `large-v3` inteiro cabe.
+    motor = Whisper(
+        folgado=bool(args.arquivo),
+        idioma=idioma,
+        modelo=args.modelo,
+        dispositivo=args.dispositivo,
+    )
 
     if args.arquivo:
         caminho = Path(args.arquivo).expanduser()
         if not caminho.exists():
             sys.exit(f"Arquivo não encontrado: {caminho}")
         print(f"{CINZA}transcrevendo {caminho.name}…{FIM}")
-        bruto, minutos, fonte = whisper.transcrever(caminho), None, str(caminho)
+        bruto, minutos, fonte = motor.transcrever(caminho), None, str(caminho)
     else:
         temp = Path("/tmp") / f"copiloto-audio-{datetime.now(UTC):%H%M%S}"
-        bruto, minutos = gravar_ao_vivo(whisper, args.fonte, temp)
+        bruto, minutos = gravar_ao_vivo(motor, args.fonte, temp)
         fonte = f"gravação ({args.fonte})"
 
     if not bruto:
@@ -281,10 +296,10 @@ def _argumentos() -> argparse.Namespace:
                    help="'sistema' grava o que está tocando; 'mic', o microfone.")
     p.add_argument("--arquivo", help="Transcreve um arquivo em vez de gravar.")
     p.add_argument("--tema", help="Uma pista do assunto (o título vem no fim).")
-    p.add_argument("--modelo", default="small",
-                   help="Modelo Whisper: tiny, base, small, medium, large-v3.")
-    p.add_argument("--dispositivo", default="cpu", choices=["cpu", "cuda"],
-                   help="'cpu' deixa a GPU livre para o Ollama (padrão).")
+    p.add_argument("--modelo",
+                   help="Força o modelo Whisper nesta rodada (padrão: o do .env).")
+    p.add_argument("--dispositivo", choices=["auto", "cpu", "cuda"],
+                   help="Força onde rodar nesta rodada (padrão: o do .env).")
     p.add_argument("--idioma", default="pt", help="'pt', 'en' ou 'auto'.")
     p.add_argument("--vault", help="Raiz do vault (padrão: a fonte 'nota' do .env).")
     p.add_argument("--sem-llm", action="store_true",

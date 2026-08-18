@@ -40,6 +40,17 @@ dev = [
 transcricao = [
     "faster-whisper==1.2.1",
 ]
+# O Whisper na GPU. Separado de `transcricao` porque são ~1,1 GB de bibliotecas
+# e porque o caminho de CPU continua funcionando sem elas — máquina sem NVIDIA
+# instala só o `transcricao` e cai no `int8` da CPU sozinha.
+#
+# O ctranslate2 abre estas duas com `dlopen` na PRIMEIRA INFERÊNCIA, não ao
+# carregar o modelo: sem elas o `WhisperModel(device="cuda")` constrói normal e
+# só quebra ao transcrever. `app/conhecimento/whisper.py` as carrega no processo.
+transcricao-gpu = [
+    "nvidia-cublas-cu12",
+    "nvidia-cudnn-cu12>=9,<10",
+]
 # Testes de navegador (tests/ui). Separado do `dev` porque baixa ~130 MB de
 # Chromium e porque a suíte padrão não depende dele — ver docs/fase06.md §E1.
 #   pip install -e ".[dev,ui]" && playwright install chromium

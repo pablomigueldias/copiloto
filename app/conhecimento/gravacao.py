@@ -26,15 +26,20 @@ Agora cada bloco vai para o LLM **no instante em que fecha**, com o vídeo ainda
 rodando. Ao apertar parar sobra um bloco (o último, incompleto) e o fichamento:
 ~1 min em vez de 3 min 30. Ver docs/fase-transcricao.md §P1.
 
-São duas tarefas, e a separação é o ponto: `_consumir` transcreve (CPU,
-faster-whisper) e `_reescrever_ao_vivo` reescreve (GPU, Ollama). Se a inferência
+São duas tarefas, e a separação é o ponto: `_consumir` transcreve
+(faster-whisper) e `_reescrever_ao_vivo` reescreve (Ollama). Se a inferência
 rodasse dentro do laço de transcrição, o texto na tela congelaria 30 s a cada 4
 minutos — justo o retorno que me faz notar que a fonte de áudio está errada.
 
+As duas dividem a mesma placa desde que o Whisper saiu da CPU, e é por isso que
+a gravação carrega o modelo pequeno (`turbo` quantizado, 1.217 MiB medidos) e o
+caminho de arquivo carrega o `large-v3` inteiro (3.905 MiB, que só cabem quando
+ninguém mais está lá) — ver `app/conhecimento/whisper.py`.
+
 ## Uma sessão por vez
 
-É deliberado. A GPU é uma só, o Whisper come CPU, e não existe caso real de
-gravar duas reuniões ao mesmo tempo. Estado em memória de processo, sem tabela:
+É deliberado. A GPU é uma só — e agora o Whisper também está nela —, e não
+existe caso real de gravar duas reuniões ao mesmo tempo. Estado em memória de processo, sem tabela:
 uma gravação não sobrevive a um restart do servidor de propósito — o áudio já
 teria sido perdido junto.
 
@@ -55,6 +60,7 @@ from pathlib import Path
 
 from app.config import DATA_DIR, settings
 from app.conhecimento import transcricao as tr
+from app.conhecimento import whisper
 from app.utils.logger import get_logger
 
 logger = get_logger()
@@ -194,31 +200,26 @@ def _exige(programa: str) -> None:
 
 
 def _carregar_whisper():
-    """Carrega o Whisper uma vez. Import tardio: `faster_whisper` custa ~3 s."""
+    """Carrega o Whisper uma vez, na configuração de gravação ao vivo.
+
+    `folgado=False` porque aqui a GPU é dividida: o `_reescrever_ao_vivo` está
+    mandando bloco para o Ollama enquanto este laço transcreve. Ver
+    `app/conhecimento/whisper.py`.
+    """
     global _modelo
     if _modelo is None:
         try:
-            from faster_whisper import WhisperModel
-        except ImportError as e:
-            raise GravacaoErro(
-                "faster-whisper não instalado. Rode: pip install -e '.[transcricao]'"
-            ) from e
-        logger.info(f"Carregando Whisper '{settings.whisper_modelo}' (cpu/int8)...")
-        # CPU de propósito: a GPU fica livre para o Ollama, que é quem reescreve
-        # depois. Num Ryzen 5600 o `small` roda a ~6,6× tempo real — folga de
-        # sobra para acompanhar ao vivo.
-        _modelo = WhisperModel(
-            settings.whisper_modelo, device="cpu", compute_type="int8", cpu_threads=0
-        )
+            _modelo = whisper.carregar(folgado=False)
+        except RuntimeError as e:
+            raise GravacaoErro(str(e)) from e
     return _modelo
 
 
 def _transcrever(caminho: Path) -> str:
     modelo = _carregar_whisper()
-    idioma = None if settings.whisper_idioma == "auto" else settings.whisper_idioma
     segmentos, _ = modelo.transcribe(
         str(caminho),
-        language=idioma,
+        language=whisper.idioma(),
         vad_filter=True,      # corta silêncio: menos alucinação em pausa longa
         beam_size=5,
     )
