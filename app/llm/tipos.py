@@ -78,9 +78,15 @@ class Provider(Protocol):
 
 @dataclass(slots=True)
 class Rota:
-    """Para onde vai cada tarefa."""
+    """Para onde vai cada tarefa.
+
+    `provider` nasceu quando `compreender` saiu da máquina: a tarefa continua a
+    mesma, o modelo e o servidor é que mudam. Quem chama o gateway não sabe —
+    e não deve saber — se a resposta veio da GPU ou de uma API.
+    """
 
     modelo: str
     json_mode: bool = False
     temperatura: float | None = None
     opcoes: dict = field(default_factory=dict)
+    provider: str = "ollama"

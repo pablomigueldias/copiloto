@@ -5,20 +5,35 @@ ausência disso no repo antigo que produziu quatro caminhos diferentes de
 chamada, dos quais só um gravava observabilidade — justamente o pago, deixando
 cego o caminho que mais erra.
 
-Cinco responsabilidades, nesta ordem:
+Seis responsabilidades, nesta ordem:
 
 1. roteamento por tarefa      — o modelo certo, sem o chamador saber o nome dele
-2. semáforo global            — uma inferência por vez nos 6 GB da 2060
+2. semáforo global            — uma inferência LOCAL por vez nos 6 GB da 2060
 3. JSON com retry e reprompt  — devolve dict válido ou erro explícito
 4. circuit breaker por modelo — Ollama caído não vira 200 timeouts em fila
-5. observabilidade sempre     — sucesso e falha, com o número de tentativas
+5. queda para o local         — API fora do ar não faz perder a nota da aula
+6. observabilidade sempre     — sucesso e falha, um registro por destino
+
+## Sobre a §5, que é nova
+
+O escape para API externa que o `tipos.py` previa desde a Fase 1 chegou, e
+chegou pequeno: **uma tarefa**. `compreender` — o fichamento da transcrição — é
+onde o modelo local não chegou, e a medida é de aula real (17/08/2026): mesmo
+corpo, mesmo prompt, o llama3.1:8b enunciou "a negação de P ou Q é P e Q", uma
+Lei de Morgan sem as negações. O resto continua na máquina, e sem chave no
+`.env` **tudo** continua na máquina.
+
+O chamador não sabe de nada disso. `gerar(tarefa="compreender")` é a mesma
+linha de antes; o que mudou é para onde o gateway a leva, e para onde ele a
+leva de volta quando a API responde 503.
 """
 from __future__ import annotations
 
 import asyncio
 import json
 import time
-from dataclasses import dataclass, field
+from contextlib import nullcontext
+from dataclasses import dataclass, field, replace
 from datetime import UTC, datetime, timedelta
 
 from app.config import settings
@@ -39,39 +54,109 @@ from app.utils.logger import get_logger
 
 logger = get_logger()
 
-# Uma inferência por vez. Duas chamadas concorrentes em 6 GB não ficam lentas:
-# uma delas escorrega para a RAM e o tempo explode uma ordem de grandeza. O
-# semáforo é de processo — quando o worker da F4 chegar, o limite continua
-# valendo porque a GPU é uma só (daí NUM_PARALLEL=1 no servidor também).
+# Uma inferência **local** por vez. Duas chamadas concorrentes em 6 GB não ficam
+# lentas: uma delas escorrega para a RAM e o tempo explode uma ordem de
+# grandeza. O semáforo é de processo — quando o worker da F4 chegar, o limite
+# continua valendo porque a GPU é uma só (daí NUM_PARALLEL=1 no servidor também).
+#
+# Chamada de API **não** entra aqui: ela não disputa VRAM, e prendê-la no mesmo
+# semáforo faria o fichamento de 9 s bloquear a reescrita do bloco seguinte —
+# exatamente o que a Fase T desfez ao mover o trabalho para dentro da aula.
 _semaforo = asyncio.Semaphore(1)
 
-_provider: Provider = OllamaProvider()
+_providers: dict[str, Provider] = {"ollama": OllamaProvider()}
+_forcado: Provider | None = None
 
 
-def usar_provider(p: Provider) -> None:
-    """Troca o provider — usado pelos testes e pelo bake-off."""
-    global _provider
-    _provider = p
+def usar_provider(p: Provider | None) -> None:
+    """Manda tudo para este provider — usado pelos testes e pelo bake-off.
+
+    `None` devolve o roteamento normal. É um martelo de propósito: um teste que
+    troca o provider quer que **nenhuma** chamada escape para a rede, inclusive
+    a que a rota mandaria para fora.
+    """
+    global _forcado
+    _forcado = p
 
 
-def rota(tarefa: Tarefa) -> Rota:
+def _obter(nome: str) -> Provider:
+    if _forcado is not None:
+        return _forcado
+    if nome not in _providers:
+        from app.llm.providers.gemini import GeminiProvider
+
+        _providers[nome] = GeminiProvider()
+    return _providers[nome]
+
+
+def _casa(tarefa: Tarefa, agente: str | None, regras: list[str]) -> bool:
+    """A regra bate pela tarefa exata ou por prefixo do agente.
+
+    Dois critérios porque um não basta. `redigir` é a mesma tarefa em
+    `conhecimento.transcricao.bloco3` (8× por aula, tem que ficar na GPU que a
+    Fase T liberou) e em `candidatura.curriculo.experiencias` (o texto que vai
+    para uma entrevista). O agente é o que os separa.
+    """
+    if tarefa in regras:
+        return True
+    return bool(agente) and any(agente.startswith(p) for p in regras)
+
+
+def _sai_da_maquina(tarefa: Tarefa, agente: str | None) -> bool:
+    """Só com chave configurada. Sem ela, o `.env` pode pedir o que quiser."""
+    if not settings.gemini_api_key:
+        return False
+    return _casa(tarefa, agente, settings.gemini_tarefas_list) or _casa(
+        tarefa, agente, settings.gemini_agentes_list
+    )
+
+
+def _modelo_de_fora(tarefa: Tarefa, agente: str | None) -> str:
+    """Pesado onde errar custa caro; o padrão no resto."""
+    if _casa(tarefa, agente, settings.gemini_pesado_list):
+        return settings.gemini_model_pesado
+    return settings.gemini_model
+
+
+def rota(tarefa: Tarefa, agente: str | None = None) -> Rota:
     """Qual modelo atende cada tarefa.
 
     Tabela lida do settings a cada chamada, e não congelada no import: trocar
     de modelo é editar o `.env` e reiniciar, nunca mexer em código.
+
+    A forma da tarefa (JSON ou não, temperatura) é decidida primeiro e vale para
+    os dois providers — é propriedade da tarefa, não do servidor. Só depois o
+    destino muda, se o `.env` mandar.
     """
     if tarefa in ("classificar", "extrair"):
         # Saída estruturada, temperatura baixa: aqui criatividade é defeito.
-        return Rota(modelo=settings.ollama_model_extracao, json_mode=True, temperatura=0.1)
-    if tarefa == "compreender":
+        r = Rota(modelo=settings.ollama_model_extracao, json_mode=True, temperatura=0.1)
+    elif tarefa == "compreender":
         # Também devolve JSON, mas a semelhança para aí: "extrair" é achar o que
         # está escrito, e isto é **ler 3.000 palavras e dizer do que elas
-        # tratam**. Medido no fichamento de uma aula de 26 min: o phi4-mini
-        # (2,5 GB) propôs 2 destaques e um título que repetia a mesma palavra
-        # duas vezes; o llama3.1:8b propôs 5 fatos com os símbolos certos. Custa
-        # 37 s contra 7 s, numa nota que já leva 3 min de reescrita.
-        return Rota(modelo=settings.ollama_model_pesado, json_mode=True, temperatura=0.1)
-    return Rota(modelo=settings.ollama_model_redacao, temperatura=0.7)
+        # tratam**. É a tarefa onde o modelo local não chegou: na aula de
+        # 17/08/2026 o llama3.1:8b enunciou uma Lei de Morgan falsa. Ver
+        # `settings.gemini_tarefas`.
+        r = Rota(modelo=settings.ollama_model_pesado, json_mode=True, temperatura=0.1)
+    else:
+        r = Rota(modelo=settings.ollama_model_redacao, temperatura=0.7)
+
+    if _sai_da_maquina(tarefa, agente):
+        return replace(r, modelo=_modelo_de_fora(tarefa, agente), provider="gemini")
+    return r
+
+
+def rota_local(tarefa: Tarefa, agente: str | None = None) -> Rota:
+    """A rota que valeria sem chave nenhuma — o destino da queda."""
+    r = rota(tarefa, agente)
+    if r.provider == "ollama":
+        return r
+    local = {
+        "classificar": settings.ollama_model_extracao,
+        "extrair": settings.ollama_model_extracao,
+        "compreender": settings.ollama_model_pesado,
+    }.get(tarefa, settings.ollama_model_redacao)
+    return replace(r, modelo=local, provider="ollama")
 
 
 # ── Circuit breaker ───────────────────────────────────────────────
@@ -193,43 +278,42 @@ class _Tentativa:
     campos: dict = field(default_factory=dict)
 
 
-async def gerar(
+async def _tentar(
     prompt: str,
     *,
-    tarefa: Tarefa,
+    r: Rota,
+    modelo_usado: str,
     agente: str,
-    json_schema: dict | None = None,
-    max_tentativas: int | None = None,
-    alvo_ref: str | None = None,
-    modelo: str | None = None,
-    temperatura: float | None = None,
-) -> LLMResult:
-    """Gera texto (ou JSON) com o modelo da tarefa.
+    tarefa: Tarefa,
+    json_schema: dict | None,
+    tentativas_max: int,
+    temperatura: float | None,
+) -> tuple[LLMResult | None, Exception | None, _Tentativa]:
+    """O laço de tentativas contra **um** destino. Não grava observabilidade.
 
-    Levanta `JSONInvalido` se pediram JSON e o modelo não entregou depois dos
-    reprompts, e `LLMIndisponivel` se o servidor não respondeu. Nunca devolve
-    resultado meio-válido: quem chama trata a exceção ou confia no retorno.
+    Separado de `gerar` porque agora existem dois destinos possíveis para a
+    mesma chamada, e cada um precisa do seu próprio registro no `ai_calls` —
+    uma falha da API que aparecesse no painel como sucesso do modelo local
+    esconderia justamente o que se quer saber.
     """
-    r = rota(tarefa)
-    modelo_usado = modelo or r.modelo
     quer_json = json_schema is not None
-    tentativas_max = max_tentativas or settings.llm_max_tentativas
-
-    _checar_breaker(modelo_usado)
-
     t0 = time.perf_counter()
     ultimo = _Tentativa()
     resultado: LLMResult | None = None
     erro: Exception | None = None
     tentativa = 0
     prompt_atual = prompt
+    provider = _obter(r.provider)
 
-    async with _semaforo:
+    # Só o que disputa VRAM entra na fila. Ver o comentário do `_semaforo`.
+    porteiro = _semaforo if r.provider == "ollama" else nullcontext()
+
+    async with porteiro:
         while tentativa < tentativas_max:
             tentativa += 1
             base = temperatura if temperatura is not None else r.temperatura
             try:
-                cru = await _provider.gerar(
+                cru = await provider.gerar(
                     prompt_atual,
                     modelo=modelo_usado,
                     json_mode=quer_json or r.json_mode,
@@ -297,41 +381,118 @@ async def gerar(
             f"Última saída: {ultimo.texto[:300]!r}"
         )
 
-    latencia = int((time.perf_counter() - t0) * 1000)
+    if resultado is not None:
+        resultado.latencia_ms = int((time.perf_counter() - t0) * 1000)
+    return resultado, erro, ultimo
 
-    # Grava em todo desfecho. Uma falha de LLM que não deixa rastro é uma hora
-    # de depuração depois.
-    await registrar_ai_call(
-        AiCallRecord(
+
+async def gerar(
+    prompt: str,
+    *,
+    tarefa: Tarefa,
+    agente: str,
+    json_schema: dict | None = None,
+    max_tentativas: int | None = None,
+    alvo_ref: str | None = None,
+    modelo: str | None = None,
+    temperatura: float | None = None,
+) -> LLMResult:
+    """Gera texto (ou JSON) com o modelo da tarefa.
+
+    Levanta `JSONInvalido` se pediram JSON e o modelo não entregou depois dos
+    reprompts, e `LLMIndisponivel` se nenhum destino respondeu. Nunca devolve
+    resultado meio-válido: quem chama trata a exceção ou confia no retorno.
+
+    **A queda para o local.** Quando a rota manda para fora, o modelo local
+    entra como segundo destino se a API não responder. O 503 "high demand" do
+    Gemini apareceu no primeiro teste desta integração — uma nota de aula não
+    pode se perder porque um servidor de terceiro teve pico. A queda é só para
+    `LLMIndisponivel`: JSON fora do schema é problema de prompt, e o modelo
+    local erraria igual, mais devagar.
+    """
+    r = rota(tarefa, agente)
+    tentativas_max = max_tentativas or settings.llm_max_tentativas
+
+    destinos = [r]
+    # `modelo=` explícito é o bake-off pedindo um modelo por nome. Cair para
+    # outro seria medir a coisa errada.
+    if r.provider != "ollama" and modelo is None:
+        destinos.append(rota_local(tarefa, agente))
+
+    erro_final: Exception | None = None
+    for i, destino in enumerate(destinos):
+        alvo = modelo or destino.modelo
+        try:
+            _checar_breaker(alvo)
+        except LLMCircuitoAberto as e:
+            # Circuito aberto não é motivo para desistir: é motivo para usar o
+            # outro destino, que é justamente o que ele existe para permitir.
+            erro_final = e
+            continue
+
+        t0 = time.perf_counter()
+        resultado, erro, ultimo = await _tentar(
+            prompt,
+            r=destino,
+            modelo_usado=alvo,
             agente=agente,
             tarefa=tarefa,
-            provider=getattr(_provider, "nome", "?"),
-            modelo=modelo_usado,
-            prompt=prompt,
-            resposta=ultimo.texto or None,
-            tokens_input=ultimo.campos.get("tokens_input"),
-            tokens_output=ultimo.campos.get("tokens_output"),
-            latencia_ms=latencia,
-            sucesso=erro is None,
-            finish_reason=ultimo.campos.get("finish_reason"),
-            erro=f"{type(erro).__name__}: {erro}" if erro else None,
-            alvo_ref=alvo_ref,
+            json_schema=json_schema,
+            tentativas_max=tentativas_max,
+            temperatura=temperatura,
         )
-    )
 
-    if erro is not None:
-        _registrar_falha(modelo_usado)
-        raise erro
+        # Grava em todo desfecho, e um registro por destino. Uma falha de LLM
+        # que não deixa rastro é uma hora de depuração depois.
+        await registrar_ai_call(
+            AiCallRecord(
+                agente=agente,
+                tarefa=tarefa,
+                # Quem de fato atendeu, não quem a rota pediu: com o provider
+                # forçado (teste, bake-off) os dois divergem, e o painel tem que
+                # dizer a verdade sobre onde o token foi gasto.
+                provider=getattr(_obter(destino.provider), "nome", destino.provider),
+                modelo=alvo,
+                prompt=prompt,
+                resposta=ultimo.texto or None,
+                tokens_input=ultimo.campos.get("tokens_input"),
+                tokens_output=ultimo.campos.get("tokens_output"),
+                latencia_ms=int((time.perf_counter() - t0) * 1000),
+                sucesso=erro is None,
+                finish_reason=ultimo.campos.get("finish_reason"),
+                erro=f"{type(erro).__name__}: {erro}" if erro else None,
+                alvo_ref=alvo_ref,
+            )
+        )
 
-    _registrar_sucesso(modelo_usado)
-    assert resultado is not None
-    return resultado
+        if erro is None:
+            _registrar_sucesso(alvo)
+            assert resultado is not None
+            return resultado
+
+        _registrar_falha(alvo)
+        erro_final = erro
+        if not isinstance(erro, LLMIndisponivel):
+            break
+        if i + 1 < len(destinos):
+            logger.warning(
+                f"[{agente}/{tarefa}] {destino.provider} indisponível ({erro}); "
+                f"caindo para o modelo local."
+            )
+
+    assert erro_final is not None
+    raise erro_final
 
 
 async def embedar(textos: list[str], *, modelo: str | None = None) -> list[list[float]]:
-    """Vetores para o RAG. Em lote — uma chamada por texto seria absurdo."""
+    """Vetores para o RAG. Em lote — uma chamada por texto seria absurdo.
+
+    Sempre local: o índice é bge-m3 de 1024 dimensões, e trocar o embedder
+    significaria reindexar 2.099 chunks e migrar a coluna do pgvector.
+    """
     async with _semaforo:
-        return await _provider.embedar(textos, modelo=modelo or settings.ollama_model_embedding)
+        provider = _obter("ollama")
+        return await provider.embedar(textos, modelo=modelo or settings.ollama_model_embedding)
 
 
 __all__ = [
