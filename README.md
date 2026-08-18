@@ -1,27 +1,34 @@
 # Copiloto
 
-> Assistente pessoal autônomo, **local-first**, 100% open source.
+> Assistente pessoal autônomo. **Local por padrão, externo por medida.**
 > Não é uma IA que sabe tudo. É uma IA que sabe **do meu mundo**.
 
-Um modelo pequeno rodando na minha máquina (Ollama, 6 GB de VRAM), cercado de
+Modelos pequenos rodando na minha máquina (Ollama, 6 GB de VRAM), cercados de
 contexto sobre um domínio restrito: meus projetos, meu jeito de escrever, minha
-stack, meu mercado. Nenhuma API paga, nenhum dado meu saindo do computador.
+stack, meu mercado.
 
 > **Modelo pequeno com o contexto certo bate modelo grande sem contexto,
 > na tarefa específica.**
 
+Isso continua sendo o princípio — e ele tem um limite, que eu encontrei medindo.
+Numa aula de lógica proposicional, o `llama3.1:8b` escreveu *"a negação de P ou Q
+é P e Q"*: uma Lei de Morgan sem as negações, falsa, na seção "Para lembrar" de
+uma nota de estudo para concurso. **Quatro tarefas saíram da máquina por causa
+disso**, e o resto ficou. Onde e por quê está em
+[`docs/fase-hibrida.md`](docs/fase-hibrida.md).
+
 ```
 FastAPI · SQLAlchemy 2.0 async · PostgreSQL 16 + pgvector · Alembic
-Ollama (Qwen3 · Gemma · Llama 3.1 · bge-m3) · Redis + arq · faster-whisper
-Front em HTML/CSS/JS puro, sem build
+Ollama (Gemma · Phi-4 · Llama 3.1 · bge-m3) · Gemini API · Redis + arq
+faster-whisper large-v3 na GPU · front em HTML/CSS/JS puro, sem build
 ```
 
 | | |
 |---|---|
-| **464 testes** | 447 de unidade/integração + 17 de navegador (Playwright) |
-| **12.500 linhas** de Python | 105 arquivos, `ruff` limpo |
-| **2.400 linhas** de front | sem `node_modules`, sem build, módulos ES nativos |
-| **2.099 chunks** indexados | 291 documentos: notas, PDFs, repositórios |
+| **544 testes** | 527 de unidade/integração + 17 de navegador (Playwright) |
+| **13.000 linhas** de Python | 102 arquivos, `ruff` limpo |
+| **2.425 linhas** de front | sem `node_modules`, sem build, módulos ES nativos |
+| **2.189 chunks** indexados | 294 documentos: 221 notas, 44 PDFs, 26 repos |
 
 ---
 
@@ -39,6 +46,10 @@ não acha "pgvector" escrito exatamente assim, e a lexical não acha
 a resposta é "não está nas minhas notas" em 0,2 s, em vez de uma alucinação
 educada. Numa avaliação de 12 perguntas fixas — 8 com resposta no índice, 4 sem
 — o acerto foi 12/12.
+
+O índice e a busca são **inteiramente locais**: o embedder é o `bge-m3` na minha
+máquina, e trocá-lo custaria reindexar 2.189 chunks e migrar a dimensão da
+coluna no pgvector, sem evidência de que ele seja o gargalo.
 
 ### 2. Adapta meu currículo a uma vaga, sem inventar nada
 
@@ -62,42 +73,49 @@ cuja página 2 tem três linhas parece descuido antes de qualquer conteúdo.
 ### 3. Transcreve aula e reunião, e organiza no meu vault
 
 Aperto **gravar** no painel, assisto o vídeo, e o texto vai aparecendo na tela a
-cada 20 segundos (Whisper local, CPU, ~6,6× tempo real). Ao parar, o modelo
-organiza e eu confirmo o nome.
+cada 20 segundos. Os blocos são reescritos **durante a aula**, na GPU que antes
+ficava ociosa: ao parar sobra um bloco e o fichamento, ~75 s em vez de 3 min 30.
 
 O resultado não é a transcrição bem formatada — é uma nota de estudo:
 
 ```markdown
 ---
-titulo: "Conectivos Lógicos em Lógica Proposicional"
-tags: [logica-proposicional, conectivos, tabela-verdade]
-duracao_min: 26
+titulo: "Lógica Proposicional 5 — Negações e Equivalências"
+tags: [logica-proposicional, negacao, equivalencia, leis-de-morgan]
+duracao_min: 30
 ---
 
 ## Para lembrar
-- **Uma tabela verdade tem 2^n linhas, onde n é o número de proposições.**
-- **Sentença aberta, com incógnita, não é proposição.**
+- **A negação da conjunção (P ∧ Q) é ¬P ∨ ¬Q — Lei de Morgan.**
+- **A condicional (P → Q) equivale à contrapositiva (¬Q → ¬P).**
 
 ## Conteúdo
-`⏱ 07:20`
-### O Conectivo Bicondicional
+`⏱ 04:20`
+### Negação das Operações Lógicas
 ...
 
 ## Relacionado
-- [[logica-proposicional-p-e-q]]
+- [[logica-proposicional-3-conectivos-parte-2]]
 ```
 
-**Onde a nota mora não é chute.** A pasta vem da vizinhança semântica: quais
-notas do índice falam do mesmo assunto, e onde elas moram. Sem vizinho próximo
-(distância > 0,44, medida), a nota vai para `_inbox` e a tela diz "assunto
-novo" — o sistema só afirma o destino quando tem evidência dele.
+**O título não é chute, e a pasta também não.** Os dois vêm do vault: a busca
+semântica traz as notas irmãs *com o trecho que casou*, e o modelo vê que as
+vizinhas se chamam "Lógica Proposicional 1/3/4 —" antes de nomear esta. Sem
+vizinho próximo (distância > 0,44, medida), a nota vai para `_inbox` e a tela
+diz "assunto novo" — o sistema só afirma o destino quando tem evidência dele.
+
+**E o destaque é conferido contra a aula.** O que cita um número ou um
+vocabulário que não aparece na transcrição sai marcado com ⚠, nunca apagado: o
+modelo pode estar certo e o Whisper ter perdido a frase.
 
 ### 4. Acompanha as candidaturas
 
 O que foi enviado, o que respondeu, o que sumiu, e o que precisa de follow-up
 hoje. Com métricas: funil, taxa de resposta, dias até responder, e — a mais
-útil — **os requisitos que mais se repetem nas vagas e que eu não tenho**.
-Trinta candidaturas viram uma lista de estudo derivada do que o mercado pediu.
+útil — **os requisitos que mais se repetem nas vagas e que eu não tenho**. A
+ideia é que trinta candidaturas virem uma lista de estudo derivada do que o
+mercado pediu; hoje são 2 vagas e 33 eventos, então a métrica existe e a amostra
+ainda não.
 
 ---
 
@@ -109,11 +127,11 @@ Máquinas de estado no Postgres, pipelines determinísticos em Python. O LLM ent
 em nós isolados — classificar, extrair, reescrever, resumir — sempre com parser
 tolerante a falha e retry.
 
-Um 8B quantizado não é confiável para escolher qual ferramenta chamar, em que
-ordem, e avaliar se deu certo. **Mas é ótimo para reescrever um parágrafo.**
+Isso **não mudou** quando parte do LLM saiu da máquina, e é o que tornou a saída
+barata: trocar o destino de uma tarefa é editar o `.env`, porque nenhum agente
+fala com modelo nenhum diretamente.
 
-Isso não é teoria: cada vez que o modelo errou, o conserto foi mover a decisão
-para código.
+Cada vez que o modelo errou, o conserto foi mover a decisão para código:
 
 | o modelo errou | o conserto |
 |---|---|
@@ -122,6 +140,7 @@ para código.
 | ouviu "pigvector" | glossário de substituição |
 | manteve "se inscreve no canal" | filtro de ruído por padrão fechado |
 | escreveu `\rightarrow` dentro do JSON | parser que reconhece LaTeX pelo nome |
+| destacou "2^n" numa aula que não disse | âncora do destaque no corpo (⚠) |
 
 Cada erro vira uma regra que **nunca mais falha**. É por isso que os erros do
 modelo são o combustível da arquitetura, não a falência dela.
@@ -130,26 +149,57 @@ modelo são o combustível da arquitetura, não a falência dela.
 
 ## Decisões que valem explicação
 
-**Um modelo por tarefa, não um generalista.** Em 6 GB o que decide não é caber,
-é caber *junto*: `phi4-mini` + `bge-m3` ficam residentes e o caminho quente
-nunca paga troca de modelo. Existe uma rota `compreender` que vai para o 8B,
-usada onde ler 3.000 palavras e resumi-las decide o resultado — medido num
-bake-off às cegas: 2 destaques contra 5, por 30 s a mais numa nota de 3 minutos.
+**Local por padrão, externo por medida.** A régua não é "o que é mais
+inteligente", é *"onde o modelo local falhou numa medida que eu registrei"*.
+Hoje isso são quatro tarefas — compreender, classificar, resumir, extrair — mais
+o currículo. Ficam locais o embedding (2.189 chunks indexados, migração cara,
+zero evidência de problema) e a reescrita dos blocos da aula: são 83% do gasto
+de token e a tarefa onde a API menos acrescenta, porque transformar fala em
+prosa não é raciocínio. Detalhe e números em
+[`docs/fase-hibrida.md`](docs/fase-hibrida.md).
 
-**Todo LLM passa por um gateway.** Roteamento por tarefa, semáforo global de uma
-inferência (duas concorrentes em 6 GB não ficam lentas — uma escorrega para a
-RAM e o tempo explode uma ordem de grandeza), JSON com retry e reprompt, circuit
-breaker por modelo, e observabilidade sempre. Foi a ausência disso no projeto
-anterior que produziu quatro caminhos de chamada, dos quais só um media.
+**Todo LLM passa por um gateway.** Roteamento por tarefa *e por agente* (é o que
+separa a reescrita do bloco de aula do currículo, que são a mesma tarefa),
+semáforo para a inferência local (duas concorrentes em 6 GB não ficam lentas —
+uma escorrega para a RAM e o tempo explode uma ordem de grandeza), JSON com
+retry e reprompt, circuit breaker por modelo, **queda para o modelo local quando
+a API não responde**, e observabilidade sempre, um registro por destino. Foi a
+ausência disso no projeto anterior que produziu quatro caminhos de chamada, dos
+quais só um media.
+
+**Sem chave, tudo roda local.** `GEMINI_API_KEY` vazio faz o roteamento externo
+ser ignorado inteiro. É o que faz a suíte e uma máquina sem internet passarem
+sem tratamento especial — e é testado.
+
+**O Whisper foi para a GPU quando ela sobrou.** Ele estava na CPU de propósito,
+para a GPU ficar com o Ollama. Ao vivo roda `large-v3-turbo` quantizado
+(1.217 MiB, cabe junto do modelo de reescrita); num arquivo roda o `large-v3`
+inteiro (3.905 MiB, a placa é toda dele).
 
 **Front sem build.** Para buscar JSON e pintar número, um framework custa
-`node_modules`, um build e um segundo processo sem entregar nada que 2.400
+`node_modules`, um build e um segundo processo sem entregar nada que 2.425
 linhas não entreguem. São módulos ES nativos — o navegador resolve os imports.
 
 **Testes de navegador não são luxo.** Os defeitos mais graves do projeto
 passaram por 375 testes unitários verdes: o refresco de 15 s apagava o texto que
 eu estava digitando, e um botão novo "não funcionava" porque o cache servia o
 JavaScript de ontem. Nenhuma suíte que não abre um Chromium pegaria os dois.
+
+---
+
+## Sobre os meus dados
+
+O que sai da máquina, sai porque eu decidi e está no `.env`:
+
+| sai | fica |
+|---|---|
+| a transcrição da aula (fichamento) | o áudio, sempre |
+| a vaga e o Perfil Mestre (currículo) | os embeddings e o índice inteiro |
+| os trechos que a busca achou (resposta) | a reescrita dos blocos da aula |
+
+A chave está na **camada paga** da API, onde o contrato diz que o conteúdo não é
+usado para treinar modelos. Na camada gratuita seria o contrário — e isso é
+decisão, não detalhe.
 
 ---
 
@@ -173,20 +223,31 @@ Depois disso, um comando:
 
 Painel em **http://localhost:8010**.
 
-### Modelos
+### Modelos locais
 
 ```bash
-ollama pull phi4-mini    # classificar / extrair → JSON
+ollama pull phi4-mini    # classificar / extrair → JSON (caminho sem chave)
 ollama pull gemma4:e4b   # redigir / resumir (vencedor do bake-off)
-ollama pull llama3.1:8b  # compreender texto longo
-ollama pull bge-m3       # embeddings (1024 dimensões)
+ollama pull llama3.1:8b  # compreender texto longo (queda do fichamento)
+ollama pull bge-m3       # embeddings (1024 dimensões) — sempre local
 ```
+
+### Modelo externo (opcional)
+
+```bash
+GEMINI_API_KEY=...                 # vazio = tudo local
+```
+
+Sem a chave o sistema funciona inteiro, com a qualidade que o modelo local dá.
 
 ### Transcrição (opcional)
 
 ```bash
 pip install -e ".[transcricao]" && sudo apt install ffmpeg
+pip install -e ".[transcricao-gpu]"   # cuBLAS + cuDNN, para o Whisper na GPU
 ```
+
+Sem o extra `-gpu`, o Whisper cai para a CPU sozinho e avisa no log.
 
 ---
 
@@ -220,7 +281,9 @@ Cada commit explica *por que*, não *o que* — o diff já diz o que mudou.
 
 Fases 0 a 6 concluídas: chão do projeto, conhecimento indexado, resposta
 ancorada, worker de fundo, candidatura ponta a ponta, painel, e uso diário.
+Depois delas: a Fase T (transcrição ao vivo) e a **fase híbrida**, que é a mais
+recente.
 
-Em aberto: envio de e-mail, reranker na busca, e o fine-tune — que só começa
-com ~300 pares de preferência curados, e que o uso normal do sistema coleta
-sozinho.
+Em aberto: envio de e-mail, **reranker na busca** (o `bge-reranker-v2-m3` já
+está baixado), o destaque por seleção em vez de geração, e o fine-tune — que só
+começa com ~300 pares de preferência curados.
