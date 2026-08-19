@@ -93,3 +93,12 @@ def test_nome_do_arquivo_e_previsivel():
 def test_pdf_sem_empresa_tambem_tem_nome(tmp_path):
     destino = gerar_pdf(CURRICULO, FATOS, caminho=tmp_path / "sem-empresa.pdf")
     assert destino.exists()
+
+
+def test_data_nao_quebra_em_duas_linhas():
+    """"(08/2024 –" numa linha e "12/2026)" na outra faz o parser ler duas
+    coisas e perder a data — o campo cuja ausência derruba a entrada."""
+    from app.candidatura.pdf import _data_inteira
+
+    assert " " not in _data_inteira("08/2024 – 12/2026")
+    assert _data_inteira("08/2024 – 12/2026").replace("\xa0", " ") == "08/2024 – 12/2026"

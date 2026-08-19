@@ -113,7 +113,8 @@ async def test_gera_curriculo_a_partir_do_perfil():
     c = await gerar(BOA)
 
     assert c.resumo.startswith("Construí APIs")
-    assert c.titulo == "Desenvolvedor Python Pleno"
+    # O título é o do anúncio, não o que o modelo achou que o cargo era.
+    assert c.titulo == "Dev Python Pleno"
     # Competências agrupadas — herdado do gerador do Prospector.
     assert c.competencias[0] == {"categoria": "Linguagens", "itens": ["Python"]}
     assert c.competencias_planas == ["Python", "FastAPI", "PostgreSQL"]
@@ -165,7 +166,8 @@ async def test_competencia_inventada_nao_entra():
         {"categoria": "Infra", "itens": ["Python", "Kubernetes", "Salesforce"]}
     ]})
     # A seção mais lida pelo ATS é a mais fácil de inventar.
-    assert c.competencias == [{"categoria": "Infra", "itens": ["Python"]}]
+    # E a categoria é a canônica, não o rótulo que o modelo inventou.
+    assert c.competencias == [{"categoria": "Linguagens", "itens": ["Python"]}]
 
 
 async def test_experiencia_inventada_e_derrubada():
@@ -199,7 +201,9 @@ async def test_avisa_experiencia_sem_mes():
 
 async def test_resumo_com_invencao_cai_para_o_do_perfil():
     c = await gerar({**BOA, "resumo": "Especialista em Kubernetes e Terraform."})
-    assert c.resumo == PERFIL.resumo
+    # `startswith` e não `==`: o resumo do perfil também passa pela expansão de
+    # siglas antes de virar documento.
+    assert c.resumo.startswith("Desenvolvedor Python com foco em APIs e LLMs")
     assert any("resumo" in r for r in c.rejeitados)
 
 
@@ -230,7 +234,7 @@ async def test_llm_fora_do_ar_devolve_o_perfil_cru():
         fatos=FATOS, requisitos=REQ, match=MATCH, titulo_vaga="Dev Python",
         descricao_vaga="x", usar_few_shot=False,
     )
-    assert c.resumo == PERFIL.resumo and c.projetos
+    assert c.resumo.startswith("Desenvolvedor Python com foco") and c.projetos
     assert "Python" in c.competencias_planas
 
 
@@ -294,7 +298,7 @@ def test_grupo_que_esvaziou_nao_vira_categoria_vazia():
         {"categoria": "Backend", "itens": ["Python"]},
     ]
     grupos = cur._competencias_limpas(bruto, FATOS, REQ)
-    assert [g["categoria"] for g in grupos] == ["Backend"]
+    assert [g["categoria"] for g in grupos] == ["Linguagens"]
 
 
 def test_sql_nao_e_confundido_com_sqlalchemy():
@@ -357,7 +361,7 @@ def test_o_que_o_texto_nao_carrega_vem_da_base():
 def test_competencias_editadas_no_texto_valem():
     base = _curriculo_base()
     texto = cur.como_texto(base, FATOS).replace(
-        "Backend: Python · FastAPI", "Backend: Python · FastAPI · SQLAlchemy"
+        "Backend: Python, FastAPI", "Backend: Python, FastAPI, SQLAlchemy"
     )
     novo = cur.de_texto(texto, base)
     assert novo.competencias == [
@@ -398,7 +402,7 @@ def test_projeto_apagado_do_texto_sai_do_curriculo():
 def test_secao_de_projetos_ilegivel_mantem_tudo():
     """Se a seção inteira ficou irreconhecível, o certo é manter, não zerar."""
     base = _curriculo_base()
-    texto = cur.como_texto(base, FATOS).replace("Copiloto —", "escrevi outra coisa aqui")
+    texto = cur.como_texto(base, FATOS).replace("Copiloto |", "escrevi outra coisa aqui")
     novo = cur.de_texto(texto, base)
     assert len(novo.projetos) == len(base.projetos)
 
@@ -426,3 +430,209 @@ def test_ai_em_ingles_nao_derruba_o_resumo():
     mais importante da página — era descartado por uma tradução."""
     assert FATOS.conheco("IA") == FATOS.conheco("AI")
     assert FATOS.conheco("inteligência artificial") == FATOS.conheco("IA")
+
+
+# ── o que o parser de 2026 cobra do conteúdo ──────────────────────
+
+
+async def test_titulo_e_o_do_anuncio_nao_o_que_o_modelo_acha():
+    """"Desenvolvedor de IA" e "Engenheiro de IA" são a mesma vaga para mim e
+    strings diferentes para o filtro. Quem decide qual ranqueia é quem escreveu
+    o anúncio — então o modelo não escreve mais o título."""
+    c = await gerar({**BOA, "titulo": "Arquiteto de Soluções Sênior"})
+    assert c.titulo == "Dev Python Pleno"
+
+
+async def test_periodo_sai_no_formato_unico():
+    """O ATS calcula tempo de casa; "abr/2025" numa entrada e "08/2024" na
+    outra faz ele errar a conta."""
+    perfil = PerfilMestre(
+        nome="Pablo",
+        contato={"email": "p@x.dev"},
+        habilidades=[{"nome": "Python"}],
+        projetos=[{"nome": "Copiloto", "descricao": "x", "stack": ["Python"]}],
+        experiencias=[{"empresa": "Sechat", "cargo": "Analista",
+                       "periodo": "abr/2025 – set/2025", "descricao": "Zoho"}],
+        formacao=[{"instituicao": "Impacta", "curso": "ADS",
+                   "periodo": "ago/2024 – dez/2026"}],
+        certificacoes=[],
+    )
+    fatos = montar_fatos(perfil)
+    usar(resposta=BOA)
+    c = await cur.gerar(
+        fatos=fatos, requisitos=REQ, match=MATCH, titulo_vaga="Dev Python",
+        descricao_vaga="x", usar_few_shot=False,
+    )
+    assert c.experiencias[0]["periodo"] == "04/2025 – 09/2025"
+    assert c.formacao[0]["periodo"] == "08/2024 – 12/2026"
+    assert not any("sem mês" in a for a in c.avisos)
+
+
+async def test_sigla_ganha_o_extenso_uma_vez_no_documento():
+    """Um ATS não semântico procura a string "Retrieval-Augmented Generation" e
+    não acha "RAG"; um semântico casa os dois. Escrever as duas formas atende
+    os dois — mas só na primeira ocorrência, senão vira repetição punida."""
+    c = await gerar({
+        **BOA,
+        "resumo": "Construí sistemas de RAG em produção.",
+        "projetos": [{"nome": "Copiloto", "bullets": [
+            "Indexei 1.773 chunks e servi RAG sobre PostgreSQL",
+        ]}],
+    })
+    assert "RAG (Retrieval-Augmented Generation)" in c.resumo
+    assert c.projetos[0]["bullets"][0].count("Retrieval-Augmented") == 0
+
+
+async def test_avisa_experiencia_sem_numero():
+    """É a seção que mais pesa e a que costuma ficar sem métrica — o contrário
+    do que se espera."""
+    c = await gerar(BOA)
+    assert any("nenhum bullet com número" in a for a in c.avisos)
+
+
+async def test_avisa_contato_sem_telefone_e_sem_cidade():
+    """Campo faltando é score perdido, e localização é filtro ativo: parte dos
+    ATS elimina por cidade antes de ler o conteúdo."""
+    c = await gerar(BOA)
+    faltando = [a for a in c.avisos if a.startswith("contato sem")]
+    assert faltando and "telefone" in faltando[0] and "localizacao" in faltando[0]
+
+
+async def test_competencias_saem_nas_categorias_canonicas():
+    """O rótulo do modelo misturava categorias ("Agentes e Aplicações" com
+    Next.js, Docker e Playwright dentro), e a triagem por skills lê o rótulo
+    como declaração sobre o item."""
+    c = await gerar({**BOA, "competencias": [
+        {"categoria": "Agentes e Aplicações", "itens": ["Python", "FastAPI", "PostgreSQL"]}
+    ]})
+    assert [g["categoria"] for g in c.competencias] == [
+        "Linguagens", "Frameworks e Arquitetura", "Bancos de Dados"
+    ]
+
+
+async def test_texto_nao_tem_ponto_medio():
+    """O `·` cola dois termos quando o extrator descarta o glifo sem pôr espaço
+    no lugar — e uma habilidade perdida na seção mais lida do currículo é cara."""
+    texto = cur.como_texto(await gerar(BOA), FATOS)
+    assert "·" not in texto
+
+
+def test_de_texto_ainda_le_o_separador_antigo():
+    """Currículo gravado antes da troca de separador tem que voltar a ser lido:
+    perder a formatação é reversível, jogar fora o meu texto não."""
+    base = _curriculo_base()
+    antigo = (
+        "COMPETÊNCIAS\n"
+        "Backend: Python · FastAPI · SQLAlchemy\n"
+        "\n"
+        "EXPERIÊNCIA PROFISSIONAL\n"
+        "Analista · Sechat (2025)\n"
+        "  - Reduzi de 3h para 20min o fechamento mensal.\n"
+    )
+    novo = cur.de_texto(antigo, base)
+    assert novo.competencias == [
+        {"categoria": "Backend", "itens": ["Python", "FastAPI", "SQLAlchemy"]}
+    ]
+    assert novo.experiencias[0]["bullets"] == ["Reduzi de 3h para 20min o fechamento mensal."]
+
+
+async def test_ml_abreviado_nao_derruba_bullet():
+    """Mesmo caso do "AI" em inglês: o currículo agora escreve a sigla de
+    propósito, e sem o sinônimo a anti-alucinação derruba texto honesto."""
+    c = await gerar({**BOA, "projetos": [
+        {"nome": "Churn Prediction",
+         "bullets": ["Construí o pipeline de ML da limpeza ao modelo servido por API"]}
+    ]})
+    assert c.rejeitados == []
+    assert c.projetos[0]["bullets"][0].startswith("Construí o pipeline de ML")
+
+
+def test_rotulo_do_contato_e_o_mesmo_no_texto_e_no_pdf():
+    """O texto da fila é o que eu reviso: tem que ser o mesmo documento que sai
+    impresso. Com o mapa só no PDF, a fila mostrava "localizacao:"."""
+    from app.candidatura import ats
+
+    fatos = montar_fatos(
+        PerfilMestre(
+            nome="Pablo",
+            contato={"localizacao": "Santo André, SP", "telefone": "(11) 94390-8225"},
+            habilidades=[], projetos=[], experiencias=[], formacao=[], certificacoes=[],
+        )
+    )
+    texto = cur.como_texto(cur.Curriculo(titulo="Dev"), fatos)
+    assert "local: Santo André, SP" in texto
+    assert "tel: (11) 94390-8225" in texto
+    assert ats.ROTULOS_CONTATO["localizacao"] == "local"
+
+
+async def test_fallback_da_experiencia_vira_um_bullet_por_frase():
+    """A descrição inteira num bullet só é um parágrafo com marcador na frente:
+    o recrutador pula e o parser conta como uma realização única."""
+    perfil = PerfilMestre(
+        nome="Pablo", contato={"email": "p@x.dev"},
+        habilidades=[{"nome": "Python"}],
+        projetos=[{"nome": "Copiloto", "descricao": "x", "stack": ["Python"]}],
+        experiencias=[{
+            "empresa": "Sechat", "cargo": "Analista", "periodo": "04/2025 – 09/2025",
+            "descricao": "Administrei o Zoho One. Mantive 4 sites em WordPress. "
+                         "Atendeu as equipes internas.",
+        }],
+        formacao=[], certificacoes=[],
+    )
+    usar(resposta={**BOA, "experiencias": []})
+    c = await cur.gerar(
+        fatos=montar_fatos(perfil), requisitos=REQ, match=MATCH,
+        titulo_vaga="Dev Python", descricao_vaga="x", usar_few_shot=False,
+    )
+    bullets = c.experiencias[0]["bullets"]
+    assert len(bullets) == 3
+    assert bullets[1] == "Mantive 4 sites em WordPress."
+    # E a voz é corrigida no caminho, como em qualquer outro bullet.
+    assert bullets[2] == "Atendi as equipes internas."
+
+
+async def test_sigla_nao_e_expandida_dentro_de_competencia():
+    """Ali o item não é prosa, é um termo: "Ollama / LLM (Large Language Model)
+    local" parte o termo e destrói o casamento exato."""
+    c = await gerar({**BOA, "resumo": "Sem sigla nenhuma aqui.",
+                     "competencias": [{"categoria": "IA", "itens": ["Python"]}]})
+    assert all("(" not in i for g in c.competencias for i in g["itens"])
+
+
+async def test_projeto_sem_bullet_aprovado_preserva_a_prova():
+    """A prova é a única linha com número do projeto — se ela cai no corte, o
+    projeto vira texto genérico."""
+    c = await gerar({**BOA, "projetos": [
+        {"nome": "Copiloto", "bullets": ["Migrei tudo para Kubernetes"]}
+    ]})
+    assert any("1.773" in b for b in c.projetos[0]["bullets"])
+
+
+async def test_descricao_do_certificado_conta_no_ranqueamento():
+    """O nome do curso raramente usa a palavra da vaga: "Fundamentos de SOC" não
+    casa com "monitoramento", mas a descrição dele sim."""
+    perfil = PerfilMestre(
+        nome="Pablo", contato={"email": "p@x.dev"},
+        habilidades=[{"nome": "Python"}],
+        projetos=[{"nome": "Copiloto", "descricao": "x", "stack": ["Python"]}],
+        experiencias=[], formacao=[],
+        certificacoes=[
+            {"nome": "Curso A", "tema": "outro", "descricao": "nada a ver"},
+            {"nome": "Fundamentos de SOC", "tema": "segurança",
+             "descricao": "monitoramento e resposta a incidentes de segurança"},
+        ],
+    )
+    req = Requisitos(obrigatorios=["monitoramento"], stack=[])
+    escolhidas = cur._selecionar_certificacoes(montar_fatos(perfil), req)
+    assert escolhidas[0]["nome"] == "Fundamentos de SOC"
+
+
+def test_tecnologia_citada_so_na_descricao_do_certificado_e_verdade():
+    """Sem isto, "Construí um chatbot com IBM Watson" seria acusado de invenção
+    — sendo que o certificado está no vault."""
+    fatos = montar_fatos(PerfilMestre(
+        nome="Pablo", habilidades=[], projetos=[], experiencias=[], formacao=[],
+        certificacoes=[{"nome": "Fundamentos de IA e Chatbot",
+                        "descricao": "chatbot na plataforma IBM Watson"}],
+    ))
+    assert fatos.conheco("IBM Watson")

@@ -62,6 +62,11 @@ SINONIMOS: dict[str, str] = {
     # falso positivo que o comentário logo abaixo avisa ser o pior caso.
     "ai": "ia",
     "a.i.": "ia",
+    # Mesmo caso do "AI" logo acima, e o incentivo agora é maior: o currículo
+    # passou a escrever a sigla de propósito (`ats.SIGLAS`), e sem esta linha a
+    # anti-alucinação derruba "Construí o pipeline de ML" por citar "ml".
+    "ml": "machine learning",
+    "m.l.": "machine learning",
     "inteligencia artificial": "ia",
     "artificial intelligence": "ia",
     "rag": "rag",
@@ -252,6 +257,9 @@ def montar_fatos(perfil: PerfilMestre) -> Fatos:
         _guardar(fatos, c.get("nome"))
         _guardar(fatos, c.get("tema"), tecnologia=True)
         _guardar(fatos, c.get("instituicao"))
+        # "IBM Watson", "Gemini", "Figma", "T-SQL" aparecem só na descrição do
+        # certificado. São estudo comprovado, e o gerador pode citá-los.
+        _guardar_do_texto(fatos, c.get("descricao"))
     for f in perfil.formacao or []:
         _guardar(fatos, f.get("instituicao"))
         _guardar(fatos, f.get("curso"))

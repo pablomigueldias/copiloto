@@ -11,6 +11,8 @@ quebra, na ordem em que mais quebra:
 | Ícone no lugar de rótulo | "email:" escrito |
 | Fonte exótica embutida | Helvetica, a padrão do PDF |
 | Texto dentro de caixa/gráfico | parágrafo simples |
+| Separador fora do ASCII entre termos | vírgula e barra (`ats.SEP_*`) |
+| Sem cidade/UF (filtro de localização) | `contato.localizacao`, primeira linha |
 
 Por isso `reportlab` com `SimpleDocTemplate` e nada além de parágrafo. O bonito
 é inimigo do aprovado — e a versão bonita pode existir depois, para mandar por
@@ -30,6 +32,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import mm
 from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 
+from app.candidatura import ats
 from app.candidatura.curriculo import Curriculo
 from app.candidatura.perfil import Fatos
 from app.config import DATA_DIR
@@ -135,6 +138,20 @@ def _escapar(texto: str) -> str:
     )
 
 
+def _data_inteira(periodo: str) -> str:
+    """O intervalo de datas com espaço fixo, para não quebrar em duas linhas.
+
+    O `reportlab` quebra a linha em qualquer espaço, e a formação saiu com
+    "(08/2024 –" numa linha e "12/2026)" na outra. O parser lê as duas metades
+    como coisas diferentes e a data se perde — justamente o campo cuja ausência
+    derruba a entrada inteira em vários ATS.
+
+    O `\xa0` sai do PDF como espaço comum (conferido com `pdftotext`), então
+    não é caractere estranho para ninguém: só impede a quebra.
+    """
+    return str(periodo or "").replace(" ", "\xa0")
+
+
 def nome_do_arquivo(nome_pessoa: str, titulo_vaga: str, empresa: str | None = None) -> str:
     """`curriculo-pablo-ortiz-dev-python-pleno-acme.pdf`.
 
@@ -162,9 +179,8 @@ def _montar(curriculo: Curriculo, fatos: Fatos, est: Estilos) -> list:
 
     contato = perfil.contato or {}
     if contato:
-        # Rótulo escrito, não ícone: ícone vira caractere estranho no parser.
-        rotulos = {"email": "email", "telefone": "tel", "linkedin": "linkedin",
-                   "github": "github", "portfolio": "site"}
+        # Ver `ats.ROTULOS_CONTATO`: o mesmo mapa serve o texto da fila.
+        rotulos = ats.ROTULOS_CONTATO
         # Sem "https://": ocupa duas linhas e não acrescenta nada — o
         # recrutador copia, e o parser reconhece o domínio do mesmo jeito.
         partes = [
@@ -172,17 +188,17 @@ def _montar(curriculo: Curriculo, fatos: Fatos, est: Estilos) -> list:
             for k, v in contato.items()
             if v
         ]
-        fluxo.append(Paragraph(_escapar(" · ".join(partes)), est.contato))
+        fluxo.append(Paragraph(_escapar(ats.SEP_CAMPO.join(partes)), est.contato))
 
     if curriculo.resumo:
         fluxo += [Paragraph("RESUMO", est.secao), Paragraph(_escapar(curriculo.resumo), est.corpo)]
 
     # Competências agrupadas por categoria: o parser lê a linha inteira, e
-    # "Backend: FastAPI · SQLAlchemy" diz mais ao humano que uma lista de 30.
+    # "Backend: FastAPI, SQLAlchemy" diz mais ao humano que uma lista de 30.
     if curriculo.competencias:
         fluxo.append(Paragraph("COMPETÊNCIAS", est.secao))
         for grupo in curriculo.competencias:
-            itens = _escapar(" · ".join(grupo.get("itens") or []))
+            itens = _escapar(ats.SEP_LISTA.join(grupo.get("itens") or []))
             categoria = _escapar(grupo.get("categoria") or "")
             fluxo.append(Paragraph(f"<b>{categoria}:</b> {itens}", est.corpo))
 
@@ -191,9 +207,9 @@ def _montar(curriculo: Curriculo, fatos: Fatos, est: Estilos) -> list:
     if curriculo.experiencias:
         fluxo.append(Paragraph("EXPERIÊNCIA PROFISSIONAL", est.secao))
         for e in curriculo.experiencias:
-            titulo = f"{e.get('cargo', '')} · {e.get('empresa', '')}"
+            titulo = f"{e.get('cargo', '')}{ats.SEP_CAMPO}{e.get('empresa', '')}"
             if e.get("periodo"):
-                titulo += f" ({e['periodo']})"
+                titulo += f" ({_data_inteira(e['periodo'])})"
             fluxo.append(Paragraph(_escapar(titulo), est.subtitulo))
             for b in e.get("bullets") or []:
                 fluxo.append(Paragraph(_escapar(b), est.item, bulletText="•"))
@@ -204,11 +220,11 @@ def _montar(curriculo: Curriculo, fatos: Fatos, est: Estilos) -> list:
             nome = _escapar(p.get("nome", ""))
             if p.get("link"):
                 enxuto = re.sub(r"^https?://", "", str(p["link"])).rstrip("/")
-                nome += f"  ·  {_escapar(enxuto)}"
+                nome += f"{ats.SEP_CAMPO}{_escapar(enxuto)}"
             fluxo.append(Paragraph(nome, est.subtitulo))
             if p.get("stack"):
                 fluxo.append(
-                    Paragraph(_escapar(" · ".join(p["stack"][:MAX_STACK])), est.stack)
+                    Paragraph(_escapar(ats.SEP_LISTA.join(p["stack"][:MAX_STACK])), est.stack)
                 )
             for b in p.get("bullets") or []:
                 fluxo.append(Paragraph(_escapar(b), est.item, bulletText="•"))
@@ -216,9 +232,9 @@ def _montar(curriculo: Curriculo, fatos: Fatos, est: Estilos) -> list:
     if curriculo.formacao:
         fluxo.append(Paragraph("FORMAÇÃO ACADÊMICA", est.secao))
         for f in curriculo.formacao:
-            linha = f"{f.get('instituicao', '')} — {f.get('curso', '')}"
+            linha = f"{f.get('instituicao', '')}{ats.SEP_CAMPO}{f.get('curso', '')}"
             if f.get("periodo"):
-                linha += f" ({f['periodo']})"
+                linha += f" ({_data_inteira(f['periodo'])})"
             fluxo.append(Paragraph(_escapar(linha), est.corpo))
 
     if curriculo.certificacoes:
@@ -227,14 +243,14 @@ def _montar(curriculo: Curriculo, fatos: Fatos, est: Estilos) -> list:
         for c in curriculo.certificacoes:
             linha = c.get("nome", "")
             if c.get("instituicao"):
-                linha += f" — {c['instituicao']}"
+                linha += f"{ats.SEP_CAMPO}{c['instituicao']}"
             if c.get("ano"):
                 linha += f" ({c['ano']})"
             nomes.append(linha)
         if est.certificacoes_em_linha:
             # Uma linha corrida em vez de um item por linha: economiza quatro
             # linhas e continua sendo texto que o parser lê igual.
-            fluxo.append(Paragraph(_escapar(" · ".join(nomes)), est.corpo))
+            fluxo.append(Paragraph(_escapar(ats.SEP_LISTA.join(nomes)), est.corpo))
         else:
             fluxo += [Paragraph(_escapar(n), est.item, bulletText="•") for n in nomes]
 

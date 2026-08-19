@@ -22,8 +22,9 @@ Em entrevista técnica isso é reprovação, com a cara do Pablo na frente.
 
 Três acertos do repo antigo (`analyzers/curriculo/prompt_builder.py`), mantidos:
 
-- **competências agrupadas** por categoria (Linguagens, Backend, Banco de
-  Dados) em vez de uma lista corrida de trinta itens;
+- **competências agrupadas** por categoria em vez de uma lista corrida de
+  trinta itens — só que a categoria virou tabela (`ats.TAXONOMIA`): o modelo
+  escolhe QUAIS habilidades entram, o código decide ONDE cada uma mora;
 - **espelhar o termo exato da vaga** quando o perfil sustenta: se a vaga diz
   "React.js", escrever "React.js" e não "React" — o ATS ranqueia por casamento
   de string, não por sinônimo. Espelhar não é inventar;
@@ -36,9 +37,14 @@ colunas, tabela, caixa de texto, cabeçalho/rodapé de página, ícone no lugar 
 rótulo e PDF de imagem. E há uma novidade que não existia há três anos:
 
 - **entrada de experiência sem data é motivo de recusa automática** em vários
-  sistemas — daí `avisos` apontar experiência sem mês;
+  sistemas — daí `avisos` apontar experiência sem mês, e `ats.periodo()`
+  normalizar toda data para um formato só;
 - **repetição artificial de palavra-chave agora é punida** (texto branco, seção
-  "Palavras-chave"), então o gerador é proibido de criar seção assim.
+  "Palavras-chave"), então o gerador é proibido de criar seção assim — e a
+  sigla é escrita por extenso UMA vez, não em todo bullet;
+- **o título tem que espelhar o do anúncio**, letra por letra: "Desenvolvedor
+  de IA" e "Engenheiro de IA" são a mesma vaga para mim e strings diferentes
+  para o filtro. Por isso o modelo não escreve mais o título.
 """
 from __future__ import annotations
 
@@ -46,6 +52,7 @@ import json
 import re
 from dataclasses import asdict, dataclass, field
 
+from app.candidatura import ats
 from app.candidatura.extrator import Requisitos
 from app.candidatura.match import Match
 from app.candidatura.perfil import Fatos, normalizar, tecnologias_citadas
@@ -59,7 +66,10 @@ logger = get_logger()
 
 MAX_BULLETS = 3
 MAX_PROJETOS = 3
-MAX_GRUPOS_COMPETENCIA = 6
+# Sete e não seis: as seis categorias canônicas de `ats.py` mais o balde
+# `Ferramentas`, que existe justamente para não empurrar item para a
+# categoria errada. Se a taxonomia cobre tudo, o balde nem aparece.
+MAX_GRUPOS_COMPETENCIA = 7
 
 # Mês por extenso ou número: uma entrada de experiência sem isso é recusada
 # automaticamente por parte dos ATS de 2026.
@@ -80,7 +90,6 @@ SCHEMA_TOPO = {
     "type": "object",
     "required": ["resumo", "competencias"],
     "properties": {
-        "titulo": {"type": "string"},
         "resumo": {"type": "string"},
         "competencias": {"type": "array"},
     },
@@ -123,18 +132,24 @@ PROMPT_TOPO = _CABECALHO + """
 Produza EXATAMENTE este JSON, com as duas chaves:
 
 {{
-  "titulo": "<o cargo da vaga, curto, se o perfil sustentar>",
   "resumo": "<2 ou 3 frases, NA PRIMEIRA PESSOA, ligando o que eu já fiz ao que
               esta vaga pede. Comece pelo que eu faço ('Desenvolvo...',
               'Trabalho com...'), não por 'Experiência em' nem 'Possui'.
               Sem escrever o pronome 'eu', sem adjetivo de venda,
               sem frase de efeito>",
   "competencias": [
-    {{"categoria": "<rótulo de 1-2 palavras>", "itens": ["<habilidades DO PERFIL>"]}}
+    {{"categoria": "<uma das categorias da lista abaixo>",
+      "itens": ["<habilidades DO PERFIL>"]}}
   ]
 }}
 
-No máximo 6 grupos de competência, os mais pedidos pela vaga primeiro.
+CATEGORIAS PERMITIDAS, exatamente com estes nomes e nenhum outro:
+Linguagens; Frameworks e Arquitetura; IA e Machine Learning; Bancos de Dados;
+DevOps e Infraestrutura; Testes, Qualidade e Processo; Ferramentas.
+
+Um rótulo que mistura categorias ("Agentes e Aplicações" com Next.js, Docker e
+Playwright dentro) faz a triagem por skills classificar os três errado. Ponha
+primeiro os grupos que a vaga mais pede.
 
 JSON:"""
 
@@ -242,24 +257,53 @@ def _selecionar_certificacoes(fatos: Fatos, requisitos: Requisitos, *, n: int = 
     }
 
     def pontos(c: dict) -> int:
-        texto = normalizar(f"{c.get('nome', '')} {c.get('tema', '')}")
+        # A descrição entra junto: "Fundamentos de SOC" não casa com "segurança",
+        # mas a descrição dele fala de monitoramento e resposta a incidentes. O
+        # nome do curso raramente usa a palavra que a vaga usa.
+        texto = normalizar(
+            f"{c.get('nome', '')} {c.get('tema', '')} {c.get('descricao', '')}"
+        )
         return sum(1 for termo in pedido if termo and termo in texto)
 
     ordenadas = sorted(fatos.certificacoes, key=pontos, reverse=True)
     return [c for c in ordenadas if pontos(c)][:n] or ordenadas[:n]
 
 
+def _tem_numero(bullets: list[str]) -> bool:
+    return any(any(c.isdigit() for c in b) for b in bullets or [])
+
+
 def _avisos_de_ats(fatos: Fatos, curriculo: Curriculo) -> list[str]:
     """O que um parser de 2026 penaliza e só o Pablo pode consertar."""
     avisos = []
+
+    # Campo faltando derruba o score direto, e localização é filtro ativo: parte
+    # dos ATS elimina por cidade antes de qualquer leitura do conteúdo.
+    contato = fatos.perfil.contato or {}
+    faltando = [c for c in ("telefone", "localizacao", "email") if not contato.get(c)]
+    if faltando:
+        avisos.append(
+            f"contato sem {', '.join(faltando)} — campo faltando é score perdido "
+            "(edite `contato` em data/perfil_mestre.json)"
+        )
+
     for e in curriculo.experiencias:
         periodo = str(e.get("periodo") or "")
         if not periodo:
             avisos.append(f"{e.get('empresa')}: sem período — parte dos ATS recusa automaticamente")
         elif not _TEM_MES.search(periodo):
-            avisos.append(f"{e.get('empresa')}: período '{periodo}' sem mês (use 'jan/2025 – dez/2025')")
-    sem_numero = [p["nome"] for p in curriculo.projetos
-                  if not any(any(c.isdigit() for c in b) for b in p.get("bullets", []))]
+            avisos.append(f"{e.get('empresa')}: período '{periodo}' sem mês (use '01/2025 – 12/2025')")
+
+    # A seção que mais pesa é a de experiência, e é a que costuma ficar sem
+    # número — o contrário do que se espera. Bullet quantificado vira dado
+    # comparável entre candidatos; bullet genérico vira texto.
+    for e in curriculo.experiencias:
+        if not _tem_numero(e.get("bullets") or []):
+            avisos.append(
+                f"{e.get('empresa')}: nenhum bullet com número — é a seção que mais pesa"
+            )
+
+    sem_numero = [p["nome"] for p in curriculo.projetos if not _tem_numero(p.get("bullets"))]
     if sem_numero:
         avisos.append(f"sem número de resultado: {', '.join(sem_numero)}")
     return avisos
@@ -316,8 +360,12 @@ async def gerar(
     extras = frozenset({normalizar(empresa_vaga)} if empresa_vaga else set())
 
     curriculo = Curriculo(
-        titulo=titulo_vaga,
-        formacao=list(fatos.perfil.formacao or []),
+        # O título é o do anúncio, letra por letra — não o que o modelo acha
+        # que o cargo é. "Desenvolvedor de IA" e "Engenheiro de IA" são a mesma
+        # vaga para mim e strings diferentes para o filtro, e quem decide qual
+        # das duas ranqueia é quem escreveu o anúncio.
+        titulo=str(titulo_vaga or "").strip()[:120],
+        formacao=[_com_periodo(f) for f in fatos.perfil.formacao or []],
         certificacoes=_selecionar_certificacoes(fatos, requisitos),
     )
 
@@ -326,7 +374,6 @@ async def gerar(
         PROMPT_BULLETS.format(**contexto, voz=voz), SCHEMA_BULLETS, "bullets"
     )
 
-    curriculo.titulo = str(topo.get("titulo") or titulo_vaga).strip()[:120]
     curriculo.resumo = _resumo_limpo(topo.get("resumo"), fatos, curriculo, extras)
     curriculo.competencias = _competencias_limpas(topo.get("competencias"), fatos, requisitos)
     curriculo.experiencias = _experiencias_limpas(
@@ -334,6 +381,7 @@ async def gerar(
     )
     curriculo.projetos = _projetos_limpos(bullets.get("projetos"), fatos, curriculo, extras)
     curriculo.avisos = _avisos_de_ats(fatos, curriculo)
+    _expandir_siglas(curriculo)
 
     if curriculo.rejeitados:
         logger.warning(
@@ -341,6 +389,40 @@ async def gerar(
             f"{', '.join(curriculo.rejeitados[:5])}"
         )
     return curriculo
+
+
+def _com_periodo(entrada: dict) -> dict:
+    """A mesma entrada com a data no formato único: `MM/AAAA – MM/AAAA`.
+
+    O ATS calcula tempo de casa e procura lacunas; "abr/2025" numa entrada e
+    "08/2024" na outra faz ele errar a conta ou desistir da entrada.
+    """
+    saida = dict(entrada)
+    if saida.get("periodo"):
+        saida["periodo"] = ats.periodo(saida["periodo"])
+    return saida
+
+
+def _expandir_siglas(curriculo: Curriculo) -> None:
+    """Escreve o extenso de cada sigla na primeira vez que ela aparece.
+
+    Na ORDEM EM QUE O DOCUMENTO É IMPRESSO — resumo, experiência, projetos. Um
+    ATS não semântico procura a string "Retrieval-Augmented Generation" e não
+    acha "RAG"; um semântico casa os dois. Escrever as duas formas atende os
+    dois, e o custo é uma linha mais longa no resumo.
+
+    Uma vez cada, e no topo: repetir o extenso em todo bullet é exatamente o
+    padrão de repetição que os sistemas de 2026 marcam como manipulação.
+
+    **Competência fica de fora.** Ali o item não é prosa, é um termo — e
+    "Ollama / LLM (Large Language Model) local" parte o termo no meio,
+    destruindo o casamento exato que é a razão de a seção existir. O extenso
+    entra no resumo, que o parser lê do mesmo jeito.
+    """
+    expandir = ats.expansor()
+    curriculo.resumo = expandir(curriculo.resumo)
+    for entrada in curriculo.experiencias + curriculo.projetos:
+        entrada["bullets"] = [expandir(b) for b in entrada.get("bullets") or []]
 
 
 def _resumo_limpo(bruto, fatos: Fatos, curriculo: Curriculo, extras: frozenset[str]) -> str:
@@ -364,14 +446,52 @@ def _resumo_limpo(bruto, fatos: Fatos, curriculo: Curriculo, extras: frozenset[s
     return texto
 
 
+def _pedido_pela_vaga(requisitos: Requisitos) -> set[str]:
+    termos = {normalizar(t) for t in requisitos.stack}
+    termos |= {normalizar(r) for r in requisitos.obrigatorios + requisitos.desejaveis}
+    return {t for t in termos if t and t not in ("",)}
+
+
+def _casa_com_a_vaga(nome: str, pedido: set[str]) -> bool:
+    n = normalizar(nome)
+    return any(_mesmo_termo(n, p) for p in pedido)
+
+
+def _agrupar_por_taxonomia(nomes: list[str], requisitos: Requisitos) -> list[dict]:
+    """Os itens escolhidos, distribuídos nas categorias canônicas de `ats.py`.
+
+    **Quem escolhe é o modelo; onde cada um mora é tabela.** O modelo leu a
+    vaga e sabe o que importa ali — mas o rótulo que ele inventa mistura
+    categorias ("Agentes e Aplicações" com Next.js, Docker e Playwright
+    dentro), e a triagem por skills lê o rótulo como declaração sobre o item.
+
+    Dentro do grupo e entre os grupos, o que a vaga pediu vem primeiro:
+    palavra-chave no começo da lista pesa mais que a mesma palavra enterrada no
+    fim de trinta itens.
+    """
+    pedido = _pedido_pela_vaga(requisitos)
+    grupos: dict[str, list[str]] = {}
+    for nome in nomes:
+        grupos.setdefault(ats.categoria_de(nome), []).append(nome)
+
+    ordem_canonica = {c: i for i, c in enumerate(ats.CATEGORIAS)}
+    for itens in grupos.values():
+        itens.sort(key=lambda i: not _casa_com_a_vaga(i, pedido))
+
+    def peso(categoria: str) -> tuple[int, int]:
+        casados = sum(1 for i in grupos[categoria] if _casa_com_a_vaga(i, pedido))
+        return (-casados, ordem_canonica.get(categoria, len(ordem_canonica)))
+
+    ordenados = sorted(grupos, key=peso)
+    return [{"categoria": c, "itens": grupos[c]} for c in ordenados][:MAX_GRUPOS_COMPETENCIA]
+
+
 def _agrupar_por_padrao(fatos: Fatos, requisitos: Requisitos) -> list[dict]:
-    """Fallback: um grupo com as habilidades mais pedidas primeiro."""
-    pedido = {normalizar(t) for t in requisitos.stack}
-    ordenadas = sorted(
-        (h.get("nome", "") for h in fatos.habilidades),
-        key=lambda n: normalizar(n) not in pedido,
-    )
-    return [{"categoria": "Competências", "itens": list(ordenadas)[:14]}]
+    """Fallback sem modelo: todas as habilidades do perfil, na mesma taxonomia."""
+    nomes = [h.get("nome", "") for h in fatos.habilidades if h.get("nome")]
+    return _agrupar_por_taxonomia(nomes, requisitos) or [
+        {"categoria": "Competências", "itens": nomes[:14]}
+    ]
 
 
 def _mesmo_termo(a: str, b: str) -> bool:
@@ -392,8 +512,8 @@ def _mesmo_termo(a: str, b: str) -> bool:
     return bool(re.search(rf"(?<![\w+#.]){re.escape(curto)}(?![\w+#.])", longo))
 
 
-def _competencias_limpas(bruto, fatos: Fatos, requisitos: Requisitos) -> list[dict]:
-    """As competências, sem repetição e sem nome de projeto.
+def _itens_aprovados(bruto, fatos: Fatos) -> list[str]:
+    """As habilidades que o modelo escolheu, sem repetição e sem nome de projeto.
 
     Três filtros que o `conheco()` sozinho não faz, porque a lista branca da
     anti-alucinação é deliberadamente generosa — ela responde *"isto é verdade?"*,
@@ -402,57 +522,47 @@ def _competencias_limpas(bruto, fatos: Fatos, requisitos: Requisitos) -> list[di
     1. **Nome de projeto não é habilidade.** "Churn Prediction" na linha de
        Ciência de Dados faz o recrutador procurar uma tecnologia que não existe.
        O projeto tem seção própria, com bullets.
-    2. **Sem repetir entre categorias.** "SQLAlchemy 2.0 async" em *Banco de
-       Dados* e em *Backend* não dobra a chance no ATS: parece revisão malfeita.
-    3. **Sem repetir dentro do mesmo item.** "Machine Learning (scikit-learn)"
-       e "scikit-learn" lado a lado é o mesmo termo escrito duas vezes — o
-       filtro derruba o mais curto quando um contém o outro.
+    2. **Sem repetir.** O mesmo termo em dois grupos não dobra a chance no ATS:
+       parece revisão malfeita. Como a categoria passou a ser decidida por
+       código, a lista sai plana daqui e a repetição morre na origem.
+    3. **Sem o mesmo termo escrito de dois jeitos.** "Machine Learning
+       (scikit-learn)" e "scikit-learn" lado a lado é o mesmo termo duas vezes —
+       fica o mais informativo, que é o mais longo.
     """
-    if not isinstance(bruto, list) or not bruto:
-        return _agrupar_por_padrao(fatos, requisitos)
-
     projetos = {normalizar(p.get("nome", "")) for p in fatos.projetos}
-    ja_listados: dict[str, str] = {}     # normalizado → como foi escrito
-    grupos: list[dict] = []
+    escolhidos: dict[str, str] = {}      # normalizado → como foi escrito
 
     for g in bruto:
         if not isinstance(g, dict):
             continue
-        itens: list[str] = []
         for item in g.get("itens") or []:
             nome = str(item.get("nome") if isinstance(item, dict) else item or "").strip()
             n = normalizar(nome)
             # Competência é a mais fácil de inventar e a mais lida pelo ATS.
             if not nome or not n or not fatos.conheco(nome) or n in projetos:
                 continue
-            # Um termo que contém outro já listado (ou está contido nele) é o
-            # mesmo termo: fica o mais informativo, que é o mais longo.
-            colisao = next(
-                (visto for visto in ja_listados if _mesmo_termo(visto, n)), None
-            )
+            colisao = next((visto for visto in escolhidos if _mesmo_termo(visto, n)), None)
             if colisao:
                 if len(n) > len(colisao):
-                    antigo = ja_listados.pop(colisao)
-                    for grupo in grupos:
-                        if antigo in grupo["itens"]:
-                            grupo["itens"][grupo["itens"].index(antigo)] = nome
-                            ja_listados[n] = nome
-                            break
-                    else:
-                        if antigo in itens:
-                            itens[itens.index(antigo)] = nome
-                            ja_listados[n] = nome
+                    # Troca preservando a posição: a ordem é a relevância que o
+                    # modelo leu na vaga, e reordenar aqui a jogaria fora.
+                    escolhidos = {
+                        (n if k == colisao else k): (nome if k == colisao else v)
+                        for k, v in escolhidos.items()
+                    }
                 continue
-            ja_listados[n] = nome
-            itens.append(nome)
+            escolhidos[n] = nome
 
-        categoria = str(g.get("categoria") or "").strip()[:40]
-        if itens and categoria:
-            grupos.append({"categoria": categoria, "itens": itens})
+    return list(escolhidos.values())
 
-    # Um grupo pode ter ficado vazio depois dos filtros.
-    grupos = [g for g in grupos if g["itens"]]
-    return grupos[:MAX_GRUPOS_COMPETENCIA] or _agrupar_por_padrao(fatos, requisitos)
+
+def _competencias_limpas(bruto, fatos: Fatos, requisitos: Requisitos) -> list[dict]:
+    """A seção de competências: itens do modelo, categorias do código."""
+    if not isinstance(bruto, list) or not bruto:
+        return _agrupar_por_padrao(fatos, requisitos)
+
+    nomes = _itens_aprovados(bruto, fatos)
+    return _agrupar_por_taxonomia(nomes, requisitos) or _agrupar_por_padrao(fatos, requisitos)
 
 
 def _bullets_limpos(
@@ -471,6 +581,18 @@ def _bullets_limpos(
         # trocar o texto antes de conferir os fatos seria conferir outra coisa.
         bullets.append(primeira_pessoa(texto))
     return bullets[:MAX_BULLETS]
+
+
+def _bullets_do_perfil(descricao: str | None) -> list[str]:
+    """A descrição do perfil virando bullets — quando o modelo não entregou nada.
+
+    Uma frase por bullet, e cada uma passa pela conversão de voz. Antes o
+    fallback era a descrição INTEIRA num bullet só: um parágrafo de quatro
+    linhas com um marcador na frente, que o recrutador pula e o parser conta
+    como uma realização única — na seção que mais pesa.
+    """
+    frases = [f.strip() for f in re.split(r"(?<=[.!?])\s+", str(descricao or "")) if f.strip()]
+    return [primeira_pessoa(f) for f in frases][:MAX_BULLETS]
 
 
 def _experiencias_limpas(
@@ -501,9 +623,9 @@ def _experiencias_limpas(
             {
                 "empresa": e.get("empresa"),
                 "cargo": e.get("cargo"),
-                "periodo": e.get("periodo"),
+                "periodo": ats.periodo(e.get("periodo")),
                 # Sem bullets aprovados, o texto do perfil é melhor que nada.
-                "bullets": bullets or ([e["descricao"]] if e.get("descricao") else []),
+                "bullets": bullets or _bullets_do_perfil(e.get("descricao")),
             }
         )
     return saida
@@ -544,7 +666,12 @@ def _projetos_limpos(
                 "nome": p.get("nome"),
                 "stack": p.get("stack") or [],
                 "link": p.get("link"),
-                "bullets": [x for x in (p.get("descricao"), p.get("prova")) if x],
+                # A prova é a linha com número — entra sempre, e o que sobra de
+                # espaço fica para a descrição, uma frase por bullet.
+                "bullets": (
+                    _bullets_do_perfil(p.get("descricao"))[: MAX_BULLETS - 1]
+                    + ([p["prova"]] if p.get("prova") else [])
+                ),
             }
             for p in fatos.projetos[:MAX_PROJETOS]
         ]
@@ -567,8 +694,9 @@ def como_texto(c: Curriculo, fatos: Fatos) -> str:
         c.titulo,
         # Sem "https://", como o PDF já faz: o texto da fila é o que eu reviso, e
         # ele tem que ser o mesmo documento que sai impresso. Ver `pdf._montar`.
-        " · ".join(
-            f"{k}: {re.sub(r'^https?://', '', str(v)).rstrip('/')}"
+        ats.SEP_CAMPO.join(
+            f"{ats.ROTULOS_CONTATO.get(k, k)}: "
+            f"{re.sub(r'^https?://', '', str(v)).rstrip('/')}"
             for k, v in contato.items()
             if v
         ),
@@ -578,27 +706,35 @@ def como_texto(c: Curriculo, fatos: Fatos) -> str:
         "",
         "COMPETÊNCIAS",
     ]
-    linhas += [f"{g['categoria']}: {' · '.join(g['itens'])}" for g in c.competencias]
+    linhas += [
+        f"{g['categoria']}: {ats.SEP_LISTA.join(g['itens'])}" for g in c.competencias
+    ]
 
     linhas += ["", "EXPERIÊNCIA PROFISSIONAL"]
     for e in c.experiencias:
-        linhas.append(f"{e.get('cargo')} · {e.get('empresa')} ({e.get('periodo')})")
+        linhas.append(
+            f"{e.get('cargo')}{ats.SEP_CAMPO}{e.get('empresa')} ({e.get('periodo')})"
+        )
         linhas += [f"  - {b}" for b in e.get("bullets", [])]
 
     linhas += ["", "PROJETOS"]
     for projeto in c.projetos:
-        linhas.append(f"{projeto['nome']} — {', '.join(projeto.get('stack') or [])}")
+        linhas.append(
+            f"{projeto['nome']}{ats.SEP_CAMPO}"
+            f"{ats.SEP_LISTA.join(projeto.get('stack') or [])}"
+        )
         linhas += [f"  - {b}" for b in projeto["bullets"]]
 
     linhas += ["", "FORMAÇÃO"]
     linhas += [
-        f"{f.get('instituicao')} — {f.get('curso')} ({f.get('periodo')})" for f in c.formacao
+        f"{f.get('instituicao')}{ats.SEP_CAMPO}{f.get('curso')} ({f.get('periodo')})"
+        for f in c.formacao
     ]
     if c.certificacoes:
         linhas += ["", "CERTIFICAÇÕES"]
         linhas += [
             f"{cert.get('nome')}"
-            + (f" — {cert.get('instituicao')}" if cert.get("instituicao") else "")
+            + (f"{ats.SEP_CAMPO}{cert.get('instituicao')}" if cert.get("instituicao") else "")
             + (f" ({cert.get('ano')})" if cert.get("ano") else "")
             for cert in c.certificacoes
         ]
@@ -616,6 +752,12 @@ _SECAO_TEXTO = re.compile(
     r"CERTIFICA[ÇC][ÕO]ES)\s*$"
 )
 _BULLET_TEXTO = re.compile(r"^\s{2}-\s+(.+)$")
+
+# O `·` continua aqui de propósito: currículo gravado antes da troca de
+# separador tem que voltar a ser lido. Ler o formato antigo é de graça;
+# perder o texto que eu editei, não.
+_CAMPOS_TEXTO = re.compile(r"\s*[|·—]\s*")
+_ITENS_TEXTO = re.compile(r"\s*[,·]\s*")
 
 
 def de_texto(texto: str, base: Curriculo) -> Curriculo:
@@ -664,15 +806,16 @@ def de_texto(texto: str, base: Curriculo) -> Curriculo:
             resumo.append(nu)
         elif secao == "competencias" and ":" in nu:
             categoria, _, itens = nu.partition(":")
-            valores = [i.strip() for i in itens.split("·") if i.strip()]
+            valores = [i.strip() for i in _ITENS_TEXTO.split(itens) if i.strip()]
             if categoria.strip() and valores:
                 competencias.append({"categoria": categoria.strip(), "itens": valores})
         elif secao == "experiencia profissional":
-            # "Cargo · Empresa (período)" — a empresa é a chave.
-            empresa = nu.split("·")[-1].split("(")[0].strip() if "·" in nu else nu
+            # "Cargo | Empresa (período)" — a empresa é a chave.
+            campos = _CAMPOS_TEXTO.split(nu)
+            empresa = campos[-1].split("(")[0].strip() if len(campos) > 1 else nu
             atual = bullets_exp.setdefault(normalizar(empresa), [])
         elif secao == "projetos":
-            nome = nu.split("—")[0].strip()
+            nome = _CAMPOS_TEXTO.split(nu)[0].strip()
             atual = bullets_proj.setdefault(normalizar(nome), [])
 
     if resumo:
