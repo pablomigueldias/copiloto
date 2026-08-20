@@ -17,7 +17,8 @@
     "postgre sql",
     "post gray sql",
     "postgres ql",
-    "postgrey"
+    "postgrey",
+    "postgre"
   ],
   "pgvector": [
     "pigvector",
@@ -65,7 +66,6 @@
   ],
   "Redis": [
     "hedis",
-    "redes",
     "reddis"
   ],
   "Ollama": [
@@ -501,5 +501,23 @@
   ],
   "condicional": [
     "condicionau"
+  ],
+  "DIO": [
+    "diu",
+    "d i u",
+    "d i o"
+  ],
+  "Mascarenhas": [
+    "mascarinhas",
+    "mascarinha"
+  ],
+  "RabbitMQ": [
+    "reptmq",
+    "rabbit mq",
+    "rabit mq",
+    "rabbit m q"
+  ],
+  "Primeiros Passos para Começar a Programar": [
+    "minas passaro a programar"
   ]
 }
