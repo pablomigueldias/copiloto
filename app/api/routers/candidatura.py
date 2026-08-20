@@ -16,6 +16,8 @@ from fastapi.responses import FileResponse, Response
 
 from app.api.dependencies.auth import usuario_atual
 from app.api.schemas.candidatura import (
+    CurriculoTexto,
+    CurriculoTextoResponse,
     EventoRequest,
     GeracaoResponse,
     MetricasResponse,
@@ -209,6 +211,65 @@ async def get_curriculo_pdf(vaga_id: UUID, _: UsuarioLogado) -> FileResponse:
         caminho,
         media_type="application/pdf",
         headers={"Content-Disposition": f'inline; filename="{nome}"'},
+    )
+
+
+@router.get(
+    "/{vaga_id}/curriculo.txt",
+    response_model=CurriculoTextoResponse,
+    summary="O currículo em texto, para editar",
+)
+async def get_curriculo_texto(vaga_id: UUID, _: UsuarioLogado) -> CurriculoTextoResponse:
+    """O que a gaveta abre no editor.
+
+    Sai do `curriculo_json`, a mesma fonte que o `curriculo.pdf` reimprime — o
+    que eu leio aqui é o que sai no papel.
+    """
+    try:
+        texto = await servico.texto_do_curriculo(vaga_id)
+    except vagas.VagaNaoEncontrada as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e
+    except servico.SemCurriculo as e:
+        raise HTTPException(status_code=409, detail=str(e)) from e
+    except perfil.PerfilAusente as e:
+        raise HTTPException(status_code=409, detail=str(e)) from e
+    return CurriculoTextoResponse(vaga_id=str(vaga_id), texto=texto)
+
+
+@router.put(
+    "/{vaga_id}/curriculo",
+    response_model=CurriculoTextoResponse,
+    summary="Salva o currículo que eu editei à mão",
+)
+async def put_curriculo_texto(
+    vaga_id: UUID, req: CurriculoTexto, _: UsuarioLogado
+) -> CurriculoTextoResponse:
+    """Substitui o texto do currículo e reimprime o PDF.
+
+    `PUT` e não `PATCH`: o corpo é o documento inteiro, não um pedaço dele.
+
+    **A anti-alucinação não roda aqui, e é deliberado.** Ela existe para impedir
+    que o *modelo* invente tecnologia que eu não tenho; quem escreveu agora fui
+    eu, que sou a autoridade sobre o meu próprio currículo. Rejeitar o meu texto
+    porque ele cita algo fora do Perfil Mestre seria o filtro trabalhando contra
+    o dono dele — o certo é o perfil ganhar o dado que falta.
+
+    Devolve o texto relido do JSON gravado, e não o que foi enviado: o que o
+    `de_texto` não conseguiu ler continua como estava, e a tela precisa mostrar
+    o que ficou de verdade.
+    """
+    try:
+        caminho = await servico.aplicar_texto_aprovado(vaga_id, req.texto, origem="painel")
+        texto = await servico.texto_do_curriculo(vaga_id)
+    except vagas.VagaNaoEncontrada as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e
+    except servico.SemCurriculo as e:
+        raise HTTPException(status_code=409, detail=str(e)) from e
+    except perfil.PerfilAusente as e:
+        raise HTTPException(status_code=409, detail=str(e)) from e
+
+    return CurriculoTextoResponse(
+        vaga_id=str(vaga_id), texto=texto, pdf=str(caminho) if caminho else None
     )
 
 

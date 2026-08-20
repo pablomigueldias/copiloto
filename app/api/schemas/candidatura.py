@@ -35,6 +35,24 @@ class VagaPatch(BaseModel):
     status: str | None = None
 
 
+class CurriculoTexto(BaseModel):
+    """O currículo em texto puro — o formato do editor da gaveta e da fila.
+
+    Texto e não JSON de propósito: é o que o `de_texto` sabe ler, é o que o ATS
+    enxerga, e é o mesmo formato que a fila já usa. Um editor de JSON pediria
+    que eu acertasse chave e vírgula para corrigir uma frase.
+    """
+
+    texto: str = Field(min_length=1, max_length=60_000)
+
+
+class CurriculoTextoResponse(BaseModel):
+    vaga_id: str
+    texto: str
+    # `None` quando a edição não mudou nada — a tela não avisa "salvo" à toa.
+    pdf: str | None = None
+
+
 class EventoRequest(BaseModel):
     evento: str
     detalhe: str | None = None

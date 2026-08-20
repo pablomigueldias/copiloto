@@ -60,7 +60,14 @@ async def perfil():
         p = PerfilMestre(
             nome="Pablo",
             resumo="Dev Python.",
-            contato={"email": "pablo@exemplo.dev"},
+            # Escrito na ordem que o ATS quer, para o teste poder provar que
+            # ela sobrevive: o Postgres guarda `jsonb` com as chaves ordenadas
+            # por tamanho, e devolve "email, telefone, localizacao".
+            contato={
+                "localizacao": "Santo André, SP",
+                "telefone": "(11) 90000-0000",
+                "email": "pablo@exemplo.dev",
+            },
             habilidades=[{"nome": "Python"}, {"nome": "FastAPI"}, {"nome": "PostgreSQL"}],
             projetos=[{"nome": "Copiloto", "descricao": "RAG local",
                        "stack": ["Python", "FastAPI"]}],
@@ -331,3 +338,92 @@ async def test_listagem_nao_manda_os_blocos_json(logado, perfil):
     # E o detalhe, que a gaveta usa, continua trazendo tudo.
     detalhe = (await logado.get(f"/api/vagas/{vaga['id']}")).json()
     assert detalhe["curriculo_json"] and detalhe["analise_json"]
+
+
+# ── Editar o currículo pela gaveta ────────────────────────────────
+#
+# O caminho já existia pela fila (`aplicar_texto_aprovado`); o que faltava era
+# ele estar onde eu estou quando vejo o bullet ruim — na vaga.
+
+
+async def test_curriculo_em_texto_para_editar(logado, perfil):
+    vaga = await vagas.criar(descricao=JD, empresa="Nexus")
+    await logado.post(f"/api/vagas/{vaga.id}/curriculo", headers=_csrf(logado))
+
+    r = await logado.get(f"/api/vagas/{vaga.id}/curriculo.txt")
+    assert r.status_code == 200
+    texto = r.json()["texto"]
+    assert "RESUMO" in texto and "COMPETÊNCIAS" in texto
+    # A cidade abre a linha de contato: o jsonb devolve as chaves por tamanho,
+    # e muitos ATS filtram por localização antes de ler o resto.
+    assert texto.splitlines()[2].startswith("local:")
+
+
+async def test_editar_o_curriculo_muda_o_pdf(logado, perfil):
+    vaga = await vagas.criar(descricao=JD)
+    await logado.post(f"/api/vagas/{vaga.id}/curriculo", headers=_csrf(logado))
+    texto = (await logado.get(f"/api/vagas/{vaga.id}/curriculo.txt")).json()["texto"]
+
+    meu = texto.replace(
+        "Automatizar processos com Python.", "Resumo que eu escrevi na mão."
+    )
+    r = await logado.put(
+        f"/api/vagas/{vaga.id}/curriculo", json={"texto": meu}, headers=_csrf(logado)
+    )
+    assert r.status_code == 200 and r.json()["pdf"]
+
+    # A prova é o documento que eu ia enviar, não o JSON: o PDF reimprime a
+    # partir do `curriculo_json`, então o texto novo tem que sair nele.
+    pdf = await logado.get(f"/api/vagas/{vaga.id}/curriculo.pdf")
+    assert pdf.status_code == 200 and pdf.content[:4] == b"%PDF"
+    assert "Resumo que eu escrevi na mão." in (
+        await logado.get(f"/api/vagas/{vaga.id}/curriculo.txt")
+    ).json()["texto"]
+
+
+async def test_editar_sem_mudar_nada_nao_reimprime(logado, perfil):
+    vaga = await vagas.criar(descricao=JD)
+    await logado.post(f"/api/vagas/{vaga.id}/curriculo", headers=_csrf(logado))
+    texto = (await logado.get(f"/api/vagas/{vaga.id}/curriculo.txt")).json()["texto"]
+
+    r = await logado.put(
+        f"/api/vagas/{vaga.id}/curriculo", json={"texto": texto}, headers=_csrf(logado)
+    )
+    # `pdf: None` é o servidor dizendo "não mudou". A tela usa isso para não
+    # anunciar "salvo" quando nada aconteceu.
+    assert r.status_code == 200 and r.json()["pdf"] is None
+
+
+async def test_texto_meu_nao_passa_pela_anti_alucinacao(logado, perfil):
+    """Eu sou a autoridade sobre o meu currículo; a lista branca é para o modelo.
+
+    Ela existe para impedir que o LLM acrescente "Kubernetes" porque combina
+    com o resto. Aplicá-la ao que eu escrevi seria o filtro trabalhando contra
+    o dono dele.
+    """
+    vaga = await vagas.criar(descricao=JD)
+    await logado.post(f"/api/vagas/{vaga.id}/curriculo", headers=_csrf(logado))
+    texto = (await logado.get(f"/api/vagas/{vaga.id}/curriculo.txt")).json()["texto"]
+
+    meu = texto.replace("RESUMO\n", "RESUMO\nTrabalhei com Kubernetes e Terraform.\n")
+    r = await logado.put(
+        f"/api/vagas/{vaga.id}/curriculo", json={"texto": meu}, headers=_csrf(logado)
+    )
+    assert r.status_code == 200
+    assert "Kubernetes" in (
+        await logado.get(f"/api/vagas/{vaga.id}/curriculo.txt")
+    ).json()["texto"]
+
+
+async def test_editar_vaga_sem_curriculo_e_409(logado, perfil):
+    vaga = await vagas.criar(descricao=JD)
+    r = await logado.put(
+        f"/api/vagas/{vaga.id}/curriculo", json={"texto": "qualquer"}, headers=_csrf(logado)
+    )
+    assert r.status_code == 409
+
+
+async def test_editar_exige_sessao(client, perfil):
+    vaga = await vagas.criar(descricao=JD)
+    r = await client.put(f"/api/vagas/{vaga.id}/curriculo", json={"texto": "x"})
+    assert r.status_code in (401, 403)

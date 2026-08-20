@@ -156,8 +156,30 @@ async def gerar_curriculo(
     return saida
 
 
-async def aplicar_texto_aprovado(vaga_id: UUID, texto: str) -> Path | None:
-    """O currículo que eu editei na fila vira o currículo da vaga.
+async def texto_do_curriculo(vaga_id: UUID) -> str:
+    """O currículo gerado, em texto puro — o que a tela abre para eu editar.
+
+    Vem do `curriculo_json`, e não do PDF ou do texto guardado na ação da fila:
+    é a mesma fonte que o `curriculo.pdf` reimprime, então o que eu leio no
+    editor é literalmente o que sai no papel. Qualquer outra fonte poderia estar
+    um passo atrás.
+    """
+    vaga = await vagas.obter(vaga_id)
+    if not vaga.curriculo_json:
+        raise SemCurriculo(f"A vaga {vaga.titulo!r} ainda não tem currículo gerado.")
+    fatos = await perfil.carregar()
+    return gerador.como_texto(gerador.Curriculo(**vaga.curriculo_json), fatos)
+
+
+async def aplicar_texto_aprovado(
+    vaga_id: UUID, texto: str, *, origem: str = "fila"
+) -> Path | None:
+    """O currículo que eu editei vira o currículo da vaga.
+
+    Dois caminhos chegam aqui e é de propósito que seja o mesmo código: a
+    aprovação com edição na fila, e o editor da gaveta da vaga. Duas rotinas de
+    "aplicar texto editado" divergiriam no primeiro formato novo, e aí o PDF
+    dependeria de por qual tela eu passei.
 
     Sem isto, aprovar com edição gravava `texto_final` na ação e mais nada: o
     `curriculo_json` continuava com a saída do modelo, e `curriculo.pdf` — que
@@ -183,7 +205,9 @@ async def aplicar_texto_aprovado(vaga_id: UUID, texto: str) -> Path | None:
         await session.commit()
 
     caminho = pdf.gerar_pdf(editado, fatos, empresa=vaga.empresa)
-    await vagas.registrar_evento(vaga_id, "editada", detalhe="currículo corrigido na fila")
+    await vagas.registrar_evento(
+        vaga_id, "editada", detalhe=f"currículo corrigido ({origem})"
+    )
     logger.info(f"Currículo da vaga {str(vaga_id)[:8]} atualizado com o texto aprovado")
     return caminho
 
