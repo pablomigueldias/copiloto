@@ -363,7 +363,8 @@ def test_rota_local_devolve_o_destino_da_queda(monkeypatch):
 
     queda = gateway.rota_local("compreender")
     assert queda.provider == "ollama"
-    assert queda.modelo == settings.ollama_model_pesado
+    # A forma da tarefa sobrevive à queda: sem `json_mode`, o `_validar_schema`
+    # pararia de valer e o fichamento aceitaria qualquer texto como sucesso.
     assert queda.json_mode is True
 
 
@@ -582,4 +583,19 @@ def test_queda_do_pesado_e_o_local_e_nao_o_flash(com_pesado):
     e ainda pago. O destino da queda é a máquina."""
     queda = gateway.rota_local("compreender", "conhecimento.transcricao.fichamento")
     assert queda.provider == "ollama"
-    assert queda.modelo == settings.ollama_model_pesado
+
+
+def test_a_queda_do_fichamento_usa_o_modelo_que_ja_esta_carregado(com_pesado):
+    """O 8B não cabe mais na placa, e isso custou uma nota inteira.
+
+    Em 17/08/2026, na primeira gravação depois de o Whisper ir para a GPU, o
+    `llama3.1:8b` estourou os 180 s de timeout e o fichamento se perdeu: a placa
+    tinha o Whisper (1,2 GB) e o `gemma4:e4b` da reescrita ao vivo (~4,3 GB), e
+    os 4,9 GB do 8B não entram em cima disso.
+
+    A queda tem que usar o que já está carregado. Vale menos na tarefa, e vale
+    infinitamente mais que um timeout.
+    """
+    queda = gateway.rota_local("compreender", "conhecimento.transcricao.fichamento")
+    assert queda.modelo == settings.ollama_model_redacao
+    assert queda.modelo != settings.ollama_model_pesado

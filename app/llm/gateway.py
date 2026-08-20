@@ -147,14 +147,29 @@ def rota(tarefa: Tarefa, agente: str | None = None) -> Rota:
 
 
 def rota_local(tarefa: Tarefa, agente: str | None = None) -> Rota:
-    """A rota que valeria sem chave nenhuma — o destino da queda."""
+    """A rota que valeria sem chave nenhuma — o destino da queda.
+
+    **`compreender` NÃO cai no `ollama_model_pesado`, e isso custou uma nota.**
+    Medido em 17/08/2026, na primeira gravação depois de o Whisper ir para a
+    GPU: o `llama3.1:8b` estourou o timeout de 180 s e o fichamento se perdeu
+    inteiro. Não foi bug de código, foi VRAM — a placa tinha o Whisper
+    `large-v3-turbo` (1,2 GB) e o `gemma4:e4b` residente da reescrita ao vivo
+    (~4,3 GB), e os 4,9 GB do 8B não cabem em cima disso. O Ollama escorrega
+    para a RAM e a inferência nunca termina.
+
+    A queda usa o modelo que **já está carregado** na hora em que ela acontece.
+    Vale menos que o 8B na tarefa, e vale infinitamente mais que um timeout: o
+    trabalho da queda é ter nota, não ter a melhor nota.
+
+    O `ollama_model_pesado` continua certo para `scripts/reprocessar_nota.py` e
+    para o caminho de arquivo, onde nada mais está na placa.
+    """
     r = rota(tarefa, agente)
     if r.provider == "ollama":
         return r
     local = {
         "classificar": settings.ollama_model_extracao,
         "extrair": settings.ollama_model_extracao,
-        "compreender": settings.ollama_model_pesado,
     }.get(tarefa, settings.ollama_model_redacao)
     return replace(r, modelo=local, provider="ollama")
 
