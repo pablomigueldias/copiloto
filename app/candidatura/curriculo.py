@@ -70,6 +70,11 @@ MAX_PROJETOS = 3
 # `Ferramentas`, que existe justamente para não empurrar item para a
 # categoria errada. Se a taxonomia cobre tudo, o balde nem aparece.
 MAX_GRUPOS_COMPETENCIA = 7
+# Oito itens por categoria. Os itens já vêm ordenados com o que a vaga pediu na
+# frente, então o corte tira só o que não casa — e uma linha de doze termos
+# dilui os quatro que importam: numa vaga de dados, "WordPress, WHM, cPanel" na
+# PRIMEIRA linha de competências fala sobre outro profissional.
+MAX_ITENS_CATEGORIA = 8
 
 # Mês por extenso ou número: uma entrada de experiência sem isso é recusada
 # automaticamente por parte dos ATS de 2026.
@@ -143,8 +148,20 @@ Produza EXATAMENTE este JSON, com as duas chaves:
   ]
 }}
 
+O RESUMO É LIDO COLADO NO TÍTULO DO ANÚNCIO, que aparece impresso logo acima
+dele. Duas consequências:
+
+1. A primeira frase tem que responder àquele título. Se o anúncio diz
+   "Engenheiro de Dados - IA/ML", abrir com "Desenvolvedor com foco em Python e
+   FastAPI" faz as duas linhas discordarem na hora — o recrutador lê as duas
+   juntas. Não copie o título como rótulo; escreva o que eu faço que É aquilo.
+2. Os NOMES PRÓPRIOS de tecnologia que a vaga pede e o perfil sustenta
+   (AWS Bedrock, AWS Step Functions, pgvector…) vão no resumo. São os termos
+   mais raros do documento e esta é a posição de maior peso da página; deixá-los
+   só lá embaixo é jogar fora o lugar onde eles valem mais.
+
 CATEGORIAS PERMITIDAS, exatamente com estes nomes e nenhum outro:
-Linguagens; Frameworks e Arquitetura; IA e Machine Learning; Bancos de Dados;
+IA e Machine Learning; Dados e Pipelines; Linguagens; Frameworks e Arquitetura;
 DevOps e Infraestrutura; Testes, Qualidade e Processo; Ferramentas.
 
 Um rótulo que mistura categorias ("Agentes e Aplicações" com Next.js, Docker e
@@ -171,7 +188,10 @@ Produza EXATAMENTE este JSON, com as duas chaves:
 }}
 
 Escreva bullets para TODAS as experiências do perfil e para os 3 projetos mais
-relevantes. Se um projeto tem resultado medido no perfil, o número aparece num
+relevantes. Em cada projeto, o PRIMEIRO bullet é o que mais toca o que a vaga
+pede — se o projeto faz ingestão e indexação de documentos e a vaga fala de
+pipelines de dados, é isso que abre, não a arquitetura interna. Escreva os 3
+bullets; parar em 2 é jogar fora uma linha que já está paga. Se um projeto tem resultado medido no perfil, o número aparece num
 bullet — é a informação mais valiosa da página.
 
 Cada bullet diz uma coisa NOVA. Não repita em bullet o que já está na linha de
@@ -212,6 +232,23 @@ class Curriculo:
 # ── Verificação (a camada que vale) ───────────────────────────────
 
 
+# As palavras que aparecem dentro das expansões de sigla que o PRÓPRIO código
+# escreve (`ats.SIGLAS`: RAG → "Retrieval-Augmented Generation").
+#
+# Sem isto a anti-alucinação rejeitava o texto por citar "Generation" — uma
+# palavra que o `_expandir_siglas` insere sozinho duas linhas depois. O efeito
+# era caro e invisível: o resumo do modelo era descartado inteiro e o currículo
+# caía para o `resumo` estático do perfil, que fala de "Python e FastAPI"
+# enquanto o título do anúncio diz "Engenheiro de Dados". Levei um dia para
+# perceber que o resumo fraco não era escolha do modelo, era queda.
+_PALAVRAS_DE_EXPANSAO: frozenset[str] = frozenset(
+    palavra
+    for expansao in ats.SIGLAS.values()
+    for palavra in normalizar(expansao).split()
+    if len(palavra) > 1
+)
+
+
 def verificar(texto: str, fatos: Fatos, *, extras: frozenset[str] = frozenset()) -> str | None:
     """Devolve a primeira tecnologia inventada, ou None se o texto é honesto.
 
@@ -220,6 +257,10 @@ def verificar(texto: str, fatos: Fatos, *, extras: frozenset[str] = frozenset())
     """
     for termo in sorted(tecnologias_citadas(texto)):
         if termo in extras or fatos.conheco(termo):
+            continue
+        # Escrever a sigla por extenso não é inventar: é a mesma coisa que o
+        # `expansor()` faz, e por regra do próprio ATS (§2.2).
+        if all(p in _PALAVRAS_DE_EXPANSAO for p in normalizar(termo).split()):
             continue
         return termo
     return None
@@ -246,34 +287,152 @@ def _perfil_para_prompt(fatos: Fatos, destaques: list[str]) -> str:
     return "\n".join(linhas)
 
 
+# Palavras que toda vaga usa e que não dizem nada sobre o assunto dela.
+#
+# Elas vêm dos requisitos escritos em prosa ("Garantir observabilidade, testes e
+# qualidade de código") e, contadas como se fossem termo técnico, elegem
+# certificação por acaso: "Do Figma ao código" entrou por **código**, e
+# "Coaching para Alta Performance em TI" por **alta** e **performance** — numa
+# vaga de engenharia de dados.
+#
+# O efeito era pior que uma lista ruim: quase toda certificação empatava em 1
+# ponto, e o desempate era a ordem em que elas saíam do banco. Reimportar o
+# perfil trocava as certificações do currículo sem ninguém mexer em nada.
+#
+# Duas famílias, e as duas apareceram numa vaga real:
+#
+# - **funcional**: "Infraestrutura como código" traz `como`, que elegeu
+#   "DIO Agent: Nunca Mais Estude". O filtro de `len > 3` não pega essas —
+#   `como`, `mais`, `para` e `entre` têm quatro ou mais letras.
+# - **de processo**: "Garantir observabilidade, testes e qualidade de código"
+#   traz `garantir`, `qualidade` e `codigo`.
+_PALAVRAS_DE_PROCESSO = frozenset({
+    # funcionais do português (o `len > 3` não alcança)
+    "ainda", "alem", "algumas", "alguns", "apenas", "aquele", "assim",
+    "atraves", "cada", "como", "conforme", "deve", "devera", "entre", "essa",
+    "esse", "esta", "este", "isso", "junto", "mais", "menos", "mesmo", "muito",
+    "onde", "outra", "outro", "para", "pela", "pelo", "pouco", "porque",
+    "qualquer", "quando", "seja", "sendo", "seus", "sobre", "suas", "tambem",
+    "todas", "todos",
+    # genéricas de anúncio de vaga
+    "anos", "area", "areas", "forma", "meses", "nivel", "requisito",
+    "requisitos", "responsabilidades", "vaga",
+    "alta", "ambiente", "apoiar", "atuar", "capacidade", "cliente", "codigo",
+    "conhecimento", "construir", "criar", "desenvolver", "dominio", "equipe",
+    "executar", "experiencia", "ferramentas", "garantir", "habilidade",
+    "implementar", "integrar", "manter", "negocio", "orquestrar", "participar",
+    "performance", "processos", "projeto", "projetos", "qualidade", "realizar",
+    "sistema", "sistemas", "solucao", "solucoes", "tecnologias", "time",
+    "trabalhar", "vivencia",
+})
+
+
 def _selecionar_certificacoes(fatos: Fatos, requisitos: Requisitos, *, n: int = 6) -> list[dict]:
-    """As certificações que tocam a vaga — código puro, sem inferência."""
+    """As certificações que tocam o ASSUNTO da vaga — código puro, sem inferência."""
     pedido = {normalizar(t) for t in requisitos.stack}
     pedido |= {
         p
         for r in requisitos.obrigatorios + requisitos.desejaveis
         for p in normalizar(r).split()
-        if len(p) > 3
+        if len(p) > 3 and p not in _PALAVRAS_DE_PROCESSO
     }
+    pedido.discard("")
 
-    def pontos(c: dict) -> int:
-        # A descrição entra junto: "Fundamentos de SOC" não casa com "segurança",
-        # mas a descrição dele fala de monitoramento e resposta a incidentes. O
-        # nome do curso raramente usa a palavra que a vaga usa.
+    # Nome próprio de tecnologia que a vaga cita. Vale mais que palavra de
+    # assunto: "Bedrock" só aparece se o curso for daquilo.
+    forte = {t for t in (normalizar(x) for x in requisitos.stack) if t}
+
+    def pontos(c: dict) -> tuple[int, int]:
+        """(termos da stack que casaram, termos de assunto que casaram).
+
+        A descrição entra junto: "Fundamentos de SOC" não casa com "segurança"
+        pelo nome, mas a descrição dele fala de monitoramento. O nome do curso
+        raramente usa a palavra que a vaga usa.
+
+        Por palavra inteira, e não substring: "rds" não pode casar dentro de
+        "wordsmith", nem "s3" dentro de "css3".
+        """
         texto = normalizar(
             f"{c.get('nome', '')} {c.get('tema', '')} {c.get('descricao', '')}"
         )
-        return sum(1 for termo in pedido if termo and termo in texto)
+        casaram = {termo for termo in pedido if ats.contem_termo(termo, texto)}
+        return (len(casaram & forte), len(casaram))
 
-    ordenadas = sorted(fatos.certificacoes, key=pontos, reverse=True)
-    return [c for c in ordenadas if pontos(c)][:n] or ordenadas[:n]
+    def entra(c: dict) -> bool:
+        """Um termo genérico sozinho não é evidência de relevância.
+
+        Foi assim que "Do Figma ao código" entrou numa vaga de dados: casou em
+        **design**, porque a vaga dizia "Design de plataformas SaaS". Um acerto
+        de palavra solta é o mesmo sorteio de antes, com outra roupa.
+
+        Passa quem casa um nome próprio de tecnologia da vaga (aí não há
+        coincidência) ou pelo menos dois termos de assunto (aí não é acaso).
+        """
+        stack_casada, total = pontos(c)
+        return stack_casada >= 1 or total >= 2
+
+    # Ordenar pelo nome no empate: sem isso a lista sai na ordem do banco, e
+    # reimportar o perfil troca as certificações do currículo.
+    def forca(c: dict) -> int:
+        """Nome próprio pesa o dobro de palavra de assunto, e não infinito.
+
+        Ordenar por "casou stack? então na frente" fazia um acerto isolado —
+        "Python 3 - Mundo 1" casando `python` — passar à frente de um curso que
+        casava dois termos do assunto da vaga.
+        """
+        stack_casada, total = pontos(c)
+        return 2 * stack_casada + total
+
+    ordenadas = sorted(
+        fatos.certificacoes, key=lambda c: (-forca(c), normalizar(c.get("nome", "")))
+    )
+    relevantes = [c for c in ordenadas if entra(c)]
+    # Sem nenhuma relevante, vale mostrar as que existem — currículo sem seção
+    # de certificação nenhuma perde uma seção inteira. Com alguma, **só** as
+    # relevantes: seis certificações diluídas pesam menos que três que casam.
+    return (relevantes or ordenadas)[:n]
+
+
+def _fora_do_resumo(curriculo: Curriculo, requisitos: Requisitos, *, n: int = 3) -> list[str]:
+    """Termos que a vaga pede, que eu tenho, e que o RESUMO não menciona.
+
+    O resumo é a posição de maior peso do documento e a única que o recrutador
+    lê inteira. Um termo raro — "AWS Bedrock", "AWS Step Functions" — listado só
+    na seção de competências está no documento, mas fora do lugar onde ele
+    decide alguma coisa.
+
+    Isto é conferência, não conserto: **texto é do modelo e varia a cada
+    geração**, e reescrever prosa em código produziria frase de robô. O que o
+    código pode garantir é que a perda não aconteça em silêncio — que é o mesmo
+    critério do filtro de ruído da transcrição.
+
+    Só nome próprio entra na conta (`_PARECE_NOME_PROPRIO`): cobrar "backend" ou
+    "APIs" no resumo é cobrar prosa, e aí o aviso vira ruído.
+    """
+    pedido = _pedido_pela_vaga(requisitos)
+    resumo = normalizar(curriculo.resumo or "")
+    faltando = [
+        i
+        for i in curriculo.competencias_planas
+        if _casa_com_a_vaga(i, pedido)
+        and _PARECE_NOME_PROPRIO.search(i)
+        and not ats.contem_termo(normalizar(i), resumo)
+    ]
+    return faltando[:n]
+
+
+# Nome próprio de tecnologia: tem maiúscula no meio, dígito ou símbolo. "AWS
+# Bedrock" e "pgvector" entram; "backend de alta performance" não.
+_PARECE_NOME_PROPRIO = re.compile(r"[A-Z0-9+#.]")
 
 
 def _tem_numero(bullets: list[str]) -> bool:
     return any(any(c.isdigit() for c in b) for b in bullets or [])
 
 
-def _avisos_de_ats(fatos: Fatos, curriculo: Curriculo) -> list[str]:
+def _avisos_de_ats(
+    fatos: Fatos, curriculo: Curriculo, requisitos: Requisitos | None = None
+) -> list[str]:
     """O que um parser de 2026 penaliza e só o Pablo pode consertar."""
     avisos = []
 
@@ -306,6 +465,13 @@ def _avisos_de_ats(fatos: Fatos, curriculo: Curriculo) -> list[str]:
     sem_numero = [p["nome"] for p in curriculo.projetos if not _tem_numero(p.get("bullets"))]
     if sem_numero:
         avisos.append(f"sem número de resultado: {', '.join(sem_numero)}")
+    if requisitos is not None and (fora := _fora_do_resumo(curriculo, requisitos)):
+        avisos.append(
+            "termo que a vaga pede e o resumo não usa: "
+            + ", ".join(fora)
+            + " — está só nas competências, que é a metade fria da página"
+        )
+
     return avisos
 
 
@@ -380,7 +546,15 @@ async def gerar(
         bullets.get("experiencias"), fatos, curriculo, extras
     )
     curriculo.projetos = _projetos_limpos(bullets.get("projetos"), fatos, curriculo, extras)
-    curriculo.avisos = _avisos_de_ats(fatos, curriculo)
+    # Depois dos bullets, e não junto das competências: a regra da categoria
+    # órfã só é segura se souber o que o resto do documento já diz, e o resto
+    # do documento só existe agora.
+    curriculo.competencias = _sem_categoria_orfa(
+        curriculo.competencias,
+        _pedido_pela_vaga(requisitos),
+        _texto_de_apoio(curriculo),
+    )
+    curriculo.avisos = _avisos_de_ats(fatos, curriculo, requisitos)
     _expandir_siglas(curriculo)
 
     if curriculo.rejeitados:
@@ -471,19 +645,76 @@ def _agrupar_por_taxonomia(nomes: list[str], requisitos: Requisitos) -> list[dic
     """
     pedido = _pedido_pela_vaga(requisitos)
     grupos: dict[str, list[str]] = {}
-    for nome in nomes:
+    # `separar_pares` antes de categorizar: "React / Next.js" é um item só para
+    # o casador de skills do ATS e são duas tecnologias para a triagem. Depois
+    # de separadas, cada uma ainda é classificada pelo próprio nome — e as duas
+    # podem cair em categorias diferentes, que é o certo.
+    for nome in ats.separar_pares(nomes):
         grupos.setdefault(ats.categoria_de(nome), []).append(nome)
 
     ordem_canonica = {c: i for i, c in enumerate(ats.CATEGORIAS)}
     for itens in grupos.values():
         itens.sort(key=lambda i: not _casa_com_a_vaga(i, pedido))
 
-    def peso(categoria: str) -> tuple[int, int]:
-        casados = sum(1 for i in grupos[categoria] if _casa_com_a_vaga(i, pedido))
-        return (-casados, ordem_canonica.get(categoria, len(ordem_canonica)))
+    # A ordem das categorias é a canônica de `ats.CATEGORIAS`, que é
+    # posicionamento — ver o comentário lá. Ordenar por número de itens que
+    # casam parecia relevância e era sorteio: na vaga da Accenture uma
+    # categoria ganhava a primeira linha por UM item, com todas as outras em
+    # zero. A relevância continua mandando dentro da linha, logo acima.
+    ordenados = sorted(grupos, key=lambda c: ordem_canonica.get(c, len(ordem_canonica)))
+    saida = [
+        {"categoria": c, "itens": grupos[c][:MAX_ITENS_CATEGORIA]} for c in ordenados
+    ][:MAX_GRUPOS_COMPETENCIA]
+    return saida
 
-    ordenados = sorted(grupos, key=peso)
-    return [{"categoria": c, "itens": grupos[c]} for c in ordenados][:MAX_GRUPOS_COMPETENCIA]
+
+def _texto_de_apoio(c: Curriculo) -> str:
+    """Tudo que o currículo diz FORA da seção de competências.
+
+    É contra isto que a categoria órfã é conferida: se o termo já está num
+    bullet, tirá-lo da lista de competências não custa a palavra-chave.
+    """
+    partes = [c.resumo]
+    for entrada in (*c.experiencias, *c.projetos):
+        partes += entrada.get("bullets") or []
+        partes += [entrada.get("empresa", ""), entrada.get("nome", "")]
+        partes += entrada.get("stack") or []
+    return " ".join(str(p) for p in partes if p)
+
+
+def _sem_categoria_orfa(grupos: list[dict], pedido: set[str], resto_do_texto: str) -> list[dict]:
+    """Tira a categoria de um item só que não interessa à vaga — se o termo já
+    aparece em outro lugar do currículo.
+
+    `Ferramentas: Zoho One` é uma linha inteira, com rótulo e tudo, para um
+    termo que a vaga não pediu. Um cabeçalho de categoria com um item só chama
+    atenção para o que tem menos a ver com a vaga, e ocupa uma das poucas linhas
+    da seção mais lida.
+
+    **A condição do "já aparece em outro lugar" é o que torna isto seguro.**
+    "Zoho One" está no bullet da Sechat ("Administrei o Zoho One de uma operação
+    de 16 funcionários"), então tirá-lo daqui não some com a palavra-chave do
+    documento — só com a linha fraca. Se o termo não estivesse em mais lugar
+    nenhum, perder a palavra-chave seria pior que a linha feia, e a categoria
+    fica.
+    """
+    saida = []
+    for g in grupos:
+        itens = g.get("itens") or []
+        orfa = (
+            len(itens) == 1
+            and not _casa_com_a_vaga(itens[0], pedido)
+            and _mencionado(itens[0], resto_do_texto)
+        )
+        if not orfa:
+            saida.append(g)
+    return saida
+
+
+def _mencionado(termo: str, texto: str) -> bool:
+    """O termo aparece neste texto, por palavra inteira?"""
+    n = normalizar(termo)
+    return bool(n) and bool(re.search(rf"(?<![\w+#]){re.escape(n)}(?![\w+#])", normalizar(texto)))
 
 
 def _agrupar_por_padrao(fatos: Fatos, requisitos: Requisitos) -> list[dict]:
@@ -595,6 +826,31 @@ def _bullets_do_perfil(descricao: str | None) -> list[str]:
     return [primeira_pessoa(f) for f in frases][:MAX_BULLETS]
 
 
+def _empresa_conhecida(escrita: str, por_empresa: dict[str, dict]) -> str | None:
+    """A chave do perfil que esta empresa escrita pelo modelo designa.
+
+    Casamento exato primeiro; depois, o nome do perfil **contido** no que o
+    modelo escreveu. O segundo caminho existe porque o modelo junta cargo e
+    empresa quando o nome da empresa não parece nome de empresa: com a entrada
+    "Desenvolvedor — Projetos de IA e Automação | Autônomo", ele devolveu
+    `empresa: "Projetos de IA e Automação na Autônomo"`, e a experiência inteira
+    era rejeitada por não bater string com string.
+
+    Rejeitar aqui não protege de invenção — empresa, cargo e período vêm do
+    perfil de qualquer jeito, algumas linhas abaixo. O único efeito era perder
+    os bullets e cair para o texto cru da descrição.
+    """
+    n = normalizar(escrita)
+    if not n:
+        return None
+    if n in por_empresa:
+        return n
+    return next(
+        (chave for chave in por_empresa if chave and ats.contem_termo(chave, n)),
+        None,
+    )
+
+
 def _experiencias_limpas(
     bruto, fatos: Fatos, curriculo: Curriculo, extras: frozenset[str]
 ) -> list[dict]:
@@ -608,8 +864,8 @@ def _experiencias_limpas(
     for item in bruto if isinstance(bruto, list) else []:
         if not isinstance(item, dict):
             continue
-        chave = normalizar(item.get("empresa", ""))
-        if chave not in por_empresa:
+        chave = _empresa_conhecida(item.get("empresa", ""), por_empresa)
+        if chave is None:
             curriculo.rejeitados.append(f"experiência inexistente: {item.get('empresa')}")
             continue
         gerados[chave] = _bullets_limpos(
@@ -695,10 +951,8 @@ def como_texto(c: Curriculo, fatos: Fatos) -> str:
         # Sem "https://", como o PDF já faz: o texto da fila é o que eu reviso, e
         # ele tem que ser o mesmo documento que sai impresso. Ver `pdf._montar`.
         ats.SEP_CAMPO.join(
-            f"{ats.ROTULOS_CONTATO.get(k, k)}: "
-            f"{re.sub(r'^https?://', '', str(v)).rstrip('/')}"
-            for k, v in contato.items()
-            if v
+            f"{rotulo}: {re.sub(r'^https?://', '', v).rstrip('/')}"
+            for rotulo, v in ats.contato_ordenado(contato)
         ),
         "",
         "RESUMO",

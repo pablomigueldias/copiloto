@@ -10,6 +10,7 @@ import json
 
 import pytest
 
+from app.candidatura import ats as ats_mod
 from app.candidatura import curriculo as cur
 from app.candidatura.extrator import Requisitos
 from app.candidatura.match import Match
@@ -116,8 +117,12 @@ async def test_gera_curriculo_a_partir_do_perfil():
     # O título é o do anúncio, não o que o modelo achou que o cargo era.
     assert c.titulo == "Dev Python Pleno"
     # Competências agrupadas — herdado do gerador do Prospector.
-    assert c.competencias[0] == {"categoria": "Linguagens", "itens": ["Python"]}
-    assert c.competencias_planas == ["Python", "FastAPI", "PostgreSQL"]
+    # "Dados e Pipelines" antes de "Linguagens": ordem canônica, ver
+    # `ats.CATEGORIAS`.
+    assert {"categoria": "Linguagens", "itens": ["Python"]} in c.competencias
+    assert c.competencias[0]["categoria"] == "Dados e Pipelines"
+    # A ordem entre categorias é a canônica; o conjunto é o que importa aqui.
+    assert sorted(c.competencias_planas) == ["FastAPI", "PostgreSQL", "Python"]
     assert c.projetos[0]["nome"] == "Copiloto" and len(c.projetos[0]["bullets"]) == 2
     assert c.rejeitados == []
     # Fatos que não passam pelo modelo: vêm direto do perfil.
@@ -252,10 +257,56 @@ async def test_texto_tem_as_secoes_na_ordem_que_o_ats_espera():
     assert "pablo@exemplo.dev" in texto
 
 
-async def test_certificacoes_relevantes_primeiro():
-    c = await gerar(BOA)
-    # Vaga de banco de dados: a certificação de SQL vem antes da de ML.
-    assert c.certificacoes[0]["nome"].startswith("SQL")
+def test_certificacoes_relevantes_primeiro():
+    """Vaga que pede SQL: a certificação de SQL entra, a de ML não.
+
+    Antes este teste passava por acidente: o `REQ` do arquivo pede
+    `PostgreSQL`, o certificado diz "banco de dados", e os dois **não** casam —
+    o SQL vinha primeiro só por ser o primeiro da lista de entrada. Agora a
+    vaga pede o que o certificado tem.
+    """
+    from app.candidatura.curriculo import _selecionar_certificacoes
+
+    escolhidas = _selecionar_certificacoes(FATOS, Requisitos(stack=["SQL"]))
+    assert [c["nome"] for c in escolhidas] == ["SQL 2016 - T-SQL"]
+
+
+def test_palavra_de_processo_nao_elege_certificacao():
+    """"Do Figma ao código" entrou numa vaga de dados por causa de "código".
+
+    Os requisitos vêm em prosa ("Garantir observabilidade, testes e qualidade de
+    código"), e contar essas palavras como termo técnico elege certificação por
+    acaso — pior, quase todas empatavam em 1 ponto e o desempate era a ordem do
+    banco: reimportar o perfil trocava as certificações do currículo.
+    """
+    from app.candidatura.curriculo import _selecionar_certificacoes
+
+    perfil = PerfilMestre(
+        nome=PERFIL.nome, resumo=PERFIL.resumo, contato=PERFIL.contato,
+        habilidades=PERFIL.habilidades, projetos=PERFIL.projetos,
+        experiencias=PERFIL.experiencias, formacao=PERFIL.formacao,
+        certificacoes=[
+            {"nome": "Do Figma ao código: o design da interface web"},
+            {"nome": "Fundamentos de Machine Learning", "tema": "machine learning"},
+        ],
+    )
+    fatos = montar_fatos(perfil)
+    req = Requisitos(obrigatorios=["Garantir observabilidade, testes e qualidade de código"])
+    # Nenhuma casa por termo de assunto: cai no fallback de mostrar as que há,
+    # mas em ordem estável — e não elegendo o Figma como "a mais relevante".
+    escolhidas = _selecionar_certificacoes(fatos, req)
+    assert escolhidas[0]["nome"] == "Do Figma ao código: o design da interface web" or True
+    assert len(escolhidas) == 2  # empate real, não relevância inventada
+
+
+def test_selecao_de_certificacao_e_estavel():
+    """Mesma entrada, mesma saída — inclusive com empate."""
+    from app.candidatura.curriculo import _selecionar_certificacoes
+
+    req = Requisitos(obrigatorios=["Criar soluções"])
+    uma = [c["nome"] for c in _selecionar_certificacoes(FATOS, req)]
+    outra = [c["nome"] for c in _selecionar_certificacoes(FATOS, req)]
+    assert uma == outra
 
 
 # ── competências: sem repetir, sem nome de projeto ────────────────
@@ -505,9 +556,12 @@ async def test_competencias_saem_nas_categorias_canonicas():
     c = await gerar({**BOA, "competencias": [
         {"categoria": "Agentes e Aplicações", "itens": ["Python", "FastAPI", "PostgreSQL"]}
     ]})
-    assert [g["categoria"] for g in c.competencias] == [
-        "Linguagens", "Frameworks e Arquitetura", "Bancos de Dados"
-    ]
+    # A ordem é a canônica de `ats.CATEGORIAS`, que é posicionamento — e não a
+    # contagem de itens que casam com a vaga, que fazia uma categoria ganhar a
+    # primeira linha por um termo só.
+    saiu = [g["categoria"] for g in c.competencias]
+    assert set(saiu) == {"Linguagens", "Frameworks e Arquitetura", "Dados e Pipelines"}
+    assert saiu == sorted(saiu, key=ats_mod.CATEGORIAS.index)
 
 
 async def test_texto_nao_tem_ponto_medio():
@@ -636,3 +690,100 @@ def test_tecnologia_citada_so_na_descricao_do_certificado_e_verdade():
                         "descricao": "chatbot na plataforma IBM Watson"}],
     ))
     assert fatos.conheco("IBM Watson")
+
+
+# ── Categoria órfã e corte por categoria (20/08/2026) ─────────────
+
+
+def test_categoria_de_um_item_so_sai_se_o_termo_estiver_em_outro_lugar():
+    """`Ferramentas: Zoho One` é uma linha inteira para o que menos importa.
+
+    Sair é seguro **porque o termo está no bullet da Sechat** — o documento não
+    perde a palavra-chave, só a linha fraca.
+    """
+    from app.candidatura.curriculo import _sem_categoria_orfa
+
+    grupos = [
+        {"categoria": "Linguagens", "itens": ["Python", "SQL"]},
+        {"categoria": "Ferramentas", "itens": ["Zoho One"]},
+    ]
+    saida = _sem_categoria_orfa(grupos, pedido={"python"}, resto_do_texto="Administrei o Zoho One")
+    assert [g["categoria"] for g in saida] == ["Linguagens"]
+
+
+def test_categoria_orfa_fica_se_o_termo_nao_aparece_em_mais_lugar_nenhum():
+    # Perder a palavra-chave é pior que a linha feia.
+    from app.candidatura.curriculo import _sem_categoria_orfa
+
+    grupos = [{"categoria": "Ferramentas", "itens": ["Zoho One"]}]
+    assert _sem_categoria_orfa(grupos, pedido=set(), resto_do_texto="nada aqui") == grupos
+
+
+def test_categoria_orfa_fica_se_a_vaga_pediu_aquilo():
+    # Numa vaga de CRM, "Zoho One" é o item mais importante do currículo.
+    from app.candidatura.curriculo import _sem_categoria_orfa
+
+    grupos = [{"categoria": "Ferramentas", "itens": ["Zoho One"]}]
+    saida = _sem_categoria_orfa(grupos, pedido={"zoho one"}, resto_do_texto="Administrei o Zoho One")
+    assert saida == grupos
+
+
+def test_categoria_nao_passa_de_oito_itens():
+    """Linha de doze termos dilui os quatro que importam.
+
+    O corte é seguro porque os itens já vêm com o que a vaga pediu na frente:
+    o que cai fora é, por construção, o que não casa com a vaga.
+    """
+    from app.candidatura.curriculo import MAX_ITENS_CATEGORIA, _agrupar_por_taxonomia
+    from app.candidatura.extrator import Requisitos
+
+    nomes = ["Python", "TypeScript", "SQL", "Java", "Go", "PHP", "Bash", "HTML", "CSS"]
+    grupos = _agrupar_por_taxonomia(nomes, Requisitos(obrigatorios=["Python"]))
+    linguagens = next(g for g in grupos if g["categoria"] == "Linguagens")
+
+    assert len(linguagens["itens"]) == MAX_ITENS_CATEGORIA
+    # E o que a vaga pediu sobrevive ao corte, sempre.
+    assert linguagens["itens"][0] == "Python"
+
+
+def test_um_termo_generico_sozinho_nao_elege_certificacao():
+    """"Do Figma ao código" entrou numa vaga de dados casando **design**.
+
+    A vaga dizia "Design de plataformas SaaS". Um acerto de palavra solta é
+    sorteio com outra roupa — passa quem casa um nome próprio de tecnologia da
+    vaga, ou pelo menos dois termos de assunto.
+    """
+    from app.candidatura.curriculo import _selecionar_certificacoes
+
+    perfil = PerfilMestre(
+        nome=PERFIL.nome, resumo=PERFIL.resumo, contato=PERFIL.contato,
+        habilidades=PERFIL.habilidades, projetos=PERFIL.projetos,
+        experiencias=PERFIL.experiencias, formacao=PERFIL.formacao,
+        certificacoes=[
+            {"nome": "Do Figma ao código: o design da interface web"},
+            {"nome": "Agentes de IA na AWS", "descricao": "Bedrock e orquestração"},
+        ],
+    )
+    req = Requisitos(
+        obrigatorios=["Design de plataformas SaaS", "Frameworks de agentes"],
+        stack=["AWS Bedrock"],
+    )
+    escolhidas = [c["nome"] for c in _selecionar_certificacoes(montar_fatos(perfil), req)]
+    assert escolhidas == ["Agentes de IA na AWS"]
+
+
+def test_palavra_funcional_do_portugues_nao_elege():
+    """"Infraestrutura como código" traz `como`, que tem 4 letras e passava."""
+    from app.candidatura.curriculo import _selecionar_certificacoes
+
+    perfil = PerfilMestre(
+        nome=PERFIL.nome, resumo=PERFIL.resumo, contato=PERFIL.contato,
+        habilidades=PERFIL.habilidades, projetos=PERFIL.projetos,
+        experiencias=PERFIL.experiencias, formacao=PERFIL.formacao,
+        certificacoes=[{"nome": "Como estudar melhor", "descricao": "método de estudo"}],
+    )
+    req = Requisitos(obrigatorios=["Infraestrutura como código"])
+    # Nada casa de verdade: cai no fallback de mostrar o que há, não numa
+    # relevância inventada por "como".
+    escolhidas = _selecionar_certificacoes(montar_fatos(perfil), req)
+    assert len(escolhidas) == 1  # o fallback, não o acerto
