@@ -180,10 +180,43 @@ main {
   align-items: start;
 }
 
-/* A fila tem textarea de texto inteiro: numa tela larga ela merece o dobro. */
+/* Cada página tem a sua grade, porque tem uma quantidade diferente de cards.
+ *
+ * Antes de as candidaturas saírem daqui eram quatro, e `auto-fit` resolvia. Com
+ * três, `auto-fit` abre três colunas e deixa um buraco de duas na segunda
+ * linha; com um, estica um resumo estreito pela tela inteira. */
 @media (min-width: 1000px) {
-  #card-fila { grid-column: span 2; }
+  /* Painel: a fila é superfície de trabalho (textarea de texto inteiro) e fica
+     com a coluna larga; os dois medidores são leitura e empilham na estreita.
+     São só duas colunas — o `.coluna` faz o empilhamento, e a grade não
+     precisa saber de linha nenhuma.
+     
+     **`minmax(0, …)` e não `2fr 1fr` puro.** Uma faixa `1fr` tem mínimo
+     automático de `min-content`: basta um título longo no cartão
+     "Conhecimento" ("Fase H — Híbrido: o que sai da máquina… > Fase H —
+     Híbrido: …") para a coluna da direita crescer além da fatia dela e
+     espremer a fila até o mínimo do conteúdo dela.
+     
+     Medido a 1024 px: com o cartão vazio, `645px 322px`; com um título de
+     índice de verdade, **`167px 800px`** — a fila some, e a área de aprovar
+     currículo fica com 167 px. O `minmax(0, …)` fixa o mínimo em zero, e aí a
+     proporção é a proporção. O `text-overflow: ellipsis` do `.ref` corta o
+     texto na tela, mas não impede que ele empurre a faixa. */
+  main.blocos { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  /* Mesmo motivo, um nível abaixo: sem isto o cartão dentro da coluna volta a
+     ditar a largura pelo conteúdo. */
+  main.blocos > * { min-width: 0; }
 }
+
+/* Candidaturas: o funil é resumo de uma lista que já está inteira acima. Largo
+   demais ele vira um retângulo vazio — a barra do funil não fica melhor com
+   800 px do que com 400. */
+main.resumo { grid-template-columns: minmax(320px, 520px); }
+
+/* A coluna estreita do painel. Empilha os cartões pelo tamanho de cada um, e
+   não pelo da fila ao lado — que é o que acontecia quando eles eram itens
+   diretos da grade. */
+.coluna { display: flex; flex-direction: column; gap: 16px; align-self: start; }
 
 .card {
   background: var(--cartao);
@@ -784,4 +817,66 @@ button[data-ocupado="1"] { opacity: 1 !important; cursor: progress; }
   .campos { grid-template-columns: 1fr; gap: 0; }
   .campos > .rot { padding-bottom: 0; font-size: 11.5px; }
   table.vagas .esconde-estreito { display: none; }
+}
+
+/* O editor do currículo na gaveta.
+ *
+ * Monoespaçada e alta: o texto é o que o ATS lê, e conferir alinhamento de
+ * seção em fonte proporcional esconde justamente o que quebra o parser. */
+#curriculo-editor {
+  width: 100%;
+  min-height: 420px;
+  margin-top: 12px;
+  padding: 12px;
+  background: var(--fundo);
+  border: 1px solid var(--borda);
+  border-radius: 6px;
+  color: var(--texto);
+  font-family: var(--mono);
+  font-size: 12.5px;
+  line-height: 1.6;
+  resize: vertical;
+  tab-size: 2;
+}
+
+/* Busca e ordenação da tabela de vagas.
+ *
+ * Entram quando a lista passa de uma dúzia de linhas: até lá o olho acha mais
+ * rápido que o teclado, e depois disso nunca mais. */
+.busca {
+  width: 160px;
+  padding: 5px 8px;
+  font-size: 12.5px;
+  transition: width .15s ease;
+}
+.busca:focus { width: 240px; }
+
+.vagas th[data-ordenar] { cursor: pointer; user-select: none; white-space: nowrap; }
+.vagas th[data-ordenar]:hover { color: var(--texto); }
+/* A seta só aparece na coluna ordenada: seta em toda coluna vira ruído e
+ * ninguém acha a que está valendo. */
+.vagas th[data-ordenar]::after { content: ""; opacity: .35; margin-left: 4px; }
+.vagas th[data-ordenar][data-ativa="asc"]::after { content: "↑"; opacity: 1; }
+.vagas th[data-ordenar][data-ativa="desc"]::after { content: "↓"; opacity: 1; }
+
+/* "3 de 12" quando um filtro esconde linhas — sem isso a badge mente. */
+#vagas-total[data-filtrado="1"] { background: var(--aviso-fundo, transparent); }
+
+/* Navegação entre as duas páginas.
+ *
+ * Um link de texto no cabeçalho, e não uma barra lateral: são duas páginas, e
+ * menu para duas coisas ocupa mais espaço do que economiza. */
+.paginas a {
+  color: var(--fraco);
+  text-decoration: none;
+  font-size: 12.5px;
+  padding: 4px 8px;
+  border-radius: 5px;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+.paginas a:hover {
+  color: var(--texto);
+  border-color: var(--borda);
+  background: var(--fundo);
 }

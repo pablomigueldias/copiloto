@@ -123,3 +123,39 @@ async def test_todo_asset_do_painel_e_revalidado(client):
     r = await client.get("/js/main.js", headers={"If-None-Match": etag})
     assert r.status_code == 304
     assert not r.content
+
+
+# ── `?blocos=` — desde que as candidaturas ganharam página (20/08) ─
+
+
+async def test_blocos_traz_so_o_que_foi_pedido(logado):
+    corpo = (await logado.get("/api/painel?blocos=saude,candidaturas")).json()
+
+    assert "saude" in corpo and "candidaturas" in corpo
+    # Cada bloco é consulta ao banco: trazer os cinco a cada 15 s para a página
+    # jogar três fora é trabalho que ninguém vê.
+    assert "fila" not in corpo
+    assert "conhecimento" not in corpo and "modelo" not in corpo
+    # O usuário vem sempre: é o rodapé das duas páginas.
+    assert corpo["usuario"]["email"]
+
+
+async def test_sem_o_parametro_vem_tudo(logado):
+    """O contrato antigo continua valendo para quem chama de fora da tela."""
+    corpo = (await logado.get("/api/painel")).json()
+    assert {"saude", "conhecimento", "fila", "candidaturas", "modelo"} <= set(corpo)
+
+
+async def test_bloco_desconhecido_e_422_e_diz_quais_existem(logado):
+    r = await logado.get("/api/painel?blocos=saude,inventado")
+    assert r.status_code == 422
+    detalhe = r.json()["detail"]
+    # Errar o nome do bloco é erro de quem escreve a tela: a mensagem tem que
+    # dizer o que existe, senão a correção vira leitura de código.
+    assert "inventado" in detalhe and "candidaturas" in detalhe
+
+
+async def test_bloco_vazio_e_tratado_como_ausente(logado):
+    # `?blocos=` com valor vazio é o que sai de um template mal montado.
+    corpo = (await logado.get("/api/painel?blocos=")).json()
+    assert "modelo" in corpo

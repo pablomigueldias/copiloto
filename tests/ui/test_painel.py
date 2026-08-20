@@ -101,29 +101,29 @@ async def test_o_navegador_carrega_o_js_de_agora(painel):
     assert "[object Object]" not in await painel.locator("#painel").inner_text()
 
 
-async def test_colar_vaga_salva_e_abre_a_gaveta(painel):
-    await painel.click("#btn-nova")
-    await painel.fill("#nova-descricao", VAGA)
-    await painel.fill("#nova-empresa", "Acme")
-    await painel.click('#form-vaga button[data-fluxo="salvar"]')
+async def test_colar_vaga_salva_e_abre_a_gaveta(candidaturas):
+    await candidaturas.click("#btn-nova")
+    await candidaturas.fill("#nova-descricao", VAGA)
+    await candidaturas.fill("#nova-empresa", "Acme")
+    await candidaturas.click('#form-vaga button[data-fluxo="salvar"]')
 
-    await painel.wait_for_selector("#gaveta:not([hidden])", timeout=15_000)
-    assert await painel.locator("table.vagas tbody tr").count() == 1
-    assert await painel.locator("#form-vaga").is_hidden()
-    assert not painel.erros_de_js
+    await candidaturas.wait_for_selector("#gaveta:not([hidden])", timeout=15_000)
+    assert await candidaturas.locator("table.vagas tbody tr").count() == 1
+    assert await candidaturas.locator("#form-vaga").is_hidden()
+    assert not candidaturas.erros_de_js
 
 
 # ── a gaveta (fase06 §2.6: o que já funciona, e tem que continuar) ─
 
 
 @pytest.fixture
-async def vaga_aberta(painel):
+async def vaga_aberta(candidaturas):
     """Uma vaga colada, com a gaveta aberta nela."""
-    await painel.click("#btn-nova")
-    await painel.fill("#nova-descricao", VAGA)
-    await painel.click('#form-vaga button[data-fluxo="salvar"]')
-    await painel.wait_for_selector("#gaveta:not([hidden])", timeout=15_000)
-    return painel
+    await candidaturas.click("#btn-nova")
+    await candidaturas.fill("#nova-descricao", VAGA)
+    await candidaturas.click('#form-vaga button[data-fluxo="salvar"]')
+    await candidaturas.wait_for_selector("#gaveta:not([hidden])", timeout=15_000)
+    return candidaturas
 
 
 @pytest.mark.parametrize(
@@ -186,32 +186,32 @@ async def test_painel_mostra_se_o_worker_esta_vivo(painel):
 # ── avisos no lugar de alert/prompt (fase06 §D1) ──────────────────
 
 
-async def test_erro_vira_aviso_e_nao_trava_a_aba(painel, servidor):
+async def test_erro_vira_aviso_e_nao_trava_a_aba(candidaturas, servidor):
     """`alert()` congelava a aba inteira — inclusive o refresco e as requisições.
 
     Durante uma geração de 60 s isso não era detalhe de estilo: era o sistema
     parando de responder até eu clicar em OK.
     """
     houve_alert = []
-    painel.on("dialog", lambda d: (houve_alert.append(d.message), d.accept()))
+    candidaturas.on("dialog", lambda d: (houve_alert.append(d.message), d.accept()))
 
-    await painel.click("#btn-nova")
-    await painel.fill("#nova-descricao", "curto demais")
-    await painel.click('#form-vaga button[data-fluxo="salvar"]')
-    await painel.wait_for_timeout(800)
+    await candidaturas.click("#btn-nova")
+    await candidaturas.fill("#nova-descricao", "curto demais")
+    await candidaturas.click('#form-vaga button[data-fluxo="salvar"]')
+    await candidaturas.wait_for_timeout(800)
 
     assert not houve_alert, f"ainda usa diálogo nativo: {houve_alert}"
-    assert await painel.locator("#avisos .aviso-caixa.erro").is_visible()
+    assert await candidaturas.locator("#avisos .aviso-caixa.erro").is_visible()
 
 
-async def test_aviso_de_erro_nao_some_sozinho(painel):
+async def test_aviso_de_erro_nao_some_sozinho(candidaturas):
     """Aviso de erro que desaparece em 5 s é aviso que eu não li."""
-    await painel.click("#btn-nova")
-    await painel.fill("#nova-descricao", "curto")
-    await painel.click('#form-vaga button[data-fluxo="salvar"]')
-    await painel.wait_for_selector("#avisos .aviso-caixa.erro")
-    await painel.wait_for_timeout(6_000)
-    assert await painel.locator("#avisos .aviso-caixa.erro").is_visible()
+    await candidaturas.click("#btn-nova")
+    await candidaturas.fill("#nova-descricao", "curto")
+    await candidaturas.click('#form-vaga button[data-fluxo="salvar"]')
+    await candidaturas.wait_for_selector("#avisos .aviso-caixa.erro")
+    await candidaturas.wait_for_timeout(6_000)
+    assert await candidaturas.locator("#avisos .aviso-caixa.erro").is_visible()
 
 
 async def test_rejeitar_pergunta_o_motivo_numa_caixa_de_verdade(painel, acao_na_fila):
@@ -380,4 +380,259 @@ async def test_trecho_ja_organizado_nao_oferece_o_x(painel):
     # E o badge conta quanto da aula já está organizado — durante a aula.
     badge = (await painel.locator("#transcricao-tempo").inner_text()).lower()
     assert "1 bloco pronto" in badge
+    assert not painel.erros_de_js
+
+
+# ── a tabela quando as vagas passam de uma dúzia (U5) ─────────────
+
+
+@pytest.fixture
+async def varias_vagas(candidaturas):
+    """Três vagas com empresas e títulos distintos, coladas pela tela."""
+    for titulo, empresa in [
+        ("Desenvolvedor Python Pleno", "Acme"),
+        ("Engenheiro de Dados", "Bravo Tech"),
+        ("Analista de IA", "Ciclo Digital"),
+    ]:
+        await candidaturas.click("#btn-nova")
+        await candidaturas.fill("#nova-descricao", f"{titulo}\n\n{VAGA}")
+        await candidaturas.fill("#nova-titulo", titulo)
+        await candidaturas.fill("#nova-empresa", empresa)
+        await candidaturas.click('#form-vaga button[data-fluxo="salvar"]')
+        await candidaturas.wait_for_selector("#gaveta:not([hidden])", timeout=15_000)
+        await candidaturas.click("#gaveta-fechar")
+    return candidaturas
+
+
+async def test_busca_filtra_a_tabela_sem_ir_ao_servidor(varias_vagas):
+    p = varias_vagas
+    assert await p.locator("table.vagas tbody tr").count() == 3
+
+    await p.fill("#busca-vagas", "bravo")
+    await p.wait_for_timeout(150)
+    assert await p.locator("table.vagas tbody tr").count() == 1
+    # A badge conta as duas coisas: sem isso ela mentiria sobre o total.
+    # `.lower()` porque o CSS deixa a badge em maiúscula.
+    assert "de 3" in (await p.locator("#vagas-total").inner_text()).lower()
+    assert not p.erros_de_js
+
+
+async def test_busca_ignora_acento(varias_vagas):
+    # Eu digito "ciclo digital" sem pensar em acento; a vaga pode ter.
+    await varias_vagas.fill("#busca-vagas", "digital")
+    await varias_vagas.wait_for_timeout(150)
+    assert await varias_vagas.locator("table.vagas tbody tr").count() == 1
+
+
+async def test_busca_casa_termos_em_qualquer_ordem(varias_vagas):
+    # "acme python" e "python acme" acham a mesma vaga.
+    await varias_vagas.fill("#busca-vagas", "acme python")
+    await varias_vagas.wait_for_timeout(150)
+    assert await varias_vagas.locator("table.vagas tbody tr").count() == 1
+
+
+async def test_busca_sem_resultado_oferece_limpar(varias_vagas):
+    p = varias_vagas
+    await p.fill("#busca-vagas", "zzz-nao-existe")
+    await p.wait_for_timeout(150)
+    await p.click('[data-acao="limpar-busca"]')
+    assert await p.locator("table.vagas tbody tr").count() == 3
+    assert await p.input_value("#busca-vagas") == ""
+
+
+async def test_barra_foca_a_busca(varias_vagas):
+    await varias_vagas.keyboard.press("/")
+    assert await varias_vagas.evaluate("document.activeElement.id") == "busca-vagas"
+    # E a "/" não foi parar dentro do campo.
+    assert await varias_vagas.input_value("#busca-vagas") == ""
+
+
+async def test_clicar_no_cabecalho_ordena_e_inverte(varias_vagas):
+    p = varias_vagas
+
+    def empresas():
+        return p.locator("table.vagas tbody tr td:nth-child(2)").all_inner_texts()
+
+    await p.click('th[data-ordenar="empresa"]')
+    await p.wait_for_timeout(100)
+    assert (await empresas())[0].startswith("Acme")
+
+    await p.click('th[data-ordenar="empresa"]')  # de novo: inverte
+    await p.wait_for_timeout(100)
+    assert (await empresas())[0].startswith("Ciclo")
+    assert not p.erros_de_js
+
+
+# ── editar o currículo pela gaveta ────────────────────────────────
+
+
+async def test_gaveta_sem_curriculo_nao_oferece_editar(vaga_aberta):
+    """Sem currículo gerado não há o que editar — e o botão não aparece."""
+    assert await vaga_aberta.locator('[data-acao="editar-curriculo"]').count() == 0
+    assert not vaga_aberta.erros_de_js
+
+
+async def test_editar_curriculo_pela_gaveta(candidaturas, com_curriculo):
+    """O gesto inteiro: abrir, editar, salvar — e o PDF sair com o meu texto.
+
+    Antes disto, um bullet ruim só tinha uma saída: regenerar tudo e torcer.
+    """
+    p = candidaturas
+    await p.click("#btn-nova")
+    await p.fill("#nova-descricao", VAGA)
+    await p.click('#form-vaga button[data-fluxo="salvar"]')
+    await p.wait_for_selector("#gaveta:not([hidden])", timeout=15_000)
+
+    vaga_id = await p.evaluate("document.querySelector('tr[data-id]').dataset.id")
+    await com_curriculo(vaga_id)
+    await p.click("#gaveta-fechar")
+    await p.click(f'tr[data-id="{vaga_id}"]')
+    await p.wait_for_selector('[data-acao="editar-curriculo"]', timeout=10_000)
+
+    await p.click('[data-acao="editar-curriculo"]')
+    await p.wait_for_selector("#curriculo-editor", timeout=10_000)
+    texto = await p.input_value("#curriculo-editor")
+    assert "RESUMO ORIGINAL DO MODELO." in texto
+
+    await p.fill(
+        "#curriculo-editor", texto.replace("RESUMO ORIGINAL DO MODELO.", "O QUE EU ESCREVI.")
+    )
+    await p.click('[data-acao="salvar-curriculo"]')
+    await p.wait_for_selector('[data-acao="editar-curriculo"]', timeout=20_000)
+
+    # A prova é reabrir: o que voltou do servidor é o que ficou gravado.
+    await p.click('[data-acao="editar-curriculo"]')
+    await p.wait_for_selector("#curriculo-editor", timeout=10_000)
+    assert "O QUE EU ESCREVI." in await p.input_value("#curriculo-editor")
+    assert not p.erros_de_js
+
+
+async def test_esc_nao_fecha_a_gaveta_com_o_editor_aberto(candidaturas, com_curriculo):
+    """Um Esc perdido custaria o currículo inteiro que acabei de reescrever."""
+    p = candidaturas
+    await p.click("#btn-nova")
+    await p.fill("#nova-descricao", VAGA)
+    await p.click('#form-vaga button[data-fluxo="salvar"]')
+    await p.wait_for_selector("#gaveta:not([hidden])", timeout=15_000)
+
+    vaga_id = await p.evaluate("document.querySelector('tr[data-id]').dataset.id")
+    await com_curriculo(vaga_id)
+    await p.click("#gaveta-fechar")
+    await p.click(f'tr[data-id="{vaga_id}"]')
+    await p.click('[data-acao="editar-curriculo"]')
+    await p.wait_for_selector("#curriculo-editor", timeout=10_000)
+
+    await p.fill("#curriculo-editor", "TEXTO QUE NÃO PODE SUMIR")
+    await p.keyboard.press("Escape")
+    await p.wait_for_timeout(300)
+
+    assert await p.locator("#gaveta").is_visible()
+    assert await p.input_value("#curriculo-editor") == "TEXTO QUE NÃO PODE SUMIR"
+
+
+# ── as duas páginas (20/08/2026) ──────────────────────────────────
+
+
+async def test_painel_nao_tem_mais_a_tabela_de_vagas(painel):
+    """A razão da separação: a lista ia ficar ilegível junto do resto."""
+    assert await painel.locator("#card-vagas").count() == 0
+    assert await painel.locator("table.vagas").count() == 0
+    # E o que ficou continua de pé.
+    assert await painel.locator("#card-transcricao").is_visible()
+    assert await painel.locator("#card-fila").is_visible()
+    assert not painel.erros_de_js
+
+
+async def test_candidaturas_tem_a_tabela_e_o_funil(candidaturas):
+    assert await candidaturas.locator("#card-vagas").is_visible()
+    assert await candidaturas.locator("#card-candidaturas").is_visible()
+    # E não carrega o que não tem onde pintar.
+    assert await candidaturas.locator("#card-transcricao").count() == 0
+    assert not candidaturas.erros_de_js
+
+
+async def test_da_para_voltar_para_o_painel(candidaturas):
+    await candidaturas.click('.paginas a[href="/"]')
+    await candidaturas.wait_for_selector("#card-transcricao", timeout=15_000)
+    # A sessão é cookie: voltar não pede senha de novo.
+    await candidaturas.wait_for_selector("#painel:not([hidden])", timeout=10_000)
+    assert await candidaturas.locator("#login").is_hidden()
+
+
+async def test_cada_pagina_busca_so_os_blocos_que_usa(candidaturas):
+    """`?blocos=` não é enfeite: cada bloco é consulta ao banco a cada 15 s."""
+    urls = await candidaturas.evaluate(
+        "performance.getEntriesByType('resource').map(r => r.name).filter(n => n.includes('/api/painel'))"
+    )
+    assert urls, "a página nem chamou /api/painel"
+    assert all("blocos=saude,candidaturas" in u for u in urls), urls
+
+
+async def test_layout_do_painel_nao_desregula_com_a_fila_cheia(painel, acao_na_fila):
+    """A fila fica com a coluna larga, e os medidores empilham na estreita.
+
+    Nasceu de uma tela real: com 4 itens na fila, o "Modelo" descia para o meio
+    da página. A causa era a fila ocupar duas linhas da grade — as linhas
+    ganhavam a altura dela, e o segundo medidor caía junto com a segunda linha.
+    """
+    for _ in range(4):
+        await acao_na_fila("texto\n" * 20)
+    await painel.click("#atualizar")
+    await painel.wait_for_selector("#fila textarea", timeout=10_000)
+
+    m = await painel.evaluate(
+        """() => {
+          const r = (id) => document.getElementById(id).getBoundingClientRect();
+          return {
+            fila: r('card-fila').width,
+            medidor: r('card-conhecimento').width,
+            folga: r('card-modelo').top - r('card-conhecimento').bottom,
+          };
+        }"""
+    )
+    # A fila é superfície de trabalho: textarea de currículo inteiro não cabe
+    # numa coluna estreita — na tela do defeito ela saía com 215 px.
+    assert m["fila"] > m["medidor"], m
+    # Os medidores encostam um no outro (o gap da grade), em vez de o segundo
+    # flutuar para o meio da página.
+    assert m["folga"] < 40, m
+    assert not painel.erros_de_js
+
+
+async def test_titulo_longo_no_indice_nao_espreme_a_fila(painel, acao_na_fila):
+    """Uma faixa `1fr` tem mínimo automático de `min-content`.
+
+    Bastava um título de índice longo — "Fase H — Híbrido: o que sai da máquina,
+    e por qual medida > Fase H — …" — para a coluna da direita crescer além da
+    fatia dela e espremer a fila. Medido a 1024 px antes do conserto:
+    `645px 322px` viravam **`167px 800px`**, e a área de aprovar currículo
+    ficava com 167 px.
+
+    O `text-overflow: ellipsis` do `.ref` corta o texto na tela e **não**
+    impede que ele empurre a faixa — foi por isso que o defeito passou
+    despercebido: a tela parecia certa até o cartão ter conteúdo de verdade.
+    """
+    await acao_na_fila("texto\n" * 20)
+    await painel.set_viewport_size({"width": 1024, "height": 866})
+    await painel.click("#atualizar")
+    await painel.wait_for_selector("#fila textarea", timeout=10_000)
+
+    antes = await painel.evaluate(
+        "() => document.getElementById('card-fila').getBoundingClientRect().width"
+    )
+
+    titulo = "Fase H — Híbrido: o que sai da máquina, e por qual medida > " * 2
+    await painel.evaluate(
+        """(t) => { document.getElementById('conhecimento').innerHTML =
+             `<div class="lista"><div class="item"><span class="ref">${t}</span>
+              <span class="n">26</span></div></div>`; }""",
+        titulo,
+    )
+    await painel.wait_for_timeout(250)
+    depois = await painel.evaluate(
+        "() => document.getElementById('card-fila').getBoundingClientRect().width"
+    )
+
+    assert depois == antes, f"o conteúdo mexeu na coluna: {antes} → {depois}"
+    assert depois > 400, depois
     assert not painel.erros_de_js

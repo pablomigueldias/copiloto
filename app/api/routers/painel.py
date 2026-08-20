@@ -15,7 +15,7 @@ from datetime import UTC, datetime, timedelta
 from time import monotonic
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import func, select
 
 from app.api.dependencies.auth import usuario_atual
@@ -185,27 +185,55 @@ async def _candidaturas() -> dict:
     }
 
 
+BLOCOS: tuple[str, ...] = ("saude", "conhecimento", "fila", "candidaturas", "modelo")
+
+
+def _bloco(nome: str):
+    """A função do bloco, resolvida **na hora da chamada**.
+
+    Guardar a função direto num dicionário congelaria a referência no import:
+    trocar `_conhecimento` por um duplo (é o que o teste do bloco quebrado faz)
+    não teria efeito nenhum, e o painel deixaria de ser testável justamente na
+    parte que existe para mostrar defeito.
+    """
+    return globals()[f"_{nome}"]
+
+
 @router.get("", summary="Tudo que a tela mostra, num request")
-async def get_painel(usuario: UsuarioLogado) -> dict:
-    blocos: dict = {"usuario": {"nome": usuario.nome, "email": usuario.email}}
+async def get_painel(usuario: UsuarioLogado, blocos: str | None = None) -> dict:
+    """Os blocos do painel. `?blocos=saude,fila` traz só os pedidos.
+
+    O filtro existe desde que as candidaturas ganharam página própria: cada
+    bloco custa consulta ao banco, e `/candidaturas/` não tem onde pintar fila,
+    conhecimento e modelo. Buscar os cinco a cada 15 s para jogar três fora é
+    trabalho que ninguém vê.
+
+    Sem o parâmetro vêm todos — o contrato antigo continua valendo para quem
+    chama a API de fora da tela.
+    """
+    pedidos = [n.strip() for n in (blocos or "").split(",") if n.strip()]
+    desconhecidos = [n for n in pedidos if n not in BLOCOS]
+    if desconhecidos:
+        raise HTTPException(
+            status_code=422,
+            detail=f"Bloco desconhecido: {', '.join(desconhecidos)}. "
+            f"Conhecidos: {', '.join(BLOCOS)}.",
+        )
+    escolhidos = pedidos or list(BLOCOS)
+
+    saida: dict = {"usuario": {"nome": usuario.nome, "email": usuario.email}}
 
     # Um bloco quebrado não pode derrubar a tela inteira: o painel é o que se
     # olha justamente quando alguma coisa está errada.
-    for nome, carregar in (
-        ("saude", _saude),
-        ("conhecimento", _conhecimento),
-        ("fila", _fila),
-        ("candidaturas", _candidaturas),
-        ("modelo", _modelo),
-    ):
+    for nome in escolhidos:
         try:
-            blocos[nome] = await carregar()
+            saida[nome] = await _bloco(nome)()
         except Exception as e:  # noqa: BLE001
             logger.warning(f"Painel: bloco '{nome}' falhou ({type(e).__name__}: {e})")
-            blocos[nome] = {"erro": f"{type(e).__name__}: {e}"}
+            saida[nome] = {"erro": f"{type(e).__name__}: {e}"}
 
     async with get_session() as session:
-        blocos["acoes_decididas_hoje"] = int(
+        saida["acoes_decididas_hoje"] = int(
             await session.scalar(
                 select(func.count(AcaoPendente.id)).where(
                     AcaoPendente.decidida_em >= datetime.now(UTC) - timedelta(days=1)
@@ -213,4 +241,4 @@ async def get_painel(usuario: UsuarioLogado) -> dict:
             )
             or 0
         )
-    return blocos
+    return saida

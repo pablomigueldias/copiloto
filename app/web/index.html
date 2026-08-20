@@ -9,21 +9,17 @@
 </head>
 <body>
 
-<!-- Login: a mesma sessão do resto do sistema, sem rota nova. -->
-<div id="login" hidden>
-  <form id="form-login">
-    <h1>Copiloto</h1>
-    <p class="sub">assistente pessoal local-first</p>
-    <input type="email" id="email" placeholder="e-mail" autocomplete="username" required>
-    <input type="password" id="senha" placeholder="senha" autocomplete="current-password" required>
-    <button type="submit">entrar</button>
-    <p class="erro" id="erro-login" hidden></p>
-  </form>
-</div>
+<!-- Login: o formulário é injetado pelo `sessao.js`, que é o mesmo nas duas
+     páginas. Duplicá-lo aqui e em /candidaturas/ seria pedir para os dois
+     divergirem no primeiro conserto feito só de um lado. -->
+<div id="login" hidden></div>
 
 <div id="painel" hidden>
   <header>
     <h1>Copiloto</h1>
+    <nav class="paginas">
+      <a href="/candidaturas/">candidaturas →</a>
+    </nav>
     <div class="saude" id="saude"></div>
     <button class="ghost" id="atualizar" title="Atualizar agora">↻</button>
     <button class="ghost" id="sair" title="Sair">sair</button>
@@ -90,42 +86,7 @@
     </form>
   </section>
 
-  <!-- Candidaturas em tabela: a lista é o objeto principal da tela, não um
-       cartão de resumo. O resumo virou a faixa de métricas logo abaixo. -->
-  <section class="card largura-total" id="card-vagas">
-    <h2>
-      Candidaturas <span class="badge" id="vagas-total" data-zero="1">0</span>
-      <span class="acoes-titulo">
-        <select id="filtro-status" class="ghost" title="Filtrar por status">
-          <option value="">todos os status</option>
-        </select>
-        <button class="ghost" id="btn-nova">+ colar vaga</button>
-      </span>
-    </h2>
-
-    <!-- Colar a vaga e decidir ali mesmo o que fazer com ela. -->
-    <form id="form-vaga" hidden>
-      <div class="campos-vaga">
-        <input id="nova-titulo" placeholder="título da vaga (opcional — sai da 1ª linha)">
-        <input id="nova-empresa" placeholder="empresa">
-        <input id="nova-link" placeholder="link">
-      </div>
-      <textarea id="nova-descricao" rows="9"
-        placeholder="cole aqui a descrição inteira da vaga…"></textarea>
-      <div class="botoes">
-        <button type="submit" data-fluxo="salvar" class="secundario">só salvar</button>
-        <button type="submit" data-fluxo="analisar">analisar</button>
-        <button type="submit" data-fluxo="gerar" class="primario">analisar + gerar</button>
-        <button type="button" id="btn-cancelar-vaga" class="ghost">cancelar</button>
-      </div>
-      <!-- Erro e progresso saíram daqui: o botão conta que está trabalhando
-           (`ocupado()`) e a falha vira aviso, que não some sem eu ler. -->
-    </form>
-
-    <div id="tabela-vagas"></div>
-  </section>
-
-  <main>
+  <main class="blocos">
     <section class="card" id="card-fila">
       <h2>Fila <span class="badge" id="fila-total">0</span></h2>
       <!-- Enquanto eu edito, a fila não é repintada. Não atualizar em silêncio
@@ -137,44 +98,24 @@
       <div id="fila"></div>
     </section>
 
-    <section class="card" id="card-candidaturas">
-      <h2>Funil</h2>
-      <div id="candidaturas"></div>
-    </section>
+    <!-- Os dois medidores numa coluna própria, e não como itens soltos da
+         grade: soltos, cada um cai numa linha cujo tamanho é ditado pela fila,
+         e o "Modelo" desce para o meio da página quando a fila é alta. -->
+    <div class="coluna">
+      <section class="card" id="card-conhecimento">
+        <h2>Conhecimento</h2>
+        <div id="conhecimento"></div>
+      </section>
 
-    <section class="card" id="card-conhecimento">
-      <h2>Conhecimento</h2>
-      <div id="conhecimento"></div>
-    </section>
-
-    <section class="card" id="card-modelo">
-      <h2>Modelo</h2>
-      <div id="modelo"></div>
-    </section>
+      <section class="card" id="card-modelo">
+        <h2>Modelo</h2>
+        <div id="modelo"></div>
+      </section>
+    </div>
   </main>
 
   <footer id="rodape"></footer>
 </div>
-
-<!-- Painel lateral: entra da direita, como no Notion. Fora do #painel para
-     que o backdrop cubra a tela inteira sem depender do scroll da página. -->
-<div id="gaveta-fundo" hidden></div>
-<aside id="gaveta" hidden aria-modal="true" role="dialog" aria-labelledby="gaveta-titulo">
-  <header class="gaveta-topo">
-    <div class="gaveta-identidade">
-      <span class="rotulo" id="gaveta-etiqueta">Vaga</span>
-      <h2 id="gaveta-titulo" contenteditable="plaintext-only" data-campo="titulo"
-          spellcheck="false"></h2>
-    </div>
-    <button class="ghost" id="gaveta-fechar" title="Fechar (Esc)">✕</button>
-  </header>
-  <div class="gaveta-corpo" id="gaveta-corpo"></div>
-  <!-- `Esc` desfazer é intencional, mas ninguém adivinha: sem esta linha, o
-       comportamento é indistinguível de perda de dado. -->
-  <footer class="gaveta-ajuda" id="gaveta-ajuda">
-    clique num campo para editar · <b>Enter</b> salva · <b>Esc</b> desfaz
-  </footer>
-</aside>
 
 <!-- Módulos ES nativos, sem build: o navegador resolve os imports. Sem `?v=`
      de propósito — versionar URL não alcança os `import` de dentro do módulo;

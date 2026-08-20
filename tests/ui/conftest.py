@@ -125,6 +125,21 @@ async def painel(pagina, servidor, usuario):
 
 
 @pytest.fixture
+async def candidaturas(painel):
+    """A página `/candidaturas/`, já autenticada.
+
+    Entra pelo painel e **navega pelo link do cabeçalho**, em vez de abrir a URL
+    direto: assim o teste prova de graça que o link existe e que a sessão
+    atravessa a navegação — que é a parte que quebraria se o cookie fosse por
+    página.
+    """
+    await painel.click('.paginas a[href="/candidaturas/"]')
+    await painel.wait_for_selector("#card-vagas", timeout=15_000)
+    await painel.wait_for_selector("#painel:not([hidden])", timeout=15_000)
+    return painel
+
+
+@pytest.fixture
 async def acao_na_fila():
     """Uma ação pendente com texto — sem passar pelo LLM.
 
@@ -145,3 +160,49 @@ async def acao_na_fila():
         return str(acao.id)
 
     return criar
+
+
+@pytest.fixture
+async def com_curriculo():
+    """Grava um `curriculo_json` numa vaga, sem passar pelo LLM.
+
+    Gerar de verdade custaria ~60 s de inferência e traria o humor do modelo
+    para dentro do teste — a mesma razão do `acao_na_fila`. O que se testa aqui
+    é o editor da gaveta, e ele só precisa que exista currículo.
+    """
+    from datetime import UTC, datetime
+    from uuid import UUID
+
+    from app.db.models.pessoal.perfil_mestre import PerfilMestre
+    from app.db.models.pessoal.vaga import Vaga
+    from app.db.session import get_session
+
+    async def gravar(vaga_id: str) -> None:
+        async with get_session() as s:
+            s.add(
+                PerfilMestre(
+                    nome="Pablo",
+                    resumo="Dev Python.",
+                    contato={"localizacao": "Santo André, SP", "email": "p@x.dev"},
+                    habilidades=[{"nome": "Python"}],
+                    projetos=[],
+                    experiencias=[],
+                )
+            )
+            alvo = await s.get(Vaga, UUID(vaga_id))
+            alvo.curriculo_json = {
+                "titulo": "Desenvolvedor Python",
+                "resumo": "RESUMO ORIGINAL DO MODELO.",
+                "competencias": [{"categoria": "Backend", "itens": ["Python"]}],
+                "experiencias": [],
+                "projetos": [],
+                "formacao": [],
+                "certificacoes": [],
+                "rejeitados": [],
+                "avisos": [],
+            }
+            alvo.curriculo_gerado_em = datetime.now(UTC)
+            await s.commit()
+
+    return gravar
+

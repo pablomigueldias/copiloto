@@ -12,6 +12,15 @@ import { $, data, escapar, haQuanto, ocupado } from "./ui.js";
 // refresco não pode repintar por baixo de um campo em edição.
 let vagaAberta = null;
 let vagasEmTela = [];
+// O texto do currículo enquanto eu edito. Não-nulo significa "editor aberto", e
+// é o que impede a gaveta de repintar por cima do que eu estou escrevendo.
+let curriculoEmEdicao = null;
+// Quem repinta o resto da página quando a lista muda. O funil sai de
+// `/api/painel` e a tabela de `/api/vagas`: sem este aviso, colar uma vaga
+// deixava "Candidaturas 1" ao lado de "nenhuma vaga ainda" até o próximo
+// ciclo de 15 s. É o defeito que o docstring do `painel.py` existe para
+// evitar — a tela mostrando números de dois momentos.
+let aoMudar = async () => {};
 
 export const STATUS = {
   quero_candidatar: "quero me candidatar",
@@ -23,6 +32,64 @@ export const STATUS = {
 
 export const temGavetaAberta = () => vagaAberta !== null;
 
+// ── busca e ordenação ───────────────────────────────────────────
+//
+// Tudo no cliente, sobre as ≤200 linhas que a listagem já traz. Filtrar no
+// servidor custaria uma ida e volta por tecla digitada para ganhar nada: o
+// navegador varre 200 objetos em menos de um milissegundo.
+//
+// **Paginação não entra.** Ela esconde justamente o que a busca acha, e a
+// pergunta que eu faço na tela é "onde está a vaga da Accenture", não "me mostre
+// as vagas 21 a 40".
+
+let busca = "";
+let ordem = { coluna: "match_score", desc: true };
+
+// Sem acento e minúsculo dos dois lados: eu digito "sao paulo" e a vaga diz
+// "São Paulo". Exigir o acento é a busca cobrando precisão que ela deveria dar.
+const dobrar = (t) =>
+  String(t ?? "")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+
+function filtrar(itens) {
+  const alvo = dobrar(busca).trim();
+  if (!alvo) return itens;
+  // Todos os termos têm que bater, em qualquer campo: "brq dev" acha a vaga de
+  // desenvolvedor na BRQ sem eu lembrar a ordem em que escrevi.
+  const termos = alvo.split(/\s+/);
+  return itens.filter((v) => {
+    const feno = dobrar(
+      [v.titulo, v.empresa, v.localizacao, v.modelo, v.senioridade, STATUS[v.status]].join(" ")
+    );
+    return termos.every((t) => feno.includes(t));
+  });
+}
+
+function ordenar(itens) {
+  const { coluna, desc } = ordem;
+  const valor = (v) =>
+    coluna === "match_score"
+      ? v.match_score
+      : coluna === "created_at"
+        ? v.created_at
+        : coluna === "curriculo"
+          ? (v.tem_curriculo ? 1 : 0)
+          : dobrar(v[coluna]);
+
+  return itens.slice().sort((a, b) => {
+    const x = valor(a);
+    const y = valor(b);
+    // Vaga sem score vai para o fim nos dois sentidos: "sem nota" não é
+    // "nota zero", e deixá-la disputar o topo esconde as que têm nota.
+    if (x == null || x === "") return 1;
+    if (y == null || y === "") return -1;
+    if (x === y) return 0;
+    return (x > y ? 1 : -1) * (desc ? -1 : 1);
+  });
+}
+
 // ── a tabela ────────────────────────────────────────────────────
 
 function pintarScore(n) {
@@ -32,12 +99,22 @@ function pintarScore(n) {
     <i><b style="width:${Math.max(0, Math.min(100, n))}%"></b></i>${n}</span>`;
 }
 
-function pintarTabela(itens) {
-  $("vagas-total").textContent = itens.length;
-  $("vagas-total").dataset.zero = itens.length ? "0" : "1";
+function pintarTabela(todas) {
+  const itens = ordenar(filtrar(todas));
+  const filtrado = itens.length !== todas.length;
 
-  if (!itens.length) {
+  // "3 de 12" quando a busca esconde linhas: a badge sozinha mentiria sobre
+  // quantas candidaturas eu tenho.
+  $("vagas-total").textContent = filtrado ? `${itens.length} de ${todas.length}` : itens.length;
+  $("vagas-total").dataset.zero = todas.length ? "0" : "1";
+  $("vagas-total").dataset.filtrado = filtrado ? "1" : "0";
+
+  if (!todas.length) {
     return `<p class="vazio">Nenhuma vaga ainda. Clique em <b>+ colar vaga</b> e cole a descrição.</p>`;
+  }
+  if (!itens.length) {
+    return `<p class="vazio">Nada bate com <b>${escapar(busca)}</b>.
+      <button class="ghost" data-acao="limpar-busca">limpar busca</button></p>`;
   }
 
   const linhas = itens
@@ -62,20 +139,45 @@ function pintarTabela(itens) {
     })
     .join("");
 
+  const cab = (rotulo, coluna, classe = "") =>
+    `<th class="${classe}" data-ordenar="${coluna}"
+         ${ordem.coluna === coluna ? `data-ativa="${ordem.desc ? "desc" : "asc"}"` : ""}
+         title="ordenar por ${rotulo.toLowerCase()}" role="button" tabindex="0"
+      >${rotulo}</th>`;
+
   return `<table class="vagas">
     <thead><tr>
-      <th>Vaga</th><th>Empresa</th><th>Status</th><th class="num">Match</th>
-      <th class="esconde-estreito">Currículo</th><th class="num esconde-estreito">Colada</th>
+      ${cab("Vaga", "titulo")}
+      ${cab("Empresa", "empresa")}
+      ${cab("Status", "status")}
+      ${cab("Match", "match_score", "num")}
+      ${cab("Currículo", "curriculo", "esconde-estreito")}
+      ${cab("Colada", "created_at", "num esconde-estreito")}
     </tr></thead>
     <tbody>${linhas}</tbody>
   </table>`;
+}
+
+/** Repinta a tabela com o que já está em memória — sem ir ao servidor. */
+function repintar() {
+  $("tabela-vagas").innerHTML = pintarTabela(vagasEmTela);
+}
+
+function trocarOrdem(coluna) {
+  // Clicar de novo na mesma coluna inverte; coluna nova começa no sentido que
+  // interessa: score e data do maior para o menor, texto de A a Z.
+  ordem =
+    ordem.coluna === coluna
+      ? { coluna, desc: !ordem.desc }
+      : { coluna, desc: ["match_score", "created_at", "curriculo"].includes(coluna) };
+  repintar();
 }
 
 export async function carregarTabela() {
   const status = $("filtro-status").value;
   const r = await api(`/api/vagas?limite=200${status ? `&status=${status}` : ""}`);
   vagasEmTela = r.itens || [];
-  $("tabela-vagas").innerHTML = pintarTabela(vagasEmTela);
+  repintar();
 }
 
 // ── a gaveta ────────────────────────────────────────────────────
@@ -115,6 +217,23 @@ function pintarGaveta(v) {
     : `<div class="gaveta-secao"><h3>Análise da vaga</h3>
         <p class="vazio">Ainda não analisada — use o botão acima.</p></div>`;
 
+  const editor =
+    curriculoEmEdicao !== null
+      ? `
+      <textarea id="curriculo-editor" spellcheck="true"
+                aria-label="currículo em texto">${escapar(curriculoEmEdicao)}</textarea>
+      <p class="rotulo" style="margin:6px 0 8px">
+        O PDF sai deste texto. Seção que eu reescrever de um jeito que o parser
+        não reconheça fica como estava — o texto nunca é jogado fora.
+      </p>
+      <div class="gaveta-botoes">
+        <button data-acao="salvar-curriculo" class="primario">salvar e reimprimir</button>
+        <button data-acao="cancelar-curriculo">cancelar</button>
+      </div>`
+      : `<div class="gaveta-botoes" style="margin-top:10px">
+          <button data-acao="editar-curriculo">editar currículo</button>
+        </div>`;
+
   const curriculo = v.curriculo_gerado_em
     ? `
     <div class="gaveta-secao">
@@ -128,6 +247,7 @@ function pintarGaveta(v) {
              ${listaTags(cur.rejeitados)}`
           : '<p class="rotulo" style="margin-top:8px">nada rejeitado pela anti-alucinação ✓</p>'
       }
+      ${editor}
     </div>`
     : "";
 
@@ -193,7 +313,11 @@ function pintarGaveta(v) {
 
 export async function abrirGaveta(id) {
   // Busca o detalhe (traz descrição e histórico, que a listagem não traz).
+  const antes = vagaAberta?.id;
   vagaAberta = await api(`/api/vagas/${id}`);
+  // Trocar de vaga fecha o editor: o texto na tela é de OUTRO currículo, e
+  // salvá-lo aqui gravaria o documento errado na vaga errada.
+  if (antes !== id) curriculoEmEdicao = null;
   $("gaveta-titulo").textContent = vagaAberta.titulo;
   $("gaveta-etiqueta").textContent = vagaAberta.empresa || "Vaga";
   $("gaveta-corpo").innerHTML = pintarGaveta(vagaAberta);
@@ -207,6 +331,7 @@ export async function abrirGaveta(id) {
 
 export function fecharGaveta() {
   vagaAberta = null;
+  curriculoEmEdicao = null;
   $("gaveta").hidden = true;
   $("gaveta-fundo").hidden = true;
   document.body.style.overflow = "";
@@ -241,6 +366,61 @@ async function salvarCampo(elemento, nome, valor) {
   }
 }
 
+// ── editar o currículo ──────────────────────────────────────────
+//
+// O texto é a forma de edição, e não um formulário campo a campo, por três
+// razões: é o que o `de_texto` do servidor sabe ler, é o que o ATS enxerga, e é
+// o mesmo formato que a fila já usava — duas telas editando o mesmo documento
+// em formatos diferentes divergiriam no primeiro campo novo.
+
+async function abrirEditor(botao) {
+  const id = vagaAberta.id;
+  try {
+    const r = await ocupado(botao, "abrindo…", () => api(`/api/vagas/${id}/curriculo.txt`));
+    if (vagaAberta?.id !== id) return; // fechei a gaveta enquanto carregava
+    curriculoEmEdicao = r.texto;
+    $("gaveta-corpo").innerHTML = pintarGaveta(vagaAberta);
+    const area = $("curriculo-editor");
+    area.focus();
+    // O cursor no fim, e não no começo: abrir com o texto todo selecionado faz
+    // a primeira tecla apagar o currículo inteiro.
+    area.setSelectionRange(area.value.length, area.value.length);
+  } catch (erro) {
+    aviso.erro("Não consegui abrir o currículo", { detalhe: erro.message });
+  }
+}
+
+function fecharEditor() {
+  curriculoEmEdicao = null;
+  if (vagaAberta) $("gaveta-corpo").innerHTML = pintarGaveta(vagaAberta);
+}
+
+async function salvarCurriculo(botao) {
+  const id = vagaAberta.id;
+  const texto = $("curriculo-editor").value;
+
+  try {
+    const r = await ocupado(botao, "salvando…", () =>
+      api(`/api/vagas/${id}/curriculo`, { method: "PUT", body: JSON.stringify({ texto }) })
+    );
+    curriculoEmEdicao = null;
+    await carregarTabela();
+    if (vagaAberta?.id === id) await abrirGaveta(id);
+
+    // `pdf: null` é o servidor dizendo que o texto não mudou nada. Avisar
+    // "salvo" aí seria mentira pequena, e mentira pequena de tela salvando é
+    // exatamente o que faz parar de confiar no aviso.
+    aviso.ok(r.pdf ? "Currículo salvo e PDF reimpresso" : "Nada mudou no currículo", {
+      acao: "ver PDF",
+      href: `/api/vagas/${id}/curriculo.pdf`,
+    });
+  } catch (erro) {
+    // O texto continua na tela: o erro não pode custar o que eu acabei de
+    // escrever. Só o aviso aparece.
+    aviso.erro("Não consegui salvar", { detalhe: erro.message });
+  }
+}
+
 // ── analisar / gerar ────────────────────────────────────────────
 
 /**
@@ -265,6 +445,7 @@ async function rodarFluxo(vagaId, fluxo, botao) {
     );
 
     await carregarTabela();
+    await aoMudar().catch(() => {});
 
     if (vagaAberta?.id === vagaId) {
       await abrirGaveta(vagaId); // repinta com análise/currículo novos
@@ -298,6 +479,7 @@ async function apagarVaga(id, titulo) {
     await api(`/api/vagas/${id}`, { method: "DELETE" });
     fecharGaveta();
     await carregarTabela();
+    await aoMudar().catch(() => {});
     aviso.ok("Vaga apagada");
   } catch (erro) {
     aviso.erro("Não consegui apagar", { detalhe: erro.message });
@@ -306,7 +488,8 @@ async function apagarVaga(id, titulo) {
 
 // ── ligação dos eventos ─────────────────────────────────────────
 
-export function ligar() {
+export function ligar(quandoMudar = async () => {}) {
+  aoMudar = quandoMudar;
   // Salvar ao sair do campo é o gesto do Notion: clico fora e está salvo.
   document.addEventListener(
     "blur",
@@ -333,7 +516,12 @@ export function ligar() {
       alvo.blur();
       return;
     }
-    if (e.key === "Escape" && !$("gaveta").hidden) fecharGaveta();
+    if (e.key === "Escape" && !$("gaveta").hidden) {
+      // Com o editor aberto, Esc não fecha nada: um Esc perdido custaria o
+      // currículo inteiro que acabei de reescrever. Sair é pelo "cancelar".
+      if (curriculoEmEdicao !== null) return;
+      fecharGaveta();
+    }
   });
 
   $("gaveta-fechar").addEventListener("click", fecharGaveta);
@@ -349,21 +537,67 @@ export function ligar() {
     const apagar = e.target.closest('button[data-acao="apagar"]');
     if (apagar) return apagarVaga(vagaAberta.id, vagaAberta.titulo);
 
+    const editar = e.target.closest('button[data-acao="editar-curriculo"]');
+    if (editar) return abrirEditor(editar);
+    const cancelar = e.target.closest('button[data-acao="cancelar-curriculo"]');
+    if (cancelar) return fecharEditor();
+    const salvar = e.target.closest('button[data-acao="salvar-curriculo"]');
+    if (salvar) return salvarCurriculo(salvar);
+
     const botao = e.target.closest("button[data-fluxo]");
     if (botao) await rodarFluxo(vagaAberta.id, botao.dataset.fluxo, botao).catch(() => {});
   });
 
   // Abrir a vaga: clique ou Enter na linha (a linha tem tabindex por isso).
   $("tabela-vagas").addEventListener("click", (e) => {
+    const cabecalho = e.target.closest("th[data-ordenar]");
+    if (cabecalho) return trocarOrdem(cabecalho.dataset.ordenar);
+
+    if (e.target.closest('[data-acao="limpar-busca"]')) {
+      $("busca-vagas").value = "";
+      busca = "";
+      return repintar();
+    }
+
     const linha = e.target.closest("tr[data-id]");
     if (linha) abrirGaveta(linha.dataset.id).catch((erro) => aviso.erro(erro.message));
   });
   $("tabela-vagas").addEventListener("keydown", (e) => {
+    const cabecalho = e.target.closest("th[data-ordenar]");
+    if (cabecalho && (e.key === "Enter" || e.key === " ")) {
+      e.preventDefault();
+      return trocarOrdem(cabecalho.dataset.ordenar);
+    }
     const linha = e.target.closest("tr[data-id]");
     if (linha && (e.key === "Enter" || e.key === " ")) {
       e.preventDefault();
       abrirGaveta(linha.dataset.id).catch((erro) => aviso.erro(erro.message));
     }
+  });
+
+  // A busca não vai ao servidor: repintar é síncrono e cabe entre duas teclas.
+  $("busca-vagas").addEventListener("input", (e) => {
+    busca = e.target.value;
+    repintar();
+  });
+  $("busca-vagas").addEventListener("keydown", (e) => {
+    // Esc limpa a busca em vez de fechar a gaveta — aqui o campo é o contexto.
+    if (e.key === "Escape" && busca) {
+      e.stopPropagation();
+      e.target.value = "";
+      busca = "";
+      repintar();
+    }
+  });
+
+  // "/" foca a busca de qualquer lugar, menos de dentro de outro campo.
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "/" || e.ctrlKey || e.metaKey) return;
+    if (e.target.matches("input, textarea, select, [contenteditable]")) return;
+    if (!$("gaveta").hidden) return;
+    e.preventDefault();
+    $("busca-vagas").focus();
+    $("busca-vagas").select();
   });
 
   ligarFormularioNovo();
@@ -419,6 +653,7 @@ function ligarFormularioNovo() {
       $("form-vaga").reset();
       mostrarForm(false);
       await carregarTabela();
+      await aoMudar().catch(() => {});
       await abrirGaveta(vaga.id); // já abre no que acabou de sair
 
       if (fluxo !== "salvar") {

@@ -1,81 +1,35 @@
-/* Liga os módulos e toca o ciclo do painel.
+/* O painel: perguntar, transcrever, fila, conhecimento e modelo.
  *
- * Três responsabilidades, as mesmas do `painel.js` de antes: autenticar na
- * mesma sessão do resto do sistema, buscar `/api/painel` de tempos em tempos, e
- * distribuir o resultado para quem pinta.
+ * As candidaturas saíram daqui em 20/08/2026 e viraram `/candidaturas/` —
+ * a tabela ia ficar ilegível dividindo a tela com o resto assim que as vagas
+ * passassem de uma dúzia. O que sobrou nesta página tem uma coisa em comum:
+ * é o que eu olho **enquanto** faço outra coisa (uma aula rodando, uma fila
+ * para aprovar), e não o que eu abro para trabalhar.
+ *
+ * A casca (login, sessão, refresco, ↻) mora no `sessao.js`, igual à da outra
+ * página.
  */
-import { api, quandoExpirar } from "./api.js";
+import { api } from "./api.js";
 import * as aviso from "./avisos.js";
 import * as blocos from "./blocos.js";
 import * as fila from "./fila.js";
+import * as sessao from "./sessao.js";
 import * as transcricao from "./transcricao.js";
-import { $, REFRESCO_MS, arquivo, escapar } from "./ui.js";
-import * as vagas from "./vagas.js";
+import { $, arquivo, escapar } from "./ui.js";
 
-let timer = null;
-
-// ── login ───────────────────────────────────────────────────────
-
-function mostrarLogin() {
-  clearInterval(timer);
-  $("painel").hidden = true;
-  $("login").hidden = false;
-  $("email").focus();
-}
-
-quandoExpirar(mostrarLogin);
-
-$("form-login").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  $("erro-login").hidden = true;
-  try {
-    await api("/api/auth/login", {
-      method: "POST",
-      body: JSON.stringify({ email: $("email").value, senha: $("senha").value }),
-    });
-    $("senha").value = "";
-    iniciar();
-  } catch (erro) {
-    $("erro-login").textContent =
-      erro.message === "erro 401" ? "e-mail ou senha errados" : erro.message;
-    $("erro-login").hidden = false;
-  }
-});
-
-$("sair").addEventListener("click", async () => {
-  await api("/api/auth/logout", { method: "POST" }).catch(() => {});
-  mostrarLogin();
-});
-
-// ── ciclo ───────────────────────────────────────────────────────
+// `candidaturas` fica de fora: o funil mora na outra página, e buscá-lo aqui
+// seria consulta ao banco a cada 15 s sem ninguém para ler.
+const BLOCOS = "saude,fila,conhecimento,modelo";
 
 async function carregar() {
-  const dados = await api("/api/painel");
+  const dados = await api(`/api/painel?blocos=${BLOCOS}`);
   $("saude").innerHTML = blocos.pintarSaude(dados.saude || {}, dados.acoes_decididas_hoje);
   fila.repintar(dados.fila || {});
-  $("candidaturas").innerHTML = blocos.pintarCandidaturas(dados.candidaturas || {});
   $("conhecimento").innerHTML = blocos.pintarConhecimento(dados.conhecimento || {});
   $("modelo").innerHTML = blocos.pintarModelo(dados.modelo || {});
-  $("rodape").textContent = `${dados.usuario?.email || ""} · atualizado ${new Date().toLocaleTimeString("pt-BR")}`;
-
-  // A tabela fica fora do refresco quando a gaveta está aberta: repintar por
-  // baixo de um campo em edição apagaria o que eu estou digitando.
-  if (!vagas.temGavetaAberta()) await vagas.carregarTabela();
+  $("rodape").textContent =
+    `${dados.usuario?.email || ""} · atualizado ${new Date().toLocaleTimeString("pt-BR")}`;
 }
-
-$("atualizar").addEventListener("click", async (e) => {
-  const botao = e.currentTarget;
-  botao.disabled = true;
-  botao.dataset.ocupado = "1";
-  try {
-    await carregar();
-  } catch (erro) {
-    aviso.erro("Não consegui atualizar", { detalhe: erro.message });
-  } finally {
-    botao.disabled = false;
-    delete botao.dataset.ocupado;
-  }
-});
 
 // ── perguntar ao conhecimento ───────────────────────────────────
 
@@ -126,34 +80,7 @@ $("form-pergunta").addEventListener("submit", async (e) => {
 
 // ── partida ─────────────────────────────────────────────────────
 
-// Aba escondida não precisa de dado fresco — e o refresco acorda a GPU à toa.
-document.addEventListener("visibilitychange", () => {
-  clearInterval(timer);
-  if (!document.hidden && !$("painel").hidden) {
-    carregar().catch(() => {});
-    timer = setInterval(() => carregar().catch(() => {}), REFRESCO_MS);
-  }
-});
-
-// Fechar a aba no meio de uma edição é o mesmo dado perdido pela outra porta.
-window.addEventListener("beforeunload", (e) => {
-  if (fila.emEdicao() || transcricao.gravando()) e.preventDefault();
-});
-
-async function iniciar() {
-  try {
-    await api("/api/auth/me");
-  } catch {
-    return mostrarLogin();
-  }
-  $("login").hidden = true;
-  $("painel").hidden = false;
-  await carregar();
-  clearInterval(timer);
-  timer = setInterval(() => carregar().catch(() => {}), REFRESCO_MS);
-}
-
 fila.ligar(carregar);
-vagas.ligar();
 transcricao.ligar();
-iniciar();
+sessao.ligarAtualizar((erro) => aviso.erro("Não consegui atualizar", { detalhe: erro.message }));
+sessao.ligar(carregar, () => fila.emEdicao() || transcricao.gravando());
