@@ -10,7 +10,10 @@ class StatsResponse(BaseModel):
     ai_calls_total: int
     ai_calls_falhas: int
     tokens_total: int
-    custo_usd_estimado: float
+    # `None` = nenhuma chamada com preço conhecido. Diferente de 0.0, que
+    # afirma que rodou e não custou nada (modelo local).
+    custo_usd_estimado: float | None = None
+    ai_calls_sem_preco: int = 0
     latencia_media_ms: int | None = None
     pipeline_events_total: int
 
