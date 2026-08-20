@@ -10,8 +10,10 @@ ou "benefícios": informação que não entra em decisão é token gasto.
 """
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 
+from app.candidatura.perfil import normalizar
 from app.llm import gateway
 from app.utils.logger import get_logger
 
@@ -40,6 +42,11 @@ Extraia os requisitos desta vaga. Responda só com JSON.
 Regras:
 - "obrigatorios": o que a vaga exige. Um item por requisito, curto (2-6 palavras).
 - "desejaveis": o que é diferencial, plus, "será um diferencial".
+- Benefício NÃO é requisito. Plano de saúde, vale refeição, vale transporte,
+  seguro de vida, previdência privada, Gympass, PPR/PLR, auxílio creche,
+  licença maternidade, desconto em farmácia, day off e salário dizem o que a
+  EMPRESA oferece. Requisito é o que a PESSOA precisa ter. Ignore a seção de
+  benefícios inteira, mesmo quando ela vier em formato de lista de requisitos.
 - "stack": só nomes de tecnologia, ferramenta ou linguagem citados (Python, AWS,
   Docker). Sem frase, sem verbo.
 - "senioridade": junior | pleno | senior | estagio | nao_informado.
@@ -71,6 +78,79 @@ class Requisitos:
             "modelo": self.modelo,
             "resumo": self.resumo,
         }
+
+
+# ── Benefício não é requisito ─────────────────────────────────────
+#
+# O prompt pede; o código garante — a mesma divisão de trabalho da
+# anti-alucinação. Num anúncio brasileiro a seção de benefícios vem em lista de
+# bullets, com a mesma cara da seção de requisitos, e modelo pequeno copia a
+# forma. Na vaga "Engenheiro de Dados - IA/ML" da Accenture os 12 `desejaveis`
+# eram benefícios, nenhum diferencial técnico.
+#
+# Custa caro de dois jeitos: `_score` pesa desejáveis em 25% e a cobertura deles
+# é sempre 0/12 (ninguém "tem" Gympass) — 33/100 medido, 42/100 sem eles, com o
+# corte do veredito em 45; e o painel manda estudar Gympass junto com Terraform.
+#
+# A lista é longa e literal de propósito. O sinal é fechado — o catálogo de
+# benefícios do mercado brasileiro é curto e estável —, e termo genérico como
+# "seguro" ou "idiomas" sozinho derrubaria requisito honesto ("segurança da
+# informação", "inglês avançado"). Falso positivo aqui apaga exigência real da
+# vaga, que é pior que deixar passar um Gympass.
+BENEFICIOS = (
+    # saúde
+    "assistencia medica", "assistencia odontologica", "assistencia farmaceutica",
+    "assistencia funeral", "auxilio funeral", "plano de saude", "plano medico",
+    "plano odontologico", "plano dental", "convenio medico", "convenio odontologico",
+    "seguro saude", "seguro de saude", "seguro de vida", "telemedicina",
+    "apoio psicologico", "suporte psicologico", "desconto em farmacia",
+    "desconto em medicamentos", "convenio farmacia",
+    # alimentação e deslocamento
+    "vale refeicao", "vale alimentacao", "vale transporte", "vale cultura",
+    "vale combustivel", "cesta basica", "auxilio refeicao", "auxilio alimentacao",
+    "auxilio transporte", "auxilio combustivel", "restaurante no local",
+    # dinheiro
+    "previdencia privada", "participacao nos lucros", "participacao nos resultados",
+    "opcao de compra de acoes", "stock options", "acoes da empresa", "ppr", "plr",
+    "bonus", "bonificacao", "gratificacao", "premiacao", "salario", "remuneracao",
+    "pretensao salarial", "faixa salarial", "decimo terceiro", "13o salario",
+    # tempo e família
+    "licenca maternidade", "licenca paternidade", "licenca parental",
+    "auxilio creche", "creche", "day off", "folga de aniversario",
+    "ferias remuneradas", "horario flexivel",
+    # estudo e bem-estar
+    "escola de idiomas", "curso de idiomas", "aulas de idiomas", "bolsa de estudos",
+    "auxilio educacao", "incentivo educacional", "universidade corporativa",
+    "auxilio academia", "gympass", "totalpass", "wellhub", "bem estar",
+    # estrutura e marcas de carteira de benefícios
+    "auxilio home office", "clube de vantagens", "beneficio flexivel",
+    "beneficios flexiveis", "cartao beneficio", "plano de carreira", "alelo",
+    "sodexo", "swile", "ticket restaurante", "flash beneficios", "vr beneficios",
+    # o próprio cabeçalho, quando ele vem como item
+    "beneficios", "beneficio", "o que oferecemos", "nossos beneficios",
+)
+
+_E_BENEFICIO = re.compile(
+    r"\b(?:" + "|".join(re.escape(t) for t in BENEFICIOS) + r")\b"
+)
+
+
+def _achatar(texto: str) -> str:
+    """`normalizar()` mais hífen e barra virando espaço.
+
+    "vale-refeição" e "vale refeição" são o mesmo benefício escrito de dois
+    jeitos, e `normalizar()` preserva `-` e `/` porque tecnologia precisa deles
+    ("ci/cd", "next-auth"). Aqui não precisam.
+    """
+    return re.sub(r"\s+", " ", re.sub(r"[-/]", " ", normalizar(texto))).strip()
+
+
+def _sem_beneficios(itens: list[str]) -> tuple[list[str], list[str]]:
+    """Separa (requisitos, benefícios descartados)."""
+    fica, sai = [], []
+    for item in itens:
+        (sai if _E_BENEFICIO.search(_achatar(item)) else fica).append(item)
+    return fica, sai
 
 
 def _lista_de_textos(bruto) -> list[str]:
@@ -109,14 +189,24 @@ async def extrair(descricao: str, *, alvo_ref: str | None = None) -> Requisitos:
     )
     d = r.json or {}
 
+    # `stack` fica de fora do filtro: ali só entram nomes de tecnologia, e uma
+    # empresa de benefícios pode ser o próprio empregador.
+    obrigatorios, fora_obr = _sem_beneficios(_lista_de_textos(d.get("obrigatorios")))
+    desejaveis, fora_des = _sem_beneficios(_lista_de_textos(d.get("desejaveis")))
+
     req = Requisitos(
-        obrigatorios=_lista_de_textos(d.get("obrigatorios")),
-        desejaveis=_lista_de_textos(d.get("desejaveis")),
+        obrigatorios=obrigatorios,
+        desejaveis=desejaveis,
         stack=_lista_de_textos(d.get("stack")),
         senioridade=(d.get("senioridade") or None),
         modelo=(d.get("modelo") or None),
         resumo=(d.get("resumo") or None),
     )
+    descartados = fora_obr + fora_des
+    if descartados:
+        logger.info(
+            f"Benefício descartado ({len(descartados)}): {', '.join(descartados[:8])}"
+        )
     logger.info(
         f"Requisitos: {len(req.obrigatorios)} obrigatórios, "
         f"{len(req.desejaveis)} desejáveis, {len(req.stack)} tecnologias"

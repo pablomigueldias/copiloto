@@ -10,7 +10,13 @@ import json
 
 import pytest
 
-from app.candidatura.extrator import Requisitos, _lista_de_textos, extrair
+from app.candidatura.extrator import (
+    PROMPT,
+    Requisitos,
+    _lista_de_textos,
+    _sem_beneficios,
+    extrair,
+)
 from app.llm import gateway
 from app.llm.tipos import RespostaCrua
 
@@ -99,3 +105,54 @@ def test_normaliza_lixo():
 def test_como_json_e_o_que_vai_para_o_banco():
     d = Requisitos(obrigatorios=["Python"]).como_json()
     assert d["obrigatorios"] == ["Python"] and d["stack"] == []
+
+
+# ── Benefício não é requisito (§6.1 da Fase C) ────────────────────
+#
+# A vaga real que motivou o filtro: "Engenheiro de Dados - IA/ML" da Accenture,
+# cujos 12 desejáveis eram todos benefícios. O score caía 9 pontos de graça e o
+# painel mandava estudar Gympass.
+ACCENTURE = [
+    "Assistência médica", "Vale refeição", "Seguro de vida", "Previdência privada",
+    "Gympass", "Opção de compra de ações", "Desconto em farmácia", "Auxílio creche",
+    "escola de idiomas", "Licença maternidade", "PPR",
+]
+
+
+def test_beneficio_sai_dos_desejaveis():
+    fica, sai = _sem_beneficios(ACCENTURE)
+    assert fica == [] and len(sai) == 11
+
+
+def test_requisito_tecnico_fica():
+    fica, sai = _sem_beneficios(["ECS/Fargate", "Terraform", "OpenTelemetry", "LangChain"])
+    assert sai == [] and len(fica) == 4
+
+
+def test_termo_generico_nao_derruba_requisito_honesto():
+    # O caro é o falso positivo: apagar exigência real da vaga. "seguro de vida"
+    # é benefício, "segurança da informação" não; "escola de idiomas" é
+    # benefício, "inglês avançado" não.
+    fica, sai = _sem_beneficios(
+        ["Segurança da informação", "Inglês avançado", "Análise de dados", "AWS"]
+    )
+    assert sai == []
+
+
+def test_hifen_e_acento_nao_escondem_o_beneficio():
+    _, sai = _sem_beneficios(["Vale-refeição", "vale alimentacao", "PLR", "Day off"])
+    assert len(sai) == 4
+
+
+async def test_extrair_devolve_desejaveis_sem_beneficio():
+    usar({**COMPLETA, "desejaveis": ["dbt", *ACCENTURE], "obrigatorios": ["Python", "Gympass"]})
+    req = await extrair(JD)
+
+    assert req.desejaveis == ["dbt"]
+    assert req.obrigatorios == ["Python"]
+
+
+def test_prompt_manda_ignorar_beneficio():
+    # A primeira linha de defesa: o modelo pequeno copia a forma da lista de
+    # bullets, e a seção de benefícios tem a mesma cara da de requisitos.
+    assert "Benefício NÃO é requisito" in PROMPT
