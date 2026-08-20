@@ -35,6 +35,9 @@ o Protocol, e recusa alto.
 """
 from __future__ import annotations
 
+import asyncio
+import random
+
 import httpx
 
 from app.config import settings
@@ -50,13 +53,66 @@ BASE = "https://generativelanguage.googleapis.com/v1beta"
 # log precisa dizer qual foi — 503 é esperar, 429 é gastar menos.
 _TRANSITORIO = {429, 500, 502, 503, 504}
 
+# ── O 503 é para esperar, e antes ninguém esperava ────────────────
+#
+# Medido em 20/08/2026: **16 falhas em 30 chamadas** ao `gemini-3.7-flash`,
+# todas `503 "This model is currently experiencing high demand. Spikes in
+# demand are usually temporary."` A API estava dizendo "tenta de novo em
+# seguida" e o gateway respondia caindo para o modelo local.
+#
+# Isso não quebrava nada — e era exatamente o problema. A rota híbrida existe
+# porque o `llama3.1:8b` enunciou uma Lei de Morgan sem as negações (§3 da Fase
+# H); cair para o local em metade das aulas devolve **em silêncio** a qualidade
+# que a medida reprovou. Falha barulhenta se conserta; queda silenciosa vira o
+# padrão sem ninguém decidir.
+#
+# Só a sobrecarga é retentada. **429 não entra**: cota não passa em dois
+# segundos, e insistir nela é gastar o que já acabou — aí a queda para o local é
+# a resposta certa, e é de graça. É o que o comentário do `_TRANSITORIO` já
+# dizia; agora o código faz.
+_SOBRECARGA = {500, 502, 503, 504}
+
+# Três tentativas, esperas de ~1 s e ~2 s. O teto importa mais que o número: o
+# fichamento roda com alguém olhando a tela, e o local entrega em ~30 s. Esperar
+# meio minuto pela nuvem para talvez ainda cair é pior que cair logo.
+_TENTATIVAS = 3
+_ESPERA_BASE_S = 1.0
+_ESPERA_MAX_S = 8.0
+
+
+def _espera(tentativa: int, cabecalhos) -> float:
+    """Quanto dormir antes da próxima — exponencial, com jitter.
+
+    O jitter não é enfeite: sem ele, os blocos de uma mesma aula batem na API
+    no mesmo instante depois do mesmo 503, e a segunda rodada se atropela igual
+    à primeira.
+
+    `Retry-After` manda quando existe, porque é a API dizendo quanto falta. Mas
+    ele é respeitado **até o teto** — um `Retry-After: 60` não é um pedido de
+    espera, é um "não vai dar"; cair para o local na hora é melhor resposta.
+    """
+    try:
+        pedido = float(cabecalhos.get("Retry-After", ""))
+    except (TypeError, ValueError):
+        pedido = 0.0
+    base = pedido or _ESPERA_BASE_S * (2 ** (tentativa - 1))
+    return min(base, _ESPERA_MAX_S) * random.uniform(0.75, 1.25)
+
 
 class GeminiProvider:
     nome = "gemini"
 
-    def __init__(self, chave: str | None = None, timeout_s: float | None = None) -> None:
+    def __init__(
+        self,
+        chave: str | None = None,
+        timeout_s: float | None = None,
+        transport: httpx.AsyncBaseTransport | None = None,
+    ) -> None:
         self.chave = chave or settings.gemini_api_key
         self.timeout_s = timeout_s or settings.llm_timeout_s
+        # Mesmo papel de `chave` e `timeout_s`: em produção é sempre `None`, e o
+        # teste do backoff precisa de um 503 que não dependa da nuvem estar mal.
+        self.transport = transport
 
     async def gerar(
         self,
@@ -82,21 +138,50 @@ class GeminiProvider:
         if config:
             payload["generationConfig"] = config
 
-        try:
-            async with httpx.AsyncClient(base_url=BASE, timeout=self.timeout_s) as client:
-                resp = await client.post(
-                    f"/models/{modelo}:generateContent",
-                    json=payload,
-                    headers={"x-goog-api-key": self.chave},
+        async with httpx.AsyncClient(
+            base_url=BASE, timeout=self.timeout_s, transport=self.transport
+        ) as client:
+            for tentativa in range(1, _TENTATIVAS + 1):
+                try:
+                    resp = await client.post(
+                        f"/models/{modelo}:generateContent",
+                        json=payload,
+                        headers={"x-goog-api-key": self.chave},
+                    )
+                except (
+                    httpx.TimeoutException,
+                    httpx.NetworkError,
+                    httpx.ConnectError,
+                ) as e:
+                    # Timeout não é retentado: ele já gastou o orçamento inteiro
+                    # (`llm_timeout_s`), e insistir dobra a espera de quem está
+                    # olhando a tela. A queda para o local resolve mais rápido.
+                    raise LLMIndisponivel(
+                        f"Gemini não respondeu ({type(e).__name__}): {e}"
+                    ) from e
+
+                if resp.status_code == 200:
+                    return self._ler(resp.json(), modelo)
+
+                if resp.status_code in _SOBRECARGA and tentativa < _TENTATIVAS:
+                    dorme = _espera(tentativa, resp.headers)
+                    logger.warning(
+                        f"Gemini {resp.status_code} em {modelo} "
+                        f"(tentativa {tentativa}/{_TENTATIVAS}); "
+                        f"esperando {dorme:.1f}s"
+                    )
+                    await asyncio.sleep(dorme)
+                    continue
+
+                tipo = "sobrecarga/cota" if resp.status_code in _TRANSITORIO else "recusa"
+                # A contagem entra na mensagem porque ela é o que separa "a API
+                # piscou" de "a API está fora há minutos" no `ai_calls`.
+                gastas = f" após {tentativa} tentativa(s)" if tentativa > 1 else ""
+                raise LLMIndisponivel(
+                    f"Gemini {resp.status_code} ({tipo}){gastas}: {resp.text[:300]}"
                 )
-        except (httpx.TimeoutException, httpx.NetworkError, httpx.ConnectError) as e:
-            raise LLMIndisponivel(f"Gemini não respondeu ({type(e).__name__}): {e}") from e
 
-        if resp.status_code != 200:
-            tipo = "sobrecarga/cota" if resp.status_code in _TRANSITORIO else "recusa"
-            raise LLMIndisponivel(f"Gemini {resp.status_code} ({tipo}): {resp.text[:300]}")
-
-        return self._ler(resp.json(), modelo)
+        raise LLMIndisponivel(f"Gemini indisponível após {_TENTATIVAS} tentativas")
 
     @staticmethod
     def _ler(d: dict, modelo: str) -> RespostaCrua:
