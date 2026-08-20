@@ -139,17 +139,13 @@ def _escapar(texto: str) -> str:
 
 
 def _data_inteira(periodo: str) -> str:
-    """O intervalo de datas com espaço fixo, para não quebrar em duas linhas.
+    """O intervalo de datas numa linha só. Ver `ats.indivisivel`.
 
-    O `reportlab` quebra a linha em qualquer espaço, e a formação saiu com
-    "(08/2024 –" numa linha e "12/2026)" na outra. O parser lê as duas metades
-    como coisas diferentes e a data se perde — justamente o campo cuja ausência
-    derruba a entrada inteira em vários ATS.
-
-    O `\xa0` sai do PDF como espaço comum (conferido com `pdftotext`), então
-    não é caractere estranho para ninguém: só impede a quebra.
+    Foi o primeiro dos três campos a quebrar — a formação saía com "(08/2024 –"
+    numa linha e "12/2026)" na outra. A regra virou geral quando o contato e as
+    competências apareceram com o mesmo defeito.
     """
-    return str(periodo or "").replace(" ", "\xa0")
+    return ats.indivisivel(periodo)
 
 
 def nome_do_arquivo(nome_pessoa: str, titulo_vaga: str, empresa: str | None = None) -> str:
@@ -179,14 +175,16 @@ def _montar(curriculo: Curriculo, fatos: Fatos, est: Estilos) -> list:
 
     contato = perfil.contato or {}
     if contato:
-        # Ver `ats.ROTULOS_CONTATO`: o mesmo mapa serve o texto da fila.
-        rotulos = ats.ROTULOS_CONTATO
+        # `contato_ordenado` e não `contato.items()`: a ordem do jsonb é por
+        # tamanho de chave, e cidade/UF tem que vir primeiro. Ver o docstring.
         # Sem "https://": ocupa duas linhas e não acrescenta nada — o
         # recrutador copia, e o parser reconhece o domínio do mesmo jeito.
+        # Cada campo é indivisível: `linkedin:` saía no fim de uma linha e a
+        # URL na seguinte, e um parser que lê linha a linha perde o valor. A
+        # quebra acontece agora só entre campos, no ` | `.
         partes = [
-            f"{rotulos.get(k, k)}: {re.sub(r'^https?://', '', str(v)).rstrip('/')}"
-            for k, v in contato.items()
-            if v
+            ats.indivisivel(f"{rotulo}: {re.sub(r'^https?://', '', v).rstrip('/')}")
+            for rotulo, v in ats.contato_ordenado(contato)
         ]
         fluxo.append(Paragraph(_escapar(ats.SEP_CAMPO.join(partes)), est.contato))
 
@@ -198,7 +196,12 @@ def _montar(curriculo: Curriculo, fatos: Fatos, est: Estilos) -> list:
     if curriculo.competencias:
         fluxo.append(Paragraph("COMPETÊNCIAS", est.secao))
         for grupo in curriculo.competencias:
-            itens = _escapar(ats.SEP_LISTA.join(grupo.get("itens") or []))
+            # Item inteiro numa linha: "Machine Learning (scikit-learn)" saía
+            # partido em "Machine" e "Learning (scikit-learn)", e é a seção que
+            # a triagem por skills mais lê. Quebra só na vírgula.
+            itens = _escapar(
+                ats.SEP_LISTA.join(ats.indivisivel(i) for i in (grupo.get("itens") or []))
+            )
             categoria = _escapar(grupo.get("categoria") or "")
             fluxo.append(Paragraph(f"<b>{categoria}:</b> {itens}", est.corpo))
 

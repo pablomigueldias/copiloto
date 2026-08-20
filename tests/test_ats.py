@@ -102,8 +102,8 @@ def test_llms_nao_vira_llm_mais_s():
         ("Machine Learning (scikit-learn)", "IA e Machine Learning"),
         ("RAG / busca semântica", "IA e Machine Learning"),
         ("Ollama / LLM local", "IA e Machine Learning"),
-        ("pgvector", "Bancos de Dados"),
-        ("Alembic", "Bancos de Dados"),
+        ("pgvector", "Dados e Pipelines"),
+        ("Alembic", "Dados e Pipelines"),
         ("Docker / docker-compose", "DevOps e Infraestrutura"),
         ("Deploy em VPS (Linux/SSH)", "DevOps e Infraestrutura"),
         ("Autenticação e segurança", "DevOps e Infraestrutura"),
@@ -161,3 +161,89 @@ def test_termo_composto_nao_e_partido_ao_meio():
 
 def test_llm_local_continua_inteiro():
     assert ats.expansor()("Rodei LLM local no Ollama") == "Rodei LLM local no Ollama"
+
+
+# ── A ordem do contato, que o jsonb destrói (20/08/2026) ──────────
+
+
+def test_contato_sai_na_ordem_do_ats_e_nao_na_do_banco():
+    # Exatamente o que o Postgres devolveu do `pessoal_perfil_mestre`: chaves
+    # ordenadas por tamanho, depois por byte.
+    do_banco = {
+        "email": "p@x.dev",
+        "github": "https://github.com/p",
+        "linkedin": "https://linkedin.com/in/p",
+        "telefone": "(11) 90000-0000",
+        "localizacao": "Santo André, SP",
+    }
+    rotulos = [r for r, _ in ats.contato_ordenado(do_banco)]
+    # Cidade/UF primeiro: muitos ATS filtram por localização antes de ler o
+    # resto, e palavra-chave no começo pesa mais que no fim.
+    assert rotulos == ["local", "tel", "email", "linkedin", "github"]
+
+
+def test_contato_com_chave_desconhecida_nao_some():
+    # Perder um contato porque ninguém cadastrou o rótulo é pior que exibi-lo
+    # cru — e ele vai para o fim, não para a frente da cidade.
+    saida = ats.contato_ordenado({"blog": "b.dev", "localizacao": "Santo André, SP"})
+    assert saida == [("local", "Santo André, SP"), ("blog", "b.dev")]
+
+
+def test_contato_vazio_nao_vira_rotulo_orfao():
+    # `tel: ` sozinho no PDF é campo faltando com aparência de campo presente.
+    assert ats.contato_ordenado({"telefone": "  ", "email": "p@x.dev"}) == [
+        ("email", "p@x.dev")
+    ]
+
+
+# ── Barra que junta dois termos (20/08/2026) ──────────────────────
+
+
+def test_barra_com_espaco_separa_dois_termos():
+    # Medido no currículo da Accenture: o casador de skills compara o item
+    # INTEIRO, e "pandas / numpy" não é "pandas" nem "NumPy". Os dois somem da
+    # triagem apesar de estarem impressos na página.
+    assert ats.separar_pares(["pandas / numpy"]) == ["pandas", "numpy"]
+    assert ats.separar_pares(["WordPress / WHM / cPanel"]) == ["WordPress", "WHM", "cPanel"]
+
+
+def test_barra_colada_faz_parte_do_nome_e_nao_separa():
+    # Quebrar aqui destruiria o termo — e é o oposto do que se quer.
+    for termo in ["ECS/Fargate", "CI/CD", "Deploy em VPS (Linux/SSH)", "IA/ML"]:
+        assert ats.separar_pares([termo]) == [termo]
+
+
+def test_separar_nao_repete_o_que_ja_apareceu():
+    assert ats.separar_pares(["Docker / docker-compose", "Docker"]) == [
+        "Docker",
+        "docker-compose",
+    ]
+
+
+def test_pedaco_separado_ainda_acha_a_categoria():
+    # `separar_pares` cria fragmentos que a taxonomia precisa conhecer, senão a
+    # competência mais relevante da vaga cai no balde genérico.
+    assert ats.categoria_de("LLM local") == "IA e Machine Learning"
+    assert ats.categoria_de("worker assíncrono") == "Frameworks e Arquitetura"
+    assert ats.categoria_de("busca semântica") == "IA e Machine Learning"
+
+
+def test_pipeline_de_dados_nao_cai_em_ferramentas():
+    """O rótulo da categoria é lido como declaração sobre o item.
+
+    "Pipeline de dados" em *Ferramentas* é a competência mais relevante de uma
+    vaga de dados enterrada no balde genérico do fim da seção.
+    """
+    assert ats.categoria_de("Pipeline de dados (ingestão e indexação)") == "Dados e Pipelines"
+    assert ats.categoria_de("Observabilidade") == "DevOps e Infraestrutura"
+
+
+# ── Campo que não pode quebrar em duas linhas ─────────────────────
+
+
+def test_indivisivel_prende_o_rotulo_ao_valor():
+    # `linkedin:` saía no fim de uma linha e a URL na seguinte; um parser que
+    # lê linha a linha perde o valor.
+    assert ats.indivisivel("linkedin: exemplo.com/p") == "linkedin:\xa0exemplo.com/p"
+    # O `\xa0` sai do pdftotext como espaço comum: não é caractere estranho.
+    assert ats.indivisivel("a b").replace("\xa0", " ") == "a b"

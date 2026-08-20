@@ -56,6 +56,54 @@ ROTULOS_CONTATO = {
     "portfolio": "site",
 }
 
+
+def indivisivel(texto: str) -> str:
+    """O texto com espaço fixo (`\xa0`), para o PDF não quebrá-lo em duas linhas.
+
+    **O defeito que isto conserta é o mesmo em três lugares.** O `reportlab`
+    quebra a linha em qualquer espaço, e o extrator de texto lê as duas metades
+    como coisas diferentes:
+
+    | onde | como saía do `pdftotext` | o que se perde |
+    |---|---|---|
+    | formação | `(08/2024 –` / `12/2026)` | a data, cuja ausência derruba a entrada |
+    | contato | `linkedin:` / `www.linkedin.com/…` | o rótulo perde o valor |
+    | competência | `Machine` / `Learning (scikit-learn)` | metade de uma skill |
+
+    A regra geral: **o que é um campo tem que caber inteiro numa linha.** A
+    quebra continua acontecendo, só que nos separadores — entre um campo e o
+    seguinte (`SEP_CAMPO`) ou entre um item e o próximo (`SEP_LISTA`), que é
+    onde ela não custa nada.
+
+    O `\xa0` sai do PDF como espaço comum (conferido com `pdftotext`), então não
+    é caractere estranho para ninguém: só impede a quebra.
+    """
+    return str(texto or "").replace(" ", "\xa0")
+
+
+def contato_ordenado(contato: dict) -> list[tuple[str, str]]:
+    """`[(rótulo, valor)]` na ordem do ATS — e não na que o banco devolveu.
+
+    **A ordem não sobrevive ao armazenamento.** `perfil_mestre.contato` é uma
+    coluna `jsonb`, e o Postgres guarda chave de objeto ordenada por tamanho e
+    depois por byte: o que entra como `localizacao, telefone, email, linkedin,
+    github` volta como `email, github, linkedin, telefone, localizacao`. Quem
+    itera `contato.items()` herda essa ordem sem perceber, e foi o que
+    aconteceu — o PDF saía com o e-mail na frente e a cidade no fim.
+
+    Isso custa: muitos ATS filtram por localização antes de ler qualquer outra
+    coisa, e palavra-chave no começo da linha pesa mais que a mesma palavra no
+    fim. `ROTULOS_CONTATO` **é** a ordem pretendida, então ela manda aqui.
+
+    Chave que não está no mapa vai para o fim, com o nome que tem: perder um
+    contato porque ninguém cadastrou o rótulo seria pior que exibi-lo cru.
+    """
+    limpo = {k: str(v).strip() for k, v in (contato or {}).items() if str(v or "").strip()}
+    conhecidas = [(r, limpo[k]) for k, r in ROTULOS_CONTATO.items() if k in limpo]
+    extras = [(k, v) for k, v in limpo.items() if k not in ROTULOS_CONTATO]
+    return conhecidas + extras
+
+
 # ── Datas ─────────────────────────────────────────────────────────
 #
 # O ATS calcula tempo de casa e procura lacunas na carreira. Misturar
@@ -231,6 +279,21 @@ def expansor() -> Callable[[str], str]:
 FERRAMENTAS = "Ferramentas"
 
 _TABELA: tuple[tuple[str, tuple[str, ...]], ...] = (
+    ("IA e Machine Learning", (
+        "llms", "rag", "ia", "machine learning", "scikit-learn", "sklearn",
+        "pandas", "numpy", "ollama", "prompt", "engenharia de prompt",
+        "embeddings", "busca semantica", "sentence-transformers", "bge-m3",
+        "gemini", "groq", "openai", "transformers", "nlp", "deep learning",
+        "agentes", "langchain", "bedrock", "amazon bedrock", "claude",
+        "claude 3 haiku", "ia generativa", "llm local", "llm",
+    )),
+    ("Dados e Pipelines", (
+        "postgresql", "pgvector", "alembic", "redis", "mongodb", "mysql",
+        "sqlite", "minio", "s3", "migrations", "versionamento de banco",
+        "modelagem de dados", "full-text", "pipeline de dados", "pipelines",
+        "pipeline", "ingestao", "indexacao", "etl", "elt", "chunking",
+        "data warehouse", "processamento de dados",
+    )),
     ("Linguagens", (
         "python", "typescript", "javascript", "sql", "t-sql", "tsql", "java",
         "go", "golang", "c#", "php", "bash", "shell", "html", "css", "html5",
@@ -241,20 +304,8 @@ _TABELA: tuple[tuple[str, tuple[str, ...]], ...] = (
         "vue", "django", "flask", "express", "nodejs", "tailwind", "vite",
         "arq", "celery", "api rest", "microsservicos", "microservicos",
         "microservices", "arquitetura de software", "arquitetura",
-        "programacao assincrona", "async",
-    )),
-    ("IA e Machine Learning", (
-        "llms", "rag", "ia", "machine learning", "scikit-learn", "sklearn",
-        "pandas", "numpy", "ollama", "prompt", "engenharia de prompt",
-        "embeddings", "busca semantica", "sentence-transformers", "bge-m3",
-        "gemini", "groq", "openai", "transformers", "nlp", "deep learning",
-        "agentes", "langchain", "bedrock", "amazon bedrock", "claude",
-        "claude 3 haiku", "ia generativa",
-    )),
-    ("Bancos de Dados", (
-        "postgresql", "pgvector", "alembic", "redis", "mongodb", "mysql",
-        "sqlite", "minio", "s3", "migrations", "versionamento de banco",
-        "modelagem de dados", "full-text",
+        "programacao assincrona", "async", "worker assincrono", "worker",
+        "event-driven", "orientado a eventos",
     )),
     ("DevOps e Infraestrutura", (
         "docker", "git", "cicd", "linux", "vps", "ssh", "nginx", "aws",
@@ -268,6 +319,21 @@ _TABELA: tuple[tuple[str, tuple[str, ...]], ...] = (
     )),
 )
 
+# **A ordem desta tupla é a ordem impressa, e ela é posicionamento.**
+#
+# Era relevância: as categorias saíam ordenadas pelo número de itens que casavam
+# com a vaga. Medido na vaga da Accenture, isso significou "DevOps" na frente
+# por **um** item ("Observabilidade") enquanto todas as outras tinham zero — e a
+# primeira linha depois do resumo, num currículo de engenharia de dados,
+# abrindo com Docker, WordPress e WHM.
+#
+# Uma linha decidida por um termo não é relevância, é sorteio. A relevância
+# continua mandando **dentro** da linha (o que a vaga pediu vem primeiro entre
+# os itens), que é onde ela não depende de empate.
+#
+# O custo assumido: numa vaga de infraestrutura, DevOps sai em quinto. Os itens
+# que a vaga pediu continuam na frente da linha dele, e cinco linhas ainda é o
+# topo da página.
 CATEGORIAS: tuple[str, ...] = tuple(c for c, _ in _TABELA) + (FERRAMENTAS,)
 
 TAXONOMIA: dict[str, str] = {
@@ -275,9 +341,54 @@ TAXONOMIA: dict[str, str] = {
 }
 
 
-def _contem_termo(chave: str, texto: str) -> bool:
-    """`git` está em `git e versionamento`; não está em `github`."""
-    return bool(re.search(rf"(?<![\w+#]){re.escape(chave)}(?![\w+#])", texto))
+# ── Barra que junta dois termos ───────────────────────────────────
+#
+# Medido no currículo da Accenture, com `pdftotext` e um casador de skills:
+# **um item é comparado inteiro** contra o dicionário do ATS, e
+# `"pandas / numpy"` não é igual a `"pandas"` nem a `"NumPy"`. Os dois somem da
+# triagem por skills, apesar de estarem impressos na página.
+#
+# É o mesmo raciocínio do §2.2: na seção de competências o item não é prosa, é
+# um **termo**, e o que vale ali é o casamento exato. Em prosa a barra não
+# incomoda; aqui ela custa duas palavras-chave por item.
+#
+# Só barra **com espaço dos dois lados** é separador. Sem espaço ela faz parte
+# do nome, e quebrar destruiria o termo: `ECS/Fargate`, `Linux/SSH`, `CI/CD`,
+# `IA/ML`, `E/S`. Essa distinção é a regra inteira.
+_BARRA_SEPARADORA = re.compile(r"\s+/\s+")
+
+
+def separar_pares(itens: list[str]) -> list[str]:
+    """`["pandas / numpy"]` → `["pandas", "numpy"]`, sem repetir.
+
+    Um item por termo é o que a triagem por skills espera ler, e é o que o
+    `SEP_LISTA` já fazia entre itens — a barra era a mesma junção acontecendo
+    *dentro* de um, onde ninguém tinha olhado.
+    """
+    saida: list[str] = []
+    vistos: set[str] = set()
+    for item in itens:
+        for parte in _BARRA_SEPARADORA.split(str(item or "")):
+            parte = parte.strip()
+            chave = normalizar(parte)
+            if parte and chave not in vistos:
+                vistos.add(chave)
+                saida.append(parte)
+    return saida
+
+
+def contem_termo(chave: str, texto: str) -> bool:
+    """`git` está em `git e versionamento`; não está em `github`.
+
+    Público porque a seleção de certificações precisa da mesma comparação: lá,
+    substring fazia "s3" casar dentro de "css3".
+    """
+    return bool(chave) and bool(
+        re.search(rf"(?<![\w+#]){re.escape(chave)}(?![\w+#])", texto)
+    )
+
+
+_contem_termo = contem_termo
 
 
 def categoria_de(habilidade: str) -> str:
