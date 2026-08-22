@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
+import { Enunciado } from "@/components/Enunciado";
 import { Icone } from "@/components/icones";
 import { Erro, Vazio, dataLonga } from "@/components/ui";
 import { api } from "@/lib/api";
@@ -349,9 +350,10 @@ function Revisao() {
             </pre>
           )}
 
-          <p className="m-0 mb-4 whitespace-pre-line text-[19px] leading-[1.5] tracking-[-0.005em]">
-            {q!.enunciado}
-          </p>
+          <Enunciado
+            texto={q!.enunciado}
+            className="mb-4 text-[19px] leading-[1.5] tracking-[-0.005em]"
+          />
 
           {q!.afirmacoes.length > 0 && (
             <ol className="m-0 mb-4 flex list-[upper-roman] flex-col gap-[10px] pl-[30px] text-[15.5px] leading-[1.55] text-[color-mix(in_srgb,var(--color-text)_88%,transparent)]">

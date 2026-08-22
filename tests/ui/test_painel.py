@@ -194,9 +194,8 @@ async def test_busca_filtra_a_tabela_sem_ir_ao_servidor(vaga_aberta):
 
 # ── O estudo ──────────────────────────────────────────────────────
 
-@pytest.fixture
-async def questao():
-    """Um módulo, um tópico e uma questão vencendo hoje — sem passar pelo LLM."""
+async def _semear(**campos):
+    """Módulo, tópico e uma questão vencendo hoje — sem passar pelo LLM."""
     from app.db.models.estudo.questao import Modulo, Topico
     from app.db.session import get_session
     from app.estudo import servico
@@ -214,14 +213,44 @@ async def questao():
     return await servico.criar_questao(
         {
             "topico_id": topico_id,
-            "formato": "certo_errado",
-            "comando": "Acerca da proposição “se p então q”, julgue o item.",
-            "enunciado": "A negação de “se p então q” é “p e não q”.",
             "alternativas": [],
             "afirmacoes": [],
-            "gabarito": "C",
             "dificuldade": 2,
+            **campos,
         }
+    )
+
+
+@pytest.fixture
+async def questao():
+    return await _semear(
+        formato="certo_errado",
+        comando="Acerca da proposição “se p então q”, julgue o item.",
+        enunciado="A negação de “se p então q” é “p e não q”.",
+        gabarito="C",
+    )
+
+
+@pytest.fixture
+async def questao_com_tabela():
+    """Tabela-verdade dentro do enunciado, como ela sai do PDF da prova."""
+    return await _semear(
+        formato="multipla_escolha",
+        enunciado=(
+            "A tabela a seguir é a tabela verdade para duas proposições simples "
+            "a e b, considerando-se o Conectivo do tipo DISJUNÇÃO EXCLUSIVA.\n\n"
+            "| a | b | a ⊻ b |\n|---|---|---|\n| V | V | 1 |\n| V | F | 2 |\n"
+            "| F | V | 3 |\n| F | F | 4 |\n\n"
+            "Assinale a alternativa que contém os valores corretos para 1, 2, 3 e 4."
+        ),
+        alternativas=[
+            {"letra": "A", "texto": "1–F, 2–F, 3–F, 4–F"},
+            {"letra": "B", "texto": "1–F, 2–V, 3–V, 4–F"},
+            {"letra": "C", "texto": "1–V, 2–F, 3–V, 4–V"},
+            {"letra": "D", "texto": "1–V, 2–F, 3–F, 4–F"},
+            {"letra": "E", "texto": "1–V, 2–V, 3–V, 4–F"},
+        ],
+        gabarito="B",
     )
 
 
@@ -245,6 +274,28 @@ async def test_o_gabarito_nao_desce_para_o_cliente_na_revisao(painel, questao):
     assert '"gabarito":null' in corpo.replace(" ", ""), (
         "a fila mandou o gabarito junto com a questão"
     )
+    sem_erros(painel)
+
+
+async def test_tabela_verdade_do_enunciado_vira_tabela(painel, questao_com_tabela):
+    """O acervo guarda a tabela no formato do Markdown, como ela sai do PDF.
+
+    Renderizada como texto puro, ela chega na tela como uma pilha de canos e
+    traços — legível para quem escreveu, ilegível para quem está respondendo.
+    """
+    await painel.click('aside nav a:has-text("Revisar")')
+    await painel.wait_for_selector("text=DISJUNÇÃO EXCLUSIVA", timeout=60000)
+
+    # A régua `|---|` é sintaxe, não dado: se ela aparece, a tabela virou texto.
+    corpo = await painel.inner_text("body")
+    assert "|---" not in corpo
+    assert "| V | V |" not in corpo
+
+    assert await painel.locator("table tbody tr").count() == 4
+    assert (await painel.inner_text("table thead th:nth-child(3)")).strip() == "a ⊻ b"
+    # A terceira coluna é o que a questão pergunta — os quatro lugares numerados.
+    celulas = await painel.locator("table tbody tr td:nth-child(3)").all_inner_texts()
+    assert [c.strip() for c in celulas] == ["1", "2", "3", "4"]
     sem_erros(painel)
 
 
