@@ -8,8 +8,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
-from fastapi.staticfiles import StaticFiles
+from fastapi.responses import JSONResponse, RedirectResponse
 
 from app.api.routers import auth as auth_router
 from app.api.routers import candidatura as candidatura_router
@@ -21,7 +20,7 @@ from app.api.routers import painel as painel_router
 from app.api.routers import transcricao as transcricao_router
 from app.api.services.auth.cookie import cookie_name
 from app.api.services.auth.csrf import valido as csrf_valido
-from app.config import BASE_DIR, settings
+from app.config import settings
 from app.db.session import dispose_engine
 from app.utils.logger import get_logger
 
@@ -90,36 +89,21 @@ app.include_router(candidatura_router.router)
 app.include_router(painel_router.router)
 app.include_router(transcricao_router.router)
 
-# O painel é servido pelo mesmo processo: um `uvicorn` sobe API e tela juntos.
-# HTML+CSS+JS puro, sem build — ver docs/fase-painel.md §2 para o porquê de não
-# ser Next.js ainda. Fica por último para não sombrear nenhuma rota /api/*.
-WEB_DIR = BASE_DIR / "app" / "web"
+# ── A raiz ────────────────────────────────────────────────────────────────
+#
+# O painel deixou de morar aqui. Era HTML+CSS+JS puro servido por `StaticFiles`
+# no mesmo processo; virou um app Next.js em `web/`, e o motivo foi o design
+# system em `web/modelo` — reproduzir oito telas desenhadas à mão em
+# `painel.css` seria escrever um framework de componentes sem chamá-lo assim.
+#
+# A raiz redireciona em vez de dar 404 porque `http://localhost:8010` está no
+# favorito e na documentação há meses. `307` e não `301`: permanente fica no
+# cache do navegador para sempre, e o dia em que o front voltar a ser servido
+# daqui — um `next build` estático, por exemplo — o redirecionamento gravado
+# seria impossível de desfazer sem limpar o cache de cada máquina.
+FRONT_URL = settings.front_url
 
 
-class PainelEstatico(StaticFiles):
-    """Os arquivos do painel, sempre revalidados.
-
-    A versão anterior carimbava `?v=<mtime>` nas URLs do `index.html`. Isso
-    funciona para um arquivo e **não funciona para módulos ES**: o `main.js`
-    ganhava URL nova, mas os `import "./vagas.js"` dentro dele são strings
-    estáticas, sem versão nenhuma — o navegador servia os seis submódulos do
-    cache. O sintoma foi `[object Object]` na tela: front velho lendo backend
-    novo. Foi o próprio conserto do cache que criou o buraco, ao dividir o
-    `painel.js` em módulos logo depois.
-
-    Versionar URL exige alcançar o grafo inteiro de imports, e sem build não há
-    como. Revalidar não exige: `no-cache` manda o navegador perguntar, o ETag
-    que o `StaticFiles` já emite responde 304, e ninguém precisa manter esquema
-    de versão em dia. Num app local o custo é um round-trip de 150 bytes por
-    arquivo.
-    """
-
-    def file_response(self, *args, **kwargs):  # type: ignore[override]
-        resposta = super().file_response(*args, **kwargs)
-        # `no-cache` não é "não guarde": é "guarde, mas pergunte antes de usar".
-        resposta.headers["Cache-Control"] = "no-cache, must-revalidate"
-        return resposta
-
-
-if WEB_DIR.is_dir():
-    app.mount("/", PainelEstatico(directory=WEB_DIR, html=True), name="painel")
+@app.get("/", include_in_schema=False)
+async def raiz() -> RedirectResponse:
+    return RedirectResponse(FRONT_URL, status_code=307)

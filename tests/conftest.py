@@ -58,9 +58,24 @@ def _psql(sql: str, *, db: str = "postgres") -> None:
     )
 
 
+def _expulsar(db: str) -> None:
+    """Derruba as conexões abertas ao banco antes de dropá-lo.
+
+    `DROP DATABASE` falha com uma única conexão viva, e a suíte de navegador
+    deixa uma sempre que o `uvicorn` de teste morre sem fechar — um Ctrl-C, um
+    timeout do pytest. O erro que chegava era `CalledProcessError: exit 1` no
+    setup de **todos** os testes, que não diz nada sobre a causa.
+    """
+    _psql(
+        "SELECT pg_terminate_backend(pid) FROM pg_stat_activity "
+        f"WHERE datname = '{db}' AND pid <> pg_backend_pid()"
+    )
+
+
 @pytest.fixture(scope="session", autouse=True)
 def banco_de_teste():
     """Recria o banco de teste do zero e aplica a migration."""
+    _expulsar("copiloto_test")
     _psql("DROP DATABASE IF EXISTS copiloto_test")
     _psql("CREATE DATABASE copiloto_test")
 
@@ -78,16 +93,32 @@ def banco_de_teste():
 
 @pytest.fixture(autouse=True)
 async def limpar_tabelas():
-    """Cada teste começa com o banco vazio (TRUNCATE é mais rápido que recriar)."""
+    """Cada teste começa com o banco vazio (TRUNCATE é mais rápido que recriar).
+
+    Com `lock_timeout` e retry por causa da suíte de navegador: o painel faz
+    polling, e uma consulta em voo no `uvicorn` de teste ainda segura
+    `AccessShareLock` quando o teste seguinte pede o `AccessExclusiveLock` do
+    TRUNCATE. Sem o timeout isso vira `deadlock detected` — os dois esperando
+    um pelo outro — e o teste morre por uma corrida que não é sobre ele.
+    """
+    import asyncio
+
     from sqlalchemy import text
 
     from app.db.session import get_session
 
-    async with get_session() as session:
-        await session.execute(
-            text(f"TRUNCATE {', '.join(TABELAS_DE_DADOS)} RESTART IDENTITY CASCADE")
-        )
-        await session.commit()
+    comando = text(f"TRUNCATE {', '.join(TABELAS_DE_DADOS)} RESTART IDENTITY CASCADE")
+    for tentativa in range(5):
+        try:
+            async with get_session() as session:
+                await session.execute(text("SET lock_timeout = '3s'"))
+                await session.execute(comando)
+                await session.commit()
+            break
+        except Exception:  # noqa: BLE001 — lock ou deadlock: espera e tenta de novo
+            if tentativa == 4:
+                raise
+            await asyncio.sleep(0.5 * (tentativa + 1))
     yield
 
 

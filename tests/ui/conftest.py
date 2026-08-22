@@ -6,19 +6,24 @@ enquanto o botão "colar vaga" simplesmente não aparecia para quem tinha a aba
 aberta desde antes do último deploy. Nenhum teste que não abre um navegador ia
 pegar qualquer um dos dois. Ver `docs/fase06.md` §2 e §E1.
 
-**Por que um servidor de verdade.** O resto da suíte fala com o app em processo
-(`ASGITransport`), que é rápido e suficiente para contrato de API. Aqui não
-serve: o que está sendo testado é o JavaScript rodando num navegador, e ele
-precisa de um socket. Sobe-se um `uvicorn` apontado para o **banco de teste** —
-os mesmos `TRUNCATE` por teste do `conftest.py` de cima valem, porque os dois
+**Por que dois processos agora.** O painel deixou de ser HTML servido pelo
+próprio FastAPI e virou um app Next.js em `web/`. Então a sessão sobe os dois:
+um `uvicorn` contra o **banco de teste** e um `next dev` apontado para ele pelo
+`API_URL`. O navegador fala só com o Next — mesma origem, como em produção, que
+é o que faz o cookie de sessão viajar.
+
+Os `TRUNCATE` por teste do `conftest.py` de cima continuam valendo: os três
 processos falam com o mesmo Postgres.
 
-O navegador é de escopo de sessão (subir Chromium custa ~1 s); a página é por
-teste, para não vazar estado de sessão entre um e outro.
+O navegador e os dois servidores são de escopo de sessão (o Next custa alguns
+segundos para compilar a primeira rota); a página é por teste, para não vazar
+estado de sessão entre um e outro.
 """
 from __future__ import annotations
 
 import os
+import shutil
+import signal
 import socket
 import subprocess
 import sys
@@ -34,9 +39,29 @@ pytest.importorskip("playwright", reason="instale com: pip install -e '.[ui]'")
 
 from playwright.async_api import async_playwright  # noqa: E402
 
-# Todo teste deste diretório é `ui`: lento, precisa de navegador, e fica fora do
-# `pytest` padrão (ver o `-m 'not ui'` no pyproject).
+# O marcador separa esta suíte da de sempre: `-m "not ui"` roda os testes de
+# unidade sem abrir navegador nenhum — é o `addopts` do pyproject.
 pytestmark = pytest.mark.ui
+
+
+def _matar(processo: subprocess.Popen, *, prazo: int) -> None:
+    """O grupo inteiro, não só o processo.
+
+    `npm run dev` gera um `next-server` filho; matar só o pai deixa o filho
+    segurando a porta — e o lockfile que faz a rodada seguinte recusar-se a
+    subir com "Another next dev server is already running".
+    """
+    try:
+        os.killpg(os.getpgid(processo.pid), signal.SIGTERM)
+    except (ProcessLookupError, PermissionError):
+        processo.terminate()
+    try:
+        processo.wait(timeout=prazo)
+    except subprocess.TimeoutExpired:
+        try:
+            os.killpg(os.getpgid(processo.pid), signal.SIGKILL)
+        except (ProcessLookupError, PermissionError):
+            processo.kill()
 
 
 def _porta_livre() -> int:
@@ -46,18 +71,19 @@ def _porta_livre() -> int:
 
 
 @pytest.fixture(scope="session")
-def servidor(banco_de_teste) -> str:
+def api(banco_de_teste) -> str:
     """Um `uvicorn` de verdade contra o banco de teste. Devolve a URL base."""
     porta = _porta_livre()
     processo = subprocess.Popen(
         [sys.executable, "-m", "uvicorn", "app.api.main:app",
          "--host", "127.0.0.1", "--port", str(porta), "--log-level", "warning"],
         cwd=REPO_DIR,
-        # `os.environ` já vem com DATABASE_URL apontando para o banco de teste:
-        # o conftest de cima o define no import, antes de `app.config` carregar.
+        # A suíte fala HTTP puro: um cookie `Secure` seria emitido e nunca
+        # guardado, e o login falharia sem dizer por quê.
         env={**os.environ, "SESSION_COOKIE_SECURE": "false"},
         stdout=subprocess.DEVNULL,
         stderr=subprocess.PIPE,
+        start_new_session=True,
     )
     base = f"http://127.0.0.1:{porta}"
 
@@ -76,11 +102,64 @@ def servidor(banco_de_teste) -> str:
 
     yield base
 
-    processo.terminate()
-    try:
-        processo.wait(timeout=5)
-    except subprocess.TimeoutExpired:
+    _matar(processo, prazo=5)
+
+
+@pytest.fixture(scope="session")
+def servidor(api) -> str:
+    """O `next dev`, apontado para a API de teste. É o que o navegador abre.
+
+    `API_URL` é lido pelo `next.config.ts` no boot e vira a reescrita de
+    `/api/*` — por isso o Next precisa subir **depois** do uvicorn, com a porta
+    dele já conhecida.
+
+    Modo dev e não `next build`: o build leva ~30 s e a suíte inteira leva
+    menos que isso. O preço é a primeira visita a cada rota compilar sob
+    demanda, e é por isso que os `wait_for_selector` daqui usam timeouts
+    generosos.
+    """
+    web = REPO_DIR / "web"
+    if not (web / "node_modules").is_dir():
+        pytest.skip("web/node_modules ausente — rode `npm install` em web/")
+
+    # Cache de compilação de uma rodada anterior serve página velha para a nova.
+    shutil.rmtree(web / ".next-teste" / "dev", ignore_errors=True)
+
+    porta = _porta_livre()
+    processo = subprocess.Popen(
+        ["npm", "run", "dev", "--", "--port", str(porta)],
+        cwd=web,
+        env={
+            **os.environ,
+            "API_URL": api,
+            "NEXT_TELEMETRY_DISABLED": "1",
+            # Diretório de build próprio: o Next 16 recusa um segundo servidor
+            # sobre o mesmo `.next`, e eu deixo um `next dev` aberto enquanto
+            # trabalho.
+            "NEXT_DIST_DIR": ".next-teste",
+        },
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
+        start_new_session=True,
+    )
+    base = f"http://127.0.0.1:{porta}"
+
+    for _ in range(300):
+        if processo.poll() is not None:
+            erro = (processo.stderr.read() or b"").decode()[-2000:]
+            raise RuntimeError(f"next morreu ao subir:\n{erro}")
+        try:
+            if httpx.get(f"{base}/login", timeout=1.0).status_code == 200:
+                break
+        except httpx.HTTPError:
+            time.sleep(0.2)
+    else:
         processo.kill()
+        raise RuntimeError("next não respondeu em 60 s")
+
+    yield base
+
+    _matar(processo, prazo=10)
 
 
 @pytest.fixture(scope="session")
@@ -116,27 +195,50 @@ async def pagina(navegador, servidor):
 async def painel(pagina, servidor, usuario):
     """Painel aberto e autenticado — o ponto de partida de quase todo teste."""
     u, senha = usuario
-    await pagina.goto(servidor, wait_until="networkidle")
+    await pagina.goto(f"{servidor}/login", wait_until="domcontentloaded")
+    # `data-pronto` marca o fim da hidratação: antes dele, o React troca o HTML.
+    await pagina.wait_for_selector("html[data-pronto]", timeout=60000)
     await pagina.fill("#email", u.email)
     await pagina.fill("#senha", senha)
-    await pagina.click("#form-login button")
-    await pagina.wait_for_selector("#painel:not([hidden])", timeout=15_000)
+    await pagina.click('button[type="submit"]')
+
+    try:
+        await pagina.wait_for_selector("aside nav", timeout=60000)
+    except Exception:
+        corpo = await pagina.inner_text("body")
+        raise AssertionError(
+            "login não abriu o painel.\n"
+            f"url: {pagina.url}\n"
+            f"tela: {corpo[:600]}\n"
+            f"js: {pagina.erros_de_js}"
+        ) from None
+    return pagina
+
+
+async def _ir_para(pagina, rotulo: str, marca: str):
+    """Navega **pelo menu**, não pela URL.
+
+    Assim o teste prova de graça que o link existe e que a sessão atravessa a
+    navegação — a parte que quebraria se o cookie fosse por página.
+    """
+    await pagina.click(f'aside nav a:has-text("{rotulo}")')
+    await pagina.wait_for_selector(marca, timeout=60000)
     return pagina
 
 
 @pytest.fixture
 async def candidaturas(painel):
-    """A página `/candidaturas/`, já autenticada.
+    return await _ir_para(painel, "Candidaturas", 'h1:has-text("O que foi enviado")')
 
-    Entra pelo painel e **navega pelo link do cabeçalho**, em vez de abrir a URL
-    direto: assim o teste prova de graça que o link existe e que a sessão
-    atravessa a navegação — que é a parte que quebraria se o cookie fosse por
-    página.
-    """
-    await painel.click('.paginas a[href="/candidaturas/"]')
-    await painel.wait_for_selector("#card-vagas", timeout=15_000)
-    await painel.wait_for_selector("#painel:not([hidden])", timeout=15_000)
-    return painel
+
+@pytest.fixture
+async def fila(painel):
+    return await _ir_para(painel, "Fila", 'h1:has-text("O que espera decisão")')
+
+
+@pytest.fixture
+async def modulos(painel):
+    return await _ir_para(painel, "Módulos", 'h1:has-text("Módulos")')
 
 
 @pytest.fixture
@@ -205,4 +307,3 @@ async def com_curriculo():
             await s.commit()
 
     return gravar
-

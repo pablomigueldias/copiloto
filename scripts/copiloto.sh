@@ -27,6 +27,7 @@ VERDE=$'\033[32m'; VERMELHO=$'\033[31m'; AMARELO=$'\033[33m'
 CINZA=$'\033[90m'; NEGRITO=$'\033[1m'; FIM=$'\033[0m'
 
 PORTA_API=8010
+PORTA_FRONT=3000
 PORTA_OLLAMA=11434
 PORTA_PG=5434
 PORTA_REDIS=6380
@@ -105,12 +106,24 @@ cmd_up() {
       || { falta "worker morreu ao subir — veja logs/worker.log"; return 1; }
   fi
 
-  echo "${CINZA}api + painel${FIM}"
+  echo "${CINZA}api${FIM}"
   subir_em_fundo api "$PORTA_API" \
     "$RAIZ/.venv/bin/python" -m uvicorn app.api.main:app --port "$PORTA_API"
 
+  # O painel deixou de ser servido pelo FastAPI: virou um app Next.js em `web/`,
+  # e a raiz da API só redireciona para cá. Sem este bloco, `up` terminava
+  # dizendo "painel: :8010" e o navegador respondia conexão recusada — a API de
+  # pé, o front que ninguém subiu.
+  echo "${CINZA}front${FIM}"
+  if [[ -d "$RAIZ/web/node_modules" ]]; then
+    subir_em_fundo front "$PORTA_FRONT" npm --prefix "$RAIZ/web" run dev
+  else
+    falta "web/node_modules ausente — rode \`npm install\` em web/"
+  fi
+
   echo
-  echo "  ${NEGRITO}painel:${FIM} http://localhost:$PORTA_API"
+  echo "  ${NEGRITO}painel:${FIM} http://localhost:$PORTA_FRONT"
+  nota "a api responde em :$PORTA_API e a raiz dela redireciona para cá"
 }
 
 cmd_status() {
@@ -119,6 +132,7 @@ cmd_status() {
   porta_ocupada "$PORTA_REDIS"  && ok "redis     :$PORTA_REDIS"  || falta "redis     :$PORTA_REDIS"
   porta_ocupada "$PORTA_OLLAMA" && ok "ollama    :$PORTA_OLLAMA" || falta "ollama    :$PORTA_OLLAMA"
   porta_ocupada "$PORTA_API"    && ok "api       :$PORTA_API"    || falta "api       :$PORTA_API"
+  porta_ocupada "$PORTA_FRONT"  && ok "front     :$PORTA_FRONT"  || falta "front     :$PORTA_FRONT  — o painel mora aqui"
 
   if worker_rodando; then
     ok "worker    pid $(cat "$PIDS/worker.pid")"
@@ -132,8 +146,8 @@ cmd_status() {
   fi
 
   echo
-  if porta_ocupada "$PORTA_API"; then
-    echo "  painel: http://localhost:$PORTA_API"
+  if porta_ocupada "$PORTA_FRONT"; then
+    echo "  painel: http://localhost:$PORTA_FRONT"
   else
     echo "  ${AMARELO}rode: ./scripts/copiloto.sh up${FIM}"
   fi
@@ -141,7 +155,7 @@ cmd_status() {
 
 cmd_down() {
   echo "${NEGRITO}derrubando${FIM}"
-  for nome in api worker ollama; do
+  for nome in front api worker ollama; do
     local pid; pid="$(cat "$PIDS/$nome.pid" 2>/dev/null || true)"
     if [[ -n "$pid" ]] && kill -0 "$pid" 2>/dev/null; then
       # O grupo inteiro: `uvicorn --reload` e o `arq` têm filhos.

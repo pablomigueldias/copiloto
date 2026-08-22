@@ -173,6 +173,11 @@ class Settings(BaseSettings):
     admin_email: str = ""
     admin_senha_inicial: str = ""
 
+    # ── Front ─────────────────────────────────────────────────────
+    # Para onde a raiz do FastAPI redireciona. O painel é um app Next.js
+    # próprio (`web/`), servido pelo `next dev`/`next start` na 3000.
+    front_url: str = "http://localhost:3000"
+
     # ── CORS ──────────────────────────────────────────────────────
     cors_origins: str = "http://localhost:3000"
 

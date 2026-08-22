@@ -9,6 +9,7 @@ from __future__ import annotations
 import pytest
 
 from app.candidatura import vagas
+from app.config import settings
 from app.fila import servico as fila
 from app.llm import gateway
 
@@ -93,36 +94,29 @@ async def test_saude_diz_se_o_ollama_responde(logado):
     assert corpo["saude"]["ollama"] in (True, False)
 
 
-async def test_a_pagina_e_servida(client):
-    r = await client.get("/")
-    assert r.status_code == 200
-    assert "Copiloto" in r.text
-    assert (await client.get("/js/main.js")).status_code == 200
-    assert (await client.get("/painel.css")).status_code == 200
+async def test_a_raiz_manda_para_o_front(client):
+    """O painel não mora mais aqui — mas o favorito ainda aponta para cá.
 
-
-async def test_todo_asset_do_painel_e_revalidado(client):
-    """O defeito que fazia um botão novo "não funcionar".
-
-    Primeiro tentei `?v=<mtime>` nas URLs do HTML. Funciona para um arquivo e
-    não para módulos ES: `main.js` ganhava URL nova, mas os `import` dentro
-    dele são strings estáticas sem versão, e o navegador servia os submódulos
-    do cache. O sintoma foi `[object Object]` na tela — front velho lendo
-    backend novo. Ver docs/fase06.md.
-
-    **Este teste tem que valer para cada arquivo servido**, não só para o de
-    entrada: é exatamente a diferença que deixou o buraco passar.
+    Era HTML+CSS+JS servido por `StaticFiles` no mesmo processo; virou um app
+    Next.js em `web/`. A raiz redireciona em vez de dar 404 porque
+    `http://localhost:8010` está no favorito e na documentação há meses.
     """
-    for caminho in ("/", "/painel.css", "/js/main.js", "/js/vagas.js", "/js/transcricao.js"):
-        r = await client.get(caminho)
-        assert r.status_code == 200, caminho
-        assert "no-cache" in r.headers.get("cache-control", ""), caminho
+    r = await client.get("/")
+    assert r.status_code == 307
+    assert r.headers["location"] == settings.front_url
 
-    # E revalidar tem que ser barato, senão a tentação de cachear volta.
-    etag = (await client.get("/js/main.js")).headers["etag"]
-    r = await client.get("/js/main.js", headers={"If-None-Match": etag})
-    assert r.status_code == 304
-    assert not r.content
+
+async def test_o_redirecionamento_da_raiz_nao_e_permanente(client):
+    """`307` e não `301`, de propósito.
+
+    Permanente fica no cache do navegador para sempre. No dia em que o front
+    voltar a ser servido daqui — um `next build` estático, por exemplo — o
+    redirecionamento gravado seria impossível de desfazer sem limpar o cache de
+    cada máquina.
+    """
+    r = await client.get("/")
+    assert r.status_code != 301
+    assert "permanent" not in r.headers.get("cache-control", "").lower()
 
 
 # ── `?blocos=` — desde que as candidaturas ganharam página (20/08) ─
