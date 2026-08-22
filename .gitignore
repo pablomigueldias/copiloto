@@ -22,6 +22,11 @@ logs/
 # melhorar com o uso. Perder o arquivo apaga esse aprendizado.
 data/*
 !data/glossario.json
+# O acervo de questões é conteúdo conferido à mão contra o gabarito oficial —
+# 16 questões que custaram uma varredura de 14 provas em PDF. Dado de runtime
+# se refaz; isto não.
+!data/estudo/
+!data/estudo/*.json
 
 # Ferramentas
 .ruff_cache/

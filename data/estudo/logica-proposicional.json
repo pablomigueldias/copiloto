@@ -1,0 +1,205 @@
+{
+  "_leia_me": "Extraído dos PDFs em Second-Brain/Pessoal/Provas. O gabarito de cada questão foi conferido no PDF de gabarito oficial da banca, no bloco do cargo correspondente — nunca deduzido. A `origem` identifica o documento e NÃO repete o gabarito: ela viaja no payload da fila, e a resposta escrita ali seria a resposta entregue pelo DevTools antes de eu responder. `explicacao` é nula de propósito: as bancas publicam gabarito, não justificativa; escrever uma e apresentá-la como delas seria inventar fonte. Preencher pela tela (PATCH /api/estudo/questoes/{id}).",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica proposicional",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix · SERPRO 2013/2014 · Administração de Serviços de TI · questão 27",
+      "dificuldade": 2,
+      "enunciado": "A tabela a seguir é a tabela verdade para duas proposições simples a e b, considerando-se o Conectivo do tipo DISJUNÇÃO EXCLUSIVA.\n\n| a | b | a ⊻ b |\n|---|---|---|\n| V | V | 1 |\n| V | F | 2 |\n| F | V | 3 |\n| F | F | 4 |\n\nAssinale a alternativa que contém os valores corretos para 1, 2, 3 e 4.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1–F, 2–F, 3–F, 4–F"
+        },
+        {
+          "letra": "B",
+          "texto": "1–F, 2–V, 3–V, 4–F"
+        },
+        {
+          "letra": "C",
+          "texto": "1–V, 2–F, 3–V, 4–V"
+        },
+        {
+          "letra": "D",
+          "texto": "1–V, 2–F, 3–F, 4–F"
+        },
+        {
+          "letra": "E",
+          "texto": "1–V, 2–V, 3–V, 4–F"
+        }
+      ],
+      "gabarito": "B"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix · CREFITO-14 2023 · Analista Administrativo – TI (cód. 404) · questão 15",
+      "dificuldade": 2,
+      "enunciado": "A proposição “Se Marcos faz dieta, então emagrece” é verdadeira. Com base nessa informação, assinale a alternativa correta.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A proposição “Marcos faz dieta e não emagrece” é necessariamente falsa."
+        },
+        {
+          "letra": "B",
+          "texto": "A negação de “Se Marcos faz dieta, então emagrece” é “Se Marcos não emagrece, então não faz dieta”."
+        },
+        {
+          "letra": "C",
+          "texto": "As proposições “Se Marcos faz dieta, então emagrece” e “Marcos emagrece e não faz dieta” são equivalentes."
+        },
+        {
+          "letra": "D",
+          "texto": "A negação de “Se Marcos faz dieta, então emagrece” é “Marcos não faz dieta ou emagrece”."
+        },
+        {
+          "letra": "E",
+          "texto": "A proposição “Se Marcos emagrece, então faz dieta” é necessariamente verdadeira."
+        }
+      ],
+      "gabarito": "A"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix · CREFITO-18 2024 · Analista de TI (cód. 402) · questão 7",
+      "dificuldade": 3,
+      "enunciado": "Sejam p e q, respectivamente, as proposições “Evelyn gosta de maçã” e “Leone é valente e Raika é forte”. Sabendo-se que a proposição “Evelyn gosta de maçã e Leone é valente” é verdadeira, assinale a alternativa que apresenta uma conclusão necessariamente verdadeira.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "~p → q é verdadeira."
+        },
+        {
+          "letra": "B",
+          "texto": "p → q é verdadeira."
+        },
+        {
+          "letra": "C",
+          "texto": "p ∧ q é falsa."
+        },
+        {
+          "letra": "D",
+          "texto": "~p ∨ q é falsa."
+        },
+        {
+          "letra": "E",
+          "texto": "p ↔ q é falsa."
+        }
+      ],
+      "gabarito": "A"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · CRMV-GO 2025 · Analista Administrativo – TI (cód. 400) · item 28",
+      "dificuldade": 1,
+      "comando": "Acerca da proposição “Se a borboleta saiu do casulo, então a águia pousou no ninho”, julgue o item a seguir.",
+      "enunciado": "A negação dessa proposição é “A borboleta não saiu do casulo e a águia pousou no ninho”.",
+      "gabarito": "E"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · CRMV-GO 2025 · Analista Administrativo – TI (cód. 400) · item 29",
+      "dificuldade": 2,
+      "comando": "Acerca da proposição “Se a borboleta saiu do casulo, então a águia pousou no ninho”, julgue o item a seguir.",
+      "enunciado": "A proposição é logicamente equivalente a “Se a águia não pousou no ninho, então a borboleta não saiu do casulo”.",
+      "gabarito": "C"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · CRMV-GO 2025 · Analista Administrativo – TI (cód. 400) · item 30",
+      "dificuldade": 2,
+      "comando": "Acerca da proposição “Se a borboleta saiu do casulo, então a águia pousou no ninho”, julgue o item a seguir.",
+      "enunciado": "Essa proposição é falsa apenas quando a proposição “A borboleta saiu do casulo” for verdadeira e a proposição “A águia pousou no ninho” for falsa.",
+      "gabarito": "C"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COREN-PR 2024 · Analista de TI (cód. 402) · item 21",
+      "dificuldade": 2,
+      "comando": "Considerando que as proposições “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”, “O icosaedro não está associado à terra ou a água está associada ao octaedro”, “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro” e “A água não está associada ao octaedro” são verdadeiras, julgue o item a seguir.",
+      "enunciado": "As proposições “O icosaedro não está associado à terra ou a água está associada ao octaedro” e “Se o icosaedro está associado à terra, então a água está associada ao octaedro” são logicamente equivalentes.",
+      "gabarito": "C"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COREN-PR 2024 · Analista de TI (cód. 402) · item 22",
+      "dificuldade": 1,
+      "comando": "Considerando que as proposições “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”, “O icosaedro não está associado à terra ou a água está associada ao octaedro”, “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro” e “A água não está associada ao octaedro” são verdadeiras, julgue o item a seguir.",
+      "enunciado": "A negação da proposição “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro” é “Se a terra não está associada ao icosaedro, então o ar não está associado ao hexaedro”.",
+      "gabarito": "E"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COREN-PR 2024 · Analista de TI (cód. 402) · item 23",
+      "dificuldade": 3,
+      "comando": "Considerando que as proposições “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”, “O icosaedro não está associado à terra ou a água está associada ao octaedro”, “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro” e “A água não está associada ao octaedro” são verdadeiras, julgue o item a seguir.",
+      "enunciado": "A proposição “O fogo está associado ao tetraedro e o ar não está associado ao hexaedro” é verdadeira.",
+      "gabarito": "C"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COREN-PR 2024 · Analista de TI (cód. 402) · item 24",
+      "dificuldade": 3,
+      "comando": "Considerando que as proposições “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”, “O icosaedro não está associado à terra ou a água está associada ao octaedro”, “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro” e “A água não está associada ao octaedro” são verdadeiras, julgue o item a seguir.",
+      "enunciado": "A proposição “A água está associada octaedro se, e somente se, a terra está associada ao icosaedro” é falsa.",
+      "gabarito": "E"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · item 28",
+      "dificuldade": 2,
+      "comando": "Admitindo-se a veracidade das proposições “Todo advogado é doutor”, “Paula é advogada” e “Felipe é doutor”, julgue o item a seguir.",
+      "enunciado": "A proposição “Paula é doutora ou Felipe é advogado” é necessariamente verdadeira.",
+      "gabarito": "C"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · item 29",
+      "dificuldade": 3,
+      "comando": "Admitindo-se a veracidade das proposições “Todo advogado é doutor”, “Paula é advogada” e “Felipe é doutor”, julgue o item a seguir.",
+      "enunciado": "A proposição “Se Felipe é advogado, então Paula é doutora” não é necessariamente verdadeira.",
+      "gabarito": "E"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · item 30",
+      "dificuldade": 2,
+      "comando": "Admitindo-se a veracidade das proposições “Todo advogado é doutor”, “Paula é advogada” e “Felipe é doutor”, julgue o item a seguir.",
+      "enunciado": "As proposições “Todo advogado é doutor” e “Se não é doutor, então não é advogado” são equivalentes.",
+      "gabarito": "C"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · CREF3/SC 2023 · Analista de TI (cód. 404) · item 28",
+      "dificuldade": 2,
+      "comando": "No que se refere à lógica proposicional, julgue o item a seguir.",
+      "enunciado": "“Red Hot Chili Peppers é a maior banda de funk rock de todos os tempos!” é uma proposição.",
+      "gabarito": "E"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · CREF3/SC 2023 · Analista de TI (cód. 404) · item 29",
+      "dificuldade": 1,
+      "comando": "No que se refere à lógica proposicional, julgue o item a seguir.",
+      "enunciado": "A sentença “x = 2.023” é uma proposição.",
+      "gabarito": "E"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · CREF3/SC 2023 · Analista de TI (cód. 404) · item 30",
+      "dificuldade": 2,
+      "comando": "No que se refere à lógica proposicional, julgue o item a seguir.",
+      "enunciado": "A sentença “5 + 5 = 5 se, e somente se, 10 + 10 = 10” é verdadeira.",
+      "gabarito": "C"
+    }
+  ]
+}

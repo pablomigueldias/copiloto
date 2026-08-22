@@ -9,6 +9,7 @@ from app.db.models.agente_evento import AgenteEvento
 from app.db.models.ai_call import AiCall
 from app.db.models.auth import Sessao, TentativaLogin, Usuario
 from app.db.models.conhecimento import ConhecimentoChunk
+from app.db.models.estudo import Agenda, Modulo, Questao, Tentativa, Topico
 from app.db.models.exemplo_estilo import ExemploEstilo
 from app.db.models.pessoal import (
     CandidaturaEmail,
@@ -20,16 +21,21 @@ from app.db.models.pipeline_event import PipelineEvent
 
 __all__ = [
     "AcaoPendente",
+    "Agenda",
     "AgenteEvento",
     "AiCall",
     "CandidaturaEmail",
     "CandidaturaEvento",
     "ConhecimentoChunk",
     "ExemploEstilo",
+    "Modulo",
     "PerfilMestre",
     "PipelineEvent",
+    "Questao",
     "Sessao",
+    "Tentativa",
     "TentativaLogin",
+    "Topico",
     "Usuario",
     "Vaga",
 ]
