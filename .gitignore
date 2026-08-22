@@ -33,3 +33,8 @@ data/*
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Node — o front tem o próprio `web/.gitignore`, gerado pelo `create-next-app`
+# e mantido lá para o padrão do ecossistema continuar valendo. Aqui fica só a
+# rede contra um `npm install` disparado na raiz por engano.
+node_modules/
