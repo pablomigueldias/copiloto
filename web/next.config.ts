@@ -34,6 +34,23 @@ const nextConfig: NextConfig = {
   // O projeto já tem CLAUDE.md na raiz; um segundo gerado aqui só duplica.
   agentRules: false,
 
+  // O proxy de dev do Next desiste da resposta em **30 s** por padrão
+  // (`proxy-request.js`: `proxyTimeout || 30000`) e derruba o socket. O
+  // sintoma engana: o `next dev` loga `Failed to proxy ... ECONNRESET` como
+  // se o backend tivesse caído, e no backend não aparece erro nenhum — o
+  // cancelamento chega como desconexão do cliente e a corrotina só para.
+  //
+  // Só que quase nada em `/api/vagas` cabe em 30 s. Em 27/08/2026 o
+  // "analisar + gerar" da BRQ levou 1 min 13 pelo CLI, e `analisar` sozinho
+  // levou 38 s — as duas rotas morreram no proxy com o trabalho já feito.
+  // Quando o Gemini estoura o `gemini_timeout_s` e cai para o Ollama local,
+  // o orçamento é o do modelo local: `llm_timeout_s` é 180 s por chamada.
+  //
+  // 10 min cobre a pior cadeia (extrair + classificar + redigir no local) com
+  // folga. Não é um teto de segurança — é o proxy deixando de ser o mais
+  // impaciente da pilha, que é o único papel que ele não deveria ter.
+  experimental: { proxyTimeout: 600_000 },
+
   async rewrites() {
     return [{ source: "/api/:path*", destination: `${API_URL}/api/:path*` }];
   },
