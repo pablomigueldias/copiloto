@@ -369,11 +369,62 @@ REGRAS DURAS:
   escreva `[inaudível]` e siga.
 - NÃO invente número, nome de biblioteca nem versão.
 - Responda só com o texto reescrito, sem comentário seu.
-
+{contexto}
 TRECHO:
 {trecho}
 
 TEXTO REESCRITO:"""
+
+
+# ── O bloco anterior, para o corte não virar erro ─────────────────
+#
+# O corte de 600 palavras não respeita frase, e cada bloco era reescrito
+# sozinho. Na aula de 25/08/2026 isso saiu duas vezes na mesma nota:
+#
+#   bloco 2 abriu com "compatível e processar só em processador." — meia frase,
+#   órfã, porque a outra metade tinha ficado no bloco 1;
+#
+#   bloco 3 abriu com "O `Keras` é o mais conhecido e o mais utilizado", quando
+#   o bloco 2 terminava em "esse *dataset* [ImageNet] é um *dataset* que é o
+#   mais...". O superlativo era do ImageNet. O modelo não tinha como saber, e
+#   preencheu o sujeito que faltava com o assunto da vizinhança.
+#
+# O segundo é o que dói: não é formatação feia, é a nota **afirmando o que a
+# aula não disse**, no mesmo registro de tudo mais. Sessenta palavras de cauda
+# custam ~80 tokens no prompt e tiram do modelo a necessidade de adivinhar.
+PALAVRAS_DE_CONTEXTO = 60
+
+
+# O contexto acaba no meio de uma frase, e o modelo às vezes abre a resposta com
+# reticências para sinalizar a emenda. Na nota elas caem logo abaixo de um
+# carimbo `⏱ 05:40`, onde não sinalizam nada — o carimbo já diz que é
+# continuação. Tirar aqui é determinístico; pedir no prompt seria mais uma regra
+# para o modelo desobedecer de vez em quando.
+_ABERTURA_RETICENTE = re.compile(r"^\s*(?:\.{2,}|…)\s*")
+
+
+def _cauda(texto: str, palavras: int = PALAVRAS_DE_CONTEXTO) -> str:
+    return " ".join(texto.split()[-palavras:])
+
+
+def _secao_contexto(anterior: str | None) -> str:
+    """A seção do prompt que mostra o fim do bloco anterior. Vazia no bloco 1."""
+    if not anterior or not anterior.strip():
+        return ""
+    return (
+        "\nCOMO O TRECHO ANTERIOR TERMINOU (contexto — não é para reescrever;\n"
+        "só o final dele está aqui, o começo foi omitido de propósito):\n"
+        f"{_cauda(anterior)}\n"
+        "\nREGRAS DO CONTEXTO:\n"
+        "- A primeira frase do TRECHO provavelmente começa cortada no meio: o corte\n"
+        "  entre trechos não respeita frase. Emende-a com o que veio acima.\n"
+        "- Se o TRECHO abrir com pronome ou superlativo solto (\"é o mais...\"), o\n"
+        "  sujeito está no contexto. Use AQUELE — não escolha outro assunto do\n"
+        "  trecho para ser o sujeito.\n"
+        "- Para a primeira frase fechar sozinha, você PODE retomar nela o sujeito que\n"
+        "  ficou no contexto. O que não pode é reescrever o contexto inteiro: fora\n"
+        "  essa emenda, sua resposta cobre só o TRECHO.\n"
+    )
 
 SCHEMA_FICHAMENTO = {
     "type": "object",
@@ -469,22 +520,31 @@ def _aninhar_titulos(texto: str) -> str:
     return _TITULO_MD.sub(r"\1#\2", texto)
 
 
-async def reescrever_um(trecho: str, *, tema: str, indice: int) -> str:
+async def reescrever_um(
+    trecho: str, *, tema: str, indice: int, anterior: str | None = None
+) -> str:
     """Um bloco, sozinho. Falhar aqui devolve o trecho cru — nunca perdido.
 
     Público porque é o ponto de entrada da reescrita ao vivo: a gravação fecha um
     bloco no minuto 5 da aula e chama isto ali mesmo, enquanto o vídeo continua
     rodando (docs/fase-transcricao.md §P1). `reescrever` é o laço em cima dele,
     para quem tem o texto inteiro de uma vez (arquivo, YouTube).
+
+    `anterior` é o bloco **cru** que veio antes — cru, e não o já reescrito,
+    porque é o cru que continua literalmente na primeira frase deste. Só a cauda
+    entra no prompt; ver `PALAVRAS_DE_CONTEXTO`. `None` no primeiro bloco, que
+    não tem nada antes dele.
     """
     try:
         r = await gateway.gerar(
-            PROMPT_BLOCO.format(tema=tema, trecho=trecho),
+            PROMPT_BLOCO.format(
+                tema=tema, trecho=trecho, contexto=_secao_contexto(anterior)
+            ),
             tarefa="redigir",
             agente=f"conhecimento.transcricao.bloco{indice}",
             temperatura=0.3,
         )
-        texto = (r.texto or "").strip()
+        texto = _ABERTURA_RETICENTE.sub("", (r.texto or "").strip())
     except LLMErro as e:
         logger.warning(f"Bloco {indice} sem LLM ({type(e).__name__}); fica cru.")
         return trecho
@@ -574,7 +634,10 @@ async def reescrever(
     logger.info(f"Reescrevendo {len(partes)} bloco(s) de transcrição...")
     prontos: list[tuple[int | None, str]] = []
     for i, (segundo, bloco) in enumerate(partes, start=1):
-        prontos.append((segundo, await reescrever_um(bloco, tema=tema, indice=i)))
+        anterior = partes[i - 2][1] if i > 1 else None
+        prontos.append(
+            (segundo, await reescrever_um(bloco, tema=tema, indice=i, anterior=anterior))
+        )
         logger.info(f"  bloco {i}/{len(partes)} pronto")
     return juntar_blocos(prontos)
 

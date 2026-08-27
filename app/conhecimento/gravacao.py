@@ -327,9 +327,15 @@ async def _reescrever_ao_vivo(sessao: Sessao) -> None:
         if not texto.strip():
             continue      # bloco que era só saudação e pedido de inscrição
 
+        # Antes do append: `limpo[-1]` ainda é o bloco que veio antes deste, e
+        # é ele que a primeira frase daqui continua. Blocos que eram só ruído
+        # nunca entraram na lista, então o anterior é sempre um bloco de verdade.
+        anterior = sessao.limpo[-1] if sessao.limpo else None
         sessao.limpo.append(texto)
         try:
-            reescrito = await tr.reescrever_um(texto, tema=TEMA, indice=indice)
+            reescrito = await tr.reescrever_um(
+                texto, tema=TEMA, indice=indice, anterior=anterior
+            )
         except Exception as e:  # noqa: BLE001 — um bloco cru é melhor que a sessão morta
             logger.warning(f"Bloco {indice} não foi reescrito ({type(e).__name__}: {e}).")
             reescrito = texto

@@ -198,6 +198,86 @@ async def test_modelo_que_resume_e_descartado(llm):
     assert await tr.reescrever(original, tema="x") == original
 
 
+# ── a costura entre blocos (25/08/2026) ───────────────────────────
+
+
+class LLMEspiao:
+    """Ecoa o trecho recebido e guarda os prompts, para inspecioná-los."""
+
+    def __init__(self) -> None:
+        self.prompts: list[str] = []
+
+    async def gerar(self, prompt, *, modelo, json_mode=False, temperatura=None, opcoes=None):
+        self.prompts.append(prompt)
+        _, _, trecho = prompt.partition("TRECHO:\n")
+        return RespostaCrua(texto=trecho.replace("\n\nTEXTO REESCRITO:", ""), modelo=modelo)
+
+    async def embedar(self, textos, *, modelo):
+        return [[0.01] * 1024 for _ in textos]
+
+
+@pytest.fixture
+def espiao():
+    e = LLMEspiao()
+    gateway.usar_provider(e)
+    yield e
+    gateway.usar_provider(gateway.OllamaProvider())
+
+
+def _marcas_numeradas(pedacos: int = 13, por_pedaco: int = 100):
+    """13 pedaços de 100 palavras → blocos de 600: p0-p599, p600-p1199, p1200-p1299."""
+    return [
+        (i * 20, " ".join(f"p{i * por_pedaco + j}" for j in range(por_pedaco)))
+        for i in range(pedacos)
+    ]
+
+
+def test_cauda_pega_so_o_fim():
+    assert tr._cauda("a b c d e", palavras=2) == "d e"
+    # Menos palavras que o pedido devolve o texto inteiro, não um erro.
+    assert tr._cauda("a b", palavras=10) == "a b"
+
+
+def test_sem_bloco_anterior_nao_ha_secao_de_contexto():
+    """O primeiro bloco não tem nada antes dele — e o prompt não pode fingir que tem."""
+    assert tr._secao_contexto(None) == ""
+    assert tr._secao_contexto("   ") == ""
+
+
+async def test_bloco_seguinte_recebe_a_cauda_do_anterior(espiao):
+    """O corte de 600 palavras cai no meio da frase; o bloco 2 precisa ver o fim do 1.
+
+    Sem isto, um bloco que abre com "é o mais conhecido" escolhe sozinho um
+    sujeito — foi assim que o superlativo do ImageNet virou do Keras.
+    """
+    await tr.reescrever("", tema="x", marcas=_marcas_numeradas())
+
+    p1, p2, p3 = espiao.prompts
+    assert "COMO O TRECHO ANTERIOR TERMINOU" not in p1
+
+    contexto2 = p2.split("TRECHO:")[0]
+    assert "p599" in contexto2                      # última palavra do bloco 1
+    assert f"p{600 - tr.PALAVRAS_DE_CONTEXTO}" in contexto2
+    assert f"p{599 - tr.PALAVRAS_DE_CONTEXTO}" not in contexto2   # e só a cauda
+
+    contexto3 = p3.split("TRECHO:")[0]
+    assert "p1199" in contexto3 and "p599" not in contexto3
+
+
+async def test_reticencias_de_emenda_nao_entram_na_nota(llm):
+    """O carimbo `⏱ 05:40` já diz que é continuação; as reticências só sujam."""
+    original = " ".join(["palavra"] * 100)
+    llm("... " + " ".join(["Palavra."] * 100))
+    assert await tr.reescrever(original, tema="x") == " ".join(["Palavra."] * 100)
+
+
+async def test_contexto_e_a_cauda_crua_e_nao_a_reescrita(espiao):
+    """O que continua a frase é o texto cru do bloco anterior, não a versão dele."""
+    await tr.reescrever("", tema="x", marcas=_marcas_numeradas())
+    contexto2 = espiao.prompts[1].split("TRECHO:")[0]
+    assert "p540 p541" in contexto2
+
+
 # ── onde a nota mora (fase06 §6.6) ────────────────────────────────
 
 
