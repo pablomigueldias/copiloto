@@ -109,7 +109,7 @@ class GeminiProvider:
         transport: httpx.AsyncBaseTransport | None = None,
     ) -> None:
         self.chave = chave or settings.gemini_api_key
-        self.timeout_s = timeout_s or settings.llm_timeout_s
+        self.timeout_s = timeout_s or settings.gemini_timeout_s
         # Mesmo papel de `chave` e `timeout_s`: em produção é sempre `None`, e o
         # teste do backoff precisa de um 503 que não dependa da nuvem estar mal.
         self.transport = transport
@@ -154,7 +154,7 @@ class GeminiProvider:
                     httpx.ConnectError,
                 ) as e:
                     # Timeout não é retentado: ele já gastou o orçamento inteiro
-                    # (`llm_timeout_s`), e insistir dobra a espera de quem está
+                    # (`gemini_timeout_s`), e insistir dobra a espera de quem está
                     # olhando a tela. A queda para o local resolve mais rápido.
                     raise LLMIndisponivel(
                         f"Gemini não respondeu ({type(e).__name__}): {e}"

@@ -66,7 +66,20 @@ class Settings(BaseSettings):
     # Sem chave, isto tudo é ignorado e roda local — é o que faz a suíte e uma
     # máquina sem internet passarem sem tratamento especial.
     gemini_api_key: str = ""
-    gemini_model: str = "gemini-3.7-flash"
+    # ── Por que não o `3.7-flash`, que foi o padrão até 25/08/2026 ─
+    # Ele parou de responder. Não devolve erro: segura a conexão aberta até
+    # estourar o timeout. Na aula das 10:37 foram três blocos seguidos em
+    # 180 s, 211 s e 180 s — **571 s de espera pura** antes de o local começar
+    # o trabalho, e os 75 s entre o `parar` e a nota viraram 9 min 30.
+    #
+    # Não é a rede nem a chave: no mesmo minuto o `GET /models` voltou em 0,3 s
+    # e o `2.5-flash` respondeu em 0,9 s. O `3.7-flash` e o `flash-latest`
+    # penduraram os dois. É o modelo, do lado de lá.
+    #
+    # Isto é uma troca com data para acabar, não uma conclusão sobre qualidade:
+    # em 17/08 o 3.7 acertou 4 de 4 no fichamento, e custa metade até
+    # 31/12/2026 (`db/observability.py`). Quando ele voltar a responder, volta.
+    gemini_model: str = "gemini-2.5-flash"
     # `extrair` é o único aqui sem falha medida do modelo local; entrou porque
     # alimenta o match e o currículo, e custa US$ 0,0025 por chamada. Se algum
     # dia o phi4-mini provar que basta, é o primeiro a voltar.
@@ -158,6 +171,16 @@ class Settings(BaseSettings):
     worker_reindexar_minutos: int = 10
 
     llm_timeout_s: float = 180.0      # 4B em 6 GB gerando 800 tokens passa de 60s
+    # A nuvem não tem o problema que justificou os 180 s: ela não divide 6 GB
+    # de VRAM com o embedder. Em todas as chamadas medidas, nenhuma resposta do
+    # Gemini — sucesso **ou** 503 — passou de 44 s. Herdar o orçamento do
+    # Ollama fazia uma chamada pendurada custar 180 s para devolver nada, e os
+    # últimos ~135 eram desperdício garantido: o que não veio em 45 s não vem.
+    #
+    # Cortar é barato porque timeout não é retentado (`providers/gemini.py`) —
+    # a queda para o local acontece na hora, e é lá que o trabalho ia terminar
+    # de qualquer jeito. Não encurta nenhuma chamada que teria dado certo.
+    gemini_timeout_s: float = 45.0
     llm_max_tentativas: int = 3       # vale para JSON inválido e para erro de rede
     llm_breaker_falhas: int = 3       # falhas seguidas que abrem o circuito
     llm_breaker_minutos: int = 5      # tempo que ele fica aberto
