@@ -1,0 +1,362 @@
+{
+  "_leia_me": "Bloco de governança e gestão de TI (ITIL, COBIT, PMBOK, Scrum, gestão de riscos e de contratação de TI) extraído de sete cadernos de prova da Quadrix para cargos de TI, aplicados entre 2024 e 2026. Os enunciados foram transcritos dos PDFs dos cadernos (fonte: acervo de provas do PCI Concursos). O GABARITO DE TODAS AS 27 QUESTÕES FOI CONFERIDO NO PDF DE GABARITO DEFINITIVO DA PRÓPRIA QUADRIX, no bloco do cargo correto — não em gabarito preliminar e não em site de terceiros. Nenhum dos itens aqui foi anulado ou alterado pela banca em fase de recurso. AS EXPLICAÇÕES SÃO MINHAS, NÃO DA BANCA: banca publica gabarito, não justificativa. Este arquivo estreia o módulo 'Conhecimentos específicos de TI', que é o bloco de maior peso da prova da Quadrix (42% no formato de 120 itens), e governança é o assunto nº 1 dele — 17% do bloco, presente em 6 das 8 provas analisadas em docs/Quadrix/quadrix-peso-questoes.md. ITIL, COBIT, PMBOK e Scrum ficam no mesmo tópico de propósito: a banca cobra os quatro no mesmo bloco de itens, e separar por framework fragmentaria o agendamento. Provas usadas: CREF-11/MS 2026 (28/06/2026), CRQ-5/RS 2026 (02/08/2026), CRMV-GO 2025 (14/12/2025), CRP-SP 2025 (14/09/2025), CFBio 2025 (30/03/2025), CREFITO-18 2024 (01/09/2024) e COREN-PR 2024 (28/07/2024).",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Governança e gestão de TI",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2026 · CREF-11/MS · Analista de Suporte em Tecnologia da Informação (código 402) · prova de 28/06/2026 · item 98",
+      "comando": "Acerca de governança e gestão de TI, julgue os itens seguintes.",
+      "enunciado": "De acordo com os princípios do COBIT 2019, um sistema de governança deve ser genérico e universal, aplicando exatamente o mesmo peso e a mesma configuração de objetivos a qualquer tipo de organização, independentemente de fatores como setor de mercado, perfil de risco ou cenário de ameaças.",
+      "gabarito": "E",
+      "explicacao": "O item afirma que o sistema de governança do COBIT 2019 seria idêntico para qualquer organização. É o contrário do que a norma diz.\n\nO COBIT 2019 lista seis princípios para o sistema de governança, e um deles é justamente \"ADAPTADO ÀS NECESSIDADES DA EMPRESA\" (tailored to enterprise needs). O mecanismo dessa adaptação são os fatores de design (design factors): estratégia da empresa, metas, perfil de risco, questões de TI, cenário de ameaças, requisitos de conformidade, papel da TI, modelo de sourcing, métodos de implementação, estratégia de adoção tecnológica e porte da empresa.\n\nO que é genérico no COBIT é o modelo de referência — os 40 objetivos de governança e gestão do core model, iguais para todo mundo. O que é sob medida é o peso e a prioridade que cada organização dá a esses objetivos.\n\nAtalho: sempre que a banca disser que o COBIT 2019 é igual para todos, \"independentemente\" de risco, setor ou ameaça, é erro — o item está negando os design factors, que são a novidade da versão 2019.\n\nA pegadinha: a palavra \"genérico\" é verdadeira sobre o core model e falsa sobre a configuração adotada. O item mistura as duas coisas de propósito.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2026 · CREF-11/MS · Analista de Suporte em Tecnologia da Informação (código 402) · prova de 28/06/2026 · item 99",
+      "comando": "Acerca de governança e gestão de TI, julgue os itens seguintes.",
+      "enunciado": "São as quatro dimensões definidas na ITIL v4: organização e pessoas; informação e tecnologia; parceiros e fornecedores; e fluxos de valor e processos. Essas dimensões devem, portanto, ser consideradas de forma equilibrada para que se garanta uma gestão de serviços eficaz e holística.",
+      "gabarito": "C",
+      "explicacao": "O item lista as quatro dimensões da ITIL 4 e afirma que elas precisam de tratamento equilibrado. A lista está exata e a conclusão também.\n\n| # | Dimensão | O que cobre |\n|---|---|---|\n| 1 | Organização e pessoas | estrutura, papéis, cultura, competências |\n| 2 | Informação e tecnologia | dados, conhecimento, ferramentas |\n| 3 | Parceiros e fornecedores | contratos, terceiros, integração da cadeia |\n| 4 | Fluxos de valor e processos | como o trabalho realmente flui até o valor |\n\nA ITIL 4 é explícita ao dizer que negligenciar uma dimensão degrada o serviço inteiro — é por isso que \"de forma equilibrada\" não é enfeite do enunciado, é o ponto.\n\nAtalho para decorar: gente, tecnologia, terceiro, fluxo. Quatro palavras, na ordem em que a ITIL apresenta.\n\nOnde a banca costuma errar de propósito: trocar \"parceiros e fornecedores\" por \"processos e procedimentos\", ou inserir uma quinta dimensão. Conte primeiro, leia depois.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2026 · CREF-11/MS · Analista de Suporte em Tecnologia da Informação (código 402) · prova de 28/06/2026 · item 100",
+      "comando": "Acerca de governança e gestão de TI, julgue os itens seguintes.",
+      "enunciado": "Na gestão de riscos, o risco inerente representa o nível de risco existente antes da implementação de qualquer controle ou de resposta mitigadora, enquanto o risco residual é a parcela de risco que permanece ativa mesmo após a aplicação bem-sucedida dos controles internos de segurança e gestão.",
+      "gabarito": "C",
+      "explicacao": "O item define os dois lados da mesma régua de risco, e define os dois certo.\n\nRisco inerente = o risco cru, medido antes de qualquer controle. É o ponto de partida da avaliação.\n\nRisco residual = o que sobra depois que os controles funcionaram como deveriam.\n\nA relação: `risco residual = risco inerente − efeito dos controles`.\n\nO detalhe que o item acerta e que muita gente lê torto: o risco residual existe mesmo quando o controle funcionou. Controle não zera risco — reduz. Zerar exigiria eliminar a atividade.\n\nAtalho: inerente é \"antes\", residual é \"depois\", e o residual nunca é zero. Se um item disser que a aplicação correta dos controles elimina o risco, está errado.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRMV-GO · Analista Administrativo – Área de Tecnologia da Informação (código 400) · prova de 14/12/2025 · item 101",
+      "comando": "Acerca da biblioteca ITIL, do COBIT 2019 e da Lei de Licitações e Contratos Administrativos (Lei nº 14.133/2021), julgue os itens a seguir.",
+      "enunciado": "No ITIL, o gerenciamento de mudanças tem como foco apenas as mudanças emergenciais, devendo as mudanças padrão serem tratadas fora do escopo do processo.",
+      "gabarito": "E",
+      "explicacao": "O item restringe o gerenciamento de mudanças às emergenciais e expulsa as padrão do processo. Erra nas duas metades.\n\nO processo (na ITIL 4, change enablement) classifica três tipos, e todos os três são dele:\n\n| Tipo | Como é autorizada |\n|---|---|\n| Padrão | pré-autorizada, baixo risco, procedimento já documentado |\n| Normal | passa por avaliação e autorização conforme o risco |\n| Emergencial | rito acelerado, autorização por comitê emergencial (ECAB) |\n\nA mudança padrão não sai do escopo — ela é justamente o caso em que o processo já decidiu antes, para não travar a operação a cada requisição repetitiva (criar usuário, trocar um toner, aplicar um patch de rotina).\n\nAtalho: \"apenas\" e \"fora do escopo\" num item de gerenciamento de mudanças é quase sempre erro. O processo é guarda-chuva dos três tipos.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRMV-GO · Analista Administrativo – Área de Tecnologia da Informação (código 400) · prova de 14/12/2025 · item 102",
+      "comando": "Acerca da biblioteca ITIL, do COBIT 2019 e da Lei de Licitações e Contratos Administrativos (Lei nº 14.133/2021), julgue os itens a seguir.",
+      "enunciado": "No ITIL 4, o valor é cocriado entre o provedor de serviços e o cliente por meio de uma rede de relacionamentos, sendo o foco principal o resultado alcançado pelo cliente, e não apenas a entrega do serviço.",
+      "gabarito": "C",
+      "explicacao": "O item afirma que na ITIL 4 o valor é cocriado e mede-se pelo resultado do cliente. É a tese central da versão 4.\n\nA ITIL v3 tratava valor como algo que o provedor entrega. A ITIL 4 inverte: valor é cocriado (co-creation of value) na interação entre provedor, consumidor e demais stakeholders — a rede de relacionamentos que o item cita.\n\nE a régua não é a entrega, é o outcome: o resultado que o consumidor consegue alcançar com o serviço. Entregar um serviço que ninguém consegue usar é entrega sem valor.\n\nAtalho: ITIL 4 = cocriação + resultado (outcome). Se o item disser que o provedor \"entrega valor\" sozinho, é vocabulário de v3 aplicado a uma pergunta de v4.\n\nPar útil: este item e o 104 do CRP-SP 2025 cobram o mesmo conceito por ângulos opostos.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRMV-GO · Analista Administrativo – Área de Tecnologia da Informação (código 400) · prova de 14/12/2025 · item 103",
+      "comando": "Acerca da biblioteca ITIL, do COBIT 2019 e da Lei de Licitações e Contratos Administrativos (Lei nº 14.133/2021), julgue os itens a seguir.",
+      "enunciado": "O COBIT 2019 introduz o conceito de “fatores de design” (design factors), que permitem adaptar o sistema de governança às necessidades específicas da organização, como tolerância a risco e estratégia corporativa.",
+      "gabarito": "C",
+      "explicacao": "O item atribui ao COBIT 2019 os design factors e diz para que servem. Correto nos dois pontos.\n\nOs fatores de design são a novidade estrutural da versão 2019: onze variáveis que calibram qual sistema de governança cabe naquela organização específica. Entre elas, exatamente as duas que o item cita — perfil de risco e estratégia corporativa — mais metas da empresa, questões de TI, cenário de ameaças, requisitos de conformidade, papel da TI, modelo de sourcing, métodos de implementação, estratégia de adoção tecnológica e porte.\n\nO resultado de rodar os design factors não é um sistema novo: é uma priorização dos 40 objetivos do core model, dizendo quais merecem nível de capacidade mais alto.\n\nAtalho: design factors = o botão de personalização do COBIT 2019. Item que os afirma tende a estar certo; item que os nega ou os declara irrelevantes tende a estar errado.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRMV-GO · Analista Administrativo – Área de Tecnologia da Informação (código 400) · prova de 14/12/2025 · item 104",
+      "comando": "Acerca da biblioteca ITIL, do COBIT 2019 e da Lei de Licitações e Contratos Administrativos (Lei nº 14.133/2021), julgue os itens a seguir.",
+      "enunciado": "No COBIT 2019, a aplicação dos Governance Components deve seguir uma sequência linear e obrigatória, iniciando pela definição de políticas e terminando com a implementação de processos, de modo a assegurar a conformidade total com os princípios de governança definidos pela ISACA.",
+      "gabarito": "E",
+      "explicacao": "O item transforma os componentes de governança do COBIT numa receita sequencial. Eles não são sequenciais.\n\nOs sete componentes operam de forma integrada e simultânea:\n\n| # | Componente |\n|---|---|\n| 1 | Processos |\n| 2 | Estruturas organizacionais |\n| 3 | Políticas e procedimentos |\n| 4 | Informação |\n| 5 | Cultura, ética e comportamento |\n| 6 | Pessoas, habilidades e competências |\n| 7 | Serviços, infraestrutura e aplicativos |\n\nNão há \"começa por política, termina por processo\". Cada objetivo de governança ou gestão é sustentado por um arranjo dos sete, e o COBIT trata isso como sistema, não como fila.\n\nAtalho: COBIT não define ordem obrigatória de nada — nem de componentes, nem de objetivos. Sempre que o item impuser sequência linear e obrigatória, desconfie.\n\nA pegadinha: citar a ISACA no final dá ar de autoridade e distrai de \"sequência linear e obrigatória\", que é onde o erro mora.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRP-SP · Especialista em Gestão – Tecnologia da Informação e Comunicação (código 408) · prova de 14/09/2025 · item 101",
+      "comando": "No que diz respeito ao ITIL v4, ao COBIT 2019 e à central de serviços, julgue os itens seguintes.",
+      "enunciado": "O ITIL v4 adota como conceito central a criação de valor por meio da cocriação entre provedores de serviços e consumidores, indo além da simples entrega de serviços.",
+      "gabarito": "C",
+      "explicacao": "O item põe a cocriação de valor como conceito central da ITIL 4. É exatamente isso.\n\nO Sistema de Valor de Serviço (SVS) da ITIL 4 existe para descrever como os componentes da organização trabalham juntos para cocriar valor. Provedor e consumidor participam ativamente: o consumidor não é destinatário passivo de um serviço pronto.\n\n\"Indo além da simples entrega\" é a parte que separa v4 de v3: na v3 o vocabulário era de entrega e ciclo de vida; na v4 é de valor e cadeia de valor.\n\nAtalho: ITIL 4 → SVS, cadeia de valor de serviço, cocriação. Se o item ficar só em \"entregar serviço com qualidade\", é definição incompleta — e a Quadrix costuma marcar isso como errado quando o enunciado nega a cocriação.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRP-SP · Especialista em Gestão – Tecnologia da Informação e Comunicação (código 408) · prova de 14/09/2025 · item 102",
+      "comando": "No que diz respeito ao ITIL v4, ao COBIT 2019 e à central de serviços, julgue os itens seguintes.",
+      "enunciado": "O ITIL v4 introduz o conceito de cadeia de valor do serviço (Service Value Chain), que representa um modelo operacional flexível com base em atividades interligadas.",
+      "gabarito": "C",
+      "explicacao": "O item define a Service Value Chain como modelo operacional flexível de atividades interligadas. Está correto.\n\nA cadeia de valor de serviço é o núcleo operacional do SVS e tem seis atividades:\n\n| Atividade | O que faz |\n|---|---|\n| Planejar (plan) | visão compartilhada e direção |\n| Melhorar (improve) | melhoria contínua de tudo |\n| Engajar (engage) | relacionamento com stakeholders |\n| Projetar e fazer a transição (design & transition) | qualidade, custo e prazo |\n| Obter/construir (obtain/build) | componentes disponíveis quando preciso |\n| Entregar e suportar (deliver & support) | operação e suporte acordados |\n\nO ponto que o item captura com \"flexível\": as atividades não têm ordem fixa. Cada fluxo de valor combina as que precisa, na sequência que precisa. É o oposto do ciclo de vida rígido da v3.\n\nAtalho: cadeia de valor tem 6 atividades e nenhuma ordem obrigatória; as dimensões são 4; os princípios orientadores são 7.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRP-SP · Especialista em Gestão – Tecnologia da Informação e Comunicação (código 408) · prova de 14/09/2025 · item 103",
+      "comando": "No que diz respeito ao ITIL v4, ao COBIT 2019 e à central de serviços, julgue os itens seguintes.",
+      "enunciado": "O COBIT 2019 define que os objetivos de governança são exclusivos da alta administração, enquanto os objetivos de gestão são operacionais e de responsabilidade exclusiva do Service Desk.",
+      "gabarito": "E",
+      "explicacao": "O item divide governança e gestão no COBIT e atribui a gestão ao Service Desk. A segunda metade derruba o item.\n\nO COBIT 2019 separa um domínio de governança e quatro domínios de gestão:\n\n| Área | Domínio | Responsável típico |\n|---|---|---|\n| Governança | EDM — Evaluate, Direct and Monitor | conselho / alta administração |\n| Gestão | APO — Align, Plan and Organise | direção executiva de TI |\n| Gestão | BAI — Build, Acquire and Implement | direção executiva de TI |\n| Gestão | DSS — Deliver, Service and Support | direção executiva de TI |\n| Gestão | MEA — Monitor, Evaluate and Assess | direção executiva de TI |\n\nA primeira metade do item até passa: EDM é mesmo da alçada do corpo diretivo. Mas os objetivos de gestão são da gerência executiva, e cobrem planejar, construir, entregar e monitorar a TI inteira. O Service Desk é uma função de suporte dentro do DSS — não responde por APO, BAI nem MEA.\n\nAtalho: governança = EDM (avaliar, dirigir, monitorar); gestão = APO/BAI/DSS/MEA. Quem responde por gestão é a executiva de TI, nunca o balcão de atendimento.\n\nA pegadinha: o item constrói uma frase quase toda verdadeira e planta o erro na última palavra. Leia o item até o fim antes de marcar C.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRP-SP · Especialista em Gestão – Tecnologia da Informação e Comunicação (código 408) · prova de 14/09/2025 · item 104",
+      "comando": "No que diz respeito ao ITIL v4, ao COBIT 2019 e à central de serviços, julgue os itens seguintes.",
+      "enunciado": "A estrutura do COBIT 2019 é centrada em domínios de processos e não considera os fatores de design ou os objetivos de governança e gestão como elementos estruturais.",
+      "gabarito": "E",
+      "explicacao": "O item nega que os design factors e os objetivos de governança e gestão sejam estruturais no COBIT 2019. São, os dois.\n\nO COBIT 2019 é montado sobre:\n\n- 40 objetivos de governança e gestão, distribuídos em EDM, APO, BAI, DSS e MEA — esses objetivos são a espinha do modelo, não um apêndice;\n- 11 fatores de design, que dizem quais desses objetivos priorizar naquela organização;\n- 7 componentes que sustentam cada objetivo (processos são só um deles).\n\nReduzir o COBIT a \"domínios de processos\" é vocabulário do COBIT 4.1, que era mesmo um modelo de processos. A partir do COBIT 5, e mais ainda no 2019, processo virou um componente entre sete.\n\nAtalho: COBIT 2019 NÃO é modelo de processos. É modelo de objetivos + componentes + fatores de design.\n\nPar útil: compare com o item 103 do CRMV-GO 2025, que afirma os design factors pelo lado positivo. Mesma matéria, sinais trocados.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRP-SP · Especialista em Gestão – Tecnologia da Informação e Comunicação (código 408) · prova de 14/09/2025 · item 105",
+      "comando": "No que diz respeito ao ITIL v4, ao COBIT 2019 e à central de serviços, julgue os itens seguintes.",
+      "enunciado": "A central de serviços atua apenas de forma reativa, atendendo chamados de incidentes, e não participa de atividades proativas como comunicação de mudanças ou sugestões de melhoria.",
+      "gabarito": "E",
+      "explicacao": "O item encaixota a central de serviços como balcão reativo. A ITIL não a define assim.\n\nA central de serviços (service desk) é o ponto único de contato entre o provedor e os usuários, e sua função vai além de registrar incidente:\n\n- recebe incidentes e requisições de serviço;\n- comunica mudanças, janelas de manutenção e indisponibilidades planejadas;\n- alimenta a base de conhecimento e sugere melhorias a partir do que vê repetir;\n- é fonte primária de dados para o registro contínuo de melhorias (CSI register).\n\nNa ITIL 4 a central é uma prática, e o material é explícito quanto ao seu papel de captar demanda e apoiar a melhoria contínua.\n\nAtalho: \"apenas de forma reativa\" é a marca do item errado. Central de serviços é ponto único de contato — e ponto de contato comunica nos dois sentidos.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRP-SP · Especialista em Gestão – Tecnologia da Informação e Comunicação (código 408) · prova de 14/09/2025 · item 111",
+      "comando": "Quanto ao PMBOK 7ª edição, à metodologia Scrum e aos indicadores de desempenho de projetos, julgue os itens seguintes.",
+      "enunciado": "De acordo com o PMBOK 7ª edição, os princípios de gerenciamento de projetos são universais, mas os domínios de desempenho são opcionais e servem apenas como sugestões de boas práticas.",
+      "gabarito": "E",
+      "explicacao": "O item rebaixa os domínios de desempenho do PMBOK 7 a sugestão opcional. Eles são o núcleo do guia.\n\nO PMBOK 7 se apoia em duas estruturas:\n\n| Estrutura | Quantidade | Natureza |\n|---|---|---|\n| Princípios de gerenciamento | 12 | orientam o comportamento; universais |\n| Domínios de desempenho | 8 | grupos de atividades essenciais e interdependentes |\n\nOs oito domínios são: stakeholders; equipe; abordagem de desenvolvimento e ciclo de vida; planejamento; trabalho do projeto; entrega; medição; incerteza. O guia os descreve como um sistema de áreas que operam simultaneamente e se influenciam — não como um cardápio do qual se escolhe.\n\nAtalho: no PMBOK 7 são 12 princípios e 8 domínios de desempenho, e nenhum dos dois é opcional. Grupos de processos e áreas de conhecimento é vocabulário da 6ª edição.\n\nA pegadinha: a primeira metade (\"princípios são universais\") é verdadeira e empurra o candidato para o C.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRP-SP · Especialista em Gestão – Tecnologia da Informação e Comunicação (código 408) · prova de 14/09/2025 · item 112",
+      "comando": "Quanto ao PMBOK 7ª edição, à metodologia Scrum e aos indicadores de desempenho de projetos, julgue os itens seguintes.",
+      "enunciado": "O Scrum define alguns papéis, como Product Owner, Scrum Master e Time de Desenvolvimento, sendo que o Product Owner é o responsável por garantir o valor do produto entregue.",
+      "gabarito": "C",
+      "explicacao": "O item lista os três papéis do Scrum e atribui o valor do produto ao Product Owner. Está correto.\n\nO Product Owner é o responsável por maximizar o valor do produto resultante do trabalho do Scrum Team. Na prática isso significa: ser dono do Product Backlog, ordená-lo, deixar claro o que cada item significa e garantir que ele esteja visível e entendido.\n\nSobre a nomenclatura: o Guia do Scrum de 2020 trocou \"Time de Desenvolvimento\" por Developers dentro de um único Scrum Team. A banca usou o termo antigo, mas não fez disso o objeto do julgamento — o que se julga é a atribuição de valor ao PO, e essa não mudou.\n\nAtalho: PO = valor e backlog; Scrum Master = processo e impedimentos; Developers = como fazer. Três donos, três objetos distintos.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRP-SP · Especialista em Gestão – Tecnologia da Informação e Comunicação (código 408) · prova de 14/09/2025 · item 113",
+      "comando": "Quanto ao PMBOK 7ª edição, à metodologia Scrum e aos indicadores de desempenho de projetos, julgue os itens seguintes.",
+      "enunciado": "O Scrum Master é o responsável por atribuir tarefas ao time de desenvolvimento, garantir a execução do backlog e aprovar as entregas ao final de cada sprint.",
+      "gabarito": "E",
+      "explicacao": "O item dá ao Scrum Master três atribuições — designar tarefas, cobrar execução e aprovar entrega — e nenhuma das três é dele.\n\n| O que o item diz | De quem é, de verdade |\n|---|---|\n| atribuir tarefas | de ninguém: os Developers se auto-gerenciam e puxam o trabalho |\n| garantir a execução do backlog | o time se compromete com a meta da sprint, não com uma lista imposta |\n| aprovar as entregas | do Product Owner, que aceita ou não o incremento |\n\nO Scrum Master é líder-servidor: instala o Scrum, remove impedimentos, protege o time de interferência e treina a organização. Não é gerente de tarefas nem aprovador.\n\nAtalho: todo item que transforma o Scrum Master em chefe do time está errado. Auto-gerenciamento é regra do framework, não estilo de liderança opcional.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRP-SP · Especialista em Gestão – Tecnologia da Informação e Comunicação (código 408) · prova de 14/09/2025 · item 114",
+      "comando": "Quanto ao PMBOK 7ª edição, à metodologia Scrum e aos indicadores de desempenho de projetos, julgue os itens seguintes.",
+      "enunciado": "Um dos principais indicadores de desempenho de projetos é o índice de desempenho de custo (CPI), que mede a razão entre o valor agregado (EV) e o custo real (AC).",
+      "gabarito": "C",
+      "explicacao": "O item define o CPI como EV/AC. É a fórmula do gerenciamento do valor agregado.\n\n`CPI = EV / AC`\n\n| CPI | Leitura |\n|---|---|\n| > 1 | gastou menos do que o trabalho entregue valia — abaixo do orçamento |\n| = 1 | no orçamento |\n| < 1 | gastou mais do que entregou — estouro de custo |\n\nO par natural é o SPI = EV / PV, que faz o mesmo para prazo.\n\nAtalho: nas duas fórmulas o EV vai em cima. Embaixo entra AC para custo (dinheiro que saiu) e PV para prazo (dinheiro que deveria ter sido consumido até aqui). Quem decora \"EV em cima\" não erra a dupla.\n\nCuidado com a variação: a banca também cobra as variações — CV = EV − AC e SV = EV − PV. Índice é divisão; variação é subtração.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRP-SP · Especialista em Gestão – Tecnologia da Informação e Comunicação (código 408) · prova de 14/09/2025 · item 115",
+      "comando": "Quanto ao PMBOK 7ª edição, à metodologia Scrum e aos indicadores de desempenho de projetos, julgue os itens seguintes.",
+      "enunciado": "O valor planejado (PV) é o custo estimado do trabalho já realizado em determinado ponto do projeto, e permite que se mensure se o projeto está adiantado ou atrasado.",
+      "gabarito": "E",
+      "explicacao": "O item chama de PV aquilo que é EV. Trocou as duas grandezas centrais do valor agregado.\n\n| Sigla | Definição correta |\n|---|---|\n| PV (valor planejado) | orçamento autorizado para o trabalho planejado até a data — o que deveria estar feito |\n| EV (valor agregado) | orçamento do trabalho efetivamente realizado até a data — o que está feito, medido em dinheiro orçado |\n| AC (custo real) | o que de fato foi gasto para realizar esse trabalho |\n\n\"Custo estimado do trabalho já realizado\" é a definição literal de EV, não de PV.\n\nA segunda metade do item, sozinha, até faz sentido: prazo se afere comparando EV com PV (SV = EV − PV, SPI = EV/PV). Mas o PV isolado não diz se o projeto atrasou — ele é apenas a linha de base.\n\nAtalho: planejado = deveria; agregado = está; real = custou. Três palavras na ordem P-A-R.\n\nA pegadinha: o item é quase o 114 invertido. Quem acertou o 114 por decorar \"EV/AC\" ainda pode cair aqui se não souber o que é PV.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CFBio · Analista de Sistemas (código 401) · prova de 30/03/2025 · item 83",
+      "comando": "Quanto à segurança da informação e à governança de TI, julgue os itens a seguir.",
+      "enunciado": "Na biblioteca ITIL, a fase de desenho de serviço envolve a criação e adaptação de novos serviços de TI, garantindo que estejam alinhados às necessidades do negócio e aos requisitos técnicos.",
+      "gabarito": "C",
+      "explicacao": "O item descreve o desenho de serviço como a fase que cria e adapta serviços alinhados ao negócio. É a definição do ciclo de vida da ITIL v3.\n\nAs cinco fases, na ordem:\n\n| # | Fase | Pergunta que responde |\n|---|---|---|\n| 1 | Estratégia de serviço | que serviços oferecer, e por quê |\n| 2 | Desenho de serviço | como o serviço será, tecnicamente e para o negócio |\n| 3 | Transição de serviço | como colocar em produção sem quebrar nada |\n| 4 | Operação de serviço | como manter rodando no dia a dia |\n| 5 | Melhoria contínua | como melhorar, em todas as fases |\n\nO desenho abrange serviço novo e mudança em serviço existente — é o \"criação e adaptação\" do item. Dentro dele moram catálogo de serviços, nível de serviço, capacidade, disponibilidade, continuidade, segurança e fornecedores.\n\nAtalho: a banca cobra ITIL v3 por fase e ITIL 4 por dimensão / cadeia de valor. Repare em qual vocabulário o enunciado usa antes de responder — aqui o item disse \"fase\", então o gabarito vive na v3.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CFBio · Analista de Sistemas (código 401) · prova de 30/03/2025 · item 84",
+      "comando": "Quanto à segurança da informação e à governança de TI, julgue os itens a seguir.",
+      "enunciado": "De acordo com o guia PMBOK, o grupo de processos de monitoramento e controle foca na execução das tarefas planejadas, garantindo que os recursos humanos e os recursos materiais sejam utilizados conforme previsto.",
+      "gabarito": "E",
+      "explicacao": "O item descreve execução e chama de monitoramento e controle. São grupos de processos diferentes.\n\n| Grupo | O que é |\n|---|---|\n| Iniciação | autorizar o projeto ou a fase |\n| Planejamento | definir escopo, refinar objetivos, traçar o caminho |\n| Execução | realizar o trabalho e mobilizar pessoas e materiais conforme o plano |\n| Monitoramento e controle | acompanhar, revisar e regular progresso e desempenho; identificar mudanças necessárias e iniciá-las |\n| Encerramento | finalizar formalmente o projeto ou a fase |\n\n\"Utilizar os recursos conforme o previsto\" é execução. Monitoramento e controle é quem mede se o previsto está acontecendo e aciona a correção — inclusive o controle integrado de mudanças.\n\nAtalho: execução faz; monitoramento e controle compara e corrige. Se o verbo do item for de fazer, e o rótulo for M&C, é erro.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CFBio · Analista de Sistemas (código 401) · prova de 30/03/2025 · item 85",
+      "comando": "Quanto à segurança da informação e à governança de TI, julgue os itens a seguir.",
+      "enunciado": "No PMBOK, o plano de gerenciamento do projeto e o escopo são definidos no grupo de processos de planejamento.",
+      "gabarito": "C",
+      "explicacao": "O item aloca o plano de gerenciamento do projeto e a definição de escopo no grupo de planejamento. Está no lugar certo.\n\nOs dois processos citados são de planejamento:\n\n- Desenvolver o plano de gerenciamento do projeto — consolida os planos auxiliares e as linhas de base num documento único;\n- Definir o escopo — produz a declaração do escopo, e é seguido por criar a EAP, que gera a linha de base do escopo.\n\nO que não é planejamento e às vezes confunde: desenvolver o termo de abertura do projeto (iniciação) e identificar as partes interessadas (iniciação).\n\nAtalho: se o processo produz um plano, uma linha de base ou uma declaração, é planejamento. Se autoriza, é iniciação; se mede, é monitoramento e controle.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2024 · COREN-PR · Analista de Tecnologia da Informação (código 402) · prova de 28/07/2024 · item 91",
+      "comando": "Acerca da biblioteca ITIL 2011, do banco de dados Oracle, das ferramentas ETL e dos bancos de dados NoSQL, julgue os itens a seguir.",
+      "enunciado": "O gerenciamento de incidentes é um processo da fase de operação de serviço na ITIL 2011, cujo objetivo consiste em restaurar a operação normal do serviço o mais rapidamente possível e minimizar o impacto negativo nas operações de negócio.",
+      "gabarito": "C",
+      "explicacao": "O item põe o gerenciamento de incidentes na operação de serviço e dá o objetivo do processo. Certo nos dois.\n\nNa ITIL 2011 (v3 edição 2011), a fase de operação de serviço contém cinco processos:\n\n| Processo | Objetivo em uma linha |\n|---|---|\n| Gerenciamento de incidentes | restaurar o serviço o mais rápido possível |\n| Gerenciamento de problemas | achar e eliminar a causa-raiz |\n| Cumprimento de requisições | atender solicitações de serviço |\n| Gerenciamento de acesso | conceder direito de uso a quem tem direito |\n| Gerenciamento de eventos | detectar e tratar eventos monitorados |\n\nO objetivo transcrito no item é praticamente literal do livro: restaurar rapidamente e minimizar o impacto adverso no negócio.\n\nAtalho: incidente = velocidade (restaurar já, mesmo com solução de contorno). Problema = causa (pode demorar, desde que descubra a raiz). Confundir os dois é o erro mais cobrado da operação de serviço.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2024 · COREN-PR · Analista de Tecnologia da Informação (código 402) · prova de 28/07/2024 · item 92",
+      "comando": "Acerca da biblioteca ITIL 2011, do banco de dados Oracle, das ferramentas ETL e dos bancos de dados NoSQL, julgue os itens a seguir.",
+      "enunciado": "De acordo com a biblioteca ITIL 2011, a operação de serviço é responsável por realizar as atividades diárias e os processos necessários para entregar e suportar os serviços de TI, conforme acordado nos SLAs (Service Level Agreements).",
+      "gabarito": "C",
+      "explicacao": "O item define a operação de serviço como a fase do dia a dia, com os SLAs como régua. É a definição da ITIL 2011.\n\nA operação de serviço é a fase onde o valor é efetivamente percebido pelo cliente: é aqui que o serviço roda, é suportado e é medido contra o que foi acordado. Os níveis de serviço que a operação tem de cumprir foram definidos lá atrás, no desenho de serviço (processo de gerenciamento de nível de serviço).\n\nVale distinguir funções de processos dentro da operação: as funções são central de serviços, gerenciamento técnico, gerenciamento de operações de TI e gerenciamento de aplicativos.\n\nAtalho: desenho acorda o SLA; operação cumpre o SLA; melhoria contínua revisa o SLA. Cada fase toca o mesmo acordo com um verbo diferente.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix 2026 · CRQ-5/RS · Analista de Informática (código 401) · prova de 02/08/2026 · questão 38",
+      "enunciado": "Uma organização estava implementando práticas de governança de tecnologia da informação alinhadas ao COBIT 2019. Durante um workshop, discutiu-se a distinção entre governança e gerenciamento, bem como os objetivos associados a cada domínio do modelo.\n\nCom base nessa situação hipotética, assinale a opção que apresenta o domínio que pertence à área de governança do COBIT 2019.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "EDM"
+        },
+        {
+          "letra": "B",
+          "texto": "APO"
+        },
+        {
+          "letra": "C",
+          "texto": "BAI"
+        },
+        {
+          "letra": "D",
+          "texto": "DSS"
+        },
+        {
+          "letra": "E",
+          "texto": "MEA"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "A questão pede o único domínio de governança do COBIT 2019 entre cinco siglas. É o EDM.\n\nO COBIT 2019 divide os 40 objetivos em cinco domínios, e a fronteira governança/gestão passa exatamente entre o primeiro e os outros quatro:\n\n| Domínio | Sigla por extenso | Área |\n|---|---|---|\n| EDM | Evaluate, Direct and Monitor | governança |\n| APO | Align, Plan and Organise | gestão |\n| BAI | Build, Acquire and Implement | gestão |\n| DSS | Deliver, Service and Support | gestão |\n| MEA | Monitor, Evaluate and Assess | gestão |\n\nGovernança avalia, dirige e monitora — é o corpo diretivo definindo direção e vigiando se ela está sendo seguida. Gestão planeja, constrói, executa e monitora dentro da direção que a governança deu.\n\nAtalho: só um domínio começa com E, e é o de governança. Os quatro de gestão formam a sigla mnemônica A-B-D-M, na ordem do ciclo: alinhar, construir, entregar, monitorar.\n\nA pegadinha: MEA (Monitor, Evaluate and Assess) tem \"monitorar\" e \"avaliar\" no nome, igual ao EDM. Mas MEA monitora a execução — é gestão. Quem decora pelas palavras cai; quem decora pela sigla, não.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix 2026 · CRQ-5/RS · Analista de Informática (código 401) · prova de 02/08/2026 · questão 39",
+      "enunciado": "O PMBOK® 7ª Edição promoveu uma mudança significativa em relação às versões anteriores, passando a enfatizar princípios e domínios de desempenho em vez de uma estrutura que se baseie predominantemente em grupos de processos e áreas de conhecimento. A partir dessa informação, assinale a opção que apresenta o elemento que é classificado pelo PMBOK® 7ª Edição como um domínio de desempenho.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "escopo"
+        },
+        {
+          "letra": "B",
+          "texto": "cronograma"
+        },
+        {
+          "letra": "C",
+          "texto": "stakeholders"
+        },
+        {
+          "letra": "D",
+          "texto": "custos"
+        },
+        {
+          "letra": "E",
+          "texto": "aquisições"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "A questão dá quatro áreas de conhecimento da 6ª edição e um domínio de desempenho da 7ª, e pede o domínio. É stakeholders.\n\nOs oito domínios de desempenho do PMBOK 7:\n\n| # | Domínio |\n|---|---|\n| 1 | Stakeholders (partes interessadas) |\n| 2 | Equipe |\n| 3 | Abordagem de desenvolvimento e ciclo de vida |\n| 4 | Planejamento |\n| 5 | Trabalho do projeto |\n| 6 | Entrega |\n| 7 | Medição |\n| 8 | Incerteza |\n\nEscopo, cronograma, custos e aquisições são áreas de conhecimento do PMBOK 6 — que a 7ª edição não usa mais como estrutura. Elas continuam existindo como assunto, mas migraram para dentro dos domínios (escopo, cronograma e custo caem em planejamento e entrega; aquisições, em trabalho do projeto).\n\nAtalho: se a alternativa parece uma das dez áreas de conhecimento clássicas (integração, escopo, cronograma, custos, qualidade, recursos, comunicações, riscos, aquisições, partes interessadas), ela NÃO é resposta numa pergunta sobre domínio de desempenho — com uma exceção traiçoeira: partes interessadas é o nome que sobrevive nas duas estruturas, e é justamente por isso que é o gabarito aqui.\n\nA pegadinha: a questão premia quem sabe que o PMBOK 7 abandonou as áreas de conhecimento, e pune quem responde por familiaridade.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix 2026 · CRQ-5/RS · Analista de Informática (código 401) · prova de 02/08/2026 · questão 40",
+      "enunciado": "Durante o planejamento de uma contratação de serviços de tecnologia da informação, a equipe responsável pela fase preparatória elaborou o termo de referência contendo a descrição da solução pretendida, os critérios de aceitação, as obrigações das partes e os mecanismos de mensuração dos resultados esperados.\n\nConsiderando essa situação hipotética, assinale a opção que apresenta um elemento diretamente relacionado à definição de critérios objetivos para a avaliação da execução contratual.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "estudo técnico preliminar"
+        },
+        {
+          "letra": "B",
+          "texto": "matriz SWOT"
+        },
+        {
+          "letra": "C",
+          "texto": "organograma do órgão"
+        },
+        {
+          "letra": "D",
+          "texto": "plano diretor de tecnologia da informação"
+        },
+        {
+          "letra": "E",
+          "texto": "acordo de nível de serviço"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "A questão pede o artefato que fixa critérios objetivos para avaliar a execução do contrato. É o acordo de nível de serviço.\n\nO ANS / SLA é exatamente isso: define indicadores, metas, formas de aferição e as consequências do descumprimento (glosas, sanções). Ele transforma \"serviço bem prestado\" em número mensurável — que é o que a fiscalização contratual precisa.\n\nPor que as outras não servem:\n\n| Alternativa | O que de fato é |\n|---|---|\n| Estudo técnico preliminar | é da fase de planejamento da contratação: demonstra a necessidade e a viabilidade da solução, antes do TR |\n| Matriz SWOT | ferramenta de análise estratégica; não mede execução |\n| Organograma | representa a estrutura da organização |\n| Plano diretor de TI (PDTI) | instrumento de planejamento estratégico de TI, com ações e metas do órgão, não do contrato |\n\nAtalho: medir execução de contrato → ANS/SLA. Justificar a contratação antes dela → ETP. Direcionar a TI do órgão no médio prazo → PDTI. Três documentos, três momentos.\n\nA pegadinha: o ETP é a distração mais forte, porque também é artefato da fase preparatória citada no enunciado. Mas ETP olha para trás (por que contratar); ANS olha para frente (como cobrar).",
+      "dificuldade": 2
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix 2024 · CREFITO-18 · Analista de Tecnologia da Informação (código 402) · prova de 01/09/2024 · questão 31",
+      "enunciado": "O processo do ITIL (Information Technology Infrastructure Library) que é responsável por negociar, acordar e documentar os níveis de serviço exigidos e garantir que sejam cumpridos é o gestão de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "continuidade de serviço"
+        },
+        {
+          "letra": "B",
+          "texto": "capacidade"
+        },
+        {
+          "letra": "C",
+          "texto": "mudança"
+        },
+        {
+          "letra": "D",
+          "texto": "nível de serviço"
+        },
+        {
+          "letra": "E",
+          "texto": "incidentes"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "A questão descreve negociar, acordar, documentar e cobrar níveis de serviço, e pede o processo. É o gerenciamento de nível de serviço.\n\nO gerenciamento de nível de serviço (GNS / SLM) vive no desenho de serviço e é o dono do ciclo do SLA: levanta requisitos com o negócio, negocia metas viáveis, documenta no acordo, monitora e reporta o cumprimento, e revisa periodicamente.\n\nPor que as outras não:\n\n| Alternativa | Objetivo do processo |\n|---|---|\n| Continuidade de serviço | garantir recuperação após desastre, dentro de prazos acordados |\n| Capacidade | garantir recurso suficiente, ao custo justificável |\n| Mudança | controlar o ciclo de vida das mudanças, minimizando risco |\n| Incidentes | restaurar a operação normal o mais rápido possível |\n\nAtalho: o verbo denuncia o processo. Negociar e acordar → nível de serviço. Dimensionar → capacidade. Restaurar → incidente. Recuperar após desastre → continuidade. Autorizar → mudança.\n\nA pegadinha: continuidade e capacidade também produzem metas acordadas com o negócio e moram na mesma fase. O que separa é que só o GNS tem o acordo como produto central.",
+      "dificuldade": 2
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix 2024 · CREFITO-18 · Analista de Tecnologia da Informação (código 402) · prova de 01/09/2024 · questão 32",
+      "enunciado": "Em relação ao guia PMBOK (Project Management Body of Knowledge), assinale a alternativa que apresenta o processo que pertence ao grupo de processos de monitoramento e controle.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "realizar o controle integrado de mudanças"
+        },
+        {
+          "letra": "B",
+          "texto": "planejar o gerenciamento do cronograma"
+        },
+        {
+          "letra": "C",
+          "texto": "desenvolver o termo de abertura do projeto"
+        },
+        {
+          "letra": "D",
+          "texto": "encerrar o projeto ou a fase"
+        },
+        {
+          "letra": "E",
+          "texto": "identificar riscos"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "A questão dá cinco processos do PMBOK e pede o de monitoramento e controle. É realizar o controle integrado de mudanças.\n\n| Alternativa | Grupo de processos |\n|---|---|\n| realizar o controle integrado de mudanças | monitoramento e controle |\n| planejar o gerenciamento do cronograma | planejamento |\n| desenvolver o termo de abertura do projeto | iniciação |\n| encerrar o projeto ou a fase | encerramento |\n| identificar riscos | planejamento |\n\nO controle integrado de mudanças analisa todas as solicitações de mudança, aprova ou rejeita, e gerencia as alterações nas entregas e nas linhas de base — é o processo que impede que o projeto mude por fora do registro.\n\nAtalho: o verbo abre o grupo. Desenvolver o termo de abertura / identificar partes interessadas → iniciação. Planejar / definir / estimar / desenvolver o plano / identificar riscos → planejamento. Orientar e gerenciar / adquirir / conduzir → execução. Controlar / monitorar / validar → monitoramento e controle. Encerrar → encerramento.\n\nA pegadinha: \"identificar riscos\" soa como vigilância e atrai o candidato para o M&C, mas identificar é planejamento — quem monitora é monitorar os riscos.",
+      "dificuldade": 2
+    }
+  ]
+}
