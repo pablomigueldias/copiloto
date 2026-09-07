@@ -232,6 +232,19 @@ class LLMContado:
     async def gerar(self, prompt, *, modelo, json_mode=False, temperatura=None, opcoes=None):
         self.chamadas.append("json" if json_mode else "texto")
         if json_mode:
+            # Duas chamadas JSON com schemas diferentes chegam aqui: o
+            # fichamento e a camada de estudo. Responder o fichamento às duas
+            # fazia a segunda ser rejeitada e retentada três vezes — o que
+            # inflava a contagem que este arquivo inteiro existe para medir.
+            if "PEGADINHAS" in prompt:
+                return RespostaCrua(
+                    texto=(
+                        '{"mapa": [{"tempo": "02:00", "assunto": "Palavras",'
+                        ' "peso": "alto"}], "definicoes": [], "pegadinhas": [],'
+                        ' "teste": [{"pergunta": "p?", "resposta": "Palavra."}]}'
+                    ),
+                    modelo=modelo,
+                )
             return RespostaCrua(
                 texto='{"titulo": "Aula de teste", "resumo": "r", "tags": ["logica"]}',
                 modelo=modelo,
@@ -317,7 +330,14 @@ async def test_meio_bloco_espera_o_resto_da_aula(ao_vivo):
 
 
 async def test_depois_do_parar_sobra_um_bloco_e_o_fichamento(ao_vivo):
-    """A medida da fase: 6 reescritas + fichamento depois do parar viram 2 chamadas."""
+    """A medida da fase: 6 reescritas + fichamento depois do parar viram 3 chamadas.
+
+    Eram 2 até a camada de estudo entrar (07/09/2026). O que a fase mede é que
+    a reescrita não se acumula para depois do `parar` — e isso continua igual:
+    sobra **um** `texto`, o do bloco que não fechou. As duas chamadas `json`
+    são o fichamento e a camada de estudo, e ambas só podem rodar com a aula
+    inteira na mão.
+    """
     s, provider = ao_vivo
     for _ in range(3):                            # três blocos durante a aula
         _falar(s, 6)
@@ -331,7 +351,7 @@ async def test_depois_do_parar_sobra_um_bloco_e_o_fichamento(ao_vivo):
     await gravacao._organizar(s)
 
     assert durante_a_aula == 3
-    assert provider.chamadas[durante_a_aula:] == ["texto", "json"]
+    assert provider.chamadas[durante_a_aula:] == ["texto", "json", "json"]
     assert s.erro is None, f"o caminho caiu no fallback: {s.erro}"
     assert s.estado == "revisar"
     assert s.etapa is None

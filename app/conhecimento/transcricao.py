@@ -5,7 +5,7 @@ termos técnicos errados. É o pior formato possível para as duas pontas: eu n�
 releio um muro de 6.000 palavras, e o chunker corta no meio de uma frase e
 embeda parágrafo que fala de duas coisas.
 
-Cinco etapas do bruto até a nota. **As três primeiras são código**, e essa
+Seis etapas do bruto até a nota. **As três primeiras são código**, e essa
 divisão é a decisão central do módulo: o que é padrão fechado o regex resolve
 sempre igual, e o modelo fica só com o que exige ler.
 
@@ -15,9 +15,13 @@ sempre igual, e o modelo fica só com o que exige ler.
    no prompt da etapa 3 e falhava: ver `limpar_ruido`.
 3. **segmentação** — blocos de ~600 palavras. Com gravação, blocos de pedaços
    inteiros, que carregam o instante do vídeo.
-4. **reescrita** (LLM, um bloco por vez) — pontua e organiza em subtítulos.
+4. **reescrita** (LLM, um bloco por vez) — pontua, organiza em subtítulos e põe
+   definição, analogia e alerta em caixa; fato paralelo vira tabela.
    Não resume: transcrição resumida perde o detalhe pelo qual eu assisti.
 5. **fichamento** (LLM, uma chamada) — título, resumo, destaques, tags e pasta.
+6. **camada de estudo** (LLM, uma chamada) — mapa da aula, quadro de definições,
+   pegadinhas e perguntas de recall. É o que se lê ao reabrir a nota; o corpo
+   fica logo abaixo, inteiro, para quando a camada não bastar.
 
 ## Quando cada etapa acontece
 
@@ -100,6 +104,33 @@ class Fichamento:
 
 
 @dataclass(slots=True)
+class Estudo:
+    """A camada de revisão — o que eu leio quando NÃO vou reler a aula inteira.
+
+    O fichamento responde "que nota é esta"; isto responde "como eu reviso
+    isto". São coisas diferentes e por isso são duas chamadas: o fichamento
+    decide pasta e título, e falhar nele é a nota não ter onde morar. Aqui,
+    falhar é a nota sair sem a camada — e continuar inteira.
+    """
+
+    # `{tempo, assunto, peso}` — o índice da aula, ancorado nas marcas `⏱` que
+    # já existem no corpo. É o que devolve o "onde é que ele falou disso".
+    mapa: list[dict] = field(default_factory=list)
+    # `{termo, definicao}` — as definições soltas do corpo, lado a lado. Numa
+    # aula de framework é isto que a banca cobra literalmente.
+    definicoes: list[dict] = field(default_factory=list)
+    # O que se confunde: par trocado, "não é X, é Y", número que muda entre
+    # versões. Sai do que a aula marcou, não do que o modelo acha.
+    pegadinhas: list[str] = field(default_factory=list)
+    # Os que citam número ou vocabulário ausente do corpo — marcados, não
+    # apagados, pela mesma razão dos destaques suspeitos.
+    pegadinhas_suspeitas: list[str] = field(default_factory=list)
+    # `{pergunta, resposta}` — recall ativo. A resposta fica atrás de
+    # `<details>` para a pergunta não vir com o gabarito colado.
+    teste: list[dict] = field(default_factory=list)
+
+
+@dataclass(slots=True)
 class Nota:
     fichamento: Fichamento
     corpo: str
@@ -107,6 +138,8 @@ class Nota:
     # Vai para a nota: filtro que apaga em silêncio não é confiável.
     ruido: list[str] = field(default_factory=list)
     caminho: Path | None = None
+    # `None` quando a chamada falhou: a nota sai sem a camada, não sai errada.
+    estudo: Estudo | None = None
 
 
 # ── 1. Glossário: o que o Whisper erra ────────────────────────────
@@ -216,8 +249,16 @@ _RUIDO_DE_VIDEO = re.compile(
     # "Manda aí para a prima, para o primo que quer estudar" — o mesmo pedido
     # sem a palavra "compartilhe".
     r"manda a[íi] (o v[íi]deo )?(para|pra)|"
-    # patrocínio e venda
-    r"patrocinad|cupom|c[óo]digo de desconto|link na descri[çc][ãa]o|"
+    # patrocínio e venda. O `patrocinad` solto ficou aqui de 17/08 a 07/09/2026
+    # e comeu a definição de **patrocinador**, que é o terceiro papel do
+    # consumidor de serviço na ITIL 4 — as três frases que a aula gastou com ele
+    # sumiram da nota, incluindo o "isso já caiu tanto em prova". Agora o padrão
+    # exige o contexto de propaganda: "patrocinado por", "vídeo patrocinado",
+    # "patrocínio deste canal". Fora isso, "patrocinador" e "patrocínio da alta
+    # direção" (que é vocabulário de governança) passam.
+    r"patrocinad[oa]s? (por|pel[oa])|v[íi]deo patrocinad|"
+    r"patroc[íi]nio (deste?|desse|do nosso|da nossa) (v[íi]deo|canal)|"
+    r"cupom|c[óo]digo de desconto|link na descri[çc][ãa]o|"
     r"link (abaixo|aqui embaixo)|oferta por tempo limitado|"
     r"assine (o|a|meu|minha) (canal|curso|newsletter|plano)|"
     # "Peçam lá no Instagram um resumo teórico que eu fiz" — venda de material
@@ -353,18 +394,41 @@ PROMPT_BLOCO = """\
 Abaixo está um trecho de TRANSCRIÇÃO AUTOMÁTICA de um vídeo/aula sobre "{tema}".
 Ela veio sem pontuação confiável e com marcas de fala.
 
-Sua tarefa é DIAGRAMAR, não resumir. Reescreva o mesmo conteúdo em texto legível:
+Sua tarefa é DIAGRAMAR PARA ESTUDO, não resumir. O mesmo conteúdo, no formato de
+quem vai reler isto daqui a três meses sem o vídeo do lado.
 
+FORMA:
 - pontue e separe em parágrafos curtos;
 - crie subtítulos `##` quando o assunto virar;
 - transforme enumeração falada ("primeiro... segundo...") em lista com `-`;
 - coloque `código`, comandos e nomes de arquivo em crase;
-- tire "né", "então", "pessoal", repetição e correção de fala.
+- tire a muleta de fala: "né", "então", "pessoal", "entenderam?", "joia?",
+  "reparou?", "beleza?", a repetição e a correção de fala.
+
+ESTUDO — aplique quando o trecho pedir, nunca à força:
+- DEFINIÇÃO que o professor enuncia vira caixa, com o termo no título:
+  > [!definicao] Ativo
+  > Qualquer componente com valor financeiro que possa contribuir para a
+  > entrega de um produto ou serviço de TI.
+- ANALOGIA ou exemplo longo vira caixa, para não se perder no meio da prosa:
+  > [!exemplo] A analogia do ar-condicionado
+  > O aparelho é o produto; a climatização é o serviço.
+- na caixa, TODA linha começa com `> ` — a do título e as de dentro. Linha de
+  caixa sem `> ` não vira caixa, vira texto solto com um colchete.
+- FATOS PARALELOS viram tabela de Markdown: linha do tempo, versões, etapas
+  numeradas, comparação entre dois conceitos, vantagem × desvantagem.
+- ALERTA do professor ("isso cai em prova", "cuidado", "não confunda") vira:
+  > [!atenção] O texto do alerta.
+- na primeira vez que um termo é definido, deixe-o em **negrito** no parágrafo.
 
 REGRAS DURAS:
 - NÃO resuma, NÃO corte exemplo, NÃO encurte explicação. Exercício resolvido,
   definição e macete ficam INTEIROS. O texto de saída tem que ter tamanho
   parecido com o de entrada.
+- Caixa e tabela REORGANIZAM o que foi dito — não são resumo. Nada pode sumir
+  do texto por ter virado caixa ou tabela.
+- No máximo 3 caixas neste trecho. Caixa em tudo destaca tanto quanto caixa em
+  nada, e a tabela só vale quando as linhas realmente se comparam.
 - NÃO acrescente informação que não está no trecho. Se algo ficou incompreensível,
   escreva `[inaudível]` e siga.
 - NÃO invente número, nome de biblioteca nem versão.
@@ -558,7 +622,55 @@ async def reescrever_um(
             f"{len(trecho.split())} palavras); mantendo o texto original."
         )
         return trecho
-    return _aninhar_titulos(texto)
+    return _aninhar_titulos(_consertar_caixas(texto))
+
+
+# `> [!exemplo] Título` — com ou sem o `>` que o modelo esquece.
+_ABRE_CAIXA = re.compile(r"^\s*(?:>\s*)?\[!([^\]\s]+)\]")
+
+
+def _consertar_caixas(texto: str) -> str:
+    """Devolve o `> ` que o modelo come no meio da caixa.
+
+    O prompt pede a caixa inteira com `> ` em toda linha e o modelo obedece na
+    maior parte das vezes — mas quando esquece, o Obsidian não desenha nada: a
+    linha vira texto solto começando por `[!exemplo]`, que é pior do que não ter
+    pedido caixa nenhuma. Medido em 07/09/2026 no bloco do histórico da ITIL:
+    duas caixas, nenhuma com `>`.
+
+    A caixa termina na primeira linha em branco. Continuar até lá e não até o
+    fim do parágrafo seguinte é o que impede a correção de engolir o texto que
+    vem depois — e coincide com o que o CommonMark já faria por conta própria
+    com a continuação preguiçosa do blockquote.
+    """
+    saida: list[str] = []
+    dentro = False
+    for linha in texto.split("\n"):
+        if not linha.strip():
+            dentro = False
+            saida.append(linha)
+            continue
+        if _ABRE_CAIXA.match(linha):
+            dentro = True
+        elif not dentro:
+            saida.append(linha)
+            continue
+        nua = linha.lstrip()
+        if not nua.startswith(">"):
+            saida.append(f"> {nua}")
+            continue
+        # O outro escorregão, medido nas duas aulas de ITIL de 07/09/2026 (11
+        # linhas): o modelo escreve o corpo da caixa como citação dentro da
+        # caixa, `> > texto`. O Obsidian obedece e desenha um bloco de citação
+        # dentro do callout — ruído visual que ninguém pediu. Um nível só é
+        # desfeito; `> > >` seria aninhamento deliberado e fica como veio.
+        sem_nivel = _NIVEL_EXTRA.sub("> ", nua, count=1)
+        saida.append(sem_nivel)
+    return "\n".join(saida)
+
+
+# `> > texto` ou `>> texto` — exatamente um nível a mais, e não dois.
+_NIVEL_EXTRA = re.compile(r"^>\s*>\s(?!>)")
 
 
 def blocos_com_tempo(
@@ -838,6 +950,183 @@ async def fichar(
     )
 
 
+# ── 6. Camada de estudo (LLM) ─────────────────────────────────────
+#
+# Por que é uma chamada separada, e não mais quatro campos no fichamento: o
+# fichamento decide pasta, título e tags — se ele quebrar, a nota não tem onde
+# morar. A camada de estudo é enfeite útil: quebrar aqui tem que custar a
+# camada, não a nota. Prompt grande vira JSON inválido com mais frequência, e
+# juntar os dois faria o risco do maior derrubar o menor.
+
+SCHEMA_ESTUDO = {
+    "type": "object",
+    # `required` explícito, e só com `teste`, porque `_validar_schema` promove
+    # todo `properties` a obrigatório quando não há `required` — e três das
+    # quatro seções podem faltar com razão: aula sem marca `⏱` não tem mapa,
+    # aula que não define nada não tem quadro, e "sem pegadinha" é a resposta
+    # certa na maioria das aulas. Exigir as quatro gastava três tentativas para
+    # depois jogar a camada inteira fora por causa de uma lista vazia.
+    "required": ["teste"],
+    "properties": {
+        "mapa": {"type": "array"},
+        "definicoes": {"type": "array"},
+        "pegadinhas": {"type": "array"},
+        "teste": {"type": "array"},
+    },
+}
+
+PROMPT_ESTUDO = """\
+Abaixo está uma nota de estudo já organizada, feita da transcrição de uma aula
+sobre "{tema}". Eu já assisti à aula. O que eu quero agora é a superfície de
+REVISÃO: o que eu leio quando não vou reler a aula inteira.
+
+Monte quatro coisas, todas tiradas EXCLUSIVAMENTE do texto abaixo.
+
+1. MAPA — o índice da aula. Use SOMENTE os tempos que aparecem no texto marcados
+   como `⏱ MM:SS`; não invente tempo e não recalcule nenhum.
+
+   O assunto tem até 6 palavras e resume o trecho INTEIRO, do primeiro ao último
+   parágrafo dele — não o último tópico nem o mais chamativo. Se o trecho cobre
+   utilidade, garantia, governança e risco, o assunto é "Definições de serviço e
+   governança", não "Risco".
+
+   O peso ordena o que reler primeiro, então ele só serve se separar:
+   - "alto"  → o professor disse que cai em prova / que a banca cobra
+   - "medio" → definição, número ou sigla que dá para cobrar, sem ele ter dito
+   - "baixo" → contexto, história, analogia, recado de curso
+   NO MÁXIMO METADE das linhas pode ser "alto". Se tudo for alto, nada é.
+
+2. DEFINICOES — os termos que a aula DEFINE, com a definição do jeito que ela
+   deu. Copie a definição da aula, encurtando só o que for muleta de fala.
+   Se a aula não define nada formalmente, devolva lista vazia.
+
+3. PEGADINHAS — o que se confunde. Só entra o que o texto sustenta:
+   par que troca de lugar, "não é X, é Y", número que muda entre versões,
+   o que saiu ou entrou de uma versão para outra.
+   SIM: "A ITIL 4 não tem mais ciclo de vida de serviço; isso era da V3"
+   SIM: "V2 tinha 7 livros; a V3 2011 tem 5"
+   NÃO: "Preste atenção nas versões"   ← isso é recado, não pegadinha
+   Vazio é resposta melhor que pegadinha inventada.
+
+4. TESTE — 4 a 6 perguntas de recall com a resposta. Pergunta curta, resposta
+   de uma a três frases, ambas em cima do que o texto diz. Nada de "o que você
+   achou" nem pergunta cuja resposta não esteja no texto.
+
+Escreva em português. Use os SÍMBOLOS direto (¬ ∧ ∨ → ↔ ∀ ∃), nunca LaTeX com
+barra invertida: numa string JSON "\\neg" vira quebra de linha e invalida tudo.
+
+NOTA:
+{corpo}
+
+Responda só com este JSON:
+
+{{
+  "mapa": [{{"tempo": "MM:SS", "assunto": "<até 6 palavras>", "peso": "alto|medio|baixo"}}],
+  "definicoes": [{{"termo": "<o termo>", "definicao": "<como a aula definiu>"}}],
+  "pegadinhas": ["<afirmação que separa o que se confunde>"],
+  "teste": [{{"pergunta": "<pergunta curta>", "resposta": "<1 a 3 frases>"}}]
+}}
+
+JSON:"""
+
+# Os tempos que o corpo realmente tem. O modelo erra tempo com facilidade — ele
+# interpola um `08:00` que soa plausível entre o `04:40` e o `09:20` — e um
+# índice que aponta para um instante inexistente é pior que não ter índice.
+_MARCA_TEMPO = re.compile(r"⏱\s*(\d{1,2}:\d{2})")
+
+_PESOS = {"alto": "▪▪▪", "medio": "▪▪", "médio": "▪▪", "baixo": "▪"}
+
+
+def _linhas_do_mapa(bruto, corpo: str) -> list[dict]:
+    """Só as linhas cujo tempo existe no corpo, na ordem em que ele aparece."""
+    validos = list(dict.fromkeys(_MARCA_TEMPO.findall(corpo)))
+    if not validos or not isinstance(bruto, list):
+        return []
+    por_tempo: dict[str, str] = {}
+    for item in bruto:
+        if not isinstance(item, dict):
+            continue
+        tempo = str(item.get("tempo", "")).strip()
+        assunto = latex_para_simbolo(str(item.get("assunto", ""))).strip()
+        if tempo in validos and assunto and tempo not in por_tempo:
+            peso = str(item.get("peso", "")).strip().lower()
+            por_tempo[tempo] = "|".join((assunto, _PESOS.get(peso, "▪▪")))
+    # A ordem é a do corpo, não a que o modelo devolveu: o mapa é um índice, e
+    # índice fora de ordem faz procurar duas vezes.
+    return [
+        {"tempo": t, "assunto": por_tempo[t].split("|")[0], "peso": por_tempo[t].split("|")[1]}
+        for t in validos
+        if t in por_tempo
+    ]
+
+
+def _pares(bruto, chaves: tuple[str, str], limite: int) -> list[dict]:
+    """Lista de `{a, b}` com os dois lados preenchidos — o resto cai fora."""
+    a, b = chaves
+    saida: list[dict] = []
+    for item in bruto if isinstance(bruto, list) else []:
+        if not isinstance(item, dict):
+            continue
+        x = latex_para_simbolo(str(item.get(a, ""))).strip()
+        y = latex_para_simbolo(str(item.get(b, ""))).strip()
+        if x and y:
+            saida.append({a: x, b: y})
+    return saida[:limite]
+
+
+async def estudar(corpo: str, *, tema: str) -> Estudo | None:
+    """Nota pronta → camada de revisão. `None` quando o LLM não colabora.
+
+    Recebe o corpo **inteiro**, e não a amostra que o fichamento usa: o mapa
+    precisa enxergar o último bloco para ter a última linha, e a pegadinha
+    típica ("mudou da V3 para a 4") mora justamente entre dois blocos distantes.
+    """
+    try:
+        r = await gateway.gerar(
+            PROMPT_ESTUDO.format(tema=tema, corpo=corpo),
+            tarefa="compreender",
+            agente="conhecimento.transcricao.estudo",
+            json_schema=SCHEMA_ESTUDO,
+            # Mesma razão do fichamento: aqui não se quer variedade, se quer a
+            # mesma leitura da mesma aula toda vez que eu reprocessar.
+            temperatura=0.1,
+            # Uma tentativa, e não as três do padrão. JSON ruim aqui custa uma
+            # seção que a nota vive sem — mas cada tentativa gasta crédito do
+            # circuit breaker (`_registrar_falha` roda também em `JSONInvalido`),
+            # e três seguidas ABREM o circuito do modelo por 5 minutos. Seria a
+            # camada opcional derrubando o fichamento da próxima nota.
+            max_tentativas=1,
+        )
+        dado = r.json if isinstance(r.json, dict) else {}
+    except LLMErro as e:
+        logger.warning(f"Camada de estudo sem LLM ({type(e).__name__}); nota sai sem ela.")
+        return None
+
+    # A pegadinha passa pelo mesmo teste de âncora do destaque: ela é o tipo de
+    # frase que o modelo mais sabe de cor ("a V3 tinha 5 livros") e mais erra
+    # quando a aula falou outro número.
+    pegadinhas, suspeitas = ancorar(
+        [p for p in (latex_para_simbolo(str(x)).strip() for x in (dado.get("pegadinhas") or [])) if p][:6],
+        corpo,
+    )
+    estudo = Estudo(
+        mapa=_linhas_do_mapa(dado.get("mapa"), corpo),
+        definicoes=_pares(dado.get("definicoes"), ("termo", "definicao"), 10),
+        pegadinhas=pegadinhas,
+        pegadinhas_suspeitas=suspeitas,
+        teste=_pares(dado.get("teste"), ("pergunta", "resposta"), 6),
+    )
+    if not any((estudo.mapa, estudo.definicoes, estudo.pegadinhas, estudo.teste)):
+        logger.warning("Camada de estudo veio vazia depois da conferência; nota sai sem ela.")
+        return None
+    logger.info(
+        f"Camada de estudo: {len(estudo.mapa)} linha(s) de mapa, "
+        f"{len(estudo.definicoes)} definição(ões), {len(estudo.pegadinhas)} pegadinha(s), "
+        f"{len(estudo.teste)} pergunta(s)."
+    )
+    return estudo
+
+
 def _pasta_escolhida(bruto, pastas: list[str], proximos: list[Vizinho]) -> str:
     """Onde a nota mora — **só quando há evidência de onde**.
 
@@ -993,6 +1282,68 @@ def nome_de_arquivo(titulo: str) -> str:
     return (nu[:80] or "transcricao") + ".md"
 
 
+def _secoes_de_estudo(e: Estudo | None) -> list[str]:
+    """Mapa, definições, pegadinhas e teste — a superfície de revisão.
+
+    Fica **antes** do `## Conteúdo` e o deixa intacto: abrir a nota cai na
+    camada de estudo, e a transcrição continua inteira logo abaixo para quando
+    a camada não bastar. Seção sem conteúdo não é desenhada — cabeçalho vazio
+    dá a impressão de que faltou algo.
+    """
+    if e is None:
+        return []
+    p: list[str] = []
+
+    if e.mapa:
+        p += [
+            "## Mapa da aula",
+            "",
+            "| ⏱ | Assunto | Prova |",
+            "|---|---|---|",
+            *[f"| `{i['tempo']}` | {i['assunto']} | {i['peso']} |" for i in e.mapa],
+            "",
+            "> [!nota] `▪▪▪` a aula disse que cai · `▪▪` dá para cobrar · `▪` contexto",
+            "",
+        ]
+
+    if e.definicoes:
+        p += [
+            "## Quadro de definições",
+            "",
+            "| Termo | Como a aula definiu |",
+            "|---|---|",
+            # O pipe dentro da célula fecharia a coluna no meio da definição.
+            *[
+                f"| **{d['termo'].replace('|', '/')}** | {d['definicao'].replace('|', '/')} |"
+                for d in e.definicoes
+            ],
+            "",
+        ]
+
+    if e.pegadinhas or e.pegadinhas_suspeitas:
+        p += ["## Pegadinhas", ""]
+        p += [f"- {x}" for x in e.pegadinhas]
+        p += [f"- ⚠ {x}" for x in e.pegadinhas_suspeitas]
+        p.append("")
+
+    if e.teste:
+        # `<details>` porque pergunta com a resposta à vista não é recall, é
+        # leitura. A linha em branco dentro do bloco é o que faz o Obsidian
+        # renderizar o Markdown da resposta em vez de cuspir o texto cru.
+        p += ["## Teste-se", ""]
+        for t in e.teste:
+            p += [
+                f"<details><summary>{t['pergunta']}</summary>",
+                "",
+                t["resposta"],
+                "",
+                "</details>",
+                "",
+            ]
+
+    return p
+
+
 def montar_markdown(nota: Nota, *, fonte: str, duracao_min: float | None = None) -> str:
     """A nota inteira: frontmatter + resumo + conceitos + corpo + o que revisar.
 
@@ -1052,6 +1403,8 @@ def montar_markdown(nota: Nota, *, fonte: str, duracao_min: float | None = None)
             " · ".join(f"**{c}**" for c in f.conceitos),
             "",
         ]
+
+    partes += _secoes_de_estudo(nota.estudo)
 
     partes += ["## Conteúdo", "", nota.corpo.strip(), ""]
 
@@ -1348,8 +1701,14 @@ async def catalogar(
         tags_do_vault=tags_do_vault(raiz_vault),
         proximos=proximos,
     )
+    # Depois do fichamento, e não em paralelo: as duas chamadas disputariam o
+    # mesmo provider, e é o fichamento que decide se a nota tem onde morar.
     return Nota(
-        fichamento=ficha, corpo=corpo, corrigidos=corrigidos or [], ruido=ruido or []
+        fichamento=ficha,
+        corpo=corpo,
+        corrigidos=corrigidos or [],
+        ruido=ruido or [],
+        estudo=await estudar(corpo, tema=ficha.titulo or tema),
     )
 
 

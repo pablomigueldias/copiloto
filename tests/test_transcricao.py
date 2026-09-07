@@ -850,3 +850,135 @@ def test_vizinho_carrega_o_trecho_e_ele_vai_para_o_prompt():
     # E o prompt tem que dizer que aquilo NÃO é fonte de destaque, senão o
     # contexto vira a próxima causa do §7.3.
     assert "PROIBIDO tirar destaque daqui" in bloco
+
+
+# ── Camada de estudo ──────────────────────────────────────────────
+
+
+def test_caixa_sem_o_maior_que_e_consertada():
+    """`[!exemplo]` sem `>` não vira caixa no Obsidian — vira colchete solto.
+
+    O modelo escorregou exatamente assim em 07/09/2026, no bloco do histórico
+    da ITIL: duas caixas pedidas pelo prompt, nenhuma com `>`.
+    """
+    saida = tr._consertar_caixas(
+        "Antes.\n\n[!exemplo] A analogia do Uber\nO acelerador é o recurso.\n\nDepois."
+    )
+    assert "> [!exemplo] A analogia do Uber" in saida
+    assert "> O acelerador é o recurso." in saida
+    # A linha em branco fecha a caixa: o que vem depois continua sendo prosa.
+    assert saida.endswith("Depois.")
+
+
+def test_caixa_ja_correta_nao_e_tocada():
+    texto = "Antes.\n\n> [!atenção] Cuidado\n> Isso cai em prova.\n\nDepois."
+    assert tr._consertar_caixas(texto) == texto
+
+
+def test_mapa_so_aceita_tempo_que_existe_no_corpo():
+    """O modelo interpola um `08:00` plausível entre o `04:40` e o `09:20`.
+
+    Índice que aponta para instante inexistente é pior que índice nenhum: eu
+    volto no vídeo, não acho, e paro de confiar na coluna inteira.
+    """
+    corpo = "`⏱ 00:00`\ntexto\n`⏱ 04:40`\ntexto\n`⏱ 09:20`\ntexto"
+    bruto = [
+        {"tempo": "09:20", "assunto": "Versões da ITIL", "peso": "alto"},
+        {"tempo": "08:00", "assunto": "Inventado", "peso": "alto"},
+        {"tempo": "00:00", "assunto": "Abertura", "peso": "baixo"},
+    ]
+    linhas = tr._linhas_do_mapa(bruto, corpo)
+    assert [x["tempo"] for x in linhas] == ["00:00", "09:20"], "ordem é a do corpo"
+    assert [x["peso"] for x in linhas] == ["▪", "▪▪▪"]
+
+
+def test_mapa_sem_marca_no_corpo_sai_vazio():
+    """Transcrição de arquivo/YouTube não tem `⏱` — e então não tem mapa."""
+    assert tr._linhas_do_mapa([{"tempo": "00:00", "assunto": "x"}], "sem marca") == []
+
+
+def test_par_incompleto_nao_entra_no_quadro():
+    bruto = [
+        {"termo": "Ativo", "definicao": "Componente com valor financeiro."},
+        {"termo": "Serviço"},                       # sem definição
+        {"definicao": "sobrou sem termo"},
+        "nem é dicionário",
+    ]
+    assert tr._pares(bruto, ("termo", "definicao"), 10) == [
+        {"termo": "Ativo", "definicao": "Componente com valor financeiro."}
+    ]
+
+
+def test_schema_de_estudo_nao_exige_secao_que_pode_faltar():
+    """`_validar_schema` promove todo `properties` a obrigatório sem `required`.
+
+    Sem o `required` explícito, "sem pegadinha nesta aula" — que é a resposta
+    certa na maioria delas — gastava três tentativas e derrubava a camada
+    inteira por causa de uma lista ausente.
+    """
+    assert tr.SCHEMA_ESTUDO["required"] == ["teste"]
+
+
+def test_secoes_de_estudo_somem_quando_vazias():
+    """Cabeçalho sem conteúdo faz parecer que o processamento falhou."""
+    assert tr._secoes_de_estudo(None) == []
+    assert tr._secoes_de_estudo(tr.Estudo()) == []
+    so_teste = tr._secoes_de_estudo(
+        tr.Estudo(teste=[{"pergunta": "p?", "resposta": "r."}])
+    )
+    texto = "\n".join(so_teste)
+    assert "## Teste-se" in texto
+    assert "## Mapa da aula" not in texto
+    # A resposta fica atrás do `<details>`: pergunta com gabarito à vista não
+    # é recall, é leitura.
+    assert "<details><summary>p?</summary>" in texto
+
+
+def test_pipe_na_definicao_nao_quebra_a_tabela():
+    linhas = tr._secoes_de_estudo(
+        tr.Estudo(definicoes=[{"termo": "OU", "definicao": "P | Q é a disjunção"}])
+    )
+    linha = next(x for x in linhas if x.startswith("| **OU**"))
+    assert linha.count("|") == 3, f"a coluna vazou: {linha}"
+
+
+def test_patrocinador_da_itil_nao_e_propaganda():
+    """`patrocinad` solto comeu o terceiro papel do consumidor de serviço.
+
+    A aula de ITIL 4 de 07/09/2026 gastou três frases com o **patrocinador** —
+    "isso já caiu tanto em prova essa definição aqui" — e as três foram para a
+    lista de ruído de vídeo, porque o padrão de patrocínio casava o prefixo.
+    O que separa um do outro é o complemento, não a palavra.
+    """
+    conteudo = [
+        "Esse consumidor de serviço pode ser um cliente, um usuário, um patrocinador.",
+        "E o nosso patrocinador, pessoa que autoriza o orçamento.",
+        # Vocabulário de governança, que aparece em qualquer aula de ISO 27001.
+        "O patrocínio da alta direção é pressuposto da política de segurança.",
+    ]
+    propaganda = [
+        "Este vídeo é patrocinado por uma marca de café.",
+        "Vídeo patrocinado pela escola de idiomas.",
+        "O patrocínio deste canal é da empresa X.",
+        "Use o cupom ALUNO10 na inscrição.",
+    ]
+    for frase in conteudo:
+        assert not tr._RUIDO_DE_VIDEO.search(frase), f"comeu conteúdo: {frase}"
+    for frase in propaganda:
+        assert tr._RUIDO_DE_VIDEO.search(frase), f"deixou passar propaganda: {frase}"
+
+
+def test_corpo_da_caixa_nao_vira_citacao_dentro_da_caixa():
+    """`> > texto` desenha um bloco de citação DENTRO do callout no Obsidian.
+
+    Escorregão medido nas duas aulas de ITIL de 07/09/2026: 11 linhas de corpo
+    de caixa escritas como citação aninhada. Um nível é desfeito; dois ou mais
+    é aninhamento deliberado e fica como veio.
+    """
+    assert tr._consertar_caixas("> [!definicao] X\n> > corpo\n") == "> [!definicao] X\n> corpo\n"
+    assert tr._consertar_caixas("> [!definicao] X\n>> corpo\n") == "> [!definicao] X\n> corpo\n"
+    fundo = "> [!nota] X\n> > > terceiro nível\n"
+    assert tr._consertar_caixas(fundo) == fundo
+    # Fora de caixa, `> >` é citação dentro de citação e não é da nossa conta.
+    fora = "> citação comum\n> > aninhada de verdade\n"
+    assert tr._consertar_caixas(fora) == fora
