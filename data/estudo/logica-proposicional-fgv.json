@@ -1,0 +1,134 @@
+{
+  "_leia_me": "Quatro questões da FGV transcritas de imagem: três da ALERO 2018 (uma de Assistente Legislativo – Técnico em Informática e duas de Analista Legislativo) e uma do MP-GO 2022 (Analista Contábil). No cabeçalho da primeira a largura da imagem corta o resto do título, então a `origem` registra só o que dá para ler; ALERO é a Assembleia Legislativa de Rondônia, mas isso é leitura minha da sigla, não confirmação. Nenhum gabarito foi conferido no PDF da banca: os das três de 2018 (e, c, d) foram informados por você e batem com a resolução; o da de 2022 (c) é resolução MINHA — você não passou. As `explicacao` são MINHAS, não da banca.\n\nAs quatro se completam e vale responder em sequência: negar p ∧ ~q, negar p → q, achar a equivalente de (p ∨ q) → r e achar a equivalente de ~p → ~q. Quem entende que negar uma condicional dá uma CONJUNÇÃO e que a única equivalente que continua sendo condicional é a CONTRAPOSITIVA mata as quatro.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica proposicional",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "FGV · ALERO 2018 · Assistente Legislativo – Técnico em Informática · questão 01 (transcrita de imagem; gabarito não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "Considere a afirmação:\n\n“Eu recebi o boleto e não paguei”.\n\nA negação lógica dessa afirmação é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“Eu não recebi o boleto e não paguei.”"
+        },
+        {
+          "letra": "B",
+          "texto": "“Eu não recebi o boleto e paguei.”"
+        },
+        {
+          "letra": "C",
+          "texto": "“Eu recebi o boleto e paguei.”"
+        },
+        {
+          "letra": "D",
+          "texto": "“Eu não recebi o boleto ou não paguei.”"
+        },
+        {
+          "letra": "E",
+          "texto": "“Eu não recebi o boleto ou paguei.”"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Com p = “Eu recebi o boleto” e q = “Eu paguei”, a afirmação é p ∧ ~q.\n\nDe Morgan: ~(p ∧ ~q) ≡ ~p ∨ ~(~q) ≡ ~p ∨ q.\n\nSão três movimentos, e os três precisam acontecer: nega a primeira parcela, TROCA o “e” pelo “ou” e nega a segunda — e negar “não paguei” devolve “paguei”, porque duas negações se cancelam.\n\nResultado: “Eu não recebi o boleto ou paguei” — letra E.\n\n| alt. | forma | o que faltou |\n|---|---|---|\n| A | ~p ∧ ~q | não trocou o conectivo, e não desfez o “não paguei” |\n| B | ~p ∧ q | negou as duas parcelas certas, mas manteve o “e” |\n| C | p ∧ q | negou só a segunda parcela |\n| D | ~p ∨ ~q | trocou o conectivo, mas negou “não paguei” errado |\n| E | ~p ∨ q | os três movimentos |\n\nA alternativa B é a mais tentadora: acerta as duas negações e erra o conectivo. Guardar isso vale mais que a fórmula — negar uma conjunção SEMPRE produz uma disjunção, e negar uma disjunção sempre produz uma conjunção. Se a resposta manteve o “e”, ela já está errada antes de olhar as parcelas.\n\nVale conferir pelo sentido, que é como se pega o erro na prova: a afirmação original só é verdadeira no caso “recebi e não paguei”. Negar é dizer que esse caso não aconteceu — ou não recebi, ou então paguei. É exatamente a E."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "FGV · ALERO 2018 · Analista Legislativo · questão 02 (transcrita de imagem; gabarito não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "A negação lógica da sentença “Se como demais, então passo mal” é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“Se não como demais, então não passo mal”."
+        },
+        {
+          "letra": "B",
+          "texto": "“Se não como demais, então passo mal”."
+        },
+        {
+          "letra": "C",
+          "texto": "“Como demais e não passo mal”."
+        },
+        {
+          "letra": "D",
+          "texto": "“Não como demais ou passo mal”."
+        },
+        {
+          "letra": "E",
+          "texto": "“Não como demais e passo mal”."
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "Com p = “como demais” e q = “passo mal”, a sentença é p → q, e ~(p → q) ≡ p ∧ ~q: MANTÉM o antecedente e nega o consequente.\n\nResultado: “Como demais e não passo mal” — letra C.\n\n| alt. | forma | o que é |\n|---|---|---|\n| A | ~p → ~q | a inversa: não é equivalente nem negação |\n| B | ~p → q | não tem relação com a original |\n| C | p ∧ ~q | a negação |\n| D | ~p ∨ q | a própria condicional reescrita — equivalente, não negação |\n| E | ~p ∧ q | negou o lado errado da conjunção |\n\nA alternativa D é a armadilha boa: ~p ∨ q é EXATAMENTE p → q dito com “ou”, então marcar D é responder com a própria sentença do enunciado. Equivalente e negação são opostos — um tem sempre o mesmo valor da original, o outro sempre o contrário.\n\nO atalho que resolve a família inteira: negar uma condicional nunca devolve outra condicional. As alternativas A e B começam com “Se”, então saem antes de qualquer conta — sobram três, e dessas só uma mantém o antecedente afirmado.\n\nPelo sentido: “Se como demais, então passo mal” só falha num único cenário — comi demais e não passei mal. Negar é afirmar esse cenário. Por isso a negação vem com “e”, e não com “se”."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "FGV · ALERO 2018 · Analista Legislativo · questão sobre equivalência de (p ∨ q) → r (transcrita de imagem; gabarito não conferido no PDF da banca)",
+      "dificuldade": 3,
+      "enunciado": "Considere a sentença a seguir.\n\n“Se nasci em Rondônia ou Roraima, então sou brasileiro”.\n\nAssinale a opção que apresenta uma sentença logicamente equivalente à sentença dada.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“Se não nasci em Rondônia nem em Roraima, então não sou brasileiro”."
+        },
+        {
+          "letra": "B",
+          "texto": "“Se nasci em Rondônia, então sou brasileiro”."
+        },
+        {
+          "letra": "C",
+          "texto": "“Se não nasci em Roraima, então não sou brasileiro”."
+        },
+        {
+          "letra": "D",
+          "texto": "“Se não sou brasileiro, então não nasci em Rondônia nem em Roraima”."
+        },
+        {
+          "letra": "E",
+          "texto": "“Se sou brasileiro e não nasci em Rondônia, então nasci em Roraima”."
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "Com p = “nasci em Rondônia”, q = “nasci em Roraima” e r = “sou brasileiro”, a sentença é (p ∨ q) → r.\n\nA equivalente é a contrapositiva: ~r → ~(p ∨ q). Mas ~(p ∨ q) não fica assim — De Morgan a transforma em ~p ∧ ~q. Então a resposta é ~r → (~p ∧ ~q).\n\nEm português, ~p ∧ ~q é exatamente o “NEM”: “não nasci em Rondônia nem em Roraima” quer dizer não nasci em uma E não nasci na outra. Logo: “Se não sou brasileiro, então não nasci em Rondônia nem em Roraima” — letra D.\n\nSão dois passos, e a questão cobra os dois juntos: contrapositiva (inverte a ordem e nega os dois lados) e De Morgan (o “ou” negado vira “e” negado).\n\n| alt. | forma | o que é |\n|---|---|---|\n| A | (~p ∧ ~q) → ~r | é a INVERSA: negou os dois lados sem inverter a ordem |\n| B | p → r | verdadeira, mas mais fraca: perde o Roraima |\n| C | ~q → ~r | negou e inverteu só metade do antecedente |\n| D | ~r → (~p ∧ ~q) | a contrapositiva com De Morgan aplicado |\n| E | (r ∧ ~p) → q | não decorre: ser brasileiro não obriga a ter nascido num dos dois |\n\nA B é a mais educativa das erradas. “Se nasci em Rondônia, então sou brasileiro” realmente decorre da sentença original — mas decorrer não é equivaler. Equivalência é mão dupla: as duas têm de ter o mesmo valor em TODAS as linhas, e a B continua verdadeira em situações que derrubam a original (alguém que nasceu em Roraima e não fosse brasileiro). Quando o comando pede “logicamente equivalente”, conclusão verdadeira não basta.\n\nA E tem cara de resposta porque usa a equivalência p ∨ q ≡ ~p → q dentro do consequente, mas ela reorganiza a sentença numa direção que a original não autoriza."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "FGV · MP-GO 2022 · Analista Contábil · questão sobre equivalente de “Quem não deve, não teme” (transcrita de imagem; gabarito resolvido por mim, não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "Considere a frase popular:\n\n“Quem não deve, não teme”\n\nUma frase logicamente equivalente é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Quem não teme não deve."
+        },
+        {
+          "letra": "B",
+          "texto": "Quem deve, teme."
+        },
+        {
+          "letra": "C",
+          "texto": "Quem teme, deve."
+        },
+        {
+          "letra": "D",
+          "texto": "Alguém deve e não teme."
+        },
+        {
+          "letra": "E",
+          "texto": "Alguém teme ou deve."
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "Primeiro traduzir o ditado, que é onde a questão realmente decide. “Quem não deve, não teme” é uma condicional disfarçada de provérbio: com d = “deve” e t = “teme”, ela diz ~d → ~t (se não deve, então não teme).\n\nA contrapositiva de ~d → ~t é t → d: inverte a ordem e nega os dois lados — e negar “não teme” e “não deve” devolve “teme” e “deve”, porque duas negações se cancelam.\n\nt → d é “Quem teme, deve” — letra C.\n\n| alt. | forma | o que é |\n|---|---|---|\n| A | ~t → ~d | a recíproca: inverteu a ordem sem negar |\n| B | d → t | a inversa: negou os dois lados sem inverter |\n| C | t → d | a contrapositiva |\n| D | d ∧ ~t | conjunção; nem é condicional |\n| E | t ∨ d | disjunção solta, sem relação |\n\nAs alternativas A e B são as duas metades da contrapositiva feitas isoladamente, e é assim que a banca separa quem decorou a regra de quem entendeu: a contrapositiva exige as DUAS coisas ao mesmo tempo — inverter a ordem E negar os dois lados. Uma só não basta, e nenhuma das duas sozinha é equivalente.\n\nPelo sentido, para conferir: se é verdade que ninguém sem dívida sente medo, então quem está sentindo medo necessariamente tem dívida. Já “quem deve, teme” (B) afirma coisa diferente — que toda dívida gera medo — e isso o ditado não diz."
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "_leia_me": "Bloco de cinco itens do Quadrix sobre FATORIAL, e sobre operar com uma definição nova dada no próprio enunciado (o “superfatorial”). Tópico separado de “Números e divisibilidade”: só o item 21 é divisibilidade — os outros quatro são decomposição em potências, cálculo por recorrência, contraexemplo de “para todo” e a recorrência em si. Se preferir os cinco junto da divisibilidade, é trocar `topico.nome` e reimportar. A definição de sf(n) é compartilhada pelos cinco itens e vai repetida em cada um no `texto_base`, porque o agendamento devolve cada item num dia diferente. Ressalvas: a sigla CFFa NÃO foi expandida — veio assim e eu não confirmei o conselho; e o gabarito (E, C, C, E, C) foi informado pelo Pablo e bate com a minha resolução independente, mas NÃO foi lido no PDF de gabarito oficial da banca. A `explicacao` é MINHA, não da banca.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Fatorial",
+    "ordem": 6
+  },
+  "questoes": [
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2022 · CFFa · Analista de TI (código 402) · prova de 14/08/2022 · item 21 (sigla do órgão não expandida; gabarito informado pelo Pablo e batido com resolução própria, não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "texto_base": "Sendo n um número natural, define-se o superfatorial de n, representado por sf(n), da seguinte forma:\n\nsf(n) = 1! · 2! · … · n!",
+      "comando": "Com base nessa definição, julgue o item a seguir.",
+      "enunciado": "sf(3) é divisível por 5!.",
+      "gabarito": "E",
+      "explicacao": "sf(3) = 1! · 2! · 3! = 1 · 2 · 6 = 12.\n\n5! = 120.\n\n12 não é divisível por 120 — é MENOR que 120. Inteiro positivo nenhum é divisível por um número maior que ele, então nem precisa dividir.\n\nO QUE A BANCA QUER QUE VOCÊ ESQUEÇA\n\nA cadeia de sf(3) para no 3!. Os fatores 4 e 5 nunca entram no produto, e sem eles não há como 5! = 1·2·3·4·5 caber ali dentro. Quem lê “fatorial” e assume que fatoriais grandes sempre dividem os pequenos inverte a relação: é 5! que é divisível por 3!, não o contrário."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2022 · CFFa · Analista de TI (código 402) · prova de 14/08/2022 · item 22 (sigla do órgão não expandida; gabarito informado pelo Pablo e batido com resolução própria, não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "texto_base": "Sendo n um número natural, define-se o superfatorial de n, representado por sf(n), da seguinte forma:\n\nsf(n) = 1! · 2! · … · n!",
+      "comando": "Com base nessa definição, julgue o item a seguir.",
+      "enunciado": "sf(4) = 1⁴ · 2³ · 3² · 4¹.",
+      "gabarito": "C",
+      "explicacao": "sf(4) = 1! · 2! · 3! · 4! = 1 · 2 · 6 · 24 = 288.\n\n1⁴ · 2³ · 3² · 4¹ = 1 · 8 · 9 · 4 = 288.\n\nIguais. O item está certo.\n\nPOR QUE OS EXPOENTES SÃO 4, 3, 2, 1\n\nNão é coincidência nem decoreba. Abra os quatro fatoriais empilhados e conte em quantos deles cada número aparece:\n\n| fator | aparece em | vezes |\n|---|---|---|\n| 1 | 1!, 2!, 3!, 4! | 4 |\n| 2 | 2!, 3!, 4! | 3 |\n| 3 | 3!, 4! | 2 |\n| 4 | 4! | 1 |\n\nO número k só entra a partir de k!, então ele aparece n − k + 1 vezes. Daí a fórmula geral:\n\nsf(n) = 1ⁿ · 2ⁿ⁻¹ · 3ⁿ⁻² · … · n¹\n\nOs expoentes descem de n até 1 enquanto as bases sobem de 1 até n."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2022 · CFFa · Analista de TI (código 402) · prova de 14/08/2022 · item 23 (sigla do órgão não expandida; gabarito informado pelo Pablo e batido com resolução própria, não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "texto_base": "Sendo n um número natural, define-se o superfatorial de n, representado por sf(n), da seguinte forma:\n\nsf(n) = 1! · 2! · … · n!",
+      "comando": "Com base nessa definição, julgue o item a seguir.",
+      "enunciado": "sf(5) = 34.560.",
+      "gabarito": "C",
+      "explicacao": "Pela definição, sf(5) = sf(4) · 5!.\n\nsf(4) = 1! · 2! · 3! · 4! = 1 · 2 · 6 · 24 = 288.\n\n288 × 120 = 34.560. O item está certo.\n\nO ATALHO\n\nNão refaça o produto inteiro. Cada sf novo é o anterior vezes um fatorial só:\n\n| n | conta | sf(n) |\n|---|---|---|\n| 1 | — | 1 |\n| 2 | 1 × 2! | 2 |\n| 3 | 2 × 3! | 12 |\n| 4 | 12 × 4! | 288 |\n| 5 | 288 × 5! | 34.560 |\n\nCinco multiplicações curtas em vez de um produto de cinco fatoriais. É a mesma recorrência que o item 25 cobra em cima do 2.022."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2022 · CFFa · Analista de TI (código 402) · prova de 14/08/2022 · item 24 (sigla do órgão não expandida; gabarito informado pelo Pablo e batido com resolução própria, não conferido no PDF da banca)",
+      "dificuldade": 3,
+      "texto_base": "Sendo n um número natural, define-se o superfatorial de n, representado por sf(n), da seguinte forma:\n\nsf(n) = 1! · 2! · … · n!",
+      "comando": "Com base nessa definição, julgue o item a seguir.",
+      "enunciado": "sf(n) > n!, para todo n ∈ N.",
+      "gabarito": "E",
+      "explicacao": "“Para todo” morre com UM contraexemplo — e aqui há dois, logo no começo:\n\n| n | sf(n) | n! | sf(n) > n! ? |\n|---|---|---|---|\n| 1 | 1 | 1 | não — são IGUAIS |\n| 2 | 2 | 2 | não — são IGUAIS |\n| 3 | 12 | 6 | sim |\n| 4 | 288 | 24 | sim |\n| 5 | 34.560 | 120 | sim |\n\nsf(1) = 1! = 1 e sf(2) = 1! · 2! = 2 = 2!. Nos dois casos vale a igualdade, não a desigualdade estrita. O item está errado.\n\nPOR QUE ESTE É O ITEM MAIS PERIGOSO DO BLOCO\n\nA afirmação é VERDADEIRA para todo n ≥ 3. Quem testa 3, 4 e 5 — os números que os itens anteriores já mandaram calcular — confirma três vezes seguidas e marca CERTO convicto. Os únicos contraexemplos são os dois menores naturais, exatamente os que ninguém testa.\n\nA REGRA QUE SOBRA DISSO\n\nEm item com “para todo”, comece pelos casos de borda: 0, 1 e 2. É lá que a igualdade se esconde, porque sf(n) = n! · sf(n−1) só passa a crescer de verdade quando sf(n−1) fica maior que 1 — e sf(1) = sf(2) ÷ 2! = 1."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2022 · CFFa · Analista de TI (código 402) · prova de 14/08/2022 · item 25 (sigla do órgão não expandida; gabarito informado pelo Pablo e batido com resolução própria, não conferido no PDF da banca)",
+      "dificuldade": 1,
+      "texto_base": "Sendo n um número natural, define-se o superfatorial de n, representado por sf(n), da seguinte forma:\n\nsf(n) = 1! · 2! · … · n!",
+      "comando": "Com base nessa definição, julgue o item a seguir.",
+      "enunciado": "sf(2.022) = 2.022! · sf(2.021).",
+      "gabarito": "C",
+      "explicacao": "Não há conta a fazer. O número grande é intimidação.\n\nA definição é um produto encadeado:\n\nsf(2.022) = 1! · 2! · … · 2.021! · 2.022!\n\nTudo que vem antes do último fator é, por definição, sf(2.021):\n\nsf(2.022) = (1! · 2! · … · 2.021!) · 2.022! = sf(2.021) · 2.022!\n\nO item está certo.\n\nA RECORRÊNCIA\n\nVale para qualquer n, não só para 2.022:\n\nsf(n) = n! · sf(n − 1)\n\nÉ a mesma relação que resolve o item 23 em uma multiplicação (34.560 = 288 × 5!). Reconhecê-la aqui é o que transforma um número de milhares de dígitos numa linha de álgebra."
+    }
+  ]
+}

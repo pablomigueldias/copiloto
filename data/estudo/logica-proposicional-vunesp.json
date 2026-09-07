@@ -1,0 +1,44 @@
+{
+  "_leia_me": "Primeira questão da VUNESP no acervo, e a única deste arquivo por enquanto. A `origem` traz a prova completa (TJ-SP 2021, Escrevente Técnico Judiciário), então serve bem como chave de import — mantenha esse padrão ao crescer o arquivo. O que ela cobra é diferente das outras de lógica proposicional já cadastradas: não é equivalência nem tabela-verdade, é dedução a partir de valores dados, e o fio da meada é a única afirmação FALSA (condicional falsa fixa antecedente e consequente de uma vez). O gabarito (e) foi informado por mim e NÃO conferido no PDF da banca, mas é verificável na mão: os cinco valores ficam todos determinados, então cada item é uma substituição. A `explicacao` é MINHA, não da banca.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica proposicional",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP 2021 · TJ-SP · Escrevente Técnico Judiciário · questão sobre Leonardo/Marcela/Natália (transcrita de imagem; gabarito informado por mim, não conferido no PDF da banca)",
+      "dificuldade": 3,
+      "enunciado": "Considere verdadeiras as afirmações: I, III e IV, e considere falsa a afirmação II.\n\nI. Se Leonardo é escrevente, então Marcela é técnica judiciária.\n\nII. Se Natália é analista judiciária, então Olívia é oficial de justiça.\n\nIII. Se Marcela é técnica judiciária, então Olívia é oficial de justiça.\n\nIV. Patrícia é juíza ou Leonardo é escrevente.\n\nA partir dessas afirmações, é correto concluir que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Marcela é técnica judiciária e Natália é analista judiciária."
+        },
+        {
+          "letra": "B",
+          "texto": "Marcela é técnica judiciária e Patrícia é juíza."
+        },
+        {
+          "letra": "C",
+          "texto": "Leonardo é escrevente e Natália é analista judiciária."
+        },
+        {
+          "letra": "D",
+          "texto": "Olívia é oficial de justiça ou Leonardo é escrevente."
+        },
+        {
+          "letra": "E",
+          "texto": "Patrícia é juíza ou Olívia é oficial de justiça."
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "A chave da questão está inteira na afirmação **II**, e ela é a única que vem marcada como **falsa**. Batizando tudo:\n\n| letra | proposição |\n|---|---|\n| l | Leonardo é escrevente |\n| m | Marcela é técnica judiciária |\n| n | Natália é analista judiciária |\n| o | Olívia é oficial de justiça |\n| p | Patrícia é juíza |\n\n| afirmação | fórmula | valor dado |\n|---|---|---|\n| I | l → m | V |\n| II | n → o | **F** |\n| III | m → o | V |\n| IV | p ∨ l | V |\n\n## Comece pela falsa, nunca pelas verdadeiras\n\nUma condicional verdadeira não fixa nada: `l → m` continua verdadeira com l falso, com m verdadeiro, de três jeitos diferentes. Já uma condicional **falsa** só tem um jeito de ser falsa — antecedente verdadeiro e consequente falso. É a única linha do enunciado que entrega dois valores de graça:\n\n> II é falsa ⟹ **n = V** e **o = F**\n\nDaí em diante é só descer a corrente, sempre por modus tollens:\n\n| passo | usa | já se tem | conclui |\n|---|---|---|---|\n| 1 | II é falsa | — | n = V, **o = F** |\n| 2 | III: m → o (V) | o = F | **m = F** |\n| 3 | I: l → m (V) | m = F | **l = F** |\n| 4 | IV: p ∨ l (V) | l = F | **p = V** |\n\nTodos os cinco valores ficaram determinados:\n\n| l | m | n | o | p |\n|---|---|---|---|---|\n| F | F | V | F | V |\n\n## Conferindo os itens\n\nCom a tabela na mão, cada alternativa é uma conta só:\n\n| item | afirma | substituindo | valor |\n|---|---|---|---|\n| a | m ∧ n | F ∧ V | F |\n| b | m ∧ p | F ∧ V | F |\n| c | l ∧ n | F ∧ V | F |\n| d | o ∨ l | F ∨ F | F |\n| e | **p ∨ o** | **V ∨ F** | **V** |\n\nLetra **e**.\n\n## As armadilhas\n\n**Querer resolver pelas verdadeiras.** É o instinto errado. Três das quatro afirmações são verdadeiras e nenhuma delas, sozinha, decide coisa alguma — quem começa por I fica rodando em círculo. Numa questão de valores dados, a informação está sempre onde há **menos** maneiras de o valor acontecer: condicional falsa (uma linha só), conjunção verdadeira (uma linha só), disjunção falsa (uma linha só).\n\n**Ler o \"ou\" da letra e como exigência dupla.** Olívia não é oficial de justiça — e a alternativa continua verdadeira, porque a disjunção só pede **uma** parcela verdadeira, e Patrícia é juíza. É a mesma razão que derruba a letra d: lá as duas parcelas são falsas.\n\n**Confundir n com o resto.** Natália é a única afirmação verdadeira entre as pessoas, e três alternativas a colocam numa conjunção com algo falso — a, b e c caem todas pela outra metade, não por ela."
+    }
+  ]
+}

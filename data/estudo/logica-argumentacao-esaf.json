@@ -1,0 +1,44 @@
+{
+  "_leia_me": "Silogismo categórico da ESAF — mesmo tópico do arquivo `logica-argumentacao-fcc.json`, banca diferente, por isso arquivo separado. A `origem` não traz número de questão porque a imagem não trazia: identifiquei pelo conteúdo. Ano/órgão/cargo não identificados — identifique a prova antes de crescer este arquivo. Transcrição fiel à imagem, inclusive o ponto-e-vírgula no fim das alternativas e o \"tem clorofila\" sem circunflexo no enunciado e no item c (a própria prova escreve \"têm\" no item d — a inconsistência é da banca, não da transcrição). O gabarito (c) foi informado por mim e NÃO conferido no PDF da banca, mas é verificável na mão. A `explicacao` é MINHA, não da banca.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica de argumentação",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "ESAF · questão sobre o silogismo “plantas verdes / clorofila / comestíveis” (transcrita de imagem; ano/órgão/cargo não identificados; gabarito não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "Todas as plantas verdes tem clorofila. Algumas plantas que tem clorofila são comestíveis. Logo:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "algumas plantas verdes são comestíveis;"
+        },
+        {
+          "letra": "B",
+          "texto": "algumas plantas verdes não são comestíveis;"
+        },
+        {
+          "letra": "C",
+          "texto": "algumas plantas comestíveis tem clorofila;"
+        },
+        {
+          "letra": "D",
+          "texto": "todas as plantas que têm clorofila são comestíveis;"
+        },
+        {
+          "letra": "E",
+          "texto": "todas as plantas verdes são comestíveis."
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "Chame de **V** as plantas verdes, **C** as que têm clorofila e **E** as comestíveis. As premissas viram:\n\n| premissa | em conjuntos |\n|---|---|\n| Todas as plantas verdes têm clorofila | V ⊆ C |\n| Algumas plantas que têm clorofila são comestíveis | C ∩ E ≠ ∅ |\n\nA resposta é quase decepcionante: a letra **c** é a segunda premissa lida de trás para frente. \"Algumas plantas com clorofila são comestíveis\" diz que C ∩ E não é vazio; \"algumas plantas comestíveis têm clorofila\" diz que E ∩ C não é vazio. É o mesmo conjunto — interseção não tem lado. Trocar a ordem dos termos de uma particular afirmativa (\"algum X é Y\" ↔ \"algum Y é X\") é sempre válido, e é só isso que a questão cobra.\n\n## Por que as outras caem\n\nNão dá para derrubar todas com um modelo só, porque **a** e **b** afirmam coisas diferentes. Precisa de dois.\n\n**Modelo 1** — a fatia comestível de C fica toda fora de V:\n\n> V = {1}  C = {1, 2}  E = {2}\n\nRespeita as premissas (o 1 é verde e tem clorofila; o 2 tem clorofila e é comestível) e derruba três itens:\n\n| item | afirma | no modelo | por quê |\n|---|---|---|---|\n| a | algumas verdes são comestíveis | falso | V ∩ E é vazio |\n| d | todas com clorofila são comestíveis | falso | o 1 tem clorofila e não é comestível |\n| e | todas as verdes são comestíveis | falso | o 1 é verde e não é comestível |\n\nEm palavras: nada impede que as únicas plantas comestíveis com clorofila sejam plantas **não verdes**. As premissas nunca prometem que o \"algumas\" da segunda encosta no V da primeira.\n\n**Modelo 2** — agora tudo é comestível:\n\n> V = {1}  C = {1}  E = {1}\n\nTambém respeita as premissas, e aqui o item **b** (\"algumas plantas verdes não são comestíveis\") é falso: não sobra planta verde alguma fora de E.\n\n## A armadilha\n\nO erro que a banca está caçando é a letra **a**: parece que as premissas se encaixam em cadeia — todo V está em C, e parte de C é comestível, logo parte de V seria comestível. Não fecha. O termo do meio (C) aparece **inteiro** na primeira premissa mas só **em parte** na segunda, e nada garante que essa parte seja justamente a que veio de V. Encadeamento com \"algum\" no meio não transmite nada.\n\nE vale o mesmo lembrete de sempre: **\"algum\" quer dizer \"pelo menos um\"**, não \"alguns, mas não todos\". Por isso o Modelo 2, onde *todas* as plantas verdes são comestíveis, ainda assim respeita a premissa \"algumas plantas com clorofila são comestíveis\" — e é exatamente ele que impede de concluir a letra b."
+    }
+  ]
+}

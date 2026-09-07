@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { Dialogo } from "@/components/Dialogo";
 import { Enunciado } from "@/components/Enunciado";
 import { quando } from "@/components/ui";
 import { api } from "@/lib/api";
@@ -15,6 +16,10 @@ import type { Questao, Tentativa } from "@/lib/tipos";
  * estado com a prop num efeito — é o anti-padrão que a própria documentação do
  * React manda resolver com key.
  *
+ * É também daqui que uma questão sai do acervo — uma só. Apagar o tópico
+ * inteiro era a única saída antes disso, e "esta questão não devia estar aqui"
+ * é o caso comum, não o raro.
+ *
  * É por aqui que a explicação entra. O acervo importado dos PDFs vem sem
  * justificativa — as bancas publicam gabarito, não razão — e escrever uma e
  * apresentá-la como delas seria inventar fonte. A minha explicação, escrita
@@ -24,15 +29,22 @@ export function GavetaQuestao({
   questao,
   onFechar,
   onSalvo,
+  onApagada,
 }: {
   questao: Questao;
   onFechar: () => void;
   onSalvo: (q: Questao) => void;
+  /** Recebe quantas tentativas foram junto — é o que o aviso tem a dizer. */
+  onApagada: (tentativas: number) => void;
 }) {
   const [explicacao, setExplicacao] = useState(questao.explicacao ?? "");
   const [salvando, setSalvando] = useState(false);
   const [erro, setErro] = useState<string | null>(null);
   const [historico, setHistorico] = useState<Tentativa[] | null>(null);
+  const [apagando, setApagando] = useState(false);
+  // Erro próprio: o do salvar mora embaixo do textarea, e falha de apagar
+  // aparecendo lá em cima não diz de onde veio.
+  const [erroApagar, setErroApagar] = useState<string | null>(null);
 
   useEffect(() => {
     let vivo = true;
@@ -69,6 +81,10 @@ export function GavetaQuestao({
 
   const a = questao.agenda;
   const respondidas = a ? a.total_acertos + a.total_erros : 0;
+  // O que o apagar leva são as **tentativas**, e elas são mais do que
+  // `respondidas`: a agenda só conta a primeira de cada bloco, a repescagem
+  // não. Enquanto o histórico não chegou, o número da agenda é o piso.
+  const tentativas = historico?.length ?? respondidas;
 
   return (
     <div
@@ -99,6 +115,22 @@ export function GavetaQuestao({
             <p className="m-0 text-[13.5px] leading-[1.55] text-muted">
               {questao.comando}
             </p>
+          )}
+
+          {questao.texto_base && (
+            <div className="border-l-2 border-[color-mix(in_srgb,var(--color-accent)_45%,transparent)] pl-4">
+              {/* Mesmo renderizador do enunciado: o texto de apoio de prova
+                  costuma ser uma tabela, e como `<p>` ela sai em canos. */}
+              <Enunciado
+                texto={questao.texto_base}
+                className="text-[14px] leading-[1.6] text-muted"
+              />
+              {questao.texto_base_fonte && (
+                <p className="m-0 mt-1 text-[12px] text-neutral-600">
+                  {questao.texto_base_fonte}
+                </p>
+              )}
+            </div>
           )}
 
           <Enunciado texto={questao.enunciado} className="text-[16px] leading-[1.55]" />
@@ -223,7 +255,53 @@ export function GavetaQuestao({
               </ul>
             )}
           </div>
+
+          <div className="border-t border-divider pt-4">
+            <button
+              type="button"
+              onClick={() => setApagando(true)}
+              className="btn btn-ghost text-[13px]"
+            >
+              apagar esta questão
+            </button>
+            <p className="m-0 mt-2 text-[12px] leading-[1.5] text-neutral-600">
+              Para a questão que não devia estar no acervo. Enunciado cortado
+              pelo OCR ou gabarito que a banca mudou se resolvem reimportando —
+              o import casa pela origem e não encosta no agendamento.
+            </p>
+            {erroApagar && (
+              <p className="m-0 mt-2 text-[12.5px] text-accent-300">
+                {erroApagar}
+              </p>
+            )}
+          </div>
         </div>
+
+        {apagando && (
+          <Dialogo
+            titulo="Apagar esta questão?"
+            descricao={
+              tentativas === 0
+                ? "Ela nunca foi respondida, então não há histórico a perder. Ainda assim é irreversível."
+                : `As ${tentativas} tentativa(s) registradas nela vão junto, e o histórico é a única coisa aqui que não se refaz.`
+            }
+            confirmar="apagar"
+            perigo
+            onCancelar={() => setApagando(false)}
+            onConfirmar={async () => {
+              setApagando(false);
+              setErroApagar(null);
+              try {
+                const { tentativas_apagadas } = await api.apagarQuestao(
+                  questao.id,
+                );
+                onApagada(tentativas_apagadas);
+              } catch (e) {
+                setErroApagar(String((e as Error).message ?? e));
+              }
+            }}
+          />
+        )}
       </aside>
     </div>
   );

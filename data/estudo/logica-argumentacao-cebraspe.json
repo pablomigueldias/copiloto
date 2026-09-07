@@ -1,0 +1,44 @@
+{
+  "_leia_me": "Primeira questão de Cebraspe (ex-Cespe) no acervo de argumentação, e a única deste arquivo por enquanto. Ela mora aqui, e não em `logica-proposicional-cespe.json`, porque não se julga valor de verdade nem se decompõe fórmula: o que se cobra é a ANATOMIA do argumento — quem é premissa, quem é conclusão, e a diferença entre validade e verdade. Note que ela é múltipla escolha, ao contrário do certo/errado do outro arquivo Cespe. A sigla do órgão na `origem` (PMBC/SE) NÃO foi expandida: veio assim da imagem e eu não identifiquei a prefeitura — identifique antes de tratar como definitiva. O gabarito (e) foi informado por mim e NÃO conferido no PDF da banca, mas é conferível na mão: basta contar as assertivas depois do \"pois\". A `explicacao` é MINHA, não da banca — Cebraspe publica gabarito, não justificativa.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica de argumentação",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Cebraspe 2020 · PMBC/SE · questão sobre o argumento do boto-cor-de-rosa (transcrita de imagem; sigla do órgão não expandida, cargo não identificado; gabarito informado por mim, não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "Considere o seguinte argumento: “O boto-cor-de-rosa possui asas e possui patas, pois todo animal amazônico possui patas, todo animal fluvial possui asas, e o boto-cor-de-rosa é um animal fluvial amazônico”.\n\nCom base nessas informações, assinale a opção correta, com relação à lógica de argumentação.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Esse argumento é inválido, pois nem todas as espécies amazônicas possuem asas."
+        },
+        {
+          "letra": "B",
+          "texto": "Esse argumento é inválido, pois sua conclusão é falsa."
+        },
+        {
+          "letra": "C",
+          "texto": "A assertiva “todo animal amazônico possui patas” é uma proposição lógica composta."
+        },
+        {
+          "letra": "D",
+          "texto": "A assertiva “o boto-cor-de-rosa é um animal fluvial amazônico” é a conclusão desse argumento."
+        },
+        {
+          "letra": "E",
+          "texto": "Esse argumento possui três premissas."
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Esta questão não pede para resolver o argumento — pede para **desmontá-lo**. O único trabalho é separar o que é premissa do que é conclusão, e a palavra que faz isso está no meio do texto: **pois**.\n\n> O boto-cor-de-rosa possui asas e possui patas, **pois** todo animal amazônico possui patas, todo animal fluvial possui asas, e o boto-cor-de-rosa é um animal fluvial amazônico.\n\n\"Pois\" é indicador de **premissa**: o que vem depois dele é a razão, o que vem antes é o que se quer sustentar. Então:\n\n| papel | assertiva |\n|---|---|\n| **conclusão** | O boto-cor-de-rosa possui asas e possui patas |\n| premissa 1 | Todo animal amazônico possui patas |\n| premissa 2 | Todo animal fluvial possui asas |\n| premissa 3 | O boto-cor-de-rosa é um animal fluvial amazônico |\n\n**Três premissas.** Letra **e**.\n\n## Por que as outras caem\n\n**a) e b) — \"o argumento é inválido\".** As duas erram já no veredito, e por motivos diferentes.\n\nO argumento é **válido**. Em conjuntos: fluviais ⊆ alados, amazônicos ⊆ pateados, e o boto está nos dois conjuntos de partida. Logo o boto está em alados e em pateados — exatamente a conclusão. A forma fecha.\n\nO que confunde é que a conclusão é **falsa no mundo**: boto não tem asas. Mas validade é propriedade da **forma**, não do conteúdo. Um argumento válido só garante isto: *se* as premissas forem verdadeiras, a conclusão será. Aqui a premissa \"todo animal fluvial possui asas\" é falsa — e é daí que vem a conclusão falsa, sem que a passagem tenha nenhum defeito lógico.\n\n| | premissas | conclusão | argumento |\n|---|---|---|---|\n| válido | verdadeiras | **obrigatoriamente** verdadeira | válido |\n| válido | alguma falsa | pode ser falsa | **continua válido** |\n| inválido | verdadeiras | pode ser falsa | inválido |\n\nA letra **b** é o erro clássico enunciado com todas as letras: \"é inválido *pois sua conclusão é falsa*\". Conclusão falsa nunca invalida nada por si só. A letra **a** faz o mesmo por outro caminho, apelando para zoologia (\"nem todas as espécies amazônicas possuem asas\") — e o argumento nem afirma isso: ele fala de animais **fluviais**, não amazônicos.\n\n**c) \"todo animal amazônico possui patas\" é composta.** Não. Composta é a proposição que se decompõe em outras ligadas por **conectivo** (e, ou, se…então, se e somente se, não). Aqui não há conectivo nenhum: é uma categórica — quantificador (`todo`) + sujeito + predicado — e quantificador não é conectivo. Ela é **simples**.\n\nRepare na ironia: a proposição composta do argumento é justamente a **conclusão**, \"possui asas **e** possui patas\". Essa sim tem \"e\".\n\n**d) \"o boto é um animal fluvial amazônico\" é a conclusão.** É premissa — vem depois do \"pois\". Cair aqui é ler o argumento pela ordem em que as frases aparecem, e não pelo papel que cada uma cumpre.\n\n## O que levar\n\nDuas coisas que a banca cobra o tempo todo neste formato:\n\n**Ordem não define papel.** Conclusão pode vir no começo, no meio ou no fim. Quem manda são os indicadores: *logo, portanto, então, conclui-se* apontam para a conclusão; *pois, porque, já que, uma vez que, dado que* apontam para as premissas.\n\n**Validade não é verdade.** Verdade se avalia em proposição; validade, em argumento. Perguntar se uma premissa é verdadeira é olhar o mundo; perguntar se o argumento é válido é olhar só a forma."
+    }
+  ]
+}

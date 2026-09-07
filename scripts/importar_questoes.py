@@ -50,11 +50,23 @@ def _valida(q: dict, i: int) -> None:
             "tela junto com a questão. Identifique o documento e pare aí:\n"
             f"  {q['origem']}"
         )
-    esperado = ("C", "E") if q["formato"] == "certo_errado" else ("A", "B", "C", "D", "E")
-    if q["gabarito"] not in esperado:
-        raise SystemExit(f"questão {i}: gabarito '{q['gabarito']}' fora de {esperado}")
-    if q["formato"] not in ("certo_errado", "flashcard") and len(q.get("alternativas", [])) != 5:
-        raise SystemExit(f"questão {i}: prova de concurso tem cinco alternativas, não {len(q.get('alternativas', []))}")
+    if q["formato"] == "certo_errado":
+        if q["gabarito"] not in ("C", "E"):
+            raise SystemExit(f"questão {i}: gabarito '{q['gabarito']}' fora de ('C', 'E')")
+    elif q["formato"] != "flashcard":
+        # Cinco alternativas é o padrão de Cespe, Quadrix e FCC, mas não é lei:
+        # o IBFC aplica prova de quatro. O que a checagem existe para pegar é
+        # transcrição truncada — três ou menos não é banca, é erro de digitação.
+        letras = [a["letra"] for a in q.get("alternativas", [])]
+        if len(letras) not in (4, 5):
+            raise SystemExit(
+                f"questão {i}: {len(letras)} alternativa(s). Prova de concurso tem quatro ou "
+                "cinco — a menos que a transcrição tenha ficado pela metade."
+            )
+        if q["gabarito"] not in letras:
+            raise SystemExit(
+                f"questão {i}: gabarito '{q['gabarito']}' não é nenhuma das alternativas {letras}"
+            )
 
 
 async def _importar(caminho: Path) -> int:

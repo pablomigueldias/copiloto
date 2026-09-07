@@ -199,3 +199,9 @@ class Apagado(BaseModel):
     """Quantas questões foram junto. Zero é o caso normal."""
 
     questoes_apagadas: int
+
+
+class QuestaoApagada(BaseModel):
+    """Quantas tentativas foram junto com a questão apagada."""
+
+    tentativas_apagadas: int

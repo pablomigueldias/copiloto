@@ -1,0 +1,104 @@
+{
+  "_leia_me": "Razão constante: PG e crescimento percentual composto. Não confundir com o tópico “Sequências lógicas”, que guarda padrão SEM razão constante (triangulares, matriz de potências) — a questão 28 da prova do SERPRO mora lá por isso, enquanto a 29 mora aqui. A PROCEDÊNCIA DIFERE POR QUESTÃO e está na `origem` de cada uma, que aparece na tela: CORE-SP 2025, SERPRO 2014 e CREFITO-14 2023 tiveram enunciado e gabarito informados pelo Pablo e batidos com resolução independente minha, mas NENHUM dos três foi lido no PDF de gabarito oficial da banca — o vault (`Second-Brain/Pessoal/Provas`) não estava acessível na máquina. No CREFITO-14 isso é uma ressalva a mais, porque a questão 15 da MESMA prova já está em `logica-proposicional.json` COM gabarito conferido no PDF; o cargo é grafado como lá (“Analista Administrativo – TI (cód. 404)”) para as duas entradas casarem numa busca. Confira antes de tratar como definitivo. As `explicacao` são MINHAS, não da banca.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Porcentagem e progressões",
+    "ordem": 4
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix 2025 · CORE-SP · Analista de TI (código 400) · prova de 23/11/2025 · questão 11 (gabarito informado pelo Pablo e batido com resolução própria, não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "Uma livraria aumentou o número de livros vendidos a cada mês em 50% em relação ao mês anterior. No primeiro mês, a livraria vendeu 256 livros.\n\nCom base nessa situação hipotética, é correto afirmar que a quantidade total de livros vendidos nos 4 primeiros meses foi de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1.476."
+        },
+        {
+          "letra": "B",
+          "texto": "1.576."
+        },
+        {
+          "letra": "C",
+          "texto": "1.780."
+        },
+        {
+          "letra": "D",
+          "texto": "1.980."
+        },
+        {
+          "letra": "E",
+          "texto": "2.080."
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "“Aumentou 50% em relação ao mês anterior” é PG de razão 1,5 — não PA de +128. A base muda todo mês.\n\n| mês | contas | vendas |\n|---|---|---|\n| 1º | — | 256 |\n| 2º | 256 × 1,5 | 384 |\n| 3º | 384 × 1,5 | 576 |\n| 4º | 576 × 1,5 | 864 |\n\n256 + 384 + 576 + 864 = 2.080.\n\nPela fórmula, se preferir:\nSn = a₁(qⁿ − 1)/(q − 1) = 256 × (1,5⁴ − 1)/0,5 = 256 × 4,0625/0,5 = 256 × 8,125 = 2.080.\n\nO ATALHO QUE MATA A QUESTÃO EM 10 SEGUNDOS\n\n256 = 2⁸. Multiplicar por 3/2 gasta um fator 2 e ganha um 3, então os quatro termos são 2⁸, 2⁷·3, 2⁶·3² e 2⁵·3³ — todos múltiplos de 2⁵ = 32. A soma tem de ser múltipla de 32, e basta testar 16:\n\n| alternativa | ÷ 16 |\n|---|---|\n| 1.476 | 92,25 |\n| 1.576 | 98,5 |\n| 1.780 | 111,25 |\n| 1.980 | 123,75 |\n| 2.080 | 130 ✓ |\n\nQuatro alternativas morrem sem somar nada. Só a E sobrevive.\n\nO ERRO QUE A BANCA ESPERA\n\nTratar como PA de +128 (50% dos 256 iniciais, sempre): 256 + 384 + 512 + 640 = 1.792 — que nem está entre as opções, então quem cai nele erra sem perceber e chuta. E parar no 3º mês dá 1.216, também fora da lista. As cinco alternativas são vizinhas de propósito: o que se pune aqui é escorregar em UM termo, não errar o método."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix 2014 · SERPRO · Administração de Serviços de TI · concurso 01/2013 · questão 29 (enunciado informado pelo Pablo; gabarito não lido no PDF oficial da banca — o vault não estava acessível, ao contrário do que houve com a questão 27 da mesma prova)",
+      "dificuldade": 1,
+      "enunciado": "A sequência a seguir representa uma progressão, a qual foi representada por seus primeiros 6 elementos:\n\nP = (1, 9, 81, X, 6561, 59049, …)\n\nAssinale a alternativa que contém o valor do elemento X da progressão.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "243"
+        },
+        {
+          "letra": "B",
+          "texto": "142"
+        },
+        {
+          "letra": "C",
+          "texto": "324"
+        },
+        {
+          "letra": "D",
+          "texto": "729"
+        },
+        {
+          "letra": "E",
+          "texto": "567"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "A razão sai dos termos que a questão já deu, sem depender do X:\n\n9 ÷ 1 = 9    81 ÷ 9 = 9    59049 ÷ 6561 = 9\n\nRazão 9. Logo X = 81 × 9 = 729.\n\nCONFIRA PELO OUTRO LADO\n\nX é o único termo com vizinho conhecido dos dois lados, então ele se confere duas vezes:\n\n| pela esquerda | 81 × 9 | 729 |\n|---|---|---|\n| pela direita | 6561 ÷ 9 | 729 |\n\nFechou nos dois sentidos — não houve escorregão.\n\nO ATALHO\n\nA sequência são as potências de 9: 9⁰, 9¹, 9², 9³, 9⁴, 9⁵ = 1, 9, 81, 729, 6561, 59049. Então X tem de SER potência de 9 — e entre as cinco alternativas só 729 é. Dá para marcar sem dividir nada.\n\nA ARMADILHA É A LETRA A\n\n243 = 81 × 3 = 3⁵. É onde cai quem lê a razão como 3 em vez de 9 — e a própria sequência alimenta o erro, porque ela também é potência de 3: 3⁰, 3², 3⁴, 3⁶, 3⁸, 3¹⁰. Os expoentes pulam de 2 em 2, e quem pula de 1 em 1 chega em 3⁵ = 243. Repare que 243 não é potência de 9.\n\nAS OUTRAS\n\nC (324) e E (567) são 81 × 4 e 81 × 7 — múltiplos de 81 que não são potências de 9. B (142) não é nem múltiplo de 9: some com a divisibilidade por 9 antes de qualquer conta."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix · CREFITO-14 2023 · Analista Administrativo – TI (cód. 404) · prova de 08/10/2023 · questão 12 (gabarito informado pelo Pablo e batido com resolução própria; a questão 15 desta mesma prova, que está em `logica-proposicional.json`, foi lida no PDF oficial da banca — esta 12 NÃO foi)",
+      "dificuldade": 2,
+      "enunciado": "Sempre que Pinóquio conta uma mentira, o comprimento do seu nariz aumenta em 20%.\n\nCom base nessa situação hipotética, se ele mentir 3 vezes, o percentual de aumento total no comprimento de seu nariz será de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "60%."
+        },
+        {
+          "letra": "B",
+          "texto": "66,4%."
+        },
+        {
+          "letra": "C",
+          "texto": "72,8%."
+        },
+        {
+          "letra": "D",
+          "texto": "79,2%."
+        },
+        {
+          "letra": "E",
+          "texto": "85,6%."
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "Cada mentira aumenta 20% sobre o comprimento ATUAL do nariz, não sobre o comprimento original — a base cresce junto. É aumento composto, não soma de percentuais.\n\nAumentar 20% é multiplicar por 1,20. Três mentiras, três multiplicações:\n\n| mentira | fator acumulado | nariz | aumento até aqui |\n|---|---|---|---|\n| — | 1 | 100 | — |\n| 1ª | 1,2 | 120 | 20% |\n| 2ª | 1,44 | 144 | 44% |\n| 3ª | 1,728 | 172,8 | 72,8% |\n\n1,728 − 1 = 0,728 = 72,8%. Alternativa C.\n\nSem calculadora, 1,2³ é 12³ com a vírgula deslocada: 12 × 12 = 144, 144 × 12 = 1.728. Divide por 1.000 e está feito.\n\nA PEGADINHA É A ALTERNATIVA A\n\n60% é 3 × 20% — somar os percentuais como se a base não mudasse. É o único número redondo da lista e o primeiro que aparece, exatamente para pegar quem responde antes de pensar. Aumento composto é sempre MAIOR que a soma simples, porque a segunda mentira já incide sobre o que a primeira acrescentou: os 12,8 pontos de diferença são o nariz que cresceu em cima do nariz que tinha crescido.\n\nE ESTIMAR NÃO SALVA\n\nAs cinco alternativas são uma PA de razão 6,4 — 60 · 66,4 · 72,8 · 79,2 · 85,6. Perceber que “passa de 60%” não elimina nenhuma das quatro restantes; a banca fechou o caminho do chute informado de propósito. Não tem jeito senão calcular 1,2³.\n\nO ATALHO PARA A PRÓXIMA\n\nAumento de p%, n vezes seguidas, sobre a base sempre nova: o total é (1 + p)ⁿ − 1, nunca n × p. Vale igual para desconto sucessivo (com 1 − p) e é a mesma conta de juros compostos — 20% três vezes é 72,8%, não 60%."
+    }
+  ]
+}

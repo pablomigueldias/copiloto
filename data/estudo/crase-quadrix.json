@@ -1,0 +1,180 @@
+{
+  "_leia_me": "CRASE do Instituto Quadrix — 12 questões vindas de docs/Quadrix/crase-quadrix-questoes-autenticas.md, o md de treino do vault, em 06/09/2026. O md reúne 16; quatro NÃO entraram, e a razão de cada uma está aqui porque ela some do repositório se ficar só no chat:\n\n• q6 (CRT-04 2024, “devido à mistura de fibras”, “é facultativo”) — gabarito indeterminado. “Devido a” exige a preposição, e a dúvida é só sobre o artigo: “mistura” vem com complemento (“de fibras”) e retomando o jeans misto já citado, o que puxa para artigo obrigatório (item ERRADO); mas a estrutura é quase a mesma da q1 do COFFITO, cujo gabarito OFICIAL diz facultativo (item CERTO). Sem o PDF do CRT-04 não dá para escolher, e questão de gabarito duvidoso em revisão espaçada ensina o erro.\n• q7 (CFO 2025 Técnico) e q8 (CRESS-PR 2025) — o enunciado fala do “a” que antecede “alimentos” / “eventos”, e no trecho transcrito no md não existe “a” nenhum antes dessas palavras (“em troca DE alimentos”; “Eventos climáticos extremos afetam…”, início de período). Ou o trecho é de outra linha da prova, ou a transcrição se perdeu. A gramática do caso é sólida (crase antes de masculino, nunca) — falta o trecho certo.\n• q15 (CFO-DF 2020, “para à saúde”) — o gabarito é ERRADO com folga, porque a justificativa do item atribui a crase à preposição “para”, e “para” não gera crase. Mas o trecho como está transcrito (“para à saúde”) é agramatical, e banca não imprime isso: falta a linha 3 verdadeira. Entra assim que ela aparecer.\n\nPROCEDÊNCIA DO GABARITO, que é o que mais importa aqui: as três primeiras (COFFITO 2023, COREN-PR 2024, CREFITO-14 2023) têm gabarito OFICIAL da banca segundo o md — eu não reabri o PDF. As outras nove NÃO têm PDF de gabarito: o md as calculou, e eu resolvi cada uma por conta própria antes de aceitar. As nove bateram; onde não bateu ou não fechou, a questão ficou de fora (ver acima). A `origem` de cada uma diz em qual dos dois grupos ela está.\n\nO eixo do acervo é um só: crase é preposição MAIS artigo, e quase todo item da Quadrix ataca uma das duas metades separadamente. Por isso o bloco “O MÉTODO, EM TRÊS PERGUNTAS” fecha todas as explicações — item de crase que chega sozinho, semanas depois, precisa reentregar o método junto. As `explicacao` são MINHAS, não da banca.",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Crase",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2023 · COFFITO · Analista de TI (código 403) · item 10 (gabarito oficial da banca, segundo o md de treino do vault; não reabri o PDF)",
+      "dificuldade": 3,
+      "texto_base": "Isso agrava as desigualdades entre homens e mulheres, criando condições de maior dependência em relação aos homens e exposição a violência, dentro e fora de suas comunidades.\n\nInternet: <www.onumulheres.org.br> (com adaptações).",
+      "enunciado": "É facultativo o emprego de acento grave no “a” da expressão “a violência” (linha 21).",
+      "gabarito": "C",
+      "explicacao": "A pergunta é se “exposição a violência” aceita as duas grafias. Aceita — e é o único caso deste acervo em que “facultativo” é verdade.\n\nO nome “exposição” rege “a”: exposição A alguma coisa. Essa metade está resolvida, e a preposição não é facultativa nunca. O que é facultativo é a OUTRA metade — o artigo.\n\n“Violência” é substantivo abstrato feminino, aqui sem nenhum determinante: não é *aquela* violência, é violência como fenômeno. Substantivo abstrato genérico admite artigo, mas não o exige.\n\n| grafia | leitura |\n|---|---|\n| exposição **a** violência | genérica: violência como categoria |\n| exposição **à** violência | determinada: a violência de que se falou |\n\nAs duas passam. Item CERTO.\n\nPOR QUE A BANCA GOSTA DESTE CASO\n\nPorque é o único genuinamente ambíguo, e porque ele separa quem decorou a lista de “crases facultativas” (nome próprio feminino, pronome possessivo, “até a”) de quem entendeu o mecanismo. Este item não está em lista nenhuma: ele depende de o substantivo estar solto, sem complemento e sem contexto que o determine.\n\nO ATALHO — E O LIMITE DELE\n\nDiante de “é facultativo”, pergunte SEMPRE: facultativo o quê, o artigo ou a preposição? A preposição é obrigatória sempre que o regente a exige; ela nunca é o que está em jogo. Se o que sobra em dúvida é só o artigo, e o substantivo está genérico, é facultativo mesmo.\n\nGuarde este item como PARÂMETRO: ele é o “sim”. Quando outro item disser “facultativo” diante de numeral, de substantivo determinado ou de palavra masculina, a resposta muda — e é este aqui que mostra onde fica a fronteira.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2024 · COREN-PR · Analista de TI (código 402) · prova de 28/07/2024 · item 13 (gabarito oficial da banca, segundo o md de treino do vault; não reabri o PDF)",
+      "dificuldade": 1,
+      "texto_base": "Cuidados paliativos promovem qualidade de vida a pacientes acometidos por doença que não responde a tratamento, ou seja, sem possibilidades terapêuticas. (linha 30)\n\nInternet: <www.scielo.br> (com adaptações).",
+      "enunciado": "O emprego do sinal indicativo de crase no “a” que antecede a palavra “pacientes” (linha 30) acarretaria incorreção gramatical ao trecho.",
+      "gabarito": "C",
+      "explicacao": "O item propõe escrever “à pacientes”. Isso é erro, e o item afirma que é erro — logo, CERTO.\n\n“Pacientes” é PLURAL. O “a” que está ali é preposição pura, sem artigo para se fundir com ela: quem promove qualidade de vida, promove A pacientes, genericamente.\n\nSe houvesse artigo, ele seria “as” — e a fusão daria “às”, com S. Um “à” no singular diante de substantivo plural é sempre agramatical.\n\nTeste do masculino: “promovem qualidade de vida a enfermeiros” → saiu “a”, não “aos”. Sem artigo, sem crase.\n\nA REGRA DE OURO, E ELA NÃO TEM EXCEÇÃO\n\n**“à” + palavra no plural é sempre erro.** “às” + plural pode estar certo. Antes de pensar em regência, olhe o número da palavra seguinte: se ela é plural e o acento proposto é no “a” singular, a questão morre aí, em dois segundos.\n\nÉ o item mais barato que a Quadrix cobra em crase — e ela cobra em quase toda prova, trocando só a palavra.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix 2023 · CREFITO-14 · Analista Administrativo – TI (código 404) · prova de 08/10/2023 · questão 10 (gabarito oficial da banca, segundo o md de treino do vault; não reabri o PDF)",
+      "dificuldade": 3,
+      "texto_base": "Trechos do texto sobre dor crônica:\n\n• linha 6: “17 de outubro é o dia mundial de combate à dor”\n• linha 9: “Esse mal é uma sensação comum à condição humana”\n• linha 13: “passa a representar a própria doença”\n• linhas 30-31: “as opções de tratamento variam de acordo com a necessidade de cada paciente”",
+      "enunciado": "Em relação ao emprego do acento indicativo de crase no texto, assinale a alternativa correta.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Na linha 9, o emprego do sinal indicativo de crase em “à condição humana” justifica-se pela regência do termo “comum” e à presença do artigo definido que determina a expressão “condição humana”."
+        },
+        {
+          "letra": "B",
+          "texto": "Em “combate à dor” (linha 6), o emprego do sinal indicativo de crase justifica-se pela função sintática desempenhada pelo vocábulo “dor”, que complementa o sentido do vocábulo “combate”, empregado no período em que se insere como verbo transitivo indireto."
+        },
+        {
+          "letra": "C",
+          "texto": "Estaria mantida a correção gramatical do texto, caso se reescrevesse o segmento “a própria doença” (linha 13) como à própria doença, visto que o emprego do acento indicativo de crase, nesse caso, é facultativo."
+        },
+        {
+          "letra": "D",
+          "texto": "Estariam mantidos os sentidos e a correção gramatical do texto, caso o segmento “de acordo com a necessidade de cada paciente” (linhas 30 e 31) fosse substituído por conforme à necessidade de cada paciente, visto que o termo “necessidade” está especificado."
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "Quatro trechos com “a”, e a pergunta não é onde há crase — é qual JUSTIFICATIVA está certa. Em três das quatro alternativas o acento em si não é o problema.\n\nA (A) fecha: “comum” é adjetivo de regência “a” (comum A alguém, comum A alguma coisa) e “condição humana” vem determinada. Preposição do adjetivo + artigo do substantivo = crase. Gabarito A.\n\n| alt. | onde ela mente |\n|---|---|\n| B | chama “combate” de VERBO transitivo indireto. É SUBSTANTIVO — “o dia mundial de combate à dor”. A crase existe, mas por regência NOMINAL, não verbal |\n| C | “a própria doença” é OBJETO DIRETO de “representar”: quem representa, representa alguma coisa, sem preposição. Sem preposição não há o que fundir, e nada aqui é facultativo |\n| D | “conforme” não rege preposição “a”. “Conforme a necessidade” já está completo; “conforme à necessidade” é erro |\n\nA (B) É A PERIGOSA, E O MOTIVO VALE MAIS QUE ESTA QUESTÃO\n\nEla afirma uma coisa verdadeira (há crase em “combate à dor”) e sustenta com uma premissa falsa (que “combate” é verbo). Quem confere só o acento marca (B) e erra.\n\nEm múltipla escolha de crase a Quadrix quase nunca pergunta SE há acento — ela pergunta POR QUE há. Então a leitura da alternativa tem duas etapas: primeiro o acento está correto? Depois, a explicação dada é a correta? Uma alternativa só sobrevive às duas.\n\nO ATALHO PARA (B) E (D)\n\nClassifique a palavra que rege antes de aceitar o rótulo da alternativa. “Combate” tem artigo na frente (“de combate”), e palavra com artigo é substantivo, não verbo. “Conforme” é preposição/conjunção — preposição não pede outra preposição depois.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CFO · Analista Geral e Analista de Infraestrutura · item 13 (sem PDF de gabarito da banca: resolvido por mim, gramática na mão, e confere com o cálculo do md de treino do vault)",
+      "dificuldade": 2,
+      "texto_base": "Muito depois, tanto no Egito (há 3,3 mil anos) quanto na Austrália, entre a população aborígene (há uns 70 anos), a quantidade de cáries era próxima a 2%, mas esses povos não haviam adotado completamente a dieta rica em grãos.",
+      "enunciado": "É facultativo o emprego do sinal indicativo de crase no “a” que antecede a expressão “2%”.",
+      "gabarito": "E",
+      "explicacao": "O item diz que “próxima a 2%” aceitaria também “próxima à 2%”. Não aceita: aqui a crase não é facultativa, é VEDADA.\n\nA primeira metade até funciona — “próxima” é adjetivo de regência “a” (próxima A alguma coisa), então a preposição está lá. Mas crase é preposição MAIS artigo, e é o artigo que não existe.\n\nNumeral não recebe artigo definido feminino. “2%” lê-se “dois por cento”, e não se diz “a dois por cento”. Sem artigo, nada a fundir.\n\n| antes de… | tem crase? |\n|---|---|\n| numeral cardinal (“a 2%”, “a 30 dias”) | não |\n| hora determinada (“às 14h”) | sim — é a exceção clássica |\n| numeral com substantivo feminino explícito (“às duas moças”) | sim — o artigo é do substantivo, não do número |\n\nItem ERRADO.\n\nA PEGADINHA É A PALAVRA “FACULTATIVO”\n\nEla sugere que existe uma escolha, e sugerir escolha é meio caminho para o candidato aceitar. Compare com o item do COFFITO (“exposição a violência”), onde “facultativo” é CERTO: lá o artigo era possível e apenas não obrigatório; aqui o artigo é impossível. Facultativo pressupõe que as duas formas existam — se uma delas é agramatical, o item cai.\n\nO ATALHO\n\nDiante de “é facultativo”, teste as DUAS grafias em voz alta. “Próxima à dois por cento” não é português. Acabou a questão — sem precisar lembrar de regra nenhuma.\n\nHá gramático que aceite “à [taxa de] 2%” com substantivo feminino subentendido; é leitura minoritária e a banca não trabalha com ela.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix 2024 · CRESS-MG · Assistente Administrativo · questão 7 (sem PDF de gabarito da banca: resolvido por mim, gramática na mão, e confere com o cálculo do md de treino do vault)",
+      "dificuldade": 3,
+      "texto_base": "Trechos do texto sobre exclusão e vulnerabilidade social:\n\n• linha 8: “a pobreza faz parte de um fenômeno econômico […]; a exclusão social, por sua vez, pode ser entendida como parte das relações sociais do mundo contemporâneo”\n• linha 16: “Esse conceito foi gradativamente sendo incorporado às questões sociais”\n• linhas 24-25: “que se encontra em uma situação desfavorável em relação a outros grupos populacionais”\n• linha 26: “Essa conceituação surgiu, principalmente, a partir do fim do século XX”\n• linhas 27-28: “devido às modificações trazidas pelo mercado de trabalho”",
+      "enunciado": "Com relação ao emprego do sinal indicativo de crase, seria mantida a correção textual caso se substituísse",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“a exclusão social” (linha 8) por à exclusão social."
+        },
+        {
+          "letra": "B",
+          "texto": "“às questões sociais” (linha 16) por a questões sociais."
+        },
+        {
+          "letra": "C",
+          "texto": "“a outros grupos populacionais” (linhas 24 e 25) por à outros grupos populacionais."
+        },
+        {
+          "letra": "D",
+          "texto": "“a partir do fim do século XX” (linha 26) por à partir do fim do século XX."
+        },
+        {
+          "letra": "E",
+          "texto": "“devido às modificações trazidas pelo mercado de trabalho” (linhas 27 e 28) por devido as modificações trazidas pelo mercado de trabalho."
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "Cinco trocas, uma que a língua aceita. A pergunta é qual delas não quebra nada.\n\nA (B) é a única: “incorporado às questões sociais” → “incorporado a questões sociais”. O particípio “incorporado” rege “a” nos dois casos, e o que sai é só o ARTIGO — passando de questões determinadas para questões em sentido genérico. As duas grafias existem. Gabarito B.\n\n| alt. | por que quebra |\n|---|---|\n| A | “a exclusão social” é SUJEITO da oração (“a exclusão social pode ser entendida”). Sujeito não vem preposicionado — e sem preposição não há crase possível |\n| C | “outros” é masculino plural. Crase diante de masculino, nunca |\n| D | “a partir de” é locução prepositiva cujo “a” é invariável e não é artigo. Jamais leva acento |\n| E | “devido a” exige a preposição. Tirar o acento de “às” deixa só o artigo “as” e some com a preposição — a frase perde o elo |\n\nA (A) É A QUE MAIS DERRUBA\n\nPorque “exclusão social” é feminino e vem com artigo — dois sinais verdes — e o candidato para aí. Falta a primeira pergunta do método: QUEM rege esse “a”? Ninguém. É sujeito. Antes de discutir artigo, ache o termo regente; se não houver regente pedindo preposição, não há discussão.\n\nA (D) É A ARMADILHA MAIS REPETIDA DO PORTUGUÊS INTEIRO\n\n**“a partir de” nunca leva crase.** Guarde como bloco fechado, junto com as outras locuções de “a” masculino ou invariável. Não custa nada e aparece em prova atrás de prova.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CRP-SP · Técnico Especializado em Suporte Administrativo · item de crase em “exposição a condições estressantes” (sem PDF de gabarito da banca: resolvido por mim, gramática na mão, e confere com o cálculo do md de treino do vault)",
+      "dificuldade": 1,
+      "texto_base": "“…exposição a condições estressantes…”",
+      "enunciado": "O emprego do sinal indicativo de crase no “a” presente na expressão “exposição a condições estressantes” prejudicaria a correção gramatical do texto.",
+      "gabarito": "C",
+      "explicacao": "O item propõe “exposição à condições estressantes”. Isso é erro, e o item diz que é erro — CERTO.\n\n“Condições” é plural. O “a” da frase é preposição sozinha, exigida por “exposição”; não há artigo ali para se fundir com ela. Acentuar o “a” singular diante de plural é agramatical em qualquer contexto.\n\nRepare que “exposição ÀS condições estressantes” seria correto — com o artigo plural, no sentido determinado. Mas não é isso que o item propõe: ele propõe o acento no “a” que está lá, e esse “a” é singular.\n\nO PAR QUE ENSINA — E POR QUE ELE É TRAIÇOEIRO\n\nCompare com o item do COFFITO, que também sai de “exposição”:\n\n| trecho | proposta | gabarito |\n|---|---|---|\n| exposição a violência (singular) | acento é facultativo | CERTO — o artigo cabe |\n| exposição a condições (plural) | acento prejudicaria | CERTO — “à” + plural não existe |\n\nMesmo regente, mesma preposição, respostas por caminhos opostos. O que muda tudo é o NÚMERO da palavra seguinte, não a regência de “exposição”.\n\nO ATALHO\n\nOlhe a palavra seguinte antes de pensar em regência: se ela é plural e o acento proposto é no “a”, acabou. Metade dos itens de crase da Quadrix morre nesse primeiro olhar — a outra metade é que exige o método completo.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2024 · CRP-SC · Auxiliar Administrativo · item de crase em “à sua existência” (sem PDF de gabarito da banca: resolvido por mim, gramática na mão, e confere com o cálculo do md de treino do vault)",
+      "dificuldade": 3,
+      "texto_base": "“…à sua existência…” (linha 4)",
+      "enunciado": "O emprego do acento indicativo de crase no segmento “à sua existência” (linha 4) é facultativo, por isso sua supressão não prejudicaria a correção gramatical do texto.",
+      "gabarito": "C",
+      "explicacao": "O item afirma duas coisas encadeadas: que o acento é facultativo e que, por isso, tirá-lo não estraga a frase. As duas se sustentam. CERTO.\n\n“Sua” é pronome possessivo feminino singular — e diante de possessivo feminino singular o ARTIGO é facultativo. É um dos três casos clássicos de crase facultativa, ao lado de nome próprio feminino e da locução “até a”.\n\n| grafia | o que sobrou |\n|---|---|\n| **à** sua existência | preposição + artigo |\n| **a** sua existência | só a preposição |\n\nAs duas são corretas.\n\nO RACIOCÍNIO ERRADO QUE PARECE CERTO\n\nÉ tentador raciocinar assim: “o artigo é facultativo, mas a preposição não é; logo o acento tem de ficar”. A conclusão não decorre. Suprimir o acento grave **não elimina a preposição** — elimina o artigo. O “a” continua na frase, fazendo sozinho o trabalho de preposição.\n\nAcento grave não é a preposição: é a marca de que preposição e artigo se fundiram ali. Sem o artigo não há fusão, e sem fusão não há o que marcar.\n\nO ATALHO\n\nDiante de possessivo feminino singular (“sua”, “minha”, “nossa”), a resposta padrão é FACULTATIVO. O que muda esse padrão é o plural: com “às suas”, o artigo já está explícito no “s” e a análise volta a ser a de sempre.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2018 · CRP-SC · Psicólogo Assistente Técnico · item de crase em “visam às armas” (sem PDF de gabarito da banca: resolvido por mim, gramática na mão, e confere com o cálculo do md de treino do vault)",
+      "dificuldade": 2,
+      "texto_base": "“…políticas que visam às armas…” (linhas 4-5)",
+      "enunciado": "O emprego de sinal indicativo de crase em “às armas” (L.5) justifica-se pela regência de “visam” (L.4) e pela presença de artigo definido feminino.",
+      "gabarito": "C",
+      "explicacao": "O item não pergunta se há crase — pergunta se a JUSTIFICATIVA está certa. As duas metades dela estão. CERTO.\n\nRegência: “visar”, no sentido de ter por objetivo, é transitivo INDIRETO e rege “a”. Políticas que visam A alguma coisa.\n\nArtigo: “as armas”, feminino plural determinado. Preposição “a” + artigo “as” = “às”.\n\nA DUPLA REGÊNCIA DE “VISAR” É O ASSUNTO REAL DO ITEM\n\n| sentido | transitividade | exemplo |\n|---|---|---|\n| ter por objetivo, almejar | INDIRETO — rege “a” | políticas que visam às armas |\n| mirar, apontar | DIRETO — sem preposição | o atirador visou o alvo |\n| pôr visto em documento | DIRETO — sem preposição | o gerente visou o cheque |\n\nSó o primeiro sentido produz crase. Nos outros dois, um “à” seria erro — e é exatamente assim que a banca inverte este item em outras provas: mantém a frase e troca o sentido do verbo.\n\nO ATALHO\n\nVerbo de dupla regência (visar, aspirar, assistir, proceder, implicar) nunca se resolve pelo verbo isolado: leia o SENTIDO na frase e só então diga qual preposição ele pede. “Aspirar ao cargo” × “aspirar o ar” é o mesmo teste com outro verbo.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Quadrix 2025 · CRMV-TO · Assistente Administrativo e Fiscal · questão de crase em “em homenagem à capital paulista” (sem PDF de gabarito da banca: resolvido por mim, gramática na mão, e confere com o cálculo do md de treino do vault)",
+      "dificuldade": 2,
+      "texto_base": "“…em homenagem à capital paulista…”",
+      "enunciado": "Na expressão “em homenagem à capital paulista”, o uso do sinal indicativo de crase está",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "correto e justifica-se pela preposição regida pelo nome “homenagem” e pelo artigo definido feminino que precede a palavra “capital”."
+        },
+        {
+          "letra": "B",
+          "texto": "incorreto, pois a palavra “capital” é masculina, e não permite o emprego do acento indicativo de crase."
+        },
+        {
+          "letra": "C",
+          "texto": "incorreto, pois a preposição “em” dispensa o uso da preposição “a” antes de “capital”."
+        },
+        {
+          "letra": "D",
+          "texto": "incorreto, pois a regência do nome “homenagem” exige apenas a preposição “a”, sem o uso de artigo definido."
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "O acento está correto, e a (A) é a única que explica por quê. Gabarito A.\n\nRegência: “homenagem” é substantivo que rege “a” — homenagem A alguém, A alguma coisa.\n\nArtigo: “capital”, no sentido de cidade principal, é FEMININA e está determinada (a capital paulista é São Paulo, uma só). Preposição + artigo = “à”.\n\nTeste do masculino: “em homenagem AO município paulista” → saiu “ao”, confirma a crase.\n\n| alt. | o erro |\n|---|---|\n| B | diz que “capital” é masculina. É de dois gêneros, e o gênero segue o sentido |\n| C | o “em” liga-se a “homenagem”, não a “capital”. Uma preposição não cancela a outra: quem rege “capital” é “homenagem” |\n| D | inventa uma regência sem artigo. “Homenagem à capital” tem artigo porque a capital é determinada — não é homenagem a *uma* capital qualquer |\n\nA (B) É ARMADILHA DE GÊNERO, E É ESTUDÁVEL\n\n| palavra | feminina | masculina |\n|---|---|---|\n| capital | a cidade — “à capital paulista” | o dinheiro — “o capital de giro” |\n| cabeça | a parte do corpo | o chefe — “o cabeça do grupo” |\n| guia | o documento | a pessoa que conduz |\n\nO ATALHO\n\nQuando a alternativa alegar gênero, teste com o artigo: dá para dizer “A capital”? Dá — então é feminina naquele sentido, e o resto da alegação cai junto.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2025 · CFBio · Analista de Desenvolvimento · item 6 (sem PDF de gabarito da banca: resolvido por mim, gramática na mão, e confere com o cálculo do md de treino do vault)",
+      "dificuldade": 2,
+      "texto_base": "“…resiliência às doenças…” (linha 7)",
+      "enunciado": "O emprego do acento indicativo de crase em “às doenças” (linha 7) deve-se à regência do termo “resiliência” e à presença do artigo definido “as” anteposto ao termo “doenças”.",
+      "gabarito": "C",
+      "explicacao": "Item de justificativa outra vez: o acento existe, e a pergunta é se a explicação dada para ele fecha. Fecha. CERTO.\n\nRegência nominal: “resiliência” pede “a” — resiliência A alguma coisa, como resistência A alguma coisa. É nome, não verbo, e nome também rege.\n\nArtigo: “doenças” está determinada, com o artigo plural “as”. Preposição “a” + artigo “as” = “às”.\n\nTeste do masculino: “resiliência AOS vírus” → saiu “aos”, confirma.\n\nPOR QUE ESTE ITEM É FÁCIL DE ERRAR MESMO SENDO SIMPLES\n\nPorque a mente procura um VERBO para justificar a preposição, não acha nenhum, e conclui que a justificativa está errada. Mas regência nominal existe e responde por boa parte das crases de prova: obediência a, respeito a, referência a, exposição a, homenagem a, resiliência a.\n\nRepare que este item e o do CFBio compartilham a estrutura com o de “visam às armas”: regente + artigo, os dois nomeados. A diferença é que lá o regente era verbo e aqui é nome. Se a alternativa disser “regência verbal” onde o regente é substantivo, ela cai — foi o que derrubou a letra B da prova do CREFITO-14.\n\nO ATALHO\n\nAntes de aceitar ou recusar a justificativa, classifique o regente: é verbo, nome ou locução? Depois confira se a alternativa o chamou pelo nome certo. Metade dos itens de crase em múltipla escolha se decide aí.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2020 · CRMV-AM · Motorista · item de crase em “vem à cabeça” (sem PDF de gabarito da banca: resolvido por mim, gramática na mão, e confere com o cálculo do md de treino do vault)",
+      "dificuldade": 2,
+      "texto_base": "“…vem à cabeça…” (linha 2)",
+      "enunciado": "Na linha 2, o emprego do sinal indicativo de crase em “à cabeça” justifica-se pela regência da forma verbal “vem” e pela presença do artigo feminino que define “cabeça”.",
+      "gabarito": "C",
+      "explicacao": "A justificativa tem duas partes e as duas se sustentam. CERTO.\n\nRegência verbal: “vir” é verbo de movimento e rege “a” — vem A algum lugar. Verbo de movimento com destino é a fonte mais previsível de preposição “a” em prova.\n\nArtigo: “cabeça” é feminino e está determinada — a cabeça de quem pensa, não uma cabeça qualquer. Preposição + artigo = “à”.\n\nTeste do masculino: “vem AO pensamento”, “vem AO encontro” → saiu “ao”, confirma a crase.\n\nO QUE ESTE ITEM ESTÁ MEDINDO\n\nExpressão cristalizada não perde a análise. “Vir à cabeça”, “vir à tona”, “ir à luta”: soam como bloco único, e por isso o candidato aceita ou recusa o acento pelo ouvido. O item pede o contrário — que você desmonte o bloco em regente + artigo e confira as duas peças.\n\nE ATENÇÃO AO CASO IRMÃO QUE INVERTE O GABARITO\n\n“Cabeça” também é palavra de dois gêneros: “o cabeça do movimento” é o líder. Nesse sentido não há artigo feminino e não haveria crase. O gênero segue o sentido, como em “capital”.\n\nO ATALHO\n\nVerbo de movimento (ir, vir, voltar, chegar, dirigir-se) rege “a” — e antes de destino feminino determinado a crase é obrigatória. O teste do masculino resolve em três segundos, sem depender de você lembrar da lista.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2020 · CFO-DF · Técnico Administrativo, Agente Operacional e Técnico de Arquivo · item de crase em “prestando serviços à comunidade” (sem PDF de gabarito da banca: resolvido por mim, gramática na mão, e confere com o cálculo do md de treino do vault)",
+      "dificuldade": 2,
+      "texto_base": "“…prestando serviços à comunidade…” (linhas 10-11)",
+      "enunciado": "O emprego do acento indicativo de crase em “à comunidade” (linha 11) justifica-se pela regência do verbo prestar, empregado na forma nominal de gerúndio – “prestando” (linha 10), e pela anteposição de artigo definido ao substantivo “comunidade”.",
+      "gabarito": "C",
+      "explicacao": "Justificativa correta nas duas metades. CERTO.\n\nRegência verbal: “prestar” é bitransitivo — presta-se ALGO (objeto direto: serviços) A ALGUÉM (objeto indireto: à comunidade). A preposição “a” vem daí.\n\nArtigo: “comunidade” é feminino e está determinada. Preposição + artigo = “à”.\n\nTeste do masculino: “prestando serviços AO município” → saiu “ao”, confirma.\n\nO DETALHE QUE O ITEM PLANTOU: O GERÚNDIO\n\nA justificativa faz questão de dizer que “prestando” é forma nominal, e é aí que o candidato desconfia — como se gerúndio, infinitivo e particípio perdessem a regência do verbo. Não perdem. **Forma nominal conserva a regência da forma finita:**\n\n| forma | exemplo | rege “a”? |\n|---|---|---|\n| finita | presta serviços à comunidade | sim |\n| gerúndio | prestando serviços à comunidade | sim |\n| infinitivo | prestar serviços à comunidade | sim |\n| particípio | serviços prestados à comunidade | sim |\n\nO ATALHO\n\nQuando a alternativa acrescentar um rótulo gramatical correto mas irrelevante — “empregado na forma nominal de gerúndio” — não deixe o rótulo decidir. Verifique se ele MUDA alguma coisa. Aqui não muda, e a justificativa continua de pé.\n\nÉ o oposto do item da mesma prova sobre “à saúde”, em que o rótulo (“a preposição para”) era falso e derrubava tudo.\n\nO MÉTODO, EM TRÊS PERGUNTAS\n\nCrase é fusão de preposição “a” + artigo “a(s)”. Nunca é uma coisa só.\n\n1. O termo REGENTE exige a preposição “a”?\n2. A palavra seguinte é feminina e ADMITE artigo?\n3. Sim para as duas → há crase.\n\nTeste de bolso: troque a palavra feminina por uma masculina. Saiu “ao”, há crase; saiu “o” ou nada, não há."
+    }
+  ]
+}

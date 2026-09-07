@@ -176,6 +176,11 @@ export const api = {
       method: "PATCH",
       body: JSON.stringify(campos),
     }),
+  /** Uma questão só. Leva o histórico de tentativas dela junto, e devolve quantas. */
+  apagarQuestao: (id: string) =>
+    req<{ tentativas_apagadas: number }>(`/estudo/questoes/${id}`, {
+      method: "DELETE",
+    }),
   criarQuestao: (corpo: Record<string, unknown>) =>
     req<Questao>("/estudo/questoes", {
       method: "POST",

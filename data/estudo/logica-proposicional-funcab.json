@@ -1,0 +1,44 @@
+{
+  "_leia_me": "Uma questão da FUNCAB, ADAPTADA — o enunciado veio de imagem, já com a marca “(ADAPTADA)”, então o texto não é o da prova original e o gabarito (b, 16) foi informado por mim, não conferido no PDF oficial da banca. O órgão e o cargo eu não tenho: a `origem` diz só o que dá para afirmar. A `explicacao` é MINHA, não da banca — mesma ressalva de `logica-proposicional-cespe.json`. Apague os dois campos se quiser este arquivo no mesmo padrão de rigor de `logica-proposicional.json`.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica proposicional",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "FUNCAB 2014 · questão adaptada (enunciado de imagem, sem órgão/cargo identificados; gabarito não conferido no PDF da banca)",
+      "dificuldade": 1,
+      "enunciado": "Determine o número de linhas da tabela-verdade da proposição:\n\n“Se trabalho e estudo matemática, então canso, mas não desisto”.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "4"
+        },
+        {
+          "letra": "B",
+          "texto": "16"
+        },
+        {
+          "letra": "C",
+          "texto": "8"
+        },
+        {
+          "letra": "D",
+          "texto": "64"
+        },
+        {
+          "letra": "E",
+          "texto": "32"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "A tabela tem 2ⁿ linhas, onde n é o número de proposições simples DIFERENTES — não o número de conectivos. Aqui são quatro: p = \"trabalho\", q = \"estudo matemática\", r = \"canso\", s = \"desisto\".\n\nA frase é (p ∧ q) → (r ∧ ¬s), com o \"mas\" valendo como \"e\". Logo 2⁴ = 16.\n\nA armadilha é contar o \"não\". Negação é conectivo unário: aplica-se a uma proposição que já está na conta (s) e não acrescenta linha nenhuma — \"desisto\" e \"não desisto\" são a mesma variável. Quem conta cinco proposições marca 32 (letra E); quem conta só três, 8 (letra C)."
+    }
+  ]
+}

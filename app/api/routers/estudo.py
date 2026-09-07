@@ -27,6 +27,7 @@ from app.api.schemas.estudo import (
     ModuloRequest,
     ModuloResumo,
     PaginaQuestoes,
+    QuestaoApagada,
     QuestaoPatch,
     QuestaoRequest,
     QuestaoResponse,
@@ -232,6 +233,11 @@ async def get_fila(
 
     Responder fora da data conta igual — a tentativa entra no log e reagenda. O
     agendamento diz o mínimo que eu preciso rever; não o máximo que eu posso.
+
+    Itens que dividem o mesmo texto de apoio vêm **juntos e na ordem da prova**,
+    mesmo os que ainda não venceram: um bloco de "julgue os itens" é uma leitura
+    só, e o `limite` não corta bloco no meio — ele para de abrir blocos novos,
+    não fecha o que abriu. Por isso `total` pode passar do `limite` pedido.
     """
     itens = await servico.fila(
         topico_id=topico_id,
@@ -295,6 +301,24 @@ async def patch_questao(
     except servico.QuestaoNaoEncontrada as e:
         raise HTTPException(status_code=404, detail=str(e)) from e
     return QuestaoResponse(**_json(questao, com_gabarito=True))
+
+
+@router.delete(
+    "/questoes/{questao_id}", response_model=QuestaoApagada, summary="Apaga a questão"
+)
+async def delete_questao(questao_id: UUID, _: UsuarioLogado) -> QuestaoApagada:
+    """Uma questão só — sem `forcar`, ao contrário de módulo e tópico.
+
+    Lá o clique apaga um acervo cujo tamanho eu não estou vendo, e a API recusa
+    até eu confirmar com o número na mão. Aqui a questão está aberta na gaveta e
+    o histórico dela está na tela: o número já foi visto antes do clique. Volta
+    quantas tentativas foram junto, que é o que se perde e não se refaz.
+    """
+    try:
+        n = await servico.apagar_questao(questao_id)
+    except servico.QuestaoNaoEncontrada as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e
+    return QuestaoApagada(tentativas_apagadas=n)
 
 
 @router.post(

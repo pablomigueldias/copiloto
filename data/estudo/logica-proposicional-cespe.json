@@ -1,0 +1,32 @@
+{
+  "_leia_me": "Bloco de dois itens do Cespe sobre proposição simples × composta, o assunto que o acervo Quadrix não cobre: lá se julga o valor de verdade, aqui se julga se a sentença é uma proposição e se ela se decompõe. Duas ressalvas que separam este arquivo de `logica-proposicional.json`: (1) o gabarito NÃO foi conferido no PDF oficial da banca — veio da imagem da questão e foi batido contra dois bancos públicos (Gran Questões e Qconcursos), que concordam entre si (item 01 = E, item 02 = C); o órgão e o cargo na `origem` vêm da mesma fonte secundária, então confira antes de tratar como definitivo. (2) a `explicacao` está preenchida e é MINHA, não da banca — Cespe publica gabarito, não justificativa. Apague os dois campos se quiser este arquivo no mesmo padrão de rigor do acervo de prova.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica proposicional",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "certo_errado",
+      "origem": "Cespe 2014 · TJ-SE · Técnico Judiciário – Programação de Sistemas · item 01 (órgão/cargo por banco público, não pelo PDF da banca)",
+      "dificuldade": 2,
+      "comando": "Julgue o item a seguir, relacionado à lógica proposicional.",
+      "enunciado": "A sentença “O reitor declarou estar contente com as políticas relacionadas à educação superior adotadas pelo governo de seu país e com os rumos atuais do movimento estudantil” é uma proposição lógica simples.",
+      "gabarito": "E",
+      "explicacao": "É composta.\n\nO “e” liga dois complementos do mesmo verbo, mas cada lado, isolado, é uma sentença declarativa com valor de verdade próprio:\n\np = “O reitor declarou estar contente com as políticas relacionadas à educação superior adotadas pelo governo de seu país”\nq = “O reitor declarou estar contente com os rumos atuais do movimento estudantil”\n\nA sentença é p ∧ q.\n\nO que se julga verdadeiro ou falso aqui é o ato de declarar, não o conteúdo da declaração."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Cespe 2014 · TJ-SE · Técnico Judiciário – Programação de Sistemas · item 02 (órgão/cargo por banco público, não pelo PDF da banca)",
+      "dificuldade": 2,
+      "comando": "Julgue o item a seguir, relacionado à lógica proposicional.",
+      "enunciado": "A sentença “A crença em uma justiça divina, imparcial, incorruptível e infalível é lenitivo para muitos que desconhecem os caminhos para a busca de seus direitos, assegurados na Constituição” é uma proposição lógica simples.",
+      "gabarito": "C",
+      "explicacao": "É simples.\n\nAqui o “e” liga adjetivos dentro do sujeito: “imparcial, incorruptível e infalível” caracterizam a justiça divina, e “assegurados na Constituição” é oração reduzida que caracteriza os direitos. Nenhum desses pedaços é V ou F sozinho — “incorruptível” não tem valor de verdade.\n\nHá um único verbo principal (“é lenitivo”) e um único predicado, então não há o que decompor.\n\nO teste dos dois itens do bloco é o mesmo: o “e” só vira ∧ quando cada lado, sozinho, já é uma sentença declarativa."
+    }
+  ]
+}

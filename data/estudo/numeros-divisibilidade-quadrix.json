@@ -1,0 +1,114 @@
+{
+  "_leia_me": "Três blocos do Quadrix sobre DIVISORES, de provas diferentes. (1) COREN-PR 2024, itens 25-27 — as dicas de Sofia: cubo perfeito, quadrado perfeito, primo e contagem de divisores; a situação hipotética vai repetida no `texto_base` dos três. (2) COFFITO 2023, itens 21-23 — “número aritmético”, definição dada no enunciado: média dos divisores positivos. (3) CREF3/SC 2023, itens 21-24 — a tabela do Zico com incógnita: acha-se x pela coluna fechada dos jogos e depois se cobra porcentagem (21), soma (22), primo (23) e contagem de divisores (24); a tabela vai repetida no `texto_base` dos quatro, em Markdown, porque `texto_base` agora passa pelo mesmo renderizador do enunciado e desenha tabela. Este terceiro bloco mora aqui e não em “Porcentagem e progressões” porque dois dos quatro itens são primo e contagem de divisores, e o único percentual do bloco se resolve com uma multiplicação; separar o item 21 dos irmãos quebraria a tabela que os quatro compartilham. O que une os três é a mesma ferramenta — fatorar e ler quantidade e soma de divisores a partir dos expoentes. Em NENHUM dos três o gabarito foi lido no PDF oficial da banca: todos vieram do Pablo e batem com resolução independente minha, escrita dentro de cada `explicacao`. No COFFITO e no CREF3/SC isso é uma ressalva a mais, porque os itens 28-30 das MESMAS provas já estão em `logica-proposicional.json` COM gabarito conferido no PDF — a diferença é só que o vault não estava acessível quando estes entraram. O cargo de cada prova é grafado como lá (“Analista de TI (cód. 403)”, “Analista de TI (cód. 404)”) para as entradas casarem numa busca. As `explicacao` são MINHAS, não da banca.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Números e divisibilidade",
+    "ordem": 3
+  },
+  "questoes": [
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2024 · COREN-PR · Analista de TI (código 402) · prova de 28/07/2024 · item 25 (gabarito aferido na mão, não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "texto_base": "Rafaela e Sofia estão se divertindo com números. Sofia escolheu um número natural, e Rafaela, curiosa, pediu algumas dicas para tentar adivinhá-lo. Com base nas informações recebidas, Rafaela conseguiu descobrir qual era o número escolhido por Sofia. As dicas fornecidas por Sofia estão dispostas a seguir.\n\n• O número é menor que 100.\n• É um cubo perfeito.\n• Ao somar 9 ao número, ele se torna um quadrado perfeito.\n• Ao subtrair 4 do número, obtém-se um número primo.",
+      "comando": "Com base nessa situação hipotética, julgue o item a seguir.",
+      "enunciado": "O número escolhido por Sofia tem 5 divisores naturais.",
+      "gabarito": "E",
+      "explicacao": "Primeiro achar o número — ele é o mesmo nos três itens do bloco.\n\nCubos perfeitos menores que 100: 0, 1, 8, 27 e 64. A terceira dica peneira:\n\n| n | n + 9 | é quadrado? |\n|---|---|---|\n| 0 | 9 | sim (3²) |\n| 1 | 10 | não |\n| 8 | 17 | não |\n| 27 | 36 | sim (6²) |\n| 64 | 73 | não |\n\nSobram 0 e 27. A quarta dica desempata: 0 − 4 = −4 não é primo; 27 − 4 = 23 é. Logo o número é 27.\n\nDivisores naturais de 27: 1, 3, 9 e 27. São QUATRO, não cinco.\n\nO atalho que dispensa listar: a quantidade de divisores sai dos expoentes da fatoração, somando 1 em cada. 27 = 3³ → 3 + 1 = 4 divisores.\n\nE repare o que o item pediria para ser certo: exatamente 5 divisores só acontece em p⁴ — 16, 81, 625. Nenhum cubo perfeito diferente de 1 tem cinco divisores."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2024 · COREN-PR · Analista de TI (código 402) · prova de 28/07/2024 · item 26 (gabarito aferido na mão, não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "texto_base": "Rafaela e Sofia estão se divertindo com números. Sofia escolheu um número natural, e Rafaela, curiosa, pediu algumas dicas para tentar adivinhá-lo. Com base nas informações recebidas, Rafaela conseguiu descobrir qual era o número escolhido por Sofia. As dicas fornecidas por Sofia estão dispostas a seguir.\n\n• O número é menor que 100.\n• É um cubo perfeito.\n• Ao somar 9 ao número, ele se torna um quadrado perfeito.\n• Ao subtrair 4 do número, obtém-se um número primo.",
+      "comando": "Com base nessa situação hipotética, julgue o item a seguir.",
+      "enunciado": "O número pensado por Sofia pode ser expresso como a soma de 6 números consecutivos.",
+      "gabarito": "C",
+      "explicacao": "O número é 27: entre os cubos menores que 100 (0, 1, 8, 27, 64), ele é o único com n + 9 quadrado perfeito (36 = 6²) e n − 4 primo (23).\n\nSeis consecutivos a partir de a somam sempre a mesma expressão:\n\na + (a+1) + (a+2) + (a+3) + (a+4) + (a+5) = 6a + 15\n\nIgualando ao número:\n\n6a + 15 = 27\n6a = 12\na = 2\n\nDeu inteiro, então existe: 2 + 3 + 4 + 5 + 6 + 7 = 27. Confere.\n\nO teste rápido, para não montar a equação toda na prova: 6a + 15 é sempre ímpar, então soma de seis consecutivos nunca é par — e basta que (n − 15) seja divisível por 6. Aqui 27 − 15 = 12, múltiplo de 6."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix 2024 · COREN-PR · Analista de TI (código 402) · prova de 28/07/2024 · item 27 (gabarito aferido na mão, não conferido no PDF da banca)",
+      "dificuldade": 3,
+      "texto_base": "Rafaela e Sofia estão se divertindo com números. Sofia escolheu um número natural, e Rafaela, curiosa, pediu algumas dicas para tentar adivinhá-lo. Com base nas informações recebidas, Rafaela conseguiu descobrir qual era o número escolhido por Sofia. As dicas fornecidas por Sofia estão dispostas a seguir.\n\n• O número é menor que 100.\n• É um cubo perfeito.\n• Ao somar 9 ao número, ele se torna um quadrado perfeito.\n• Ao subtrair 4 do número, obtém-se um número primo.",
+      "comando": "Com base nessa situação hipotética, julgue o item a seguir.",
+      "enunciado": "Se Sofia tivesse dito que o número era menor que 1.000 em vez de 100, Rafaela ainda conseguiria determinar qual seria o número escolhido por Sofia.",
+      "gabarito": "C",
+      "explicacao": "O item não pergunta que número é: pergunta se ele continua ÚNICO quando o teto sobe. Afrouxar a primeira dica amplia a lista de candidatos, e a pergunta é se algum concorrente novo sobrevive às outras três.\n\nCubos menores que 1.000: 0, 1, 8, 27, 64, 125, 216, 343, 512 e 729.\n\nPassando pela terceira dica (n + 9 tem de ser quadrado perfeito), só três resistem:\n\n| n | n + 9 | quadrado? |\n|---|---|---|\n| 0 | 9 | 3² |\n| 27 | 36 | 6² |\n| 216 | 225 | 15² |\n\nOs outros sete caem: 10, 17, 73, 134, 352, 521 e 738 não são quadrados.\n\nAgora a quarta dica (n − 4 primo):\n\n0 − 4 = −4 → nem natural, quanto mais primo.\n27 − 4 = 23 → primo.\n216 − 4 = 212 = 2² × 53 → composto.\n\nSobra o 27 sozinho de novo. O 216 é a pegadinha do item — ele passa pelo quadrado perfeito e só morre no primo. Rafaela ainda determinaria o número."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · prova de 27/08/2023 · item 21 (gabarito informado pelo Pablo e batido com resolução própria; ao contrário dos itens 28-30 da mesma prova, este NÃO foi lido no PDF oficial — o vault não estava acessível)",
+      "dificuldade": 1,
+      "texto_base": "Um número inteiro é aritmético quando a média de seus divisores positivos também é um número inteiro. Por exemplo, o número 14 é um número aritmético, pois a soma de seus divisores inteiros (1 + 2 + 7 + 14) dividida por 4 resulta em 6.",
+      "comando": "Considerando essas informações, julgue o item a seguir.",
+      "enunciado": "O número 1 é um número aritmético.",
+      "gabarito": "C",
+      "explicacao": "O 1 tem exatamente UM divisor positivo: ele mesmo.\n\nsoma = 1, quantidade = 1, média = 1 ÷ 1 = 1.\n\n1 é inteiro, então o 1 é aritmético. Item certo.\n\nA ARMADILHA É O EXEMPLO DO ENUNCIADO\n\nA banca ilustrou com o 14, que tem QUATRO divisores. Isso planta a ideia de que “média de divisores” pressupõe vários deles — e faz o 1 parecer um caso que não se encaixa na definição. Encaixa: a média de um único número é o próprio número.\n\nA outra confusão é misturar com primos. O 1 não é primo, mas isso não quer dizer que ele não tenha divisor: todo inteiro positivo é divisível por si mesmo. O que falta ao 1 para ser primo é ter DOIS divisores distintos — e é justamente por ter só um que a média fecha redondo aqui."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · prova de 27/08/2023 · item 22 (gabarito informado pelo Pablo e batido com resolução própria; ao contrário dos itens 28-30 da mesma prova, este NÃO foi lido no PDF oficial — o vault não estava acessível)",
+      "dificuldade": 2,
+      "texto_base": "Um número inteiro é aritmético quando a média de seus divisores positivos também é um número inteiro. Por exemplo, o número 14 é um número aritmético, pois a soma de seus divisores inteiros (1 + 2 + 7 + 14) dividida por 4 resulta em 6.",
+      "comando": "Considerando essas informações, julgue o item a seguir.",
+      "enunciado": "O número 42 é um número aritmético.",
+      "gabarito": "C",
+      "explicacao": "42 = 2 · 3 · 7. Divisores: 1, 2, 3, 6, 7, 14, 21, 42 — oito deles.\n\nsoma = 1 + 2 + 3 + 6 + 7 + 14 + 21 + 42 = 96\n\nmédia = 96 ÷ 8 = 12, inteiro. Item certo.\n\nO ATALHO: SOMA E CONTAGEM SAEM DA FATORAÇÃO\n\nNão precisa listar divisor nenhum. Com 42 = 2¹ · 3¹ · 7¹:\n\n| o que | conta | resultado |\n|---|---|---|\n| quantidade | (1+1)(1+1)(1+1) | 8 |\n| soma | (1+2)(1+3)(1+7) = 3 × 4 × 8 | 96 |\n\nmédia = 96 ÷ 8 = 12.\n\nA quantidade sai de somar 1 a cada expoente e multiplicar; a soma sai de multiplicar as somas das potências de cada primo. Vale para qualquer número, e é o que salva no item 23, onde listar os divisores à mão já fica caro."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · prova de 27/08/2023 · item 23 (gabarito informado pelo Pablo e batido com resolução própria; ao contrário dos itens 28-30 da mesma prova, este NÃO foi lido no PDF oficial — o vault não estava acessível)",
+      "dificuldade": 3,
+      "texto_base": "Um número inteiro é aritmético quando a média de seus divisores positivos também é um número inteiro. Por exemplo, o número 14 é um número aritmético, pois a soma de seus divisores inteiros (1 + 2 + 7 + 14) dividida por 4 resulta em 6.",
+      "comando": "Considerando essas informações, julgue o item a seguir.",
+      "enunciado": "O número 2.023 é um número aritmético.",
+      "gabarito": "E",
+      "explicacao": "Primeiro fatorar: 2.023 = 7 × 289 = 7 × 17².\n\nPela fatoração, sem listar nada:\n\n| o que | conta | resultado |\n|---|---|---|\n| quantidade | (1+1)(2+1) | 6 |\n| soma | (1+7)(1+17+289) = 8 × 307 | 2.456 |\n\nmédia = 2.456 ÷ 6 = 409,333… — não é inteiro. Item errado.\n\n(Conferindo: os seis divisores são 1, 7, 17, 119, 289 e 2.023, e somam 2.456.)\n\nO ATALHO QUE DISPENSA A DIVISÃO\n\nSão 6 divisores, então a soma precisa ser múltipla de 6 — e portanto de 3. Basta testar o 3 na soma: 2 + 4 + 5 + 6 = 17, que não é múltiplo de 3. Morreu ali.\n\nDá para matar antes ainda, sem nem somar: a soma é 8 × 307, e nem 8 nem 307 são múltiplos de 3 (3 + 0 + 7 = 10). Produto de dois não-múltiplos de 3 não é múltiplo de 3.\n\nCOMO SE FATORA 2.023 NA PROVA\n\nAno de prova quase sempre fatora bonito. Testando os primos pequenos: não é par, não termina em 0 ou 5, e 2+0+2+3 = 7 mata o 3. No 7 fecha: 2.023 ÷ 7 = 289. E 289 = 17², quadrado que vale ter na memória junto com 169 = 13² e 361 = 19²."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · CREF3/SC 2023 · Analista de TI (cód. 404) · prova de 12/02/2023 · item 21 (gabarito informado pelo Pablo e batido com resolução própria; os itens 28-30 desta mesma prova, que estão em `logica-proposicional.json`, foram lidos no PDF oficial da banca — estes 21-24 NÃO foram)",
+      "dificuldade": 3,
+      "texto_base": "Arthur Antunes Coimbra, o Zico, é o maior ídolo e artilheiro da história do Flamengo. A tabela abaixo traz dados sobre a atuação de Zico em clubes profissionais.\n\n| Anos | Clubes | Jogos | Gols |\n|---|---|---|---|\n| 1971-1983 | Flamengo | 635 | 476 |\n| 1983-1985 | Udinese | x + 20 | x − 3 |\n| 1985-1989 | Flamengo | 3x − 2 | x |\n| 1991-1994 | Kashima Antlers | 75 | 56 |\n|  |  | 860 | y |",
+      "comando": "Com base nas informações acima apresentadas, julgue o item a seguir.",
+      "enunciado": "Mais de 85% dos jogos disputados por Zico em clubes profissionais foram pelo Flamengo.",
+      "gabarito": "C",
+      "explicacao": "São 860 jogos no total e duas passagens pelo Flamengo; a pergunta é se as duas juntas passam de 85%.\n\nA coluna dos jogos é a única fechada dos dois lados: as quatro linhas somam 860.\n\n635 + (x + 20) + (3x − 2) + 75 = 860\n4x + 728 = 860\n4x = 132\nx = 33\n\nCom x = 33, a tabela fecha assim:\n\n| Clube | Jogos | Gols |\n|---|---|---|\n| Flamengo 1971-1983 | 635 | 476 |\n| Udinese | 53 | 30 |\n| Flamengo 1985-1989 | 97 | 33 |\n| Kashima Antlers | 75 | 56 |\n| total | 860 | 595 |\n\nFlamengo = 635 + 97 = 732 jogos.\n\nNÃO DIVIDA — MULTIPLIQUE\n\n85% de 860 = 0,85 × 860 = 731. Como 732 > 731, passou. Item certo.\n\nDividir também resolve (732 ÷ 860 = 85,116…%), mas custa uma divisão longa para descobrir o que uma multiplicação por 0,85 já diz. O atalho: transforme o percentual em quantidade e compare quantidade com quantidade.\n\nA MARGEM É DE UM JOGO\n\n732 contra 731 — é o item inteiro pendurado em uma unidade, e por isso não dá para arredondar nada no caminho. Quem esquece a segunda passagem e usa só os 635 acha 73,8% e marca errado; quem soma as duas mas erra o x por um acha 729 ou 735 e inverte o gabarito nos dois casos."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · CREF3/SC 2023 · Analista de TI (cód. 404) · prova de 12/02/2023 · item 22 (gabarito informado pelo Pablo e batido com resolução própria; os itens 28-30 desta mesma prova, que estão em `logica-proposicional.json`, foram lidos no PDF oficial da banca — estes 21-24 NÃO foram)",
+      "dificuldade": 2,
+      "texto_base": "Arthur Antunes Coimbra, o Zico, é o maior ídolo e artilheiro da história do Flamengo. A tabela abaixo traz dados sobre a atuação de Zico em clubes profissionais.\n\n| Anos | Clubes | Jogos | Gols |\n|---|---|---|---|\n| 1971-1983 | Flamengo | 635 | 476 |\n| 1983-1985 | Udinese | x + 20 | x − 3 |\n| 1985-1989 | Flamengo | 3x − 2 | x |\n| 1991-1994 | Kashima Antlers | 75 | 56 |\n|  |  | 860 | y |",
+      "comando": "Com base nas informações acima apresentadas, julgue o item a seguir.",
+      "enunciado": "Jogando por clubes profissionais, Zico marcou mais de 600 gols.",
+      "gabarito": "E",
+      "explicacao": "O total de gols é o y da última linha, e ele só sai depois do x — que vem da coluna dos jogos, a única fechada dos dois lados.\n\nA coluna dos jogos é a única fechada dos dois lados: as quatro linhas somam 860.\n\n635 + (x + 20) + (3x − 2) + 75 = 860\n4x + 728 = 860\n4x = 132\nx = 33\n\nCom x = 33, os gols que faltavam são: Udinese x − 3 = 30, Flamengo 1985-1989 x = 33.\n\n| Clube | Jogos | Gols |\n|---|---|---|\n| Flamengo 1971-1983 | 635 | 476 |\n| Udinese | 53 | 30 |\n| Flamengo 1985-1989 | 97 | 33 |\n| Kashima Antlers | 75 | 56 |\n| total | 860 | 595 |\n\ny = 476 + 30 + 33 + 56 = 595.\n\n595 não é mais que 600. Item errado — por cinco gols.\n\nA PEGADINHA É O NÚMERO QUE VOCÊ JÁ OUVIU\n\nZico é citado por aí com mais de 800 gols, e o enunciado abre justamente com “maior artilheiro da história do Flamengo”. Aquele número contém juvenil, amistoso e seleção; a tabela diz “clubes profissionais” e é só o que se soma aqui. A memória responde 600 sem fazer conta, e é exatamente o que a banca quer.\n\nO segundo jeito de errar é ler a coluna errada: 860 é jogo, não gol."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · CREF3/SC 2023 · Analista de TI (cód. 404) · prova de 12/02/2023 · item 23 (gabarito informado pelo Pablo e batido com resolução própria; os itens 28-30 desta mesma prova, que estão em `logica-proposicional.json`, foram lidos no PDF oficial da banca — estes 21-24 NÃO foram)",
+      "dificuldade": 1,
+      "texto_base": "Arthur Antunes Coimbra, o Zico, é o maior ídolo e artilheiro da história do Flamengo. A tabela abaixo traz dados sobre a atuação de Zico em clubes profissionais.\n\n| Anos | Clubes | Jogos | Gols |\n|---|---|---|---|\n| 1971-1983 | Flamengo | 635 | 476 |\n| 1983-1985 | Udinese | x + 20 | x − 3 |\n| 1985-1989 | Flamengo | 3x − 2 | x |\n| 1991-1994 | Kashima Antlers | 75 | 56 |\n|  |  | 860 | y |",
+      "comando": "Com base nas informações acima apresentadas, julgue o item a seguir.",
+      "enunciado": "O número de jogos que Zico disputou pela Udinese é um número primo.",
+      "gabarito": "C",
+      "explicacao": "Jogos pela Udinese é a célula x + 20, então o item é achar o x e testar se o resultado é primo.\n\nA coluna dos jogos é a única fechada dos dois lados: as quatro linhas somam 860.\n\n635 + (x + 20) + (3x − 2) + 75 = 860\n4x + 728 = 860\n4x = 132\nx = 33\n\nx + 20 = 53.\n\nPara decidir se 53 é primo basta dividir pelos primos até √53 ≈ 7,3 — ou seja, 2, 3, 5 e 7:\n\n| divisor | 53 é divisível? |\n|---|---|\n| 2 | não, é ímpar |\n| 3 | não, 5 + 3 = 8 |\n| 5 | não, não termina em 0 nem 5 |\n| 7 | não, 7 × 7 = 49 e 7 × 8 = 56 |\n\nPassou de 7 já não precisa continuar: se 53 tivesse um fator maior que a raiz, teria também um menor, e nenhum menor sobreviveu. 53 é primo. Item certo.\n\nO RISCO AQUI É DE COLUNA, NÃO DE ARITMÉTICA\n\nA linha da Udinese tem dois valores com x: 53 jogos e 30 gols. Pegar o 30 responde “não é primo” e vira item errado. E 3x − 2 = 97 também é primo — mas é jogo do Flamengo, não da Udinese; a banca deixou os dois primos na tabela para que a troca de linha não denuncie o erro por absurdo."
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · CREF3/SC 2023 · Analista de TI (cód. 404) · prova de 12/02/2023 · item 24 (gabarito informado pelo Pablo e batido com resolução própria; os itens 28-30 desta mesma prova, que estão em `logica-proposicional.json`, foram lidos no PDF oficial da banca — estes 21-24 NÃO foram)",
+      "dificuldade": 2,
+      "texto_base": "Arthur Antunes Coimbra, o Zico, é o maior ídolo e artilheiro da história do Flamengo. A tabela abaixo traz dados sobre a atuação de Zico em clubes profissionais.\n\n| Anos | Clubes | Jogos | Gols |\n|---|---|---|---|\n| 1971-1983 | Flamengo | 635 | 476 |\n| 1983-1985 | Udinese | x + 20 | x − 3 |\n| 1985-1989 | Flamengo | 3x − 2 | x |\n| 1991-1994 | Kashima Antlers | 75 | 56 |\n|  |  | 860 | y |",
+      "comando": "Com base nas informações acima apresentadas, julgue o item a seguir.",
+      "enunciado": "O número de gols que Zico marcou pelo Kashima Antlers tem 8 divisores naturais.",
+      "gabarito": "C",
+      "explicacao": "Gols pelo Kashima Antlers é o único número da tabela que já vem pronto: 56. Este item não depende do x, e dá para responder antes de resolver a equação dos outros três.\n\nFatorando: 56 = 8 × 7 = 2³ × 7¹.\n\nA quantidade de divisores sai dos EXPOENTES, somando 1 em cada e multiplicando:\n\n(3 + 1) × (1 + 1) = 4 × 2 = 8.\n\nSão 8 divisores. Item certo. Conferindo na mão, aos pares que multiplicam 56:\n\n| a | b | a × b |\n|---|---|---|\n| 1 | 56 | 56 |\n| 2 | 28 | 56 |\n| 4 | 14 | 56 |\n| 7 | 8 | 56 |\n\nQuatro pares, oito divisores.\n\nO atalho é a fórmula, e ela vale para qualquer número: fatore, some 1 a cada expoente, multiplique. Listar na mão funciona com 56 e não funciona com 360 = 2³ × 3² × 5, que tem (3+1)(2+1)(1+1) = 24 divisores.\n\nDois enganos comuns: contar só os divisores próprios (esquecer o 1 e o próprio 56, o que daria 6) e somar os expoentes em vez de multiplicar os sucessores (3 + 1 = 4, que daria “4 divisores”)."
+    }
+  ]
+}

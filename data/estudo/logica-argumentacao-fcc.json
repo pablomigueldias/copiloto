@@ -1,0 +1,134 @@
+{
+  "_leia_me": "Silogismos categóricos (todo/algum/nenhum) da FCC — tópico separado da lógica proposicional de propósito: não há conectivo nem tabela-verdade aqui, o que se manipula são conjuntos. Se estas questões entrassem em `logica-proposicional-fcc.json`, apareceriam na tela sob um tópico que não é o delas. Nenhuma das `origem` traz número de questão porque as imagens não traziam: identifiquei cada uma pelo conteúdo, o que também evita colidir com a \"FCC · questão 02\" que já existe no outro arquivo. Só a terceira traz ano (2013); órgão e cargo não foram identificados em nenhuma — identifique as provas antes de crescer este arquivo. ATENÇÃO à repetição: as duas primeiras são o MESMO argumento com nomes trocados (uma universal e uma particular que compartilham o sujeito). Antes de acrescentar a quinta, confira se não é a mesma forma de novo — cadastrar clone gasta revisão sem ensinar nada. Sobre os gabaritos: os das duas primeiras foram informados por mim; o da terceira e o da quarta eu resolvi. DIVERGÊNCIA EM ABERTO na quarta (Aleves/Bleves/Cleves/Dleves): eu havia informado (e) e a resolução deu (d), porque a letra (e) exige A ⊆ D, que é o inverso da premissa \"todos os Dleves são Aleves\"; ficou cadastrada como (d), com meu aval, mas NÃO foi conferida no PDF da banca — se ela aparecer errada na revisão, é aqui que se olha primeiro. Nenhum gabarito deste arquivo foi conferido na fonte oficial, embora todos sejam verificáveis na mão. As `explicacao` são MINHAS, não da banca.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica de argumentação",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "FCC · questão sobre o silogismo “Algum A é B / Todo A é C” (transcrita de imagem; ano/órgão/cargo não identificados; gabarito não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "Algum A é B. Todo A é C. Logo",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "algum D é A."
+        },
+        {
+          "letra": "B",
+          "texto": "todo B é C."
+        },
+        {
+          "letra": "C",
+          "texto": "todo C é A."
+        },
+        {
+          "letra": "D",
+          "texto": "todo B é A."
+        },
+        {
+          "letra": "E",
+          "texto": "algum B é C."
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Aqui não há conectivo nem tabela-verdade: as premissas falam de **conjuntos**, e o que vale é o que sobra verdadeiro em *todo* desenho compatível com elas.\n\nTraduzindo:\n\n| premissa | em conjuntos |\n|---|---|\n| Algum A é B | existe pelo menos um elemento em A ∩ B |\n| Todo A é C | A está inteiramente dentro de C (A ⊆ C) |\n\nA conclusão sai em duas linhas. Chame de **x** aquele elemento que a primeira premissa garante existir: x está em A e está em B. Como x está em A e todo A está em C, x também está em C. Então x está em B **e** em C ao mesmo tempo — ou seja, **algum B é C**. Letra **e**.\n\n## Por que as outras caem\n\nUm único modelo derruba três delas de uma vez:\n\n> A = {1}  B = {1, 2}  C = {1, 3}\n\nEle respeita as duas premissas (o 1 está em A e em B; o único elemento de A está em C), e mesmo assim:\n\n| item | afirma | no modelo | por quê |\n|---|---|---|---|\n| b | todo B é C | falso | o 2 está em B e fora de C |\n| c | todo C é A | falso | o 3 está em C e fora de A |\n| d | todo B é A | falso | o 2 está em B e fora de A |\n| e | algum B é C | **verdadeiro** | o 1 está nos dois |\n\nA letra **a** cai por outro motivo, mais grosseiro: **D não aparece em premissa nenhuma**. Conclusão de silogismo só pode falar dos conjuntos que entraram; um termo novo nunca é consequência lógica.\n\n## As duas armadilhas\n\n**Inverter a inclusão.** \"Todo A é C\" põe A dentro de C, não C dentro de A — é seta de mão única. Quem lê como igualdade marca a letra c.\n\n**Estender o \"algum\" para \"todo\".** A primeira premissa garante *um* elemento na interseção, e nada além disso: o resto de B fica solto, podendo estar fora de A e fora de C. É o que mata as letras b e d, e é o erro mais comum da questão — o candidato prova que *parte* de B é C e assina embaixo de *todo* B.\n\nDe quebra, lembre que em lógica \"algum\" significa **pelo menos um**, e não \"alguns, mas não todos\": se por acaso todo B fosse C, \"algum B é C\" continuaria verdadeiro."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "FCC · questão sobre o silogismo “macerontes / torminodoros / momorrengos” (transcrita de imagem; ano/órgão/cargo não identificados; gabarito não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "Todos os macerontes são torminodoros. Alguns macerontes são momorrengos. Logo,",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "todos os momorrengos são torminodoros."
+        },
+        {
+          "letra": "B",
+          "texto": "alguns torminodoros são momorrengos."
+        },
+        {
+          "letra": "C",
+          "texto": "todos os torminodoros são macerontes."
+        },
+        {
+          "letra": "D",
+          "texto": "alguns momorrengos são pássaros."
+        },
+        {
+          "letra": "E",
+          "texto": "todos os momorrengos são macerontes."
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "As palavras não querem dizer nada — e é de propósito. Sem significado nenhum para se apoiar, só sobra a **forma** do argumento, que é justamente o que a questão cobra. Chame de **M** os macerontes, **T** os torminodoros e **P** os momorrengos:\n\n| premissa | em conjuntos |\n|---|---|\n| Todos os macerontes são torminodoros | M ⊆ T |\n| Alguns macerontes são momorrengos | M ∩ P ≠ ∅ |\n\nA conclusão sai em duas linhas. Chame de **x** aquele elemento que a segunda premissa garante existir: x é maceronte e é momorrengo. Como todo maceronte é torminodoro, x também é torminodoro. Então x é torminodoro **e** momorrengo ao mesmo tempo — ou seja, **alguns torminodoros são momorrengos**. Letra **b**.\n\n## Por que as outras caem\n\nUm único modelo derruba três de uma vez:\n\n> M = {1}  T = {1, 3}  P = {1, 2}\n\nEle respeita as duas premissas (o único maceronte, 1, é torminodoro; e o 1 é maceronte e momorrengo), e mesmo assim:\n\n| item | afirma | no modelo | por quê |\n|---|---|---|---|\n| a | todo P é T | falso | o 2 é momorrengo e não é torminodoro |\n| c | todo T é M | falso | o 3 é torminodoro e não é maceronte |\n| e | todo P é M | falso | o 2 é momorrengo e não é maceronte |\n| b | algum T é P | **verdadeiro** | o 1 é os dois |\n\nA letra **d** cai por outro motivo, mais grosseiro: **\"pássaros\" não aparece em premissa nenhuma**. Conclusão de silogismo só pode falar dos termos que entraram; um termo novo nunca é consequência lógica, por mais plausível que soe.\n\n## As duas armadilhas\n\n**Inverter a inclusão.** \"Todos os macerontes são torminodoros\" põe M dentro de T, não o contrário — é seta de mão única. Quem lê como igualdade marca a letra c.\n\n**Estender o \"alguns\" para \"todos\".** A segunda premissa garante *um* elemento na interseção, e nada além disso: o resto de P fica solto, podendo estar fora de M e fora de T. É o que mata as letras a e e.\n\n> **Reparou?** Esta é a mesma questão de \"Algum A é B. Todo A é C\", só que com nomes inventados no lugar das letras. Lá a resposta era \"algum B é C\"; aqui é \"algum T é P\". Mesmíssima forma: uma universal e uma particular que **compartilham o sujeito**, e a conclusão válida é sempre a particular ligando os outros dois termos. Vale guardar o esquema, porque a FCC o repete trocando a fantasia."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "FCC 2013 · questão sobre o silogismo “algum X é Y / nenhum Z é Y” (transcrita de imagem; órgão/cargo não identificados; gabarito resolvido por mim, não conferido no PDF da banca)",
+      "dificuldade": 3,
+      "enunciado": "Se é verdade que “algum X é Y” e que “nenhum Z é Y”, então é necessariamente verdadeiro que:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "algum X não é Z."
+        },
+        {
+          "letra": "B",
+          "texto": "algum X é Z."
+        },
+        {
+          "letra": "C",
+          "texto": "nenhum X é Z."
+        },
+        {
+          "letra": "D",
+          "texto": "algum Z é X."
+        },
+        {
+          "letra": "E",
+          "texto": "nenhum Z é X."
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "O \"necessariamente\" do enunciado é o coração da questão: não basta a alternativa **poder** ser verdadeira, ela tem que sobrar verdadeira em **todo** desenho compatível com as premissas.\n\n| premissa | em conjuntos |\n|---|---|\n| algum X é Y | X ∩ Y ≠ ∅ |\n| nenhum Z é Y | Z ∩ Y = ∅ |\n\nChame de **x** o elemento que a primeira premissa garante existir: ele está em X e em Y. A segunda premissa diz que nada que esteja em Y está em Z — e x está em Y, então x **não** está em Z. Ou seja: existe alguém que é X e não é Z. **Algum X não é Z**. Letra **a**.\n\n## O atalho que resolve sem desenhar nada\n\nDuas regras clássicas de silogismo já entregam a resposta antes de qualquer conta:\n\n- premissa **negativa** obriga conclusão **negativa** (\"nenhum Z é Y\" é negativa);\n- premissa **particular** obriga conclusão **particular** (\"algum X é Y\" é particular).\n\nEntão a conclusão tem de ser negativa **e** particular ao mesmo tempo. Varrendo a lista:\n\n| item | tipo | serve? |\n|---|---|---|\n| a | particular negativa | **sim** |\n| b | particular afirmativa | não é negativa |\n| c | universal negativa | não é particular |\n| d | particular afirmativa | não é negativa |\n| e | universal negativa | não é particular |\n\nSobra uma só. Vale decorar o par de regras: em prova de silogismo elas costumam matar quatro alternativas em dez segundos.\n\n## Por que as outras caem, na mão\n\nPrecisa de dois modelos, porque **b/d** afirmam o oposto de **c/e**.\n\n**Modelo 1** — X e Z se encostam:\n\n> X = {1, 2}  Y = {1}  Z = {2}\n\nRespeita as premissas (o 1 é X e Y; nada em Z está em Y, já que o 2 não é Y). Aqui o 2 é X e é Z ao mesmo tempo, então **c** (\"nenhum X é Z\") e **e** (\"nenhum Z é X\") são falsas.\n\n**Modelo 2** — X e Z não se tocam:\n\n> X = {1}  Y = {1}  Z = {3}\n\nTambém respeita as premissas, e agora X ∩ Z é vazio: **b** (\"algum X é Z\") e **d** (\"algum Z é X\") são falsas.\n\nRepare que **a** continua verdadeira nos dois modelos — no primeiro pelo elemento 1, no segundo também pelo 1. É isso que significa \"necessariamente\".\n\n## A armadilha\n\nA tentação é a letra **c**. \"Nenhum Z é Y\" separa Z de Y com força, e o candidato transporta essa separação para X inteiro. Mas a primeira premissa só colocou **parte** de X dentro de Y — o resto de X ficou solto e pode perfeitamente invadir Z, que é exatamente o Modelo 1. Premissa com \"algum\" nunca autoriza conclusão com \"nenhum\" ou \"todo\".\n\n> Compare com as outras duas questões deste tópico, em que as premissas eram uma universal **afirmativa** e uma particular: lá a conclusão válida era afirmativa (\"algum B é C\"). Aqui a universal é **negativa**, e a conclusão vira negativa junto. É a mesma máquina — só o sinal muda."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "FCC · questão sobre os Aleves, Bleves, Cleves e Dleves (transcrita de imagem; ano/órgão/cargo não identificados; resolvida por mim, divergente do que eu havia anotado, não conferida no PDF da banca)",
+      "dificuldade": 3,
+      "enunciado": "Em certo planeta, todos os Aleves são Bleves, todos os Cleves são Bleves, todos os Dleves são Aleves, e todos os Cleves são Dleves. Sobre os habitantes desse planeta, é correto afirmar que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Todos os Dleves são Bleves e são Cleves."
+        },
+        {
+          "letra": "B",
+          "texto": "Todos os Bleves são Cleves e são Dleves."
+        },
+        {
+          "letra": "C",
+          "texto": "Todos os Aleves são Cleves e são Dleves."
+        },
+        {
+          "letra": "D",
+          "texto": "Todos os Cleves são Aleves e são Bleves."
+        },
+        {
+          "letra": "E",
+          "texto": "Todos os Aleves são Dleves e alguns Aleves podem não ser Cleves."
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "Quatro premissas parecem muita coisa, mas elas se encaixam numa **fila única**. Traduzindo (A = Aleves, B = Bleves, C = Cleves, D = Dleves):\n\n| premissa | em conjuntos |\n|---|---|\n| todos os Aleves são Bleves | A ⊆ B |\n| todos os Cleves são Bleves | C ⊆ B |\n| todos os Dleves são Aleves | D ⊆ A |\n| todos os Cleves são Dleves | C ⊆ D |\n\nEncadeando a terceira com a quarta e ligando na primeira:\n\n> **C ⊆ D ⊆ A ⊆ B**\n\nUma boneca russa: todo Cleve é Dleve, todo Dleve é Aleve, todo Aleve é Bleve. (De quebra, a segunda premissa é **redundante** — C ⊆ B já sai da cadeia. A FCC a jogou ali como ruído.)\n\n## A regra que resolve a questão inteira\n\nCom a fila montada, \"todos os P são Q\" só é verdadeiro quando **Q está à direita de P na cadeia** — inclusão anda para fora, nunca para dentro. Basta olhar posição:\n\n> ordem: **C → D → A → B**\n\n| item | afirma | direção | veredito |\n|---|---|---|---|\n| a | todo D é B / todo D é C | direita ✓ / **esquerda ✗** | falsa |\n| b | todo B é C / todo B é D | esquerda ✗ / esquerda ✗ | falsa |\n| c | todo A é C / todo A é D | esquerda ✗ / esquerda ✗ | falsa |\n| d | todo C é A / todo C é B | direita ✓ / direita ✓ | **verdadeira** |\n| e | todo A é D / … | **esquerda ✗** | falsa |\n\nC é o menor conjunto de todos, então é o único que cabe inteiro dentro dos outros. Letra **d**.\n\n## Um planeta com quatro habitantes derruba as outras quatro\n\nImagine que o planeta tem exatamente quatro moradores, um em cada camada da cebola:\n\n| morador | é Cleve? | é Dleve? | é Aleve? | é Bleve? |\n|---|---|---|---|---|\n| 1 | sim | sim | sim | sim |\n| 2 | não | sim | sim | sim |\n| 3 | não | não | sim | sim |\n| 4 | não | não | não | sim |\n\nConfira que as quatro premissas valem (todo Aleve é Bleve; todo Cleve é Bleve; todo Dleve é Aleve; todo Cleve é Dleve). E então:\n\n| item | cai por causa de |\n|---|---|\n| a | o morador 2 é Dleve e **não** é Cleve |\n| b | o morador 4 é Bleve e não é Cleve nem Dleve |\n| c | o morador 3 é Aleve e não é Cleve nem Dleve |\n| e | o morador 3 é Aleve e **não** é Dleve |\n\nA letra **d** sobrevive: o único Cleve é o morador 1, que é Aleve e é Bleve.\n\n## As duas armadilhas\n\n**Inverter a inclusão.** \"Todos os Dleves são Aleves\" põe D dentro de A. A letra **e** começa com \"todos os Aleves são Dleves\", que é a volta — e a volta não vem de graça. É o mesmo erro que derruba a, b e c, só que essas são mais fáceis de ver.\n\n**Comprar a conjunção pela metade boa.** A segunda parte da letra **e**, \"alguns Aleves podem não ser Cleves\", é verdadeira: o morador 3 é exatamente isso, e o \"podem\" ainda enfraquece a afirmação para uma mera possibilidade. Só que a alternativa é um **e** — as duas metades precisam valer. Uma metade verdadeira grudada numa falsa dá alternativa falsa. Toda vez que um item trouxer duas afirmações, teste as duas antes de marcar; a banca costuma pôr a plausível na frente ou no fim para o candidato parar de ler."
+    }
+  ]
+}

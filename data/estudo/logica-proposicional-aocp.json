@@ -1,0 +1,74 @@
+{
+  "_leia_me": "Duas questões da AOCP transcritas de imagem. Na de 2017 o órgão/cargo não aparecem e o gabarito (C) é resolução MINHA — você não passou; na de 2018 (IPM/SP, Agente de Administração) o gabarito (C) foi informado por você. Nenhum dos dois foi conferido no PDF da banca, mas os dois são verificáveis na mão e batem. As `explicacao` são MINHAS, não da banca.\n\nDuas esquisitices das próprias questões, transcritas como estão na imagem: na de 2017 as alternativas B e E dizem a mesma coisa (“Apenas I e II” e “Apenas II e I”); na de 2018 os distratores trocam os predicados do enunciado (aparecem “Luiza é advogada” e “Carlos é professor”, que não são as proposições dadas), e o nome oscila entre “Luíza” e “Luiza”. Nada disso muda a resposta.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica proposicional",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "AOCP 2017 · questão 03 (transcrita de imagem; órgão/cargo não identificados; gabarito resolvido por mim, não conferido no PDF da banca)",
+      "dificuldade": 1,
+      "enunciado": "Considere as seguintes proposições compostas e assinale a alternativa que apresenta as verdadeiras.\n\nI. 2 é par e 8 é ímpar.\nII. 5 é par ou 3 é ímpar.\nIII. Se 5 é ímpar então 4 é ímpar.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas I e II."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas II."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas I e III."
+        },
+        {
+          "letra": "E",
+          "texto": "Apenas II e I."
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "As partes são aritmética de olho: 2 é par (V), 8 é ímpar (F), 5 é par (F), 3 é ímpar (V), 5 é ímpar (V), 4 é ímpar (F). Só o conectivo decide.\n\n| # | partes | conectivo | valor |\n|---|---|---|---|\n| I | V e F | V ∧ F | F |\n| II | F ou V | F ∨ V | V |\n| III | Se V então F | V → F | F |\n\nSó a II é verdadeira.\n\nA conjunção exige os DOIS lados verdadeiros, e \"8 é ímpar\" derruba a I sozinho. A disjunção se contenta com um: em II a primeira parte é falsa e mesmo assim o \"ou\" sobe. A III é a única linha em que a condicional falha — verdadeiro levando a falso — e é onde a intuição atrapalha, porque a frase parece razoável quando lida como português.\n\nDefeito da questão: as alternativas B e E dizem a mesma coisa (\"Apenas I e II\" e \"Apenas II e I\"). Está assim na imagem; não muda a resposta, já que nenhuma das duas é a correta."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "AOCP 2018 · IPM/SP · Agente de Administração · questão 03 (transcrita de imagem; gabarito não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "Dada a disjunção exclusiva “Ou Carlos é advogado ou Luíza é professora”, a sua negação será dada por",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“Se Carlos é advogado, então Luiza é advogada”."
+        },
+        {
+          "letra": "B",
+          "texto": "“Se Luiza não é advogada então Carlos é professor”."
+        },
+        {
+          "letra": "C",
+          "texto": "“Carlos é advogado se, e somente se, Luíza é professora”."
+        },
+        {
+          "letra": "D",
+          "texto": "“Se Luiza é advogada, então Carlos é professor”."
+        },
+        {
+          "letra": "E",
+          "texto": "“Carlos é professor se, e somente se, Luiza é advogada”."
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "~(p ⊻ q) ≡ p ↔ q. A negação da disjunção exclusiva é a BICONDICIONAL — e é só isso que a questão cobra.\n\nA razão está nas duas tabelas, que são uma o negativo da outra:\n\n| p | q | p ⊻ q | p ↔ q |\n|---|---|---|---|\n| V | V | F | V |\n| V | F | V | F |\n| F | V | V | F |\n| F | F | F | V |\n\nO ⊻ vale quando os valores são DIFERENTES; o ↔ vale quando são IGUAIS. Não há terceira possibilidade, então negar “são diferentes” é afirmar “são iguais”.\n\nCom p = “Carlos é advogado” e q = “Luíza é professora”, p ↔ q é “Carlos é advogado se, e somente se, Luíza é professora” — letra C.\n\nEm português a negação diz o seguinte: “ou um ou outro” afirma que exatamente um dos dois é verdade; negar isso é dizer que os dois são verdade ou nenhum dos dois é — que é exatamente o “se e somente se”.\n\nAs outras quatro alternativas são descartáveis sem conta nenhuma: as três condicionais (A, B, D) porque negação de ⊻ não é condicional, e a E porque, apesar de ser uma bicondicional, ela fala de “Carlos é professor” e “Luiza é advogada” — proposições que não estão no enunciado."
+    }
+  ]
+}

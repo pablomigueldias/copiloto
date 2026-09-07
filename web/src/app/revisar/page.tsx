@@ -333,9 +333,12 @@ function Revisao() {
 
           {q!.texto_base && (
             <div className="mb-4 border-l-2 border-[color-mix(in_srgb,var(--color-accent)_45%,transparent)] pl-4">
-              <p className="m-0 text-[15px] leading-[1.6] text-muted">
-                {q!.texto_base}
-              </p>
+              {/* Mesmo renderizador do enunciado: o texto de apoio de prova
+                  costuma ser uma tabela, e como `<p>` ela sai em canos. */}
+              <Enunciado
+                texto={q!.texto_base}
+                className="text-[15px] leading-[1.6] text-muted"
+              />
               {q!.texto_base_fonte && (
                 <p className="m-0 mt-1 text-[12px] text-neutral-600">
                   {q!.texto_base_fonte}
@@ -384,9 +387,12 @@ function Revisao() {
             <div className="mt-5 rounded-[10px] border border-divider bg-surface p-4">
               <div className="card-kicker mb-[6px]">Por quê</div>
               {resultado?.explicacao ? (
-                <p className="m-0 text-[14.5px] leading-[1.6] text-muted">
-                  {resultado.explicacao}
-                </p>
+                // Mesmo renderizador do enunciado: a explicação de tabela-verdade
+                // vem em linhas, e uma delas costuma ser a própria tabela.
+                <Enunciado
+                  texto={resultado.explicacao}
+                  className="text-[14.5px] leading-[1.6] text-muted"
+                />
               ) : (
                 <p className="m-0 text-[14px] leading-[1.6] text-neutral-500">
                   Esta questão ainda não tem explicação. A banca publica

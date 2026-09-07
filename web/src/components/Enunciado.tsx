@@ -17,7 +17,7 @@
 
 type Bloco =
   | { tipo: "texto"; linhas: string[] }
-  | { tipo: "tabela"; cabecalho: string[]; linhas: string[][] };
+  | { tipo: "tabela"; cabecalho: string[] | null; linhas: string[][] };
 
 /** `| a | b |` — linha de tabela. */
 function eLinhaDeTabela(linha: string): boolean {
@@ -67,11 +67,35 @@ function emBlocos(texto: string): Bloco[] {
       continue;
     }
     fecharTexto();
-    const [cabecalho, ...resto] = corpo;
-    blocos.push({ tipo: "tabela", cabecalho, linhas: resto.filter((l) => !eRegua(l)) });
+    // Matriz de prova não tem cabeçalho: as quatro linhas são dado, e desenhar a
+    // primeira como título diria que ela rotula as outras — o oposto do que a
+    // questão pede para enxergar. Abrir a tabela pela régua declara isso.
+    const semCabecalho = eRegua(corpo[0]);
+    const [primeira, ...resto] = corpo;
+    blocos.push({
+      tipo: "tabela",
+      cabecalho: semCabecalho ? null : primeira,
+      linhas: resto.filter((l) => !eRegua(l)),
+    });
   }
   fecharTexto();
   return blocos;
+}
+
+/**
+ * O enunciado sem as tabelas, para a prévia de uma linha na listagem do acervo.
+ *
+ * Lá o enunciado é texto puro dentro de um `line-clamp-2`, e uma matriz vira
+ * uma fileira de canos que ocupa as duas linhas sem identificar nada. O que
+ * identifica a questão é a frase; a tabela se lê na gaveta.
+ */
+export function semTabelas(texto: string): string {
+  return texto
+    .split("\n")
+    .filter((l) => !eLinhaDeTabela(l))
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
 }
 
 export function Enunciado({ texto, className }: { texto: string; className?: string }) {
@@ -92,18 +116,20 @@ export function Enunciado({ texto, className }: { texto: string; className?: str
           // que não quebra de linha, e sem isto empurraria a página inteira.
           <div key={n} className="overflow-x-auto [&+*]:mt-5">
             <table className="border-collapse text-[0.85em] leading-[1.4]">
-              <thead>
-                <tr>
-                  {bloco.cabecalho.map((c, i) => (
-                    <th
-                      key={i}
-                      className="border border-divider bg-[color-mix(in_srgb,var(--color-text)_5%,transparent)] px-[14px] py-[7px] text-center font-medium text-muted"
-                    >
-                      {c}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
+              {bloco.cabecalho && (
+                <thead>
+                  <tr>
+                    {bloco.cabecalho.map((c, i) => (
+                      <th
+                        key={i}
+                        className="border border-divider bg-[color-mix(in_srgb,var(--color-text)_5%,transparent)] px-[14px] py-[7px] text-center font-medium text-muted"
+                      >
+                        {c}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+              )}
               <tbody>
                 {bloco.linhas.map((linha, i) => (
                   <tr key={i}>

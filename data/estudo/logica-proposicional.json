@@ -1,5 +1,5 @@
 {
-  "_leia_me": "Extraído dos PDFs em Second-Brain/Pessoal/Provas. O gabarito de cada questão foi conferido no PDF de gabarito oficial da banca, no bloco do cargo correspondente — nunca deduzido. A `origem` identifica o documento e NÃO repete o gabarito: ela viaja no payload da fila, e a resposta escrita ali seria a resposta entregue pelo DevTools antes de eu responder. `explicacao` é nula de propósito: as bancas publicam gabarito, não justificativa; escrever uma e apresentá-la como delas seria inventar fonte. Preencher pela tela (PATCH /api/estudo/questoes/{id}).",
+  "_leia_me": "Extraído dos PDFs em Second-Brain/Pessoal/Provas. O gabarito de cada questão foi conferido no PDF de gabarito oficial da banca, no bloco do cargo correspondente — nunca deduzido. A `origem` identifica o documento e NÃO repete o gabarito: ela viaja no payload da fila, e a resposta escrita ali seria a resposta entregue pelo DevTools antes de eu responder. Sobre a `explicacao`: ela era nula de propósito, porque a banca publica gabarito e não justificativa, e apresentar uma explicação minha como dela seria inventar fonte. Isso mudou a pedido — as explicações agora estão aqui, e são MINHAS, escritas a partir do gabarito oficial. Nenhuma banca assina nenhuma delas. O gabarito continua sendo a única parte conferida no PDF; se uma explicação divergir do gabarito, o gabarito ganha e a explicação é que está errada. NORMALIZAÇÃO DE 05/09/2026: nos blocos “julgue os itens” desta prova, o conteúdo compartilhado (as proposições dadas como verdadeiras) foi movido do `comando` para o `texto_base`, que é onde o resto do acervo o guarda e onde a tela o desenha no bloco com borda em vez de linha miúda. NENHUMA PALAVRA DA BANCA FOI PERDIDA — o comando original era uma frase só, com as proposições entre aspas no meio; a divisão separou o conteúdo da instrução e as proposições viraram lista. Para conferir contra o PDF, leia `texto_base` e `comando` emendados. Enunciado, gabarito e explicação não foram tocados.",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
@@ -37,7 +37,8 @@
           "texto": "1–V, 2–V, 3–V, 4–F"
         }
       ],
-      "gabarito": "B"
+      "gabarito": "B",
+      "explicacao": "A disjunção exclusiva é o “ou… ou…” do português: vale quando EXATAMENTE UMA das partes é verdadeira. Dito de outro jeito, a ⊻ b é verdadeira quando a e b têm valores DIFERENTES.\n\n| a | b | a ⊻ b |\n|---|---|---|\n| V | V | F |\n| V | F | V |\n| F | V | V |\n| F | F | F |\n\nLogo 1–F, 2–V, 3–V, 4–F.\n\nDuas leituras confirmam a coluna: a ⊻ b é a negação da bicondicional (a ↔ b vale quando os lados são IGUAIS; o ⊻, quando são diferentes), e é o “ou exclusivo” do bit a bit.\n\nA alternativa E é a disjunção comum (a ∨ b), que aceita as duas verdadeiras — o erro de quem lê “ou” sem o “exclusiva”."
     },
     {
       "formato": "multipla_escolha",
@@ -66,7 +67,8 @@
           "texto": "A proposição “Se Marcos emagrece, então faz dieta” é necessariamente verdadeira."
         }
       ],
-      "gabarito": "A"
+      "gabarito": "A",
+      "explicacao": "Com p = “Marcos faz dieta” e q = “Marcos emagrece”, o enunciado diz que p → q é verdadeira.\n\n| alt. | o que afirma | veredito |\n|---|---|---|\n| A | p ∧ ~q é falsa | correta: p ∧ ~q é a negação de p → q |\n| B | a negação é ~q → ~p | isso é a contrapositiva, equivalente |\n| C | p → q ≡ q ∧ ~p | não; p → q ≡ ~p ∨ q |\n| D | a negação é ~p ∨ q | ~p ∨ q é a própria condicional reescrita |\n| E | q → p é verdadeira | é a recíproca, não vem junto |\n\nA alternativa A está certa porque “Marcos faz dieta e não emagrece” é exatamente p ∧ ~q, a negação da condicional dada. Se p → q é verdadeira, a negação dela é necessariamente falsa.\n\nAs outras quatro são as três coisas que se confundem com a negação de uma condicional: a contrapositiva (B), a forma equivalente em “ou” (D) e a recíproca (E). Só p ∧ ~q nega — e negar uma condicional nunca produz outra condicional."
     },
     {
       "formato": "multipla_escolha",
@@ -95,87 +97,108 @@
           "texto": "p ↔ q é falsa."
         }
       ],
-      "gabarito": "A"
+      "gabarito": "A",
+      "explicacao": "A conjunção verdadeira do enunciado obriga os dois lados: p = V (“Evelyn gosta de maçã”) e “Leone é valente” = V.\n\nMas q é “Leone é valente E Raika é forte”. Sobre Raika o enunciado não diz nada, então q pode ser V ou F — e toda alternativa cujo valor dependa de q está fora.\n\n| alt. | com p = V | depende de q? |\n|---|---|---|\n| A ~p → q | F → q = V | não — a única |\n| B p → q | V → q | sim |\n| C p ∧ q | V ∧ q | sim |\n| D ~p ∨ q | F ∨ q | sim |\n| E p ↔ q | V ↔ q | sim |\n\nAntecedente falso torna a condicional verdadeira seja qual for o consequente. Por isso ~p → q é necessariamente verdadeira sem que se saiba nada de Raika.\n\nA armadilha é dar q = V porque “Leone é valente” é verdadeira: q é uma conjunção, e metade verdadeira não basta."
     },
     {
       "formato": "certo_errado",
       "origem": "Quadrix · CRMV-GO 2025 · Analista Administrativo – TI (cód. 400) · item 28",
       "dificuldade": 1,
-      "comando": "Acerca da proposição “Se a borboleta saiu do casulo, então a águia pousou no ninho”, julgue o item a seguir.",
+      "comando": "Acerca da proposição acima, julgue o item a seguir.",
       "enunciado": "A negação dessa proposição é “A borboleta não saiu do casulo e a águia pousou no ninho”.",
-      "gabarito": "E"
+      "gabarito": "E",
+      "explicacao": "~(p → q) ≡ p ∧ ~q: mantém o antecedente e nega o consequente. A negação correta é “A borboleta saiu do casulo e a águia não pousou no ninho”.\n\nO item faz o oposto — nega o antecedente e mantém o consequente. Item errado.\n\nRegra que resolve a família toda: negar uma condicional nunca produz outra condicional. Se a alternativa veio com “se… então”, ela não é a negação.",
+      "texto_base": "“Se a borboleta saiu do casulo, então a águia pousou no ninho”"
     },
     {
       "formato": "certo_errado",
       "origem": "Quadrix · CRMV-GO 2025 · Analista Administrativo – TI (cód. 400) · item 29",
       "dificuldade": 2,
-      "comando": "Acerca da proposição “Se a borboleta saiu do casulo, então a águia pousou no ninho”, julgue o item a seguir.",
+      "comando": "Acerca da proposição acima, julgue o item a seguir.",
       "enunciado": "A proposição é logicamente equivalente a “Se a águia não pousou no ninho, então a borboleta não saiu do casulo”.",
-      "gabarito": "C"
+      "gabarito": "C",
+      "explicacao": "Contrapositiva: p → q ≡ ~q → ~p. Inverte a ordem E nega os dois lados — as duas coisas juntas. É exatamente o que o item apresenta. Item certo.\n\nAs outras duas variações não valem: a recíproca (q → p, “se a águia pousou, então a borboleta saiu”) e a inversa (~p → ~q, “se a borboleta não saiu, então a águia não pousou”) não são equivalentes à original. Só a contrapositiva é.",
+      "texto_base": "“Se a borboleta saiu do casulo, então a águia pousou no ninho”"
     },
     {
       "formato": "certo_errado",
       "origem": "Quadrix · CRMV-GO 2025 · Analista Administrativo – TI (cód. 400) · item 30",
       "dificuldade": 2,
-      "comando": "Acerca da proposição “Se a borboleta saiu do casulo, então a águia pousou no ninho”, julgue o item a seguir.",
+      "comando": "Acerca da proposição acima, julgue o item a seguir.",
       "enunciado": "Essa proposição é falsa apenas quando a proposição “A borboleta saiu do casulo” for verdadeira e a proposição “A águia pousou no ninho” for falsa.",
-      "gabarito": "C"
+      "gabarito": "C",
+      "explicacao": "A condicional só falha em V → F.\n\n| p | q | p → q |\n|---|---|---|\n| V | V | V |\n| V | F | F |\n| F | V | V |\n| F | F | V |\n\nO item descreve exatamente essa linha: a borboleta saiu (V) e a águia não pousou (F). Item certo.\n\nÉ a mesma regra do item 28 deste bloco, vista do outro lado: negar p → q é afirmar a única linha em que ela é falsa, p ∧ ~q.",
+      "texto_base": "“Se a borboleta saiu do casulo, então a águia pousou no ninho”"
     },
     {
       "formato": "certo_errado",
       "origem": "Quadrix · COREN-PR 2024 · Analista de TI (cód. 402) · item 21",
       "dificuldade": 2,
-      "comando": "Considerando que as proposições “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”, “O icosaedro não está associado à terra ou a água está associada ao octaedro”, “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro” e “A água não está associada ao octaedro” são verdadeiras, julgue o item a seguir.",
+      "comando": "Considerando que as proposições acima são verdadeiras, julgue o item a seguir.",
       "enunciado": "As proposições “O icosaedro não está associado à terra ou a água está associada ao octaedro” e “Se o icosaedro está associado à terra, então a água está associada ao octaedro” são logicamente equivalentes.",
-      "gabarito": "C"
+      "gabarito": "C",
+      "explicacao": "~a ∨ b ≡ a → b.\n\nCom t = “o icosaedro está associado à terra” e o = “a água está associada ao octaedro”, a primeira proposição é ~t ∨ o e a segunda é t → o. São a mesma coisa escrita de dois jeitos. Item certo.\n\nÉ a equivalência mais cobrada do assunto, e vale nos dois sentidos: toda condicional vira “ou” negando o antecedente, e todo “ou” vira condicional negando a primeira parcela.",
+      "texto_base": "• “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”\n• “O icosaedro não está associado à terra ou a água está associada ao octaedro”\n• “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro”\n• “A água não está associada ao octaedro”"
     },
     {
       "formato": "certo_errado",
       "origem": "Quadrix · COREN-PR 2024 · Analista de TI (cód. 402) · item 22",
       "dificuldade": 1,
-      "comando": "Considerando que as proposições “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”, “O icosaedro não está associado à terra ou a água está associada ao octaedro”, “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro” e “A água não está associada ao octaedro” são verdadeiras, julgue o item a seguir.",
+      "comando": "Considerando que as proposições acima são verdadeiras, julgue o item a seguir.",
       "enunciado": "A negação da proposição “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro” é “Se a terra não está associada ao icosaedro, então o ar não está associado ao hexaedro”.",
-      "gabarito": "E"
+      "gabarito": "E",
+      "explicacao": "A negação de p → q é p ∧ ~q. O item apresenta ~q → ~p, que é a CONTRAPOSITIVA — equivalente à original, não a negação dela. Item errado.\n\nEquivalente e negação são opostos: a contrapositiva tem sempre o mesmo valor da proposição, e a negação, sempre o contrário. Como o enunciado garante que a proposição é verdadeira, a negação dela teria de ser falsa — e a contrapositiva é verdadeira.\n\nA negação correta seria “O ar está associado ao hexaedro e a terra não está associada ao icosaedro”.",
+      "texto_base": "• “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”\n• “O icosaedro não está associado à terra ou a água está associada ao octaedro”\n• “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro”\n• “A água não está associada ao octaedro”"
     },
     {
       "formato": "certo_errado",
       "origem": "Quadrix · COREN-PR 2024 · Analista de TI (cód. 402) · item 23",
       "dificuldade": 3,
-      "comando": "Considerando que as proposições “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”, “O icosaedro não está associado à terra ou a água está associada ao octaedro”, “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro” e “A água não está associada ao octaedro” são verdadeiras, julgue o item a seguir.",
+      "comando": "Considerando que as proposições acima são verdadeiras, julgue o item a seguir.",
       "enunciado": "A proposição “O fogo está associado ao tetraedro e o ar não está associado ao hexaedro” é verdadeira.",
-      "gabarito": "C"
+      "gabarito": "C",
+      "explicacao": "O caminho começa pela premissa que não tem conectivo — “A água não está associada ao octaedro” — e daí cai tudo.\n\n| passo | premissa verdadeira | conclusão |\n|---|---|---|\n| 1 | “A água não está associada ao octaedro” | o = F |\n| 2 | ~t ∨ o, com o = F | ~t = V, logo t = F |\n| 3 | h → t, com t = F | h = F |\n| 4 | ou f, ou h, ou o — com h = F e o = F | f = V |\n\nO item afirma f ∧ ~h, que é V ∧ V = V. Item certo.\n\nO passo 3 é o modus tollens: consequente falso obriga antecedente falso, senão a condicional seria V → F. O passo 4 usa que a disjunção precisa de pelo menos uma parcela verdadeira — com as outras duas derrubadas, sobra o fogo.",
+      "texto_base": "• “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”\n• “O icosaedro não está associado à terra ou a água está associada ao octaedro”\n• “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro”\n• “A água não está associada ao octaedro”"
     },
     {
       "formato": "certo_errado",
       "origem": "Quadrix · COREN-PR 2024 · Analista de TI (cód. 402) · item 24",
       "dificuldade": 3,
-      "comando": "Considerando que as proposições “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”, “O icosaedro não está associado à terra ou a água está associada ao octaedro”, “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro” e “A água não está associada ao octaedro” são verdadeiras, julgue o item a seguir.",
+      "comando": "Considerando que as proposições acima são verdadeiras, julgue o item a seguir.",
       "enunciado": "A proposição “A água está associada octaedro se, e somente se, a terra está associada ao icosaedro” é falsa.",
-      "gabarito": "E"
+      "gabarito": "E",
+      "explicacao": "Do mesmo encadeamento do item 23: o = F (por premissa) e t = F (de ~t ∨ o com o = F).\n\nEntão “a água está associada ao octaedro SE E SOMENTE SE a terra está associada ao icosaedro” é F ↔ F = V. O item afirma que ela é falsa. Item errado.\n\nA armadilha é ler “se e somente se” como se exigisse os dois lados verdadeiros. Ela exige os dois IGUAIS: F ↔ F vale tanto quanto V ↔ V.",
+      "texto_base": "• “Ou o fogo está associado ao tetraedro, ou o ar está associado ao hexaedro, ou a água está associada ao octaedro”\n• “O icosaedro não está associado à terra ou a água está associada ao octaedro”\n• “Se o ar está associado ao hexaedro, então a terra está associada ao icosaedro”\n• “A água não está associada ao octaedro”"
     },
     {
       "formato": "certo_errado",
       "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · item 28",
       "dificuldade": 2,
-      "comando": "Admitindo-se a veracidade das proposições “Todo advogado é doutor”, “Paula é advogada” e “Felipe é doutor”, julgue o item a seguir.",
+      "comando": "Admitindo-se a veracidade das proposições acima, julgue o item a seguir.",
       "enunciado": "A proposição “Paula é doutora ou Felipe é advogado” é necessariamente verdadeira.",
-      "gabarito": "C"
+      "gabarito": "C",
+      "explicacao": "De “Todo advogado é doutor” com “Paula é advogada” sai “Paula é doutora”. Uma parcela verdadeira já basta para a disjunção, e nem é preciso saber se Felipe é advogado. Item certo.\n\nSobre Felipe, aliás, não se conclui nada: “Todo advogado é doutor” não se inverte — ser doutor não obriga a ser advogado. Mas o “ou” se contenta com um lado.",
+      "texto_base": "• “Todo advogado é doutor”\n• “Paula é advogada”\n• “Felipe é doutor”"
     },
     {
       "formato": "certo_errado",
       "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · item 29",
       "dificuldade": 3,
-      "comando": "Admitindo-se a veracidade das proposições “Todo advogado é doutor”, “Paula é advogada” e “Felipe é doutor”, julgue o item a seguir.",
+      "comando": "Admitindo-se a veracidade das proposições acima, julgue o item a seguir.",
       "enunciado": "A proposição “Se Felipe é advogado, então Paula é doutora” não é necessariamente verdadeira.",
-      "gabarito": "E"
+      "gabarito": "E",
+      "explicacao": "O consequente “Paula é doutora” já é verdadeiro (Paula é advogada, e todo advogado é doutor). Condicional com consequente verdadeiro é verdadeira, seja qual for o antecedente — as duas linhas possíveis, V → V e F → V, dão V.\n\nOu seja, a proposição É necessariamente verdadeira; o item afirma que não é. Item errado.\n\nA armadilha é parar em “não se sabe se Felipe é advogado” e concluir que a condicional fica indefinida. Antecedente desconhecido não indefine nada quando o consequente já está garantido.",
+      "texto_base": "• “Todo advogado é doutor”\n• “Paula é advogada”\n• “Felipe é doutor”"
     },
     {
       "formato": "certo_errado",
       "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · item 30",
       "dificuldade": 2,
-      "comando": "Admitindo-se a veracidade das proposições “Todo advogado é doutor”, “Paula é advogada” e “Felipe é doutor”, julgue o item a seguir.",
+      "comando": "Admitindo-se a veracidade das proposições acima, julgue o item a seguir.",
       "enunciado": "As proposições “Todo advogado é doutor” e “Se não é doutor, então não é advogado” são equivalentes.",
-      "gabarito": "C"
+      "gabarito": "C",
+      "explicacao": "É a contrapositiva de novo, agora vestida de proposição categórica:\n\n“Todo advogado é doutor” ≡ “Se é advogado, então é doutor” ≡ “Se não é doutor, então não é advogado”.\n\nItem certo. O que NÃO vale é “Se é doutor, então é advogado” — a recíproca, que é o mesmo erro que o item 28 deste bloco cutuca com o Felipe.",
+      "texto_base": "• “Todo advogado é doutor”\n• “Paula é advogada”\n• “Felipe é doutor”"
     },
     {
       "formato": "certo_errado",
@@ -183,7 +206,8 @@
       "dificuldade": 2,
       "comando": "No que se refere à lógica proposicional, julgue o item a seguir.",
       "enunciado": "“Red Hot Chili Peppers é a maior banda de funk rock de todos os tempos!” é uma proposição.",
-      "gabarito": "E"
+      "gabarito": "E",
+      "explicacao": "Proposição é sentença declarativa com valor de verdade definido: ou V, ou F, e um só.\n\nA frase falha nas duas pontas — é exclamativa, e o que ela afirma é juízo de valor, que depende de quem julga. Não há como atribuir V ou F. Item errado.\n\nO critério prático: se duas pessoas honestas podem discordar sem que nenhuma esteja errada, não é proposição. Ficam de fora as exclamativas, interrogativas, imperativas e opinativas."
     },
     {
       "formato": "certo_errado",
@@ -191,7 +215,8 @@
       "dificuldade": 1,
       "comando": "No que se refere à lógica proposicional, julgue o item a seguir.",
       "enunciado": "A sentença “x = 2.023” é uma proposição.",
-      "gabarito": "E"
+      "gabarito": "E",
+      "explicacao": "“x = 2.023” é sentença ABERTA: tem variável livre, e o valor de verdade depende do que x for. Sem fixar x não dá para dizer se é V ou F. Item errado.\n\nSentença aberta vira proposição de dois jeitos: fixando o valor (“2.023 = 2.023”, verdadeira) ou quantificando (“existe x tal que x = 2.023”, verdadeira; “para todo x, x = 2.023”, falsa)."
     },
     {
       "formato": "certo_errado",
@@ -199,7 +224,8 @@
       "dificuldade": 2,
       "comando": "No que se refere à lógica proposicional, julgue o item a seguir.",
       "enunciado": "A sentença “5 + 5 = 5 se, e somente se, 10 + 10 = 10” é verdadeira.",
-      "gabarito": "C"
+      "gabarito": "C",
+      "explicacao": "5 + 5 = 5 é falsa; 10 + 10 = 10 é falsa. A bicondicional é verdadeira quando os dois lados têm o MESMO valor, e F ↔ F = V. Item certo.\n\n| p | q | p ↔ q |\n|---|---|---|\n| V | V | V |\n| V | F | F |\n| F | V | F |\n| F | F | V |\n\nO que se julga aqui é só a combinação dos valores: as duas contas estarem erradas não torna a composta falsa. É o mesmo espanto de “F → F = V” — conectivo não tem opinião sobre aritmética."
     }
   ]
 }

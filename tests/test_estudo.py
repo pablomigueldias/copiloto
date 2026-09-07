@@ -7,6 +7,7 @@ que interessa ali é o que fica gravado — data e acerto — e isso é banco.
 """
 from __future__ import annotations
 
+import uuid
 from datetime import date, timedelta
 from zoneinfo import ZoneInfo
 
@@ -132,6 +133,37 @@ async def _semear(*, gabarito: str = "C", formato: str = "certo_errado") -> Ques
             "dificuldade": 2,
         }
     )
+
+
+async def _semear_bloco() -> tuple[Questao, list[Questao]]:
+    """Uma questão solta e um bloco de três itens sobre o mesmo texto de apoio.
+
+    Os três entram fora de ordem e com a dificuldade contra: o 18 é o mais
+    fácil, e sem agrupamento seria ele a abrir a leitura, com o 16 e o 17 caindo
+    em outros dias. É o caso real do COREN-PR.
+    """
+    solta = await _semear(gabarito="C")
+    async with get_session() as s:
+        topico_id = (await s.scalars(select(Topico))).one().id
+
+    texto = "Na pré-história, desenvolveram-se as primeiras práticas de saúde."
+    itens = {}
+    for n, dificuldade in ((18, 1), (16, 3), (17, 3)):
+        itens[n] = await servico.criar_questao(
+            {
+                "topico_id": topico_id,
+                "formato": "certo_errado",
+                "texto_base": texto,
+                "comando": "Julgue o item a seguir.",
+                "enunciado": f"Afirmação do item {n}.",
+                "origem": f"Quadrix 2024 · COREN-PR · Analista de TI · item {n}",
+                "alternativas": [],
+                "afirmacoes": [],
+                "gabarito": "C",
+                "dificuldade": dificuldade,
+            }
+        )
+    return solta, [itens[16], itens[17], itens[18]]
 
 
 async def test_responder_grava_data_e_acerto():
@@ -262,6 +294,45 @@ async def test_questao_avulsa_entra_mesmo_fora_da_data():
     assert [x.id for x in await servico.fila(questao_id=q.id)] == [q.id]
 
 
+async def test_fila_traz_o_bloco_inteiro_na_ordem_da_prova():
+    """Item que divide texto de apoio com outro não aparece sozinho.
+
+    O agendamento trata cada item como questão independente e espalhava os três
+    por dias diferentes — cobrando a leitura do mesmo texto três vezes, semanas
+    separadas. Basta um vencer para o bloco inteiro vir junto, e vir na ordem
+    da prova: 16, 17, 18, não a ordem que a dificuldade quiser.
+    """
+    solta, bloco = await _semear_bloco()
+
+    # Só o item 18 vence hoje; 16 e 17 estão adiantados uma semana.
+    async with get_session() as s:
+        for a in (await s.scalars(select(Agenda))).all():
+            if a.questao_id in {bloco[0].id, bloco[1].id}:
+                a.proxima_em = servico.hoje() + timedelta(days=7)
+        await s.commit()
+
+    ids = [q.id for q in await servico.fila()]
+    esperado = [q.id for q in bloco]
+
+    assert bloco[0].id in ids, "o irmão que não venceu tem que vir junto"
+    onde = ids.index(esperado[0])
+    assert ids[onde : onde + 3] == esperado, "o bloco vem seguido, na ordem da prova"
+    assert solta.id in ids and len(ids) == 4
+
+
+async def test_fila_nao_corta_bloco_no_meio():
+    """`limite` é piso, não teto: ele para de abrir blocos, não fecha o aberto."""
+    _, bloco = await _semear_bloco()
+    fila = await servico.fila(limite=1)
+    assert [q.id for q in fila] == [q.id for q in bloco]
+
+
+async def test_questao_avulsa_nao_puxa_o_bloco():
+    """O botão "responder" do acervo pediu aquela questão, não a leitura toda."""
+    _, bloco = await _semear_bloco()
+    assert [q.id for q in await servico.fila(questao_id=bloco[1].id)] == [bloco[1].id]
+
+
 async def test_responder_fora_da_data_conta_e_reagenda():
     """Treinar adiantado não é ensaio: entra no log e mexe no intervalo."""
     q = await _semear(gabarito="C")
@@ -376,3 +447,36 @@ async def test_apagar_topico_com_questoes_e_recusado():
     with pytest.raises(servico.NaoVazio):
         await servico.apagar_topico(topico_id)
     assert await servico.apagar_topico(topico_id, forcar=True) == 1
+
+
+async def test_apagar_uma_questao_nao_leva_as_vizinhas():
+    """O motivo de existir: antes disso, tirar uma questão era apagar o tópico."""
+    q = await _semear()
+    outra = await servico.criar_questao(
+        {
+            "topico_id": q.topico_id,
+            "formato": "certo_errado",
+            "enunciado": "Toda proposição composta tem conectivo.",
+            "gabarito": "C",
+        }
+    )
+
+    # Duas tentativas na mesma questão: a segunda é repescagem, e a agenda só
+    # conta a primeira. É por isso que o retorno conta tentativas, não acertos.
+    await servico.responder(q.id, resposta="E")
+    await servico.responder(q.id, resposta="C", tentativa_n=2)
+
+    assert await servico.apagar_questao(q.id) == 2
+
+    async with get_session() as s:
+        assert (await s.scalars(select(Questao))).one().id == outra.id
+        # O cascade leva agenda e tentativas da apagada — e só dela.
+        assert await s.scalar(select(func.count(Tentativa.id))) == 0
+        assert await s.scalar(select(func.count(Agenda.id))) == 1
+        # O tópico continua de pé; era ele que eu tinha de sacrificar antes.
+        assert await s.scalar(select(func.count(Topico.id))) == 1
+
+
+async def test_apagar_questao_que_nao_existe():
+    with pytest.raises(servico.QuestaoNaoEncontrada):
+        await servico.apagar_questao(uuid.uuid4())

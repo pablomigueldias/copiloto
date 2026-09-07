@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 
 import { Aviso } from "@/components/Dialogo";
+import { semTabelas } from "@/components/Enunciado";
 import { Erro, Vazio, plural, quando } from "@/components/ui";
 import { api } from "@/lib/api";
 import { useAvisos } from "@/lib/avisos";
@@ -382,7 +383,7 @@ function Modulos() {
                       )}
                       <td className="max-w-[420px]">
                         <div className="line-clamp-2 text-[13.5px]">
-                          {q.enunciado}
+                          {semTabelas(q.enunciado)}
                         </div>
                         {!q.explicacao && (
                           <span className="mt-1 inline-block text-[11px] text-neutral-600">
@@ -449,6 +450,21 @@ function Modulos() {
             setEmFoco(q);
             setQuestoes((atual) =>
               atual ? atual.map((x) => (x.id === q.id ? q : x)) : atual,
+            );
+            carregar();
+          }}
+          onApagada={(tentativas) => {
+            const id = emFoco.id;
+            setEmFoco(null);
+            // Tira da tabela na hora e recarrega os contadores dos cards em
+            // seguida: esperar o `carregar()` deixaria a linha apagada visível.
+            setQuestoes((atual) =>
+              atual ? atual.filter((x) => x.id !== id) : atual,
+            );
+            ok(
+              tentativas > 0
+                ? `Questão apagada — ${plural(tentativas, "tentativa", "tentativas")} junto`
+                : "Questão apagada",
             );
             carregar();
           }}

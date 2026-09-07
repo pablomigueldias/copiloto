@@ -1,0 +1,46 @@
+{
+  "_leia_me": "Primeira questão de argumentação da FGV — mesmo tópico dos arquivos `logica-argumentacao-fcc.json` e `logica-argumentacao-esaf.json`, banca diferente, por isso arquivo separado. Não confundir com `logica-proposicional-fgv.json`, que é outro tópico. Esta questão é a ponte entre os dois: a premissa \"quem joga xadrez tem bom raciocínio\" é uma universal afirmativa que também se lê como condicional, e o que a questão cobra é contrapositiva versus recíproca versus inversa. A sigla PMS aparece assim na imagem e eu NÃO a expandi — não vou chutar o órgão. O gabarito (d) foi informado por mim e conferido na resolução, mas NÃO no PDF da banca. A `explicacao` é MINHA, não da banca. NORMALIZAÇÃO DE 05/09/2026: as duas afirmativas saíram do `comando` para o `texto_base`, para caírem no bloco de apoio com borda como no resto do acervo. O `comando` ficou com a instrução (“Considere as afirmativas a seguir.”); nada da banca foi reescrito.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica de argumentação",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "FGV · PMS 2019 · Especialista em Políticas Públicas · questão sobre “alguns homens jogam xadrez” (transcrita de imagem; sigla do órgão não expandida; gabarito não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "comando": "Considere as afirmativas a seguir.",
+      "enunciado": "A partir dessas afirmações, é correto concluir que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“Todos os homens têm bom raciocínio”."
+        },
+        {
+          "letra": "B",
+          "texto": "“Mulheres não jogam xadrez”."
+        },
+        {
+          "letra": "C",
+          "texto": "“Quem tem bom raciocínio joga xadrez”."
+        },
+        {
+          "letra": "D",
+          "texto": "“Homem que não tem bom raciocínio não joga xadrez”."
+        },
+        {
+          "letra": "E",
+          "texto": "“Quem não joga xadrez não tem bom raciocínio”."
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "Primeiro, reconhecer o que cada afirmação é. A segunda começa com \"quem\", que aqui funciona como **todo**: \"quem joga xadrez tem bom raciocínio\" é \"todo jogador de xadrez tem bom raciocínio\". E toda universal afirmativa também se lê como condicional. Com H = homens, X = joga xadrez, R = tem bom raciocínio:\n\n| afirmação | como quantificador | como condicional |\n|---|---|---|\n| Alguns homens jogam xadrez | H ∩ X ≠ ∅ | — |\n| Quem joga xadrez tem bom raciocínio | X ⊆ R | X → R |\n\nA questão inteira gira em torno da segunda. De um `X → R` só se extrai **uma** coisa nova, e é sempre a mesma: a **contrapositiva**, `¬R → ¬X`. Quem não tem bom raciocínio não joga xadrez. É exatamente a letra **d** — que ainda restringe a homens, o que só enfraquece a afirmação e portanto não estraga nada: se vale para todo mundo, vale para os homens.\n\nRepare que a letra d **não usa a primeira premissa**. Ela é ruído nesta questão; serve só para atrair o candidato para as alternativas que falam de homens e mulheres.\n\n## As três leituras de \"X → R\"\n\nEste é o coração da questão, e vale guardar a tabela para a vida:\n\n| nome | forma | em palavras | vale? |\n|---|---|---|---|\n| original | X → R | joga xadrez ⇒ tem bom raciocínio | premissa |\n| **contrapositiva** | ¬R → ¬X | não tem bom raciocínio ⇒ não joga | **sim — item d** |\n| recíproca | R → X | tem bom raciocínio ⇒ joga xadrez | não — item c |\n| inversa | ¬X → ¬R | não joga xadrez ⇒ não tem bom raciocínio | não — item e |\n\nSó a contrapositiva é equivalente ao original. Recíproca e inversa trocam a mão da seta, e a FGV pôs as duas na prova de propósito, lado a lado, nos itens c e e.\n\n## Um planeta de quatro pessoas derruba as outras quatro\n\n| pessoa | é homem? | joga xadrez? | tem bom raciocínio? |\n|---|---|---|---|\n| João | sim | sim | sim |\n| Pedro | sim | não | não |\n| Maria | não | sim | sim |\n| Ana | não | não | sim |\n\nAs duas premissas valem (o João é homem e joga; todos os que jogam — João e Maria — têm bom raciocínio). E aí:\n\n| item | cai por causa de |\n|---|---|\n| a | Pedro é homem e **não** tem bom raciocínio |\n| b | Maria é mulher e **joga** xadrez |\n| c | Ana tem bom raciocínio e **não** joga |\n| e | Ana não joga e **tem** bom raciocínio |\n\nA letra **d** sobrevive: o único homem sem bom raciocínio é o Pedro, e ele não joga.\n\n## As armadilhas\n\n**Trocar a mão da seta.** É o que mata c e e, e é o erro mais caro do assunto inteiro. \"Todo jogador tem bom raciocínio\" não diz nada sobre quem tem bom raciocínio e não joga — essa gente pode existir à vontade (a Ana).\n\n**Achar que \"alguns homens\" fala das mulheres.** A letra b supõe que dizer \"alguns homens jogam\" implique que só homens jogam. Não implica: \"alguns\" é **pelo menos um**, e o enunciado simplesmente não fala de mulheres. Silêncio não é negação.\n\n**Esticar \"alguns\" para \"todos\".** A letra a pega a primeira premissa e promove o \"alguns\" a \"todos\", de brinde. Os homens que não jogam xadrez ficaram totalmente livres — podem ter ou não ter bom raciocínio.",
+      "texto_base": "- “Alguns homens jogam xadrez”.\n- “Quem joga xadrez tem bom raciocínio”."
+    }
+  ]
+}

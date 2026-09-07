@@ -1,0 +1,126 @@
+{
+  "_leia_me": "Quatro questões do IBFC transcritas de imagem, nenhuma com gabarito conferido no PDF oficial da banca — mas todas verificáveis na mão, e eu verifiquei. EBSERH 2020 (b), IBFC 2014 (c) e Câmara de Feira de Santana 2018 (c) são gabaritos informados por você e batem com a resolução; a de Soldado PM-BA 2020 veio sem gabarito, e o (b) é resolução minha. As `explicacao` são MINHAS, não da banca — mesma ressalva dos outros arquivos de imagem do acervo.\n\nRepare que as questões de 2014 e de 2018 têm QUATRO alternativas: é assim que o IBFC aplica, e foi isso que fez o `scripts/importar_questoes.py` deixar de exigir cinco.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica proposicional",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "IBFC · EBSERH 2020 · Analista Administrativo · questão 01 (transcrita de imagem; gabarito não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "Considerando que os símbolos ∧, ∨, → e ↔ representem operadores lógicos e signifiquem “e”, “ou”, “então” e “se e somente se”, respectivamente, analise os seguintes testes lógicos e dê valores de Verdadeiro (V) ou Falso (F).\n\n(  ) (32 − 3 × 12 = −4 ∧ 12 + 15 = 27)\n(  ) (15 + 2 ≠ 17 ∨ 18 − 9 = 9)\n(  ) (12 ÷ 4 = 4 ↔ 25 − 13 = 12)\n(  ) (48 ÷ 4 = 12 → 16 + 17 ≠ 33)\n(  ) (13 + 12 = 9 ∨ 1 + 1 = 3)\n\nAssinale a alternativa que apresenta a sequência correta de cima para baixo.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "V, F, V, F, V"
+        },
+        {
+          "letra": "B",
+          "texto": "V, V, F, F, F"
+        },
+        {
+          "letra": "C",
+          "texto": "F, F, V, V, V"
+        },
+        {
+          "letra": "D",
+          "texto": "V, F, F, V, V"
+        },
+        {
+          "letra": "E",
+          "texto": "F, V, F, V, F"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "Resolve-se cada conta primeiro, depois o conectivo. As contas não são a questão — o conectivo é.\n\n| # | esquerda | direita | conectivo | valor |\n|---|---|---|---|---|\n| 1 | 32 − 36 = −4 → V | 12 + 15 = 27 → V | V ∧ V | V |\n| 2 | 15 + 2 ≠ 17 → F | 18 − 9 = 9 → V | F ∨ V | V |\n| 3 | 12 ÷ 4 = 4 → F | 25 − 13 = 12 → V | F ↔ V | F |\n| 4 | 48 ÷ 4 = 12 → V | 16 + 17 ≠ 33 → F | V → F | F |\n| 5 | 13 + 12 = 9 → F | 1 + 1 = 3 → F | F ∨ F | F |\n\nSequência: V, V, F, F, F.\n\nTrês regras decidem tudo aqui. A disjunção só cai com as duas parcelas falsas (linha 5). A bicondicional só sobe quando os dois lados têm o MESMO valor (linha 3). A condicional só falha em V → F, que é exatamente a linha 4.\n\nAs armadilhas são de sinal, não de lógica: as linhas 2 e 4 usam \"≠\", então a conta certa torna a proposição FALSA. Quem lê 15 + 2 = 17 e marca V já erra a linha 2 e não chega em alternativa nenhuma."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "IBFC · Soldado PM-BA 2020 · questão 04 (transcrita de imagem; gabarito resolvido por mim, não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "Observe as duas proposições P e Q apresentadas a seguir.\n\nP: Ana é engenheira.\nQ: Bianca é arquiteta.\n\nConsidere que Ana é engenheira somente se Bianca é arquiteta e assinale a alternativa correta.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Ana ser engenheira não implica Bianca ser arquiteta"
+        },
+        {
+          "letra": "B",
+          "texto": "Ana ser engenheira é condição suficiente para Bianca ser arquiteta"
+        },
+        {
+          "letra": "C",
+          "texto": "Uma condição necessária para Bianca ser arquiteta é Ana ser engenheira"
+        },
+        {
+          "letra": "D",
+          "texto": "Ana é engenheira se e somente se Bianca não é arquiteta"
+        },
+        {
+          "letra": "E",
+          "texto": "Uma condição necessária para Bianca ser arquiteta é Ana não ser engenheira"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "Tudo depende de traduzir uma expressão: “P SOMENTE SE Q” é P → Q. O “somente se” introduz o CONSEQUENTE, ao contrário do “se” sozinho, que introduz o antecedente (“P se Q” seria Q → P).\n\nEntão o enunciado dá P → Q: “Ana é engenheira” → “Bianca é arquiteta”.\n\nNuma condicional P → Q, o antecedente é a condição SUFICIENTE e o consequente é a condição NECESSÁRIA. Aqui: Ana ser engenheira é suficiente para Bianca ser arquiteta; Bianca ser arquiteta é necessária para Ana ser engenheira. A alternativa B diz exatamente a primeira metade.\n\n| alt. | o que afirma | veredito |\n|---|---|---|\n| A | ~(P → Q) | nega a própria premissa |\n| B | P é suficiente para Q | correta: é P → Q |\n| C | P é necessária para Q, ou seja Q → P | é a recíproca |\n| D | P ↔ ~Q | inventa uma bicondicional e ainda nega Q |\n| E | ~P é necessária para Q, ou seja Q → ~P | contradiz a premissa |\n\nAs alternativas C e E vivem da troca entre suficiente e necessária, que é o par que essa questão cobra: quem é suficiente aponta para frente (P → Q), quem é necessária é apontada. Trocar os dois é afirmar a recíproca, e recíproca não vem junto com a condicional."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "IBFC 2014 · questão 05 (transcrita de imagem; órgão/cargo não identificados; gabarito não conferido no PDF da banca)",
+      "dificuldade": 1,
+      "enunciado": "Sejam as proposições\n\np: 15% de 30% = 45%\nq: a quarta parte de uma dúzia é igual a 3,\n\ne considerando os valores lógicos dessas proposições, podemos afirmar que o valor lógico da proposição composta\n\n(p → q) ↔ ~p é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "falso"
+        },
+        {
+          "letra": "B",
+          "texto": "verdadeiro ou falso"
+        },
+        {
+          "letra": "C",
+          "texto": "verdade"
+        },
+        {
+          "letra": "D",
+          "texto": "inconclusivo"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "Primeiro as duas contas, que é onde a questão realmente decide.\n\np: 15% de 30% é 0,15 × 0,30 = 0,045 = 4,5%, não 45%. Porcentagem de porcentagem se MULTIPLICA; quem soma ou lê “15% de 30%” como 45% cai aqui. Então p = F.\n\nq: a quarta parte de uma dúzia é 12 ÷ 4 = 3. Então q = V.\n\nAgora a composta, de dentro para fora:\n\n| pedaço | valores | resultado |\n|---|---|---|\n| p → q | F → V | V |\n| ~p | ~F | V |\n| (p → q) ↔ ~p | V ↔ V | V |\n\nValor lógico verdadeiro — letra C.\n\nAs alternativas B (“verdadeiro ou falso”) e D (“inconclusivo”) só existem para quem não conseguiu fechar as contas: com p e q determinados, a composta tem um único valor, e não há o que ficar em aberto. Uma proposição composta de proposições com valor conhecido nunca é inconclusiva."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "IBFC · Câmara de Feira de Santana 2018 · Auxiliar Legislativo · questão sobre equivalência da condicional (transcrita de imagem; gabarito não conferido no PDF da banca)",
+      "dificuldade": 1,
+      "enunciado": "A frase “Se o aluno se formou, então conseguiu emprego” equivale logicamente a:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O aluno se formou e conseguiu emprego"
+        },
+        {
+          "letra": "B",
+          "texto": "O aluno se formou ou conseguiu emprego"
+        },
+        {
+          "letra": "C",
+          "texto": "O aluno não se formou ou conseguiu emprego"
+        },
+        {
+          "letra": "D",
+          "texto": "O aluno se formou ou não conseguiu emprego"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "p → q ≡ ~p ∨ q. Para trocar a condicional por um “ou”: nega o antecedente e repete o consequente. Só o antecedente é negado.\n\nCom p = “o aluno se formou” e q = “conseguiu emprego”: “O aluno não se formou ou conseguiu emprego” — letra C.\n\nAs tabelas confirmam que são a mesma coluna:\n\n| p | q | p → q | ~p ∨ q |\n|---|---|---|---|\n| V | V | V | V |\n| V | F | F | F |\n| F | V | V | V |\n| F | F | V | V |\n\nA alternativa D inverte quem é negado (p ∨ ~q, que equivale a q → p, a recíproca). A A troca o conectivo por “e”, o que seria afirmar as duas coisas de uma vez — bem mais forte do que a condicional diz. A B esquece a negação.\n\nCuidado com a questão vizinha: essa pede a EQUIVALÊNCIA, e ~p ∨ q é a resposta. Quando o comando pede a NEGAÇÃO de p → q, a resposta é p ∧ ~q, e aí ~p ∨ q vira o distrator mais tentador da lista. Mesma fórmula, papéis opostos — ler o comando decide a questão."
+    }
+  ]
+}

@@ -11,12 +11,13 @@ as seguintes é só quem manda no `proxima_em`.
 """
 from __future__ import annotations
 
+import re
 import uuid
 from collections.abc import Sequence
 from datetime import UTC, date, datetime
 from zoneinfo import ZoneInfo
 
-from sqlalchemy import Select, func, select
+from sqlalchemy import Select, and_, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import selectinload
 
@@ -99,6 +100,73 @@ def _com_relacoes(stmt: Select) -> Select:
 
 # ── A fila do dia ────────────────────────────────────────────────────────
 
+_ITEM_NA_ORIGEM = re.compile(r"(?:item|quest(?:ão|ao))\s+(\d+)", re.IGNORECASE)
+
+
+def _bloco(q: Questao) -> tuple[uuid.UUID, str] | None:
+    """A chave que junta os itens que dividem o mesmo texto de apoio.
+
+    É o `texto_base` que identifica o bloco, não o `comando`: o comando se
+    repete entre provas diferentes ("julgue o item a seguir"), o texto de apoio
+    não. Vai com o tópico junto porque o mesmo trecho pode ser reaproveitado por
+    outra banca em outro tópico, e aí são dois blocos, não um.
+    """
+    texto = (q.texto_base or "").strip()
+    return (q.topico_id, texto) if texto else None
+
+
+def _ordem_no_bloco(q: Questao) -> tuple[int, str]:
+    """Dentro do bloco vale a ordem da prova, não a do agendamento.
+
+    A `origem` termina em "item N" — ou "questão N", quando o bloco é de
+    múltipla escolha e a prova numera assim (contrato do `cadastrar-questao.md`)
+    —, e é esse N que põe o 16 antes do 18. Sem isto a ordenação por dificuldade
+    embaralha o bloco: foi o que aconteceu em 06/09/2026 com o texto do
+    COREN-PR, que veio 18, 16, 17.
+    """
+    achado = _ITEM_NA_ORIGEM.search(q.origem or "")
+    return (int(achado.group(1)) if achado else 10**6, q.origem or "")
+
+
+async def _irmaos_por_bloco(
+    session, questoes: Sequence[Questao]
+) -> dict[tuple[uuid.UUID, str], list[Questao]]:
+    """Todos os itens dos blocos representados em `questoes`, na ordem da prova.
+
+    Traz **inclusive os que não venceram hoje**. É o ponto da coisa: reler
+    quatro parágrafos para responder um item, e reler os mesmos quatro
+    parágrafos duas semanas depois para responder o item seguinte, é pagar o
+    custo do texto N vezes. Quando o bloco aparece, ele aparece inteiro.
+
+    Responder adiantado conta igual — a tentativa entra no log e reagenda, como
+    em qualquer treino fora da data.
+    """
+    chaves = {c for c in (_bloco(q) for q in questoes) if c is not None}
+    if not chaves:
+        return {}
+
+    stmt = (
+        _com_relacoes(select(Questao))
+        .join(Agenda, Agenda.questao_id == Questao.id)
+        .where(
+            or_(
+                *[
+                    and_(Questao.topico_id == topico, Questao.texto_base == texto)
+                    for topico, texto in chaves
+                ]
+            )
+        )
+    )
+    blocos: dict[tuple[uuid.UUID, str], list[Questao]] = {}
+    for q in (await session.scalars(stmt)).unique().all():
+        chave = _bloco(q)
+        if chave is not None:
+            blocos.setdefault(chave, []).append(q)
+    for itens in blocos.values():
+        itens.sort(key=_ordem_no_bloco)
+    return blocos
+
+
 async def fila(
     *,
     topico_id: uuid.UUID | None = None,
@@ -107,17 +175,31 @@ async def fila(
     todas: bool = False,
     limite: int = 24,
 ) -> list[Questao]:
-    """O que volta hoje, o que errei primeiro.
+    """O que volta hoje, o que errei primeiro — com os blocos inteiros.
 
     A ordem não é cronológica: `total_erros` desc antes de `proxima_em` asc.
     Quem já errou entra na frente porque é onde a revisão rende — deixar as
     erradas para o fim da sessão é deixá-las para quando o cansaço chega.
+
+    **Item que divide texto de apoio com outro não vem sozinho.** Um bloco de
+    "julgue os itens" é uma leitura só; o agendamento, que trata cada item como
+    uma questão independente, espalhava os seis por dias diferentes e cobrava a
+    leitura do texto seis vezes. Então o que o agendamento escolhe é o BLOCO:
+    basta um item vencer para os irmãos virem junto, na ordem da prova, até
+    acabar. Quem decide a posição do bloco na fila é o item mais atrasado dele —
+    o erro continua puxando para a frente.
+
+    Por isso `limite` é piso, não teto: a fila nunca corta um bloco no meio.
+    Ela para de abrir blocos novos ao alcançar o limite, e termina o que abriu.
 
     `todas=True` ignora o agendamento. Existe porque abrir um tópico e não poder
     responder nada — porque o algoritmo decidiu que hoje não é o dia — é a tela
     dizendo não a quem quer estudar. Responder fora da data **conta igual**: a
     tentativa entra no log e reagenda. A repetição espaçada me diz o mínimo que
     eu preciso rever, não o máximo que eu posso.
+
+    `questao_id` é a exceção: é o botão "responder" de UMA questão do acervo, e
+    quem clica nele pediu aquela questão, não o bloco dela.
     """
     async with get_session() as session:
         stmt = (
@@ -140,7 +222,25 @@ async def fila(
             stmt = stmt.join(Topico, Topico.id == Questao.topico_id).where(
                 Topico.modulo_id == modulo_id
             )
-        return list((await session.scalars(stmt)).unique().all())
+        vencendo = list((await session.scalars(stmt)).unique().all())
+
+        if questao_id is not None:
+            return vencendo
+
+        blocos = await _irmaos_por_bloco(session, vencendo)
+
+        saida: list[Questao] = []
+        vistos: set[uuid.UUID] = set()
+        for q in vencendo:
+            if q.id in vistos:  # já entrou junto com um irmão que veio antes
+                continue
+            if saida and len(saida) >= limite:
+                break
+            chave = _bloco(q)
+            unidade = blocos.get(chave, [q]) if chave is not None else [q]
+            saida.extend(unidade)
+            vistos.update(x.id for x in unidade)
+        return saida
 
 
 async def resumo() -> dict:
@@ -598,6 +698,38 @@ async def criar_questao(dados: dict) -> Questao:
         return await session.scalar(
             _com_relacoes(select(Questao)).where(Questao.id == questao.id)
         )
+
+
+async def apagar_questao(questao_id: uuid.UUID) -> int:
+    """Apaga uma questão só, e devolve quantas tentativas foram junto.
+
+    Sem `forcar`, ao contrário de módulo e tópico. Lá o alvo é um contêiner: o
+    clique apaga um acervo cujo tamanho eu não estou vendo, e por isso a API
+    recusa até eu confirmar com o número na mão. Aqui o alvo é a questão que
+    está aberta na gaveta, com o histórico dela na tela logo abaixo — o número
+    já está à vista antes do clique. A conta volta mesmo assim, para o aviso
+    poder dizer o que sumiu.
+
+    O que se perde é o histórico de tentativas: o `ON DELETE CASCADE` leva
+    agenda e tentativas. Questão errada de importação é para **reimportar** —
+    `scripts/importar_questoes.py` atualiza pela `origem` sem tocar no
+    agendamento. Apagar é para a questão que não devia existir.
+    """
+    async with get_session() as session:
+        questao = await session.scalar(select(Questao).where(Questao.id == questao_id))
+        if questao is None:
+            raise QuestaoNaoEncontrada(f"Questão {questao_id} não existe.")
+        n = int(
+            await session.scalar(
+                select(func.count(Tentativa.id)).where(
+                    Tentativa.questao_id == questao_id
+                )
+            )
+            or 0
+        )
+        await session.delete(questao)
+        await session.commit()
+        return n
 
 
 async def atualizar_questao(questao_id: uuid.UUID, campos: dict) -> Questao:

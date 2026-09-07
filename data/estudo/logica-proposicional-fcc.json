@@ -1,0 +1,74 @@
+{
+  "_leia_me": "Duas questões da FCC transcritas de imagem, das quais só a segunda traz identificação completa (Prefeitura de Recife 2019, Assistente de Gestão Pública). A primeira — “FCC · questão 02” — não traz ano/órgão/cargo, e por isso é frágil como chave de import: se aparecer outra “FCC · questão 02” sem identificação, as duas colidem. Identifique a prova antes de crescer este arquivo. As duas são de lógica proposicional, mas cobram coisas diferentes: a primeira é substituição de valores em fórmula, a segunda é cadeia de modus tollens (aí a armação é De Morgan sobre uma conjunção de três). Nenhum gabarito deste arquivo foi conferido no PDF da banca: ambos foram informados por mim e são verificáveis na mão. As `explicacao` são MINHAS, não da banca.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica proposicional",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "FCC · questão 02 (transcrita de imagem; ano/órgão/cargo não identificados; gabarito não conferido no PDF da banca)",
+      "dificuldade": 2,
+      "enunciado": "Dadas as proposições simples p e q, tais que p é verdadeira e q é falsa, considere as seguintes proposições compostas:\n\n(1) p ∧ q\n(2) ~p → q\n(3) ~(p ∨ ~q)\n(4) ~(p ↔ q)\n\nQuantas dessas proposições compostas são verdadeiras?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Nenhuma."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas uma."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas duas."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas três."
+        },
+        {
+          "letra": "E",
+          "texto": "Quatro."
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "Não há tabela-verdade a montar: p e q já vêm com valor fixo (p = V, q = F). Cada item é uma substituição.\n\n| # | expressão | substituindo | valor |\n|---|---|---|---|\n| 1 | p ∧ q | V ∧ F | F |\n| 2 | ~p → q | F → F | V |\n| 3 | ~(p ∨ ~q) | ~(V ∨ V) | F |\n| 4 | ~(p ↔ q) | ~(V ↔ F) | V |\n\nVerdadeiras: (2) e (4). Duas.\n\nO item 2 é o que mais derruba gente: antecedente falso torna a condicional verdadeira, seja qual for o consequente. O item 4 depende de a bicondicional só ser verdadeira com os dois lados iguais — V ↔ F é falso, e a negação de fora o levanta.\n\nA outra armadilha é o alcance da negação nos itens 3 e 4: o \"~\" age sobre o parêntese INTEIRO, não sobre a primeira proposição. Em (3) ainda há um ~q negado por dentro, que vale V — quem aplica a negação só no p lê V ∨ V como F ∨ V e troca o resultado."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "FCC 2019 · Prefeitura de Recife · Assistente de Gestão Pública · questão sobre a casa de Rosa (transcrita de imagem; gabarito informado por mim, não conferido no PDF da banca)",
+      "dificuldade": 3,
+      "enunciado": "Sempre que eu passo na frente da casa de Rosa, o cão late.\n\nSe o cão late, então o gato mia, o bebê chora e o guarda apita.\n\nQuando o bebê chora e a babá não está em casa, a mãe não dorme.\n\nSe a mãe dorme e a babá não está em casa, então",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "não passo na casa de Rosa e o guarda não apita."
+        },
+        {
+          "letra": "B",
+          "texto": "o cão não late e o guarda não apita."
+        },
+        {
+          "letra": "C",
+          "texto": "não passo na casa de Rosa e o cão não late."
+        },
+        {
+          "letra": "D",
+          "texto": "passo na casa de Rosa e o gato não mia."
+        },
+        {
+          "letra": "E",
+          "texto": "o cão não late e o gato não mia."
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "Três regras e uma situação. Antes de qualquer conta, batize tudo — a questão inteira é encadeamento, e encadeamento com frase por extenso se perde:\n\n| letra | proposição |\n|---|---|\n| p | passo na frente da casa de Rosa |\n| c | o cão late |\n| g | o gato mia |\n| b | o bebê chora |\n| a | o guarda apita |\n| n | a babá está em casa |\n| d | a mãe dorme |\n\nAs premissas, já traduzidas (repare que \"Sempre que\" e \"Quando\" são só outras roupas do **se… então**):\n\n| enunciado | fórmula |\n|---|---|\n| Sempre que eu passo na frente da casa de Rosa, o cão late | p → c |\n| Se o cão late, então o gato mia, o bebê chora e o guarda apita | c → (g ∧ b ∧ a) |\n| Quando o bebê chora e a babá não está em casa, a mãe não dorme | (b ∧ ~n) → ~d |\n\nE a situação que o comando manda supor: **d ∧ ~n** — a mãe dorme e a babá não está em casa.\n\n## A conta\n\nNenhuma premissa dispara para a frente aqui: o que se sabe é o *consequente* negado da terceira. Então o caminho é subir a corrente, três modus tollens em fila.\n\n| passo | premissa | o que já se tem | o que sai |\n|---|---|---|---|\n| 1 | (b ∧ ~n) → ~d | d é verdadeira | b ∧ ~n é falsa; como ~n é verdadeira, sobra **~b** |\n| 2 | c → (g ∧ b ∧ a) | ~b derruba a conjunção | **~c** |\n| 3 | p → c | ~c | **~p** |\n\nConclusão garantida: **não passo na casa de Rosa e o cão não late**. Letra **c**.\n\n## Por que as outras caem\n\nO gato e o guarda ficam **indefinidos**, e é nisso que a questão aposta. A conjunção `g ∧ b ∧ a` já está falsa por causa do bebê sozinho — para negar um \"e\" basta derrubar uma parcela. O gato pode estar miando, o guarda pode estar apitando, e nada disso conflita com premissa nenhuma.\n\n| item | afirma | problema |\n|---|---|---|\n| a | ~p ∧ ~a | ~p está certo, mas o guarda não foi determinado |\n| b | ~c ∧ ~a | mesmo caso: o guarda ficou solto |\n| d | p ∧ ~g | contradiz o que se provou (~p) e ainda chuta o gato |\n| e | ~c ∧ ~g | ~c está certo, o gato não foi determinado |\n\n## As duas armadilhas\n\n**Negar a conjunção inteira.** De `~(g ∧ b ∧ a)` **não** se conclui `~g ∧ ~b ∧ ~a`. A negação de um \"e\" é um \"ou\": pelo menos uma parcela é falsa — não todas. Quem esquece De Morgan aqui marca a, b ou e sem hesitar, porque acha que provou que o guarda não apita.\n\n**Andar na direção errada.** Sabendo `~b`, é tentador olhar a premissa 2 e concluir alguma coisa sobre o cão \"para a frente\". Condicional só anda para a frente com o *antecedente* verdadeiro; com o consequente falso ela anda para trás. Aqui o dado inicial (a mãe dorme) é sempre a ponta de baixo — por isso a questão só se resolve de trás para diante."
+    }
+  ]
+}

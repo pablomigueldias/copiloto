@@ -1,0 +1,44 @@
+{
+  "_leia_me": "Uma questão da CESGRANRIO transcrita de imagem. O gabarito (c) foi informado por você e NÃO conferido no PDF da banca — mas essa é a única do acervo que eu conferi por FORÇA BRUTA: rodei as 8 linhas da tabela-verdade comparando a proposição com as cinco alternativas, e só a C coincide em todas. A `explicacao` é MINHA, não da banca.\n\nDiferente do resto do acervo, essa questão é simbólica pura: não tem frase para traduzir, só álgebra de conectivos (De Morgan + distributiva). É o formato que a CESGRANRIO usa em cargo de TI.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica proposicional",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO 2018 · Transpetro · Analista de Sistemas Júnior – Infraestrutura · questão sobre De Morgan e distributiva (transcrita de imagem; gabarito não conferido no PDF da banca)",
+      "dificuldade": 3,
+      "enunciado": "A proposição p ∧ ¬(q ∧ r) é equivalente a",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "(p ∧ ¬q) ∧ (p ∧ ¬r)"
+        },
+        {
+          "letra": "B",
+          "texto": "(p ∨ ¬q) ∧ (p ∨ ¬r)"
+        },
+        {
+          "letra": "C",
+          "texto": "(p ∧ ¬q) ∨ (p ∧ ¬r)"
+        },
+        {
+          "letra": "D",
+          "texto": "(¬p ∨ q) ∧ (¬p ∨ r)"
+        },
+        {
+          "letra": "E",
+          "texto": "(¬p ∧ q) ∨ (¬p ∧ r)"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "Dois passos, nesta ordem.\n\n1. De Morgan no parêntese negado: ¬(q ∧ r) ≡ ¬q ∨ ¬r. A proposição vira p ∧ (¬q ∨ ¬r).\n2. Distributiva do ∧ sobre o ∨: p ∧ (a ∨ b) ≡ (p ∧ a) ∨ (p ∧ b). Com a = ¬q e b = ¬r, sai (p ∧ ¬q) ∨ (p ∧ ¬r) — letra C.\n\nA distributiva funciona como na aritmética, com ∧ no papel do “×” e ∨ no papel do “+”: o p de fora entra nas duas parcelas e o conectivo do MEIO se mantém. Quem troca esse conectivo do meio cai na alternativa A.\n\nAs 8 linhas confirmam:\n\n| p | q | r | q ∧ r | p ∧ ¬(q ∧ r) | (p ∧ ¬q) ∨ (p ∧ ¬r) |\n|---|---|---|---|---|---|\n| V | V | V | V | F | F |\n| V | V | F | F | V | V |\n| V | F | V | F | V | V |\n| V | F | F | F | V | V |\n| F | V | V | V | F | F |\n| F | V | F | F | F | F |\n| F | F | V | F | F | F |\n| F | F | F | F | F | F |\n\nAs colunas 5 e 6 são idênticas — é o que “equivalente” significa.\n\n| alt. | por que não |\n|---|---|\n| A | (p ∧ ¬q) ∧ (p ∧ ¬r) ≡ p ∧ ¬q ∧ ¬r, que é p ∧ ¬(q ∨ r) — exige as DUAS falsas, é mais forte |\n| B | distribuiu com o ∨ por fora e o ∧ por dentro, invertendo os dois conectivos |\n| D | negou o p, que não estava negado |\n| E | negou o p e distribuiu com as parcelas afirmadas |\n\nGuardar as duas leis resolve a família inteira: De Morgan troca o conectivo ao passar pela negação (¬(q ∧ r) vira “ou”, ¬(q ∨ r) vira “e”), e a distributiva NÃO troca o conectivo do meio."
+    }
+  ]
+}

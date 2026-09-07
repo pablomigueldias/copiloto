@@ -1,5 +1,5 @@
 {
-  "_leia_me": "Cinco questões INÉDITAS, escritas no padrão Quadrix a partir da nota `_inbox/logica-proposicional-quadrix.md` do vault. NÃO são de prova: nenhuma banca as publicou e nenhum gabarito oficial as confere. Por isso a `origem` diz \"Inédita (sem banca)\" e a `fonte` aponta a nota — na tela dá para ver de onde veio antes de discutir com o gabarito. Ao contrário do acervo de prova, aqui a `explicacao` vem preenchida: quem escreveu a questão foi a mesma nota que escreveu a resolução, então não há fonte inventada. Cobrem o que as 6 provas do Quadrix mais cobram: negação da condicional, De Morgan e valoração a partir de premissa falsa.",
+  "_leia_me": "Cinco questões INÉDITAS, escritas no padrão Quadrix a partir da nota `_inbox/logica-proposicional-quadrix.md` do vault. NÃO são de prova: nenhuma banca as publicou e nenhum gabarito oficial as confere. Por isso a `origem` diz \"Inédita (sem banca)\" e a `fonte` aponta a nota — na tela dá para ver de onde veio antes de discutir com o gabarito. Ao contrário do acervo de prova, aqui a `explicacao` vem preenchida: quem escreveu a questão foi a mesma nota que escreveu a resolução, então não há fonte inventada. Cobrem o que as 6 provas do Quadrix mais cobram: negação da condicional, De Morgan e valoração a partir de premissa falsa. NORMALIZAÇÃO DE 05/09/2026: no bloco (p ∧ q) → r, as definições de p, q e r e a premissa saíram do `comando` para o `texto_base`, no mesmo padrão dos blocos de prova. Como a questão é minha, não há fidelidade de PDF em jogo — só a forma na tela.",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
@@ -15,30 +15,33 @@
       "origem": "Inédita (sem banca) · padrão Quadrix · bloco (p ∧ q) → r · item 1",
       "fonte": "_inbox/logica-proposicional-quadrix.md",
       "dificuldade": 2,
-      "comando": "Considere as proposições simples p: “Mariana é enfermeira”; q: “Rafael é técnico de informática”; e r: “O relatório foi entregue”. Sabendo-se que a proposição composta (p ∧ q) → r é falsa, julgue o item a seguir.",
+      "comando": "Com base nessas informações, julgue o item a seguir.",
       "enunciado": "A proposição “Mariana é enfermeira e o relatório não foi entregue” é verdadeira.",
       "gabarito": "C",
-      "explicacao": "Uma condicional só é falsa em V → F. De (p ∧ q) → r ser falsa vem p ∧ q = V (logo p = V e q = V) e r = F. Então p ∧ ~r = V ∧ V = V."
+      "explicacao": "Uma condicional só é falsa em V → F.\n\nDe (p ∧ q) → r ser falsa vêm as duas pontas de uma vez: p ∧ q = V (logo p = V e q = V) e r = F.\n\nEntão p ∧ ~r = V ∧ V = V.",
+      "texto_base": "Considere as proposições simples:\n\np: “Mariana é enfermeira”\nq: “Rafael é técnico de informática”\nr: “O relatório foi entregue”\n\nSabe-se que a proposição composta (p ∧ q) → r é falsa."
     },
     {
       "formato": "certo_errado",
       "origem": "Inédita (sem banca) · padrão Quadrix · bloco (p ∧ q) → r · item 2",
       "fonte": "_inbox/logica-proposicional-quadrix.md",
       "dificuldade": 2,
-      "comando": "Considere as proposições simples p: “Mariana é enfermeira”; q: “Rafael é técnico de informática”; e r: “O relatório foi entregue”. Sabendo-se que a proposição composta (p ∧ q) → r é falsa, julgue o item a seguir.",
+      "comando": "Com base nessas informações, julgue o item a seguir.",
       "enunciado": "A proposição “Se o relatório foi entregue, então Rafael é técnico de informática” é falsa.",
       "gabarito": "E",
-      "explicacao": "r → q = F → V = V. Com antecedente falso a condicional já é verdadeira, independentemente de q. O item afirma que ela é falsa, então o item está errado."
+      "explicacao": "r → q = F → V = V.\n\nCom antecedente falso a condicional já é verdadeira, independentemente do consequente. O item afirma que ela é falsa — item errado.",
+      "texto_base": "Considere as proposições simples:\n\np: “Mariana é enfermeira”\nq: “Rafael é técnico de informática”\nr: “O relatório foi entregue”\n\nSabe-se que a proposição composta (p ∧ q) → r é falsa."
     },
     {
       "formato": "certo_errado",
       "origem": "Inédita (sem banca) · padrão Quadrix · bloco (p ∧ q) → r · item 3",
       "fonte": "_inbox/logica-proposicional-quadrix.md",
       "dificuldade": 3,
-      "comando": "Considere as proposições simples p: “Mariana é enfermeira”; q: “Rafael é técnico de informática”; e r: “O relatório foi entregue”. Sabendo-se que a proposição composta (p ∧ q) → r é falsa, julgue o item a seguir.",
+      "comando": "Com base nessas informações, julgue o item a seguir.",
       "enunciado": "A negação de (p ∧ q) → r é logicamente equivalente a “Mariana é enfermeira, Rafael é técnico de informática e o relatório não foi entregue”.",
       "gabarito": "C",
-      "explicacao": "~[(p ∧ q) → r] ≡ (p ∧ q) ∧ ~r ≡ p ∧ q ∧ ~r. A negação de uma condicional mantém o antecedente e nega o consequente — trocar isso pela contrapositiva é a pegadinha nº 1 da banca."
+      "explicacao": "~[(p ∧ q) → r] ≡ (p ∧ q) ∧ ~r ≡ p ∧ q ∧ ~r.\n\nA negação de uma condicional mantém o antecedente e nega o consequente. Trocar isso pela contrapositiva é a pegadinha nº 1 da banca.",
+      "texto_base": "Considere as proposições simples:\n\np: “Mariana é enfermeira”\nq: “Rafael é técnico de informática”\nr: “O relatório foi entregue”\n\nSabe-se que a proposição composta (p ∧ q) → r é falsa."
     },
     {
       "formato": "multipla_escolha",
@@ -47,14 +50,29 @@
       "dificuldade": 1,
       "enunciado": "Assinale a alternativa que apresenta uma proposição logicamente equivalente à negação de “O servidor está fora do ar ou o banco de dados está corrompido”.",
       "alternativas": [
-        {"letra": "A", "texto": "O servidor está fora do ar e o banco de dados está corrompido."},
-        {"letra": "B", "texto": "O servidor não está fora do ar e o banco de dados não está corrompido."},
-        {"letra": "C", "texto": "O servidor não está fora do ar ou o banco de dados não está corrompido."},
-        {"letra": "D", "texto": "Se o servidor está fora do ar, então o banco de dados está corrompido."},
-        {"letra": "E", "texto": "O servidor está fora do ar e o banco de dados não está corrompido."}
+        {
+          "letra": "A",
+          "texto": "O servidor está fora do ar e o banco de dados está corrompido."
+        },
+        {
+          "letra": "B",
+          "texto": "O servidor não está fora do ar e o banco de dados não está corrompido."
+        },
+        {
+          "letra": "C",
+          "texto": "O servidor não está fora do ar ou o banco de dados não está corrompido."
+        },
+        {
+          "letra": "D",
+          "texto": "Se o servidor está fora do ar, então o banco de dados está corrompido."
+        },
+        {
+          "letra": "E",
+          "texto": "O servidor está fora do ar e o banco de dados não está corrompido."
+        }
       ],
       "gabarito": "B",
-      "explicacao": "De Morgan: ~(a ∨ b) ≡ ~a ∧ ~b — nega as duas parcelas e troca o “ou” pelo “e”. A alternativa C mantém o “ou”, que é aplicar De Morgan pela metade; a D usa a ∨ b ≡ ~a → b, mas sem negar."
+      "explicacao": "De Morgan: ~(a ∨ b) ≡ ~a ∧ ~b — nega as duas parcelas E troca o “ou” pelo “e”.\n\nA alternativa C mantém o “ou”, que é aplicar De Morgan pela metade. A D usa a ∨ b ≡ ~a → b, mas sem negar."
     },
     {
       "formato": "multipla_escolha",
@@ -63,14 +81,29 @@
       "dificuldade": 3,
       "enunciado": "Considere a proposição composta P = (p → q) ∨ (q → r), em que p, q e r são proposições simples. Assinale a alternativa que apresenta a quantidade de linhas da tabela-verdade de P nas quais P assume o valor lógico F (falso).",
       "alternativas": [
-        {"letra": "A", "texto": "0"},
-        {"letra": "B", "texto": "1"},
-        {"letra": "C", "texto": "2"},
-        {"letra": "D", "texto": "4"},
-        {"letra": "E", "texto": "8"}
+        {
+          "letra": "A",
+          "texto": "0"
+        },
+        {
+          "letra": "B",
+          "texto": "1"
+        },
+        {
+          "letra": "C",
+          "texto": "2"
+        },
+        {
+          "letra": "D",
+          "texto": "4"
+        },
+        {
+          "letra": "E",
+          "texto": "8"
+        }
       ],
       "gabarito": "A",
-      "explicacao": "Uma disjunção só é falsa com as duas parcelas falsas. p → q é falsa somente quando q = F; q → r é falsa somente quando q = V. Como q não pode ser F e V ao mesmo tempo, não existe linha falsa: P é tautologia, 8 linhas verdadeiras. O atalho é esse — não montar as 8 linhas, e sim ver se as condições de falsidade são compatíveis."
+      "explicacao": "Uma disjunção só é falsa com as duas parcelas falsas. Então P só seria falsa se p → q e q → r fossem falsas ao mesmo tempo.\n\np → q é falsa somente quando q = F.\nq → r é falsa somente quando q = V.\n\nComo q não pode ser F e V ao mesmo tempo, não existe linha falsa: P é tautologia, 8 linhas verdadeiras.\n\nO atalho é esse — em vez de montar as 8 linhas, ver se as condições de falsidade são compatíveis entre si."
     }
   ]
 }
