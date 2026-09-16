@@ -136,12 +136,18 @@ async def _importar(caminho: Path) -> int:
                 session.add(banca)
                 await session.flush()
 
+        # `ordem` é reaplicada a cada import, e nome não. O nome no banco pode
+        # ter sido corrigido pela tela e o JSON não saberia; a ordem, não — ela
+        # só existe para posicionar o card, e quem decide a posição é o arquivo.
+        # Sem isto, reordenar a tela exigia SQL na mão.
         m = dados["modulo"]
         modulo = await session.scalar(select(Modulo).where(Modulo.nome == m["nome"]))
         if modulo is None:
             modulo = Modulo(nome=m["nome"], trilha=m.get("trilha", "concurso"), ordem=m.get("ordem", 0))
             session.add(modulo)
             await session.flush()
+        elif "ordem" in m:
+            modulo.ordem = m["ordem"]
 
         t = dados["topico"]
         topico = await session.scalar(
@@ -151,6 +157,8 @@ async def _importar(caminho: Path) -> int:
             topico = Topico(modulo_id=modulo.id, nome=t["nome"], ordem=t.get("ordem", 0))
             session.add(topico)
             await session.flush()
+        elif "ordem" in t:
+            topico.ordem = t["ordem"]
 
         for q in questoes:
             campos = {k: q.get(k) for k in CAMPOS if k in q}
