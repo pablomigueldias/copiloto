@@ -25,8 +25,11 @@ Três casos que o caminho simples erra, e que estão tratados:
 `--bloco` também é a saída para questão cujas ALTERNATIVAS são imagens (I a V
 desenhados), em que não existe "a figura" separada do resto.
 """
-import re, subprocess, sys, html
+import re
+import subprocess
+import sys
 from xml.etree import ElementTree as ET
+
 from PIL import Image
 
 NS = '{http://www.w3.org/1999/xhtml}'
@@ -46,7 +49,7 @@ def recorta(pdf, numero, saida, dpi=200, ate_alternativa=True, bloco=False):
     ws = list(palavras(pdf))
     marcas = [i for i, w in enumerate(ws)
               if re.fullmatch(r'QUEST[ÃA]O', w['t'], re.I)
-              and i + 1 < len(ws) and re.fullmatch(r'0?%d' % numero, ws[i+1]['t'])]
+              and i + 1 < len(ws) and re.fullmatch(rf'0?{numero}', ws[i+1]['t'])]
     if not marcas:
         return None
     i = marcas[0]
@@ -61,13 +64,18 @@ def recorta(pdf, numero, saida, dpi=200, ate_alternativa=True, bloco=False):
     x0, x1 = (0, coluna_meio) if esquerda else (coluna_meio, ini['larg'])
     fim_y = ini['alt']
     for w in ws[i+1:]:
-        if w['pag'] != ini['pag']: break
-        if (w['x0'] < coluna_meio) != esquerda: continue
-        if w['y0'] <= ini['y1']: continue
+        if w['pag'] != ini['pag']:
+            break
+        if (w['x0'] < coluna_meio) != esquerda:
+            continue
+        if w['y0'] <= ini['y1']:
+            continue
         if ate_alternativa and re.fullmatch(r'\(?[A-E]\)?', w['t']) and w['x0'] < x0 + (x1-x0)*0.25:
-            fim_y = w['y0']; break
+            fim_y = w['y0']
+            break
         if re.fullmatch(r'QUEST[ÃA]O', w['t'], re.I):
-            fim_y = w['y0']; break
+            fim_y = w['y0']
+            break
     # A figura é a faixa vertical sem palavra nenhuma dentro da questão: acha
     # o maior vão entre linhas de texto da coluna e recorta só ele.
     linhas = sorted({round(w['y0'], 1) for w in ws
@@ -105,7 +113,8 @@ def recorta(pdf, numero, saida, dpi=200, ate_alternativa=True, bloco=False):
     esc = img.size[0] / ini['larg']
     cx = (int(x0*esc), max(0, int(topo_y*esc) - 6), int(x1*esc),
           min(img.size[1], int(fim_y*esc) + 6))
-    if cx[3] - cx[1] < 40: return None
+    if cx[3] - cx[1] < 40:
+        return None
     img.crop(cx).save(saida)
     return saida
 
