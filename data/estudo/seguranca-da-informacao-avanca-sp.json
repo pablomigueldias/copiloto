@@ -1,0 +1,230 @@
+{
+  "_leia_me": "Seção 7 do caderno do Instituto Avança SP: as 7 questões de segurança da\n    informação e LGPD. 5,6% dos específicos. São conceitos de alto nível —\n    definição da LGPD, vocabulário de incidente e controle de acesso, ISO 27002\n    e um caso de DNS spoofing. Nenhuma exige configuração técnica.\n\n    O art. 5º da LGPD (questão 47 de Sorocaba) é o item mais cobrado do assunto\n    em qualquer banca: dado pessoal, dado pessoal sensível, dado anonimizado.\n\n    Gabarito oficial, transcrito de docs/avanca-sp/avanca-sp-especificos.md.\n    As explicações são minhas.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Segurança da informação e LGPD",
+    "ordem": 7
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 47",
+      "enunciado": "Segundo o artigo 5° da LGPD (Lei Geral de Proteção de Dados), pode-se classificar os dados em três categorias, que são:",
+      "gabarito": "D",
+      "explicacao": "A (D) é a única que traz os três nomes exatos do art. 5º da Lei 13.709/2018.\n\n| Inciso | Categoria | O que é |\n|---|---|---|\n| I | dado pessoal | informação relacionada a pessoa natural identificada ou identificável |\n| II | dado pessoal sensível | origem racial ou étnica, convicção religiosa, opinião política, filiação a sindicato ou a organização religiosa, filosófica ou política, dado referente à saúde ou à vida sexual, dado genético ou biométrico |\n| III | dado anonimizado | dado que perdeu a possibilidade de associação a um indivíduo, considerados os meios técnicos razoáveis e disponíveis na ocasião do tratamento |\n\nA divisão não é vocabulário: cada categoria tem regime próprio. O dado comum se trata pelas bases do art. 7º; o sensível exige as bases mais estreitas do art. 11 (consentimento específico e destacado, ou uma das hipóteses fechadas). O anonimizado, em regra, sai do alcance da lei pelo art. 12 — deixou de ser dado pessoal.\n\nE \"em regra\" está na lei de propósito: se a anonimização puder ser revertida com esforço razoável, o dado volta a ser pessoal. Anonimizar é um estado que se perde.\n\nAtalho: pessoal, sensível, anonimizado — I, II, III.\n\nA pegadinha da (B): \"anônimo\" não é termo da lei; o termo é \"anonimizado\", e a diferença é de história do dado — anonimizado é o que teve titular e foi tratado para perder o vínculo. A (B) ainda troca sensível por \"compartilhado\", que não existe no artigo.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Dados pessoa física, dados pessoa jurídica e dados móveis."
+        },
+        {
+          "letra": "B",
+          "texto": "Dados pessoais, dados anônimos e dados compartilhados."
+        },
+        {
+          "letra": "C",
+          "texto": "Dados característicos, dados pessoais e dados impessoais."
+        },
+        {
+          "letra": "D",
+          "texto": "Dados pessoais, dados sensíveis ou dados anonimizados."
+        },
+        {
+          "letra": "E",
+          "texto": "Dados reais, dados fictícios e dados métricos."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 42",
+      "enunciado": "A segurança da informação deve atuar de forma a estabelecer meios que evitem que a organização sofra com:",
+      "gabarito": "E",
+      "explicacao": "A pergunta é o que a segurança da informação existe para evitar, e só uma alternativa descreve um dano.\n\nEstabilidade no serviço (A) e processamento de dados (B) são o funcionamento normal — evitá-los seria evitar que o sistema trabalhasse. Acessos simultâneos (C) são esperados em qualquer sistema multiusuário; o que se controla é acesso não autorizado, não acesso concorrente. Bloqueio de pagamento (D) é assunto financeiro.\n\nRoubo de informação (E) é a única que atinge os três pilares de uma vez: quebra a confidencialidade (alguém leu o que não podia), ameaça a integridade (quem entrou pode alterar) e, se houve sequestro ou apagamento, a disponibilidade.\n\nAtalho para as questões rasas desta banca: leia o verbo do comando. \"Evitar que a organização sofra com\" pede prejuízo — três das cinco alternativas nem chegam a descrever um problema, e isso já resolve.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Estabilidade no serviço."
+        },
+        {
+          "letra": "B",
+          "texto": "Processamento de dados."
+        },
+        {
+          "letra": "C",
+          "texto": "Acessos simultâneos."
+        },
+        {
+          "letra": "D",
+          "texto": "Bloqueios de pagamentos."
+        },
+        {
+          "letra": "E",
+          "texto": "Roubo de informações."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 43",
+      "enunciado": "Entre os conceitos associados à segurança da informação, o acesso não autorizado a uma informação organizacional é classificado como:",
+      "gabarito": "B",
+      "explicacao": "Acesso não autorizado é o exemplo clássico de incidente de segurança: o evento que de fato comprometeu a confidencialidade, a integridade ou a disponibilidade da informação.\n\nVale fixar a cadeia inteira, porque a banca cobra os degraus vizinhos:\n\n| Termo | O que é |\n|---|---|\n| Ativo | o que tem valor — a informação, o sistema, o equipamento |\n| Ameaça | a causa potencial do dano (o atacante, o incêndio, o erro humano) |\n| Vulnerabilidade | a fraqueza do ativo que a ameaça explora |\n| Evento | qualquer ocorrência observada que possa ter significado para a segurança |\n| Incidente | o evento (ou série) que de fato compromete a segurança |\n| Impacto | a consequência do incidente — prejuízo, multa, parada |\n\nA (D) é o distrator que merece atenção: impacto é o que veio depois. Acesso não autorizado é o acontecimento; o vazamento que se segue, a multa da ANPD e o dia de indisponibilidade são o impacto dele.\n\nAtalho: evento é o que acontece, incidente é o que acontece e machuca, impacto é o quanto machucou.\n\n\"Ativo corrompido\", \"ativo violado\" e \"desapropriação\" não são termos da ISO 27001/27002 — são inventados, e o formato preferido desta banca.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Ativo corrompido."
+        },
+        {
+          "letra": "B",
+          "texto": "Incidente de segurança."
+        },
+        {
+          "letra": "C",
+          "texto": "Ativo violado."
+        },
+        {
+          "letra": "D",
+          "texto": "Impacto."
+        },
+        {
+          "letra": "E",
+          "texto": "Desapropriação."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 44",
+      "enunciado": "Dando importância às categorias de serviços de segurança a serem considerados no contexto da segurança da informação, podemos afirmar que a categoria que trata de limitar e controlar a entrada lógico/físico aos ativos de uma organização por meio dos processos de identificação, autenticação e autorização, com o objetivo de proteger os recursos contra acessos não autorizados, corresponde a(o):",
+      "gabarito": "E",
+      "explicacao": "Identificação, autenticação e autorização é o tripé do controle de acesso, e o enunciado cita os três na ordem.\n\n| Etapa | A pergunta que ela responde | Exemplo |\n|---|---|---|\n| Identificação | quem você diz que é | o login digitado |\n| Autenticação | você prova que é | senha, token, biometria |\n| Autorização | o que você pode fazer | perfil, ACL, permissão de pasta |\n| Auditoria | o que você fez | log, trilha |\n\nO enunciado ainda dá duas pistas de que é controle de acesso e não outra coisa: fala em \"lógico/físico\" — a categoria cobre catraca e crachá tanto quanto senha — e diz \"proteger os recursos contra acessos não autorizados\", que é a definição.\n\nA (D) é o distrator bom. Autenticidade é uma propriedade da informação (ela é mesmo de quem diz ser), e a autenticação é uma das etapas citadas — mas é uma peça, não a categoria. Quem lê rápido vê a palavra repetida e marca.\n\nAtalho: identificar, autenticar, autorizar, auditar. As três primeiras juntas são controle de acesso; a quarta é o que prova depois.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Controle de conformidade."
+        },
+        {
+          "letra": "B",
+          "texto": "Controle de disponibilidade."
+        },
+        {
+          "letra": "C",
+          "texto": "Controle de não repúdio."
+        },
+        {
+          "letra": "D",
+          "texto": "Controle de autenticidade."
+        },
+        {
+          "letra": "E",
+          "texto": "Controle de acesso."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 45",
+      "enunciado": "Com relação à implantação da política de controle de criptografia para proteção da informação, marcar C para as afirmativas Certas, E para as Erradas e, após, assinalar a alternativa que apresenta a sequência CORRETA:\n\n( ) Convém que seja considerada a abordagem da Direção quanto ao uso de controles criptográficos em toda a organização, incluindo os princípios gerais sob os quais as informações de negócio sejam protegidas.\n( ) Convém que seja considerado o uso de criptografia para a proteção de informações sensíveis transportadas em dispositivos móveis, mídias removíveis ou através de linhas de comunicação.\n( ) Convém que seja considerado o impacto do uso de informações cifradas em controles que dependem da inspeção de conteúdo (por exemplo, detecção de malware).",
+      "gabarito": "A",
+      "explicacao": "As três são recomendações da ISO/IEC 27002 sobre a política de uso de controles criptográficos, e todas são certas — sequência C – C – C.\n\nA primeira é a regra de que a política nasce da direção, não da equipe técnica: quem decide o que vale ser protegido é quem responde pelo negócio.\n\nA segunda é o escopo clássico — cifrar dado sensível em trânsito (linhas de comunicação) e em repouso fora do perímetro (notebook, pen drive, backup em mídia removível). É onde o dado sai do controle físico da organização.\n\nA terceira é a menos óbvia e a mais interessante: a norma manda pesar o efeito da cifragem sobre os controles que dependem de inspecionar conteúdo. Cifrar tudo cega o antivírus de borda, o IDS/IPS, o filtro de DLP e o anti-spam — eles passam a ver um fluxo opaco. Não é argumento para não cifrar; é argumento para decidir onde o tráfego é decifrado e inspecionado antes de seguir.\n\nAtalho para \"marcar C/E\" nesta banca: item que começa com \"convém que seja considerado\" quase sempre é transcrição literal de norma, e norma raramente é absurda. Desconfie do item que traz \"sempre\", \"nunca\", \"independentemente\" ou \"apenas\" — é aí que mora o E.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "C – C – C."
+        },
+        {
+          "letra": "B",
+          "texto": "C – C – E."
+        },
+        {
+          "letra": "C",
+          "texto": "C – E – E."
+        },
+        {
+          "letra": "D",
+          "texto": "E – C – E."
+        },
+        {
+          "letra": "E",
+          "texto": "E – E – E."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 38",
+      "enunciado": "No trato com os sistemas, em uma empresa, deve-se dar particular atenção ao problema que envolve os aspectos de segurança. Observa-se as afirmações a seguir.\n\nDadas as afirmações, são verdadeiras:",
+      "gabarito": "E",
+      "explicacao": "São verdadeiras a I e a III — alternativa (E).\n\nA I e a III descrevem o que a segurança em sistemas de informação persegue: dado completo, preciso e autorizado (que é integridade somada a controle de acesso) e proteção contra erro acidental e contra fraude.\n\nA II cai por uma palavra: \"apenas\". \"Proporcionar segurança apenas contra destruição acidental dos registros\" reduz a segurança ao acidente, e deixa de fora fraude, sabotagem, acesso indevido e vazamento — que são justamente o que a I e a III citam. Fosse sem o \"apenas\", a afirmação estaria certa.\n\nAtalho de prova: em questão de \"quais afirmações são verdadeiras\", passe primeiro caçando quantificador — apenas, somente, sempre, nunca, exclusivamente, todo, nenhum. O erro plantado está num deles com frequência muito acima do acaso, e achar um já elimina metade das alternativas.\n\nAqui, eliminada a II, sobram (B) apenas III, (D) apenas I e (E) I e III. Como a I e a III são as duas defensáveis, a (E) é a única possível.",
+      "dificuldade": 2,
+      "afirmacoes": [
+        "Assegurar que só sejam processados dados completos, precisos e devidamente autorizados.",
+        "Proporcionar segurança apenas contra destruição acidental dos registros.",
+        "Evitar erros acidentais ou manipulação fraudulenta de dados."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I, II e III."
+        },
+        {
+          "letra": "B",
+          "texto": "apenas III."
+        },
+        {
+          "letra": "C",
+          "texto": "I e II."
+        },
+        {
+          "letra": "D",
+          "texto": "apenas I."
+        },
+        {
+          "letra": "E",
+          "texto": "I e III."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 39",
+      "enunciado": "A segurança e precaução contra ameaças, isto é, malwares, spywares e outros softwares maliciosos nos sistemas, é um tema cada vez mais abordado atualmente. O DNS spoofing, uma medida de invasão, constitui:",
+      "gabarito": "C",
+      "explicacao": "DNS spoofing é envenenar a resolução de nomes. O atacante faz o servidor DNS (ou o cache do resolvedor, ou o arquivo hosts da vítima) devolver um IP falso para um domínio legítimo: a vítima digita o endereço certo, o navegador mostra o endereço certo, e o tráfego vai para o servidor do atacante.\n\nPor que funciona: o DNS nasceu sem autenticação. A resposta é UDP, sem sessão e sem assinatura, então basta chegar antes da resposta verdadeira e com os campos casando. É esse buraco que o DNSSEC fecha, assinando as respostas.\n\nO que se colhe depois: página de banco clonada que recebe a senha, atualização de software substituída por binário malicioso, e-mail redirecionado. O spoofing em si não rouba nada — ele coloca o atacante no caminho, e o roubo vem do que está no fim do caminho.\n\nA (D) é o distrator bom: \"brecha no servidor DNS permitindo a exploração dos endereços expostos\" soa parecido, mas descreve explorar uma vulnerabilidade do servidor para ler dados dele. O spoofing não precisa invadir o servidor — precisa que a vítima acredite na resposta.\n\nAtalho: spoofing é falsificar identidade. No DNS, a identidade falsificada é a do domínio.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "uma técnica de hacking que utiliza de realocação de endereços IP de provedoras."
+        },
+        {
+          "letra": "B",
+          "texto": "um software que coleta secretamente o endereço IP."
+        },
+        {
+          "letra": "C",
+          "texto": "a manipulação de um servidor DNS para instalar um endereço IP falso."
+        },
+        {
+          "letra": "D",
+          "texto": "uma brecha no servidor DNS, permitindo a exploração dos endereços expostos."
+        },
+        {
+          "letra": "E",
+          "texto": "uma falha de endereçamento no sistema operacional que permite a execução de um código malicioso."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1249 @@
+{
+  "_leia_me": "Seção 3 do caderno do Instituto Avança SP: as questões de engenharia de\n    software, métodos ágeis e UML, todas da prova de Sorocaba 2022 (Analista de\n    Sistemas I) — o precedente mais próximo de um cargo de desenvolvimento.\n    16,8% dos específicos.\n\n    São 19 questões, não 21. A questão 32 de Sorocaba (princípios do XP) foi\n    ANULADA pela banca e por isso não entra. Questão anulada não tem gabarito, e\n    o acervo exige um — importá-la com um palpite seria fabricar resposta que a\n    banca não deu. Ela continua registrada no caderno em\n    docs/avanca-sp/avanca-sp-especificos.md. E a questão 38 (as quatro dimensões\n    da ITIL 4) saiu daqui em 15/09/2026 para\n    governanca-gestao-ti-avanca-sp.json: ITIL é gerenciamento de serviço, não\n    engenharia de software, e o acervo já tem o tópico onde ela encosta nas\n    outras 27 questões de ITIL, COBIT e PMBOK.\n\n    Três questões dependem de figura, e as três figuras foram recuperadas para\n    data/estudo/imagens/avanca-sp/: o diagrama de casos de uso do automóvel\n    (questões 48 e 49, que a prova encadeou) e o diagrama de estados do\n    empréstimo (questão 50). Como cada item precisa funcionar sozinho na\n    revisão, a imagem foi repetida nas duas questões do par e os enunciados\n    foram desamarrados do \"duas próximas questões\" e do \"diagrama acima\".\n\n    Gabarito oficial das provas, transcrito do caderno. Não reabri o PDF.\n    As explicações são minhas.\n\nACRÉSCIMO DE 15/09/2026 — 21 questões de seis provas novas, transcritas dos cadernos em\n    docs/avanca-sp/Provas/: Americana 2022 (Analista Programador de Sistemas, 10 questões),\n    Embu-Guaçu 2023 (4), Taboão da Serra 2022 (3), UNITAU 2025 (2), Amparo 2022 (1) e\n    Rio Claro 2026 (1). O gabarito de todas foi lido no PDF de gabarito da própria banca, no\n    bloco do cargo correto — definitivo em Americana, Amparo, Taboão, Embu-Guaçu e Rio Claro;\n    PRELIMINAR na UNITAU, que é a ressalva a carregar. As explicações são MINHAS, escritas a\n    partir do gabarito; nenhuma banca assina nenhuma delas.\n\n    Cinco dependem de figura, e as cinco figuras foram recortadas para\n    data/estudo/imagens/avanca-sp/ pelo scripts/recortar_figura_avanca_sp.py.\n\n    A prova de Embu-Guaçu usa alternativa-parágrafo: cinco opções longas e parecidas, decididas\n    por uma ou duas palavras. Vale treinar a leitura por termo discriminante, não por leitura\n    integral das cinco.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Engenharia de software, ágil e UML",
+    "ordem": 3
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 21",
+      "enunciado": "Atualmente, muitas instituições têm se preocupado em criar normas para permitir o desenvolvimento de softwares de qualidade. Qual das alternativas a seguir é da norma responsável pelas características da qualidade de produtos de software?",
+      "gabarito": "D",
+      "explicacao": "**ISO/IEC 9126** — a norma de qualidade de **produto** de software. Ela define o modelo de seis características que a questão seguinte desta mesma prova cobra.\n\nO CMMI (A) é o distrator bom, porque também é referência de qualidade — só que de outra coisa:\n\n| | ISO 9126 | CMMI |\n|---|---|---|\n| Avalia | o **produto** pronto | a **maturidade do processo** de quem produz |\n| Pergunta | este software é bom? | esta organização sabe produzir software de forma repetível? |\n| Resultado | características e subcaracterísticas | nível de maturidade de 1 a 5 |\n\nVale saber que a 9126 foi **substituída pela ISO/IEC 25010**, da família SQuaRE (25000). A 25010 reorganizou o modelo em oito características, acrescentando **segurança** e **compatibilidade** às seis originais. Bancas ainda cobram a 9126 com muito mais frequência, mas se a 25010 aparecer como alternativa junto com a 9126 num enunciado atual, é ela.\n\nAs outras — \"ISO 2019\", \"ISO 4036\", \"NBR 5000\" — não existem com esse conteúdo.\n\nAtalho para a família de normas de software: 9126 (e 25010) é qualidade de produto; 12207 é ciclo de vida do software; 15504/SPICE e CMMI são maturidade de processo; 9001 é sistema de gestão da qualidade, genérico, de qualquer setor.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "CMMI."
+        },
+        {
+          "letra": "B",
+          "texto": "ISO 2019."
+        },
+        {
+          "letra": "C",
+          "texto": "ISO 4036."
+        },
+        {
+          "letra": "D",
+          "texto": "ISO 9126."
+        },
+        {
+          "letra": "E",
+          "texto": "NBR 5000."
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 22",
+      "enunciado": "Medir a qualidade do software é uma das maiores dificuldades da engenharia. Para auxiliar nisso, a norma fornece um modelo de propósito geral que define seis categorias de características de qualidade de software. Dentre as alternativas a seguir, qual NÃO é uma dessas características?",
+      "gabarito": "E",
+      "explicacao": "\"Imutabilidade\" — alternativa (E). Não está na lista, e nem faria sentido estar: software bom é justamente o que se deixa modificar.\n\nAs **seis características da ISO/IEC 9126**, que vale decorar porque caem inteiras:\n\n| Característica | A pergunta que ela responde |\n|---|---|\n| Funcionalidade | faz o que deveria fazer? |\n| Confiabilidade | continua funcionando ao longo do tempo e depois de uma falha? |\n| Usabilidade | é fácil de entender, aprender e operar? |\n| Eficiência | usa bem tempo e recursos? |\n| Manutenibilidade | é fácil de corrigir e de alterar? |\n| Portabilidade | roda em outro ambiente sem drama? |\n\nQuatro delas estão nas alternativas; a quinta e a sexta (manutenibilidade e portabilidade) ficaram de fora, e é por isso que sobra uma só de fora da lista.\n\nRepare que **manutenibilidade** é o oposto exato do que a (E) propõe. A norma trata a capacidade de mudar como qualidade; a \"imutabilidade\" seria o defeito.\n\nMnemônico dos seis: **FUCEMP** — Funcionalidade, Usabilidade, Confiabilidade, Eficiência, Manutenibilidade, Portabilidade.\n\nSe a questão for sobre a ISO 25010, que substituiu a 9126, são oito: as seis acima (com \"eficiência\" virando \"eficiência de desempenho\" e \"funcionalidade\" virando \"adequação funcional\") mais **segurança** e **compatibilidade**.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Usabilidade."
+        },
+        {
+          "letra": "B",
+          "texto": "Eficiência."
+        },
+        {
+          "letra": "C",
+          "texto": "Confiabilidade."
+        },
+        {
+          "letra": "D",
+          "texto": "Funcionalidade."
+        },
+        {
+          "letra": "E",
+          "texto": "Imutabilidade."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 23",
+      "enunciado": "Conhecido como um dos primeiros modelos de desenvolvimento e derivado de processos mais gerais da engenharia de sistemas, o modelo cascata é conhecido assim por causa do encadeamento entre uma fase e outra. É o exemplo de um processo dirigido a planos. Com base nesse modelo, avalie as afirmações a seguir.\n\nEstão corretas as afirmações:",
+      "gabarito": "A",
+      "explicacao": "As três estão corretas — alternativa (A).\n\n**I** descreve a primeira fase do cascata: levantamento e análise de requisitos, feita com o cliente, antes de qualquer projeto ou código.\n\n**II e III** são as duas críticas clássicas ao modelo, e são as razões pelas quais o ágil existe.\n\nAs fases do cascata, na ordem, com a característica que define o modelo:\n\n| # | Fase | |\n|---|---|---|\n| 1 | Análise e definição de requisitos | |\n| 2 | Projeto do sistema e do software | cada fase só começa quando |\n| 3 | Implementação e teste unitário | a anterior termina e é |\n| 4 | Integração e teste do sistema | aprovada — daí o nome |\n| 5 | Operação e manutenção | |\n\n**A rigidez (II)** vem daí: o encadeamento é sequencial e a revisão de uma fase anterior custa refazer tudo o que veio depois. O primeiro executável aparece na fase 3, tarde.\n\n**A falta de feedback (III)** é consequência direta: o cliente participa no levantamento e reaparece na homologação. Entre os dois momentos pode passar um ano, e o requisito que ele descreveu no começo já mudou.\n\nOnde o cascata ainda é a escolha certa — e isso cai em prova: quando os requisitos são estáveis e bem compreendidos desde o início, e quando há exigência regulatória ou contratual de documentação prévia completa (sistema embarcado crítico, projeto de órgão público com escopo fechado em edital).\n\nAtalho de \"quais afirmações estão corretas\" nesta banca: procure quantificador absoluto. Nenhuma das três tem \"sempre\", \"apenas\" ou \"nunca\" — e é por isso que passam todas.",
+      "dificuldade": 2,
+      "afirmacoes": [
+        "Na primeira etapa é feito o levantamento de requisitos com o cliente, para entender suas expectativas e definir quais funcionalidades devem ser implementadas no sistema.",
+        "O modelo cascata é inflexível, já que uma vez iniciado, todas as etapas são executadas e o primeiro resultado só é visto no final.",
+        "Outro problema do modelo em cascata é a falta de feedback do cliente, já que a interação dele com a equipe de desenvolvimento geralmente acontece somente no início e no fim do projeto."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I, II e III."
+        },
+        {
+          "letra": "B",
+          "texto": "I e II, apenas."
+        },
+        {
+          "letra": "C",
+          "texto": "II e III, apenas."
+        },
+        {
+          "letra": "D",
+          "texto": "I e III, apenas."
+        },
+        {
+          "letra": "E",
+          "texto": "I, apenas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 24",
+      "enunciado": "\"Os __________ de um sistema são as descrições do que um sistema deve fazer, os serviços que oferece e as restrições a seu funcionamento. Refletem as necessidades dos clientes para um sistema que serve a uma finalidade determinada. O processo de descobrir, analisar, documentar e verificar esses serviços e restrições é chamado engenharia de requisitos.\"\n\nQual das alternativas a seguir completa corretamente a lacuna?",
+      "gabarito": "B",
+      "explicacao": "**Requisitos**. A definição é literal do Sommerville, e a última frase do próprio enunciado entrega a lacuna: \"o processo de descobrir, analisar, documentar e verificar esses serviços e restrições é chamado **engenharia de requisitos**\".\n\nA definição tem três partes, e cada uma vale:\n\n- **\"o que um sistema deve fazer\"** — os requisitos funcionais;\n- **\"as restrições a seu funcionamento\"** — os não funcionais;\n- **\"refletem as necessidades dos clientes\"** — a origem: requisito nasce do cliente, não da equipe técnica.\n\nOnde as outras erram: \"casos de uso\" (D) é o distrator bom, porque casos de uso **documentam** requisitos funcionais — mas são uma técnica de representação, não a categoria. Nem todo requisito vira caso de uso (os não funcionais, em geral, não viram). \"Softwares\", \"sistemas\" e \"projetos\" são o objeto, não a descrição dele.\n\nAtalho de questão de lacuna: leia a frase até o fim antes de escolher. A definição de um termo quase sempre repete o termo em algum lugar — aqui, em \"engenharia de requisitos\".",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Softwares."
+        },
+        {
+          "letra": "B",
+          "texto": "Requisitos."
+        },
+        {
+          "letra": "C",
+          "texto": "Sistemas."
+        },
+        {
+          "letra": "D",
+          "texto": "Casos de uso."
+        },
+        {
+          "letra": "E",
+          "texto": "Projetos."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 25",
+      "enunciado": "Na engenharia de requisitos, os requisitos podem ser classificados como:",
+      "gabarito": "A",
+      "explicacao": "**Funcionais e não funcionais** — a classificação fundamental da engenharia de requisitos.\n\n| | Requisito funcional | Requisito não funcional |\n|---|---|---|\n| Responde | **o que** o sistema faz | **com que qualidade** ele faz |\n| Forma típica | \"o sistema deve permitir que o usuário emita segunda via do boleto\" | \"a emissão deve responder em até 2 segundos para 500 usuários simultâneos\" |\n| Verificação | teste funcional: fez ou não fez | medição contra um limite |\n| Se falhar | falta funcionalidade | o sistema faz tudo e mesmo assim é inutilizável |\n\nOs não funcionais se subdividem, e a subdivisão cai:\n\n- **De produto** — desempenho, usabilidade, confiabilidade, segurança, portabilidade (é aqui que a ISO 9126 encosta na engenharia de requisitos);\n- **Organizacionais** — padrão de codificação, processo, ferramenta obrigatória;\n- **Externos** — legais (LGPD), regulatórios, de interoperabilidade com outro sistema.\n\nUm detalhe que costuma separar quem estudou: requisito não funcional é frequentemente **mais crítico** que funcional. Um sistema que faz tudo mas leva 40 segundos por tela não é entregue; a falha de um não funcional pode inviabilizar o produto inteiro, enquanto a falha de um funcional normalmente degrada uma parte.\n\nAs outras quatro alternativas são pares inventados — \"requisitos próprios\", \"manuais e automatizados\", \"independentes\" não são categorias da disciplina.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Requisitos funcionais e não funcionais."
+        },
+        {
+          "letra": "B",
+          "texto": "Requisitos do sistema e requisitos próprios."
+        },
+        {
+          "letra": "C",
+          "texto": "Requisitos manuais e requisitos automatizados."
+        },
+        {
+          "letra": "D",
+          "texto": "Requisitos e funções."
+        },
+        {
+          "letra": "E",
+          "texto": "Requisitos não funcionais e requisitos independentes."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 26",
+      "enunciado": "Sobre especificação de requisitos, analise as afirmações a seguir.\n\nEstão corretas as afirmações:",
+      "gabarito": "E",
+      "explicacao": "As três estão corretas — alternativa (E).\n\n**I.** Requisito bom é claro, inequívoco, completo e consistente. São as qualidades canônicas de uma especificação, e cada uma tem um vício correspondente: ambiguidade (\"o sistema deve ser rápido\"), omissão (o caso de erro que ninguém descreveu) e contradição (dois requisitos que se excluem).\n\n**II.** Requisito de usuário é escrito em **linguagem natural**, para quem não é técnico. A distinção que a questão cobra:\n\n| | Requisito de usuário | Requisito de sistema |\n|---|---|---|\n| Para quem | cliente, gestor, usuário final | equipe técnica, fornecedor |\n| Linguagem | natural, com diagramas simples | detalhada, estruturada, por vezes formal |\n| Nível | o que o sistema deve oferecer | como os serviços e restrições se definem em detalhe |\n\n**III.** O documento de requisitos **não** deve trazer arquitetura nem projeto — e é a que mais gera dúvida, então vale a razão: requisito diz **o quê**; arquitetura diz **como**. Misturar os dois fecha soluções cedo demais, amarra o fornecedor a uma tecnologia antes de a necessidade estar entendida, e confunde o leitor sobre o que é obrigação e o que é sugestão.\n\nA exceção que confirma a regra: quando a tecnologia **é** uma exigência do cliente (\"deve rodar sobre o Oracle que já temos\"), isso é um requisito não funcional organizacional, e aí sim entra no documento — como restrição, não como projeto.\n\nAtalho: requisito = o quê e por quê. Projeto = como.",
+      "dificuldade": 2,
+      "afirmacoes": [
+        "Idealmente, os requisitos de usuário e de sistema devem ser claros, inequívocos, de fácil compreensão, completos e consistentes.",
+        "Os requisitos de usuário para um sistema devem descrever todos os requisitos de modo que sejam compreensíveis para usuários do sistema que não tenham conhecimento técnico detalhado.",
+        "O documento de requisitos não deve incluir detalhes da arquitetura ou projeto do sistema."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I, somente."
+        },
+        {
+          "letra": "B",
+          "texto": "I e II, somente."
+        },
+        {
+          "letra": "C",
+          "texto": "II e III, somente."
+        },
+        {
+          "letra": "D",
+          "texto": "I e III, somente."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 27",
+      "enunciado": "O processo de engenharia de requisitos pode incluir quatro atividades de alto nível. Correlacione as definições a seguir:\n\nI – Avaliar se o sistema é útil para a empresa.\nII – Descobrir os requisitos.\nIII – Converter requisitos em uma forma padrão.\nIV – Verificar se os requisitos realmente definem o sistema que o cliente quer.\n\n( ) Validação.\n( ) Especificação.\n( ) Estudo de viabilidade.\n( ) Elicitação e análise.\n\nA ordem das relações de cima para baixo é:",
+      "gabarito": "D",
+      "explicacao": "A ordem é **IV, III, I, II** — alternativa (D).\n\nCasando uma a uma, na ordem em que as atividades aparecem na lista de baixo:\n\n| Atividade listada | Definição | Número |\n|---|---|---|\n| Validação | verificar se os requisitos definem o sistema que o cliente quer | IV |\n| Especificação | converter requisitos em forma padrão | III |\n| Estudo de viabilidade | avaliar se o sistema é útil para a empresa | I |\n| Elicitação e análise | descobrir os requisitos | II |\n\nA ordem **cronológica** do processo é outra, e é a que vale guardar: viabilidade → elicitação e análise → especificação → validação. A questão listou as atividades fora dessa ordem de propósito, e é isso que ela está testando.\n\nO que cada uma é, em uma linha:\n\n- **Estudo de viabilidade** — vale a pena? Cabe no orçamento, na tecnologia disponível, nos processos da empresa? É a decisão de seguir ou não.\n- **Elicitação e análise** — descobrir. Entrevista, observação, workshop, prototipagem, análise de documento. \"Elicitar\" é extrair: o cliente raramente sabe dizer o que precisa de forma completa.\n- **Especificação** — escrever em forma padrão, para ser lido, verificado e contratado.\n- **Validação** — conferir se o que foi escrito é mesmo o que o cliente quer, antes de construir.\n\nA (A) é o distrator plantado: acerta os dois primeiros e troca os dois últimos, que é exatamente o erro de quem casa \"validação\" e \"especificação\" e depois marca no automático.\n\nNão confunda **verificação** com **validação**: verificação pergunta \"estamos construindo o produto **do jeito certo**?\", isto é, conforme a especificação; validação pergunta \"estamos construindo o **produto certo**?\", isto é, o que o cliente quer.",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "IV, III, II, I."
+        },
+        {
+          "letra": "B",
+          "texto": "I, II, III, IV."
+        },
+        {
+          "letra": "C",
+          "texto": "II, III, IV, I."
+        },
+        {
+          "letra": "D",
+          "texto": "IV, III, I, II."
+        },
+        {
+          "letra": "E",
+          "texto": "III, I, IV, II."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 28",
+      "enunciado": "Sobre um diagrama de estados, é correto afirmar que:",
+      "gabarito": "B",
+      "explicacao": "A (B): o diagrama de estados é frequentemente usado para modelar **sistemas de tempo real**.\n\nPor quê: o diagrama de estados descreve um objeto **reativo** — um objeto cujo comportamento depende da situação em que ele está no momento em que o evento chega. Um elevador que recebe \"chamar\" responde de um jeito parado e de outro em movimento. Sistema de tempo real (controle industrial, embarcado, protocolo de comunicação) é feito disso: eventos externos chegando a um objeto com memória de estado.\n\nOs elementos: estado (retângulo arredondado), transição (seta rotulada pelo **evento** que a dispara), guarda entre colchetes (condição para a transição valer), estado inicial (círculo preenchido) e final (círculo duplo).\n\nOnde as outras erram:\n\n| Alternativa | De que diagrama ela fala |\n|---|---|\n| (A) lógica de procedimento, processo de negócio, fluxo de trabalho | **atividades** |\n| (C) transformar classe em tabela | mapeamento objeto-relacional — não é diagrama UML |\n| (D) mostra uma atividade constituída de ações | **atividades**, de novo |\n| (E) comunicação entre os participantes | **comunicação** (ou sequência) |\n\nA (A) e a (D) descrevem o mesmo diagrama por dois ângulos, e isso é uma pista: quando duas alternativas dizem a mesma coisa, nenhuma das duas é a resposta de uma questão de resposta única.\n\nAtalho para separar os três que mais se confundem: **estados** = um objeto, vários estados. **Atividades** = um fluxo, várias ações (é o fluxograma da UML). **Sequência** = vários objetos, mensagens no tempo.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Descreve a lógica de procedimento, processo de negócio e fluxo de trabalho."
+        },
+        {
+          "letra": "B",
+          "texto": "É frequentemente usado para modelagem de sistemas de tempo real."
+        },
+        {
+          "letra": "C",
+          "texto": "Há padrões definidos para transformação de um objeto (classe) em um registro (tabela)."
+        },
+        {
+          "letra": "D",
+          "texto": "Mostra uma atividade, constituída de ações."
+        },
+        {
+          "letra": "E",
+          "texto": "Serve para mostrar a comunicação entre os participantes do sistema."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 29",
+      "enunciado": "Sobre o teste de unidade, avalie as afirmações a seguir.\n\nEstão corretas as afirmações:",
+      "gabarito": "A",
+      "explicacao": "Corretas a I e a II — alternativa (A).\n\n**I — certa.** Teste de unidade verifica a menor parte testável do software isoladamente: uma função, um método, uma classe.\n\n**II — certa.** Unidades são independentes por definição, então podem ser testadas em paralelo; é o que os frameworks modernos fazem para acelerar a suíte.\n\n**III — falsa, por causa de \"todos\".** Testar todos os caminhos lógicos possíveis é inviável. O número de caminhos cresce de forma combinatória com os desvios: cada `if` dobra, cada laço multiplica, e um método de tamanho comum pode ter mais caminhos do que se consegue enumerar.\n\nÉ justamente por isso que existem **critérios de cobertura** — aproximações que dão garantia parcial a custo finito:\n\n| Critério | O que exige |\n|---|---|\n| Cobertura de comando | cada linha executada ao menos uma vez |\n| Cobertura de decisão (ramo) | cada `if` avaliado verdadeiro **e** falso |\n| Cobertura de condição | cada condição atômica avaliada nos dois valores |\n| Cobertura de caminho | **todos** os caminhos — o critério da afirmação III, inatingível na prática |\n\nO nome disso é teste **exaustivo**, e a impossibilidade dele é um dos princípios de teste do ISTQB: \"teste exaustivo é impossível\". Outro princípio da mesma lista, que cai junto: \"teste mostra a presença de defeitos, não a ausência\".\n\nAtalho: em afirmação sobre teste, a palavra \"todos\" quase sempre transforma verdade em mentira. Testar todos os caminhos, todas as entradas, todas as combinações — nenhum desses é viável.",
+      "dificuldade": 2,
+      "afirmacoes": [
+        "Verificação da menor unidade de projeto de software.",
+        "Pode ser realizado em paralelo para múltiplos módulos.",
+        "Devem ser testados todos os possíveis caminhos lógicos."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I e II, apenas."
+        },
+        {
+          "letra": "B",
+          "texto": "II e III, apenas."
+        },
+        {
+          "letra": "C",
+          "texto": "I, II e III."
+        },
+        {
+          "letra": "D",
+          "texto": "I e III, apenas."
+        },
+        {
+          "letra": "E",
+          "texto": "III, apenas."
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 30",
+      "enunciado": "Sobre os processos de desenvolvimento ágil é INCORRETO afirmar que:",
+      "gabarito": "B",
+      "explicacao": "A incorreta é a (B): no ágil, o processo se molda à necessidade do **cliente e do negócio**, não à conveniência dos desenvolvedores. Troque uma palavra e a afirmação vira verdadeira — é assim que esta banca esconde o erro.\n\nAs outras quatro são leituras diretas do Manifesto Ágil e dos seus princípios:\n\n| Alternativa | Princípio correspondente |\n|---|---|\n| (A) ênfase na entrega rápida | \"entregar software funcionando com frequência, de poucas semanas a poucos meses\" |\n| (C) comunicação com o cliente e aceitação de mudanças | dois valores de uma vez: colaboração com o cliente sobre negociação de contrato; responder a mudanças sobre seguir um plano |\n| (D) adaptabilidade | o mesmo valor, por outro nome |\n| (E) valor progressivo conforme as necessidades do cliente | \"nossa maior prioridade é satisfazer o cliente através da entrega contínua e adiantada de software de valor\" |\n\nOs quatro valores do Manifesto, que resolvem quase toda questão de ágil desta banca:\n\n- Indivíduos e interações **mais que** processos e ferramentas;\n- Software em funcionamento **mais que** documentação abrangente;\n- Colaboração com o cliente **mais que** negociação de contratos;\n- Responder a mudanças **mais que** seguir um plano.\n\nVale a observação que a banca não faz: \"mais que\" não é \"em vez de\". O Manifesto diz explicitamente que há valor nos itens da direita — ágil não é ausência de processo, de documentação, de contrato ou de plano.\n\nAtalho: em questão de ágil, desconfie da alternativa que coloca a **equipe técnica** no centro. O ágil põe o cliente lá.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Tem ênfase na entrega rápida."
+        },
+        {
+          "letra": "B",
+          "texto": "Processo se molda à necessidade dos desenvolvedores."
+        },
+        {
+          "letra": "C",
+          "texto": "Comunicação com o cliente e aceitação de mudanças."
+        },
+        {
+          "letra": "D",
+          "texto": "Possui adaptabilidade."
+        },
+        {
+          "letra": "E",
+          "texto": "Criação de valor progressiva e de acordo com as necessidades do cliente."
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 31",
+      "enunciado": "No método de desenvolvimento ágil XP, o conjunto de valores serve como um critério que norteia as pessoas envolvidas no desenvolvimento do software, além de se complementarem. Das alternativas abaixo, qual NÃO é um dos valores do desenvolvimento XP?",
+      "gabarito": "A",
+      "explicacao": "**Planejamento** — alternativa (A). É o que **não** é valor do XP.\n\nOs **cinco valores** do Extreme Programming:\n\n| Valor | O que significa na prática |\n|---|---|\n| Comunicação | todo mundo conversa; o problema quase sempre veio de alguém não ter contado algo |\n| Simplicidade | faça a coisa mais simples que funciona hoje; não construa para um futuro imaginado |\n| Feedback | do teste, do cliente, da equipe — cedo e o tempo todo |\n| Coragem | apagar código, refatorar, dizer que a estimativa está errada |\n| Respeito | pelo trabalho do outro e pelo código do outro |\n\nA questão cobra a distinção entre as **três camadas** do XP, e é isso que derruba quem estudou só a lista:\n\n- **Valores** — os cinco acima. São critérios, abstratos.\n- **Princípios** — a ponte: humanidade, benefício mútuo, melhoria, diversidade, qualidade, passos pequenos.\n- **Práticas** — o que se faz: programação em par, TDD, integração contínua, cliente presente, código coletivo, refatoração, ritmo sustentável, e o **planning game**.\n\nPlanejamento existe no XP, e existe bastante — o *planning game* é uma das práticas centrais. Mas é **prática**, não valor. A alternativa está ali exatamente porque a palavra é familiar.\n\nAtalho: coragem é o valor que quase ninguém lembra e que quase sempre é a resposta quando a pergunta é \"qual destes é um valor do XP\". Quando a pergunta é a negativa, como aqui, procure a palavra que descreve uma **atividade** (planejamento, documentação, teste) em vez de uma **atitude**.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Planejamento."
+        },
+        {
+          "letra": "B",
+          "texto": "Simplicidade."
+        },
+        {
+          "letra": "C",
+          "texto": "Comunicação."
+        },
+        {
+          "letra": "D",
+          "texto": "Feedback."
+        },
+        {
+          "letra": "E",
+          "texto": "Respeito."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 33",
+      "enunciado": "Já as práticas do modelo XP consistem no núcleo principal do processo, evidenciando os valores que ajudarão a ter sucesso no projeto. Analise as afirmações abaixo sobre as práticas do desenvolvimento XP.\n\nEstão corretas:",
+      "gabarito": "C",
+      "explicacao": "Só a **I** está correta — alternativa (C).\n\n**I — certa.** \"Cliente presente\" (*on-site customer*) é prática do XP: alguém que responde pelo negócio fica disponível para a equipe, respondendo dúvida na hora em que ela aparece. É o que substitui a especificação enorme escrita antes.\n\n**II — errada.** \"Código coletivo\" (*collective ownership*) diz que o código não tem dono **e ponto**: qualquer pessoa da equipe pode alterar qualquer parte, a qualquer momento, sem pedir autorização a ninguém. A afirmação inventa um gerente de produto dando permissão — o que é exatamente o contrário da prática, e traria de volta o gargalo que ela existe para eliminar.\n\nO que torna isso seguro, e é o que a banca não conta: a propriedade coletiva só funciona apoiada em **testes automatizados** e **padrão de codificação**. A suíte é a rede que avisa se alguém quebrou algo em área que não conhece.\n\n**III — errada, e inverte a prática.** O XP prega **refatoração contínua** — melhorar a estrutura do código sem mudar o comportamento, o tempo todo, como parte do trabalho normal. \"Não refatoração\" não existe no XP; é o antônimo de uma das práticas centrais.\n\nAtalho para esta banca: afirmação que **acrescenta uma autorização, um gerente ou uma aprovação** a uma prática ágil é quase sempre falsa. O ágil tira intermediário; se o item põe um de volta, desconfie.\n\nE o par de negação vale o mesmo: \"não refatoração\", \"não documentação\", \"sem testes\" não são nomes de práticas — são inversões plantadas.",
+      "dificuldade": 2,
+      "afirmacoes": [
+        "Cliente presente: o cliente deve participar ativamente do processo de desenvolvimento. Tudo precisa da comunicação com o cliente.",
+        "Código coletivo: diz que o código fonte não tem dono, porém, somente o gerente do produto pode dar permissão para que o código seja modificado.",
+        "Não Refatoração: é um processo que permite que o código não seja modificado demais, para não interferir no que já foi feito."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I, II, III."
+        },
+        {
+          "letra": "B",
+          "texto": "I e II, apenas."
+        },
+        {
+          "letra": "C",
+          "texto": "I, apenas."
+        },
+        {
+          "letra": "D",
+          "texto": "II e III, apenas."
+        },
+        {
+          "letra": "E",
+          "texto": "I e III, apenas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 34",
+      "enunciado": "\"No desenvolvimento XP é utilizado o ______________. Primeiro são criados os testes unitários e depois o código para que os testes funcionem. Essa abordagem é complexa no início, mas os testes unitários são essenciais para que a qualidade do projeto seja mantida.\"\n\nA alternativa que completa corretamente a lacuna é:",
+      "gabarito": "E",
+      "explicacao": "**Desenvolvimento orientado a testes** — TDD, *Test-Driven Development*. O enunciado descreve o ciclo inteiro e só omite o nome.\n\nO ciclo tem três passos, e é conhecido pelas cores:\n\n| Passo | O que se faz |\n|---|---|\n| **Vermelho** | escreve o teste que falha — o código que ele testa ainda não existe |\n| **Verde** | escreve o **mínimo** de código para o teste passar |\n| **Refatorar** | melhora a estrutura, com a suíte verde garantindo que nada quebrou |\n\nPor que inverter a ordem muda alguma coisa, que é o que o enunciado chama de \"complexa no início\":\n\n- O teste escrito **antes** é escrito da perspectiva de quem **usa** o código, o que tende a produzir interfaces melhores;\n- Um teste que nunca falhou não prova nada. Começar pelo vermelho garante que o teste está de fato exercitando o que diz exercitar;\n- A suíte nasce junto com o código, em vez de virar dívida para depois — e \"depois\" é quando não se escreve mais teste nenhum.\n\nCuidado com um erro comum de prova: TDD **não é técnica de teste**, é técnica de **projeto**. Os testes são o efeito colateral; o objetivo é o desenho do código. É por isso que a sigla se traduz por \"desenvolvimento orientado a testes\" e não \"teste orientado a desenvolvimento\".\n\nO parente que cai junto: **BDD** (*Behavior-Driven Development*) é o mesmo ciclo num nível acima, com os exemplos escritos em linguagem de negócio (dado/quando/então) para o cliente ler.\n\nAs outras alternativas — orientado a código, a qualidade, a resultados, a histórias — não nomeiam nada. Chega perto \"orientado a histórias\", que evoca as *user stories* do XP, mas história de usuário é o formato do requisito, não a abordagem de desenvolvimento.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Desenvolvimento orientado código."
+        },
+        {
+          "letra": "B",
+          "texto": "Desenvolvimento orientado a qualidade."
+        },
+        {
+          "letra": "C",
+          "texto": "Desenvolvimento orientado a resultados."
+        },
+        {
+          "letra": "D",
+          "texto": "Desenvolvimento orientado a histórias."
+        },
+        {
+          "letra": "E",
+          "texto": "Desenvolvimento orientado a testes."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 35",
+      "enunciado": "Os Princípios do Scrum são as diretrizes fundamentais para a aplicação do framework Scrum e devem obrigatoriamente ser usados em todos os projetos Scrum. O princípio que destaca o foco do Scrum em entregar o máximo de valor de negócio possível, durante todo o projeto, é o princípio de:",
+      "gabarito": "A",
+      "explicacao": "**Priorização baseada em valor** — alternativa (A). É um dos seis princípios do SBOK (o guia do Scrum usado por esta banca), e o que ele diz é: o que entra primeiro no *sprint* é o que entrega mais valor de negócio, não o que é mais fácil, mais divertido ou mais urgente para a equipe.\n\nOs **seis princípios do SBOK**:\n\n| Princípio | O que responde |\n|---|---|\n| Controle empírico do processo | como decidir: por transparência, inspeção e adaptação |\n| Auto-organização | quem decide como o trabalho é feito: o time |\n| Colaboração | como se trabalha: junto, com consciência e articulação |\n| **Priorização baseada em valor** | **o que fazer primeiro** |\n| Time-boxing | quanto tempo cada coisa pode durar |\n| Desenvolvimento iterativo | quantas voltas, e como absorver a mudança |\n\nA (B) e a (C) são princípios reais, e é isso que faz a questão funcionar — mas respondem a outra pergunta. **Time-boxing** é a caixa de tempo: sprint de duas a quatro semanas, daily de 15 minutos, planning de no máximo 8 horas para sprint de um mês. **Desenvolvimento iterativo** é a repetição do ciclo.\n\nA (D) \"desenvolvimento incremental\" é o distrator mais fino: iterativo e incremental são coisas diferentes e andam juntas. **Iterativo** = refazer e refinar a cada volta. **Incremental** = entregar um pedaço funcionando a cada volta. O Scrum é os dois, mas o princípio do SBOK se chama \"desenvolvimento iterativo\".\n\n\"Desenvolvimento padrão\" (E) não existe.\n\nAtalho: a palavra \"valor\" no enunciado (\"entregar o máximo de valor de negócio\") só casa com um princípio, e o nome dele repete a palavra.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Priorização baseada em valor."
+        },
+        {
+          "letra": "B",
+          "texto": "Time-boxing."
+        },
+        {
+          "letra": "C",
+          "texto": "Desenvolvimento iterativo."
+        },
+        {
+          "letra": "D",
+          "texto": "Desenvolvimento incremental."
+        },
+        {
+          "letra": "E",
+          "texto": "Desenvolvimento padrão."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 36",
+      "enunciado": "Baseando-se em conhecimentos acerca da organização do Scrum, o(s) responsável(is) por alcançar o maior valor de negócio para o projeto, e também responsável pela coordenação das necessidades dos clientes e pela manutenção da justificativa de negócio para o projeto, é conhecido como:",
+      "gabarito": "B",
+      "explicacao": "**Dono do produto** — o *Product Owner*. A frase que decide é \"manutenção da **justificativa de negócio** para o projeto\".\n\nOs três papéis centrais do Scrum, e o que cada um responde:\n\n| Papel | Responde por | Não responde por |\n|---|---|---|\n| **Product Owner** | o **valor** do produto: o que se constrói, em que ordem, a justificativa de negócio, o backlog do produto | como o time trabalha |\n| **Scrum Master** | o **processo**: facilitar, remover impedimentos, proteger o time de interferência, ensinar Scrum | o conteúdo do backlog |\n| **Time Scrum** (Time de Desenvolvimento) | **como** construir e entregar o incremento | a prioridade |\n\nO Scrum Master (C) é o distrator principal, e a confusão é comum porque ele é o papel mais visível. Mas ele é facilitador, não chefe nem dono: não prioriza backlog, não decide escopo, não avalia o time.\n\n\"Usuário\" (D) é *stakeholder*, papel não central. \"Time Scrum\" (A) executa. \"Chefe Scrum\" (E) não existe — e a palavra \"chefe\" é a pista, porque o Scrum não tem chefe: o time é auto-organizado.\n\nAtalho para separar PO de SM: o PO olha para **fora** (mercado, cliente, valor) e para o **produto**; o SM olha para **dentro** (equipe, impedimentos) e para o **processo**. A palavra \"negócio\" no enunciado puxa sempre para o PO.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Time Scrum."
+        },
+        {
+          "letra": "B",
+          "texto": "Dono do produto."
+        },
+        {
+          "letra": "C",
+          "texto": "Scrum Master."
+        },
+        {
+          "letra": "D",
+          "texto": "Usuário."
+        },
+        {
+          "letra": "E",
+          "texto": "Chefe Scrum."
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 37",
+      "enunciado": "Os papéis do Scrum são divididos em duas categorias: os papéis centrais e os papéis não essenciais. Qual das alternativas abaixo NÃO faz parte dos papéis não centrais de um projeto Scrum?",
+      "gabarito": "B",
+      "explicacao": "Cuidado com a **dupla negativa**: a pergunta é \"qual NÃO faz parte dos papéis **não** centrais\", ou seja — **qual é central**. Resposta: **Dono do produto**, alternativa (B).\n\nOs papéis do Scrum no SBOK, nas duas categorias:\n\n| Centrais (obrigatórios) | Não centrais (opcionais) |\n|---|---|\n| Product Owner (Dono do produto) | Stakeholders — cliente, usuário, patrocinador |\n| Scrum Master | Scrum Guidance Body — o corpo que define diretrizes e padrões |\n| Scrum Team (Time Scrum) | Fornecedores |\n| | Chief Product Owner (Dono do Produto Chefe) |\n| | Chief Scrum Master |\n\nOs centrais são os **imprescindíveis**: sem eles não há Scrum. Os não centrais são úteis mas opcionais, e alguns só aparecem em projetos grandes — o **Dono do Produto Chefe** e o **Scrum Master Chefe** existem para coordenar vários times trabalhando no mesmo produto.\n\nE é aí que a alternativa (E) mostra a maldade da questão: \"Dono do Produto **Chefe**\" é papel **não central**, e está ali para ser confundido com o \"Dono do produto\" da (B), que é central. Duas palavras de diferença invertem a resposta.\n\nAtalho para dupla negativa: reescreva a pergunta antes de olhar as alternativas. \"NÃO faz parte dos não centrais\" = \"faz parte dos centrais\". Escrever isso na margem custa três segundos e evita o erro que a questão foi desenhada para provocar.",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Scrum Guidance Body."
+        },
+        {
+          "letra": "B",
+          "texto": "Dono do produto."
+        },
+        {
+          "letra": "C",
+          "texto": "Stakeholder(s)."
+        },
+        {
+          "letra": "D",
+          "texto": "Fornecedores."
+        },
+        {
+          "letra": "E",
+          "texto": "Dono do Produto Chefe."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 48",
+      "enunciado": "Baseado em conhecimentos acerca da UML, analise a imagem. Qual o tipo de diagrama da imagem?",
+      "gabarito": "C",
+      "explicacao": "**Diagrama de casos de uso**. A assinatura visual é inconfundível e tem três elementos, todos presentes na figura:\n\n- **Bonecos-palito** (Motorista, Mecânico) — os **atores**, sempre fora da fronteira;\n- **Fronteira retangular** rotulada com o nome do sistema (Automóvel);\n- **Elipses com verbos** dentro (Abrir janela, Acelerar, Frear, Abrir porta-malas, Ajustar injeção eletrônica) — os **casos de uso**, sempre nomeados por uma ação que o sistema oferece.\n\nAs linhas entre ator e elipse são **associações**: dizem quem usa o quê. Repare que a figura já mostra o valor do diagrama — o Motorista se liga às ações do dia a dia, o Mecânico à injeção eletrônica. O diagrama documenta quem pode fazer o quê, que é requisito funcional em forma de desenho.\n\nComo não confundir com os vizinhos:\n\n| Diagrama | Assinatura visual |\n|---|---|\n| Casos de uso | boneco-palito + elipses dentro de uma caixa |\n| Classes | retângulos de **três compartimentos**: nome, atributos, métodos |\n| Estados | retângulos **arredondados** ligados por setas nomeadas |\n| Sequência | **linhas de vida** verticais com setas horizontais entre elas |\n| Comunicação | objetos ligados por linhas, com mensagens **numeradas** |\n\n\"Diagrama de dados\" (E) não é diagrama UML — o que existe com esse espírito é o DER, do modelo entidade-relacionamento, que é outra notação.\n\nAtalho: viu boneco-palito, é caso de uso. Nenhum outro diagrama da UML usa esse símbolo.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Diagrama de classes."
+        },
+        {
+          "letra": "B",
+          "texto": "Diagrama de estados."
+        },
+        {
+          "letra": "C",
+          "texto": "Diagrama de casos de uso."
+        },
+        {
+          "letra": "D",
+          "texto": "Diagrama de colaboração."
+        },
+        {
+          "letra": "E",
+          "texto": "Diagrama de dados."
+        }
+      ],
+      "imagem": "avanca-sp/uml-casos-uso-automovel.png",
+      "imagem_alt": "Diagrama UML com uma caixa retangular rotulada \"Automóvel\" contendo cinco elipses: Abrir janela, Acelerar, Frear, Abrir porta malas e Ajustar injeção eletrônica. Fora da caixa, à esquerda, dois bonecos-palito rotulados Motorista e Mecânico, ligados por linhas às elipses."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 49",
+      "enunciado": "Analise a imagem, um diagrama UML de um sistema de automóvel. De acordo com a UML, o Motorista e o Mecânico são conhecidos como:",
+      "gabarito": "D",
+      "explicacao": "**Atores**. Ator é toda entidade **externa** ao sistema que interage com ele — desenhada como boneco-palito e posta **fora** da fronteira retangular, que é o que os separa dos casos de uso.\n\nDuas coisas que a banca gosta de cobrar sobre ator:\n\n**Ator não é necessariamente pessoa.** Outro sistema pode ser ator (o gateway de pagamento, o serviço da Receita), e um relógio pode ser ator quando um evento de tempo dispara o comportamento. O critério é: está fora do sistema e interage com ele.\n\n**Ator é papel, não indivíduo.** \"Motorista\" e \"Mecânico\" não são duas pessoas; são dois papéis. A mesma pessoa pode ser as duas, e mil pessoas podem ser o Motorista. É por isso que o nome do ator é sempre um papel (\"Cliente\", \"Administrador\"), nunca um nome próprio.\n\nO vocabulário completo do diagrama, porque a banca pode perguntar por qualquer peça:\n\n| Elemento | Nome | Notação |\n|---|---|---|\n| Quem usa | ator | boneco-palito, fora da fronteira |\n| O que o sistema oferece | caso de uso | elipse, dentro da fronteira |\n| O contorno | fronteira do sistema | retângulo com o nome do sistema |\n| A ligação ator–caso | associação | linha simples |\n| Caso sempre chamado por outro | «include» | seta tracejada |\n| Caso opcional, que estende outro | «extend» | seta tracejada |\n| Ator ou caso que especializa outro | generalização | seta de ponta triangular vazada |\n\nOs distratores — sistemas, parceiros, coadjuvantes, diretores — não são termos da UML.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Sistemas."
+        },
+        {
+          "letra": "B",
+          "texto": "Parceiros."
+        },
+        {
+          "letra": "C",
+          "texto": "Coadjuvantes."
+        },
+        {
+          "letra": "D",
+          "texto": "Atores."
+        },
+        {
+          "letra": "E",
+          "texto": "Diretores."
+        }
+      ],
+      "imagem": "avanca-sp/uml-casos-uso-automovel.png",
+      "imagem_alt": "Diagrama UML com uma caixa retangular rotulada \"Automóvel\" contendo cinco elipses: Abrir janela, Acelerar, Frear, Abrir porta malas e Ajustar injeção eletrônica. Fora da caixa, à esquerda, dois bonecos-palito rotulados Motorista e Mecânico, ligados por linhas às elipses."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 50",
+      "enunciado": "Analise a imagem. Baseando-se na UML, esse é um diagrama de:",
+      "gabarito": "C",
+      "explicacao": "**Diagrama de estados**. A figura traz os cinco marcadores da notação, e cada um sozinho já bastaria:\n\n- **Círculo preenchido** = estado inicial (de onde sai \"cadastrar\");\n- **Círculo duplo** = estado final (aonde chega \"excluir\");\n- **Retângulos arredondados nomeados por situação** — \"Cadastrado e disponível\", \"Emprestado\", \"Reservado e aguardando\". Repare que são **estados**, não ações: descrevem em que situação o livro está, não o que alguém faz;\n- **Setas nomeadas por evento** — emprestar, devolver, reservar. O evento é o que **dispara** a mudança de estado;\n- **Guarda entre colchetes** — `[reserva > 2 dias]` na transição de cancelamento. A guarda é a condição que precisa valer para a transição acontecer, e é um elemento que só existe no diagrama de estados e no de atividades.\n\nO teste decisivo, quando a figura estiver ambígua: pergunte se os nós são **situações** ou **ações**. Situação (Emprestado, Aguardando, Cancelado) = estados. Ação (Emprestar, Validar pagamento, Enviar e-mail) = atividades.\n\nPor que os distratores não servem:\n\n| Alternativa | O que teria na figura se fosse |\n|---|---|\n| Sequência (A) | linhas de vida verticais e setas de mensagem no tempo |\n| Comunicação (B) | objetos ligados por linhas, com mensagens numeradas |\n| Casos de uso (D) | boneco-palito e elipses |\n| Classes (E) | retângulos de três compartimentos |\n\nEste diagrama em particular é um bom exemplo de para que serve a técnica: ele documenta que o livro **não** pode ir direto de \"Cadastrado e disponível\" para \"Reservado e aguardando\" — tem de passar por \"Emprestado\". Regra de negócio que em texto corrido se perde, e no desenho é a ausência de uma seta.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Sequência de sistema."
+        },
+        {
+          "letra": "B",
+          "texto": "Comunicação."
+        },
+        {
+          "letra": "C",
+          "texto": "Estados."
+        },
+        {
+          "letra": "D",
+          "texto": "Casos de uso."
+        },
+        {
+          "letra": "E",
+          "texto": "Classes."
+        }
+      ],
+      "imagem": "avanca-sp/uml-estados-emprestimo.png",
+      "imagem_alt": "Diagrama UML de estados de um livro em biblioteca. Do círculo preto inicial sai a transição 'cadastrar' para o estado 'Cadastrado e disponível', que leva ao círculo duplo final por 'excluir'. Entre 'Cadastrado e disponível' e 'Emprestado' há as transições 'emprestar' e 'devolver'. De 'Emprestado' sai 'reservar' para 'Emprestado com reserva', que por 'devolver' vai a 'Reservado e aguardando'; deste saem 'emprestar' para 'Emprestado' e 'cancelar reserva [reserva > 2 dias]' de volta para 'Cadastrado e disponível'."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 26",
+      "dificuldade": 1,
+      "enunciado": "Analise as afirmações a seguir acerca de características que softwares que tenham qualidade aplicada a eles possuem:\n\nI – Projetos, prazos e custos sob controle.\nII – Satisfação de usuários, com necessidades atendidas na execução de suas tarefas.\nIII – Diminuição de erros nos projetos de software.\nIV – Melhoria da posição competitiva da empresa, como instituição capaz de acompanhar a evolução.\n\nEstão corretas as afirmações:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I, II e III apenas"
+        },
+        {
+          "letra": "B",
+          "texto": "II e III apenas"
+        },
+        {
+          "letra": "C",
+          "texto": "II, III e IV apenas"
+        },
+        {
+          "letra": "D",
+          "texto": "I e IV apenas"
+        },
+        {
+          "letra": "E",
+          "texto": "I, II, III e IV"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Questão de \"todas estão certas\", que a Avança SP usa bastante. Vale mais reconhecer o padrão do que decorar a lista.\n\nOs quatro itens são benefícios clássicos de qualidade de software, e eles se dividem em dois pares:\n\n| | Benefício | De quem |\n|---|---|---|\n| I | prazos e custos sob controle | do projeto |\n| III | menos erros | do produto |\n| II | usuário com a necessidade atendida | do cliente |\n| IV | empresa competitiva | do negócio |\n\nNenhum deles se contradiz e nenhum é absurdo, então não há o que eliminar. Resposta: **E**.\n\nA dica de prova: quando os quatro itens de uma lista descrevem benefícios genéricos e nenhum traz um \"sempre\", \"nunca\" ou \"apenas\", a chance de a resposta ser \"todas\" é alta. O erro custa caro no sentido inverso — descartar um item só porque ele parece óbvio demais."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 27",
+      "dificuldade": 2,
+      "enunciado": "As definições da qualidade de software enfatizam três aspectos importantes: os requisitos de software, critérios de desenvolvimento e:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Requisitos implícitos"
+        },
+        {
+          "letra": "B",
+          "texto": "Configuração inicial"
+        },
+        {
+          "letra": "C",
+          "texto": "Qualidade de preços"
+        },
+        {
+          "letra": "D",
+          "texto": "Métricas de valor"
+        },
+        {
+          "letra": "E",
+          "texto": "Listagem de programadores"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "A definição clássica de Pressman diz que qualidade de software é a conformidade a **requisitos funcionais e de desempenho explicitamente declarados**, a **padrões de desenvolvimento claramente documentados** e a **características implícitas** que se espera de todo software desenvolvido profissionalmente.\n\nSão os três aspectos que a questão pede, na ordem:\n\n1. requisitos de software — o que foi pedido e está escrito;\n2. critérios/padrões de desenvolvimento — como se constrói;\n3. **requisitos implícitos** — o que ninguém escreveu porque parece óbvio (o sistema não pode derrubar o servidor, a tela tem de ser legível).\n\nResposta: **A**.\n\nO terceiro item é justamente o que gera briga em projeto real: o cliente não escreveu, mas cobra. Pressman coloca isso na definição de propósito — é a parte que mais reprova software que \"atende ao contrato\"."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 28",
+      "dificuldade": 1,
+      "enunciado": "Analise as alternativas a seguir e assinale aquela que NÃO é objetivo de uma metodologia de desenvolvimento definir:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Quem faz"
+        },
+        {
+          "letra": "B",
+          "texto": "O que faz"
+        },
+        {
+          "letra": "C",
+          "texto": "Instrui padrões preestabelecidos"
+        },
+        {
+          "letra": "D",
+          "texto": "Define a linguagem utilizada"
+        },
+        {
+          "letra": "E",
+          "texto": "O papel dos usuários"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "Comando negativo — a banca usa isso em quase 10% das questões. Marque o \"NÃO\" antes de ler as alternativas.\n\nMetodologia de desenvolvimento define **processo**: quem faz (papéis), o que faz (atividades), quando faz (fases), como se documenta (padrões) e qual o papel do usuário na validação.\n\nO que ela **não** define é a **tecnologia**. Escolher entre Java, C# ou PHP é decisão de arquitetura e de contexto do projeto — Scrum, XP e cascata funcionam com qualquer linguagem. Resposta: **D**.\n\nO teste mental que resolve: se a resposta muda conforme a equipe ou o cliente, é decisão de projeto, não de metodologia."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 29",
+      "dificuldade": 1,
+      "enunciado": "Dentre todas as metodologias de desenvolvimento de software, aquela que é considerada a mais tradicional de todas é a metodologia:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "XP"
+        },
+        {
+          "letra": "B",
+          "texto": "Ágil"
+        },
+        {
+          "letra": "C",
+          "texto": "Devops"
+        },
+        {
+          "letra": "D",
+          "texto": "Scrum"
+        },
+        {
+          "letra": "E",
+          "texto": "Cascata"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "O **modelo cascata** (waterfall) é o primeiro modelo de processo publicado, derivado da engenharia de sistemas, e é o sinônimo de \"tradicional\" em qualquer bibliografia. As fases vêm em sequência — requisitos, projeto, implementação, teste, manutenção — e uma só começa quando a anterior termina.\n\nResposta: **E**.\n\nAs outras quatro são todas do campo oposto: XP e Scrum são frameworks ágeis, \"ágil\" é o guarda-chuva dos dois, e DevOps é prática de integração entre desenvolvimento e operação. Nenhuma delas é tradicional — o Manifesto Ágil é de 2001, e existe justamente como reação ao cascata."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 30",
+      "dificuldade": 2,
+      "enunciado": "Analise as afirmações a seguir sobre o que são os requisitos de um sistema:\n\nI – As descrições do que o sistema deve fazer;\nII – Os serviços que oferece;\nIII – O desenvolvimento do produto;\nIV – As restrições a seu funcionamento.\n\nSão requisitos de um sistema, as afirmações:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "II, III e IV apenas"
+        },
+        {
+          "letra": "B",
+          "texto": "I, II e III apenas"
+        },
+        {
+          "letra": "C",
+          "texto": "I, III e IV"
+        },
+        {
+          "letra": "D",
+          "texto": "I, II e IV"
+        },
+        {
+          "letra": "E",
+          "texto": "I, II, III e IV"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "A definição de Sommerville, quase palavra por palavra: \"os requisitos de um sistema são as descrições do que o sistema deve fazer, os serviços que oferece e as restrições a seu funcionamento\".\n\nOs itens I, II e IV são a frase do livro partida em três. O item III — **o desenvolvimento do produto** — é o que sobra: desenvolvimento é a construção, é o que se faz *depois* de ter requisito. Resposta: **D**.\n\nRepare na diferença entre esta questão e a q26 da mesma prova: lá todos os itens serviam, aqui há um intruso. A Avança SP mistura os dois casos de propósito, e por isso conferir item a item sai mais barato do que apostar no padrão."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 31",
+      "dificuldade": 3,
+      "enunciado": "Segundo Sommerville, alguns dos problemas que surgem durante o processo de engenharia de requisitos são as falhas em não fazer uma clara separação entre os níveis de descrição dos requisitos de usuário e de requisitos do sistema. Assinale a alternativa que contenha um requisito de usuário.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O sistema deve gerar relatórios gerenciais mensais que mostrem o custo dos produtos prescritos por cada clínica durante o mês"
+        },
+        {
+          "letra": "B",
+          "texto": "Após as 17:30h do último dia útil do mês, o sistema deve gerar, automaticamente, o relatório para impressão"
+        },
+        {
+          "letra": "C",
+          "texto": "Um relatório será criado para cada clínica listando os nomes dos medicamentos, o número total de prescrições, o número de doses prescritas e o custo total dos medicamentos prescritos"
+        },
+        {
+          "letra": "D",
+          "texto": "No último dia útil de cada mês deve ser gerado um resumo dos medicamentos prescritos, seus custos e as prescrições de cada clínica"
+        },
+        {
+          "letra": "E",
+          "texto": "O acesso aos relatórios de custos deve ser restrito a usuários autorizados por uma lista de controle de gerenciamento de acesso"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "Esta questão sai direto do exemplo do sistema Mentcare (antigo MHC-PMS), no capítulo de engenharia de requisitos do Sommerville — e a separação que ele cobra é esta:\n\n| Nível | Para quem é escrito | Como se reconhece |\n|---|---|---|\n| **Requisito de usuário** | cliente, gestor, usuário final | linguagem natural, uma frase, diz **o que** o sistema faz para o negócio |\n| **Requisito de sistema** | quem vai construir | detalhado, com horário, formato, campo, regra — diz **como** |\n\nA alternativa **A** é a única que fica no nível do negócio: \"gerar relatórios gerenciais mensais que mostrem o custo dos produtos prescritos por cada clínica\". É uma frase, sem detalhe de implementação.\n\nAs outras quatro são o desdobramento dessa mesma frase em requisitos de sistema: **B** fixa horário de execução (\"após as 17:30h do último dia útil\"), **C** lista os campos do relatório, **D** detalha o conteúdo do resumo e **E** especifica o mecanismo de controle de acesso.\n\nResposta: **A**.\n\nA pegadinha é que todas as cinco são verdadeiras sobre o sistema. A pergunta não é qual é correta — é qual está no nível certo."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 32",
+      "dificuldade": 1,
+      "enunciado": "Uma das métricas utilizadas para especificar requisitos não funcionais é a confiabilidade. Das alternativas abaixo, qual delas NÃO está ligada à métrica de confiabilidade?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Tempo médio para falha"
+        },
+        {
+          "letra": "B",
+          "texto": "Probabilidade de indisponibilidade"
+        },
+        {
+          "letra": "C",
+          "texto": "Número de chips de memória ROM"
+        },
+        {
+          "letra": "D",
+          "texto": "Taxa de ocorrência de falhas"
+        },
+        {
+          "letra": "E",
+          "texto": "Disponibilidade"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "Sommerville traz uma tabela de métricas para requisitos não funcionais, e a linha de **confiabilidade** tem exatamente quatro entradas:\n\n- tempo médio para falha (MTTF);\n- taxa de ocorrência de falhas;\n- probabilidade de indisponibilidade;\n- disponibilidade.\n\nSão A, B, D e E. Sobra **C — número de chips de memória ROM**, que não mede confiabilidade de coisa nenhuma: é contagem de componente físico. Na tabela do Sommerville, a métrica de espaço/memória aparece em outra linha, a de **tamanho**, e ainda assim medida em Kbytes, não em número de chips.\n\nResposta: **C**.\n\nComando negativo de novo — e aqui o intruso é fácil de ver porque é o único que fala de hardware. Quando quatro alternativas usam o vocabulário de falha e disponibilidade e uma fala de peça, a discrepante é a resposta."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 33",
+      "dificuldade": 2,
+      "enunciado": "Analise as afirmações a seguir sobre benefícios da análise estruturada:\n\nI – Os usuários obtêm uma ideia mais clara do sistema proposto pelo diagrama de fluxo de dados do que a obtida através da narrativa e do fluxograma de sistemas físicos.\nII – A apresentação em termos de fluxo lógico consegue mostrar mal-entendidos e pontos controversos.\nIII – As interfaces entre o novo sistema e outros já existentes são mostradas de modo bem mais claro.\n\nEstão corretas as afirmações:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "II, apenas"
+        },
+        {
+          "letra": "B",
+          "texto": "I e II, apenas"
+        },
+        {
+          "letra": "C",
+          "texto": "II e III, apenas"
+        },
+        {
+          "letra": "D",
+          "texto": "I e III, apenas"
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Os três itens são benefícios reconhecidos do **diagrama de fluxo de dados (DFD)**, a ferramenta central da análise estruturada.\n\nO que une os três é a mesma ideia: o DFD é **gráfico e lógico**, e não narrativo nem físico. Por ser gráfico, o usuário enxerga o sistema sem ler páginas de texto (I). Por ser lógico — mostra o fluxo da informação, não o equipamento que a processa — divergências de entendimento aparecem cedo, quando corrigir ainda é barato (II). E as **entidades externas**, que são a fronteira do sistema, tornam explícito o que entra e o que sai para outros sistemas (III).\n\nResposta: **E**.\n\nVale guardar o contraste que o item I faz: *fluxograma de sistema físico* mostra fita, disco e impressora; *DFD* mostra dado. É essa troca do físico pelo lógico que a análise estruturada trouxe."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 34",
+      "dificuldade": 2,
+      "enunciado": "Na análise estruturada, um diagrama de fluxo de dados tem sua simbologia básica. Analise a imagem a seguir. O símbolo acima representa, em um diagrama de fluxo de dados, o(a):",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Fluxo de dados"
+        },
+        {
+          "letra": "B",
+          "texto": "Depósito de dados"
+        },
+        {
+          "letra": "C",
+          "texto": "Origem/destino dos dados"
+        },
+        {
+          "letra": "D",
+          "texto": "Processo que transforma o fluxo de dados"
+        },
+        {
+          "letra": "E",
+          "texto": "Inclusão de dados"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "O DFD tem quatro símbolos, e a prova cobra reconhecê-los de vista:\n\n| Símbolo | O que é |\n|---|---|\n| retângulo aberto à direita (duas linhas paralelas) | **depósito de dados** — onde a informação fica parada |\n| seta | fluxo de dados — informação em movimento |\n| retângulo fechado | entidade externa (origem/destino) |\n| círculo ou retângulo arredondado | processo que transforma |\n\nA figura é o retângulo aberto de um lado, na notação de Gane & Sarson: **depósito de dados**. Resposta: **B**.\n\nO jeito de não confundir com a entidade externa (C) é a caixa: depósito é **aberto**, entidade externa é **fechada**. Faz sentido — o depósito precisa de uma boca por onde o dado entra e sai; a entidade externa está fora do sistema e é representada como bloco maciço.",
+      "imagem": "avanca-sp/americana-2022-dfd-simbolo.png",
+      "imagem_alt": "Um retângulo alongado, aberto na extremidade direita, dividido por uma linha vertical curta perto da borda esquerda — a notação de depósito de dados em um diagrama de fluxo de dados."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 35",
+      "dificuldade": 2,
+      "enunciado": "Na análise estruturada, os processos são as várias atividades realizadas no sistema. São representados graficamente por um retângulo de bordas arredondadas, opcionalmente dividido em três áreas, como na imagem a seguir. As áreas numeradas são, respectivamente:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Descrição, nome, localização física"
+        },
+        {
+          "letra": "B",
+          "texto": "Localização, identificação, descrição"
+        },
+        {
+          "letra": "C",
+          "texto": "Identificação, descrição, localização física"
+        },
+        {
+          "letra": "D",
+          "texto": "Nome, localização física, descrição"
+        },
+        {
+          "letra": "E",
+          "texto": "Descrição, localização física e nome"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "O símbolo de processo do DFD, quando desenhado completo, tem três faixas, de cima para baixo:\n\n1. **identificação** — o número do processo (1, 2.1, 2.2), que dá a hierarquia entre os níveis do diagrama;\n2. **descrição** — o que o processo faz, em verbo no infinitivo (\"Emitir nota fiscal\");\n3. **localização física** — onde aquilo acontece (setor, sistema, pessoa).\n\nResposta: **C**.\n\nA ordem é a que faz sentido na leitura: primeiro o rótulo que localiza o processo na árvore do diagrama, depois o que ele faz, e por último o detalhe físico — que é o único opcional dos três, e o primeiro a sumir num DFD lógico.",
+      "imagem": "avanca-sp/americana-2022-dfd-processo.png",
+      "imagem_alt": "Retângulo de bordas arredondadas dividido por duas linhas horizontais em três faixas, numeradas 1, 2 e 3 de cima para baixo por setas à direita — o símbolo de processo do diagrama de fluxo de dados."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 47",
+      "dificuldade": 2,
+      "enunciado": "É o principal modelo de licenciamento de código aberto, assegurando ao usuário o direito de rodar o sistema em suas máquinas, estudar e modificar o código-fonte e redistribuir o programa. Esse tipo de licença é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "End User License Agreement"
+        },
+        {
+          "letra": "B",
+          "texto": "Software proprietário"
+        },
+        {
+          "letra": "C",
+          "texto": "Software livre"
+        },
+        {
+          "letra": "D",
+          "texto": "GNU General Public License"
+        },
+        {
+          "letra": "E",
+          "texto": "Freeware"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "A pergunta é por uma **licença**, com nome e sobrenome — e a única alternativa que nomeia uma licença é a **GNU GPL**. Resposta: **D**.\n\nA armadilha é a alternativa C. \"Software livre\" é a *categoria*, definida pelas quatro liberdades da FSF (executar, estudar, redistribuir, modificar) — exatamente os direitos que o enunciado lista. A GPL é o *instrumento jurídico* que garante essas liberdades, e é o principal deles. Quem lê rápido marca C porque o enunciado descreve as liberdades; quem lê o comando marca D porque ele pede \"esse tipo de licença\".\n\nAs outras três estão do lado oposto: EULA é o contrato típico de software proprietário, \"software proprietário\" é a categoria fechada, e freeware é grátis mas sem código-fonte — grátis não é livre."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 42",
+      "dificuldade": 2,
+      "enunciado": "Analise a imagem a seguir. O diagrama da imagem é um exemplo de diagrama de:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Sequência"
+        },
+        {
+          "letra": "B",
+          "texto": "Casos de uso"
+        },
+        {
+          "letra": "C",
+          "texto": "Estados"
+        },
+        {
+          "letra": "D",
+          "texto": "Uso"
+        },
+        {
+          "letra": "E",
+          "texto": "Conceitual"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "Duas marcas identificam o **diagrama de sequência** de longe:\n\n- os objetos ficam em caixas no **topo**, lado a lado;\n- de cada um desce uma **linha de vida** vertical tracejada, com barras finas (os focos de execução) e **setas horizontais** de mensagem entre elas.\n\nÉ o que a figura mostra: Object 1, Object 2 e Object 3 no alto, linhas de vida descendo e mensagens (`<<message>>`, `<<asynchronousMessage>>`) cruzando de uma para outra. Resposta: **A**.\n\nO eixo é o que define: no diagrama de sequência **o tempo desce**. Se o desenho tem bonecos e elipses, é caso de uso; se tem estados arredondados ligados por setas rotuladas com eventos, é diagrama de estados. \"Diagrama de uso\" (D) e \"conceitual\" (E) não existem como diagramas da UML — são distratores inventados.",
+      "imagem": "avanca-sp/taboao-2022-diagrama-uml-a.png",
+      "imagem_alt": "Três caixas no topo rotuladas Object 1, Object 2 e Object 3, cada uma com uma linha de vida tracejada descendo. Setas horizontais ligam as linhas de vida, rotuladas <<message>> e <<asynchronousMessage>>, com barras verticais estreitas sobre as linhas indicando execução."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 43",
+      "dificuldade": 1,
+      "enunciado": "Analise a imagem a seguir. A imagem apresenta um exemplo de um diagrama de:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Classes"
+        },
+        {
+          "letra": "B",
+          "texto": "Casos de uso"
+        },
+        {
+          "letra": "C",
+          "texto": "Estados"
+        },
+        {
+          "letra": "D",
+          "texto": "Comunicação"
+        },
+        {
+          "letra": "E",
+          "texto": "Sequência"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "A figura tem os dois elementos que só o **diagrama de casos de uso** reúne: **atores** desenhados como bonecos de palito nas pontas e **casos de uso** como elipses com um verbo dentro (Marca Consulta, Solicita Consulta, Solicita Cancelamento de Consulta, Cancela Consulta), ligados por associações.\n\nResposta: **B**.\n\nÉ o diagrama da fase de requisitos: mostra **quem** usa o sistema e **o que** consegue fazer com ele, sem dizer como. Repare que há dois atores, um de cada lado — Paciente e Secretária —, e que alguns casos de uso são compartilhados. É assim que a UML representa que duas pessoas diferentes disparam a mesma funcionalidade.\n\nNenhuma das outras se parece: classes tem retângulos de três faixas (nome, atributos, métodos), estados tem retângulos arredondados com transições, sequência e comunicação mostram troca de mensagens entre objetos.",
+      "imagem": "avanca-sp/taboao-2022-diagrama-uml-b.png",
+      "imagem_alt": "Dois atores em boneco de palito, um à esquerda (Paciente) e outro à direita (Secretária), ligados por linhas a quatro elipses centrais: Marca Consulta, Solicita Consulta, Solicita Cancelamento de Consulta e Cancela Consulta."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 44",
+      "dificuldade": 1,
+      "enunciado": "O comando utilizado para clonar um repositório no Git é o comando:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "git pull"
+        },
+        {
+          "letra": "B",
+          "texto": "git clone"
+        },
+        {
+          "letra": "C",
+          "texto": "git add"
+        },
+        {
+          "letra": "D",
+          "texto": "git status"
+        },
+        {
+          "letra": "E",
+          "texto": "git"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "`git clone <url>` é o comando que **cria uma cópia local de um repositório remoto** que você ainda não tem — baixa todo o histórico e já configura o remoto `origin`. Resposta: **B**.\n\nOs outros quatro pressupõem um repositório que já existe na máquina:\n\n| Comando | O que faz |\n|---|---|\n| `git pull` | traz commits novos para um repositório **já clonado** |\n| `git add` | move alteração para a área de stage |\n| `git status` | mostra o que mudou |\n| `git` | sozinho, só imprime a ajuda |\n\nA confusão real é entre `clone` e `pull`: clone é a primeira vez, pull é toda vez depois. Seu edital de Desenvolvimento cobra \"controle de versões e uso de repositórios\", e esta é a pergunta mais básica possível sobre isso — o histórico da banca só tem duas questões de versionamento em 680, o que faz dela um assunto de peso de edital alto e precedente baixo."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 25",
+      "dificuldade": 3,
+      "enunciado": "Assinale a alternativa que explica o ciclo de vida da análise estruturada de sistemas, destacando as principais fases e atividades envolvidas em cada etapa do processo.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O ciclo de vida da análise estruturada de sistemas inclui as fases de planejamento, design, implementação e teste. Cada fase envolve atividades específicas para identificação de requisitos, modelagem de processos e criação do software final"
+        },
+        {
+          "letra": "B",
+          "texto": "A análise estruturada de sistemas segue um ciclo de vida composto por análise de negócios, análise de sistemas, projeto de software e implementação. Cada fase inclui atividades como compreender operações do negócio, modelar processos, definir arquitetura e construir o sistema de acordo com os requisitos"
+        },
+        {
+          "letra": "C",
+          "texto": "O ciclo de vida da análise estruturada de sistemas envolve as etapas de criação, prototipagem, validação, modelagem e implementação. Cada etapa inclui atividades para compreender as operações do negócio, criar protótipos, validar requisitos, modelar componentes e construir a solução final"
+        },
+        {
+          "letra": "D",
+          "texto": "A análise estruturada de sistemas segue um ciclo de vida composto por levantamento de requisitos, análise de requisitos, especificação funcional, projeto lógico e projeto físico. Cada fase abrange atividades como identificação de necessidades, modelagem de dados, definição de interfaces e implementação"
+        },
+        {
+          "letra": "E",
+          "texto": "O ciclo de vida da análise estruturada de sistemas compreende as etapas de planejamento, design, implementação e teste. Cada etapa envolve atividades específicas para definição de requisitos, modelagem de dados, geração de código e verificação da qualidade do software"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "Questão de alternativa-parágrafo, formato que Embu-Guaçu 2023 usa o tempo todo: as cinco opções são longas e parecidas, e a diferença está em uma ou duas palavras.\n\nO que identifica a **análise estruturada** é a sequência que vai do requisito ao projeto passando por **dois níveis de projeto — lógico e físico**:\n\nlevantamento de requisitos → análise de requisitos → especificação funcional → **projeto lógico** → **projeto físico**\n\nÉ a alternativa **D**, a única que nomeia esse par. O projeto lógico diz *o que* o sistema faz, independente de tecnologia; o projeto físico amarra em banco, linguagem e equipamento. Essa separação é a marca registrada da escola estruturada (DeMarco, Yourdon, Gane & Sarson).\n\nAs alternativas A e E dão o ciclo genérico de qualquer projeto (planejamento, design, implementação, teste) — servem para cascata, não descrevem análise estruturada. A B troca a ordem por uma divisão de consultoria (análise de negócios). A C insere **prototipagem**, que é de outro modelo de processo, não da análise estruturada.\n\nA tática nesse formato: não leia as cinco por inteiro. Procure o **termo técnico discriminante** — aqui, \"projeto lógico e projeto físico\" — e elimine quem não o tem."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 27",
+      "dificuldade": 2,
+      "enunciado": "Para que serve a gerência de projetos em desenvolvimento de software e qual a relevância da qualidade de software em projetos?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A gerência de projetos mantém software. Qualidade de software previne erros"
+        },
+        {
+          "letra": "B",
+          "texto": "A gerência de projetos planeja e controla recursos. Qualidade de software garante entrega confiável"
+        },
+        {
+          "letra": "C",
+          "texto": "A gerência de projetos aloca recursos. Qualidade de software evita custos extras"
+        },
+        {
+          "letra": "D",
+          "texto": "Gerência de projetos atualiza software. Qualidade de software assegura funcionalidade"
+        },
+        {
+          "letra": "E",
+          "texto": "A gerência de projetos organiza e controla recursos para atingir metas. Qualidade de software assegura um produto confiável"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Questão de definição, decidida pela alternativa **mais completa** — e é assim que a banca quer que se resolva, porque B e E dizem quase a mesma coisa.\n\n| | Gerência de projetos | O que falta |\n|---|---|---|\n| B | planeja e controla recursos | não diz **para quê** |\n| E | organiza e controla recursos **para atingir metas** | nada |\n\nGerenciar projeto sem objetivo declarado não é gerenciar projeto — é administrar recursos. O que define a disciplina é a entrega dentro de prazo, custo e escopo acordados, ou seja, **a meta**. Por isso **E**.\n\nAs outras três erram no verbo: gerência de projetos não \"mantém\" (A) nem \"atualiza\" (D) software — isso é manutenção, outra fase. E \"alocar recursos\" (C) é uma atividade dentro da gerência, não a definição dela.\n\nRegra prática para este formato: quando duas alternativas estão certas e uma contém a outra, a mais completa é o gabarito."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 29",
+      "dificuldade": 2,
+      "enunciado": "Qual o conceito de teste de software e suas principais fases do processo de testes?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O teste de software é uma etapa final do desenvolvimento que visa garantir que o software esteja livre de bugs. As principais fases do processo de testes são Planejamento de Testes, Execução de Testes, Avaliação de Resultados e Documentação de Defeitos"
+        },
+        {
+          "letra": "B",
+          "texto": "O teste de software é um processo complexo de identificar erros no código e validar se o software atende aos requisitos. As fases do processo de testes incluem Teste de Unidade, Teste de Integração, Teste de Sistema e Teste de Aceitação"
+        },
+        {
+          "letra": "C",
+          "texto": "O teste de software é uma atividade simples de verificar a aparência visual do software. As principais fases do processo de testes são Projeto de Interface, Teste de Interface, Teste Funcional e Teste de Usabilidade"
+        },
+        {
+          "letra": "D",
+          "texto": "O teste de software é uma técnica que visa melhorar o desempenho do sistema. As fases do processo de testes incluem Teste de Performance, Teste de Carga, Teste de Estresse e Teste de Segurança"
+        },
+        {
+          "letra": "E",
+          "texto": "O teste de software é uma abordagem para criar casos de uso em um software. As principais fases do processo de testes são Modelagem de Casos de Uso, Execução de Casos de Uso, Avaliação de Resultados e Relatório de Defeitos"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "A escada clássica do teste de software, do menor pedaço para o sistema inteiro:\n\n| Nível | O que se testa | Quem costuma fazer |\n|---|---|---|\n| **Unidade** | a menor parte testável (função, método, classe) | o desenvolvedor |\n| **Integração** | a conversa entre as unidades | o desenvolvedor / equipe |\n| **Sistema** | o sistema completo contra os requisitos | equipe de teste |\n| **Aceitação** | o sistema na ótica do cliente | o cliente / usuário |\n\nÉ a alternativa **B**, e ela também acerta o conceito: teste **identifica erros e valida se o software atende aos requisitos**.\n\nOnde as outras erram:\n\n- **A** diz \"livre de bugs\". Nenhum teste prova ausência de erro — Dijkstra: teste mostra a presença de defeitos, nunca a ausência. E as fases que lista são as **atividades** do processo (planejar, executar, avaliar), não os **níveis**.\n- **C** reduz teste a aparência visual, o que é falso.\n- **D** lista só testes **não funcionais** (performance, carga, estresse) — são tipos de teste, não as fases.\n- **E** confunde teste com modelagem de casos de uso.\n\nSeu edital de Desenvolvimento pede \"testes: unitários, integração, validação e manutenção corretiva e evolutiva\" — essa escada de quatro níveis é o esqueleto da linha inteira."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 37",
+      "dificuldade": 2,
+      "enunciado": "O controle de versão de software é uma prática fundamental no desenvolvimento colaborativo. Assinale a alternativa que explica o conceito de controle de versão, destacando sua importância, os principais objetivos e como ele contribui para a organização do desenvolvimento de software, o gerenciamento de mudanças e a colaboração entre equipes.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O controle de versão de software é uma abordagem para rastrear e gerenciar alterações em arquivos de código-fonte ao longo do tempo. Ele permite o controle preciso de alterações, o trabalho em equipe eficiente e a recuperação de versões anteriores"
+        },
+        {
+          "letra": "B",
+          "texto": "O controle de versão refere-se à identificação de erros em código-fonte e sua correção imediata. Isso garante que o software seja sempre livre de erros e pronto para implantação"
+        },
+        {
+          "letra": "C",
+          "texto": "O controle de versão é a gestão de configurações de hardware em um ambiente de desenvolvimento. Ele permite manter o hardware atualizado para melhorar o desempenho do software"
+        },
+        {
+          "letra": "D",
+          "texto": "O controle de versão envolve a otimização de desempenho de um aplicativo, garantindo que ele funcione de maneira eficiente em diferentes sistemas operacionais. Isso é alcançado por meio da reescrita frequente do código-fonte"
+        },
+        {
+          "letra": "E",
+          "texto": "O controle de versão é a criação de backups regulares de um projeto de software. Ele garante a segurança dos dados e impede a perda de informações críticas"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "Controle de versão é **rastrear e gerenciar alterações em arquivos ao longo do tempo** — e as três consequências que a alternativa A lista são exatamente os motivos de ele existir: histórico preciso do que mudou, trabalho simultâneo sem sobrescrita e volta a uma versão anterior. Resposta: **A**.\n\nA alternativa que mais atrai é a **E**, \"criação de backups regulares\". A diferença importa:\n\n| | Backup | Controle de versão |\n|---|---|---|\n| Guarda | o estado do arquivo | **cada alteração**, com autor, data e motivo |\n| Serve para | recuperar de desastre | entender a evolução e integrar trabalho paralelo |\n| Responde | \"como estava ontem?\" | \"quem mudou esta linha, quando e por quê?\" |\n\nUm repositório Git dá backup de brinde, mas backup não dá branch, merge nem `git blame`.\n\nB confunde com depuração, C com gerência de configuração de hardware e D com otimização — nenhuma tem relação."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 31",
+      "dificuldade": 3,
+      "enunciado": "Em um sistema web desenvolvido em Java, qual padrão de projeto (design pattern) é mais adequado para gerenciar diferentes estados de um pedido em um e-commerce?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Factory Method"
+        },
+        {
+          "letra": "B",
+          "texto": "State Pattern"
+        },
+        {
+          "letra": "C",
+          "texto": "Singleton"
+        },
+        {
+          "letra": "D",
+          "texto": "Observer"
+        },
+        {
+          "letra": "E",
+          "texto": "Strategy"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "O enunciado entrega a resposta na palavra **estados**. O **State** é o padrão comportamental do GoF feito para o caso em que um objeto muda de comportamento conforme seu estado interno — e um pedido de e-commerce é o exemplo de manual: aguardando pagamento → pago → em separação → enviado → entregue, com regras diferentes em cada etapa (um pedido \"enviado\" não pode ser cancelado do mesmo jeito que um \"aguardando pagamento\").\n\nO State troca a cadeia de `if`/`switch` sobre o campo de status por uma classe por estado, cada uma sabendo o que pode fazer e para qual estado transitar. Resposta: **B**.\n\nOs outros quatro resolvem problemas diferentes:\n\n| Padrão | Problema que resolve |\n|---|---|\n| Factory Method | delegar à subclasse qual objeto instanciar |\n| Singleton | garantir uma única instância na aplicação |\n| Observer | notificar vários interessados quando algo muda |\n| Strategy | trocar o **algoritmo** em tempo de execução |\n\nO par que confunde é **State × Strategy**: a estrutura das duas é quase igual. A diferença é quem decide a troca — no Strategy quem escolhe é o cliente (qual algoritmo de frete usar); no State a troca é interna e o objeto muda sozinho conforme evolui."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 44",
+      "dificuldade": 2,
+      "enunciado": "Sobre metodologias ágeis e seus frameworks, analise as afirmações:\n\nI. O Scrum utiliza sprints com duração fixa (time-boxed) para entregar incrementos de produto potencialmente utilizáveis.\nII. O Kanban foca no fluxo contínuo de trabalho e limita o trabalho em progresso (WIP), diferentemente das iterações fixas do Scrum.\nIII. As reuniões diárias (Daily Scrum) são eventos time-boxed de 15 minutos onde a equipe sincroniza atividades e identifica impedimentos.\nIV. O Product Backlog é uma lista ordenada de tudo que pode ser necessário no produto, sendo a única fonte de requisitos para mudanças.\n\nEstão corretas as afirmações:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I e II apenas"
+        },
+        {
+          "letra": "B",
+          "texto": "I, II e III apenas"
+        },
+        {
+          "letra": "C",
+          "texto": "II, III e IV apenas"
+        },
+        {
+          "letra": "D",
+          "texto": "I, II, III e IV"
+        },
+        {
+          "letra": "E",
+          "texto": "I, III e IV apenas"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "Os quatro itens são definições diretas do Scrum Guide e do Kanban, sem nenhum exagero plantado. Resposta: **D**.\n\n- **I.** Sprint é time-boxed (no máximo um mês) e entrega um incremento \"potencialmente utilizável\" — o termo do guia.\n- **II.** O contraste está certo: Kanban é fluxo contínuo com **limite de WIP**; Scrum é iteração de duração fixa. Não são concorrentes, mas a diferença é essa.\n- **III.** Daily Scrum: 15 minutos, time-boxed, para sincronizar e levantar impedimento. Os 15 minutos são do guia, não arredondamento.\n- **IV.** \"Única fonte de requisitos\" é a frase do Scrum Guide sobre o Product Backlog — e é o que dá ao Product Owner o controle do que entra no produto.\n\nA armadilha aqui é o item IV: a palavra **única** normalmente é sinal de item falso em prova, e o candidato treinado a desconfiar de absolutos elimina. Neste caso o absoluto é do próprio guia. É por isso que \"todas\" aparece tanto na Avança SP — ela sabe que o candidato hesita."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 34",
+      "dificuldade": 2,
+      "enunciado": "Um software de domínio público refere-se a",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "programas cujo direito de propriedade intelectual tenha sido liberado incondicionalmente por seus autores"
+        },
+        {
+          "letra": "B",
+          "texto": "todos os produtos para os quais sejam vendidas licenças"
+        },
+        {
+          "letra": "C",
+          "texto": "programas que podem ser copiados livremente para avaliação, mas que requerem o pagamento de uma licença no caso de uso continuado"
+        },
+        {
+          "letra": "D",
+          "texto": "uma versão mais curta de um jogo, que pode ser instalada para que o usuário possa verificar se gosta ou não do produto. Caso goste, é preciso comprar o software na sua \"versão de caixa\""
+        },
+        {
+          "letra": "E",
+          "texto": "programas suportados por banners, ou seja, são gratuitos enquanto o banner estiver rodando no programa, mas há a possibilidade de se adquirir um registro e retirar esse sistema de banners"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "Cada alternativa descreve uma categoria diferente de licenciamento, e a questão é só casar o nome com a definição:\n\n| Alternativa | Categoria que descreve |\n|---|---|\n| **A** | **domínio público** |\n| B | software proprietário / comercial |\n| C | shareware |\n| D | demo (versão de demonstração) |\n| E | adware |\n\n**Domínio público** é o caso em que o autor **abre mão incondicionalmente** dos direitos de propriedade intelectual — ou em que eles expiraram. Sem licença, sem condição, sem obrigação de citar. Resposta: **A**.\n\nA distinção que mais cai em prova é domínio público × software livre: no **software livre** o autor **mantém** os direitos e usa a licença (a GPL, por exemplo) para impor condições, como a de que derivados também sejam livres. No **domínio público** não há direito a manter, então qualquer um pode inclusive fechar o código de uma versão derivada. Domínio público é mais permissivo, não mais livre."
+    }
+  ]
+}

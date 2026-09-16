@@ -1,0 +1,874 @@
+{
+  "_leia_me": "Seção 6 do caderno do Instituto Avança SP: as 9 questões de programação.\n    7,2% dos específicos. A banca não cobra lógica de programação nem algoritmo\n    aqui — cobra sintaxe pontual de Java, PHP e Visual Basic, mais duas do\n    ecossistema JavaScript (npm, node_modules). É decoreba de detalhe, e estudar\n    por linguagem é o caminho.\n\n    A questão 48 de Rio Grande da Serra (Visual Basic / .Net) tem gabarito\n    discutível: \".Exe\" também se defende. Ficou com dificuldade 3 e a explicação\n    registra o problema.\n\n    Gabarito oficial, transcrito de docs/avanca-sp/avanca-sp-especificos.md.\n    As explicações são minhas.\n\nACRÉSCIMO DE 15/09/2026 — 19 questões de sete provas novas, transcritas dos cadernos em\n    docs/avanca-sp/Provas/: Caçapava 2024 (4), Taboão da Serra 2022 (3), Americana 2022 Analista\n    Programador (3), Amparo 2022 (2), Paraty 2024 (2), Rio Claro 2026 (2), UNITAU 2025 (1) e\n    Embu-Guaçu 2023 (1). Gabarito lido no PDF da banca, no bloco do cargo — definitivo em\n    Americana, Amparo, Taboão, Embu-Guaçu e Rio Claro; PRELIMINAR em Caçapava, Paraty e UNITAU.\n    As explicações são MINHAS.\n\n    A questão 40 de Embu-Guaçu (\"qual a saída do código Java\") FICOU DE FORA: a banca a ANULOU,\n    e o gabarito dela vem como X no PDF. Questão anulada não tem resposta, e importá-la com um\n    palpite seria fabricar gabarito que a banca não deu.\n\n    As duas questões de Rio Claro passaram por OCR (aquele caderno é escaneado) e foram\n    conferidas contra a imagem da página 12 antes de entrar: o OCR lia \"C#\" como \"C%\" e a\n    alternativa D da questão 47 como \"1% e %)\" em vez de \"{% e %}\".\n\n    Duas ressalvas de conteúdo, registradas nas próprias explicações: a questão 38 de Paraty é\n    mal calibrada (a alternativa E também seria declaração válida em PHP, e o gabarito se apoia\n    na exigência de modificador que o enunciado faz), e a 48 de Americana cobra o\n    create-react-app, descontinuado pelo time do React em 2025.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Programação",
+    "ordem": 6
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 39",
+      "enunciado": "Em JAVA um Enum é uma estrutura enumerada em conjuntos de constantes organizados em ordem de declaração. Sobre o Enum é correto afirmar que:",
+      "gabarito": "C",
+      "explicacao": "A (C) é a correta: enum em Java não é instanciável de fora. As constantes declaradas no corpo do enum são as únicas instâncias que vão existir, criadas pela JVM quando a classe é carregada. `new MinhaEnum()` não compila.\n\nÉ essa garantia — conjunto fechado de instâncias, criadas uma vez só — que faz o enum ser a forma canônica de singleton em Java e a forma segura de comparar com `==`.\n\nE é por isso que a (D) está errada: o enum **pode** ter construtor, desde que privado (implicitamente privado, aliás). O construtor é o que dá estado às constantes:\n\n    public enum Status {\n        ATIVO(\"A\", 1), INATIVO(\"I\", 0);\n        private final String sigla;\n        private final int codigo;\n        Status(String sigla, int codigo) { ... }\n    }\n\nAs outras três invertem o propósito do enum. Ele existe justamente para **limitar** valores (derruba a A) e para **agrupar** constantes relacionadas (derruba a B), e o exemplo acima mostra que ele carrega String, int, o que for — não só inteiro (derruba a E).\n\nAtalho: enum = conjunto fechado, instâncias fixas, construtor privado, pode ter campos e métodos. É uma classe com a lista de objetos decidida em tempo de compilação.",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O enum não limita valores."
+        },
+        {
+          "letra": "B",
+          "texto": "A funcionalidade principal de enum é não agrupar valores."
+        },
+        {
+          "letra": "C",
+          "texto": "Estruturas enum não são instanciáveis."
+        },
+        {
+          "letra": "D",
+          "texto": "Um enum não pode ter construtor."
+        },
+        {
+          "letra": "E",
+          "texto": "Enum só trabalha com inteiros."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 40",
+      "enunciado": "Baseando-se em conhecimentos acerca de fluxo de dados de entrada e saída em JAVA, analise as afirmações a seguir.\n\nEstão corretas as afirmações:",
+      "gabarito": "B",
+      "explicacao": "Corretas a I e a II — alternativa (B).\n\nQuando um programa Java começa, a JVM já deixa prontos três objetos de fluxo ligados aos dispositivos padrão:\n\n| Objeto | Tipo | Para que serve | Destino usual |\n|---|---|---|---|\n| `System.in` | InputStream | entrada padrão | teclado |\n| `System.out` | PrintStream | saída padrão — o resultado | console |\n| `System.err` | PrintStream | saída de **erro** | console |\n\nA I está certa: são três, e são criados na inicialização.\n\nA II está certa: `System.in` é a entrada padrão, normalmente o teclado (é o que se embrulha num `Scanner`).\n\nA III troca os papéis, e é o erro plantado: quem \"envia resultados\" é o `System.out`. O `System.err` é a saída de erro.\n\nPor que existem duas saídas, já que as duas aparecem na mesma tela: elas são redirecionáveis separadamente. `programa > saida.txt` desvia só o `out`; o `err` continua aparecendo. Isso permite guardar o resultado num arquivo e continuar vendo os erros. Além disso o `err` não é bufferizado — a mensagem sai na hora, mesmo que o programa morra em seguida.\n\nAtalho: out é o que o programa produziu; err é o que deu errado ao produzir.",
+      "dificuldade": 2,
+      "afirmacoes": [
+        "Java cria três objetos de fluxo que são associados a dispositivos de entrada ou saída sempre que um programa inicia a execução.",
+        "System.in: objeto de fluxo de entrada padrão, normalmente utilizado pelo programa para obter dados a partir do teclado.",
+        "System.err: objeto de fluxo de saída padrão, normalmente utilizado pelo programa para enviar resultados."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "III, apenas."
+        },
+        {
+          "letra": "B",
+          "texto": "I e II, apenas."
+        },
+        {
+          "letra": "C",
+          "texto": "I, II e III."
+        },
+        {
+          "letra": "D",
+          "texto": "II e III, apenas."
+        },
+        {
+          "letra": "E",
+          "texto": "I e III, apenas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 41",
+      "enunciado": "Das alternativas a seguir, qual é o gerenciador de pacotes oficial do Node?",
+      "gabarito": "D",
+      "explicacao": "npm — Node Package Manager. É o gerenciador oficial: vem instalado junto com o Node, e é ele quem lê o `package.json`, resolve as dependências e as grava em `node_modules`.\n\nO Yarn (A) é o distrator bom porque **existe de verdade** — foi criado no Facebook em 2016, quando o npm era lento e a resolução de versões não era determinística. É alternativa legítima e muito usada (o pnpm também), mas nenhum dos dois é o oficial. A questão cobra exatamente essa distinção: oficial ≠ popular.\n\nAs outras três nem existem: \"Nodend\", \"Ndp\" e \"Cmd\" (que é o prompt do Windows) são distratores inventados, o formato preferido desta banca.\n\nAtalho: o que vem junto com a linguagem é o oficial. Python/pip, Node/npm, PHP/composer (este à parte, mas de fato o padrão), Ruby/gem, Rust/cargo.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Yarn."
+        },
+        {
+          "letra": "B",
+          "texto": "Nodend."
+        },
+        {
+          "letra": "C",
+          "texto": "Ndp."
+        },
+        {
+          "letra": "D",
+          "texto": "Npm."
+        },
+        {
+          "letra": "E",
+          "texto": "Cmd."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 42",
+      "enunciado": "Considere que foi criado um projeto padrão em react utilizando o create-react-app. Onde, por padrão, ficarão armazenadas todas as dependências de bibliotecas utilizadas?",
+      "gabarito": "E",
+      "explicacao": "`node_modules` é onde os pacotes ficam de fato — o diretório que o npm cria na raiz do projeto e enche com o código de cada dependência, das diretas e das dependências delas.\n\nO `package.json` (C) é o distrator certo para errar, e vale entender por quê. Ele **declara** o que o projeto precisa, com faixas de versão (`\"react\": \"^18.2.0\"`); não guarda código nenhum. É a diferença entre a lista de compras e a despensa.\n\nO trio completo:\n\n| Arquivo/pasta | Papel |\n|---|---|\n| `package.json` | declara as dependências e as faixas de versão aceitas |\n| `package-lock.json` | trava a versão exata que foi instalada, para o próximo `npm install` reproduzir |\n| `node_modules/` | o código instalado |\n\nE é por isso que `node_modules` entra no `.gitignore` (B) enquanto os dois arquivos entram no repositório: a pasta se reconstrói a partir deles, pesa centenas de megabytes e é específica da máquina.\n\nAtalho: package.json é a receita, package-lock.json é a nota fiscal, node_modules é o armário.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Na pasta src."
+        },
+        {
+          "letra": "B",
+          "texto": "No arquivo .gitignore."
+        },
+        {
+          "letra": "C",
+          "texto": "No arquivo package.json."
+        },
+        {
+          "letra": "D",
+          "texto": "No arquivo index."
+        },
+        {
+          "letra": "E",
+          "texto": "Na pasta node_modules."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 48",
+      "enunciado": "O Visual Basic é uma linguagem de programação desenvolvida pela Microsoft, que torna mais rápida e fácil a criação de aplicativos do tipo:",
+      "gabarito": "D",
+      "explicacao": "O gabarito é (D) .Net, e a leitura que a banca quis é a do nome do produto: a linguagem chamada **Visual Basic .NET** roda sobre a plataforma .NET, compilando para CIL e executando na CLR, igual ao C#.\n\nVale registrar que a (C) .Exe é defensável: o VB compila, sim, para um arquivo `.exe`. A pista de que a banca não queria isso está na palavra do enunciado — \"aplicativos do tipo\", que puxa para o tipo/plataforma do aplicativo, não para a extensão do arquivo de saída. E `.Doc`, `.Txt` e `.Cad` não são tipos de aplicativo de jeito nenhum: são formatos de documento, o que reforça que a alternativa certa é a única que nomeia uma plataforma.\n\nContexto que ajuda a não errar em questão parecida: existiram dois Visual Basic diferentes. O VB6 (até 1998) era COM e compilava executável nativo; o VB.NET (desde 2002) é outra linguagem, da família .NET. Quando a banca diz \"Visual Basic\" hoje, quase sempre é o segundo.\n\nAtalho para esta banca: quando duas alternativas parecem certas, vale a que casa com a palavra exata do enunciado. Aqui, \"tipo\" de aplicativo puxou .Net.",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": ".Doc."
+        },
+        {
+          "letra": "B",
+          "texto": ".Txt."
+        },
+        {
+          "letra": "C",
+          "texto": ".Exe."
+        },
+        {
+          "letra": "D",
+          "texto": ".Net."
+        },
+        {
+          "letra": "E",
+          "texto": ".Cad."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 49",
+      "enunciado": "Com relação aos operadores e expressões da linguagem de programação Visual Basic, analisar os itens a seguir e assinalar a sequência de Certo e Errado correta.",
+      "gabarito": "B",
+      "explicacao": "C – C – E, alternativa (B).\n\nA **primeira** é a definição de operador: o elemento de código que executa uma operação sobre um ou mais operandos. Certa.\n\nA **segunda** é a definição de expressão: elementos de valor combinados por operadores, produzindo um novo valor. Certa, e é literal da documentação da Microsoft.\n\nA **terceira** é a errada, e o erro é de família. Operador de concatenação junta texto — no Visual Basic são `&` e `+`, sendo `&` o recomendado justamente porque `+` é ambíguo (com dois números ele soma). Quem \"executa cálculos familiares em valores numéricos\" são os aritméticos; quem muda \"padrões de bit\" são os bit a bit.\n\nAs famílias de operador do VB:\n\n| Família | Exemplos | O que fazem |\n|---|---|---|\n| Aritméticos | `+ - * / \\ ^ Mod` | cálculo numérico |\n| Concatenação | `&`, `+` | juntam strings |\n| Comparação | `= <> < > <= >= Is Like` | devolvem booleano |\n| Lógicos / bit a bit | `And Or Not Xor AndAlso OrElse` | lógica e manipulação de bits |\n\nAtalho de item C/E desta banca: a definição genérica no começo do bloco costuma ser copiada da documentação e estar certa; o erro mora no item que **atribui a uma família o trabalho de outra**. Leia o sujeito da frase, não o predicado.",
+      "dificuldade": 2,
+      "afirmacoes": [
+        "Um operador é um elemento de código que executa uma operação em um ou mais elementos de código que retêm valores.",
+        "Uma expressão é uma série de elementos de valor combinada com operadores, que gera um novo valor. Os operadores agem em elementos de valor executando cálculos, comparações ou outras operações.",
+        "Os operadores de concatenação executam cálculos familiares em valores numéricos, incluindo a mudança dos padrões de bit."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "C – C – C."
+        },
+        {
+          "letra": "B",
+          "texto": "C – C – E."
+        },
+        {
+          "letra": "C",
+          "texto": "C – E – C."
+        },
+        {
+          "letra": "D",
+          "texto": "E – E – C."
+        },
+        {
+          "letra": "E",
+          "texto": "E – C – C."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 40",
+      "enunciado": "Indique, a seguir, a alternativa que possua a sintaxe correta do método Active no Visual Basic.",
+      "gabarito": "A",
+      "explicacao": "`Object.Active` — notação de ponto entre o objeto e o membro que se quer acessar, que é a sintaxe de acesso a membro no Visual Basic (e em praticamente toda linguagem orientada a objetos: Java, C#, Python, JavaScript).\n\nPor que as outras não funcionam:\n\n| Alternativa | Problema |\n|---|---|\n| `Object-Active` | o hífen é operador de subtração; o compilador leria \"Object menos Active\" |\n| `ObjectActive` | vira um único identificador, um nome novo — nada acessado |\n| `Object.doActive` | a sintaxe está certa, o nome é que é inventado |\n| `Object Active` | espaço não é operador; erro de sintaxe |\n\nA (D) é o distrator bom, e o erro que ela planta é de convenção: o prefixo `do` vem de outras culturas de código (o `doSomething` do Java, o `do` de Objective-C). No VB, o membro é chamado pelo nome dele, sem prefixo de ação.\n\nAtalho: ponto = \"dentro de\". `Objeto.Membro` lê-se \"o membro Active, que está dentro de Object\".",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Object.Active"
+        },
+        {
+          "letra": "B",
+          "texto": "Object-Active"
+        },
+        {
+          "letra": "C",
+          "texto": "ObjectActive"
+        },
+        {
+          "letra": "D",
+          "texto": "Object.doActive"
+        },
+        {
+          "letra": "E",
+          "texto": "Object Active"
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 43",
+      "enunciado": "Uma constante é um identificador (nome) para um valor simples. Como o nome sugere, esse valor não pode mudar durante a execução do script. Identifique qual das alternativas indica uma declaração inválida de uma constante na linguagem PHP.",
+      "gabarito": "D",
+      "explicacao": "A declaração inválida é a (D): `define(\"2FOO\", \"other things\")`.\n\nA regra vale para PHP e para quase toda linguagem: um identificador começa com **letra ou sublinhado**, e depois disso aceita letras, dígitos e sublinhados. `2FOO` começa com dígito, e isso o desqualifica.\n\nRepare no cuidado que a questão teve em montar as alternativas: `FOO2` (B) é válida, e está ali exatamente para mostrar que o problema **não é o dígito** — é a posição dele. Dígito no meio ou no fim, sem problema; na primeira posição, não.\n\nPor que a regra existe: o analisador léxico decide o tipo do token pelo primeiro caractere. Começou com dígito, ele vai ler um número; `2FOO` seria o número 2 seguido de lixo.\n\nUma sutileza do PHP que a banca não explorou, mas que aparece em prova melhor: `define()` é uma função, executada em tempo de execução, e tecnicamente aceita nomes que o parser não aceitaria, recuperáveis só via `constant()`. É má prática, e o gabarito oficial ignora isso — a resposta esperada continua sendo (D).\n\nAtalho: identificador não começa com número. Serve para PHP, Python, Java, C, JavaScript e SQL.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "define(\"FOO\", \"something\");"
+        },
+        {
+          "letra": "B",
+          "texto": "define(\"FOO2\", \"something else\");"
+        },
+        {
+          "letra": "C",
+          "texto": "define(\"FOO_BAR\", \"something more\");"
+        },
+        {
+          "letra": "D",
+          "texto": "define(\"2FOO\", \"other things\");"
+        },
+        {
+          "letra": "E",
+          "texto": "define(\"FOOBAR\", \"something important\");"
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 34",
+      "enunciado": "Na linguagem PHP, variáveis membros de classes são chamadas de propriedades. Elas podem ser definidas com ao menos um modificador opcional, seguido também de uma declaração de tipo, finalizando com um nome de variável comum. Essa declaração pode ainda incluir uma inicialização, desde que essa inicialização seja um valor constante. Analise as declarações a seguir.\n\nSão apresentadas declarações válidas de propriedades em:",
+      "gabarito": "E",
+      "explicacao": "Só a I é válida — alternativa (E).\n\nA regra está escrita no próprio enunciado e é a chave da questão: a inicialização de uma propriedade tem de ser uma **expressão constante**, resolvível quando a classe é compilada, sem executar nada.\n\n| Declaração | Vale? | Por quê |\n|---|---|---|\n| `public $var6 = myConstant;` | sim | constante nomeada — valor já conhecido |\n| `public $var4 = self::myStaticMethod();` | não | chamada de método: só existe resultado em tempo de execução |\n| `public $var5 = $myVar;` | não | valor de outra variável, que muda a cada execução |\n\nO motivo é o momento: a propriedade é inicializada quando o **objeto** é criado, a partir de uma tabela montada quando a **classe** é compilada. Nessa hora não há contexto de execução — não há `$this`, não há pilha de chamada, não há outra variável. Se a linguagem aceitasse uma chamada de método ali, a ordem de avaliação viraria um problema insolúvel.\n\nComo se faz o que a II e a III tentam: dentro do construtor.\n\n    public $var4;\n    public function __construct() { $this->var4 = self::myStaticMethod(); }\n\nAtalho: inicializador de propriedade aceita literal, constante e array de literais. Qualquer coisa com parênteses de chamada ou `$` de outra variável vai para o construtor.",
+      "dificuldade": 3,
+      "afirmacoes": [
+        "public $var6 = myConstant;",
+        "public $var4 = self::myStaticMethod();",
+        "public $var5 = $myVar;"
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I, II e III."
+        },
+        {
+          "letra": "B",
+          "texto": "II e III."
+        },
+        {
+          "letra": "C",
+          "texto": "apenas III."
+        },
+        {
+          "letra": "D",
+          "texto": "apenas II."
+        },
+        {
+          "letra": "E",
+          "texto": "apenas I."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 47",
+      "dificuldade": 1,
+      "enunciado": "Um arquivo React é conhecido por ser um aplicativo de página única — é uma aplicação web ou site que consiste de uma única página web (só tem um HTML). Essa característica é conhecida como:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "FDA"
+        },
+        {
+          "letra": "B",
+          "texto": "SPA"
+        },
+        {
+          "letra": "C",
+          "texto": "APE"
+        },
+        {
+          "letra": "D",
+          "texto": "PUN"
+        },
+        {
+          "letra": "E",
+          "texto": "UPG"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "**SPA — Single Page Application.** A página HTML é carregada uma vez e, a partir daí, o JavaScript troca o conteúdo sem pedir uma página nova ao servidor. Resposta: **B**.\n\nO contraste com o modelo tradicional (MPA, multi page application) explica por que se faz isso: em cada clique, a aplicação multipágina baixa uma página inteira do servidor e repinta tudo; a SPA baixa só os **dados** e redesenha o pedaço que mudou. A navegação fica instantânea; em troca, a primeira carga é mais pesada e indexação em buscador exige cuidado extra.\n\nAs outras quatro siglas não significam nada em desenvolvimento web — são distratores inventados."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 48",
+      "dificuldade": 1,
+      "enunciado": "Para criar um projeto padrão em React chamado projetoteste, a linha de comando correta é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "npx-create-app-projetoteste"
+        },
+        {
+          "letra": "B",
+          "texto": "projetoteste-npx-create"
+        },
+        {
+          "letra": "C",
+          "texto": "npm create-projetoteste"
+        },
+        {
+          "letra": "D",
+          "texto": "npx create-react-app projetoteste"
+        },
+        {
+          "letra": "E",
+          "texto": "npx -app-projetoteste"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "`npx create-react-app projetoteste` — três palavras separadas por espaço: o executor (`npx`), o pacote (`create-react-app`) e o nome do projeto. Resposta: **D**.\n\nAs outras quatro erram na forma antes de errar no conteúdo: grudam tudo com hífen, o que não é sintaxe de linha de comando. Reconhecer isso resolve a questão sem saber React.\n\nDiferença entre `npx` e `npm`, que a alternativa C explora: **`npm` instala** um pacote; **`npx` executa** um pacote sem instalar permanentemente. Para um gerador de projeto, que se usa uma vez, `npx` é o certo.\n\nObservação de contexto: o `create-react-app` foi descontinuado pelo time do React em 2025, que hoje recomenda Vite ou frameworks como o Next.js. Como prova de concurso cobra o que estava no material da época, ele continua caindo — mas não é o que se usa em projeto novo."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 49",
+      "dificuldade": 2,
+      "enunciado": "No React, um conceito de programação onde uma representação ideal, ou \"virtual\", da interface do usuário é mantida em memória e sincronizada com o DOM \"real\" por uma biblioteca como o ReactDOM é conhecido como:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "DOMReact"
+        },
+        {
+          "letra": "B",
+          "texto": "ReactDOM"
+        },
+        {
+          "letra": "C",
+          "texto": "DOM"
+        },
+        {
+          "letra": "D",
+          "texto": "DOMPrincipal"
+        },
+        {
+          "letra": "E",
+          "texto": "VirtualDOM"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "O enunciado é a definição literal da documentação do React, e o nome é **Virtual DOM**. Resposta: **E**.\n\nComo funciona: mexer no DOM real do navegador é caro. O React mantém em memória uma árvore leve que representa a interface; quando o estado muda, ele monta a nova árvore, **compara com a anterior** (o processo de *reconciliation*) e aplica no DOM real só a diferença.\n\nA armadilha é a alternativa **B, ReactDOM** — que o próprio enunciado cita, mas como **a biblioteca que faz a sincronização**, não como o conceito. Quem lê rápido marca o nome que aparece no texto. O Virtual DOM é o conceito; o ReactDOM é o pacote que o aplica ao navegador."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 48",
+      "dificuldade": 3,
+      "enunciado": "Segundo sua documentação, quantos tipos primitivos a linguagem PHP suporta?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Cinco"
+        },
+        {
+          "letra": "B",
+          "texto": "Seis"
+        },
+        {
+          "letra": "C",
+          "texto": "Doze"
+        },
+        {
+          "letra": "D",
+          "texto": "Dez"
+        },
+        {
+          "letra": "E",
+          "texto": "Oito"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "A documentação do PHP lista **dez** tipos primitivos. Resposta: **D**.\n\nSão eles, por categoria:\n\n| Categoria | Tipos |\n|---|---|\n| escalares (4) | `bool`, `int`, `float`, `string` |\n| compostos (4) | `array`, `object`, `callable`, `iterable` |\n| especiais (2) | `resource`, `null` |\n\nQuestão de contagem, que é o tipo mais ingrato de decorar. Se ela cair, o caminho é reconstruir a lista pelos grupos — quatro escalares, quatro compostos, dois especiais — em vez de tentar lembrar o número solto.\n\nRepare que PHP é a linguagem mais cobrada por esta banca: 11 questões nas 14 provas levantadas, acima de Java (6) e C# (5). Seu edital diz \"C#, Java, PHP ou similares\", mas o histórico pende para PHP."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 49",
+      "dificuldade": 1,
+      "enunciado": "O PHP suporta de forma transparente cookies HTTP. Cookies são um mecanismo para armazenar dados no navegador remoto e assim rastrear ou identificar usuários que retornam. Você pode criar cookies usando a função:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "origncoockie()"
+        },
+        {
+          "letra": "B",
+          "texto": "dinamiccoockie()"
+        },
+        {
+          "letra": "C",
+          "texto": "overcoockie()"
+        },
+        {
+          "letra": "D",
+          "texto": "coockie()"
+        },
+        {
+          "letra": "E",
+          "texto": "setcookie()"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "`setcookie()` é a função do PHP que envia um cookie ao navegador. Resposta: **E**.\n\nRepare na grafia: quatro alternativas escrevem \"co**o**ckie\", com **o** a mais. Só a **E** escreve **cookie** corretamente — e é a resposta. Nem sempre a banca é tão generosa, mas quando quatro alternativas compartilham um erro de grafia e uma não, vale olhar para a diferente.\n\nDetalhe que cai junto: `setcookie()` precisa ser chamada **antes de qualquer saída** para o navegador, porque o cookie viaja no cabeçalho HTTP. Depois de um `echo`, os cabeçalhos já foram enviados e a chamada falha. Para **ler** o cookie na requisição seguinte, usa-se o array `$_COOKIE`."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 38",
+      "dificuldade": 1,
+      "enunciado": "Das alternativas a seguir, aquela que contém apenas exemplos de estruturas de repetição é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Do while e Else"
+        },
+        {
+          "letra": "B",
+          "texto": "If e Do"
+        },
+        {
+          "letra": "C",
+          "texto": "While e For"
+        },
+        {
+          "letra": "D",
+          "texto": "Else e If"
+        },
+        {
+          "letra": "E",
+          "texto": "If e For"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "A palavra que decide é **apenas**: as duas têm de ser de repetição.\n\n| Estrutura | Tipo |\n|---|---|\n| `while`, `for`, `do while` | **repetição** (laço) |\n| `if`, `else`, `switch` | **decisão** (condicional) |\n\nSó a alternativa **C — While e For** traz duas repetições. As demais sempre carregam um `if` ou um `else` junto. Resposta: **C**.\n\nA diferença entre os três laços, que costuma vir na sequência: `for` quando se sabe quantas vezes repetir; `while` testa **antes** e pode não executar nenhuma vez; `do while` testa **depois** e executa pelo menos uma vez."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 39",
+      "dificuldade": 1,
+      "enunciado": "Tendo como base o PHP, qual das alternativas a seguir NÃO é uma palavra reservada?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "and"
+        },
+        {
+          "letra": "B",
+          "texto": "case"
+        },
+        {
+          "letra": "C",
+          "texto": "continue"
+        },
+        {
+          "letra": "D",
+          "texto": "intermedio"
+        },
+        {
+          "letra": "E",
+          "texto": "global"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "Comando negativo. `and`, `case`, `continue` e `global` são palavras reservadas do PHP:\n\n| Palavra | Para quê serve |\n|---|---|\n| `and` | operador lógico E (de baixa precedência) |\n| `case` | ramo do `switch` |\n| `continue` | pula para a próxima iteração do laço |\n| `global` | traz uma variável do escopo global para dentro da função |\n\n**`intermedio`** não é palavra reservada de linguagem nenhuma — é uma palavra em português solta no meio de quatro termos em inglês. Resposta: **D**.\n\nO atalho que resolve sem decorar a lista: palavra reservada de linguagem de programação é, quase sempre, **em inglês**. Quando uma alternativa aparece em português no meio de termos ingleses, ela é a intrusa."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 40",
+      "dificuldade": 2,
+      "enunciado": "Analise a imagem de estrutura a seguir. A imagem do diagrama mostra uma estrutura:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "De repetição"
+        },
+        {
+          "letra": "B",
+          "texto": "Condicional"
+        },
+        {
+          "letra": "C",
+          "texto": "Circular"
+        },
+        {
+          "letra": "D",
+          "texto": "Rígida"
+        },
+        {
+          "letra": "E",
+          "texto": "Representacional"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "O que identifica a estrutura no fluxograma é o **losango**: ele representa um teste, com duas saídas rotuladas — aqui, Verdadeiro e Falso a partir de `A > B`. Isso é **estrutura condicional**. Resposta: **B**.\n\nOs símbolos do fluxograma que a banca cobra:\n\n| Símbolo | Significa |\n|---|---|\n| retângulo arredondado / elipse | início e fim |\n| retângulo | processamento |\n| **losango** | **decisão** |\n| paralelogramo | entrada e saída |\n| seta | sentido do fluxo |\n\nComo distinguir condicional de repetição, já que as duas usam losango: na **condicional**, os dois caminhos seguem para a frente e se reencontram depois (é o que a figura mostra — ambos vão para Fim). Na **repetição**, um dos caminhos **volta** para um ponto anterior do fluxo, fechando o laço. Procure a seta que sobe.",
+      "imagem": "avanca-sp/taboao-2022-estrutura-fluxograma.png",
+      "imagem_alt": "Fluxograma com Início em um retângulo arredondado no topo, seguido de um losango com a condição A > B. A saída rotulada Verdadeiro leva a um retângulo \"Exibir Mensagem A é maior que B\"; a saída rotulada Falso desce direto. Os dois caminhos convergem para um retângulo arredondado Fim."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 41",
+      "dificuldade": 2,
+      "enunciado": "Qual das alternativas a seguir é uma classe definida padrão (em PHP)?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Disco"
+        },
+        {
+          "letra": "B",
+          "texto": "stdClass"
+        },
+        {
+          "letra": "C",
+          "texto": "Star"
+        },
+        {
+          "letra": "D",
+          "texto": "Final c"
+        },
+        {
+          "letra": "E",
+          "texto": "Alter"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "**`stdClass`** é a classe genérica embutida do PHP — a \"classe padrão\" (*standard class*). Resposta: **B**.\n\nOnde ela aparece na prática, quase sempre sem que ninguém a escreva:\n\n- ao converter um array associativo em objeto: `$obj = (object) ['nome' => 'Ana'];`\n- ao decodificar JSON sem pedir array: `json_decode($json)` devolve `stdClass`.\n\nÉ uma classe sem métodos e sem propriedades declaradas; serve como saco de propriedades dinâmicas.\n\nAs outras quatro não são classes do PHP. O nome já entrega: `stdClass` é a única que segue a convenção de nome de classe da linguagem."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 31",
+      "dificuldade": 1,
+      "enunciado": "A um profissional de processamento de dados cabe decidir que tipo de lógica deverá ser utilizado para a solução de um determinado problema. Existem vários tipos de lógica. Um tipo comum é a lógica modular, que é definida como:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "algoritmo específico estruturado"
+        },
+        {
+          "letra": "B",
+          "texto": "solução dos problemas sem dividi-los em segmentos"
+        },
+        {
+          "letra": "C",
+          "texto": "subdivisão do problema em diversos módulos"
+        },
+        {
+          "letra": "D",
+          "texto": "resoluções em laços, em esquema de ciclos dentro de ciclos"
+        },
+        {
+          "letra": "E",
+          "texto": "algoritmo não estruturado"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "A resposta está na própria palavra: lógica **modular** é a que **subdivide o problema em módulos**, cada um resolvendo uma parte. Resposta: **C**.\n\nÉ o princípio de \"dividir para conquistar\" aplicado a programa: em vez de um bloco único, sub-rotinas, funções ou procedimentos que se chamam entre si. As vantagens que costumam vir junto em prova: reaproveitamento de código, manutenção localizada (mexe-se num módulo sem tocar nos outros) e teste isolado de cada parte.\n\nA alternativa **B** é o oposto exato — \"sem dividi-los em segmentos\" — e serve de âncora: se B é o contrário, C é o caminho. A **D** descreve lógica de repetição encadeada, não modularidade."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 32",
+      "dificuldade": 1,
+      "enunciado": "Ao projetar um esquema de fluxograma para solucionar um problema, os símbolos utilizados para demarcar o início e o fim do processo são melhor definidos como:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "retângulos"
+        },
+        {
+          "letra": "B",
+          "texto": "círculos"
+        },
+        {
+          "letra": "C",
+          "texto": "quadrados"
+        },
+        {
+          "letra": "D",
+          "texto": "retângulos arredondados"
+        },
+        {
+          "letra": "E",
+          "texto": "losangos"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "Início e fim são marcados pelo **terminal**: um **retângulo de bordas arredondadas** (algumas notações desenham como elipse). Resposta: **D**.\n\nA tabela completa, que a banca cobra em provas diferentes:\n\n| Símbolo | Papel |\n|---|---|\n| **retângulo arredondado** | **início / fim** |\n| retângulo | processamento |\n| losango | decisão |\n| paralelogramo | entrada e saída |\n| seta | fluxo |\n\nO distrator mais forte é **A, retângulos** — que é processamento, não terminal. A diferença é só o canto arredondado, e é ela que a questão está cobrando."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 38",
+      "dificuldade": 2,
+      "enunciado": "Uma linguagem de programação é um conjunto de termos e de regras que permite a formulação de instruções a um computador. Uma das primeiras linguagens de programação era orientada diretamente à máquina e oferecia facilidade do uso de macroinstruções. Essa linguagem é denominada como:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Assembly"
+        },
+        {
+          "letra": "B",
+          "texto": "COBOL"
+        },
+        {
+          "letra": "C",
+          "texto": "C"
+        },
+        {
+          "letra": "D",
+          "texto": "Go"
+        },
+        {
+          "letra": "E",
+          "texto": "Linguagem de pulsos elétricos"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "Duas pistas no enunciado apontam para **Assembly**: \"orientada diretamente à máquina\" e \"macroinstruções\". Resposta: **A**.\n\nAssembly é linguagem de **baixo nível**: cada instrução corresponde a uma instrução de máquina do processador, apenas escrita com um mnemônico (`MOV`, `ADD`, `JMP`) em vez de binário. O montador (*assembler*) traduz. As **macros** são o recurso que permite dar um nome a uma sequência de instruções e reutilizá-la — exatamente a \"facilidade de macroinstruções\" do enunciado.\n\nAs outras: COBOL (1959) e C (1972) são de **alto nível**, apesar de antigas; Go é de 2009; e \"linguagem de pulsos elétricos\" não é nome de linguagem — o mais perto disso seria linguagem de máquina, em binário, que é o nível **abaixo** do Assembly.\n\nA escala, de baixo para cima: linguagem de máquina (binário) → Assembly (mnemônicos) → alto nível (C, Java, PHP)."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 42",
+      "dificuldade": 2,
+      "enunciado": "A partir do contexto da programação orientada a objetos em Java, associe cada componente com sua respectiva função.\n\n1) Object\n2) Class\n3) Package\n\na) Um blueprint ou protótipo a partir do qual os objetos são criados.\nb) Um pacote de software de estado e comportamento relacionados.\nc) Um namespace para organizar classes e interfaces de maneira lógica.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1-c; 2-b; 3-a"
+        },
+        {
+          "letra": "B",
+          "texto": "1-b; 2-a; 3-c"
+        },
+        {
+          "letra": "C",
+          "texto": "1-c; 2-a; 3-b"
+        },
+        {
+          "letra": "D",
+          "texto": "1-a; 2-b; 3-c"
+        },
+        {
+          "letra": "E",
+          "texto": "1-a; 2-c; 3-b"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "As três definições são as do tutorial oficial de Java da Oracle, traduzidas:\n\n| Termo | Definição | Letra |\n|---|---|---|\n| **Object** | \"um pacote de software de **estado e comportamento** relacionados\" | **b** |\n| **Class** | \"um **blueprint** ou protótipo a partir do qual objetos são criados\" | **a** |\n| **Package** | \"um **namespace** para organizar classes e interfaces\" | **c** |\n\nResposta: **B** (1-b; 2-a; 3-c).\n\nO par que a questão quer ver invertido é Object × Class, e a palavra-chave separa os dois sem ambiguidade: **blueprint** (planta) é a classe; quem tem **estado** (valores nos atributos, agora) é o objeto. A planta não tem estado — a casa construída a partir dela tem.\n\nTática para associação de colunas: resolva primeiro o par de que você tem mais certeza e elimine. Aqui, \"namespace\" só pode ser Package, o que já derruba A, C e E."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 38",
+      "dificuldade": 3,
+      "enunciado": "Na linguagem PHP, variáveis membros de classes são chamadas de propriedades. Elas podem ser definidas com ao menos um modificador opcional, seguido também de uma declaração de tipo, finalizando com um nome de variável comum. Indique a alternativa que apresenta uma declaração válida de uma propriedade em PHP:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "public $var1 = myConstant"
+        },
+        {
+          "letra": "B",
+          "texto": "$var2 = self::myStaticMethod()"
+        },
+        {
+          "letra": "C",
+          "texto": "public $var3 = self::myStaticMethod"
+        },
+        {
+          "letra": "D",
+          "texto": "public $var4 = '$myVar'"
+        },
+        {
+          "letra": "E",
+          "texto": "$var7"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "A regra do PHP: o valor inicial de uma propriedade tem de ser uma **expressão constante**, avaliável em tempo de compilação. Chamada de método não é.\n\n| | Declaração | Vale? |\n|---|---|---|\n| **A** | `public $var1 = myConstant` | **sim** — constante é expressão constante |\n| B | `$var2 = self::myStaticMethod()` | não — **chama** um método |\n| C | `public $var3 = self::myStaticMethod` | não — referência a método sem chamar não é valor válido |\n| D | `public $var4 = '$myVar'` | é sintaticamente válida, mas entre aspas **simples** não há interpolação: o valor literal vira a string `$myVar` |\n| E | `$var7` | declara sem inicializar |\n\nO gabarito é **A**, e o critério que a banca usou foi o par \"modificador + valor constante\" descrito no próprio enunciado: `public` é o modificador e `myConstant` é uma constante.\n\nVale registrar que esta é uma questão mal calibrada — a alternativa E (`$var7`) também é uma declaração válida de propriedade em PHP, só que sem modificador e sem valor. O enunciado se protege ao exigir \"ao menos um modificador\", o que empurra para A. Se cair parecida, o critério a seguir é o do enunciado, não o do interpretador."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 40",
+      "dificuldade": 1,
+      "enunciado": "Uma _______ em PHP é um identificador (nome) para um valor simples. Como o nome sugere, esse valor não pode mudar durante a execução do script. Analise e indique qual das alternativas melhor preenche a lacuna do texto acima:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "variável"
+        },
+        {
+          "letra": "B",
+          "texto": "constante"
+        },
+        {
+          "letra": "C",
+          "texto": "função"
+        },
+        {
+          "letra": "D",
+          "texto": "classe"
+        },
+        {
+          "letra": "E",
+          "texto": "biblioteca"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "O enunciado define pelo que o nome sugere: valor que **não pode mudar** é **constante**. Resposta: **B**.\n\nÉ a definição literal do manual do PHP. Na prática:\n\n```php\ndefine('TAXA', 0.15);   // forma clássica\nconst TAXA = 0.15;      // a partir do PHP 5.3\n```\n\nDuas diferenças para variável que costumam vir junto em prova: constante **não leva `$`** no nome e, por convenção, escreve-se em CAIXA ALTA.\n\nA alternativa **A, variável**, é o contrário exato — variável é justamente o identificador cujo valor **pode** mudar. Quando o enunciado diz \"não pode mudar\", ele elimina A no mesmo movimento em que aponta B."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 35",
+      "dificuldade": 2,
+      "enunciado": "Analise o trecho de código Python a seguir. Qual é a principal vantagem do tratamento de exceções implementado?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Melhora a performance do código"
+        },
+        {
+          "letra": "B",
+          "texto": "Permite tratamento específico para diferentes tipos de erros"
+        },
+        {
+          "letra": "C",
+          "texto": "Reduz o consumo de memória"
+        },
+        {
+          "letra": "D",
+          "texto": "Aumenta a velocidade de execução"
+        },
+        {
+          "letra": "E",
+          "texto": "Facilita a leitura e manutenção do código"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "O código tem **dois `except` diferentes**, e cada um faz uma coisa distinta:\n\n| Erro capturado | Quando acontece | O que o código faz |\n|---|---|---|\n| `KeyError` | a chave não existe no dicionário | devolve `None` — ausência de dado é situação prevista |\n| `ZeroDivisionError` | `data['total']` é zero | **levanta** `ValueError` com mensagem clara |\n\nÉ essa distinção que a questão cobra: a vantagem não é genérica, é **tratar cada tipo de erro de um jeito**. Resposta: **B**.\n\nO distrator sério é a **E, \"facilita a leitura e manutenção\"**. É verdade que facilita — mas é consequência secundária, e seria igualmente verdade com um `except Exception` genérico. O que este código faz de específico, e que um `except` único não faria, é dar **destinos diferentes** a erros diferentes: um vira `None`, o outro vira exceção com mensagem de negócio.\n\nA, C e D estão erradas de saída: tratamento de exceção não acelera nem economiza memória — o bloco `try` tem custo, pequeno, mas custo.\n\nO padrão que o código ilustra vale levar para a prova: capture a exceção **mais específica** possível, e use `raise` para converter erro técnico em erro de domínio.",
+      "codigo": "try:\n    result = data['valor'] / data['total']\n    return result\nexcept KeyError:\n    return None\nexcept ZeroDivisionError:\n    raise ValueError(\"Total não pode ser zero\")",
+      "linguagem": "python"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 46",
+      "dificuldade": 1,
+      "enunciado": "Na linguagem C#, os namespaces são utilizados para organizar classes e outros tipos em grupos lógicos, evitando conflitos de nomes entre bibliotecas diferentes. Para utilizar uma classe que pertence a um determinado namespace sem precisar digitar o seu caminho completo toda vez, um programador deve utilizar, no topo do arquivo, a palavra-chave:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "void"
+        },
+        {
+          "letra": "B",
+          "texto": "using"
+        },
+        {
+          "letra": "C",
+          "texto": "class"
+        },
+        {
+          "letra": "D",
+          "texto": "include"
+        },
+        {
+          "letra": "E",
+          "texto": "import"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "Em C#, a diretiva é **`using`**:\n\n```csharp\nusing System.Collections.Generic;\n// agora dá para escrever List<int> em vez de\n// System.Collections.Generic.List<int>\n```\n\nResposta: **B**.\n\nOs distratores D e E são as palavras equivalentes de **outras linguagens**, e é exatamente aí que a questão pega:\n\n| Linguagem | Palavra-chave |\n|---|---|\n| C# | `using` |\n| Java | `import` |\n| Python | `import` |\n| C / C++ | `#include` |\n\nQuem estudou Java marca `import`; quem vem de C marca `include`. As outras duas nada têm a ver: `void` é tipo de retorno vazio e `class` declara classe.\n\nDetalhe: em C# o `using` tem um segundo uso, o bloco `using (var x = ...)` para liberar recursos. São coisas diferentes com a mesma palavra — a questão trata da diretiva do topo do arquivo."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 47",
+      "dificuldade": 1,
+      "enunciado": "A linguagem PHP é amplamente utilizada para o desenvolvimento de sistemas web dinâmicos. Para que o interpretador do servidor identifique o início e o fim de um bloco de código PHP dentro de um arquivo, devem ser utilizadas, respectivamente, as seguintes tags de abertura e fechamento:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "<1php e 2php>"
+        },
+        {
+          "letra": "B",
+          "texto": "<?php e ?>"
+        },
+        {
+          "letra": "C",
+          "texto": "<script> e </script>"
+        },
+        {
+          "letra": "D",
+          "texto": "{% e %}"
+        },
+        {
+          "letra": "E",
+          "texto": "/* e */"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "`<?php` abre e `?>` fecha. Resposta: **B**.\n\nÉ o que permite misturar PHP e HTML no mesmo arquivo: tudo que está fora das tags o servidor manda direto ao navegador; o que está dentro é executado.\n\n```php\n<h1>Olá</h1>\n<?php echo date('Y'); ?>\n<p>fim</p>\n```\n\nOs distratores vêm de outras tecnologias: `<script>` é HTML/JavaScript, `{% %}` é sintaxe de template (Jinja, Django, Twig) e `/* */` é **comentário de bloco**, não delimitador de código — vale em PHP, C, Java e JavaScript, mas para comentar.\n\nDetalhe prático que cai junto: em arquivo que só tem PHP, a recomendação é **omitir o `?>` final**, para evitar que espaço em branco depois dele seja enviado ao navegador e atrapalhe cabeçalhos HTTP."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 24",
+      "dificuldade": 3,
+      "enunciado": "No contexto do desenvolvimento de sistemas web, quais as características do ASP.NET, Java e PHP, destacando suas principais vantagens e possíveis casos de uso?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "ASP.NET é uma plataforma exclusiva para desenvolvimento em ambiente Windows, com integração ao Microsoft Visual Studio. Java é reconhecido por sua portabilidade e independência de plataforma, sendo amplamente utilizado em aplicações corporativas. PHP é uma linguagem de script voltada para aplicações web dinâmicas e interativas"
+        },
+        {
+          "letra": "B",
+          "texto": "ASP.NET é uma linguagem de programação de código aberto, com foco na otimização para aplicações mobile. Java é conhecido por sua simplicidade e alta performance, sendo adequado para aplicações de tempo real. PHP é uma plataforma para desenvolvimento de jogos online"
+        },
+        {
+          "letra": "C",
+          "texto": "ASP.NET é uma plataforma multiplataforma com suporte a diversas linguagens de programação, como C# e VB.NET, oferecendo integração com o Microsoft Visual Studio. Java é reconhecido por sua portabilidade e capacidade de criar sistemas escaláveis. PHP é uma linguagem de script amplamente usada para desenvolvimento web, destacando-se pela facilidade de aprendizado"
+        },
+        {
+          "letra": "D",
+          "texto": "ASP.NET, Java e PHP são linguagens de programação focadas em desenvolvimento mobile, cada uma com suas próprias características de desempenho e segurança. ASP.NET é notável pela integração com o Microsoft Visual Studio, Java pela sua orientação a objetos, e PHP por sua flexibilidade em aplicações de tempo real"
+        },
+        {
+          "letra": "E",
+          "texto": "ASP.NET é uma plataforma multiplataforma que suporta várias linguagens de programação, incluindo C# e VB.NET. Java é amplamente utilizado em aplicações corporativas devido à sua robustez e portabilidade. PHP é uma linguagem de script que se destaca em aplicações web, oferecendo facilidade de desenvolvimento e integração com bancos de dados"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Alternativa-parágrafo de novo, com três afirmações por opção. O jeito de resolver é achar a palavra que derruba.\n\nO discriminante está em **ASP.NET**: desde o .NET Core (2016) ele é **multiplataforma**, roda em Linux e macOS. Isso elimina a alternativa **A**, que o chama de \"exclusiva para ambiente Windows\" — era verdade no .NET Framework antigo, não hoje.\n\nSobram C e E, que dizem quase a mesma coisa. A diferença:\n\n| | ASP.NET | Java | PHP |\n|---|---|---|---|\n| C | multiplataforma, C# e VB.NET, integra com Visual Studio | portátil, escalável | script web, fácil de aprender |\n| **E** | multiplataforma, C# e VB.NET | corporativo, robusto, portátil | script web, fácil, **integra com bancos de dados** |\n\nO gabarito é **E**. As duas são defensáveis, e a banca escolheu a que enfatiza o uso corporativo do Java e a integração do PHP com banco — os pontos que aparecem com mais frequência na bibliografia. Questão de \"mais completa\", como a q27 da mesma prova.\n\nB e D caem sozinhas: ASP.NET não é \"linguagem de código aberto focada em mobile\", PHP não é plataforma de jogos, e nenhuma das três é focada em desenvolvimento mobile."
+    }
+  ]
+}

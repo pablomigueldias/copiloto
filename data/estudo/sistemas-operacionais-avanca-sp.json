@@ -1,0 +1,600 @@
+{
+  "_leia_me": "Seção 4 do caderno do Instituto Avança SP: as 19 questões de sistemas\n    operacionais, presentes nas cinco provas. 15,2% dos específicos. A banca\n    mistura conceito teórico (PCB, fork, swapping, micronúcleo) com uso prático\n    de Windows e Linux na mesma seção — e o uso prático é a maior parte.\n\n    A questão 46 de Sorocaba usa a figura dos ícones da barra de tarefas do\n    Windows 10, recuperada para data/estudo/imagens/avanca-sp/.\n\n    A questão 50 de Rio Grande da Serra usa a captura do Gerenciador de\n    Tarefas, que não veio na transcrição do caderno e foi recortada do PDF da\n    prova depois. Na página ela são três imagens sobrepostas; o arquivo é a\n    união das três.\n\n    Três questões têm problema de banca e ficaram com dificuldade 3: a 36 de Rio\n    Grande da Serra (a área de notificações não fica na área de trabalho), a 41\n    de Itatiba (o \"Centro de Acessórios\" também não existe) e a 36 de Juquitiba\n    (Kate não é editor de linha de comando). Em todas as três a explicação diz\n    qual é o problema — se caírem parecidas na prova, é recurso.\n\n    Gabarito oficial, transcrito do caderno. As explicações são minhas.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Sistemas operacionais",
+    "ordem": 4
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 42",
+      "enunciado": "O núcleo do sistema operacional mantém descritores de processos, denominados ______, para armazenar as informações referentes aos processos ativos.",
+      "gabarito": "E",
+      "explicacao": "PCB — Process Control Block, ou bloco de controle de processo. É a estrutura que o núcleo mantém para **cada** processo ativo; a tabela de processos é o conjunto delas.\n\nO que vai dentro:\n\n| Campo | Para quê |\n|---|---|\n| PID (e PID do pai) | identificação |\n| Estado | novo, pronto, executando, bloqueado, terminado |\n| Contador de programa | em que instrução parou |\n| Registradores salvos | o conteúdo da CPU no instante em que perdeu a vez |\n| Informações de memória | tabela de páginas, limites de segmento |\n| Arquivos abertos | descritores |\n| Prioridade e contabilidade | escalonamento, tempo de CPU usado |\n\nO PCB é o que torna a **troca de contexto** possível. Quando o escalonador tira um processo da CPU, ele copia os registradores e o contador de programa para o PCB; quando devolve a CPU àquele processo, recarrega de lá. Sem o PCB, interromper um processo seria perdê-lo.\n\nOs distratores: FTP é protocolo de transferência de arquivo e SSD é disco de estado sólido — existem, mas em outro assunto. ACD e SNM não existem.\n\nAtalho: PCB = a ficha do processo. Se a questão falar em \"descritor de processo\", \"bloco de controle\" ou \"o que o SO guarda sobre cada processo\", a resposta é PCB.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "ACD's."
+        },
+        {
+          "letra": "B",
+          "texto": "SNM's."
+        },
+        {
+          "letra": "C",
+          "texto": "FTP's."
+        },
+        {
+          "letra": "D",
+          "texto": "SSD's."
+        },
+        {
+          "letra": "E",
+          "texto": "PCB's."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 43",
+      "enunciado": "Nos sistemas UNIX, a criação de novos processos é feita em duas etapas: na primeira etapa, um processo cria uma réplica de si mesmo, usando a chamada de sistema:",
+      "gabarito": "A",
+      "explicacao": "`fork()`. A criação de processo no UNIX é feita em dois passos, e essa divisão é uma decisão de projeto, não um acidente:\n\n1. **`fork()`** — duplica o processo que chamou. O filho nasce como cópia do pai: mesmo código, mesma memória (em cópia sob escrita), mesmos descritores de arquivo. A chamada devolve **0 para o filho** e o **PID do filho para o pai** — é assim que cada um descobre quem é.\n2. **`exec()`** — substitui a imagem do processo pelo programa novo. O PID continua o mesmo; o que estava rodando ali é trocado.\n\nPor que separar em dois: entre o fork e o exec o filho ainda é o pai, e é nessa janela que o shell faz o trabalho dele — redirecionar entrada e saída, fechar descritores, mudar de diretório, trocar de usuário. `comando > arquivo.txt` é exatamente isso: fork, redireciona a saída no filho, exec. Se a criação fosse um passo só, essa configuração teria de caber em parâmetros da chamada (é o caminho que o Windows tomou, com `CreateProcess` e sua dúzia de argumentos).\n\nCompletando o quarteto que cai junto: `wait()` faz o pai esperar o filho terminar e colher o código de saída; `exit()` encerra. Filho que termina sem o pai colher vira **zumbi**; pai que morre antes do filho deixa um **órfão**, adotado pelo init.\n\nAs outras alternativas: `main()` é a função de entrada de um programa C, não chamada de sistema; nord, crud e count não existem.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "fork()."
+        },
+        {
+          "letra": "B",
+          "texto": "main()."
+        },
+        {
+          "letra": "C",
+          "texto": "nord()."
+        },
+        {
+          "letra": "D",
+          "texto": "crud()."
+        },
+        {
+          "letra": "E",
+          "texto": "count()."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 44",
+      "enunciado": "Analise as afirmações a seguir, acerca de threads.\n\nEstão corretas as afirmações:",
+      "gabarito": "A",
+      "explicacao": "As quatro estão corretas — alternativa (A).\n\n**I.** Thread é um fluxo de execução independente: tem contador de programa, pilha e registradores próprios, e é escalonável por si.\n\n**II.** Um processo pode ter uma ou várias. O processo é o dono dos recursos (espaço de endereçamento, arquivos abertos); a thread é quem executa. Um processo sempre tem ao menos uma.\n\n**III.** Cada thread tem um contexto local pequeno, e o Thread Local Storage é o nome da área de dados privada dela dentro do processo — variáveis que existem por thread, não compartilhadas.\n\n**IV.** O próprio núcleo usa threads: são as *kernel threads*, fluxos internos que executam em modo núcleo (no Linux aparecem entre colchetes no `ps`, como `[kworker]`).\n\nO que é compartilhado e o que é privado — é o que faz thread ser barata e perigosa ao mesmo tempo:\n\n| Privado de cada thread | Compartilhado no processo |\n|---|---|\n| pilha | código (seção de texto) |\n| registradores e contador de programa | heap e variáveis globais |\n| estado e prioridade | arquivos abertos |\n| Thread Local Storage | sinais e espaço de endereçamento |\n\nO heap compartilhado é o que torna a comunicação entre threads imediata (não precisa de IPC) e o que exige mutex, semáforo e seção crítica — duas threads escrevendo na mesma variável é condição de corrida.\n\nAtalho para \"quais afirmações estão corretas\" desta banca: procure quantificador absoluto. Nenhuma das quatro tem \"sempre\", \"apenas\" ou \"nunca\" — e é isso que faz todas passarem.",
+      "dificuldade": 2,
+      "afirmacoes": [
+        "Uma thread é definida como sendo um fluxo de execução independente.",
+        "Um processo pode conter uma ou mais threads.",
+        "Cada thread é caracterizado por um código em execução e um pequeno contexto local, o chamado Thread Local Storage.",
+        "Threads são também utilizadas para implementar fluxos de execução dentro do núcleo do SO, neste caso recebendo o nome de threads de núcleo."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I, II, III e IV."
+        },
+        {
+          "letra": "B",
+          "texto": "I, II e III, apenas."
+        },
+        {
+          "letra": "C",
+          "texto": "II, III e IV, apenas."
+        },
+        {
+          "letra": "D",
+          "texto": "I, III e IV, apenas."
+        },
+        {
+          "letra": "E",
+          "texto": "I e II, apenas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 43",
+      "enunciado": "Sobre a função de gerenciamento de memória do sistema operacional é correto afirmar que:",
+      "gabarito": "C",
+      "explicacao": "A (C): conhecer quais regiões da memória estão em uso e quais estão livres. É a função central do gerenciador de memória, e é dela que dependem todas as outras.\n\nO gerenciador de memória responde por:\n\n- **Rastrear** o que está alocado e o que está livre (a afirmação da alternativa certa);\n- **Alocar** quando um processo pede e **liberar** quando termina;\n- **Proteger** — impedir que um processo leia ou escreva na área de outro;\n- **Traduzir** endereço lógico em físico, com apoio da MMU;\n- **Estender** a memória com o disco, via memória virtual e swap.\n\nAs outras quatro pertencem a outros subsistemas, e reconhecer o dono é o atalho da questão:\n\n| Alternativa | De quem é |\n|---|---|\n| Balancear o uso da CPU entre processos | escalonador |\n| Maximizar o throughput | escalonador (é um critério de escalonamento) |\n| Segurança no acesso a arquivos | sistema de arquivos e controle de acesso |\n| Boot do sistema | firmware/BIOS/UEFI e bootloader |\n\nA (A) e a (B) são as tentadoras, porque soam a \"coisa que sistema operacional faz\". Fazem — mas é outro gerente. Throughput, tempo de resposta, tempo de espera e justiça são os critérios do **escalonador de processos**, não do gerenciador de memória.\n\nAtalho: memória cuida de espaço, escalonador cuida de tempo.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O gerenciador de memória deve balancear o uso da CPU entre os processos."
+        },
+        {
+          "letra": "B",
+          "texto": "O gerenciador deve maximizar o throughput do sistema."
+        },
+        {
+          "letra": "C",
+          "texto": "É função dessa parte do SO conhecer quais regiões da memória estão em uso e quais não estão sendo usadas."
+        },
+        {
+          "letra": "D",
+          "texto": "O gerenciador de memória também cuida da segurança no acesso aos arquivos."
+        },
+        {
+          "letra": "E",
+          "texto": "O gerenciador de memória é responsável pelo boot do sistema."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 44",
+      "enunciado": "O movimento de processos da memória principal para o disco e vice-versa é denominado:",
+      "gabarito": "A",
+      "explicacao": "Swapping. É o vaivém de processos entre a memória principal e o disco: quando falta RAM, o SO escolhe um processo (tipicamente um bloqueado ou de baixa prioridade), grava a imagem dele na área de troca e libera a memória. Quando ele volta a ser necessário, o caminho é o inverso.\n\nA paginação (E) é o distrator forte e a distinção vale o item:\n\n| | Swapping | Paginação |\n|---|---|---|\n| O que é | **movimento** de processo entre RAM e disco | **organização** do espaço de endereçamento em blocos de tamanho fixo |\n| Granularidade | o processo inteiro, na forma clássica | a página, de 4 KB tipicamente |\n| Categoria | técnica de gerência | esquema de endereçamento |\n\nNa prática os dois se misturam: sistemas modernos fazem *paging* — mandam páginas individuais para o disco em vez do processo inteiro —, e por isso muita gente usa \"swap\" e \"paginação\" como sinônimos. Na prova, quando as duas aparecem juntas como alternativas, o que a banca quer é a distinção clássica: **movimento** é swap.\n\nO efeito colateral que cai em prova: quando o sistema passa mais tempo movendo página do que executando, o fenômeno se chama **thrashing**, e a causa é grau de multiprogramação alto demais para a RAM disponível.\n\nOverload, Changging e Clock (que é nome de um algoritmo de substituição de página, não de movimento) completam os distratores.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Swapping."
+        },
+        {
+          "letra": "B",
+          "texto": "Overload."
+        },
+        {
+          "letra": "C",
+          "texto": "Changging."
+        },
+        {
+          "letra": "D",
+          "texto": "Clock."
+        },
+        {
+          "letra": "E",
+          "texto": "Paginação."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 45",
+      "enunciado": "No sistema operacional Linux, o comando chmod é executado para:",
+      "gabarito": "A",
+      "explicacao": "`chmod` = **ch**ange **mod**e, e \"mode\" são as permissões do arquivo: leitura (r), escrita (w) e execução (x), para três públicos — dono, grupo e outros.\n\nAs duas notações:\n\n| Forma | Exemplo | Significado |\n|---|---|---|\n| Octal | `chmod 755 script.sh` | dono rwx (7), grupo r-x (5), outros r-x (5) |\n| Simbólica | `chmod u+x script.sh` | acrescenta execução ao dono |\n\nOs números saem da soma: r=4, w=2, x=1. Então 7 = rwx, 6 = rw-, 5 = r-x, 4 = r--. É o que basta para ler qualquer `chmod` de prova.\n\nO que as outras quatro alternativas descrevem, com o comando de verdade:\n\n| Alternativa | Comando |\n|---|---|\n| Listar arquivos da pasta | `ls` |\n| Navegar entre pastas | `cd` |\n| Exibir o diretório atual | `pwd` |\n| Fechar o terminal | `exit` |\n\nAtalho: o nome do comando é abreviação em inglês, sempre. chmod = change mode, chown = change owner, pwd = print working directory, ls = list, mkdir = make directory. Traduza o nome e a questão se resolve sozinha.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Alterar os níveis de permissão de leitura, escrita e execução."
+        },
+        {
+          "letra": "B",
+          "texto": "Listar arquivos na pasta atual."
+        },
+        {
+          "letra": "C",
+          "texto": "Navegar entre as pastas."
+        },
+        {
+          "letra": "D",
+          "texto": "Exibir o diretório atual."
+        },
+        {
+          "letra": "E",
+          "texto": "Fechar o terminal."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 46",
+      "enunciado": "Baseando-se no Sistema operacional Windows 10, analise a imagem, retirada da barra de tarefas. O ícone em destaque na barra de tarefas é o:",
+      "gabarito": "B",
+      "explicacao": "O ícone em destaque é o de **Visão de Tarefas** (Task View) — a caixa com as duas abas atrás dela, que aparece à direita da Cortana na barra de tarefas do Windows 10. É o mesmo recurso do atalho **Win+Tab**: mostra as janelas abertas em miniatura e permite criar e trocar de áreas de trabalho virtuais.\n\nA ordem dos ícones à esquerda da barra de tarefas do Windows 10 é fixa, e decorá-la resolve a família inteira dessas questões:\n\n| Posição | Ícone | Atalho |\n|---|---|---|\n| 1 | Iniciar (logotipo do Windows) | Win |\n| 2 | Caixa de pesquisa / Cortana (círculo) | Win+S |\n| 3 | **Visão de Tarefas** | Win+Tab |\n| 4 em diante | aplicativos fixados e janelas abertas | — |\n\nOnde as outras erram: **Cortana** (A) é o círculo vazado logo à esquerda — é o vizinho, e por isso o distrator principal. **Área de trabalho** (C) não é ícone: é a tira fina na ponta **direita** da barra, que minimiza tudo (Win+D). **Central de Ações** (D) fica na ponta direita, junto ao relógio, com o ícone de balão (Win+A). **Painel de Controle** (E) não mora na barra de tarefas.\n\nAtalho: o ícone de Visão de Tarefas tem cara de \"janelas empilhadas\". Cortana é círculo, Central de Ações é balão, Área de Trabalho é a barrinha do canto.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Cortana."
+        },
+        {
+          "letra": "B",
+          "texto": "Visão de tarefas."
+        },
+        {
+          "letra": "C",
+          "texto": "Área de trabalho."
+        },
+        {
+          "letra": "D",
+          "texto": "Central de ações."
+        },
+        {
+          "letra": "E",
+          "texto": "Painel de controle."
+        }
+      ],
+      "imagem": "avanca-sp/windows10-barra-tarefas.png",
+      "imagem_alt": "Trecho da barra de tarefas do Windows 10 em tema escuro, com cinco ícones da esquerda para a direita: um círculo vazado (Cortana), um ícone destacado por uma moldura retangular representando janelas empilhadas (Visão de tarefas), o ícone do Google Chrome, o do Explorador de Arquivos e o do Outlook."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 35",
+      "enunciado": "Ao utilizar o sistema operacional Windows 10, uma forma rápida de abrir o explorador de arquivos é acionando o comando:",
+      "gabarito": "B",
+      "explicacao": "**Win+E** — E de Explorer.\n\nOs atalhos da tecla Windows que esta banca cobra, e que vale decorar em bloco porque as alternativas são sempre as mesmas letras:\n\n| Atalho | O que faz | Mnemônico |\n|---|---|---|\n| Win+E | Explorador de Arquivos | **E**xplorer |\n| Win+D | mostra a Área de Trabalho | **D**esktop |\n| Win+A | Central de Ações | **A**ction center |\n| Win+I | Configurações | **I** de settings (o ícone de engrenagem) |\n| Win+L | bloqueia a sessão | **L**ock |\n| Win+R | caixa Executar | **R**un |\n| Win+S | pesquisa | **S**earch |\n| Win+Tab | Visão de Tarefas | — |\n| Win+X | menu de ferramentas administrativas | — |\n| Ctrl+Shift+Esc | Gerenciador de Tarefas | — |\n\nA alternativa (D), Win+D, é o distrator plantado: também é atalho real e muito usado, só que mostra a área de trabalho. Win+C, na (C), abria a Cortana em versões antigas do Windows 10 e hoje não faz nada por padrão. Win+O trava a orientação da tela.\n\nAtalho: quase todos são a inicial do nome em inglês. Quando a questão trouxer cinco letras e você souber o nome em inglês do recurso, a letra certa se escolhe sozinha.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Tecla do logotipo do Windows + A."
+        },
+        {
+          "letra": "B",
+          "texto": "Tecla do logotipo do Windows + E."
+        },
+        {
+          "letra": "C",
+          "texto": "Tecla do logotipo do Windows + C."
+        },
+        {
+          "letra": "D",
+          "texto": "Tecla do logotipo do Windows + D."
+        },
+        {
+          "letra": "E",
+          "texto": "Tecla do logotipo do Windows + O."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 36",
+      "enunciado": "Considere as funcionalidades presentes no sistema operacional Windows 10 e analise as afirmações a seguir.\n\nEstá(ão) Correto(s):",
+      "gabarito": "D",
+      "explicacao": "O gabarito é (D) — I e II corretas, III falsa. Vale separar o que é pacífico do que é problema de banca, porque esta questão tem os dois.\n\n**I — certa.** Com mais de uma conta registrada, o Windows 10 apresenta a tela de login para escolher o usuário e informar a credencial. Com uma conta só e sem senha, ele entra direto.\n\n**III — falsa, e sem discussão.** Eclipse é IDE de desenvolvimento, principalmente Java. Quem encerra programa travado no Windows é o **Gerenciador de Tarefas** (Ctrl+Shift+Esc → botão direito no processo → Finalizar tarefa), ou o `taskkill` na linha de comando.\n\n**II — é onde a questão fica frágil.** A área de notificações **não** fica na área de trabalho: ela fica na **barra de tarefas**, no canto direito, ao lado do relógio — é onde moram o ícone de rede, o de volume, o de bateria e os ícones em segundo plano. A banca tratou \"área de trabalho\" como sinônimo frouxo de \"tela do Windows\" e considerou a afirmação certa.\n\nSe cair uma redação assim numa prova de banca grande, é item de recurso. Nesta banca, o gabarito é (D) — marque e siga.\n\nAtalho para não confundir os três termos:\n\n| Termo | Onde fica | O que tem |\n|---|---|---|\n| Área de trabalho | a tela inteira, atrás das janelas | ícones, atalhos, papel de parede |\n| Barra de tarefas | a faixa, normalmente embaixo | Iniciar, pesquisa, janelas abertas |\n| Área de notificações | o canto direito da barra de tarefas | relógio, rede, volume, ícones de fundo |",
+      "dificuldade": 3,
+      "afirmacoes": [
+        "Nas máquinas onde o sistema operacional Windows 10 opera, existindo mais de um usuário registrado, ao iniciar o computador será necessário inserir os dados de acesso do usuário na tela de login.",
+        "A área de notificações do Windows 10 apresenta informações importantes sobre o sistema e fica localizada na área de trabalho do computador.",
+        "Para parar a execução de um programa travado no Windows 10, podemos usar o programa Eclipse."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Somente o item I."
+        },
+        {
+          "letra": "B",
+          "texto": "Somente o item II."
+        },
+        {
+          "letra": "C",
+          "texto": "Somente o item III."
+        },
+        {
+          "letra": "D",
+          "texto": "Somente os itens I e II."
+        },
+        {
+          "letra": "E",
+          "texto": "Todos os itens."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 37",
+      "enunciado": "Linux é um sistema operacional criado por Linus Torvalds por volta de 1991. Sobre as características desse sistema operacional, marcar C para as afirmativas Certas, E para as Erradas e, após, assinalar a alternativa que apresenta a sequência CORRETA:\n\n( ) O Sistema Operacional Linux foi desenvolvido para executar uma tarefa por vez, não sendo possível rodar duas ou mais aplicações ao mesmo tempo.\n( ) O Sistema Operacional Linux é uma ferramenta básica como recurso alternativo de menor valor econômico, não apresentando seu código fonte aberto.\n( ) No Sistema Operacional Linux é possível rodar aplicações do Windows.",
+      "gabarito": "D",
+      "explicacao": "E – E – C, alternativa (D).\n\n**Primeira — errada.** O Linux é **multitarefa preemptiva** desde o início, e multiusuário junto: herdou isso do UNIX, que já era multitarefa nos anos 70. Dizer que ele executa uma tarefa por vez é confundi-lo com o MS-DOS.\n\n**Segunda — errada, e se contradiz sozinha.** O Linux é distribuído sob a GPL, e código aberto é a característica que o define. A afirmação ainda o chama de \"recurso alternativo de menor valor econômico\", o que é o preconceito antigo: o Linux domina servidor, nuvem, supercomputação e Android — ele não é a opção barata, é o padrão da indústria em várias frentes.\n\n**Terceira — certa.** É possível rodar aplicação Windows no Linux, por camada de compatibilidade. O **Wine** traduz as chamadas da API do Windows para chamadas do Linux, sem emular o processador; o **Proton**, da Valve, é um Wine especializado em jogos. Também vale por máquina virtual e por contêiner.\n\nAtalho de item C/E: item que atribui a um sistema a limitação de outro (\"executa uma tarefa por vez\", \"não tem código aberto\", \"só roda em uma plataforma\") é quase sempre E. E item que se contradiz internamente — chamar de alternativa aberta e dizer que o código é fechado — é E na hora.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "C – C – C."
+        },
+        {
+          "letra": "B",
+          "texto": "C – E – C."
+        },
+        {
+          "letra": "C",
+          "texto": "E – C – C."
+        },
+        {
+          "letra": "D",
+          "texto": "E – E – C."
+        },
+        {
+          "letra": "E",
+          "texto": "E – E – E."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 50",
+      "enunciado": "A tela ilustrada a seguir é um dos programas de gerenciamento do Windows 10, onde é possível avaliar o desempenho do sistema como um todo. Esse monitoramento está disponível acessando o programa:",
+      "gabarito": "B",
+      "explicacao": "**Gerenciador de Tarefas**. A figura entrega a resposta por três sinais, e qualquer um deles basta:\n\n1. **A fileira de abas** — Processos, Desempenho, Histórico de aplicativos, Inicializar, Usuários, Detalhes, Serviços. Essa sequência exata é do Gerenciador de Tarefas do Windows 10 e de nenhum outro programa.\n2. **A aba Desempenho aberta**, com o painel esquerdo listando CPU, Memória, Disco 0, Disco 1, Wi-Fi e GPU 0, cada um com seu gráfico em miniatura.\n3. **O rodapé** — \"Menos detalhes\" e \"Abrir Monitor de Recursos\", os dois links que só existem ali.\n\nComo se chega: **Ctrl+Shift+Esc** (direto), Ctrl+Alt+Del e escolher na lista, botão direito na barra de tarefas, ou `taskmgr` no Executar.\n\nO que cada aba serve, porque a banca cobra por aba:\n\n| Aba | Para quê |\n|---|---|\n| Processos | o que está rodando e quanto consome; é onde se finaliza um travado |\n| Desempenho | os gráficos ao vivo de CPU, memória, disco, rede e GPU |\n| Histórico de aplicativos | consumo acumulado dos aplicativos da Store |\n| Inicializar | o que sobe com o Windows — e o impacto de cada um no boot |\n| Usuários | sessões abertas e o consumo de cada uma |\n| Detalhes | a lista crua de processos, com PID |\n| Serviços | os serviços do Windows, com atalho para o console deles |\n\nAs outras quatro alternativas não são programas do Windows: \"Controle de acesso\", \"Configurações de contas\" e \"Configurações de entradas\" são nomes genéricos inventados, e \"Epson Controler\" é utilitário de impressora — com erro de grafia, ainda por cima.\n\nAtalho: a figura mostra gráficos ao vivo de desempenho? É Gerenciador de Tarefas, ou o Monitor de Recursos que ele abre.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Controle de acesso."
+        },
+        {
+          "letra": "B",
+          "texto": "Gerenciador de tarefas."
+        },
+        {
+          "letra": "C",
+          "texto": "Configurações de contas."
+        },
+        {
+          "letra": "D",
+          "texto": "Configurações de entradas."
+        },
+        {
+          "letra": "E",
+          "texto": "Epson Controler."
+        }
+      ],
+      "imagem": "avanca-sp/windows10-gerenciador-tarefas.png",
+      "imagem_alt": "Captura da aba Desempenho de uma janela com as abas Processos, Desempenho, Histórico de aplicativos, Inicializar, Usuários, Detalhes e Serviços. O painel esquerdo lista CPU, Memória, Disco 0 (C:), Disco 1 (D:), Wi-Fi e GPU 0; o painel direito mostra os gráficos da GPU Intel(R) UHD Graphics 620 e, no rodapé, o link Abrir Monitor de Recursos."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 27",
+      "enunciado": "Analise e associe cada tipo de arquitetura de sistema operacional com sua respectiva função principal:\n\nI) Núcleo Monolítico\nII) Micronúcleo\nIII) Monitor de máquinas virtuais\n\na) Consiste em um único processo, executando em uma memória protegida as principais funções.\nb) Fornece uma abstração para vários sistemas.\nc) Consiste em funções mínimas (comunicação e gerenciamento de processos).",
+      "gabarito": "A",
+      "explicacao": "A (A) — I-a, II-c, III-b. Os três nomes entregam a associação, e o conceito por trás de cada um vale mais que a associação:\n\n**I. Núcleo monolítico → (a) um único processo, em memória protegida, com as principais funções.** Tudo — escalonador, gerência de memória, sistema de arquivos, drivers, pilha de rede — roda no mesmo espaço de endereçamento, em modo núcleo. Rápido, porque uma função chama a outra diretamente; frágil, porque um driver com defeito derruba o sistema inteiro. Linux e os UNIX clássicos são assim (o Linux, monolítico **modular**: carrega e descarrega módulos sem recompilar).\n\n**II. Micronúcleo → (c) funções mínimas: comunicação e gerenciamento de processos.** No núcleo fica só o essencial — IPC, escalonamento básico, gerência de memória de baixo nível. Sistema de arquivos, drivers e rede viram processos de usuário, conversando por troca de mensagens. Mais robusto e isolado; mais lento, porque cada operação vira mensagem e troca de contexto. Minix, QNX e o Mach são os exemplos.\n\n**III. Monitor de máquinas virtuais → (b) abstração para vários sistemas.** O hipervisor apresenta hardware virtual a vários sistemas operacionais ao mesmo tempo, cada um achando que tem a máquina inteira. É outra camada, não um tipo de núcleo.\n\n| Arquitetura | O que está no núcleo | Troca |\n|---|---|---|\n| Monolítico | tudo | desempenho × isolamento |\n| Micronúcleo | o mínimo | isolamento × desempenho |\n| Híbrido | núcleo pequeno com subsistemas dentro | meio-termo (Windows NT, macOS) |\n| Hipervisor | camada abaixo dos SOs | permite vários SOs na mesma máquina |\n\nAtalho: \"mono\" = tudo junto; \"micro\" = núcleo pequeno, o resto fora; \"monitor de máquinas virtuais\" = hipervisor, e a palavra \"vários sistemas\" na descrição só combina com ele.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I - a; II - c; III - b."
+        },
+        {
+          "letra": "B",
+          "texto": "I - a; II - b; III - c."
+        },
+        {
+          "letra": "C",
+          "texto": "I - c; II - a; III - b."
+        },
+        {
+          "letra": "D",
+          "texto": "I - b; II - a; III - c."
+        },
+        {
+          "letra": "E",
+          "texto": "I - c; II - b; III - a."
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 36",
+      "enunciado": "Quanto à quantidade de usuários que podem utilizar o sistema operacional simultaneamente, em um sistema multiusuário, vários usuários utilizam o computador ao mesmo tempo, seja por diversos terminais, seja por conexão remota, como SSH. São sistemas operacionais multiusuários, exceto:",
+      "gabarito": "B",
+      "explicacao": "**MS-DOS** é a exceção. Ele é monousuário e monotarefa: não tem conta de usuário, não tem login, não tem permissão de arquivo por dono, e executa um programa por vez.\n\nAs outras quatro são multiusuário, e três delas são UNIX ou derivadas:\n\n| Sistema | Família | Por que é multiusuário |\n|---|---|---|\n| Unix | o original | nasceu multiusuário, com terminais ligados ao mesmo computador |\n| Linux Mint, Ubuntu | Linux | herdaram o modelo: contas, grupos, permissões rwx, login remoto por SSH |\n| Windows 11 | NT | contas, perfis separados, Área de Trabalho Remota |\n\nA classificação completa, que é o que a questão está cobrando por trás:\n\n| Critério | Tipos |\n|---|---|\n| Quantidade de usuários | monousuário × multiusuário |\n| Quantidade de tarefas | monotarefa × multitarefa |\n| Quantidade de processadores | monoprocessador × multiprocessador |\n\nOs dois primeiros critérios são independentes: o Windows 95 era **monousuário e multitarefa** (rodava várias coisas, mas não tinha contas de verdade); o MS-DOS era mono nos dois.\n\nAtalho: MS-DOS é o \"não\" de quase toda questão de classificação de sistema operacional — não é multiusuário, não é multitarefa, não tem interface gráfica nativa, não tem memória protegida. Quando ele aparece numa lista de \"exceto\", olhe para ele primeiro.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Linux Mint"
+        },
+        {
+          "letra": "B",
+          "texto": "MS-DOS"
+        },
+        {
+          "letra": "C",
+          "texto": "Ubuntu"
+        },
+        {
+          "letra": "D",
+          "texto": "Windows 11"
+        },
+        {
+          "letra": "E",
+          "texto": "Unix"
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 41",
+      "enunciado": "Um usuário do Windows está enfrentando problemas para conectar seu mouse em seu computador. O periférico não está sendo reconhecido pelo sistema operacional. O usuário recorre ao suporte do Windows na tentativa de solucionar o problema. Ações recomendadas para solução do problema incluem, exceto:",
+      "gabarito": "C",
+      "explicacao": "A (C) é a exceção esperada pela banca: \"a visita de um agente técnico da Microsoft\". As outras são passos de autoatendimento que o suporte do Windows de fato sugere para periférico não reconhecido; a Microsoft não despacha técnico à casa de usuário — o suporte dela é remoto, por artigo, chat ou telefone.\n\nO roteiro real para mouse não reconhecido, que é o que as outras alternativas resumem:\n\n1. Reiniciar o dispositivo e o computador (D) — resolve boa parte dos casos, porque força a redetecção do USB.\n2. Rodar o Windows Update (B) — é por ele que o driver do fabricante chega.\n3. Atualizar o firmware (A) — vale para mouse sem fio e receptor com firmware próprio.\n4. Trocar de porta USB, trocar a pilha, verificar o Gerenciador de Dispositivos por um item com triângulo amarelo.\n\n**A questão tem um defeito que vale registrar:** a (E) fala em \"Centro de Acessórios\", que **não existe** no Windows. O que existe é \"Bluetooth e outros dispositivos\", dentro de Configurações, e o Gerenciador de Dispositivos. Ou seja, há duas alternativas frágeis — a (C) e a (E) —, e a banca ignorou isso.\n\nNa prova, marque a (C): entre as duas, a (C) é a que **claramente** não é ação recomendada ao usuário, enquanto a (E) é um nome errado para algo que existe. Mas fica o registro de que o item é recorrível.\n\nAtalho para questão de suporte: a alternativa que tira a solução das mãos do usuário — chamar técnico, trocar o equipamento, formatar — é quase sempre a que não é \"ação recomendada\".",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a atualização do firmware."
+        },
+        {
+          "letra": "B",
+          "texto": "a atualização do Windows Update."
+        },
+        {
+          "letra": "C",
+          "texto": "a visita de um agente técnico da Microsoft."
+        },
+        {
+          "letra": "D",
+          "texto": "a reinicialização do dispositivo."
+        },
+        {
+          "letra": "E",
+          "texto": "a configuração através do Centro de Acessórios."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 48",
+      "enunciado": "A Microsoft permite que os usuários de seu sistema operacional possam dividir o disco rígido em várias partições separadas, sejam elas de sistema, recuperação, Windows ou dados. Uma das recomendações para aprimoramento da segurança das partições de Windows ou de dados é criptografar a partição utilizando o recurso denominado:",
+      "gabarito": "B",
+      "explicacao": "**BitLocker** — a criptografia de disco nativa do Windows, presente nas edições Pro, Enterprise e Education. Ele cifra o volume inteiro (AES de 128 ou 256 bits), não arquivo a arquivo.\n\nComo funciona, e por que isso importa em prova: a chave fica protegida pelo **TPM**, o chip de segurança da placa. No boot, o TPM só libera a chave se a medição do firmware e do carregador bater com a esperada — é isso que impede alguém de tirar o disco da máquina e lê-lo em outro computador. Sem TPM, dá para usar senha ou pen drive com a chave de inicialização. E existe a **chave de recuperação** de 48 dígitos, guardada na conta Microsoft ou no Active Directory, que é a única saída quando o TPM não reconhece mais a máquina.\n\nO parente menor: **EFS** (Encrypting File System) cifra arquivo e pasta dentro de um volume NTFS, por usuário. BitLocker é o volume; EFS é o arquivo.\n\nOs distratores são todos produtos reais da Microsoft, com função diferente — é por isso que a questão funciona:\n\n| Alternativa | O que realmente é |\n|---|---|\n| Windows Defender | antivírus e proteção contra ameaças |\n| Windows Update | serviço de atualização do sistema |\n| Windows Manager | não existe com esse nome |\n| MS SQL Server | sistema gerenciador de banco de dados |\n\nAtalho: o nome diz. \"BitLocker\" — tranca os bits.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Windows Defender."
+        },
+        {
+          "letra": "B",
+          "texto": "BitLocker."
+        },
+        {
+          "letra": "C",
+          "texto": "Windows Update."
+        },
+        {
+          "letra": "D",
+          "texto": "Windows Manager."
+        },
+        {
+          "letra": "E",
+          "texto": "MS SQL Server."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 50",
+      "enunciado": "A ativação ajuda a verificar se a cópia do Windows é genuína e não foi usada em mais dispositivos do que os Termos de Licença de Software da Microsoft permitem. Um usuário verifica o status de ativação de seu sistema operacional e verifica que o status da ativação consta \"O Windows é ativado com uma licença digital\". O status indicado no sistema visualizado indica que:",
+      "gabarito": "C",
+      "explicacao": "A (C): o Windows está **ativado**, mas **não vinculado** a uma conta Microsoft.\n\nA questão inteira mora na diferença entre duas frases que o Windows exibe em Configurações → Atualização e Segurança → Ativação:\n\n| Mensagem | O que significa |\n|---|---|\n| \"O Windows é ativado com uma licença digital\" | ativado; a licença está atrelada ao **hardware**, não a uma conta |\n| \"O Windows é ativado com uma licença digital vinculada à sua conta Microsoft\" | ativado **e** vinculado à conta |\n\nA frase do enunciado é a primeira — não menciona conta. Logo: ativado, sem vínculo. A (C).\n\nPor que o vínculo importa na prática: a licença digital é gravada nos servidores da Microsoft associada a uma impressão digital do hardware. Se você trocar a placa-mãe, essa impressão muda e a ativação cai. Com a licença **vinculada à conta**, dá para reativar sozinho pela Solução de Problemas de Ativação (\"Alterei o hardware deste dispositivo recentemente\"). Sem o vínculo, é ligar para o suporte.\n\nOnde as outras erram: a (A) inventa \"licença não oficial\" — a mensagem do Windows para cópia não genuína é outra, e bem mais alarmante. A (D) e a (E) negam a ativação, que a própria frase afirma. A (B) acrescenta o vínculo que a frase não menciona — é o distrator principal, e cai quem lê \"licença digital\" e completa de cabeça.\n\nAtalho: leia a mensagem como contrato. O que ela **não diz**, não vale.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o Windows foi ativado com uma licença não oficial."
+        },
+        {
+          "letra": "B",
+          "texto": "o Windows está vinculado a uma conta Microsoft e está ativado."
+        },
+        {
+          "letra": "C",
+          "texto": "o Windows não está vinculado a uma conta, mas está ativado."
+        },
+        {
+          "letra": "D",
+          "texto": "o Windows foi apenas vinculado a uma conta, mas não está ativado."
+        },
+        {
+          "letra": "E",
+          "texto": "o Windows será apenas ativado se conectado a uma conta vinculada à licença."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 36",
+      "enunciado": "Um usuário do Linux Kubuntu deseja usar um editor de texto na linha de comando. Ele abre o editor de texto padrão do Kubuntu, Kate, e para completar a ação, utiliza o comando:",
+      "gabarito": "C",
+      "explicacao": "**`nano -w`**. Entre as cinco alternativas, só o nano é um **editor de texto de linha de comando** — abre o arquivo numa interface de tela cheia dentro do terminal, com os atalhos listados no rodapé.\n\nO `-w` desliga a quebra automática de linha longa, e é o que se usa para editar arquivo de configuração: sem ele, uma linha comprida seria fisicamente quebrada no arquivo, o que estraga o que se estava editando.\n\nO que as outras quatro fazem — nenhuma abre um arquivo para edição interativa:\n\n| Comando | Para quê |\n|---|---|\n| `grep` | filtra linhas que casam com um padrão |\n| `sed` | edita **fluxo** de texto por script, sem interface |\n| `awk -F` | processa texto por campos; `-F` define o separador |\n| `curl -o` | baixa da rede e grava num arquivo |\n\nO `sed` (B) é o distrator bom, porque o nome é *stream editor* e ele de fato edita — mas por comando, em lote, sem abrir tela. \"Editor de linha de comando\" no sentido da questão é o programa que se abre e se digita dentro.\n\n**O enunciado é confuso e vale saber por quê:** o Kate é o editor **gráfico** padrão do KDE/Kubuntu, não um editor de terminal. Abrir o Kate para então \"completar a ação\" com um comando de terminal não faz sentido. Ignorando a confusão, a pergunta que sobra — qual destes é editor de texto de linha de comando — tem uma resposta só.\n\nOutros editores de terminal que podem aparecer no lugar do nano: `vi`/`vim`, `emacs`, `ed`, `micro`, `pico`.",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "grep"
+        },
+        {
+          "letra": "B",
+          "texto": "sed"
+        },
+        {
+          "letra": "C",
+          "texto": "nano -w"
+        },
+        {
+          "letra": "D",
+          "texto": "awk -F"
+        },
+        {
+          "letra": "E",
+          "texto": "curl -o"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 38",
+      "enunciado": "Um usuário do Ubuntu acidentalmente iniciou uma impressão de um documento. O usuário deseja cancelar a impressão a partir de seu computador. Qual alternativa indica as ações que melhor resolvem o problema do usuário?",
+      "gabarito": "B",
+      "explicacao": "A (B). Repare no desenho da questão: **três alternativas descrevem exatamente o mesmo caminho** e só mudam o botão do último passo. Quando a banca monta assim, a questão não é sobre o caminho — é sobre o botão.\n\nO caminho, no GNOME do Ubuntu: panorama de atividades → pesquisar \"impressoras\" → clicar no botão que mostra o número de trabalhos → e então:\n\n| Botão | O que faz |\n|---|---|\n| **Parar** | **cancela** o trabalho; ele sai da fila e não volta |\n| Pausar | suspende; o trabalho continua na fila, esperando |\n| Liberar | retoma um trabalho pausado |\n\nO usuário quer **cancelar**, então é Parar.\n\nAs outras duas nem chegam a ser avaliadas pelo conteúdo: o enunciado diz \"a partir de seu computador\", e segurar o botão Cancelar na impressora (A) e tirar a bandeja de papel (C) são ações **na impressora**. A (C), aliás, nem cancelaria — só deixaria o trabalho preso na fila esperando papel.\n\nAtalho de prova: quando várias alternativas repetirem a mesma frase longa e divergirem só no fim, leia **só a divergência**. O texto repetido é enchimento; a questão está nas últimas palavras.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Manter pressionado o botão Cancelar na impressora."
+        },
+        {
+          "letra": "B",
+          "texto": "Abrir o panorama de atividade, pesquisar por impressoras, clicar no botão que mostra o número de trabalhos da impressora, e selecionar o botão de parar."
+        },
+        {
+          "letra": "C",
+          "texto": "Remover a bandeja de papel da impressora."
+        },
+        {
+          "letra": "D",
+          "texto": "Abrir o panorama de atividade, pesquisar por impressoras, clicar no botão que mostra o número de trabalhos da impressora, e selecionar o botão de liberar."
+        },
+        {
+          "letra": "E",
+          "texto": "Abrir o panorama de atividade, pesquisar por impressoras, clicar no botão que mostra o número de trabalhos da impressora, e selecionar o botão de pausar."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 40",
+      "enunciado": "O Windows 10 oferece regularmente atualizações e soluções do sistema operacional. Sobre o gerenciamento de atualizações do Windows 10, afirma-se que:",
+      "gabarito": "A",
+      "explicacao": "A (A): o usuário pode configurar quando e como receber as atualizações.\n\nNo Windows 10 isso é concreto — em Configurações → Atualização e Segurança → Windows Update:\n\n- **Horário ativo**: a faixa do dia em que o Windows não pode reiniciar sozinho;\n- **Pausar atualizações**: até 35 dias;\n- **Agendar reinicialização**: escolher dia e hora;\n- **Opções avançadas**: receber atualização de outros produtos Microsoft, baixar por conexão limitada, adiar recurso novo;\n- **Otimização de Entrega**: pegar pacote de outras máquinas da rede.\n\nMas o mais útil aqui não é saber Windows — é o padrão das alternativas erradas. Todas as quatro trazem um absoluto:\n\n| Alternativa | A palavra que a derruba |\n|---|---|\n| (B) depende **unicamente** do Windows Update | existe o Catálogo do Microsoft Update, o WSUS e a instalação manual de `.msu` |\n| (C) **só** é possível durante a instalação | a configuração muda a qualquer momento |\n| (D) será **impossível** atualizar | há solucionador de problemas, reinício do serviço, instalação manual, atualização in-place |\n| (E) **só** é realizada automaticamente | existe o botão \"Verificar se há atualizações\" |\n\nAtalho, e vale para a banca inteira: em questão de múltipla escolha com uma correta, varra as alternativas caçando **unicamente, somente, só, sempre, nunca, impossível, obrigatoriamente**. A alternativa certa costuma ser a única redigida com margem — \"pode\", \"permite\", \"é possível\". Aqui isso resolve a questão sem abrir o Windows Update uma vez.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o usuário pode configurar quando e como obter as últimas atualizações do sistema."
+        },
+        {
+          "letra": "B",
+          "texto": "a atualização depende unicamente do Windows Update."
+        },
+        {
+          "letra": "C",
+          "texto": "a configuração de atualizações do Windows só é possível durante a instalação do sistema operacional."
+        },
+        {
+          "letra": "D",
+          "texto": "se o Windows Update apresentar falha em sua execução, será impossível atualizar o Windows."
+        },
+        {
+          "letra": "E",
+          "texto": "a verificação de atualizações só é realizada pelo sistema automaticamente."
+        }
+      ]
+    }
+  ]
+}

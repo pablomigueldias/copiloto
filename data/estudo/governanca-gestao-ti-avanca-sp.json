@@ -1,0 +1,45 @@
+{
+  "_leia_me": "Uma questão só, vinda de engenharia-de-software-avanca-sp.json em 15/09/2026. Ela estava no bloco de engenharia de software porque é ali que a prova de Sorocaba 2022 a colocou, mas as quatro dimensões da ITIL 4 são gerenciamento de serviço, não engenharia de software — e o acervo já cobra exatamente isso em governanca-gestao-ti-quadrix.json. A `origem` não foi tocada na mudança: é ela que torna o import idempotente, e reescrevê-la criaria uma segunda cópia da questão em vez de mover a que existe. O arquivo é separado do bloco da Quadrix porque `banca` é propriedade do arquivo inteiro. Gabarito transcrito do caderno, não reconferido no PDF. A explicação é minha, não da banca.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Governança e gestão de TI",
+    "ordem": 9
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Sorocaba 2022 · Analista de Sistemas I · questão 38",
+      "enunciado": "O ITIL 4 define quatro dimensões que são essenciais no processo de cocriação de valor para clientes e outras partes interessadas. Elas são: Organizações e pessoas, Parceiros e fornecedores, Fluxos de valor e processos e:",
+      "gabarito": "B",
+      "explicacao": "**Informação e tecnologia** — alternativa (B). O enunciado cita três das quatro dimensões e pede a que falta.\n\nAs **quatro dimensões da ITIL 4**:\n\n| # | Dimensão | O que cobre |\n|---|---|---|\n| 1 | Organizações e pessoas | estrutura, papéis, cultura, competências |\n| 2 | **Informação e tecnologia** | dados, conhecimento, sistemas, ferramentas |\n| 3 | Parceiros e fornecedores | contratos, terceiros, integração da cadeia |\n| 4 | Fluxos de valor e processos | como o trabalho realmente flui até o valor |\n\nA ITIL é explícita ao dizer que as quatro precisam de atenção **equilibrada**: negligenciar uma degrada o serviço inteiro. Um sistema excelente operado por gente sem treinamento, ou um processo impecável dependente de um fornecedor que não entrega, produzem o mesmo resultado ruim.\n\nPor que \"fatores ambientais\" (A) e \"fatores legais\" (C) estão ali: eles são dois dos seis **fatores PESTLE**, a outra lista do mesmo livro — Político, Econômico, Social, Tecnológico, Legal e Ambiental. Os PESTLE são os fatores **externos** que influenciam as quatro dimensões; não são dimensões. É um distrator bem montado, porque as duas listas moram na mesma página da ITIL 4.\n\n\"Governança\" (D) e \"prática\" (E) também são conceitos da ITIL 4, de outros lugares: governança é um componente do **Sistema de Valor de Serviço** (SVS), e as **34 práticas** substituíram os \"processos\" da ITIL v3.\n\nMnemônico das quatro dimensões: **gente, tecnologia, terceiro, fluxo**.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Fatores ambientais."
+        },
+        {
+          "letra": "B",
+          "texto": "Informação e tecnologia."
+        },
+        {
+          "letra": "C",
+          "texto": "Fatores legais."
+        },
+        {
+          "letra": "D",
+          "texto": "Governança."
+        },
+        {
+          "letra": "E",
+          "texto": "Prática."
+        }
+      ]
+    }
+  ]
+}

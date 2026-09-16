@@ -1,0 +1,660 @@
+{
+  "_leia_me": "Seção 2 do caderno do Instituto Avança SP: as 21 questões de arquitetura e\n    organização de computadores das provas de Rio Grande da Serra 2024, Itatiba\n    2024 e Juquitiba 2024. 16,8% dos específicos — dominou as três provas de 2024.\n\n    Transcritas de docs/avanca-sp/avanca-sp-especificos.md, com o gabarito oficial\n    de cada prova. Não reabri os PDFs das prefeituras.\n\n    As questões 35 de Itatiba (MFlops/MIPS) e 47 de Itatiba (papel dos\n    registradores) cobram a formulação literal do Stallings e têm alternativas\n    defensáveis fora do gabarito. Ficaram com dificuldade 3 e a explicação diz\n    onde está a pegadinha.\n\n    As explicações são minhas.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Arquitetura e organização de computadores",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 26",
+      "enunciado": "Um computador é um aparelho digital programável por meio de uma sequência de instruções conservadas em memória, que o instruem a executar operações elementares de manipulação de dados. O seu elemento crucial é a sua unidade central de processamento, ou também conhecido como:",
+      "gabarito": "B",
+      "explicacao": "**Processador**. UCP é a tradução de CPU — *Central Processing Unit* —, e CPU é o processador.\n\nO que está dentro dele, e por que as outras alternativas são parte e não o todo:\n\n| Componente | Função |\n|---|---|\n| Unidade de Controle (UC) | busca a instrução, decodifica e comanda quem executa |\n| Unidade Lógica e Aritmética (ULA) | faz a conta e a comparação |\n| Registradores | memória interna, rapidíssima e minúscula |\n| Barramento interno | liga os três acima |\n\nO **acumulador** (A) e o **contador** (D) são registradores — peças dentro da CPU. O acumulador é o registrador onde a ULA deposita o resultado; o contador de programa (PC) guarda o endereço da próxima instrução. Estão ali justamente porque são termos verdadeiros de arquitetura, aplicados ao nível errado.\n\n\"Indutor\" (C) é componente eletrônico passivo, de circuito, não de arquitetura. \"Codificador\" (E) é circuito combinacional.\n\nCuidado com um uso informal que confunde: no dia a dia muita gente chama o **gabinete** de \"CPU\" (\"a CPU está embaixo da mesa\"). Em prova, CPU é o processador, sempre.\n\nAtalho: se a alternativa nomeia algo que **cabe dentro** do processador, ela não pode ser o processador.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Acumulador."
+        },
+        {
+          "letra": "B",
+          "texto": "Processador."
+        },
+        {
+          "letra": "C",
+          "texto": "Indutor."
+        },
+        {
+          "letra": "D",
+          "texto": "Contador."
+        },
+        {
+          "letra": "E",
+          "texto": "Codificador."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 27",
+      "enunciado": "A memória dos computadores encontra-se ligada à unidade central de processamento através de:",
+      "gabarito": "A",
+      "explicacao": "**Barramentos**. O barramento é o conjunto de linhas condutoras compartilhadas que liga a CPU à memória e aos dispositivos.\n\nSão três, e a divisão cai bastante:\n\n| Barramento | Carrega | Direção |\n|---|---|---|\n| **Dados** | o conteúdo lido ou escrito | bidirecional |\n| **Endereços** | qual posição de memória ou dispositivo | unidirecional, da CPU para fora |\n| **Controle** | os comandos e sinais de tempo (read, write, clock, interrupt, reset) | ambos |\n\nDuas consequências práticas de saber isso:\n\n**A largura do barramento de endereços determina o quanto de memória é endereçável.** Com 32 linhas, 2³² endereços = 4 GB. É daí que vem o limite de memória dos sistemas de 32 bits.\n\n**A largura do barramento de dados determina quanto se transfere por vez.** Barramento de 64 bits move 8 bytes por ciclo.\n\nO barramento também é o ponto de contenção do sistema — um dispositivo por vez usa a linha, e por isso existem arbitragem e hierarquia (barramento local, do sistema, de expansão).\n\nAs outras alternativas não são termos de arquitetura: flotação e indução são física, \"pife\" não existe e **PAN** (*Personal Area Network*) é classificação de rede pela abrangência, de outro assunto — e é o distrator plantado para quem viu uma sigla conhecida.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Barramentos."
+        },
+        {
+          "letra": "B",
+          "texto": "Flotação."
+        },
+        {
+          "letra": "C",
+          "texto": "Indução."
+        },
+        {
+          "letra": "D",
+          "texto": "Pife."
+        },
+        {
+          "letra": "E",
+          "texto": "PAN."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 28",
+      "enunciado": "No que se refere à relação e à estrutura dos componentes que fazem parte de um computador, analisar as afirmações a seguir.\n\nEstá(ão) Correto(s):",
+      "gabarito": "C",
+      "explicacao": "Corretos I e II — alternativa (C).\n\n**I — certa.** Descreve os dois módulos principais da CPU: o que **interpreta os códigos** é a Unidade de Controle, e o que **executa funções lógicas e aritméticas** é a ULA.\n\n**II — certa.** A CPU troca dados com a memória o tempo todo — é o ciclo de instrução inteiro: busca instrução na memória, busca operando na memória, grava resultado na memória.\n\n**III — falsa, e chega a ser absurda.** A CPU é um circuito integrado: trilhas de metal, transistores, condutores por toda parte. Dizer que ela não tem condutores elétricos é negar do que ela é feita.\n\nVale registrar o padrão, porque ele se repete nesta banca: das três afirmações, duas são descrições corretas e discretas, e a terceira é um **absurdo físico ou lógico**. Não é um erro sutil de conceito — é uma frase que não sobrevive a dez segundos de pensamento. Reconhecer isso resolve a questão mesmo sem lembrar nada da I e da II: eliminada a III, sobram (A) só I, (B) só II e (C) I e II. Como I e II são ambas defensáveis, só a (C) fecha.\n\nAtalho: leia a terceira afirmação primeiro nesta banca. Quando ela for o absurdo, as alternativas se reduzem sozinhas.",
+      "dificuldade": 2,
+      "afirmacoes": [
+        "Os elementos que constituem a CPU têm os módulos que interpretam os códigos (software) e os que executam as funções lógicas e aritméticas de propósito gerais.",
+        "A CPU troca dados com a memória do computador.",
+        "Os elementos que compõem a CPU não têm em sua composição condutores elétricos."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Somente o item I."
+        },
+        {
+          "letra": "B",
+          "texto": "Somente o item II."
+        },
+        {
+          "letra": "C",
+          "texto": "Somente os itens I e II."
+        },
+        {
+          "letra": "D",
+          "texto": "Somente os itens II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "Todos os itens."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 29",
+      "enunciado": "Constitui um tipo específico de memória EEPROM, onde são reprogramados amplos blocos de dados. Nesse tipo de memória, todo o conteúdo é apagado antes de haver uma nova reprogramação. O nome flash foi imaginado devido à elevada velocidade de apagamento dessas memórias em comparação com as antigas EPROM e EEPROM.",
+      "gabarito": "E",
+      "explicacao": "**Flash-ROM**. O enunciado já dá a chave: \"tipo específico de memória **EEPROM**\". EEPROM é *Electrically Erasable Programmable Read-Only Memory* — memória **somente de leitura** (no sentido de não volátil), apagável e regravável eletricamente. Logo, ROM, não RAM.\n\nA família das memórias não voláteis, na ordem histórica:\n\n| Tipo | Como se grava | Como se apaga |\n|---|---|---|\n| ROM | na fábrica | não se apaga |\n| PROM | uma vez, pelo usuário | não se apaga |\n| EPROM | eletricamente | luz ultravioleta, pela janelinha de quartzo |\n| EEPROM | eletricamente | eletricamente, byte a byte |\n| **Flash** | eletricamente | eletricamente, **em blocos** |\n\nA diferença entre EEPROM e flash é exatamente a do enunciado: a EEPROM apaga byte a byte; a flash apaga **blocos inteiros** de uma vez, e é essa operação em bloco que a torna muito mais rápida — daí o nome \"flash\", de relâmpago.\n\nA (C) \"Flash-RAM\" é o distrator, e é bom: memória flash é regravável, o que dá vontade de chamar de RAM. Mas RAM é **volátil** — perde o conteúdo sem energia. A flash mantém, e é por isso que está em pen drive, SSD, cartão de memória e no chip da BIOS/UEFI.\n\nAs outras três siglas não existem.\n\nAtalho: não volátil = família ROM. Volátil = família RAM. A palavra \"regravável\" não muda a família.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Flash-MOM"
+        },
+        {
+          "letra": "B",
+          "texto": "Flash-SIS"
+        },
+        {
+          "letra": "C",
+          "texto": "Flash-RAM"
+        },
+        {
+          "letra": "D",
+          "texto": "Flash-WDO"
+        },
+        {
+          "letra": "E",
+          "texto": "Flash-ROM"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 30",
+      "enunciado": "A manutenção preventiva nos computadores pode ser entendida como a atividade feita com o objetivo de prevenir possíveis problemas com o equipamento. Um dos exemplos de manutenção preventiva é:",
+      "gabarito": "D",
+      "explicacao": "**A limpeza periódica do interior do computador** — alternativa (D).\n\nO critério que decide é **quando** a ação acontece em relação à falha:\n\n| Tipo | Quando | Exemplos |\n|---|---|---|\n| **Preventiva** | **antes** da falha, por calendário ou por uso | limpeza de poeira, troca de pasta térmica, atualização de firmware, backup, desfragmentação |\n| **Corretiva** | **depois** da falha | trocar monitor queimado, substituir porta danificada, recuperar sistema que não sobe |\n| **Preditiva** | antes, mas por **sintoma medido** | trocar disco cujo SMART acusa setores realocados, trocar fonte com tensão fora da faixa |\n\nA (C) \"substituição de entradas danificadas\" e a (E) \"substituição do monitor queimado\" são **corretivas**: a peça já falhou.\n\nA (A) \"resfriamento das partes internas\" é a mais interessante. Resfriar não é manutenção — é **funcionamento normal**, o que o cooler faz o tempo todo. O que seria preventivo é limpar o cooler e trocar a pasta térmica, para que o resfriamento continue funcionando.\n\nA (B) \"compra de peças de reposição\" é **logística de estoque**, não manutenção; não se encosta no equipamento.\n\nAtalho: preventiva tem **periodicidade**. Se a alternativa traz \"periódica\", \"a cada X meses\", \"programada\", é ela. Se descreve conserto de algo que quebrou, é corretiva.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O resfriamento das partes internas da CPU."
+        },
+        {
+          "letra": "B",
+          "texto": "A compra de peças de reposição para o equipamento."
+        },
+        {
+          "letra": "C",
+          "texto": "A substituição de entradas danificadas por ação de mau uso."
+        },
+        {
+          "letra": "D",
+          "texto": "A limpeza periódica do interior do computador."
+        },
+        {
+          "letra": "E",
+          "texto": "A substituição do monitor queimado."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 31",
+      "enunciado": "Os computadores, assim como outros componentes, são alimentados pela energia elétrica. Se o computador não está sendo alimentado por energia elétrica, o componente principal responsável por fornecer energia elétrica para o computador e que deve ser avaliado pelo profissional de tecnologia é a(o):",
+      "gabarito": "B",
+      "explicacao": "**Fonte de alimentação**. É ela que converte a corrente alternada da tomada (127 V ou 220 V) em corrente contínua nas tensões que os componentes usam — +12 V, +5 V e +3,3 V — e distribui para placa-mãe, disco, ventoinhas e placa de vídeo.\n\nSe o computador não dá sinal de vida, a fonte é o primeiro suspeito, e o diagnóstico segue uma ordem:\n\n1. Cabo e tomada — o mais bobo é o mais frequente;\n2. A chave 110/220 na traseira da fonte, quando existe;\n3. Teste do jumper (curto entre o fio verde e um preto do conector de 24 pinos): se a ventoinha da fonte gira, ela está ao menos ligando;\n4. Medição das tensões com multímetro, ou substituição por uma fonte sabidamente boa.\n\nPor que as outras não servem: **cooler** (C) e **HD** (D) **consomem** energia, não fornecem — a seta aponta para o lado errado. O **monitor** (A) tem fonte própria e é alimentado pela tomada, não pelo computador. \"Stand\" (E) não é componente.\n\nAtalho: o enunciado pergunta quem **fornece** energia aos outros. Só um componente do gabinete faz isso.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Monitor."
+        },
+        {
+          "letra": "B",
+          "texto": "Fonte de alimentação."
+        },
+        {
+          "letra": "C",
+          "texto": "Cooler."
+        },
+        {
+          "letra": "D",
+          "texto": "HD."
+        },
+        {
+          "letra": "E",
+          "texto": "Stand."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 28",
+      "enunciado": "O ________ é um circuito oscilador que tem a função de sincronizar e ditar a medida de velocidade de transferência de dados entre duas partes essenciais de um processamento. A ele está associada, portanto, uma medida de frequência com a qual operações são realizadas.",
+      "gabarito": "E",
+      "explicacao": "**Clock**. A definição do enunciado tem três marcas que só existem nele: \"circuito oscilador\", \"sincronizar\" e \"medida de frequência\".\n\nO clock é um **sinal**, não uma peça de processamento: um pulso que alterna entre 0 e 1 em intervalos regulares, e é por esses pulsos que todos os componentes síncronos marcam o tempo. A frequência é medida em hertz — 3 GHz são 3 bilhões de pulsos por segundo.\n\nPor que ele é a única alternativa que serve: as outras quatro são **componentes**, e o clock é o que os sincroniza. Barramento, processador, memória RAM e CPU são sincronizados pelo clock; nenhum deles é o clock.\n\nO que vale saber além da definição, porque cai:\n\n**Frequência não mede desempenho sozinha.** O tempo de execução é (número de instruções) × (ciclos por instrução) × (tempo de ciclo). Um processador de 2 GHz que executa mais instrução por ciclo pode ser mais rápido que outro de 3 GHz. É o mesmo raciocínio da questão de MIPS e MFlops desta mesma prova.\n\n**Overclock** é elevar a frequência acima da nominal; o custo é calor e instabilidade. E existem domínios de clock diferentes na mesma máquina — o da CPU, o do barramento, o da memória — ligados por multiplicadores.\n\nAtalho: se o enunciado diz \"oscilador\", \"sincroniza\" ou \"frequência\", é clock.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Barramento"
+        },
+        {
+          "letra": "B",
+          "texto": "Processador"
+        },
+        {
+          "letra": "C",
+          "texto": "memória RAM"
+        },
+        {
+          "letra": "D",
+          "texto": "CPU"
+        },
+        {
+          "letra": "E",
+          "texto": "Clock"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 29",
+      "enunciado": "A Unidade Central de Processamento (UCP) é o \"centro nervoso\" de qualquer computador. Ela controla, dirige e processa todos os dados introduzidos e produz saída. O controle das instruções que entram e saem do processador são executadas por qual unidade da UCP?",
+      "gabarito": "B",
+      "explicacao": "**Unidade de Controle** — alternativa (B). É ela que busca a instrução, decodifica e comanda quem executa; é o \"controle das instruções que entram e saem\" do enunciado.\n\nA divisão de trabalho dentro da CPU, em três verbos:\n\n| Unidade | Verbo | O que faz |\n|---|---|---|\n| Unidade de Controle | **manda** | busca a instrução, decodifica o código de operação, emite os sinais que acionam as outras partes |\n| ULA | **calcula** | soma, subtrai, compara, faz AND/OR/NOT e deslocamento |\n| Registradores | **guardam** | operandos, resultados, endereços e o estado da máquina |\n\nO **ciclo de instrução** é o que a UC conduz, volta após volta:\n\n1. **Busca (fetch)** — lê a instrução do endereço apontado pelo PC e incrementa o PC;\n2. **Decodificação** — descobre o que a instrução pede e de que operandos precisa;\n3. **Busca de operando** — traz o dado da memória ou do registrador;\n4. **Execução** — aciona a ULA;\n5. **Escrita do resultado**.\n\nA (A) registradores é o distrator principal: eles participam de todo passo, mas **guardam**, não decidem. A (C) ULA executa a conta depois de a UC mandar. A (D) memória e a (E) barramento nem estão dentro da CPU no sentido da pergunta — a memória é externa, e o barramento é o caminho.\n\nAtalho: quem \"controla\" é a Unidade de **Controle**. Quando o enunciado usa verbos de comando — controlar, dirigir, coordenar, decodificar —, é ela.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Registradores"
+        },
+        {
+          "letra": "B",
+          "texto": "Controle"
+        },
+        {
+          "letra": "C",
+          "texto": "Aritmética e Lógica"
+        },
+        {
+          "letra": "D",
+          "texto": "Memória"
+        },
+        {
+          "letra": "E",
+          "texto": "Barramento"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 34",
+      "enunciado": "O microprocessador é a própria razão de ser do microcomputador. A miniaturização da CPU fez surgir aquele tipo de equipamento que revolucionou toda a filosofia dos computadores tanto em nível pessoal como empresarial. Neste sentido, uma das principais arquiteturas de microprocessadores é a arquitetura de Von Neumann, que se caracteriza por:",
+      "gabarito": "E",
+      "explicacao": "**Um só barramento externo, compartilhado entre dados e endereços** — alternativa (E).\n\nO traço definidor de Von Neumann é o **programa armazenado**: instruções e dados moram na **mesma memória**, indistinguíveis em natureza, e chegam à CPU pelo **mesmo caminho**. É isso que torna o computador programável de forma geral — o programa é dado, e por isso pode ser carregado, alterado e gerado por outro programa.\n\nE é daí que vem o preço, que a prova gosta de cobrar pelo nome: o **gargalo de Von Neumann**. Como instrução e dado disputam o mesmo barramento, a CPU não busca as duas coisas ao mesmo tempo; a velocidade do sistema fica limitada pela taxa de transferência entre processador e memória, e o processador passa parte do tempo esperando.\n\nA (B) é o distrator, e descreve a **arquitetura Harvard**:\n\n| | Von Neumann | Harvard |\n|---|---|---|\n| Memória | uma só, para instrução e dado | separadas |\n| Barramento | um, compartilhado | dois, independentes |\n| Vantagem | simplicidade, flexibilidade, programa como dado | busca simultânea de instrução e dado |\n| Onde se usa | computadores de propósito geral | microcontroladores, DSPs |\n\nNa prática os processadores modernos são **Harvard modificada**: memória principal única (Von Neumann) mas caches L1 separadas para instrução e dado (Harvard), o que recupera parte do paralelismo sem perder a flexibilidade.\n\nAs outras alternativas não descrevem arquitetura nenhuma — (A), (C) e (D) são frases montadas com vocabulário técnico solto.",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "servir como operador presente em cada operação dos registradores."
+        },
+        {
+          "letra": "B",
+          "texto": "possuir dois barramentos externos independentes para dados e endereços."
+        },
+        {
+          "letra": "C",
+          "texto": "ser conectado a um servidor para emular seus recursos."
+        },
+        {
+          "letra": "D",
+          "texto": "integrar-se à respectiva BIOS através do sistema embarcado padrão."
+        },
+        {
+          "letra": "E",
+          "texto": "um só barramento externo, compartilhado entre dados e endereços."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 35",
+      "enunciado": "Analise as duas sentenças a seguir.\n\nI) O bom desempenho do processador depende de seus componentes.\nPorque:\nII) O bom desempenho de um processador é mensurado pela sua taxa de MFlops e MIPS.\n\nAnalisando as sentenças acima, conclui-se que:",
+      "gabarito": "A",
+      "explicacao": "Apenas a primeira está correta — alternativa (A).\n\n**I — correta e quase trivial:** o desempenho do processador depende dos componentes dele (cache, pipeline, número de núcleos, unidades de execução).\n\n**II — a banca considerou errada:** MIPS e MFlops não medem desempenho de forma confiável.\n\nPor que a banca tem razão aqui:\n\n**MIPS** (milhões de instruções por segundo) não diz nada sem dizer **quais** instruções. Uma arquitetura CISC faz numa instrução o que uma RISC faz em cinco — comparar o MIPS das duas é comparar coisas diferentes. Pior: um compilador que gera mais instruções simples pode **aumentar** o MIPS e deixar o programa mais lento. O apelido clássico da métrica é \"Meaningless Indicator of Processor Speed\".\n\n**MFlops** (milhões de operações de ponto flutuante por segundo) é melhor para cálculo científico, mas só mede ponto flutuante — não diz nada sobre carga inteira, acesso a memória ou ramificação.\n\nO que se usa no lugar: **tempo de execução de um conjunto de programas reais** (benchmarks como SPEC), porque é o único número que responde à pergunta que interessa — quanto tempo o meu trabalho leva.\n\nA fórmula que organiza tudo isso: tempo = (instruções) × (ciclos por instrução) × (tempo de ciclo). Melhorar o desempenho é reduzir qualquer um dos três fatores, e MIPS olha só para um pedaço.\n\nAtalho para o formato \"asserção-razão\": avalie cada frase sozinha antes de pensar na relação. Aqui a segunda cai por conta própria, e sem ela não há relação de causa a examinar — sobra \"apenas a primeira\".",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "apenas a primeira afirmativa está correta."
+        },
+        {
+          "letra": "B",
+          "texto": "ambas estão corretas e a segunda justifica a primeira."
+        },
+        {
+          "letra": "C",
+          "texto": "apenas a segunda afirmativa está correta."
+        },
+        {
+          "letra": "D",
+          "texto": "nenhuma afirmativa está correta."
+        },
+        {
+          "letra": "E",
+          "texto": "ambas estão corretas, mas a segunda não justifica a primeira."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 42",
+      "enunciado": "Analisando o processamento de instruções a nível de máquina, associe os modos de endereçamento com suas respectivas descrições:\n\nI) Endereçamento direto\nII) Endereçamento indireto\nIII) Endereçamento imediato\n\na) O valor do operando está presente na instrução.\nb) O campo de endereço contém o endereço efetivo do operando.\nc) O campo de endereço se refere ao endereço de uma palavra na memória, o qual contém o endereço completo do operando.",
+      "gabarito": "D",
+      "explicacao": "A (D) — I-b, II-c, III-a.\n\nO critério que organiza os três é **quantos acessos à memória são necessários até chegar ao dado**:\n\n| Modo | Onde está o operando | Acessos à memória |\n|---|---|---|\n| **Imediato** | o valor está **dentro da instrução** | 0 |\n| **Direto** | o campo de endereço **é** o endereço do operando | 1 |\n| **Indireto** | o campo aponta para uma palavra que **contém** o endereço do operando | 2 |\n\nCasando com as descrições da questão:\n\n- **I. Direto** → (b) \"o campo de endereço contém o endereço efetivo do operando\";\n- **II. Indireto** → (c) \"o campo se refere ao endereço de uma palavra na memória, o qual contém o endereço completo do operando\" — um salto a mais;\n- **III. Imediato** → (a) \"o valor do operando está presente na instrução\".\n\nO que cada um custa e oferece:\n\n**Imediato** é o mais rápido (nenhuma ida à memória) e o mais limitado — o valor tem de caber no campo da instrução, então é para constante pequena.\n\n**Direto** é simples, mas o espaço endereçável fica limitado pelo tamanho do campo.\n\n**Indireto** alcança todo o espaço de endereçamento e permite o endereço ser calculado em tempo de execução — é o que viabiliza ponteiro e vetor —, ao custo de um acesso extra.\n\nExistem outros modos que podem aparecer: **por registrador** (o operando está num registrador), **indireto por registrador**, **indexado** (endereço-base + índice, usado para percorrer vetor) e **por pilha**.\n\nAtalho: conte os saltos. Zero = imediato, um = direto, dois = indireto. A palavra \"efetivo\" marca o direto; \"contém o endereço\" marca o indireto.",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I - c; II - b; III - a."
+        },
+        {
+          "letra": "B",
+          "texto": "I - b; II - a; III - c."
+        },
+        {
+          "letra": "C",
+          "texto": "I - c; II - a; III - b."
+        },
+        {
+          "letra": "D",
+          "texto": "I - b; II - c; III - a."
+        },
+        {
+          "letra": "E",
+          "texto": "I - a; II - b; III - c."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 45",
+      "enunciado": "O barramento __________ é um barramento de grande largura de banda, independente de processador, que pode funcionar como um mezanino ou barramento periférico. Em comparação com outras especificações de barramento comuns, ele oferece melhor desempenho de sistema para subsistemas de E/S de alta velocidade (por exemplo, adaptadores de vídeo gráficos, controladores de interface de rede, controladores de disco e assim por diante).",
+      "gabarito": "E",
+      "explicacao": "**PCI** — *Peripheral Component Interconnect*. O enunciado é praticamente literal do Stallings, e a palavra que entrega é **\"mezanino\"**: o PCI se posiciona entre o barramento local do processador e os barramentos de periférico, e é **independente do processador**, o que o tornou portável entre plataformas.\n\nOs traços que o enunciado enumera:\n\n- **Grande largura de banda** — 32 ou 64 bits, com versões de 33 e 66 MHz;\n- **Independente de processador** — diferentemente do barramento local, não é amarrado a uma família de CPU;\n- **Para E/S de alta velocidade** — vídeo, rede, controladora de disco.\n\nOnde as outras erram, na linha do tempo dos barramentos de PC:\n\n| Barramento | Época | Observação |\n|---|---|---|\n| ISA | anos 80 | 8 e depois 16 bits, lento; o antecessor que o PCI aposentou |\n| **PCI** | 1992 | de propósito geral, mezanino, multiplexado |\n| AGP | 1997 | **dedicado a vídeo**, ponto a ponto — logo, não é \"periférico\" genérico |\n| PCI Express | 2004 | serial, em pistas (lanes); substituiu PCI e AGP |\n\nO **x86** (C) é o distrator de categoria errada: é um **conjunto de instruções** (ISA no outro sentido da sigla — *Instruction Set Architecture*), não um barramento. \"Triplex\" (D) não existe.\n\nAtalho: o enunciado usou \"mezanino\" e \"independente de processador\". As duas expressões aparecem juntas na descrição de um barramento só.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "ISA"
+        },
+        {
+          "letra": "B",
+          "texto": "AGP"
+        },
+        {
+          "letra": "C",
+          "texto": "x86"
+        },
+        {
+          "letra": "D",
+          "texto": "Triplex"
+        },
+        {
+          "letra": "E",
+          "texto": "PCI"
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 46",
+      "enunciado": "A função básica realizada por um computador é a execução de um programa, que consiste em um conjunto de instruções armazenadas na memória, e o processador faz o trabalho real executando instruções especificadas no programa. Analise os itens a seguir.\n\nÉ correto afirmar que são mencionados os principais componentes do processador em:",
+      "gabarito": "A",
+      "explicacao": "As três — alternativa (A). ULA, Unidade de Controle e Registradores é a decomposição padrão do processador; nenhuma sobra e nenhuma falta.\n\n| Componente | Papel | Peças internas |\n|---|---|---|\n| **ULA** | aritmética e lógica | somador, deslocador, flags de status |\n| **Unidade de Controle** | busca, decodifica e comanda | decodificador, gerador de sinais, lógica de sequenciamento |\n| **Registradores** | armazenam durante a execução | visíveis ao programador e de controle |\n\nOs registradores se dividem em dois grupos, e essa divisão cai:\n\n**Visíveis ao usuário** — os que o programa manipula: de propósito geral, de dados, de endereço, ponteiro de pilha.\n\n**De controle e estado** — os que a máquina usa para funcionar:\n\n| Registrador | O que guarda |\n|---|---|\n| PC (contador de programa) | endereço da próxima instrução |\n| IR (registrador de instrução) | a instrução sendo executada |\n| MAR (registrador de endereço de memória) | o endereço a ser acessado |\n| MBR/MDR (registrador de dados de memória) | o dado que vai ou vem da memória |\n| PSW (palavra de estado) | flags: zero, negativo, carry, overflow, modo de execução |\n\nO quarto elemento que às vezes aparece como componente do processador é o **barramento interno**, que liga os três. Quando a alternativa o incluir, ela continua certa; a decomposição em três é a mais comum nos livros.\n\nAtalho: manda, calcula, guarda. Se as três estiverem na lista e não houver intruso, a resposta é \"todos\".",
+      "dificuldade": 1,
+      "afirmacoes": [
+        "Unidade Lógica de Aritmética;",
+        "Unidade de Controle;",
+        "Registradores."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I, II e III."
+        },
+        {
+          "letra": "B",
+          "texto": "apenas I."
+        },
+        {
+          "letra": "C",
+          "texto": "II e III."
+        },
+        {
+          "letra": "D",
+          "texto": "I e III."
+        },
+        {
+          "letra": "E",
+          "texto": "apenas II."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 47",
+      "enunciado": "Um sistema de computador emprega uma hierarquia de memória. Em níveis mais altos da hierarquia, a memória é mais rápida, menor e mais cara (por bit). Existe um conjunto de registradores que funcionam como um nível de memória acima da memória principal e da cache dentro desta hierarquia. Estes registradores desempenham o papel de:",
+      "gabarito": "E",
+      "explicacao": "A (E) — \"minimização das referências à memória, controle da operação do processador e controle da execução de programas\". É a formulação do Stallings para o papel dos registradores **no nível de sistema**, e a banca cobrou exatamente essa redação.\n\nA questão é difícil porque **(B) e (D) também são verdadeiras** sobre registradores e cache:\n\n- (B) \"armazenar dados intermediários durante a execução de um programa\" — é o que os registradores visíveis ao programador fazem;\n- (D) \"guardar instruções e dados que serão usados em breve\" — é a descrição da **cache**, e registradores fazem algo parecido.\n\nO que faz a (E) vencer é a **abrangência**: ela reúne as três funções que o livro lista, incluindo a que as outras não mencionam — os registradores **de controle e estado**, que não guardam dado do programa e sim o estado da máquina (PC, IR, PSW, ponteiro de pilha). São eles que fazem o \"controle da operação do processador e da execução de programas\".\n\nE a \"minimização das referências à memória\" é o motivo econômico de os registradores existirem: cada ida à memória custa ordens de magnitude mais que um acesso a registrador.\n\nA hierarquia inteira, que o enunciado invoca:\n\n| Nível | Tempo de acesso | Capacidade | Custo por bit |\n|---|---|---|---|\n| Registradores | menos de 1 ns | dezenas de palavras | altíssimo |\n| Cache L1/L2/L3 | 1 a 20 ns | KB a dezenas de MB | alto |\n| Memória principal | ~80 ns | GB | médio |\n| SSD / disco | µs a ms | TB | baixo |\n\nPor que a hierarquia funciona: **localidade de referência**. Programas acessam repetidamente as mesmas posições (localidade temporal) e posições vizinhas (localidade espacial), então um nível pequeno e rápido acerta a maior parte das vezes.\n\nA (A) \"de forma permanente\" derruba sozinha — registrador é volátil. A (C) \"alocar o sistema operacional\" é papel da memória principal.\n\nAtalho para questão com duas alternativas verdadeiras: prefira a mais **abrangente**, a que engloba o que as outras dizem. Bancas que copiam livro escolhem a frase do livro, e a frase do livro costuma ser a completa.",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "salvar grandes quantidades de dados de forma permanente."
+        },
+        {
+          "letra": "B",
+          "texto": "armazenar dados intermediários durante a execução de um programa."
+        },
+        {
+          "letra": "C",
+          "texto": "alocar o sistema operacional e outros programas em execução."
+        },
+        {
+          "letra": "D",
+          "texto": "guardar instruções e dados que serão usados em breve pelo processador."
+        },
+        {
+          "letra": "E",
+          "texto": "minimização das referências à memória, controle da operação do processador e controle da execução de programas."
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 24",
+      "enunciado": "No início de cada ciclo de instrução, o processador busca uma instrução da memória. Em um processador típico, um registrador chamado contador de programa (PC) mantém o endereço da instrução a ser buscada em seguida. As instruções assumem diversos estados durante seu ciclo de processamento. São exemplos de estados do ciclo de instrução, exceto:",
+      "gabarito": "A",
+      "explicacao": "**\"Instruction Basic Input Output\"** — alternativa (A). Não existe: é a sigla **BIOS** esticada em nome falso, colada na palavra \"Instruction\" para parecer termo de ciclo de instrução.\n\nOs **estados do ciclo de instrução**, na ordem, com os nomes em inglês que a banca usou nas outras alternativas:\n\n| # | Estado | O que acontece |\n|---|---|---|\n| 1 | **Instruction Address Calculation** | calcula o endereço da próxima instrução (normalmente PC + tamanho) |\n| 2 | **Instruction Fetch** | lê a instrução da memória para o IR |\n| 3 | Instruction Operation Decoding | descobre a operação e de que operandos precisa |\n| 4 | Operand Address Calculation | calcula onde está o operando |\n| 5 | Operand Fetch | busca o operando na memória ou em E/S |\n| 6 | **Data Operation** | executa — aqui entra a ULA |\n| 7 | **Operand Store** | grava o resultado |\n\nQuatro dos sete estão nas alternativas (B, C, D, E), e o quinto nome é o inventado.\n\nDois detalhes que aparecem em prova:\n\n**Nem todo estado ocorre em toda instrução.** Uma instrução com operando imediato pula a busca de operando; um `JUMP` não grava resultado.\n\n**O ciclo pode incluir um oitavo estado:** a verificação de **interrupção**, ao fim de cada instrução. É onde o processador decide se atende a um pedido pendente antes de seguir.\n\nA **BIOS**, que a alternativa falsa evoca, é outra coisa completamente: o firmware que inicializa o hardware no boot e entrega o controle ao carregador do sistema operacional. Nada a ver com o ciclo de instrução — hoje, aliás, substituída pela UEFI na maioria das máquinas.\n\nAtalho para \"exceto\" nesta banca: procure a alternativa que parece **duas coisas coladas**. \"Instruction\" + \"Basic Input Output\" é a costura visível.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Instruction Basic Input Output"
+        },
+        {
+          "letra": "B",
+          "texto": "Instruction Fetch"
+        },
+        {
+          "letra": "C",
+          "texto": "Instruction Adress Calculation"
+        },
+        {
+          "letra": "D",
+          "texto": "Data Operation"
+        },
+        {
+          "letra": "E",
+          "texto": "Operand Store"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 25",
+      "enunciado": "Analise as sentenças a seguir sobre a arquitetura e organização de computadores.\n\nI) Praticamente todos os computadores oferecem um mecanismo por meio do qual outros módulos (E/S, memória) podem interromper o processamento normal do processador.\nPorque:\nII) As interrupções são fornecidas como um modo de melhorar a eficiência do processamento.\n\nA partir das sentenças, conclui-se que:",
+      "gabarito": "C",
+      "explicacao": "Ambas corretas e a segunda justifica a primeira — alternativa (C).\n\n**I — verdadeira.** Praticamente todo computador tem mecanismo de interrupção, pelo qual E/S e memória podem interromper o processamento normal.\n\n**II — verdadeira.** Interrupções existem para melhorar a eficiência do processamento.\n\n**A relação de causa se sustenta**, e é o ponto da questão. Sem interrupção, o processador teria de ficar **perguntando** ao dispositivo se ele terminou — *polling*, um laço que consome ciclos sem produzir nada. A diferença de escala é brutal: uma impressora leva milissegundos onde a CPU executa milhões de instruções. Esperar em laço é desperdiçar todas elas.\n\nCom interrupção, a CPU dispara a operação de E/S, vai fazer outra coisa e é **avisada** quando o dispositivo terminou. É o que torna a multiprogramação possível.\n\nO que acontece quando a interrupção chega:\n\n1. O processador termina a instrução corrente;\n2. Salva o contexto — PC, PSW, registradores;\n3. Carrega no PC o endereço da rotina de tratamento, obtido do **vetor de interrupções**;\n4. Executa o tratador;\n5. Restaura o contexto e volta exatamente de onde parou.\n\nOs tipos que caem junto: **de hardware** (externa, vinda de um dispositivo), **de software** ou *trap* (gerada pelo programa, como divisão por zero ou chamada de sistema) e **mascarável** × **não mascarável** (a NMI não pode ser ignorada — falha de energia, erro de paridade).\n\nAtalho para asserção-razão: depois de confirmar que as duas são verdadeiras, faça a pergunta com \"porque\" no meio e veja se a frase fica de pé. \"Existe interrupção **porque** ela melhora a eficiência\" — fica. Compare com a questão de MIPS desta mesma prova, em que não ficava.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "ambas estão incorretas."
+        },
+        {
+          "letra": "B",
+          "texto": "apenas a afirmativa I está correta."
+        },
+        {
+          "letra": "C",
+          "texto": "ambas estão corretas e a afirmativa II justifica a afirmativa I."
+        },
+        {
+          "letra": "D",
+          "texto": "ambas estão corretas, mas a afirmativa II não justifica a afirmativa I."
+        },
+        {
+          "letra": "E",
+          "texto": "apenas a afirmativa II está correta."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 29",
+      "enunciado": "Dentro da hierarquia de barramento múltiplo de computadores, se muitos dispositivos estiverem conectados ao barramento, o desempenho será prejudicado. Analise as três causas propostas a seguir.\n\nSão apresentadas situações prejudiciais ao desempenho do barramento verdadeiras em:",
+      "gabarito": "B",
+      "explicacao": "Verdadeiras I e II — alternativa (B).\n\n**I — causa real.** Quanto mais dispositivos no barramento, mais vezes o controle passa de um para outro, e cada passagem custa **atraso de propagação** e tempo de arbitragem. O barramento passa a gastar tempo decidindo quem fala em vez de transferir dado.\n\n**II — causa real.** Há um teto de capacidade agregada. Conforme a demanda dos dispositivos se aproxima dele, a fila cresce. E o enunciado acerta ao dizer que é uma corrida perdida: as taxas dos dispositivos crescem mais rápido que a capacidade de um barramento único compartilhado.\n\n**III — não é problema; é a solução.** A afirmação descreve a **arquitetura de barramento hierárquico**: barramento local ligando processador ao controlador de cache, e este, por uma ponte, ao barramento de sistema que atende a memória principal. Essa organização existe **justamente para resolver** os problemas da I e da II — ela separa o tráfego rápido e local do tráfego lento dos periféricos, para que um não segure o outro.\n\nComo a hierarquia se organiza na prática:\n\n| Nível | O que liga | Velocidade |\n|---|---|---|\n| Barramento local | processador ↔ cache | a mais alta |\n| Barramento de sistema | cache ↔ memória principal | alta |\n| Barramento de expansão de alta velocidade | rede, vídeo, SCSI | média-alta |\n| Barramento de expansão | serial, paralela, dispositivos lentos | baixa |\n\nAs **pontes** (*bridges*) entre níveis fazem o casamento de velocidade e o *buffering*, isolando o tráfego de cada faixa.\n\nAtalho: a III se denuncia por descrever uma **estrutura**, enquanto a I e a II descrevem um **comportamento sob carga**. A pergunta era por causas de degradação; estrutura não é causa.",
+      "dificuldade": 3,
+      "afirmacoes": [
+        "Quando o controle do barramento passa de um dispositivo para outro com frequência, os atrasos de propagação podem afetar visivelmente o desempenho.",
+        "À medida que a demanda de transferência de dados agregada se aproxima da capacidade do barramento. Como as taxas de dados geradas pelos dispositivos conectados estão crescendo rapidamente, essa é uma corrida que um barramento único por fim está destinado a perder.",
+        "Quando existe um barramento local que conecta o processador a um controlador de cache, que por sua vez é conectado a um barramento do sistema que admite memória principal. O controlador de cache é integrado a uma ponte, ou dispositivo de armazenamento temporário (buffer), que se conecta ao barramento, o que afeta o desempenho."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "I e II."
+        },
+        {
+          "letra": "C",
+          "texto": "apenas II."
+        },
+        {
+          "letra": "D",
+          "texto": "I, II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I e III."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 30",
+      "enunciado": "Embora exista uma grande variedade de implementações de barramento diferentes, existem poucos parâmetros ou elementos de projeto básicos que servem para classificar e diferenciar barramentos. As linhas de barramento podem ser separadas em dois tipos genéricos:",
+      "gabarito": "E",
+      "explicacao": "**Dedicado e multiplexado** — alternativa (E). É a classificação das **linhas** do barramento quanto à função.\n\n| Tipo | Como funciona | Troca |\n|---|---|---|\n| **Dedicado** | a linha tem função fixa e permanente: esta carrega dado, aquela carrega endereço | mais rápido (dado e endereço trafegam juntos), mais linhas, mais pinos, mais custo |\n| **Multiplexado** | a mesma linha carrega endereço num instante e dado no seguinte, com um sinal de controle dizendo qual é qual | menos linhas e menos custo, mais lento e mais complexo de controlar |\n\nO PCI, que aparece em outra questão desta mesma prova, é **multiplexado**: as 32 linhas de AD carregam endereço numa fase e dado na outra. As duas questões se respondem uma à outra.\n\n\"Dedicado\" tem ainda um segundo sentido no Stallings, que pode aparecer: dedicação **física**, quando um subconjunto de linhas serve só a um subconjunto de módulos (um barramento local de E/S, por exemplo). O sentido principal, e o cobrado aqui, é o funcional.\n\nA (A) é o distrator bom: *bus request* e *bus grant* são sinais **reais** — os do protocolo de arbitragem, pelos quais um dispositivo pede o barramento e o árbitro concede. Mas são sinais de controle, não tipos de linha.\n\nOs outros elementos de projeto de barramento que costumam cair junto: **tipo** (dedicado/multiplexado), **método de arbitragem** (centralizado/distribuído), **temporização** (síncrona/assíncrona), **largura** e **tipo de transferência** (leitura, escrita, leitura-modificação-escrita, bloco).\n\nAtalho: a pergunta era sobre **tipos genéricos de linha**. Só um par de alternativas descreve como uma linha se comporta, em vez de nomear sinais ou categorias de outra coisa.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "bus request e bus grant."
+        },
+        {
+          "letra": "B",
+          "texto": "local e expansivo."
+        },
+        {
+          "letra": "C",
+          "texto": "virtual e físico."
+        },
+        {
+          "letra": "D",
+          "texto": "direto e indireto."
+        },
+        {
+          "letra": "E",
+          "texto": "dedicado e multiplexado."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 31",
+      "enunciado": "Um _______ pode trocar dados diretamente com o processador. Assim como o processador pode iniciar uma leitura ou escrita com a memória, designando o endereço de um local específico, o processador também pode ler ou escrever dados nele. Nesse último caso, o processador identifica um dispositivo específico que é controlado por ele em particular.",
+      "gabarito": "B",
+      "explicacao": "**Módulo de E/S** — alternativa (B). O enunciado descreve a **E/S mapeada em memória**: o processador enxerga o módulo de E/S como se fosse um endereço de memória, e lê ou escreve nele com as mesmas instruções que usaria para a RAM.\n\nO módulo de E/S é o intermediário entre o barramento do sistema e o dispositivo. Ele existe porque periférico e CPU são incompatíveis em quase tudo — velocidade, formato de dado, tensão elétrica, protocolo. O módulo traduz.\n\nAs duas formas de o processador falar com ele:\n\n| Forma | Como funciona |\n|---|---|\n| **E/S mapeada em memória** | os registradores do módulo ocupam endereços do espaço de memória; usa-se LOAD e STORE comuns |\n| **E/S isolada** (mapeada em porta) | espaço de endereçamento separado, com instruções próprias (IN e OUT no x86) |\n\nA (C) **DMA** é o distrator, e é bom porque inverte exatamente o que o enunciado diz. No Acesso Direto à Memória, o controlador transfere dado entre dispositivo e memória **sem** passar pelo processador — a CPU só configura a transferência e é avisada no fim. O enunciado descreve o processador lendo e escrevendo diretamente, que é o oposto.\n\nAs três técnicas de E/S, em ordem de eficiência:\n\n| Técnica | Quem trabalha | Custo para a CPU |\n|---|---|---|\n| E/S programada (*polling*) | a CPU pergunta em laço se terminou | altíssimo |\n| E/S por interrupção | a CPU é avisada quando terminar | médio — ainda move o dado |\n| DMA | o controlador move o dado sozinho | baixo — só configura e recebe o aviso final |\n\n\"Cabo Ethernet\" (E) é meio físico. \"CPU\" (D) é quem faz o acesso, não o acessado. \"Barramento\" (A) é o caminho.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "barramento"
+        },
+        {
+          "letra": "B",
+          "texto": "módulo de E/S"
+        },
+        {
+          "letra": "C",
+          "texto": "DMA (Direct Memory Access)"
+        },
+        {
+          "letra": "D",
+          "texto": "CPU"
+        },
+        {
+          "letra": "E",
+          "texto": "cabo Ethernet"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 32",
+      "enunciado": "O barramento PCI pode ser configurado como um barramento de 32 ou 64 bits. Estas são divididas em grupos funcionais. Associe cada grupo com suas respectivas particularidades.\n\nI) Pinos do sistema\nII) Pinos de endereços e de dados\nIII) Pinos de controle da interface\n\na) Incluem os pinos de clock e reset.\nb) Incluem 32 linhas que são multiplexadas no tempo para endereços e dados. As outras linhas nesse grupo são usadas para interpretar e validar as linhas de sinal que carregam os endereços e dados.\nc) Controlam a temporização de transações e oferecem coordenação entre iniciadores e destinos.",
+      "gabarito": "B",
+      "explicacao": "A (B) — I-a, II-b, III-c. A associação sai pelo próprio nome de cada grupo:\n\n| Grupo | Descrição | Por quê |\n|---|---|---|\n| **I. Pinos do sistema** | (a) clock e reset | são os sinais que valem para o barramento inteiro, não para uma transação |\n| **II. Pinos de endereços e de dados** | (b) 32 linhas multiplexadas no tempo | o nome do grupo já diz que ele carrega os dois |\n| **III. Pinos de controle da interface** | (c) temporização de transações e coordenação entre iniciadores e destinos | \"controle\" = quem fala quando |\n\nA descrição (b) confirma de passagem uma coisa importante, que responde outra questão desta mesma prova: **o PCI é multiplexado**. As 32 linhas AD (*Address/Data*) carregam o endereço na primeira fase da transação e o dado nas fases seguintes, e as linhas C/BE indicam o comando e quais bytes são válidos. É o que reduz a contagem de pinos do conector.\n\nOs grupos obrigatórios do PCI, para completar:\n\n| Grupo | Para quê |\n|---|---|\n| Sistema | clock, reset |\n| Endereço e dados | os 32 (ou 64) AD, mais C/BE e paridade |\n| Controle da interface | FRAME, IRDY, TRDY, STOP, DEVSEL — a temporização da transação |\n| Arbitragem | REQ e GNT, ponto a ponto com o árbitro — não compartilhados |\n| Erro | PERR, SERR |\n\nE há os grupos opcionais: interrupção, suporte a cache, extensão para 64 bits e JTAG.\n\nAtalho para questões de associação: leia o **nome** do item antes da descrição. Bancas que copiam livro mantêm o nome descritivo, e três de cada quatro associações se resolvem só pelo nome.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I - a; II - c; III - b."
+        },
+        {
+          "letra": "B",
+          "texto": "I - a; II - b; III - c."
+        },
+        {
+          "letra": "C",
+          "texto": "I - b; II - a; III - c."
+        },
+        {
+          "letra": "D",
+          "texto": "I - c; II - b; III - a."
+        },
+        {
+          "letra": "E",
+          "texto": "I - c; II - a; III - b."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 39",
+      "enunciado": "O uso de _______ visa obter velocidade de memória próxima das memórias mais rápidas que existem e, ao mesmo tempo, disponibilizar uma memória de grande capacidade ao preço de memórias semicondutoras mais baratas.",
+      "gabarito": "C",
+      "explicacao": "**Memória cache**. O enunciado é o Stallings quase palavra por palavra, e enuncia o objetivo da cache: velocidade próxima da memória mais rápida, ao custo médio da mais barata.\n\nComo isso é possível sem mágica: **localidade de referência**. Programas não acessam a memória ao acaso.\n\n| Tipo de localidade | O que diz | De onde vem |\n|---|---|---|\n| **Temporal** | o que foi acessado agora tende a ser acessado de novo em breve | laços, variáveis, funções chamadas repetidamente |\n| **Espacial** | o que está perto do acessado tende a ser acessado em seguida | vetores, código sequencial, structs |\n\nPor isso um bloco pequeno e caro de memória rápida, guardando o que foi usado há pouco e seus vizinhos, acerta a grande maioria dos acessos. A taxa de acerto (*hit rate*) de uma cache bem dimensionada passa de 90%, e é ela que faz a média do custo pender para a memória barata e a média do tempo pender para a memória rápida.\n\nO tempo médio de acesso é a conta que resume tudo:\n\ntempo médio = (taxa de acerto × tempo da cache) + (taxa de falha × tempo da memória principal)\n\nCom 95% de acerto, 1 ns de cache e 80 ns de memória: 0,95 × 1 + 0,05 × 80 = 4,95 ns. Perto do 1 ns da cache, longe dos 80 ns da RAM — e pagando o preço de uma memória pequena.\n\nOs níveis: **L1** (dividida em instrução e dado, a mais rápida, por núcleo), **L2** (maior, ainda por núcleo) e **L3** (compartilhada entre os núcleos).\n\nAs outras alternativas: clock é sinal; CPU é o processador; disco rígido e HD são a mesma coisa, e estão no extremo oposto da hierarquia — grandes, baratos e lentos.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Clock"
+        },
+        {
+          "letra": "B",
+          "texto": "CPUs"
+        },
+        {
+          "letra": "C",
+          "texto": "memória cache"
+        },
+        {
+          "letra": "D",
+          "texto": "discos rígidos"
+        },
+        {
+          "letra": "E",
+          "texto": "HDs"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,970 @@
+{
+  "_leia_me": "Seção 1 do caderno de Conhecimentos Específicos do Instituto Avança SP: as 31\n    questões de redes das cinco provas de TI (Americana 2022, Rio Grande da Serra\n    2024, Itatiba 2024, Juquitiba 2024). É o assunto mais cobrado da banca —\n    24,8% dos específicos, presente em 4 das 5 provas.\n\n    Transcritas do caderno em docs/avanca-sp/avanca-sp-especificos.md. O gabarito\n    foi conferido depois contra o PDF que a banca publicou, por\n    scripts/conferir_gabaritos_avanca_sp.py — Americana, Juquitiba e Rio Grande\n    da Serra batem item a item.\n\n    As explicações são minhas — a banca publica gabarito, não justificativa.\n\n    A foto da questão 39 de Rio Grande da Serra (alicate de crimpagem) não veio\n    na transcrição do caderno e foi recortada do PDF da prova depois, em\n    data/estudo/imagens/avanca-sp/alicate-crimpagem.png.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Redes, protocolos e infraestrutura",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 26",
+      "enunciado": "Sobre a arquitetura de sistemas cliente-servidor é INCORRETO afirmar que:",
+      "gabarito": "E",
+      "explicacao": "A incorreta é a (E), \"processamento de ajuda\" — uma expressão que não descreve nada da arquitetura cliente-servidor. É o distrator vazio, formato preferido desta banca: em vez de plantar um erro conceitual, colocam uma frase sem sentido no meio de quatro afirmações verdadeiras.\n\nAs outras quatro descrevem cliente-servidor corretamente:\n\n**(A)** Processos clientes interagem com processos servidores — é a definição. Repare que a arquitetura é sobre **processos**, não sobre máquinas: cliente e servidor podem rodar no mesmo computador.\n\n**(B) e (D)** dizem a mesma coisa por ângulos diferentes, e é uma característica importante: o papel é **relativo à transação**, não fixo à máquina. Um servidor web é servidor para o navegador e cliente do banco de dados, do servidor de arquivos, do cache. É assim que se montam arquiteturas em camadas.\n\n**(C)** Cliente-servidor é de fato o modelo mais citado quando se discutem sistemas distribuídos — o alternativo é o P2P, em que todo nó tem o mesmo papel.\n\n| | Cliente-servidor | Ponto a ponto (P2P) |\n|---|---|---|\n| Papéis | assimétricos e definidos | simétricos |\n| Recurso central | sim | não |\n| Administração | centralizada, mais fácil | distribuída |\n| Ponto único de falha | sim, o servidor | não |\n| Escala | limitada pelo servidor | cresce com os participantes |\n\nAtalho para \"assinale a INCORRETA\" nesta banca: leia as cinco procurando a que **não faz afirmação nenhuma**. Quatro serão frases completas sobre o assunto e uma será um sintagma solto, sem verbo e sem sentido — é ela.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Processos clientes interagem com processos servidores."
+        },
+        {
+          "letra": "B",
+          "texto": "Os servidores podem ser clientes de outros servidores."
+        },
+        {
+          "letra": "C",
+          "texto": "Arquitetura mais citada quando os sistemas distribuídos são discutidos."
+        },
+        {
+          "letra": "D",
+          "texto": "Servidor web é frequentemente um cliente de um servidor de arquivos."
+        },
+        {
+          "letra": "E",
+          "texto": "Processamento de ajuda."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 34",
+      "enunciado": "O Modelo de Referência OSI (Open Systems Interconnection) foi criado pela ______ em _____ para manter uma maior interoperabilidade e compatibilidade entre as diversas tecnologias de rede existentes. A alternativa que completa as lacunas, respectivamente, é:",
+      "gabarito": "E",
+      "explicacao": "**ISO, 1984** — alternativa (E). O modelo OSI é da **ISO** (*International Organization for Standardization*), publicado como a norma **ISO 7498** em 1984.\n\nO par a fixar é esse: **ISO / 1984**. Duas alternativas trocam a instituição (IEEE) e duas trocam a data — não há como errar sabendo o par.\n\nA confusão com o **IEEE** tem fundamento e vale entender, porque isso separa duas famílias de norma que convivem:\n\n| Organismo | O que padroniza | Exemplos |\n|---|---|---|\n| **ISO** | o modelo de referência de sete camadas | ISO 7498 (OSI) |\n| **IEEE** | as camadas **1 e 2**, física e enlace | 802.3 Ethernet, 802.11 Wi-Fi, 802.1Q VLAN |\n| **IETF** | os protocolos da Internet, via RFC | IP, TCP, HTTP, DNS |\n| **ITU-T** | telecomunicações | V.90, G.703 |\n\nOu seja: o IEEE **não** fez o modelo de sete camadas, mas fez os padrões que ocupam as duas camadas de baixo dele. As duas coisas se encaixam, e é essa vizinhança que torna o distrator eficaz.\n\nContexto histórico que ajuda a fixar a data: o OSI foi projetado nos anos 70 e 80 como o modelo oficial de interconexão, por comitê. Enquanto isso, o TCP/IP já rodava na ARPANET e venceu na prática. Sobrou ao OSI o papel de **referência didática** — é por isso que se estudam as sete camadas e se implementam as quatro do TCP/IP.\n\nAtalho: OSI é ISO — as três letras estão lá dentro.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "IEEE, 1991."
+        },
+        {
+          "letra": "B",
+          "texto": "ISO, 2002."
+        },
+        {
+          "letra": "C",
+          "texto": "ANR, 1992."
+        },
+        {
+          "letra": "D",
+          "texto": "IEEE, 1998."
+        },
+        {
+          "letra": "E",
+          "texto": "ISO, 1984."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 35",
+      "enunciado": "O modelo OSI é composto por 7 camadas. A camada responsável por transmissão binária através dos meios físicos de redes é a camada:",
+      "gabarito": "C",
+      "explicacao": "**Física** — camada 1. É a única que lida com o **sinal** propriamente dito: tensão elétrica no cobre, pulso de luz na fibra, frequência de rádio no ar. Bit no meio de transmissão é camada física, sempre.\n\nAs sete camadas do OSI, de baixo para cima:\n\n| # | Camada | Unidade | Do que trata |\n|---|---|---|---|\n| 1 | **Física** | bit | tensão, conector, pinagem, taxa, meio |\n| 2 | Enlace | quadro | endereço MAC, detecção de erro, acesso ao meio |\n| 3 | Rede | pacote | endereço IP, roteamento |\n| 4 | Transporte | segmento | porta, confiabilidade, controle de fluxo |\n| 5 | Sessão | dados | abertura, sincronismo e término do diálogo |\n| 6 | Apresentação | dados | formato, codificação, compressão, criptografia |\n| 7 | Aplicação | dados | o protocolo que a aplicação usa |\n\nO par físico/enlace é o que mais se confunde, e a distinção é limpa: a camada física transmite **bits soltos**, sem saber o que significam; o enlace agrupa bits em **quadros**, com delimitador, endereço e verificação de erro. Um repetidor e um hub são camada 1 — repetem sinal sem entender nada; um switch é camada 2 — lê o endereço MAC do quadro e decide a porta.\n\nMnemônico das sete, de baixo para cima: **F**ísica, **E**nlace, **R**ede, **T**ransporte, **S**essão, **A**presentação, **A**plicação — \"FERTSAA\". Ou, de cima para baixo em inglês, o clássico *All People Seem To Need Data Processing*.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apresentação."
+        },
+        {
+          "letra": "B",
+          "texto": "Sessão."
+        },
+        {
+          "letra": "C",
+          "texto": "Física."
+        },
+        {
+          "letra": "D",
+          "texto": "Enlace de dados."
+        },
+        {
+          "letra": "E",
+          "texto": "Rede."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 36",
+      "enunciado": "A camada do Modelo OSI responsável por fornecer uma estrutura de formatação dos dados é a camada de:",
+      "gabarito": "D",
+      "explicacao": "**Apresentação** — camada 6. É a responsável pela forma dos dados: codificação de caracteres, formato, compressão e criptografia.\n\nO nome engana, e é bom desfazer isso: ela não \"apresenta\" nada ao usuário. Quem faz interface é a aplicação. A camada 6 é a **tradutora** — ela garante que o que o emissor escreveu chegue inteligível ao receptor, mesmo que as duas máquinas representem dados de formas diferentes.\n\nOs três trabalhos dela:\n\n| Trabalho | Exemplo |\n|---|---|\n| **Tradução / codificação** | ASCII ↔ EBCDIC, UTF-8, ordem de bytes (endianness), JPEG, MPEG |\n| **Compressão** | reduzir o volume antes de transmitir |\n| **Criptografia** | cifrar e decifrar — conceitualmente é aqui que o TLS/SSL se encaixa |\n\nA questão da criptografia merece nota, porque cai: no modelo OSI puro, cifrar é função da camada de apresentação. Na pilha TCP/IP real, o TLS fica entre o transporte e a aplicação e costuma ser descrito como \"camada de sessão/apresentação\" por analogia. Bancas cobram a versão OSI.\n\nOnde as outras erram: **Sessão** (5) cuida do diálogo — abrir, sincronizar, encerrar, marcar pontos de retomada. **Aplicação** (7) é o protocolo que a aplicação fala. **Transporte** (4) entrega fim a fim. **Enlace** (2) monta o quadro no meio local.\n\nAtalho para as três de cima, que são as mais confundidas: sessão **controla a conversa**, apresentação **traduz o conteúdo**, aplicação **é a conversa**.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Enlace."
+        },
+        {
+          "letra": "B",
+          "texto": "Aplicação."
+        },
+        {
+          "letra": "C",
+          "texto": "Sessão."
+        },
+        {
+          "letra": "D",
+          "texto": "Apresentação."
+        },
+        {
+          "letra": "E",
+          "texto": "Transporte."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 37",
+      "enunciado": "A camada do Modelo OSI que é responsável pelo controle de acesso ao meio de rede é a camada de:",
+      "gabarito": "B",
+      "explicacao": "**Enlace de dados** — camada 2. A sigla resolve: **MAC** é *Media Access Control*, e ela é a subcamada inferior do enlace.\n\nA camada 2 do OSI se divide em duas:\n\n| Subcamada | Nome | Função |\n|---|---|---|\n| Superior | **LLC** (*Logical Link Control*) | interface com a camada 3, controle de fluxo e de erro |\n| Inferior | **MAC** (*Media Access Control*) | decide **quem transmite quando** no meio compartilhado; endereçamento físico |\n\nO problema que a subcamada MAC existe para resolver: num meio compartilhado, dois nós que transmitem ao mesmo tempo colidem e ambos os quadros se perdem. É preciso uma regra de arbitragem — e cada tecnologia tem a sua:\n\n| Método | Onde se usa | Como funciona |\n|---|---|---|\n| CSMA/CD | Ethernet com hub | escuta, transmite, detecta colisão e recua por tempo aleatório |\n| CSMA/CA | Wi-Fi (802.11) | escuta e **evita** a colisão — no ar não dá para detectá-la |\n| Passagem de ficha | Token Ring, FDDI | só transmite quem está com o token |\n\nNota prática: em rede Ethernet comutada moderna, cada porta do switch é um domínio de colisão próprio e full-duplex, então o CSMA/CD praticamente não atua mais. Continua caindo em prova.\n\nA **camada de rede** (A) é o distrator, e a diferença é limpa: o enlace decide **quem fala no meio local**; a rede decide **por onde o pacote vai** até outra rede. Acesso ao meio é local; roteamento é fim a fim.\n\nAtalho: a palavra \"meio\" no enunciado puxa para a camada 2. \"Rota\" ou \"endereço lógico\" puxaria para a 3.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Rede."
+        },
+        {
+          "letra": "B",
+          "texto": "Enlace de dados."
+        },
+        {
+          "letra": "C",
+          "texto": "Transporte."
+        },
+        {
+          "letra": "D",
+          "texto": "Sessão."
+        },
+        {
+          "letra": "E",
+          "texto": "Aplicação."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 38",
+      "enunciado": "O modelo TCP/IP foi desenvolvido pelo DoD (Departamento de Defesa dos EUA) com o objetivo de criar uma rede tolerante a falhas, onde, por exemplo, caso uma bomba caísse em um quartel general, a comunicação não seria interrompida. Quantas camadas possui o modelo TCP/IP?",
+      "gabarito": "D",
+      "explicacao": "**Quatro** — alternativa (D). O modelo TCP/IP tem quatro camadas: acesso à rede, internet, transporte e aplicação.\n\nA correspondência com o OSI, que é o que a questão está realmente cobrando:\n\n| TCP/IP | OSI | Protocolos típicos |\n|---|---|---|\n| **Aplicação** | 7 Aplicação + 6 Apresentação + 5 Sessão | HTTP, DNS, SMTP, FTP, SSH |\n| **Transporte** | 4 Transporte | TCP, UDP |\n| **Internet** | 3 Rede | IP, ICMP, ARP |\n| **Acesso à rede** | 2 Enlace + 1 Física | Ethernet, Wi-Fi, PPP |\n\nA alternativa (C) 7 é a armadilha principal: são as camadas do **OSI**, e pega quem lê \"camadas\" e responde no automático.\n\nA alternativa (B) 5 é a armadilha fina, e é legítima em outro contexto: o **Tanenbaum** apresenta uma versão didática de cinco camadas, separando física de enlace dentro do acesso à rede. Não é o que esta banca cobra — o modelo TCP/IP oficial, o do RFC 1122, tem quatro.\n\nO contexto do enunciado é verdadeiro e vale guardar: o modelo nasceu do projeto da ARPANET, financiado pelo DoD, e a sobrevivência a falhas era requisito explícito. Isso explica duas decisões de projeto que caem em prova — o roteamento **descentralizado** (cada roteador decide sozinho o próximo salto, sem autoridade central) e o **datagrama** do IP, sem circuito fixo: se um caminho cai, o pacote seguinte vai por outro, sem renegociar nada.\n\nAtalho: OSI = 7 (teórico, da ISO). TCP/IP = 4 (real, o que roda). Se aparecer 5, é a variante didática do Tanenbaum.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2."
+        },
+        {
+          "letra": "B",
+          "texto": "5."
+        },
+        {
+          "letra": "C",
+          "texto": "7."
+        },
+        {
+          "letra": "D",
+          "texto": "4."
+        },
+        {
+          "letra": "E",
+          "texto": "3."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 39",
+      "enunciado": "Analise a imagem, de um modelo de topologia física. Que tipo de topologia é o da imagem?",
+      "gabarito": "C",
+      "explicacao": "**Topologia hierárquica** (também chamada de **árvore**) — alternativa (C).\n\nA figura mostra um switch no topo que ramifica em dois switches, e cada um destes com seus hosts. Os dois marcadores da topologia estão ali: um **nó raiz** e **níveis** abaixo dele, com ramificação e sem circuito fechado.\n\nEla é, na prática, uma composição de estrelas: cada switch com seus hosts é uma estrela, e as estrelas se ligam a um concentrador superior. É a topologia física da esmagadora maioria das redes corporativas reais — switch de acesso por andar, switch de distribuição por prédio, núcleo no datacenter.\n\nComo as outras apareceriam no desenho:\n\n| Topologia | Desenho | Característica |\n|---|---|---|\n| **Estrela** | um concentrador só, com todos ligados a ele | um nível; o concentrador é ponto único de falha |\n| **Malha** | todos ligados a todos (ou quase) | muitos caminhos, redundância alta, custo alto |\n| **Anel** | circuito fechado, cada nó com dois vizinhos | o dado circula; quebrar o anel derruba a rede |\n| **Barramento** | um cabo tronco com todos pendurados | o mais antigo (10BASE2); colisão e ponto único no tronco |\n| **Hierárquica** | raiz + níveis ramificando | estrelas empilhadas; escala bem |\n\nUm ponto que cai em prova e a figura ilustra: **topologia física ≠ topologia lógica**. Uma rede fisicamente em estrela (todo mundo no switch) pode ser logicamente um barramento (no caso do hub, em que todos compartilham o meio). A pergunta aqui era sobre a física — o enunciado diz \"topologia física\".\n\nAtalho: conte os níveis. Um nível = estrela. Vários níveis ramificando = hierárquica/árvore.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Topologia em estrela."
+        },
+        {
+          "letra": "B",
+          "texto": "Topologia em malha."
+        },
+        {
+          "letra": "C",
+          "texto": "Topologia hierárquica."
+        },
+        {
+          "letra": "D",
+          "texto": "Topologia em anel."
+        },
+        {
+          "letra": "E",
+          "texto": "Topologia em barra."
+        }
+      ],
+      "imagem": "avanca-sp/topologia-arvore.png",
+      "imagem_alt": "Diagrama de topologia de rede: um switch no topo ligado a dois switches abaixo dele, e cada um desses dois ligado a dois hosts (círculos). O switch do topo também tem um host próprio acima."
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 40",
+      "enunciado": "Na camada de aplicação residem os protocolos que possibilitam a comunicação entre as aplicações. Quando uma aplicação depende de um protocolo desta camada, ela fará uso do protocolo para codificar os dados e encaminhá-los para a camada de transporte. Qual dos protocolos, a seguir, não pertence a essa camada?",
+      "gabarito": "D",
+      "explicacao": "**ICMP** — alternativa (D). Ele não é de aplicação: pertence à camada de **internet** (rede), junto com o IP.\n\nA distinção que a questão cobra é sobre **o que o protocolo carrega**. Protocolo de aplicação transporta dado **do usuário** — uma página, um e-mail, um arquivo. O ICMP transporta mensagens **sobre a própria rede**, trocadas entre os dispositivos de rede:\n\n| Mensagem ICMP | Quando aparece |\n|---|---|\n| Echo Request / Echo Reply | é o `ping` |\n| Destination Unreachable | o roteador não sabe chegar ao destino |\n| Time Exceeded | o TTL zerou — é o que faz o `traceroute` funcionar |\n| Redirect | existe rota melhor por outro gateway |\n| Source Quench | congestionamento (obsoleta) |\n\nDetalhe que confunde e vale saber: o ICMP é **encapsulado dentro do IP** (protocolo número 1), o que dá a impressão de que ele estaria acima. Mas ele não usa TCP nem UDP, não tem número de porta, e existe para servir à camada de rede — por isso é classificado nela, como protocolo de controle do IP.\n\nOs outros quatro são de aplicação, e vale fixar a porta padrão de cada um:\n\n| Protocolo | Porta | Para quê |\n|---|---|---|\n| HTTP | 80 (HTTPS: 443) | web |\n| DNS | 53 | nome → IP |\n| FTP | 20/21 | transferência de arquivo |\n| SMTP | 25 (587 com autenticação) | envio de e-mail |\n\nAtalho: se o protocolo não tem porta, não é de aplicação nem de transporte. ICMP e ARP não têm.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "HTTP."
+        },
+        {
+          "letra": "B",
+          "texto": "DNS."
+        },
+        {
+          "letra": "C",
+          "texto": "FTP."
+        },
+        {
+          "letra": "D",
+          "texto": "ICMP."
+        },
+        {
+          "letra": "E",
+          "texto": "SMTP."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 41",
+      "enunciado": "Na camada de internet existe um protocolo não confiável e sem conexão. Por não oferecer garantias, é conhecido como protocolo melhor esforço. Os sistemas de roteamento e dispositivos da camada farão o possível para entregar os pacotes, no entanto estes dispositivos que compõem o núcleo da rede não operam nas camadas de transporte e aplicação, deixando a cargo dos dispositivos finais a tarefa de avaliar os pacotes recebidos utilizando serviços da camada de transporte e aplicação. Esse protocolo é o:",
+      "gabarito": "A",
+      "explicacao": "**IP** — alternativa (A). O enunciado enfileira as quatro marcas do protocolo e todas apontam para ele: camada de internet, sem conexão, não confiável, melhor esforço.\n\nO que cada termo quer dizer:\n\n**Sem conexão** — não há aperto de mão nem circuito estabelecido antes. Cada datagrama viaja sozinho, com o endereço completo, e pode seguir por caminho diferente do anterior.\n\n**Não confiável** — o IP não confirma entrega, não retransmite o perdido, não garante ordem, não detecta duplicata. Se um roteador descartar o pacote por congestionamento, o IP não fica sabendo nem avisa.\n\n**Melhor esforço** — ele tenta entregar; não promete.\n\nE isso é **projeto**, não deficiência. É o princípio fim a fim: o núcleo da rede fica simples e burro, e a inteligência mora nas pontas. O enunciado diz isso com todas as letras — os dispositivos do núcleo não operam nas camadas de transporte e aplicação, e cabe aos hosts avaliar o que chegou.\n\nQuem conserta o que o IP não garante é o **TCP**, uma camada acima:\n\n| | IP (camada de internet) | TCP (camada de transporte) |\n|---|---|---|\n| Conexão | não tem | estabelece com three-way handshake |\n| Entrega | melhor esforço | confirmada, com retransmissão |\n| Ordem | não garante | reordena pelo número de sequência |\n| Controle de fluxo | não tem | janela deslizante |\n| Endereça | máquinas (IP) | processos (porta) |\n\nE quando a aplicação não quer esse custo, usa **UDP** — que é, no transporte, tão sem conexão e tão melhor-esforço quanto o IP. É a escolha de DNS, streaming e jogos, onde retransmitir chega tarde demais.\n\nOs distratores: TCP (B) é o oposto em tudo e mora acima; FTP (C), IMAP (D) e SNMP (E) são de aplicação. A pista definitiva é \"camada de internet\" — só o IP está lá.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "IP."
+        },
+        {
+          "letra": "B",
+          "texto": "TCP."
+        },
+        {
+          "letra": "C",
+          "texto": "FTP."
+        },
+        {
+          "letra": "D",
+          "texto": "IMAP."
+        },
+        {
+          "letra": "E",
+          "texto": "SNMP."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 32",
+      "enunciado": "Protocolos de rede são os grupos de normas que possibilitam que duas ou mais máquinas conectadas à internet se comuniquem entre si. Entre as alternativas listadas a seguir, assinale a opção que indica um tipo de protocolo utilizado para a navegação na internet:",
+      "gabarito": "D",
+      "explicacao": "**HTTPS** — alternativa (D). É o protocolo de navegação, o HTTP sobre TLS.\n\nO que o \"S\" acrescenta ao HTTP, e é o que cai em prova:\n\n| Garantia | Como se obtém |\n|---|---|\n| **Confidencialidade** | o conteúdo viaja cifrado; quem intercepta vê bytes embaralhados |\n| **Integridade** | alteração no caminho é detectada |\n| **Autenticidade** | o certificado digital, assinado por uma autoridade certificadora, prova que o servidor é quem diz ser |\n\nPorta 443 (o HTTP puro usa 80). O nome antigo era SSL; o protocolo em uso hoje é o **TLS** — TLS 1.2 e 1.3 —, mas o cadeado do navegador e o vocabulário de prova ainda dizem \"SSL/TLS\".\n\nSobre as outras: o **SRTP** (B) existe de verdade — é o *Secure Real-time Transport Protocol*, o RTP cifrado, usado em voz e vídeo sobre IP. Está ali para pegar quem reconhece a sigla e não lê a pergunta: ele é de **mídia em tempo real**, não de navegação. SSM, ICSS e INSTNT não são protocolos.\n\nAtalho: nesta banca, questão de reconhecimento de sigla costuma trazer uma sigla real fora de contexto e três inventadas. Identifique a real e confira se ela responde **a pergunta feita**, não só se ela existe.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "SSM"
+        },
+        {
+          "letra": "B",
+          "texto": "SRTP"
+        },
+        {
+          "letra": "C",
+          "texto": "ICSS"
+        },
+        {
+          "letra": "D",
+          "texto": "HTTPS"
+        },
+        {
+          "letra": "E",
+          "texto": "INSTNT"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 33",
+      "enunciado": "O protocolo de internet FTP tem como função possibilitar a:",
+      "gabarito": "E",
+      "explicacao": "**Transferência de arquivos entre dois computadores** — alternativa (E). A sigla entrega: FTP é *File Transfer Protocol*.\n\nO que as outras quatro alternativas descrevem, cada uma com o protocolo dono:\n\n| Alternativa | Protocolo real |\n|---|---|\n| (A) navegação em sites seguros | HTTPS |\n| (B) mensagens sobre o IP, erros das máquinas | ICMP |\n| (C) transmissão de e-mail de um servidor para outro | SMTP |\n| (D) interação remota com outro computador | Telnet (inseguro) ou SSH |\n\nVale conhecer duas particularidades do FTP que aparecem em prova melhor:\n\n**Ele usa duas conexões.** A de **controle** (porta 21) carrega os comandos; a de **dados** (porta 20, no modo ativo) carrega o arquivo. Essa separação é a razão de o FTP dar trabalho com firewall e NAT.\n\n**Modo ativo × passivo.** No ativo, o **servidor** abre a conexão de dados de volta para o cliente — o que firewall de cliente costuma bloquear. No passivo, o servidor informa uma porta e o **cliente** abre as duas conexões; é o modo que funciona atrás de NAT, e o padrão hoje.\n\nE o mais importante em contexto de segurança: **o FTP é texto puro**, credencial inclusive. As alternativas seguras são o **SFTP** (transferência sobre SSH, porta 22) e o **FTPS** (FTP sobre TLS).\n\nAtalho: traduza a sigla. FTP = *File Transfer*, SMTP = *Simple Mail Transfer*, HTTP = *HyperText Transfer*, SSH = *Secure Shell*. A tradução resolve a maioria dessas questões.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Navegação em sites seguros na internet."
+        },
+        {
+          "letra": "B",
+          "texto": "Autorização de mensagens relativas ao IP, apresentando a lista de erros das máquinas conectadas na rede."
+        },
+        {
+          "letra": "C",
+          "texto": "Transmissão de e-mails de um servidor para outro."
+        },
+        {
+          "letra": "D",
+          "texto": "Interação remota com outro computador da rede."
+        },
+        {
+          "letra": "E",
+          "texto": "Transferência de arquivos entre dois computadores, utilizando a rede."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 34",
+      "enunciado": "A uma rede local de computadores, localizada nos limites internos de uma instituição, na qual são usados os mesmos programas e protocolos de comunicação empregados na Internet, é denominada:",
+      "gabarito": "C",
+      "explicacao": "**Intranet** — alternativa (C). É a rede interna de uma organização que usa **os mesmos protocolos e programas da Internet** (TCP/IP, HTTP, SMTP, DNS), mas com acesso restrito aos limites dela.\n\nO trio que a banca cobra junto:\n\n| Rede | Quem acessa | Exemplo |\n|---|---|---|\n| **Internet** | qualquer um | a rede pública mundial |\n| **Intranet** | só quem é de dentro da organização | portal do funcionário, sistema de RH, wiki interna |\n| **Extranet** | parte da intranet aberta a parceiros externos autorizados | portal do fornecedor, área do cliente corporativo |\n\nA extranet é a que mais cai como pegadinha: ela é a **extensão controlada** da intranet a terceiros — fornecedor, cliente, filial —, normalmente por VPN ou autenticação forte. Não é uma terceira rede física; é uma faixa de acesso.\n\nO que define a intranet **não** é a tecnologia (é a mesma da Internet) nem o meio físico — é o **escopo de acesso**. É por isso que a definição do enunciado insiste em \"limites internos de uma instituição\" e em \"os mesmos programas e protocolos empregados na Internet\".\n\nCuidado para não confundir com a classificação por **abrangência geográfica**, que é outra régua: PAN (pessoal), LAN (local), MAN (metropolitana), WAN (ampla). Uma intranet pode ser uma LAN ou estar espalhada por uma WAN — as duas classificações são independentes.\n\nFullnet, Lownet, Localnet e Smallnet não existem.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Fullnet."
+        },
+        {
+          "letra": "B",
+          "texto": "Lownet."
+        },
+        {
+          "letra": "C",
+          "texto": "Intranet."
+        },
+        {
+          "letra": "D",
+          "texto": "Localnet."
+        },
+        {
+          "letra": "E",
+          "texto": "Smallnet."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 38",
+      "enunciado": "Os meios de transmissão de dados em rede servem para dar suporte ao fluxo de dados entre dois pontos. Um exemplo de meio físico de transmissão de dados é o:",
+      "gabarito": "E",
+      "explicacao": "**Cabo de fibra óptica** — alternativa (E). \"Meio físico\" aqui quer dizer **meio guiado**: o sinal viaja dentro de um condutor.\n\nA classificação dos meios de transmissão:\n\n| Guiados (confinados) | Não guiados (sem fio) |\n|---|---|\n| Par trançado (UTP, STP) | rádio (Wi-Fi, Bluetooth) |\n| Cabo coaxial | infravermelho (IRDA) |\n| **Fibra óptica** | micro-ondas |\n| | satélite |\n\nAs outras quatro alternativas são todas sem fio, e três delas — infravermelho, Bluetooth e IRDA — são variações do mesmo grupo. Isso por si só já resolve a questão: quando quatro alternativas pertencem à mesma família e uma destoa, a que destoa é a resposta.\n\n(IRDA, aliás, é a associação que padronizou a comunicação por infravermelho — então (A) e (D) são praticamente a mesma alternativa escrita duas vezes, o que confirma a leitura.)\n\nPor que a fibra é o meio guiado de referência:\n\n| Vantagem | Consequência |\n|---|---|\n| Imune a interferência eletromagnética | funciona ao lado de motor, reator, cabo de força |\n| Perda muito baixa | alcance de dezenas de quilômetros sem repetidor |\n| Banda altíssima | terabits por segundo com multiplexação em comprimento de onda |\n| Não irradia sinal | não dá para grampear sem romper a fibra |\n\nOs dois tipos: **monomodo** (núcleo fino, ~9 µm, um só caminho de luz, laser, longa distância) e **multimodo** (núcleo grosso, 50–62,5 µm, vários caminhos, LED, curta distância, mais barato).\n\nAtalho: \"meio físico\" em prova = cabo. Se a alternativa transmite pelo ar, não é meio físico no sentido da pergunta.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Infravermelho."
+        },
+        {
+          "letra": "B",
+          "texto": "Wireless."
+        },
+        {
+          "letra": "C",
+          "texto": "Bluetooth."
+        },
+        {
+          "letra": "D",
+          "texto": "IRDA."
+        },
+        {
+          "letra": "E",
+          "texto": "Cabo de fibra-óptica."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 39",
+      "enunciado": "Algumas ferramentas são essenciais na instalação de redes de computadores. Analise a imagem a seguir e assinale a alternativa que descreve corretamente o nome da ferramenta utilizada pelo analista de tecnologia na confecção de cabeamentos de rede:",
+      "gabarito": "A",
+      "explicacao": "**Alicate de crimpagem** — alternativa (A). A banca escreveu \"cripagem\", com erro de grafia, e ainda assim é a única alternativa que nomeia a ferramenta certa.\n\nO que ele faz: a cabeça tem uma **matriz** com oito lâminas. Ao fechar, ela empurra os oito contatos metálicos do conector RJ45 para dentro dos oito fios do cabo, perfurando o isolamento de cada um e fazendo contato elétrico — e ao mesmo tempo prende a capa do cabo no corpo do conector, para que um tranco não arranque os fios. Isso é **crimpar**: prensar de forma permanente.\n\nAs outras quatro:\n\n| Alternativa | O que realmente é |\n|---|---|\n| Alicate de pressão | trava com força regulável; ferramenta de mecânica e soldagem |\n| Alicate bomba d'água | de abertura ajustável, para tubo e porca grande; hidráulica |\n| Testador de circuito | **testa** continuidade e sequência de fios — não fabrica nada |\n| Medidor de dados | não existe com esse nome |\n\nO testador (D) é o distrator útil, porque ele é o **par** do alicate de crimpagem no trabalho real: crimpa-se o cabo e depois se testa a sequência com ele, para pegar par invertido ou fio que não fez contato.\n\nE a dupla que esta prova cobra em duas questões seguidas, que vale decorar junta:\n\n| Ferramenta | Faz | Onde |\n|---|---|---|\n| **Alicate de crimpagem** | o **plugue macho** RJ45 na ponta do cabo | patch cord |\n| **Alicate punch down** | a **tomada fêmea** — insere e corta o fio no contato IDC | keystone da parede, patch panel |\n\nAtalho: crimpagem faz a ponta do cabo; punch down faz a tomada da parede.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Alicate de Cripagem."
+        },
+        {
+          "letra": "B",
+          "texto": "Alicate de Pressão."
+        },
+        {
+          "letra": "C",
+          "texto": "Alicate bomba d'água."
+        },
+        {
+          "letra": "D",
+          "texto": "Testador de Circuito."
+        },
+        {
+          "letra": "E",
+          "texto": "Medidor de dados."
+        }
+      ],
+      "imagem": "avanca-sp/alicate-crimpagem.png",
+      "imagem_alt": "Foto de um alicate de crimpagem manual, preto com empunhaduras azuis. A cabeça tem a matriz para conectores RJ45 e segura um conector transparente com um cabo de rede azul já inserido."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 40",
+      "enunciado": "É uma ferramenta manual empregada para, de forma correta, engatar os fios aos relativos conectores nos módulos RJ45. Estes módulos são embutidos na parede ou em caixas de passagem para conexão de computadores e telefones:",
+      "gabarito": "D",
+      "explicacao": "**Alicate Punch Down** — alternativa (D). É a ferramenta de inserção, usada para engatar o fio no contato **IDC** (*Insulation Displacement Connector*) de keystone, patch panel e bloco 110.\n\nComo funciona: o fio é colocado sobre o contato em forma de V; a ferramenta o empurra com força, e as duas lâminas do V **cortam o isolamento** e mordem o cobre — não é preciso decapar o fio antes. Na mesma batida, a lâmina do lado ativo da ferramenta **corta a sobra** rente ao bloco. É daí que vem o nome: *punch* (socar) *down* (para baixo).\n\nDetalhe que aparece em prova: a ferramenta tem lâmina de um lado só, e ela precisa ficar voltada **para fora** do bloco. Ao contrário, ela corta o lado errado do fio.\n\nO enunciado descreve a situação certa: \"módulos embutidos na parede ou em caixas de passagem\" é exatamente o keystone da tomada de rede — o ponto fixo do cabeamento estruturado, ao qual o patch cord se conecta depois.\n\nAs outras quatro alternativas misturam ferramenta de outra profissão com nome inventado: medidor de folga e medidor de pressão são de mecânica, alicate rebitador prende rebite, e \"alicate de hidráulico\" nem é nome de ferramenta.\n\nA comparação com a questão anterior fecha o par:\n\n| | Crimpagem | Punch down |\n|---|---|---|\n| Produz | plugue macho RJ45 | tomada fêmea / patch panel |\n| Onde fica | na ponta do patch cord | no ponto fixo da parede ou no rack |\n| Decapa antes? | sim, a capa externa | não — o IDC corta o isolamento |\n| Corta a sobra? | não | sim, na mesma batida |",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Medidor de Folga."
+        },
+        {
+          "letra": "B",
+          "texto": "Medidor de Pressão."
+        },
+        {
+          "letra": "C",
+          "texto": "Alicate de Hidráulico."
+        },
+        {
+          "letra": "D",
+          "texto": "Alicate Punch Down."
+        },
+        {
+          "letra": "E",
+          "texto": "Alicate Rebitador."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 41",
+      "enunciado": "A tipologia de rede de computadores consiste na relação física e lógica dos nós de uma rede, bem como o arranjo esquemático das conexões desta rede. Assinale a alternativa que completa corretamente a lacuna do texto a seguir:\n\n\"Na tipologia de rede ___________ os computadores são interligados em grupo para que outros usuários possam compartilhar recursos e informações sem maiores restrições. Não existe o papel de computador central para autenticação de usuários, armazenamento de arquivos ou acesso a recursos.\"",
+      "gabarito": "B",
+      "explicacao": "**Ponto a ponto** — alternativa (B), o *peer-to-peer*.\n\nA frase que decide está no enunciado: \"**não existe o papel de computador central** para autenticação de usuários, armazenamento de arquivos ou acesso a recursos\". Isso elimina de uma vez todas as alternativas que têm \"servidor\" no nome — (A), (C) e (D) —, e as duas últimas nem são nomes de arquitetura.\n\nNo modelo ponto a ponto, cada máquina é **cliente e servidor ao mesmo tempo**: compartilha a própria pasta, usa a impressora da outra, e a autenticação é local, máquina a máquina.\n\n| | Ponto a ponto | Cliente-servidor |\n|---|---|---|\n| Autenticação | local, em cada máquina | centralizada (domínio, Active Directory, LDAP) |\n| Arquivos | espalhados nas estações | no servidor |\n| Custo inicial | baixo — não precisa de servidor | alto |\n| Administração | vira caos conforme cresce | centralizada |\n| Segurança | fraca: cada usuário decide o que compartilha | política única, aplicada a todos |\n| Backup | cada um por si | centralizado |\n| Escala prática | até ~10 máquinas | dezenas a milhares |\n\nO ponto a ponto é a rede doméstica e a do escritório pequeno — o \"grupo de trabalho\" do Windows, em oposição ao \"domínio\". Ele funciona até o ponto em que trocar a senha de alguém exige ir de máquina em máquina; é aí que se migra para cliente-servidor.\n\nNota sobre o vocabulário: \"topologia\" no enunciado (a banca escreveu \"tipologia\") está sendo usada no sentido **lógico/organizacional**, não no de desenho físico. Ponto a ponto e cliente-servidor são **arquiteturas de rede**; estrela, anel e barramento são **topologias físicas**. Uma rede ponto a ponto pode ser fisicamente em estrela — as duas classificações respondem a perguntas diferentes.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "cliente\\servidor"
+        },
+        {
+          "letra": "B",
+          "texto": "ponto a ponto"
+        },
+        {
+          "letra": "C",
+          "texto": "servidor\\acesso"
+        },
+        {
+          "letra": "D",
+          "texto": "servidor\\ponto"
+        },
+        {
+          "letra": "E",
+          "texto": "serviço\\acesso"
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 26",
+      "enunciado": "A esquematização de um circuito de comunicação de dados, em que terminais remotos estão ligados a um computador central (host), apresenta o caminho na qual as mensagens são encaminhadas. Dessa forma, pode-se afirmar que são os elementos básicos da comunicação de dados os itens listados a seguir.\n\nConclui-se que a ordem do caminho da mensagem, iniciando no host até seu destino, é melhor descrita por, respectivamente:",
+      "gabarito": "D",
+      "explicacao": "A ordem é **III, V, I, II e IV** — alternativa (D).\n\nO caminho de uma mensagem no modelo clássico de comunicação de dados:\n\n| Ordem | Elemento | Número na lista | O que faz |\n|---|---|---|---|\n| 1º | Transmissor | III | a fonte, que emite a mensagem |\n| 2º | Codificador | V | converte a mensagem em sinal adequado ao canal |\n| 3º | Canal de comunicação | I | o meio por onde o sinal viaja |\n| 4º | Decodificador | II | reconverte o sinal em mensagem |\n| 5º | Receptor | IV | o destino |\n\nA simetria é a chave: **codificador e decodificador são espelhos**, um de cada lado do canal, e o canal fica exatamente no meio. Quem entende isso monta a ordem sem decorar.\n\nVale registrar duas coisas que resolvem a questão sem raciocinar até o fim:\n\n**A alternativa (A) está malformada** — \"I, II, III, IV e IV\" repete o IV e não usa o V. Uma sequência que deveria ordenar cinco elementos distintos e repete um se elimina sozinha.\n\n**O último elemento tem de ser o receptor (IV).** Só a (B) e a (D) terminam em IV. Entre as duas, a diferença é a posição do canal: a (B) põe o canal em quarto lugar, depois do receptor — impossível, porque o sinal já teria chegado.\n\nAtalho para questões de ordenar: fixe as **pontas** primeiro. Quem começa e quem termina eliminam a maior parte das alternativas antes de qualquer trabalho no meio.",
+      "dificuldade": 3,
+      "afirmacoes": [
+        "Canal de comunicação;",
+        "Decodificador;",
+        "Transmissor;",
+        "Receptor;",
+        "Codificador."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I, II, III, IV e IV."
+        },
+        {
+          "letra": "B",
+          "texto": "III, V, IV, I e II."
+        },
+        {
+          "letra": "C",
+          "texto": "V, III, II, IV e I."
+        },
+        {
+          "letra": "D",
+          "texto": "III, V, I, II e IV."
+        },
+        {
+          "letra": "E",
+          "texto": "II, III, V, I e IV."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 30",
+      "enunciado": "Este, por sua vez, trata-se de um padrão voltado à conexão direta de computadores à Internet, através de linhas telefônicas discadas. Tal protocolo oferece recursos mais avançados em relação ao antigo protocolo SLIP (Serial Line Protocol), de mesmo propósito. O texto acima refere-se ao protocolo de Internet denominado como:",
+      "gabarito": "D",
+      "explicacao": "**PPP** — *Point-to-Point Protocol*, alternativa (D). A pista está no próprio enunciado: a menção ao **SLIP**. Os dois vivem sempre na mesma frase, porque o PPP foi feito para substituí-lo.\n\nO que o SLIP (*Serial Line Internet Protocol*) não tinha e o PPP trouxe:\n\n| Recurso | SLIP | PPP |\n|---|---|---|\n| Delimitação de quadro | rudimentar | quadro com delimitador e verificação |\n| Detecção de erro | não tem | CRC |\n| Autenticação | não tem | **PAP** e **CHAP** |\n| Atribuição dinâmica de IP | não — IP tinha de ser configurado à mão dos dois lados | sim, negociado na conexão |\n| Múltiplos protocolos | só IP | IP, IPX, AppleTalk |\n| Compressão negociada | não | sim |\n\nA autenticação é o que mais cai: **PAP** envia usuário e senha em texto puro; **CHAP** usa desafio-resposta com hash, sem trafegar a senha, e repete o desafio periodicamente. Em prova, CHAP é o seguro.\n\nO PPP sobreviveu ao fim da conexão discada. Ele continua em uso como **PPPoE** (PPP sobre Ethernet), que é como a maioria das conexões de banda larga residencial autentica o assinante, e como **PPTP/L2TP** em VPN.\n\nOs distratores: **TCP** (A) é transporte; **OSI** (B) é modelo, não protocolo; **ARP** (C) resolve IP em MAC na rede local; **X.25** (E) é rede de comutação de pacotes, contemporânea mas de outro propósito — e é a resposta de outra questão desta mesma prova, a do Frame Relay.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "TCP."
+        },
+        {
+          "letra": "B",
+          "texto": "OSI."
+        },
+        {
+          "letra": "C",
+          "texto": "ARP."
+        },
+        {
+          "letra": "D",
+          "texto": "PPP."
+        },
+        {
+          "letra": "E",
+          "texto": "X.25."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 31",
+      "enunciado": "É denominada topologia de rede a distribuição geográfica dos equipamentos e a lógica por detrás para que os hosts possuam acesso aos meios físicos que constituem a rede. Uma topologia física broadcast, por sua vez, constitui:",
+      "gabarito": "B",
+      "explicacao": "A (B): cada host envia seus dados a **todos** os outros hosts conectados ao meio. É o significado literal de *broadcast* — difusão.\n\nTopologia **broadcast** significa que o meio é **compartilhado**: quando um nó transmite, o sinal chega a todos, e cada um decide se o quadro é para ele olhando o endereço de destino. É o modelo do barramento coaxial e do hub, e é o do Wi-Fi.\n\nA consequência é o **domínio de colisão**: se dois transmitem ao mesmo tempo, os sinais se somam e ambos se perdem. É por isso que toda rede broadcast precisa de um método de acesso ao meio — CSMA/CD na Ethernet antiga, CSMA/CA no Wi-Fi.\n\nO oposto é a topologia **ponto a ponto**, em que cada enlace liga exatamente dois nós e não há disputa.\n\nAs outras quatro alternativas descrevem topologias reais — todas verdadeiras como afirmação, nenhuma sendo a definição pedida:\n\n| Alternativa | O que descreve |\n|---|---|\n| (A) token passado sequencialmente | Token Ring |\n| (C) união de estrelas conectando hubs ou switches | topologia hierárquica / árvore |\n| (D) um único cabo backbone terminado nas duas pontas | barramento |\n| (E) cada host ao próximo e o último ao primeiro | anel |\n\nA (D) é a mais tentadora, porque o barramento **é** uma topologia broadcast. Mas ela descreve a **forma física** do barramento, e a pergunta era o que broadcast **constitui** — o comportamento, não o desenho.\n\nAtalho: a palavra da pergunta costuma ter a resposta dentro. *Broadcast* = transmitir para todos; a alternativa que diz \"envie a todos os outros\" é a definição.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a utilização da passagem token, ou seja, controla o acesso à rede passando um token eletrônico sequencialmente para cada host."
+        },
+        {
+          "letra": "B",
+          "texto": "que cada host envie seus dados a todos os outros hosts conectados ao meio físico da rede."
+        },
+        {
+          "letra": "C",
+          "texto": "a união de estrelas individuais, conectando os hubs ou switches."
+        },
+        {
+          "letra": "D",
+          "texto": "o uso de um único cabo backbone que é terminado em ambas as extremidades."
+        },
+        {
+          "letra": "E",
+          "texto": "a conexão de um host ao próximo e o último host ao primeiro, criando um anel físico utilizando o cabo."
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 32",
+      "enunciado": "As várias formas de deterioração do sinal acabam por provocar alguns erros na detecção da informação enviada. Para algumas aplicações, isso pode ser tolerável, mas, em outras, exige-se uma precisão maior. Analise e indique a alternativa que não apresenta um método convencional de detecção de erros de transmissão de dados.",
+      "gabarito": "E",
+      "explicacao": "**Smalltalk** — alternativa (E). É uma linguagem de programação orientada a objetos, das mais influentes da história, e não tem nada a ver com detecção de erro. É o distrator de categoria errada.\n\nOs outros quatro são métodos reais, e vale conhecer a diferença entre eles:\n\n| Método | Como funciona | Detecta | Corrige |\n|---|---|---|---|\n| **Paridade** | um bit extra para tornar par (ou ímpar) a contagem de 1s | erro em número ímpar de bits | não |\n| **Checksum** | soma os blocos de dados e transmite o resultado | a maioria dos erros; fraco contra reordenação | não |\n| **CRC** | trata o quadro como polinômio e transmite o resto da divisão | rajadas de erro, com altíssima confiabilidade | não |\n| **Distância de Hamming** | mede quantos bits diferem entre duas palavras de código | sim | **sim**, dependendo da distância |\n\nA distância de Hamming (D) é a que pode gerar dúvida, e a razão é interessante: ela é o **conceito** por trás tanto da detecção quanto da correção. A regra é aritmética simples — com distância mínima **d** entre palavras válidas, o código detecta até **d−1** erros e corrige até **⌊(d−1)/2⌋**. O código de Hamming propriamente dito é corretor, usado em memória ECC.\n\nO CRC é o que a Ethernet usa (CRC-32, no campo FCS do quadro), e é de longe o mais robusto dos três detectores: pega toda rajada de erro menor que o polinômio gerador.\n\nAtalho para \"assinale a que não é\" desta banca: procure a alternativa que pertence a **outra disciplina**. Aqui, quatro são teoria da informação e uma é linguagem de programação.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Checksum"
+        },
+        {
+          "letra": "B",
+          "texto": "CRC"
+        },
+        {
+          "letra": "C",
+          "texto": "Paridade"
+        },
+        {
+          "letra": "D",
+          "texto": "Hamming Distance"
+        },
+        {
+          "letra": "E",
+          "texto": "Smalltalk"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 33",
+      "enunciado": "O protocolo ________ é uma evolução tecnológica do protocolo X.25. Caracteriza, igualmente, uma rede remota de comutação de pacotes, porém capaz de suportar transmissões de grandes volumes de dados, em velocidade bem superior.",
+      "gabarito": "A",
+      "explicacao": "**Frame Relay** — alternativa (A). É a evolução direta do X.25: mesma ideia de rede remota de comutação de pacotes, muito mais rápida.\n\nPor que ele conseguiu ser mais rápido, que é o conceito por trás da questão: o **X.25** foi projetado nos anos 70, para linhas analógicas ruidosas. Ele faz controle de erro e de fluxo **salto a salto** — cada nó confere, confirma e retransmite. Isso dá confiabilidade e custa latência em cada nó do caminho.\n\nO **Frame Relay** parte de uma premissa nova: os enlaces digitais dos anos 90 são confiáveis. Então ele **joga fora** o controle de erro intermediário — detecta o erro e simplesmente descarta o quadro, deixando a recuperação para as pontas (o TCP). Menos trabalho por nó, mais velocidade.\n\n| | X.25 | Frame Relay |\n|---|---|---|\n| Época | anos 70-80 | anos 90 |\n| Controle de erro | salto a salto | só nas pontas |\n| Velocidade típica | até 64 kbps | 2 Mbps e acima |\n| Circuito | virtual, comutado ou permanente | virtual, em geral permanente (PVC) |\n\nO par **X.25 → Frame Relay** se decora junto, como **SLIP → PPP** da outra questão desta mesma prova. E a sequência seguiu: Frame Relay → ATM → MPLS → Ethernet metropolitana.\n\nOs distratores são todos protocolos reais de outra função: **PPP** (B) é enlace ponto a ponto; **NetBEUI** (C) é protocolo de rede local da Microsoft, sem roteamento; **HDLC** (D) é protocolo de enlace orientado a bit (base do próprio quadro do Frame Relay); **SNA** (E) é a arquitetura de rede proprietária da IBM.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Frame-Relay"
+        },
+        {
+          "letra": "B",
+          "texto": "Point-to-Point"
+        },
+        {
+          "letra": "C",
+          "texto": "NetBEUI"
+        },
+        {
+          "letra": "D",
+          "texto": "HDLC"
+        },
+        {
+          "letra": "E",
+          "texto": "SNA"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 37",
+      "enunciado": "Estabelecer uma conexão parece uma tarefa fácil, mas, na verdade, trata-se de um procedimento complicado. O problema é que a rede pode perder, atrasar, corromper e duplicar pacotes. Tendo em vista este problema, o handshake de três vias o resolve através:",
+      "gabarito": "A",
+      "explicacao": "A (A): o *three-way handshake* resolve o problema verificando entre as pontas se a solicitação de conexão **está ativa agora**.\n\nO problema que ele existe para resolver é específico e o enunciado o descreve: a rede pode **atrasar e duplicar** pacotes. Imagine um pedido de conexão que ficou preso num roteador congestionado e reaparece meia hora depois, quando aquela conexão já terminou. Com um aperto de mão de duas vias, o servidor aceitaria essa solicitação fantasma e abriria uma conexão que ninguém pediu.\n\nOs três passos, e o que cada um garante:\n\n| Passo | Quem manda | Conteúdo | O que prova |\n|---|---|---|---|\n| 1 | cliente | SYN, com número de sequência inicial x | o cliente quer abrir |\n| 2 | servidor | SYN-ACK, com y e confirmação de x+1 | o servidor recebeu **e** escolheu o próprio número |\n| 3 | cliente | ACK, confirmando y+1 | **o cliente ainda está lá e quer mesmo** |\n\nÉ o terceiro passo que mata o duplicado velho. Se o SYN era um fantasma, não existe cliente esperando o SYN-ACK; ninguém responde o ACK final, e o servidor descarta a tentativa. Um handshake de duas vias não teria esse teste.\n\nO segundo objetivo, igualmente importante: **sincronizar os números de sequência**. Cada lado anuncia o seu, e é a partir deles que o TCP ordena, detecta perda e descarta duplicata durante toda a conexão. \"SYN\" vem de *synchronize*.\n\nA (C) é o distrator bom — \"confirmação de cada pacote recebido\" é verdade sobre o TCP, mas descreve o **ACK dos dados**, que vem depois e é outro mecanismo. O handshake abre a conexão; o ACK cuida de cada segmento.\n\nO encerramento, que cai junto, é de **quatro** vias: FIN, ACK, FIN, ACK — porque cada lado fecha a sua direção independentemente.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "verificação entre peers se a solicitação de conexão está ativa."
+        },
+        {
+          "letra": "B",
+          "texto": "do envio de peers simultâneos para verificação da conexão."
+        },
+        {
+          "letra": "C",
+          "texto": "da confirmação de cada pacote recebido através de peers."
+        },
+        {
+          "letra": "D",
+          "texto": "do envio de um peer de rejeição para cada pacote não recebido."
+        },
+        {
+          "letra": "E",
+          "texto": "do envio único de peer."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 44",
+      "enunciado": "O modelo OSI se baseia em uma proposta desenvolvida pela ISO (International Standards Organization) como um primeiro passo em direção à padronização internacional dos protocolos usados nas várias camadas. O modelo OSI possui 7 camadas. Analise a lista a seguir.\n\nÉ correto afirmar que são identificadas camadas existentes no modelo OSI em:",
+      "gabarito": "B",
+      "explicacao": "A (B) — I, II, III e V.\n\nDas sete entradas da lista, quatro são camadas do OSI e três são inventadas:\n\n| # | Item da lista | É camada? |\n|---|---|---|\n| I | a camada física | **sim** — camada 1 |\n| II | enlace de dados | **sim** — camada 2 |\n| III | rede | **sim** — camada 3 |\n| IV | modelagem | não existe |\n| V | sessão | **sim** — camada 5 |\n| VI | maturação | não existe |\n| VII | inserção | não existe |\n\nRepare que a lista pulou a camada 4 (transporte) e as camadas 6 e 7 (apresentação e aplicação) — as quatro verdadeiras são física, enlace, rede e sessão.\n\n**A alternativa (A) é a armadilha**, e é preciso entender por que ela cai: ela traz exatamente as mesmas quatro camadas certas — V, III, II e I —, só que em ordem decrescente. A banca considerou correta a listagem em ordem crescente, e por isso a (B).\n\nÉ um critério discutível, já que o enunciado pede apenas quais camadas são \"identificadas\" na lista, sem falar em ordem. Mas o padrão desta banca é listar em ordem crescente, e entre duas alternativas com o mesmo conteúdo a que segue a ordem natural é a esperada.\n\nA (D) marca todas as sete, incluindo as inventadas. A (E) repete o IV duas vezes — malformada, elimina-se sozinha, como acontece em outras questões desta prova.\n\nAtalho: quando duas alternativas tiverem o **mesmo conjunto** de itens, a diferença é a ordem, e a banca quer a crescente.",
+      "dificuldade": 3,
+      "afirmacoes": [
+        "a camada física;",
+        "enlace de dados;",
+        "rede;",
+        "modelagem;",
+        "sessão;",
+        "maturação;",
+        "inserção."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "V, III, II e I."
+        },
+        {
+          "letra": "B",
+          "texto": "I, II, III e V."
+        },
+        {
+          "letra": "C",
+          "texto": "VII, VI e V."
+        },
+        {
+          "letra": "D",
+          "texto": "I, II, III, IV, V, VI e VII."
+        },
+        {
+          "letra": "E",
+          "texto": "II, III, IV, V, IV e VII."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 21",
+      "enunciado": "Em todas as redes o objetivo de cada camada é oferecer determinados serviços às camadas superiores, isolando essas camadas dos detalhes de implementação real desses recursos. Quando a camada n de uma máquina se comunica com a camada n de outra máquina, coletivamente, as regras e convenções usadas nesse diálogo são conhecidas como ________ da camada n.",
+      "gabarito": "D",
+      "explicacao": "**Protocolo** — alternativa (D). Camada n de uma máquina conversando com a camada n de **outra** máquina: as regras desse diálogo são o protocolo daquela camada.\n\nA distinção que a questão cobra é a mais fundamental da arquitetura em camadas, e a (C) interface é o distrator exato:\n\n| | Protocolo | Interface |\n|---|---|---|\n| Liga | camada n ↔ camada n, em **máquinas diferentes** | camada n ↔ camada n+1, na **mesma máquina** |\n| Direção | horizontal | vertical |\n| Define | formato das mensagens, sequência, significado | quais serviços a camada de baixo oferece à de cima |\n| Exemplo | TCP conversando com TCP do outro lado | a API de sockets entre aplicação e transporte |\n\nA comunicação horizontal é **virtual**: a camada 4 do cliente \"conversa\" com a camada 4 do servidor, mas nenhum bit vai direto de uma à outra. O dado desce por todas as camadas do emissor, atravessa o meio físico e sobe por todas as camadas do receptor. O protocolo é o acordo que faz as duas pontas entenderem a mesma coisa apesar desse caminho.\n\nÉ esse desenho que dá à arquitetura em camadas a propriedade que o enunciado cita — \"isolando essas camadas dos detalhes de implementação\". Trocar Ethernet por Wi-Fi na camada 2 não exige mudar nada no TCP nem no HTTP, porque a interface entre as camadas continua a mesma.\n\nO vocabulário completo: o conjunto de camadas **mais** os protocolos de cada uma é o que se chama **arquitetura de rede** (E); a lista de protocolos usados por uma máquina, uma camada por linha, é a **pilha de protocolos**.\n\nAtalho: protocolo é horizontal (entre máquinas), interface é vertical (entre camadas).",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "laço"
+        },
+        {
+          "letra": "B",
+          "texto": "rede"
+        },
+        {
+          "letra": "C",
+          "texto": "interface"
+        },
+        {
+          "letra": "D",
+          "texto": "protocolo"
+        },
+        {
+          "letra": "E",
+          "texto": "arquitetura"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 22",
+      "enunciado": "Associe cada tipo de rede a sua respectiva abrangência:\n\nI) WAN\nII) LAN\nIII) MAN\n\na) Opera dentro e próximo de um único prédio, como uma residência, um escritório ou uma fábrica.\nb) Abrange uma cidade.\nc) Abrange uma grande área geográfica, refere-se normalmente a um país ou continente.",
+      "gabarito": "E",
+      "explicacao": "A (E) — WAN-c, LAN-a, MAN-b. As iniciais em inglês resolvem sem decorar nada:\n\n| Sigla | Por extenso | Abrangência | Exemplo |\n|---|---|---|---|\n| PAN | *Personal* Area Network | alguns metros, ao redor de uma pessoa | Bluetooth, fone sem fio |\n| **LAN** | *Local* Area Network | um prédio, um andar, uma casa | a rede do escritório |\n| **MAN** | *Metropolitan* Area Network | uma cidade | rede que liga as unidades de uma prefeitura |\n| **WAN** | *Wide* Area Network | país, continente, o mundo | a Internet, a rede de um banco nacional |\n\nA palavra do meio da sigla é a resposta: **L**ocal, **M**etropolitan, **W**ide.\n\nO que muda além do tamanho, porque a banca pode cobrar por consequência:\n\n| | LAN | WAN |\n|---|---|---|\n| Velocidade | alta (gigabits) | menor, e mais cara por megabit |\n| Latência | microssegundos | dezenas a centenas de milissegundos |\n| Propriedade | da própria organização | de operadora contratada |\n| Taxa de erro | muito baixa | maior |\n| Tecnologia típica | Ethernet, Wi-Fi | MPLS, fibra de operadora, enlace de satélite |\n\nDuas siglas que completam a família e podem aparecer: **CAN** (*Campus Area Network*, entre prédios de um mesmo campus, no meio do caminho entre LAN e MAN) e **SAN** (*Storage Area Network*, que é rede dedicada a armazenamento — classificação por **propósito**, não por abrangência, e por isso é distrator frequente).",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I - b; II - a; III - c."
+        },
+        {
+          "letra": "B",
+          "texto": "I - a; II - c; III - b."
+        },
+        {
+          "letra": "C",
+          "texto": "I - a; II - b; III - c."
+        },
+        {
+          "letra": "D",
+          "texto": "I - c; II - b; III - a."
+        },
+        {
+          "letra": "E",
+          "texto": "I - c; II - a; III - b."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 23",
+      "enunciado": "Uma questão fundamental de projeto é determinar a maneira como os pacotes são roteados da origem até o destino. As rotas podem se basear em tabelas estáticas, 'amarradas' à rede e raramente alteradas, ou frequentemente podem ser atualizadas de forma automática, para evitar componentes defeituosos. Elas também podem ser determinadas no início de cada conversação; por exemplo, uma sessão de terminal, como um login em uma máquina remota. Por fim, elas podem ser altamente dinâmicas, sendo determinadas para cada pacote, refletindo a carga atual da rede.\n\nO texto acima faz menção à função de uma das camadas do modelo OSI. Indique a alternativa que corresponde ao nome desta camada.",
+      "gabarito": "C",
+      "explicacao": "**Rede** — camada 3, alternativa (C). O texto inteiro fala de **rotear pacotes da origem até o destino**, e roteamento é a função que define a camada de rede.\n\nO parágrafo descreve, de passagem, os tipos de roteamento:\n\n| Tipo | Como as rotas são decididas | Exemplo |\n|---|---|---|\n| **Estático** | tabelas fixas, configuradas à mão, raramente alteradas | rota padrão de uma filial pequena |\n| **Dinâmico** | atualizadas automaticamente pelos roteadores, refletindo falha e carga | RIP, OSPF, BGP |\n| **Por sessão** | decidido no início de cada conversação, válido para ela toda | circuitos virtuais |\n| **Por pacote** | cada pacote decide de novo, conforme a carga do momento | o caso mais dinâmico |\n\nA **(D) Sessão é a isca**, e é bem montada: o enunciado menciona \"sessão de terminal, como um login em uma máquina remota\" no meio do parágrafo. Ali, \"sessão\" é exemplo de conversação — não a camada 5. Quem lê procurando palavra-chave em vez de sentido marca errado.\n\nO que separa a camada 3 das vizinhas, que é o que essas questões sempre cobram:\n\n| Camada | Pergunta que responde | Endereço | Equipamento |\n|---|---|---|---|\n| 2 Enlace | quem fala no meio **local**? | MAC | switch |\n| **3 Rede** | **por onde o pacote vai** até outra rede? | IP | roteador |\n| 4 Transporte | como entregar **fim a fim**, a que processo? | porta | — |\n\nAtalho: as palavras \"rota\", \"roteamento\", \"origem até o destino\" e \"endereço lógico\" puxam sempre para a camada 3.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Transporte"
+        },
+        {
+          "letra": "B",
+          "texto": "Enlace de dados"
+        },
+        {
+          "letra": "C",
+          "texto": "Rede"
+        },
+        {
+          "letra": "D",
+          "texto": "Sessão"
+        },
+        {
+          "letra": "E",
+          "texto": "Apresentação"
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 26",
+      "enunciado": "O sistema de telefonia móvel é usado para comunicação remota de voz e dados. Os telefones móveis passaram por cinco gerações distintas, normalmente chamadas de 1G, 2G, 3G, 4G e 5G. Sobre a rede de comunicação de telefones móveis, analise as afirmações a seguir.\n\nSão indicadas afirmações corretas sobre as redes de telefones móveis em:",
+      "gabarito": "D",
+      "explicacao": "Corretas a **II e a III** — alternativa (D).\n\n**I — falsa, e o erro está no tempo verbal.** O **AMPS** (*Advanced Mobile Phone System*) é o sistema **analógico** da primeira geração, dos anos 80. Ele foi desligado — nos EUA, em 2008 — e não tem uso amplo nenhum \"nos dias de hoje\". A descrição técnica até passaria; o que derruba o item é a afirmação de vigência.\n\n**II — certa.** O **SIM** (*Subscriber Identity Module*) guarda o IMSI, que identifica o assinante, e a chave Ki, que nunca sai do cartão. A autenticação é por desafio-resposta: a rede manda um número aleatório, o cartão responde com um valor calculado a partir da chave, e do mesmo cálculo sai a chave de sessão que cifra a conversa. É por isso que trocar de aparelho é trocar o SIM de lugar — a identidade está no cartão, não no telefone.\n\n**III — certa.** O GSM opera em 900 e 1800 MHz na Europa e boa parte do mundo, e em 850 e 1900 MHz nas Américas. Daí os aparelhos \"quad-band\", que funcionam nos quatro.\n\nAs gerações, para situar:\n\n| Geração | Tecnologia | Marca registrada |\n|---|---|---|\n| 1G | AMPS | analógico, só voz |\n| 2G | GSM, CDMA | **digital**, SMS, dado lento (GPRS, EDGE) |\n| 3G | UMTS, WCDMA | dado de verdade, internet móvel |\n| 4G | LTE | tudo sobre IP, inclusive a voz (VoLTE) |\n| 5G | NR | latência baixíssima, alta densidade de dispositivos |\n\nAtalho: item que afirma **vigência** de tecnologia antiga (\"ainda é muito usado hoje\", \"continua sendo o padrão\") é quase sempre falso. O erro desta banca costuma estar no tempo verbal, não no conteúdo.",
+      "dificuldade": 2,
+      "afirmacoes": [
+        "O uso do sistema AMPS é muito amplo ainda nos dias de hoje por sua lógica simples e versátil de comunicação em chamadas.",
+        "É por meio do cartão SIM que o aparelho e a rede se identificam e codificam as conversas.",
+        "O sistema GSM trabalha em uma faixa de frequências internacional, incluindo 900, 1.800 e 1.900 MHz."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I, II e III."
+        },
+        {
+          "letra": "B",
+          "texto": "I e II."
+        },
+        {
+          "letra": "C",
+          "texto": "apenas I."
+        },
+        {
+          "letra": "D",
+          "texto": "II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "apenas II."
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 27",
+      "enunciado": "A camada de enlace de dados usa os serviços da camada física para enviar e receber bits pelos canais de comunicação. Indique a alternativa que não identifica uma função desta camada.",
+      "gabarito": "A",
+      "explicacao": "A (A) — \"isolamento do número, do tipo e da topologia dos roteadores presentes na rede\" — é função da **camada de rede** (3), não do enlace.\n\nE o motivo é estrutural: **o enlace não sabe que roteadores existem**. O horizonte dele é o próximo salto — o quadro vai de uma interface à interface vizinha no mesmo meio, e acabou. Quem esconde da camada de transporte a quantidade, o tipo e o arranjo dos roteadores é a camada 3, que oferece um serviço fim a fim como se o caminho fosse um só.\n\nAs outras quatro são a lista canônica das funções do enlace, exatamente como o Tanenbaum as enumera:\n\n| Função | O que significa |\n|---|---|\n| (B) fornecer interface bem definida à camada de rede | o serviço que a 2 oferece à 3 |\n| (C) lidar com erros de transmissão | detecção por CRC; retransmissão nos enlaces confiáveis |\n| (D) regular o fluxo | impedir que um transmissor rápido afogue um receptor lento |\n| (E) usar o serviço da camada física | é a camada imediatamente abaixo |\n\nVale notar que **controle de fluxo e controle de erro existem em duas camadas**, e isso confunde: no enlace eles valem salto a salto, entre dois vizinhos; no transporte (TCP), valem fim a fim, entre os dois hosts. As duas coisas coexistem e resolvem problemas diferentes.\n\nAtalho para questão de \"qual não é função da camada X\": procure a alternativa que menciona algo que aquela camada **não consegue enxergar**. O enlace não enxerga roteador, não enxerga IP e não enxerga porta.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Isolamento do número, do tipo e da topologia dos roteadores presentes na rede."
+        },
+        {
+          "letra": "B",
+          "texto": "Fornecer uma interface de serviço bem definida à camada de rede."
+        },
+        {
+          "letra": "C",
+          "texto": "Lidar com erros de transmissão."
+        },
+        {
+          "letra": "D",
+          "texto": "Regular o fluxo de dados de tal forma que receptores lentos não sejam atropelados por transmissores rápidos."
+        },
+        {
+          "letra": "E",
+          "texto": "Usar o serviço fornecido pela camada física."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 28",
+      "enunciado": "O Firewall atua como um filtro de pacotes. Ele inspeciona todo e qualquer pacote que entra e que sai da rede. Os pacotes que atenderem a algum critério descrito nas regras formuladas pelo administrador da rede serão remetidos normalmente, mas os que falharem no teste serão descartados sem cerimônia. Uma forma de execução deste processo é que o Firewall implemente gateways em nível de aplicação, que envolve:",
+      "gabarito": "A",
+      "explicacao": "A (A): o gateway em nível de aplicação **examina o conteúdo dentro dos pacotes, acima do cabeçalho TCP**, para ver o que a aplicação está fazendo.\n\nÉ isso que o separa dos outros tipos de firewall. Ele entende o protocolo — sabe o que é um comando SMTP, um cabeçalho HTTP, uma requisição DNS — e por isso consegue decidir por critérios que um filtro de pacotes não alcança: bloquear um anexo executável num e-mail, barrar uma URL específica, recusar um método HTTP.\n\nAs gerações de firewall, que é o que a questão está cobrando por trás:\n\n| Tipo | Até onde olha | Decide por | Custo |\n|---|---|---|---|\n| **Filtro de pacotes** (sem estado) | cabeçalho IP e TCP/UDP | IP de origem e destino, porta, protocolo, flags | baixíssimo |\n| **Filtro com estado** (*stateful*) | o mesmo, **mais** a tabela de conexões | se o pacote pertence a uma conexão legítima já estabelecida | baixo |\n| **Gateway de aplicação** (proxy) | **o conteúdo**, camada 7 | o que a aplicação está de fato fazendo | alto |\n\nO preço do gateway de aplicação é desempenho e especificidade: ele precisa de um módulo por protocolo (proxy HTTP, proxy SMTP, proxy FTP) e processa muito mais por pacote.\n\nPor que as outras erram — e todas descrevem conceitos **corretos**, só que na resposta errada:\n\n| Alternativa | O que ela descreve de verdade |\n|---|---|\n| (B) mapear pacotes para conexões, usar campos TCP/IP | o filtro **com estado** |\n| (C) servidor web na DMZ | a **DMZ**, zona desmilitarizada — segmento isolado para serviços expostos |\n| (D) regra para conexões entre máquinas internas e o servidor web | política de firewall, genérica |\n| (E) rede de computadores de empresas e linhas dedicadas | não é firewall nenhum |\n\nAtalho: \"nível de aplicação\" na pergunta e \"conteúdo\" na alternativa. A palavra que marca o proxy é **conteúdo**; a que marca o stateful é **conexão**.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o exame do conteúdo dentro dos pacotes, mesmo além do cabeçalho TCP, para ver o que a aplicação está fazendo."
+        },
+        {
+          "letra": "B",
+          "texto": "mapear os pacotes para conexões e usar campos do cabeçalho TCP/IP para cuidar da conectividade."
+        },
+        {
+          "letra": "C",
+          "texto": "colocar uma máquina como um servidor Web na DMZ, para que os computadores na Internet possam fazer contato com ela para navegar pelo site Web."
+        },
+        {
+          "letra": "D",
+          "texto": "permitir que o servidor seja administrado através de uma regra para assegurar conexões entre as máquinas internas e o servidor Web."
+        },
+        {
+          "letra": "E",
+          "texto": "uma rede construída a partir de computadores de empresas e de linhas telefônicas dedicadas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 33",
+      "enunciado": "Quando o algoritmo de roteamento é implementado, cada roteador precisa tomar decisões com base no conhecimento local, não na imagem completa da rede. Uma técnica local simples é a de ________, na qual cada pacote de entrada é enviado para cada interface de saída, exceto para aquela em que chegou.",
+      "gabarito": "E",
+      "explicacao": "**Flooding** — inundação, alternativa (E). A definição está no próprio enunciado: cada pacote que entra é reenviado por **todas** as interfaces de saída, exceto aquela por onde chegou.\n\nÉ o algoritmo de roteamento mais simples que existe, e tem duas propriedades notáveis:\n\n**Ele sempre encontra o destino, se houver caminho.** Como tenta todos os caminhos ao mesmo tempo, uma das cópias chega — e chega pelo caminho **mais curto**, já que é a primeira a chegar. Por isso o flooding serve de referência para medir outros algoritmos.\n\n**Ele é extremamente caro.** O número de cópias cresce de forma explosiva, e sem cuidado os pacotes circulam para sempre. As contramedidas: contador de saltos (o TTL), registrar os pacotes já vistos e descartar repetição, e *flooding* seletivo, que só reenvia nas direções aproximadamente certas.\n\nOnde o flooding é usado de verdade, apesar do custo: na **distribuição de informação de estado de enlace** (o OSPF inunda os LSAs para que todos os roteadores tenham o mesmo mapa), em redes militares e ad hoc onde a topologia muda demais para manter tabela, e em bancos de dados distribuídos que precisam atualizar todos os nós.\n\nOs distratores:\n\n| Alternativa | O que é |\n|---|---|\n| Bit-map | protocolo de reserva de acesso ao meio (camada 2) |\n| CSMA | acesso múltiplo com escuta de portadora (camada 2) |\n| ALOHA | o protocolo de acesso ao meio original, de Havaí (camada 2) |\n| Datagrama | modo de comutação de pacotes — não é algoritmo de roteamento |\n\nRepare que três dos quatro são de **acesso ao meio**, camada 2, enquanto a pergunta é de roteamento, camada 3. Erro de camada é a assinatura do distrator nesta prova.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Bit-map"
+        },
+        {
+          "letra": "B",
+          "texto": "CSMA"
+        },
+        {
+          "letra": "C",
+          "texto": "ALOHA"
+        },
+        {
+          "letra": "D",
+          "texto": "Datagrama"
+        },
+        {
+          "letra": "E",
+          "texto": "Flooding"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 37",
+      "enunciado": "Um administrador de redes deseja verificar a conexão entre dois computadores em uma mesma rede. Qual comando deve ser inserido no prompt de comando para verificar a conexão?",
+      "gabarito": "D",
+      "explicacao": "**ping** — alternativa (D). Ele envia um **ICMP Echo Request** e espera o **Echo Reply**, que é literalmente \"verificar a conexão\".\n\nO que o ping responde, além de sim ou não:\n\n| Campo da saída | O que diz |\n|---|---|\n| bytes / tempo | latência de ida e volta (RTT) |\n| TTL | quantos saltos o pacote ainda poderia dar — dá para inferir a distância |\n| perda de pacotes | qualidade do enlace |\n| \"Destino inalcançável\" | há caminho até um roteador, que não sabe seguir |\n| \"Tempo esgotado\" | nada respondeu — host desligado, firewall bloqueando ICMP, ou rota inexistente |\n\nEssa última linha vale guardar: **ping sem resposta não prova que o host está fora**. Muito firewall (e o Windows, por padrão, no perfil público) bloqueia ICMP echo. O host pode estar servindo páginas normalmente e não responder ping.\n\nPor que as outras não servem:\n\n| Comando | O que faz | Por que não é |\n|---|---|---|\n| `tracert` / `traceroute` | mostra **cada salto** até o destino | responde \"por onde\", não \"chega ou não\" |\n| `telnet` | abre sessão remota em texto puro | testa uma **porta**, não a conectividade IP; e é inseguro |\n| `ssh` | abre sessão remota cifrada | idem |\n| `route` | exibe e altera a **tabela de roteamento local** | nem sai da máquina |\n\nO `tracert` (E) é o distrator bom porque também usa ICMP. O truque dele é mandar pacotes com TTL crescente — 1, 2, 3 — e colher o \"Time Exceeded\" de cada roteador no caminho. Serve para descobrir **onde** o caminho quebra, depois que o ping já disse que ele quebrou.\n\nAtalho: ping responde \"chega?\". tracert responde \"por onde?\". Um diagnostica, o outro localiza.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "telnet"
+        },
+        {
+          "letra": "B",
+          "texto": "ssh"
+        },
+        {
+          "letra": "C",
+          "texto": "route"
+        },
+        {
+          "letra": "D",
+          "texto": "ping"
+        },
+        {
+          "letra": "E",
+          "texto": "tracert"
+        }
+      ]
+    }
+  ]
+}

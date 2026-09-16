@@ -1,0 +1,1036 @@
+{
+  "_leia_me": "Seção 5 do caderno do Instituto Avança SP: as 10 questões de banco de dados,\n    seis delas concentradas em Americana 2022 (Analista de Administração de\n    Dados) — o precedente mais próximo de um cargo de banco de dados. 8% dos\n    específicos.\n\n    A questão 50 de Americana usa o diagrama entidade-relacionamento recuperado\n    para data/estudo/imagens/avanca-sp/. Vale olhar: as cardinalidades (1 em\n    Usuário, n em Empréstimo) são o que identifica a entidade fraca.\n\n    Gabarito oficial, transcrito de docs/avanca-sp/avanca-sp-especificos.md.\n    As explicações são minhas.\n\nACRÉSCIMO DE 15/09/2026 — 23 questões de sete provas novas, transcritas dos cadernos em\n    docs/avanca-sp/Provas/: Taboão da Serra 2022 (8), Americana 2022 Analista Programador (4),\n    Embu-Guaçu 2023 (2), Paraty 2024 (2), UNITAU 2025 (2), Rio Claro 2026 (2), Amparo 2022 (1)\n    e Caçapava 2024 (1). Gabarito lido no PDF da própria banca, no bloco do cargo — definitivo\n    em Americana, Amparo, Taboão, Embu-Guaçu e Rio Claro; PRELIMINAR em Caçapava, Paraty e\n    UNITAU. As explicações são MINHAS, escritas a partir do gabarito.\n\n    Três questões de Taboão (29, 30 e 31) são um bloco sobre o MESMO diagrama entidade-\n    relacionamento, e a figura vai repetida nas três: na revisão cada item precisa funcionar\n    sozinho, e o enunciado foi desamarrado do \"ainda sobre a imagem da questão 29\".\n\n    As questões 46 e 50 de Americana compartilham um esquema relacional (Editora, Interprete,\n    Disco) que o caderno imprime uma vez só. Ele foi copiado para o `texto_base` das duas.\n\n    Este bloco é o mais alinhado ao edital de Analista de TI – Banco de Dados do PAS, e mostra\n    o que a banca realmente cobra: classificar comando SQL (DDL/DML/DCL) e ler modelo ER caem\n    muito mais que escrever consulta.\n\n    A questão 37 de Americana (cardinalidade \"um e apenas um\") FICOU DE FORA: as cinco\n    alternativas dela são desenhos da notação pé-de-galinha, e não há como representá-las\n    como texto sem inventar o que a banca desenhou.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Banco de dados",
+    "ordem": 5
+  },
+  "questoes": [
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 45",
+      "enunciado": "Com relação às linguagens, analise os itens a seguir e, ao final, assinale a alternativa correta.",
+      "gabarito": "E",
+      "explicacao": "Os três itens estão certos — alternativa (E). Eles só enunciam a divisão clássica da SQL por tipo de operação.\n\n| Subconjunto | Nome | Comandos | O que faz |\n|---|---|---|---|\n| DDL | Data Definition Language | CREATE, ALTER, DROP, TRUNCATE | define e altera a **estrutura** |\n| DML | Data Manipulation Language | INSERT, UPDATE, DELETE | mexe no **dado** |\n| DQL | Data Query Language | SELECT | **consulta** |\n| DCL | Data Control Language | GRANT, REVOKE | controla **acesso** |\n| DTL / TCL | Transaction Control | COMMIT, ROLLBACK, SAVEPOINT | delimita a **transação** |\n\nDuas observações que evitam erro em questão parecida:\n\nO SELECT às vezes aparece dentro da DML e às vezes numa DQL separada, dependendo do autor. Quando a alternativa oferecer as duas leituras, prefira a que a própria questão sugerir; quando oferecer só DML, o SELECT cabe ali.\n\nTRUNCATE é DDL, não DML, mesmo apagando linhas — ele não registra linha a linha no log e não se desfaz com ROLLBACK na maioria dos bancos. É a pegadinha mais comum do assunto.\n\nAtalho: Definição, Manipulação, Consulta, Controle. Estrutura, dado, leitura, permissão.",
+      "dificuldade": 1,
+      "afirmacoes": [
+        "A linguagem SQL está dividida em subconjuntos de acordo com as operações que queremos efetuar sobre um banco de dados.",
+        "Linguagem de definição de dados (DDL) é um conjunto de comandos dentro da SQL, usada para a definição das estruturas de dados.",
+        "Linguagem de controle de dados (DCL) é o grupo de comandos que permitem ao administrador de banco de dados controlar o acesso aos dados deste banco."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas o item I é verdadeiro."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas o item II é verdadeiro."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas o item III é verdadeiro."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas os itens I e II são verdadeiros."
+        },
+        {
+          "letra": "E",
+          "texto": "Todos os itens são verdadeiros."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 46",
+      "enunciado": "Como se sabe, o Sistema de Gerenciamento de Banco de Dados (SGBD) possui alguns princípios básicos de atuação. Sobre eles, analise os itens a seguir e, ao final, assinale a alternativa correta.",
+      "gabarito": "D",
+      "explicacao": "Verdadeiros I e III — alternativa (D).\n\nTolerância a falhas e integridade são, de fato, princípios de atuação de um SGBD. \"Renovação compulsória\" (II) não é princípio de coisa nenhuma: é termo inventado, o formato preferido desta banca.\n\nE reconhecer o inventado resolve a questão sem avaliar o resto: se a II cai, sobram (A) só I, (C) só III e (D) I e III. Como tolerância a falhas e integridade são as duas defensáveis, só a (D) sobrevive.\n\nO que os dois princípios verdadeiros querem dizer:\n\n**Integridade** — o banco garante que o dado obedece às regras declaradas. Integridade de entidade (chave primária não nula e única), de domínio (o tipo e o CHECK), referencial (a chave estrangeira aponta para linha que existe) e as regras de negócio em constraint e trigger.\n\n**Tolerância a falhas** — o banco sobrevive à queda. É o que o log de transações e o checkpoint garantem: a transação confirmada permanece (durabilidade), e a interrompida some inteira (atomicidade). Na volta da queda, o SGBD refaz o que foi confirmado e desfaz o que não foi.\n\nAtalho: um SGBD promete ACID — Atomicidade, Consistência, Isolamento, Durabilidade. Qualquer \"princípio\" fora desse vocabulário e do vocabulário de segurança e concorrência merece desconfiança imediata.",
+      "dificuldade": 1,
+      "afirmacoes": [
+        "Tolerância a falhas.",
+        "Renovação compulsória.",
+        "Integridade."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas o item I é verdadeiro."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas o item II é verdadeiro."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas o item III é verdadeiro."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas os itens I e III são verdadeiros."
+        },
+        {
+          "letra": "E",
+          "texto": "Todos os itens são verdadeiros."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 47",
+      "enunciado": "O comando ALTER TABLE pertence a qual grupo de comandos da linguagem SQL?",
+      "gabarito": "D",
+      "explicacao": "DDL. ALTER TABLE muda a **estrutura** da tabela — adiciona coluna, troca tipo, cria ou remove constraint —, e mexer na estrutura é Data Definition Language, ao lado de CREATE, DROP e TRUNCATE.\n\nO critério para separar os dois grupos que importam:\n\n| | DDL | DML |\n|---|---|---|\n| Atua sobre | a forma (schema) | o conteúdo (linhas) |\n| Comandos | CREATE, ALTER, DROP, TRUNCATE | INSERT, UPDATE, DELETE |\n| Exemplo | `ALTER TABLE cliente ADD email VARCHAR(120)` | `UPDATE cliente SET email = ...` |\n| Transação | commit implícito na maioria dos bancos | dentro da transação, com ROLLBACK |\n\nEssa última linha é a pegadinha que aparece em prova melhor: no MySQL e no Oracle, um DDL confirma a transação aberta automaticamente — não dá para desfazer um ALTER com ROLLBACK. No PostgreSQL e no SQL Server, dá. Vale saber que o comportamento varia.\n\nDCL (B) é GRANT e REVOKE, permissão. \"DPL\" e \"DXL\" não existem — distratores inventados.\n\nAtalho: se o comando mudaria o desenho da tabela num diagrama, é DDL. Se mudaria só o que está escrito dentro dela, é DML.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "DML."
+        },
+        {
+          "letra": "B",
+          "texto": "DCL."
+        },
+        {
+          "letra": "C",
+          "texto": "DPL."
+        },
+        {
+          "letra": "D",
+          "texto": "DDL."
+        },
+        {
+          "letra": "E",
+          "texto": "DXL."
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 48",
+      "enunciado": "No que se refere ao data mining, assinale a alternativa incorreta:",
+      "gabarito": "C",
+      "explicacao": "A incorreta é a (C), e ela está **invertida**: quanto mais sofisticado o algoritmo, **menos** ele depende do usuário humano, não mais.\n\nÉ o ponto inteiro do aprendizado de máquina aplicado a mineração de dados. Um algoritmo simples precisa que alguém diga onde olhar, que variável cruzar, que limiar usar. Um algoritmo sofisticado descobre o padrão sozinho a partir do dado — o humano define o problema e avalia o resultado, não conduz a busca.\n\nAs outras quatro são afirmações genéricas e favoráveis sobre data mining, e todas passam: localizar conexões, correlações e anomalias em grande volume (A) é a definição; gerar insight competitivo (B) e apoiar decisão (D) e achar oportunidade de melhoria (E) são os benefícios de sempre.\n\nO que o data mining faz, em tarefas nomeadas — útil quando a banca cobrar pelo nome:\n\n| Tarefa | O que procura | Exemplo |\n|---|---|---|\n| Classificação | em que classe o registro cai | e-mail é spam ou não |\n| Regressão | um valor numérico | previsão de consumo |\n| Agrupamento (clustering) | grupos naturais, sem rótulo prévio | segmentação de clientes |\n| Associação | o que ocorre junto | cesta de compras |\n| Detecção de anomalia | o fora da curva | fraude em cartão |\n\nAtalho para questão \"assinale a incorreta\" desta banca: quatro alternativas elogiam a tecnologia e uma diz algo que soa quase certo mas com a seta invertida. Procure a inversão — \"mais... mais\", \"quanto maior... maior\" —, é ali.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "É um processo em que a tecnologia é empregada para localizar conexões, correlações ou anomalias em uma grande quantidade de dados."
+        },
+        {
+          "letra": "B",
+          "texto": "No âmbito empresarial, o data mining gera insights que resultam em vantagens competitivas para a corporação."
+        },
+        {
+          "letra": "C",
+          "texto": "Quanto mais sofisticado um algoritmo, mais ele depende de um usuário humano."
+        },
+        {
+          "letra": "D",
+          "texto": "As decisões tomadas pelos gestores têm maior probabilidade de darem certo."
+        },
+        {
+          "letra": "E",
+          "texto": "Permite encontrar oportunidades de melhoria em diversas áreas do negócio."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 49",
+      "enunciado": "No Modelo Entidade-Relacionamentos, as entidades que dependem de outras entidades para existirem, pois, individualmente, elas não fazem sentido, são chamadas de entidades:",
+      "gabarito": "E",
+      "explicacao": "Entidade **fraca**. É a que não tem identificação própria suficiente e só existe atrelada a uma entidade forte; some a forte, somem as fracas dela.\n\nO exemplo canônico é Dependente e Funcionário: um dependente é identificado por \"o segundo dependente do funcionário 4512\" — o nome dele sozinho não identifica linha nenhuma. A chave é parcial e precisa da chave do forte para completar.\n\nComo se reconhece no DER e no modelo relacional:\n\n- No diagrama, o retângulo da entidade fraca é **duplo**, e o losango do relacionamento identificador também.\n- A participação da fraca no relacionamento é **total e obrigatória** — não existe fraca sem o forte.\n- No relacional, a chave primária da fraca é **composta**: a chave estrangeira do forte mais o discriminador dela.\n\nOnde as outras erram:\n\n| Alternativa | O que realmente é |\n|---|---|\n| Multivalorada (B) | classificação de **atributo** (telefone, que pode ter vários), não de entidade |\n| Associativa (D) | relacionamento promovido a entidade, para que outro relacionamento possa apontar para ele |\n| Neutras (A), Cooperativas (C) | não existem no modelo ER |\n\nA (D) é o distrator bom porque entidade associativa existe mesmo. A diferença: a associativa nasce de um relacionamento (normalmente N:N) que precisou virar entidade; a fraca é entidade desde o começo, só não se identifica sozinha.\n\nAtalho: fraca = chave emprestada. Se a chave primária dela inclui a chave de outra entidade, é fraca.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Neutras."
+        },
+        {
+          "letra": "B",
+          "texto": "Multivaloradas."
+        },
+        {
+          "letra": "C",
+          "texto": "Cooperativas."
+        },
+        {
+          "letra": "D",
+          "texto": "Associativas."
+        },
+        {
+          "letra": "E",
+          "texto": "Fracas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 50",
+      "enunciado": "Analise a imagem, de um diagrama entidade-relacionamento. As entidades fortes do diagrama são:",
+      "gabarito": "A",
+      "explicacao": "A (A) — Usuário, Livro e Sessão.\n\nO diagrama tem quatro entidades: Usuário, Empréstimo, Livro e Sessão. A pergunta é quais **existem por si**, e a resposta sai por exclusão: a única que não existe sozinha é Empréstimo.\n\nPor que Empréstimo é a fraca: um empréstimo não é nada sem o usuário que o efetuou e o livro que foi levado. Ele não tem identidade própria — é identificado pela combinação de quem pegou, o que pegou e quando. Tire o Usuário do diagrama e o Empréstimo perde o sentido; tire o Empréstimo e o Usuário continua sendo um usuário.\n\nAs outras três passam no mesmo teste:\n\n| Entidade | Existe sozinha? |\n|---|---|\n| Usuário | sim — a pessoa está cadastrada haja empréstimo ou não |\n| Livro | sim — o acervo existe sem ninguém retirar nada |\n| Sessão | sim — a divisão da biblioteca existe antes de ter livro nela |\n| Empréstimo | **não** — depende de usuário e de livro |\n\nRepare que as cardinalidades reforçam a leitura: Usuário (1) efetua Empréstimo (n), Empréstimo (n) contém Livro (n), Livro (n) pertence a Sessão (1). O Empréstimo é o único que aparece sempre do lado \"n\" e nunca do lado \"1\" — é o que se multiplica a partir dos outros.\n\nAtalho de prova: leia o diagrama perguntando \"se eu apagar esta caixa, alguma outra deixa de fazer sentido?\". Quem pode ser apagada sem estragar ninguém é forte; quem só existe porque outra existe é fraca.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Usuário, Livro e Sessão."
+        },
+        {
+          "letra": "B",
+          "texto": "Usuário e Sessão."
+        },
+        {
+          "letra": "C",
+          "texto": "Empréstimo e Usuário."
+        },
+        {
+          "letra": "D",
+          "texto": "Empréstimo e Sessão."
+        },
+        {
+          "letra": "E",
+          "texto": "Empréstimo e Livro."
+        }
+      ],
+      "imagem": "avanca-sp/der-usuario-emprestimo-livro.png",
+      "imagem_alt": "Diagrama entidade-relacionamento com quatro retângulos de entidade e três losangos de relacionamento. Usuário (cardinalidade 1) liga-se por 'Efetua' a Empréstimo (n). Empréstimo (n) liga-se por 'Contém' a Livro (n). Livro (n) liga-se por 'Pertence' a Sessão (1)."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 46",
+      "enunciado": "O MySQL é um sistema de gerenciamento de banco de dados relacional de código aberto. Utilizando o MySQL é possível:",
+      "gabarito": "A",
+      "explicacao": "A (A): construir e manipular informações do banco de dados. É a definição de SGBD, e o MySQL é um.\n\n\"Construir\" cobre a parte DDL — criar banco, tabela, índice, view. \"Manipular\" cobre a DML e a consulta — inserir, alterar, apagar, selecionar. Some a isso controle de acesso, transação e integridade e você tem o trabalho inteiro de um SGBD.\n\nAs outras quatro atribuem ao MySQL funções de quatro softwares diferentes:\n\n| Alternativa | De quem é esse trabalho |\n|---|---|\n| Alterar telas de um ERP | do próprio ERP — o banco guarda o dado, não desenha a interface |\n| Implementar normas de codificação | de linter e de revisão de código |\n| Avaliar vírus na rede | de antivírus e de IDS |\n| Limpar a memória do servidor | do sistema operacional |\n\nVale notar o que o MySQL faz e se parece com a (E) mas não é: ele gerencia os **próprios** buffers (o buffer pool do InnoDB, o cache de conexões). Isso é administrar a memória que ele mesmo usa, não limpar a memória do servidor.\n\nAtalho para as questões de definição desta banca: a alternativa certa é a mais óbvia e mais genérica. As erradas costumam ser específicas demais e pertencer a outra categoria de software — quando você consegue nomear qual software faria aquilo, achou a errada.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Construir e manipular informações do banco de dados."
+        },
+        {
+          "letra": "B",
+          "texto": "Alterar a configuração de telas de um ERP terceiro que alimenta o banco de dados."
+        },
+        {
+          "letra": "C",
+          "texto": "Implementar normas de codificação de programas."
+        },
+        {
+          "letra": "D",
+          "texto": "Avaliar se existem vírus na rede de dados."
+        },
+        {
+          "letra": "E",
+          "texto": "Limpar a memória do servidor em que o banco esteja instalado."
+        }
+      ]
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 47",
+      "enunciado": "Sobre o Sistema Gerenciador de Banco de Dados MySQL, analisar as afirmações a seguir e assinalar a sequência de Certo e Errado correta.",
+      "gabarito": "B",
+      "explicacao": "C – C – E, alternativa (B).\n\n**I — certa.** O MySQL nasceu na Suécia, criado por Michael Widenius e David Axmark na MySQL AB, em 1995. Foi comprado pela Sun em 2008 e pela Oracle em 2010 — e foi dessa compra que nasceu o MariaDB, fork mantido pelo próprio Widenius.\n\n**II — certa**, apesar da palavra errada. A banca escreveu \"racional\" onde queria dizer \"**relacional**\". A descrição, porém, é a certa: armazenar em tabelas separadas em vez de um único depósito é exatamente o modelo relacional, e é o que dá integridade referencial, junção e normalização. O gabarito considerou certa a afirmação, pelo conteúdo.\n\n**III — errada.** O MySQL roda em Linux (onde é mais usado), Windows, macOS, FreeBSD e Solaris. Multiplataforma é, aliás, um dos motivos de ele ter se espalhado com a pilha LAMP.\n\nAtalho: item de C/E que restringe uma tecnologia a **uma só** plataforma, linguagem ou fornecedor é quase sempre E. \"Suporta apenas Windows\", \"funciona somente com Java\", \"exige obrigatoriamente o Oracle\" — a palavra restritiva é o erro.\n\nSobre a grafia errada da banca: não brigue com ela na hora da prova. Avalie o que a afirmação **descreve**; se a descrição está certa e só o termo saiu torto, o gabarito vai por certa.",
+      "dificuldade": 2,
+      "afirmacoes": [
+        "É um sistema de gerenciamento de banco de dados (SGBD), desenvolvido na Suécia, que utiliza a linguagem SQL.",
+        "É um sistema de banco de dados racional, ou seja, armazena dados em tabelas separadas em vez de colocar todos os dados em um só local.",
+        "O MySQL suporta apenas a plataforma Windows para seu adequado funcionamento."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "C – C – C."
+        },
+        {
+          "letra": "B",
+          "texto": "C – C – E."
+        },
+        {
+          "letra": "C",
+          "texto": "E – C – C."
+        },
+        {
+          "letra": "D",
+          "texto": "E – C – E."
+        },
+        {
+          "letra": "E",
+          "texto": "E – E – C."
+        }
+      ]
+    },
+    {
+      "formato": "negativa",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 49",
+      "enunciado": "Bancos de dados relacionais são um tipo de banco de dados que armazena e organiza pontos de dados com relacionamentos definidos para acesso rápido. Com um banco de dados relacional, os dados são organizados em tabelas que contêm informações sobre cada entidade e representam categorias predefinidas por meio de linhas e colunas. São exemplos de bancos de dados relacionais, exceto:",
+      "gabarito": "C",
+      "explicacao": "O MongoDB é a exceção — alternativa (C). Ele é NoSQL orientado a **documentos**: guarda BSON (JSON binário), com esquema flexível, documentos aninhados e sem junção no sentido relacional.\n\nOs outros quatro são relacionais, e vale conhecer o parentesco entre eles:\n\n| Banco | Origem | Observação |\n|---|---|---|\n| MySQL | MySQL AB (Suécia), hoje Oracle | o mais popular da web |\n| MariaDB | fork do MySQL, 2009 | criado pelo autor original, após a compra pela Oracle |\n| PostgreSQL | Berkeley | o mais aderente ao padrão SQL |\n| SQL Server | Microsoft | proprietário |\n\nA diferença estrutural que a questão cobra: no relacional, o esquema é declarado antes e o dado tem de caber nele — linha e coluna, tipo fixo, relação por chave estrangeira. No orientado a documentos, cada documento leva a própria estrutura, e dois documentos da mesma coleção podem ter campos diferentes.\n\nAs quatro famílias NoSQL, para reconhecer a pegadinha quando ela mudar de nome:\n\n| Família | Exemplos |\n|---|---|\n| Documentos | MongoDB, CouchDB |\n| Chave-valor | Redis, DynamoDB |\n| Colunar (wide-column) | Cassandra, HBase |\n| Grafos | Neo4j |\n\nAtalho: a pergunta \"qual não é relacional\" quase sempre traz um NoSQL no meio de SGBDs conhecidos, e quase sempre é o MongoDB, o Redis ou o Cassandra.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "MySQL"
+        },
+        {
+          "letra": "B",
+          "texto": "SQL Server"
+        },
+        {
+          "letra": "C",
+          "texto": "MongoDB"
+        },
+        {
+          "letra": "D",
+          "texto": "PostgreSQL"
+        },
+        {
+          "letra": "E",
+          "texto": "MariaDB"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 35",
+      "enunciado": "Analise as sentenças a seguir sobre o NoSQL.\n\nI) Os bancos de dados NoSQL podem ser chamados de \"não relacionais\".\nPorque:\nII) NoSQL apresenta bom desempenho para processar grandes volumes de dados.\n\nA partir das sentenças, conclui-se que:",
+      "gabarito": "E",
+      "explicacao": "As duas afirmativas são verdadeiras, mas a II não justifica a I — alternativa (E).\n\nEste formato (\"I. Porque II.\") cobra três julgamentos separados, e o erro nasce de fazer só os dois primeiros:\n\n1. A I é verdadeira? **Sim.** NoSQL é mesmo chamado de não relacional.\n2. A II é verdadeira? **Sim.** Bancos NoSQL costumam ter bom desempenho com grande volume.\n3. A II é a **causa** da I? **Não.**\n\nO nome \"não relacional\" descreve o **modelo de dados**: não há tabelas com relações formais, chave estrangeira, junção e normalização. É uma afirmação sobre estrutura, e é dela que o nome vem — foi cunhado por oposição ao modelo relacional de Codd.\n\nO bom desempenho com grande volume é **consequência** de escolhas de projeto (particionamento horizontal, desnormalização, consistência eventual), não a origem do nome. Tanto é que existe NoSQL lento e relacional rapidíssimo — o rótulo continuaria valendo.\n\nAtalho para o formato \"asserção-razão\": avalie as duas frases isoladamente antes de olhar para a conjunção. Só quando as duas forem verdadeiras vale perguntar se a segunda explica a primeira, e o teste é direto: \"isto acontece **porque** aquilo?\". Se a resposta for \"acontece junto, mas por outro motivo\", a alternativa é a de duas corretas sem justificativa.",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "ambas estão corretas e a afirmativa II justifica a afirmativa I."
+        },
+        {
+          "letra": "B",
+          "texto": "apenas a afirmativa II está correta."
+        },
+        {
+          "letra": "C",
+          "texto": "apenas a afirmativa I está correta."
+        },
+        {
+          "letra": "D",
+          "texto": "ambas estão incorretas."
+        },
+        {
+          "letra": "E",
+          "texto": "ambas estão corretas, mas não existe uma relação de justificativa entre as afirmativas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 26",
+      "dificuldade": 1,
+      "enunciado": "Em um banco de dados, sua manipulação envolve consultas e atualizações. Qual das alternativas a seguir NÃO é um exemplo de consulta?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Recuperar as disciplinas ministradas pelo Prof. Diego Faria"
+        },
+        {
+          "letra": "B",
+          "texto": "Selecionar os alunos que tiraram nota igual ou superior a 6.0"
+        },
+        {
+          "letra": "C",
+          "texto": "Listar os pré-requisitos da disciplina \"Banco de Dados\""
+        },
+        {
+          "letra": "D",
+          "texto": "Selecionar os alunos que estão matriculados na disciplina \"Cálculo 2\""
+        },
+        {
+          "letra": "E",
+          "texto": "Criar uma nova disciplina chamada \"Banco de dados\""
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Comando negativo. A divisão que a questão cobra é a do Elmasri: manipular um banco é **consultar** ou **atualizar**.\n\n| | Verbo | O que faz | Grupo SQL |\n|---|---|---|---|\n| Consulta | recuperar, selecionar, listar | **lê** sem mudar nada | DQL (`SELECT`) |\n| Atualização | inserir, alterar, excluir, criar | **muda** o conteúdo ou a estrutura | DML / DDL |\n\nA, B, C e D começam com recuperar, selecionar, listar, selecionar — todas leitura. A **E** diz **criar** uma nova disciplina: isso escreve no banco. Resposta: **E**.\n\nAtalho de prova: nesse tipo de item, olhe só o verbo inicial de cada alternativa. O intruso quase sempre se denuncia ali."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 27",
+      "dificuldade": 2,
+      "enunciado": "\"Uma característica fundamental da abordagem de banco de dados é que um sistema de banco de dados não possui apenas o banco de dados, mas também uma definição completa da estrutura do banco de dados e suas restrições. Essa definição é armazenada num catálogo de ___________ do banco de dados.\"\n\nQual das alternativas a seguir completa corretamente a lacuna?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Linguagem"
+        },
+        {
+          "letra": "B",
+          "texto": "Estruturação"
+        },
+        {
+          "letra": "C",
+          "texto": "Metadados"
+        },
+        {
+          "letra": "D",
+          "texto": "Listas"
+        },
+        {
+          "letra": "E",
+          "texto": "Junção"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "O trecho é do Elmasri & Navathe, e a palavra é **metadados**: dado sobre o dado. O catálogo do SGBD guarda quais tabelas existem, quais colunas cada uma tem, os tipos, as chaves e as restrições — não guarda os registros em si. Resposta: **C**.\n\nÉ essa separação que dá ao SGBD a **autodescrição**, uma das características que o distinguem de um sistema de arquivos comum: um programa que nunca viu o banco consegue descobrir sozinho a estrutura dele, lendo o catálogo. Em SGBDs relacionais isso costuma aparecer como `INFORMATION_SCHEMA` ou catálogo do sistema."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 28",
+      "dificuldade": 2,
+      "enunciado": "Na abordagem de BD, as visões de diferentes tipos de usuários são integradas no projeto do banco de dados. Idealmente, deve-se ter um projeto de banco de dados que armazena cada item lógico de dados em apenas um lugar no BD. Isso é conhecido como:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Normalização de dados"
+        },
+        {
+          "letra": "B",
+          "texto": "Índices"
+        },
+        {
+          "letra": "C",
+          "texto": "Replicação"
+        },
+        {
+          "letra": "D",
+          "texto": "Controle de dados"
+        },
+        {
+          "letra": "E",
+          "texto": "Reutilização"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "Guardar **cada item lógico em um só lugar** é a definição operacional de **normalização**: eliminar redundância para que um dado não precise ser atualizado em dois pontos — e, portanto, não possa divergir entre eles. Resposta: **A**.\n\nA alternativa que tenta enganar é a **C, replicação**, que é exatamente o oposto: replicar é manter cópias propositais, em geral em servidores diferentes, por desempenho ou disponibilidade. Índice (B) também é estrutura auxiliar, não organização lógica.\n\nO efeito que a normalização evita tem nome nas provas: **anomalias de inserção, atualização e exclusão**. Todas nascem do mesmo defeito — o mesmo dado escrito em mais de um lugar."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 29",
+      "dificuldade": 1,
+      "enunciado": "Analise a imagem a seguir. A notação diagramática acima está associada ao modelo:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Entidade – Relacionamento"
+        },
+        {
+          "letra": "B",
+          "texto": "De estados"
+        },
+        {
+          "letra": "C",
+          "texto": "Lógico"
+        },
+        {
+          "letra": "D",
+          "texto": "Próprio"
+        },
+        {
+          "letra": "E",
+          "texto": "Representativo"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "Retângulo para entidade, elipses penduradas por linhas para atributos, atributo sublinhado como chave: é a **notação de Peter Chen para o modelo Entidade-Relacionamento**. Resposta: **A**.\n\nVale fixar o vocabulário visual, porque a banca cobra as três questões seguintes em cima da mesma figura:\n\n| Desenho | Significa |\n|---|---|\n| retângulo | entidade |\n| elipse | atributo |\n| elipse **sublinhada** | atributo-chave (identificador) |\n| elipse de **contorno duplo** | atributo multivalorado |\n| elipse com outras elipses penduradas | atributo composto |\n| losango | relacionamento |\n\nO MER é modelo **conceitual** — descreve o domínio sem falar de tabela, tipo de coluna ou SGBD. Por isso a alternativa C (\"lógico\") está errada: o modelo lógico é o passo seguinte, já em termos de tabelas e chaves estrangeiras.",
+      "imagem": "avanca-sp/taboao-2022-der-professor.png",
+      "imagem_alt": "Diagrama entidade-relacionamento com um retângulo central rotulado PROFESSOR, ligado por linhas a elipses: Nome, DataNascimento, CPF (sublinhado) e Salario. Uma elipse de contorno duplo rotulada Titulacao liga-se ao retângulo e, a partir dela, saem outras três elipses: Grau, Curso e Instituicao."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 30",
+      "dificuldade": 1,
+      "enunciado": "Analise a imagem a seguir. Quais são, respectivamente, a entidade e o atributo chave no diagrama apresentado?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Titulação e Curso"
+        },
+        {
+          "letra": "B",
+          "texto": "Professor e Titulação"
+        },
+        {
+          "letra": "C",
+          "texto": "Professor e Instituição"
+        },
+        {
+          "letra": "D",
+          "texto": "Professor e CPF"
+        },
+        {
+          "letra": "E",
+          "texto": "Titulação e CPF"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "Duas leituras na figura:\n\n- **entidade** é o que está no **retângulo** — PROFESSOR. Isso já elimina A e E;\n- **atributo-chave** é a elipse **sublinhada** — CPF. Isso elimina B e C.\n\nResposta: **D**.\n\nFaz sentido também pelo conteúdo: CPF é o único atributo da figura que identifica um professor sem repetir. Nome repete, salário repete, data de nascimento repete. A chave tem de ser única por ocorrência, e é por isso que o desenho a sublinha.",
+      "imagem": "avanca-sp/taboao-2022-der-professor.png",
+      "imagem_alt": "Diagrama entidade-relacionamento com um retângulo central rotulado PROFESSOR, ligado por linhas a elipses: Nome, DataNascimento, CPF (sublinhado) e Salario. Uma elipse de contorno duplo rotulada Titulacao liga-se ao retângulo e, a partir dela, saem outras três elipses: Grau, Curso e Instituicao."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 31",
+      "dificuldade": 2,
+      "enunciado": "Analise a imagem a seguir. Qual das alternativas a seguir representa um atributo multivalorado?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Professor"
+        },
+        {
+          "letra": "B",
+          "texto": "Titulação"
+        },
+        {
+          "letra": "C",
+          "texto": "CPF"
+        },
+        {
+          "letra": "D",
+          "texto": "Curso"
+        },
+        {
+          "letra": "E",
+          "texto": "Grau"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "**Titulação** é a elipse de **contorno duplo** — e contorno duplo, no MER de Chen, é atributo **multivalorado**: aquele que pode ter mais de um valor para a mesma ocorrência da entidade. Resposta: **B**.\n\nE faz sentido no domínio: um professor pode ter graduação, mestrado e doutorado ao mesmo tempo. Se a titulação fosse monovalorada, haveria de escolher uma só.\n\nRepare que Titulação é, ao mesmo tempo, **composta** — dela saem Grau, Curso e Instituição, que são suas partes. Multivalorado e composto não se excluem; aqui o professor tem várias titulações, e cada uma tem grau, curso e instituição.\n\nAs outras: Professor é a entidade (retângulo, não é atributo), CPF é a chave (elipse sublinhada), e Curso e Grau são os componentes de Titulação, cada um com um valor só dentro de cada titulação.",
+      "imagem": "avanca-sp/taboao-2022-der-professor.png",
+      "imagem_alt": "Diagrama entidade-relacionamento com um retângulo central rotulado PROFESSOR, ligado por linhas a elipses: Nome, DataNascimento, CPF (sublinhado) e Salario. Uma elipse de contorno duplo rotulada Titulacao liga-se ao retângulo e, a partir dela, saem outras três elipses: Grau, Curso e Instituicao."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 32",
+      "dificuldade": 1,
+      "enunciado": "Baseando-se em conhecimentos acerca de SQL, qual das alternativas a seguir NÃO é um comando DML?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "SELECT"
+        },
+        {
+          "letra": "B",
+          "texto": "UPDATE"
+        },
+        {
+          "letra": "C",
+          "texto": "DELETE"
+        },
+        {
+          "letra": "D",
+          "texto": "DROP"
+        },
+        {
+          "letra": "E",
+          "texto": "INSERT"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "Comando negativo. A divisão que a Avança SP cobra sem parar:\n\n| Grupo | Para quê | Comandos |\n|---|---|---|\n| **DDL** — definição | mexe na **estrutura** | CREATE, ALTER, **DROP**, TRUNCATE |\n| **DML** — manipulação | mexe nos **dados** | INSERT, UPDATE, DELETE (e SELECT, para algumas bancas) |\n| **DCL** — controle | permissões | GRANT, REVOKE |\n| **DQL** — consulta | leitura | SELECT |\n| **DTL/TCL** — transação | COMMIT, ROLLBACK, SAVEPOINT |\n\n`DROP` apaga a **tabela inteira**, estrutura e tudo: é DDL. Resposta: **D**.\n\nO detalhe que gera recurso: `SELECT` é classificado como DQL em parte da bibliografia e como DML em outra. Aqui a banca o tratou como DML — e isso não atrapalha, porque DROP é DDL em qualquer bibliografia. Quando a alternativa certa é inequívoca, a divergência sobre SELECT não muda a resposta.\n\nA memória que funciona: **DDL mexe na tabela, DML mexe na linha.**"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 33",
+      "dificuldade": 1,
+      "enunciado": "CREATE e ALTER são exemplos de comandos de qual grupo de comandos da linguagem SQL?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "DQL"
+        },
+        {
+          "letra": "B",
+          "texto": "DCL"
+        },
+        {
+          "letra": "C",
+          "texto": "DDL"
+        },
+        {
+          "letra": "D",
+          "texto": "DBL"
+        },
+        {
+          "letra": "E",
+          "texto": "DLL"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "CREATE cria objeto (tabela, índice, view) e ALTER muda a definição dele. Os dois mexem em **estrutura**, logo **DDL — Data Definition Language**. Resposta: **C**.\n\nÉ a mesma divisão da questão anterior, vista do outro lado: lá pedia quem **não** era DML, aqui pede o grupo de CREATE e ALTER. A banca cobra esse par em provas diferentes com frequência alta — em 680 questões levantadas, classificar comando SQL aparece 12 vezes, mais do que escrever consulta.\n\nCuidado com os distratores inventados: **DBL** e **DLL** não existem como grupos de SQL. DLL, fora de contexto, é a extensão de biblioteca do Windows — nada a ver."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 36",
+      "dificuldade": 3,
+      "enunciado": "Analise a imagem das tabelas a seguir. As tabelas estão em que forma normal?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Somente na primeira forma normal"
+        },
+        {
+          "letra": "B",
+          "texto": "Somente na segunda forma normal"
+        },
+        {
+          "letra": "C",
+          "texto": "Na terceira forma normal"
+        },
+        {
+          "letra": "D",
+          "texto": "Não está normalizada"
+        },
+        {
+          "letra": "E",
+          "texto": "Está na quinta forma normal"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "A figura mostra duas tabelas — `tbl_Venda` (Nota_Fiscal, Cod_Vendedor, Cod_Produto, Qtde_vendida) e `tbl_Vendedor` (Cod_Vendedor, Nome_Vendedor) — e a separação entre elas é o que responde.\n\nAs três formas normais, na ordem em que se conquistam:\n\n| Forma | Exige | Está aqui? |\n|---|---|---|\n| **1FN** | valores atômicos, sem grupo repetitivo | sim — cada célula tem um valor só |\n| **2FN** | 1FN + nenhum atributo depende só de **parte** da chave | sim |\n| **3FN** | 2FN + nenhum atributo não-chave depende de **outro atributo não-chave** | sim |\n\nO ponto da 3FN é a **dependência transitiva**, e é justamente ela que a separação em duas tabelas eliminou: o nome do vendedor depende do código do vendedor, não da nota fiscal. Se `Nome_Vendedor` estivesse dentro de `tbl_Venda`, haveria Nota → Cod_Vendedor → Nome_Vendedor, uma transitividade, e a tabela pararia na 2FN. Ao mover o nome para `tbl_Vendedor`, a dependência transitiva sumiu. Resposta: **C**.\n\nNa prática de prova: se sobrou um campo descritivo pendurado num código que não é a chave, ainda não é 3FN. Se cada tabela guarda só o que depende da sua própria chave, chegou.",
+      "imagem": "avanca-sp/taboao-2022-tabelas-forma-normal.png",
+      "imagem_alt": "Duas tabelas. A primeira, tbl_Venda, tem as colunas Nota_Fiscal (sublinhada), Cod_Vendedor, Cod_Produto e Qtde_vendida, com cinco linhas de dados. A segunda, tbl_Vendedor, tem as colunas Cod_Vendedor (sublinhada) e Nome_Vendedor, com quatro linhas: 002 Leila, 006 Ana, 007 Renato e 009 Fábio."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 36",
+      "dificuldade": 3,
+      "enunciado": "Analise a imagem a seguir, de um símbolo do modelo entidade-relacionamento. O símbolo acima representa um(a):",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Entidade forte"
+        },
+        {
+          "letra": "B",
+          "texto": "Entidade fraca"
+        },
+        {
+          "letra": "C",
+          "texto": "Relacionamento fraco"
+        },
+        {
+          "letra": "D",
+          "texto": "Entidade associativa"
+        },
+        {
+          "letra": "E",
+          "texto": "Atributo composto"
+        }
+      ],
+      "gabarito": "D",
+      "explicacao": "O desenho é um **losango dentro de um retângulo** — a notação de **entidade associativa** (também chamada de agregação). Resposta: **D**.\n\nO que ela resolve: um relacionamento N:N que precisa se relacionar com uma terceira entidade. Como relacionamento não pode ligar-se a outro relacionamento no MER, trata-se o relacionamento como se fosse entidade, envolvendo-o num retângulo. O exemplo clássico é Médico–Paciente ligados por Consulta: para registrar quais **medicamentos** foram receitados naquela consulta, Consulta precisa virar entidade associativa.\n\nOs vizinhos na notação, para não confundir:\n\n| Desenho | É |\n|---|---|\n| retângulo simples | entidade forte |\n| retângulo de **linha dupla** | entidade fraca |\n| losango simples | relacionamento |\n| losango de linha dupla | relacionamento identificador (da entidade fraca) |\n| **losango dentro de retângulo** | **entidade associativa** |",
+      "imagem": "avanca-sp/americana-2022-mer-simbolo.png",
+      "imagem_alt": "Um retângulo contendo, no seu interior, um losango — a notação de entidade associativa no modelo entidade-relacionamento."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 38",
+      "dificuldade": 2,
+      "enunciado": "Sobre uma entidade no Modelo ER, é INCORRETO afirmar que:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "É um conjunto de objetos do mundo real sobre os quais se deseja manter informações no banco de dados"
+        },
+        {
+          "letra": "B",
+          "texto": "É distinguível de outros objetos"
+        },
+        {
+          "letra": "C",
+          "texto": "É representada através de um retângulo"
+        },
+        {
+          "letra": "D",
+          "texto": "Pode representar objetos concretos (uma pessoa)"
+        },
+        {
+          "letra": "E",
+          "texto": "É um dado que é associado a cada ocorrência de um relacionamento"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Comando negativo. A, B, C e D são a definição de entidade: conjunto de objetos do mundo real, distinguíveis entre si, desenhados como retângulo, podendo ser concretos (pessoa, produto) ou abstratos (disciplina, pedido).\n\nA **E** descreve outra coisa — **atributo**, e mais especificamente um atributo **de relacionamento**: o dado que só existe quando duas entidades se associam. O exemplo padrão é a nota em Aluno–Disciplina: a nota não é do aluno nem da disciplina, é da matrícula que liga os dois. Resposta: **E**.\n\nA distinção que a questão cobra, em uma linha: **entidade é o objeto; atributo é a informação sobre o objeto.**"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 46",
+      "dificuldade": 2,
+      "enunciado": "Qual SQL correto retorna quantos intérpretes há por país?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "SELECT ALL nomeArtistico FROM pais"
+        },
+        {
+          "letra": "B",
+          "texto": "SELECT COUNT(*) AS [Número de Intérpretes] FROM Interprete"
+        },
+        {
+          "letra": "C",
+          "texto": "SELECT país, COUNT(*) AS [Número de Intérpretes] FROM Interprete GROUP BY país"
+        },
+        {
+          "letra": "D",
+          "texto": "SELECT COUNT(*) FROM NomeArtistico GROUP BY país"
+        },
+        {
+          "letra": "E",
+          "texto": "SELECT país AS [Número de Intérpretes] FROM Interprete GROUP BY país"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "A frase \"quantos X **por** Y\" é sempre a mesma receita em SQL: **agrupar por Y e contar**.\n\n```sql\nSELECT país, COUNT(*) AS [Número de Intérpretes]\nFROM Interprete\nGROUP BY país\n```\n\nSão as três peças que a alternativa **C** tem e nenhuma outra reúne:\n\n| Peça | Papel |\n|---|---|\n| `COUNT(*)` | conta |\n| `GROUP BY país` | conta **por país**, não no total |\n| `país` no SELECT | mostra a qual país cada contagem pertence |\n\nPor que as outras caem:\n\n- **A** — não conta nada e busca em `pais`, que não é tabela do esquema.\n- **B** — conta certo, mas **sem GROUP BY**: devolve um número só, o total geral. É o erro mais instrutivo da questão.\n- **D** — `FROM NomeArtistico`: NomeArtístico é coluna, não tabela.\n- **E** — agrupa por país mas não conta; devolve a lista de países com o rótulo errado.\n\nRegra que resolve a maioria dessas questões: **toda coluna do SELECT que não está dentro de uma função de agregação precisa estar no GROUP BY.** Em C, `país` está nos dois lugares e `COUNT(*)` é a agregação — bate.",
+      "texto_base": "Considere o seguinte esquema relacional:\n\n- **Editora** (editoraID, nomeEditora, morada, telefone)\n- **Interprete** (interpreteID, nomeArtístico, país, contato, editoraID)\n- **Disco** (referência, título, duração, ano edição, editoraID, interpreteID)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista Programador de Sistemas · questão 50",
+      "dificuldade": 3,
+      "enunciado": "Qual das alternativas a seguir apresenta o SQL correto para retornar os intérpretes portugueses da editora \"Grava Records\"?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "SELECT nomeArtístico FROM Interprete, Editora WHERE nomeEditora LIKE 'Grava Records' AND país LIKE 'Portugal' AND Interprete.editoraID = Editora.editoraID"
+        },
+        {
+          "letra": "B",
+          "texto": "SELECT [nomeArtístico] FROM Editora WHERE nomeEditora LIKE 'Grava Records' AND país LIKE 'Portugal'"
+        },
+        {
+          "letra": "C",
+          "texto": "SELECT [nomeArtístico] FROM Interprete, Editora WHERE nomeEditora AND pais LIKE \"Portugal ans 'Grava Records\""
+        },
+        {
+          "letra": "D",
+          "texto": "Select pais Like Portugal and nomeEditora like grava records from editora"
+        },
+        {
+          "letra": "E",
+          "texto": "SELECT pais, nomeEditora, nomeArtistico Like \"Portugal\" and \"Grava Records\" Where Interprete and Editora. AND Interprete.editoraID = Editora.editoraID"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "A consulta precisa de duas tabelas — o **país** está em `Interprete` e o **nome da editora** está em `Editora` — e portanto de uma **junção** entre elas.\n\nA alternativa **A** é a única que tem as três coisas certas:\n\n```sql\nSELECT nomeArtístico\nFROM Interprete, Editora\nWHERE nomeEditora LIKE 'Grava Records'\n  AND país LIKE 'Portugal'\n  AND Interprete.editoraID = Editora.editoraID\n```\n\n1. as duas tabelas no FROM;\n2. os dois filtros;\n3. **a condição de junção** `Interprete.editoraID = Editora.editoraID`.\n\nResposta: **A**.\n\nO item 3 é o que a prova está testando. Sem ele, o banco faz **produto cartesiano**: cada intérprete cruzado com cada editora, e o resultado vem inflado e errado. É o erro clássico da junção no estilo antigo (tabelas separadas por vírgula no FROM). A forma moderna evita o problema por construção:\n\n```sql\nFROM Interprete INNER JOIN Editora\n  ON Interprete.editoraID = Editora.editoraID\n```\n\nA **B** busca `nomeArtístico` em `Editora`, onde essa coluna não existe. **C**, **D** e **E** não são SQL válido — misturam operadores e cláusulas fora de ordem.\n\nDetalhe menor: o `LIKE` sem curinga (`%`) aqui funciona como `=`. Não está errado, só é desnecessário.",
+      "texto_base": "Considere o seguinte esquema relacional:\n\n- **Editora** (editoraID, nomeEditora, morada, telefone)\n- **Interprete** (interpreteID, nomeArtístico, país, contato, editoraID)\n- **Disco** (referência, título, duração, ano edição, editoraID, interpreteID)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 50",
+      "dificuldade": 2,
+      "enunciado": "Analise a imagem a seguir, referente à modelagem de um banco de dados. Esse tipo de modelagem é chamada de:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Modelo conceitual"
+        },
+        {
+          "letra": "B",
+          "texto": "Modelo cascata"
+        },
+        {
+          "letra": "C",
+          "texto": "Modelo lógico"
+        },
+        {
+          "letra": "D",
+          "texto": "Modelo iterativo"
+        },
+        {
+          "letra": "E",
+          "texto": "Modelo padrão"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "A figura mostra tabelas com colunas, e ao lado de cada coluna as marcações **PK** e **FK** — chave primária e chave estrangeira. Isso é **modelo lógico**. Resposta: **C**.\n\nOs três níveis de modelagem, e como se reconhece cada um numa figura:\n\n| Nível | Fala em | Na figura aparece |\n|---|---|---|\n| **Conceitual** | entidades, atributos, relacionamentos | retângulos, elipses e losangos (MER de Chen) |\n| **Lógico** | tabelas, colunas, PK e FK | caixas com lista de colunas e marcação PK/FK |\n| **Físico** | tipos, índices, tablespace, SGBD | VARCHAR(60), NOT NULL, CREATE INDEX |\n\nO lógico já decidiu que o banco é relacional e já resolveu os relacionamentos em chaves estrangeiras (repare em `pedidos.idCliente` como FK1 apontando para `clientes`), mas ainda não diz o tipo de cada coluna nem o SGBD. Falta o tipo de dado — é isso que separa o lógico do físico.\n\n\"Modelo cascata\" (B) é ciclo de vida de software, não modelagem de dados; \"iterativo\" (D) e \"padrão\" (E) não são níveis de modelagem.",
+      "imagem": "avanca-sp/amparo-2022-modelagem-bd.png",
+      "imagem_alt": "Cinco tabelas ligadas por setas. categorias (PK idCategoria; categoria), pedidos (PK idPedido; FK1 data, idCliente, status, sessao), clientes (PK idCliente; nome, email, senha, rua, cidade, bairro, cep, estado), produtos (PK idProduto; FK1 idCategoria, produto, preco, quantidade, descricao, foto) e pedidoItens (PK idItem; FK2 e FK1 idPedido, idProduto, produto, quantidade, valor, subtotal). Setas ligam pedidos a clientes, pedidoItens a pedidos e a produtos, e produtos a categorias."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 37",
+      "dificuldade": 1,
+      "enunciado": "Um usuário do MySQL, em caráter de teste e aprendizado, decide criar um banco de dados chamado \"TestDatabase\". Em seguida ele cria uma tabela nomeada \"TestClientes\" que contém os campos \"id\", \"cpf\", \"endereco\" e \"produto\". Ao inserir dados na tabela, o usuário constatou que a linha correspondente ao ID 09 na tabela clientes está incompleta e, então, decide excluí-la. Qual das alternativas abaixo contém o comando que melhor corresponde à ação requerida pelo usuário?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "DROP DATABASE TestDatabase WHERE id = '09'"
+        },
+        {
+          "letra": "B",
+          "texto": "EXCLUDE INTO TestClientes 'id = 09'"
+        },
+        {
+          "letra": "C",
+          "texto": "INSERT INTO TestDatabase.TestClientes DELETE WHERE id = '09'"
+        },
+        {
+          "letra": "D",
+          "texto": "DROP FROM TestClientes WHERE id = '09'"
+        },
+        {
+          "letra": "E",
+          "texto": "DELETE FROM TestClientes WHERE id = '09'"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "A ação é apagar **uma linha**, não a tabela. O comando para isso é `DELETE FROM <tabela> WHERE <condição>`:\n\n```sql\nDELETE FROM TestClientes WHERE id = '09';\n```\n\nResposta: **E**.\n\nPor que as outras não servem:\n\n| | Problema |\n|---|---|\n| A | `DROP DATABASE` apaga o **banco inteiro** — e não aceita WHERE |\n| B | `EXCLUDE INTO` não existe em SQL |\n| C | mistura `INSERT INTO` com `DELETE`; nenhum comando tem essa forma |\n| D | `DROP` não trabalha com linha, e `DROP FROM` não existe |\n\nA distinção que vale guardar, porque a banca cobra nos dois sentidos (veja também a questão do `DROP TABLE` de Rio Claro 2026):\n\n| Comando | Apaga | Sobra |\n|---|---|---|\n| `DELETE FROM t WHERE ...` | as linhas que casam | a tabela e o resto dos dados |\n| `TRUNCATE TABLE t` | todas as linhas | a tabela vazia |\n| `DROP TABLE t` | linhas **e** estrutura | nada |"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 36",
+      "dificuldade": 3,
+      "enunciado": "Gatilhos (triggers) representam regras do mundo (negócio) que definem a integridade ou consistência do Banco de Dados. Passaram a ser padrão SQL em 1999. Seu principal objetivo é monitorar o SGBD e realizar alguma ação quando uma condição ocorre. Dentre as vantagens de seu uso, caracteriza-se:\n\nI) Um gatilho (trigger) sempre é disparado quando o evento ocorre, evitando assim incoerências no banco de dados.\nII) A ativação central combina com o modelo cliente/servidor, portanto a execução da trigger é realizada no servidor, independentemente do aplicativo executado pelo cliente.\nIII) Realizar consultas complexas em instruções SQL SELECT.\nIV) O DBA (Administrador de Banco de Dados) define suas situações, eventos e ações.\n\nSão apresentadas vantagens INVÁLIDAS do uso de triggers em:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I e II"
+        },
+        {
+          "letra": "B",
+          "texto": "IV e III"
+        },
+        {
+          "letra": "C",
+          "texto": "I, II e III"
+        },
+        {
+          "letra": "D",
+          "texto": "apenas IV"
+        },
+        {
+          "letra": "E",
+          "texto": "apenas III"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Leia o comando até o fim: ele pede as vantagens **inválidas**. O enunciado passa quatro linhas elogiando triggers justamente para induzir a marcar as verdadeiras.\n\nI, II e IV são vantagens reais:\n\n- **I** — o gatilho dispara sempre que o evento ocorre, não importa quem provocou. É o que garante a regra;\n- **II** — roda no servidor, então vale para qualquer aplicação cliente. Nenhum sistema \"esquece\" a regra;\n- **IV** — quem define evento, condição e ação é o DBA, de forma centralizada.\n\nO item **III** — \"realizar consultas complexas em instruções SQL SELECT\" — não é vantagem de trigger; é o que se faz com **view**, **stored procedure** ou a própria consulta. Trigger não serve para consultar: ele **reage** a INSERT, UPDATE ou DELETE. Resposta: **E**.\n\nO que separa os dois na prática: trigger é disparado por evento e não é chamado por ninguém; procedure é chamada explicitamente. Confundir os dois é o erro que esta questão está caçando."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 37",
+      "dificuldade": 3,
+      "enunciado": "Analise as sentenças a seguir:\n\nI) Os Stored Procedures utilizam a programação modular.\n\n**Porque:**\n\nII) Stored Procedures permitem que aplicações possam acessar o SGBD de maneira uniforme.\n\nAnalisando as sentenças acima, conclui-se que:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "apenas a primeira afirmativa está correta"
+        },
+        {
+          "letra": "B",
+          "texto": "ambas estão corretas e a segunda justifica a primeira"
+        },
+        {
+          "letra": "C",
+          "texto": "apenas a segunda afirmativa está correta"
+        },
+        {
+          "letra": "D",
+          "texto": "nenhuma afirmativa está correta"
+        },
+        {
+          "letra": "E",
+          "texto": "ambas estão corretas, mas a segunda não justifica a primeira"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Formato **asserção-razão**: além de julgar as duas frases, é preciso decidir se a segunda **explica** a primeira. São três perguntas, não duas.\n\n1. **A I é verdadeira?** Sim. Procedure é bloco de código nomeado, criado uma vez e chamado de vários lugares — isso é programação modular.\n2. **A II é verdadeira?** Sim. Ficando no servidor, a procedure oferece a mesma interface a qualquer aplicação cliente: acesso uniforme ao SGBD.\n3. **A II justifica a I?** **Não.** São duas vantagens independentes, com causas diferentes. A modularidade vem de o código ser um bloco reutilizável; o acesso uniforme vem de o código morar no servidor. Uma não decorre da outra — um programa modular pode ser acessado de forma nada uniforme, e vice-versa.\n\nResposta: **E**.\n\nA armadilha do formato é parar na pergunta 2. Confirmadas as duas frases, a mão vai sozinha para \"a segunda justifica a primeira\". Force a terceira pergunta: *se a II for verdade, a I é consequência dela?* Aqui, não."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 43",
+      "dificuldade": 2,
+      "enunciado": "Para evitar ataques de SQL Injection em um sistema web que interage com um banco de dados, qual das seguintes práticas é a mais segura?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Implementação de Prepared Statements e parametrização de consultas"
+        },
+        {
+          "letra": "B",
+          "texto": "Uso de consultas SQL dinâmicas para validar entradas"
+        },
+        {
+          "letra": "C",
+          "texto": "Desativação de logs de erro para ocultar falhas"
+        },
+        {
+          "letra": "D",
+          "texto": "Permissão para usuários administradores inserirem consultas SQL diretamente no sistema"
+        },
+        {
+          "letra": "E",
+          "texto": "Uso de criptografia para proteger os dados armazenados"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "SQL Injection acontece quando a entrada do usuário é **concatenada** dentro da consulta e o banco passa a ler dado como comando:\n\n```sql\n-- vulnerável\n\"SELECT * FROM users WHERE nome = '\" + entrada + \"'\"\n-- entrada: ' OR '1'='1\n```\n\n**Prepared statements** cortam o problema na raiz: a consulta é enviada ao banco **com os espaços de parâmetro já definidos**, e o valor viaja separado. O banco já sabe qual é o comando antes de ver o dado, então nenhuma entrada pode virar SQL.\n\n```sql\n-- seguro\nSELECT * FROM users WHERE nome = ?\n```\n\nResposta: **A**.\n\nAs outras:\n\n- **B** — consulta dinâmica é a **causa** do problema, não a cura;\n- **C** — esconder log não conserta falha, só dificulta descobrir que ela existe (segurança por obscuridade);\n- **D** — é abrir a porta de propósito;\n- **E** — criptografia protege o dado **armazenado**; não impede a injeção, e quem injeta consulta legítima recebe o dado já descriptografado pela aplicação.\n\nA alternativa E é a que mais atrai por ser uma boa prática de verdade — só não é a desta ameaça. Casar o controle com o ataque certo é metade da questão de segurança em prova."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 47",
+      "dificuldade": 3,
+      "enunciado": "Em um banco de dados PostgreSQL com milhões de registros, qual das seguintes técnicas é mais eficiente para otimizar uma consulta que filtra registros por data?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Criar um índice B-tree na coluna de data"
+        },
+        {
+          "letra": "B",
+          "texto": "Usar LIKE com wildcard no início do campo"
+        },
+        {
+          "letra": "C",
+          "texto": "Converter a coluna para texto antes da comparação"
+        },
+        {
+          "letra": "D",
+          "texto": "Realizar full table scan"
+        },
+        {
+          "letra": "E",
+          "texto": "Utilizar índice hash nas colunas de data"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "A resposta certa depende de um detalhe: **filtrar por data quase sempre envolve faixa** (entre tal e tal dia, depois de tal data), e faixa é exatamente o que o **índice B-tree** resolve. Ele mantém as chaves **ordenadas**, então encontra o começo do intervalo e percorre em sequência. Resposta: **A**.\n\nO distrator forte é a **E, índice hash**. Índice hash é rápido, mas só para **igualdade** (`= '2026-01-01'`): a função de hash destrói a ordem, então ele não sabe responder \"maior que\". Para data, que se consulta por período, ele é a estrutura errada.\n\nAs outras três pioram a consulta:\n\n| | Por quê |\n|---|---|\n| B | `LIKE '%algo'` com curinga **no início** impede o uso de índice — o banco não sabe por onde começar a busca ordenada |\n| C | converter a coluna antes de comparar cria uma **expressão sobre a coluna**, e isso invalida o índice (a menos que exista índice sobre a mesma expressão) |\n| D | full table scan é justamente o que se quer evitar |\n\nO princípio que une B, C e D: **índice só é usado quando a coluna aparece \"limpa\" de um lado da comparação.** Qualquer função, conversão ou curinga à esquerda derruba o índice e a consulta volta a varrer a tabela."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 39",
+      "dificuldade": 1,
+      "enunciado": "Ao utilizar o Microsoft Access (versão 2010 ou superior) para criar um banco de dados para controle de materiais, o formato de arquivo padrão gerado pelo sistema terá a extensão:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": ".xlsx"
+        },
+        {
+          "letra": "B",
+          "texto": ".accdb"
+        },
+        {
+          "letra": "C",
+          "texto": ".docx"
+        },
+        {
+          "letra": "D",
+          "texto": ".mdb"
+        },
+        {
+          "letra": "E",
+          "texto": ".pptx"
+        }
+      ],
+      "gabarito": "B",
+      "explicacao": "Do Access 2007 em diante, o formato padrão é o **.accdb** (Access Database). Resposta: **B**.\n\nO distrator que importa é o **.mdb**: era o formato até o Access 2003 e ainda é aberto pelas versões novas, mas não é mais o padrão de gravação. O enunciado fecha essa porta ao dizer \"versão 2010 ou superior\".\n\nAs outras três são de outros programas do pacote: .xlsx é Excel, .docx é Word, .pptx é PowerPoint.\n\nO que o .accdb trouxe em relação ao .mdb: campos multivalorados, tipo anexo, criptografia melhor e integração com o SharePoint."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 45",
+      "dificuldade": 1,
+      "enunciado": "O programa MySQL é um sistema de gerenciamento de banco de dados relacional que utiliza a linguagem de consulta estruturada SQL como interface de acesso e extração de informações do banco de dados em uso. Nesse contexto, considerando a utilização do MySQL, assinale a alternativa que descreve corretamente o impacto da execução do comando `DROP TABLE clientes;`:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Remove apenas os dados da tabela clientes, preservando sua estrutura e colunas para uso futuro"
+        },
+        {
+          "letra": "B",
+          "texto": "Apaga, por inteiro, o banco de dados clientes"
+        },
+        {
+          "letra": "C",
+          "texto": "Exclui permanentemente a tabela clientes, removendo tanto os seus dados quanto a sua definição de estrutura do banco de dados"
+        },
+        {
+          "letra": "D",
+          "texto": "Renomeia a tabela clientes para uma pasta de backup temporária"
+        },
+        {
+          "letra": "E",
+          "texto": "Filtra os registros da tabela clientes para que apenas os nomes dos clientes sejam exibidos"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "`DROP TABLE` é DDL: apaga **os dados e a definição** da tabela. Depois dele, `clientes` deixa de existir — um `SELECT` na tabela passa a dar erro, não resultado vazio. Resposta: **C**.\n\nAs três operações que a banca embaralha aqui:\n\n| Comando | Dados | Estrutura | Depois |\n|---|---|---|---|\n| `DELETE FROM clientes` | apaga os que casam com o WHERE | mantém | tabela existe, com menos linhas |\n| `TRUNCATE TABLE clientes` | apaga todos | mantém | tabela existe, vazia |\n| `DROP TABLE clientes` | apaga todos | **apaga** | tabela não existe |\n\nA alternativa **A** descreve `TRUNCATE`, e é o erro mais comum. A **B** descreve `DROP DATABASE` — e repare que `clientes` no enunciado é tabela, não banco. D e E não correspondem a comando nenhum.\n\nEsta questão é de **2026**, a prova mais recente da banca: o assunto \"classificar o efeito do comando SQL\" continua vivo."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 21",
+      "dificuldade": 2,
+      "enunciado": "Na teoria dos bancos de dados, o que é a \"dependência transitiva\" e como ela se relaciona com a normalização?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A dependência transitiva ocorre quando uma coluna é determinada por outra coluna através de uma cadeia de dependências funcionais. Isso está relacionado ao processo de normalização, onde a dependência transitiva precisa ser eliminada para alcançar formas normais superiores"
+        },
+        {
+          "letra": "B",
+          "texto": "A dependência transitiva refere-se à capacidade de uma tabela se relacionar com várias outras tabelas, formando uma rede complexa de dependências. Isso é contrário ao objetivo da normalização, que busca simplificar a estrutura do banco de dados"
+        },
+        {
+          "letra": "C",
+          "texto": "A dependência transitiva é um conceito utilizado na modelagem de banco de dados distribuídos, onde os dados são armazenados em locais diferentes. Isso não tem relação direta com o processo de normalização"
+        },
+        {
+          "letra": "D",
+          "texto": "A dependência transitiva ocorre quando uma tabela é dividida em várias tabelas menores durante o processo de normalização. Isso é parte do objetivo da normalização, que visa aumentar a complexidade das tabelas"
+        },
+        {
+          "letra": "E",
+          "texto": "A dependência transitiva refere-se à dependência entre chaves primárias e chaves estrangeiras em uma única tabela. Isso não tem influência na normalização"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "**Dependência transitiva** é a cadeia: A determina B, B determina C, logo A determina C **por tabela**, sem que C dependa diretamente de A.\n\nO exemplo que fixa: numa tabela `Pedido(numero, cod_vendedor, nome_vendedor)`, o número do pedido determina o código do vendedor, que determina o nome dele. O nome está pendurado no pedido **através** do código — é transitiva. E é por isso que o nome do vendedor aparece repetido em cada pedido dele, e que corrigir uma grafia exige alterar várias linhas.\n\nEliminar essa cadeia é exatamente o que a **3ª forma normal** exige. Por isso a alternativa **A**: define a cadeia de dependências funcionais e liga corretamente à normalização (\"precisa ser eliminada para alcançar formas normais superiores\"). Resposta: **A**.\n\nOnde as outras erram: **B** confunde com relacionamento entre tabelas; **C** inventa ligação com banco distribuído; **D** troca a causa pelo efeito (dividir a tabela é a **solução**, não a dependência) e ainda diz que normalizar \"aumenta a complexidade\" — é o contrário; **E** descreve a relação PK/FK, que não é dependência transitiva.\n\nA mesma ideia aparece, do lado prático, na questão das tabelas em 3FN de Taboão da Serra 2022."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 22",
+      "dificuldade": 1,
+      "enunciado": "Qual é a função principal dos comandos DML (Linguagem de Manipulação de Dados) em um sistema de gerenciamento de banco de dados?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Definir a estrutura do banco de dados, como tabelas, índices e restrições"
+        },
+        {
+          "letra": "B",
+          "texto": "Monitorar e controlar as transações no banco de dados"
+        },
+        {
+          "letra": "C",
+          "texto": "Conceder permissões de acesso aos usuários do banco de dados"
+        },
+        {
+          "letra": "D",
+          "texto": "Criar procedimentos armazenados para automatizar tarefas"
+        },
+        {
+          "letra": "E",
+          "texto": "Realizar consultas e manipulações nos dados armazenados no banco de dados"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "Esta questão é a tabela dos grupos SQL virada do avesso: cada alternativa errada descreve **um grupo diferente**, e basta identificar qual é qual.\n\n| Alternativa | Descreve | Grupo |\n|---|---|---|\n| A | definir tabelas, índices, restrições | **DDL** |\n| B | monitorar e controlar transações | **DTL/TCL** (COMMIT, ROLLBACK) |\n| C | conceder permissões | **DCL** (GRANT, REVOKE) |\n| D | criar procedimentos armazenados | DDL (`CREATE PROCEDURE`) |\n| **E** | **consultar e manipular os dados** | **DML** |\n\nResposta: **E**.\n\nDML mexe no **conteúdo** — INSERT, UPDATE, DELETE e, na classificação que esta banca adota, também o SELECT. É a diferença que vale decorar de uma vez: **DDL mexe na tabela, DML mexe na linha, DCL mexe em quem pode, TCL mexe na transação.**"
+    }
+  ]
+}

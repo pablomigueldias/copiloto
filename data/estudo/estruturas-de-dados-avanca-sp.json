@@ -1,0 +1,353 @@
+{
+  "_leia_me": "Seção 8 do caderno do Instituto Avança SP: as 7 questões de estruturas de\n    dados e algoritmos, todas de Americana 2022 (Analista de Administração de\n    Dados) — bloco exclusivo do cargo com nome ligado a dados. 5,6% dos\n    específicos.\n\n    Três dependem de figura, e as três foram recuperadas para\n    data/estudo/imagens/avanca-sp/: a árvore de divisão e intercalação do Merge\n    Sort (questão 29) e a árvore binária de raiz 13 (questões 32 e 33). A prova\n    encadeou as duas últimas (\"utilizando a imagem da questão anterior\"); aqui a\n    imagem foi repetida nas duas e o enunciado da 33 foi desamarrado, porque na\n    revisão cada item aparece sozinho, semanas depois do vizinho.\n\n    A questão 31 (quantos percursos numa árvore de 4 nós) tem gabarito\n    conceitualmente discutível — a banca contou permutações, 4! = 24, e não os\n    percursos clássicos, que seriam 4. Ficou com dificuldade 3 e a explicação\n    registra o problema.\n\n    Gabarito oficial, transcrito de docs/avanca-sp/avanca-sp-especificos.md.\n    As explicações são minhas.\n\nACRÉSCIMO DE 15/09/2026 — 4 questões novas: Taboão da Serra 2022 (3) e Embu-Guaçu 2023 (1),\n    com gabarito definitivo da banca lido no PDF, no bloco do cargo. As explicações são MINHAS.\n\n    A figura da árvore da questão 37 de Taboão foi recortada do caderno para\n    data/estudo/imagens/avanca-sp/.\n\n    Vale a nota de prioridade: pelo perfil das provas, estruturas de dados quase não cai em\n    cargo genérico de \"Analista de TI\" (1 questão em 8 provas recentes), mas foi 28% do único\n    caderno de cargo de DADOS do acervo — Americana 2022, Analista de Administração de Dados.\n    Como o alvo agora é Analista de TI – Banco de Dados, este tópico sobe de prioridade, não\n    desce. O levantamento está em docs/avanca-sp/avanca-sp-peso-questoes.md.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Estruturas de dados e algoritmos",
+    "ordem": 8
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 27",
+      "enunciado": "Em algoritmos, a ideia desse algoritmo de inserção é dividir os elementos em duas subestruturas, uma com os elementos já ordenados (à esquerda) e outra (à direita) com elementos ainda a serem ordenados. Ideia básica do algoritmo:\n\n- Compare a chave (x) com os elementos à sua esquerda, deslocando para direita cada elemento maior do que a chave;\n- Insira a chave na posição correta à sua esquerda, onde os elementos já estão ordenados;\n- Repita os passos anteriores atualizando a chave para a próxima posição à direita até o fim do vetor.\n\nO algoritmo da descrição é o:",
+      "gabarito": "A",
+      "explicacao": "Insertion Sort. A primeira palavra do enunciado já entrega (\"algoritmo de inserção\"), mas o que identifica o algoritmo de verdade é o desenho que ele descreve: uma parte ordenada que cresce à esquerda, e cada chave nova sendo encaixada dentro dela, empurrando para a direita todo mundo que for maior.\n\nÉ exatamente como se organiza uma mão de cartas: você pega a carta nova e a enfia no lugar certo entre as que já estão na mão.\n\n| Algoritmo | Como escolhe o próximo movimento | Melhor caso | Pior caso |\n|---|---|---|---|\n| Insertion | insere a chave na parte já ordenada | O(n) | O(n²) |\n| Selection | procura o menor do resto e o traz | O(n²) | O(n²) |\n| Bubble | troca vizinhos fora de ordem | O(n) | O(n²) |\n| Merge | divide ao meio e intercala | O(n log n) | O(n log n) |\n\nO detalhe que separa o Insertion do Selection: o Insertion desloca vários elementos por chave (é ele que \"abre espaço\"); o Selection faz uma troca só por passada, depois de varrer o resto procurando o menor.\n\nAtalho: a palavra \"deslocando\" no enunciado é assinatura do Insertion. Nenhum dos outros três desloca um bloco de elementos para abrir vaga.\n\n\"Botton Sort\" (E) não existe — é distrator inventado, e a grafia errada de \"bottom\" costuma ser a pista.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Insertion Sort."
+        },
+        {
+          "letra": "B",
+          "texto": "Selection Sort."
+        },
+        {
+          "letra": "C",
+          "texto": "Bubble Sort."
+        },
+        {
+          "letra": "D",
+          "texto": "Merge Sort."
+        },
+        {
+          "letra": "E",
+          "texto": "Botton Sort."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 28",
+      "enunciado": "Neste algoritmo de ordenação a ideia básica do algoritmo é:\n\n- Compare o primeiro elemento com o segundo. Se estiverem desordenados, então efetue a troca de posição;\n- Compare o segundo elemento com o terceiro e efetue a troca de posição, se necessário;\n- Repita a operação anterior até que o penúltimo elemento seja comparado ao último. Ao final desta repetição, o elemento de maior valor estará em sua posição correta, a n-ésima posição do vetor;\n- Continue a ordenação posicionando o segundo maior elemento, o terceiro, ... até que todo o vetor esteja ordenado.\n\nEste algoritmo é chamado de:",
+      "gabarito": "C",
+      "explicacao": "Bubble Sort. A assinatura está em duas coisas do enunciado: a comparação é sempre entre **vizinhos** (primeiro com segundo, segundo com terceiro) e, ao fim de uma passada completa, o maior elemento chegou à última posição.\n\nÉ daí que vem o nome: o maior valor \"borbulha\" até o fim do vetor, passo a passo, trocando com cada vizinho que encontra pela frente.\n\nO que o separa do Selection Sort (A), que é o distrator bom aqui: os dois deixam o extremo no lugar certo a cada passada, mas pelo caminho oposto.\n\n| | Bubble | Selection |\n|---|---|---|\n| Comparações | entre vizinhos | de cada candidato com o melhor até agora |\n| Trocas por passada | muitas, ao longo de todo o vetor | uma só, no fim da varredura |\n| O que fixa por passada | o maior, no fim | o menor (ou maior), na ponta |\n\nComplexidade dos dois: O(n²) comparações. O Bubble tem uma vantagem de implementação — se uma passada inteira não fez nenhuma troca, o vetor já está ordenado e dá para parar, o que o leva a O(n) no melhor caso. O Selection varre tudo sempre.\n\nAtalho: \"compare o primeiro com o segundo, o segundo com o terceiro\" só existe no Bubble.\n\n\"Fast Sort\" (B) e \"Lazy Sort\" (E) não existem. O que existe e não está aqui é o Quick Sort.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Selection Sort."
+        },
+        {
+          "letra": "B",
+          "texto": "Fast Sort."
+        },
+        {
+          "letra": "C",
+          "texto": "Bubble Sort."
+        },
+        {
+          "letra": "D",
+          "texto": "Merge Sort."
+        },
+        {
+          "letra": "E",
+          "texto": "Lazy Sort."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 29",
+      "enunciado": "Analise a imagem de um método de ordenação. O vetor está sendo ordenado pelo:",
+      "gabarito": "B",
+      "explicacao": "Merge Sort. A figura tem a forma de losango, e é essa forma que responde a questão: o vetor desce partido ao meio, de novo e de novo, até sobrar um elemento por caixa; depois sobe intercalando os pedaços dois a dois, agora ordenados.\n\nDividir para conquistar, nas duas metades exatas:\n\n- **Divisão** — 1 8 6 4 10 5 3 2 22 vira duas metades, cada metade vira duas, até caixas de um elemento só. Um vetor de um elemento já está ordenado, e é onde a recursão para.\n- **Intercalação (merge)** — duas listas ordenadas viram uma ordenada percorrendo as duas em paralelo e escolhendo sempre a menor cabeça. É aqui que o trabalho acontece; a divisão é só bookkeeping.\n\nO Quick Sort (D) é o distrator que merece cuidado, porque também divide para conquistar. A diferença aparece no desenho:\n\n| | Merge Sort | Quick Sort |\n|---|---|---|\n| Como parte | pela metade, sempre | pelo pivô, em pedaços de tamanhos quaisquer |\n| Onde trabalha | na volta, intercalando | na ida, particionando |\n| Pior caso | O(n log n) | O(n²), com pivô ruim |\n| Memória extra | O(n) | O(log n), in-place |\n\nAtalho para a figura: se os dois ramos que saem de cada caixa têm o mesmo tamanho e a árvore é simétrica, é Merge. Quick produz árvore torta.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Selection Sort."
+        },
+        {
+          "letra": "B",
+          "texto": "Merge Sort."
+        },
+        {
+          "letra": "C",
+          "texto": "Bubble Sort."
+        },
+        {
+          "letra": "D",
+          "texto": "Quick Sort."
+        },
+        {
+          "letra": "E",
+          "texto": "Insertion Sort."
+        }
+      ],
+      "imagem": "avanca-sp/merge-sort-divisao.png",
+      "imagem_alt": "Diagrama em forma de losango. No topo, o vetor 1 8 6 4 10 5 3 2 22 se divide sucessivamente pela metade, descendo até caixas com um único elemento. A partir daí as caixas voltam a se juntar, agora ordenadas, subindo até o vetor final 1 2 3 4 5 6 8 10 22 na base."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 30",
+      "enunciado": "Uma _____________ tem a seguinte propriedade:\n\n- Para cada nó n da árvore, todos os valores armazenados em sua subárvore à esquerda (a árvore cuja raiz é o filho à esquerda) são menores que o valor v armazenado em n, e todos os valores armazenados na subárvore à direita são maiores ou iguais a v. A ordem alfabética também é usada no caso de cadeias de caracteres.\n\nA alternativa que completa corretamente a lacuna é:",
+      "gabarito": "B",
+      "explicacao": "Árvore binária de busca (ABB, ou BST). O enunciado dá a definição inteira: para **todo** nó n, tudo o que está na subárvore esquerda é menor que o valor de n, e tudo o que está na direita é maior ou igual.\n\nAs duas palavras que carregam a questão são \"para cada nó\". Não basta o filho esquerdo ser menor que o pai — a propriedade vale para a subárvore inteira, recursivamente. É por isso que basta comparar uma vez em cada nó para saber para que lado descer, e é daí que vem a busca em O(log n) numa árvore equilibrada.\n\nOnde as outras erram: \"árvore\" (A) e \"grafo\" (C) são as estruturas genéricas, sem nenhuma regra de ordem. \"Árvore desbalanceada\" (D) e \"árvore cheia\" (E) falam de **forma** — quantos filhos, que altura —, não de ordem entre os valores. Uma ABB pode estar cheia, desbalanceada ou degenerada e continuar sendo ABB; o que ela não pode é ter um valor maior à esquerda.\n\nAtalho: menor à esquerda, maior à direita, em todo nó = busca binária. Se a questão falar de forma (altura, número de filhos, balanceamento), o assunto é outro.\n\nUm detalhe que a banca não cobrou mas cai: percorrer uma ABB **em ordem** (in-ordem: esquerda, raiz, direita) devolve os valores ordenados. É o teste mais rápido para saber se uma árvore é mesmo de busca.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Árvore."
+        },
+        {
+          "letra": "B",
+          "texto": "Árvore Binária de busca."
+        },
+        {
+          "letra": "C",
+          "texto": "Grafo."
+        },
+        {
+          "letra": "D",
+          "texto": "Árvore desbalanceada."
+        },
+        {
+          "letra": "E",
+          "texto": "Árvore cheia."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 31",
+      "enunciado": "Em uma árvore de 4 nós, quantos percursos diferentes são possíveis?",
+      "gabarito": "D",
+      "explicacao": "O gabarito é 24, que é 4! — a banca contou **permutações** dos quatro nós, isto é, quantas ordens diferentes de visita existem no papel.\n\nSó que a questão é mal posta, e vale saber por quê, porque a alternativa (A) 4 é defensável. Em estrutura de dados, \"percurso\" (traversal) tem nome e sobrenome: os percursos de uma árvore binária são quatro, e eles não dependem de quantos nós ela tem.\n\n| Percurso | Ordem de visita |\n|---|---|\n| Pré-ordem | raiz, esquerda, direita |\n| In-ordem | esquerda, raiz, direita |\n| Pós-ordem | esquerda, direita, raiz |\n| Em largura (nível) | nível a nível, da esquerda para a direita |\n\nQuatro percursos, sempre — em árvore de 4 nós ou de 4 milhões. Foi por essa leitura que a alternativa (A) foi posta ali.\n\nPara chegar a 24 é preciso ignorar a estrutura da árvore e perguntar \"de quantas maneiras eu consigo enfileirar quatro nós\", que é 4 × 3 × 2 × 1 = 24. É uma pergunta de análise combinatória, não de árvore — e a maioria dessas 24 ordens não corresponde a percurso nenhum numa árvore concreta.\n\nO que fazer na prova: se cair de novo desta banca, marque 24 e siga. O gabarito é o oficial. Numa prova de banca grande com essa mesma redação, é item de recurso.",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "4."
+        },
+        {
+          "letra": "B",
+          "texto": "12."
+        },
+        {
+          "letra": "C",
+          "texto": "16."
+        },
+        {
+          "letra": "D",
+          "texto": "24."
+        },
+        {
+          "letra": "E",
+          "texto": "32."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 32",
+      "enunciado": "Analise a imagem da árvore. Percurso em extensão (Tree Traversal) significa visitar cada nó começando do nível mais baixo (ou o mais alto) e movendo para baixo (ou para cima) nível a nível, visitando nós em cada nível da esquerda para a direita (ou da direita para a esquerda). Tendo como base a imagem, como ficaria um percurso de extensão de cima para baixo, da esquerda para a direita, nessa árvore?",
+      "gabarito": "D",
+      "explicacao": "Percurso em largura (BFS, ou em extensão, ou por nível): visita-se nível a nível, da esquerda para a direita. A resposta é (D) — 13, 10, 25, 2, 12, 20, 31, 29.\n\nLendo a árvore por andar:\n\n| Nível | Nós |\n|---|---|\n| 0 | 13 |\n| 1 | 10, 25 |\n| 2 | 2, 12, 20, 31 |\n| 3 | 29 |\n\nO 29 fica sozinho no último nível porque é filho do 31, que já está no nível 2. É aí que a questão separa quem entendeu de quem decorou: em largura, o que manda é a **profundidade** do nó, não de quem ele é filho. O 29 vem depois de todo o nível 2, mesmo sendo descendente do último nó dele.\n\nComo se implementa: com **fila**. Enfileira a raiz; enquanto a fila não estiver vazia, desenfileira um nó, visita, enfileira os filhos. (Troque fila por pilha e você tem busca em profundidade — é a única diferença entre as duas.)\n\nAtalho: BFS = fila = nível a nível. DFS = pilha (ou recursão) = desce até o fundo primeiro.\n\nOs distratores: a (B) é o pré-ordem (13, 10, 2, 12, 25, ...), que é o erro mais comum; a (C) acerta tudo e troca 31 com 29 no fim; a (E) é a leitura de baixo para cima.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2, 10, 13, 12, 25, 20, 31, 29."
+        },
+        {
+          "letra": "B",
+          "texto": "13, 10, 2, 12, 25, 20, 31, 29."
+        },
+        {
+          "letra": "C",
+          "texto": "13, 10, 25, 2, 12, 20, 29, 31."
+        },
+        {
+          "letra": "D",
+          "texto": "13, 10, 25, 2, 12, 20, 31, 29."
+        },
+        {
+          "letra": "E",
+          "texto": "29, 31, 20, 12, 2, 25, 10, 13."
+        }
+      ],
+      "imagem": "avanca-sp/arvore-binaria-13.png",
+      "imagem_alt": "Árvore binária com raiz 13. O filho esquerdo da raiz é 10, com filhos 2 (esquerda) e 12 (direita). O filho direito da raiz é 25, com filhos 20 (esquerda) e 31 (direita). O nó 31 tem um único filho, 29, à esquerda."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 33",
+      "enunciado": "Analise a imagem da árvore. Um percurso em pós-ordem nessa árvore ficaria como sendo:",
+      "gabarito": "B",
+      "explicacao": "Pós-ordem é **esquerda, direita, raiz** — a raiz por último, e isso vale recursivamente em cada subárvore. Resposta (B): 2, 12, 10, 20, 29, 31, 25, 13.\n\nA primeira eliminação é de graça: em pós-ordem o último nó visitado é sempre a raiz da árvore inteira. A (C) e a (E) começam por 13, então já morreram.\n\nMontando por partes:\n\n- Subárvore esquerda (raiz 10): esquerda 2, direita 12, depois a raiz 10 → **2, 12, 10**\n- Subárvore direita (raiz 25): a esquerda é 20; a direita é 31, que tem o filho esquerdo 29 — então 29 antes de 31; depois a raiz 25 → **20, 29, 31, 25**\n- A raiz 13, por último.\n\nJuntando: 2, 12, 10, 20, 29, 31, 25, 13.\n\nOs três percursos em profundidade, na mesma árvore, para comparar:\n\n| Percurso | Resultado |\n|---|---|\n| Pré-ordem (raiz, esq, dir) | 13, 10, 2, 12, 25, 20, 31, 29 |\n| In-ordem (esq, raiz, dir) | 2, 10, 12, 13, 20, 25, 29, 31 |\n| Pós-ordem (esq, dir, raiz) | 2, 12, 10, 20, 29, 31, 25, 13 |\n\nA (A) é justamente o in-ordem, e é o distrator mais perigoso: como esta árvore é de busca, o in-ordem sai ordenado, o que dá uma falsa sensação de \"esta parece certa\".\n\nAtalho: o nome diz onde a raiz entra. PRÉ-ordem, raiz antes; IN-ordem, raiz no meio; PÓS-ordem, raiz depois.",
+      "dificuldade": 3,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2, 10, 12, 13, 20, 25, 29, 31."
+        },
+        {
+          "letra": "B",
+          "texto": "2, 12, 10, 20, 29, 31, 25, 13."
+        },
+        {
+          "letra": "C",
+          "texto": "13, 10, 2, 12, 25, 20, 31, 29."
+        },
+        {
+          "letra": "D",
+          "texto": "10, 12, 2, 31, 29, 25, 20, 13."
+        },
+        {
+          "letra": "E",
+          "texto": "13, 12, 2, 10, 25, 29, 31, 25."
+        }
+      ],
+      "imagem": "avanca-sp/arvore-binaria-13.png",
+      "imagem_alt": "Árvore binária com raiz 13. O filho esquerdo da raiz é 10, com filhos 2 (esquerda) e 12 (direita). O filho direito da raiz é 25, com filhos 20 (esquerda) e 31 (direita). O nó 31 tem um único filho, 29, à esquerda."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 34",
+      "dificuldade": 1,
+      "enunciado": "Em algoritmos, as filas são estruturas de dados do tipo:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "PEAP"
+        },
+        {
+          "letra": "B",
+          "texto": "ILO"
+        },
+        {
+          "letra": "C",
+          "texto": "FIFO"
+        },
+        {
+          "letra": "D",
+          "texto": "BCOD"
+        },
+        {
+          "letra": "E",
+          "texto": "FILO"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "**FIFO — First In, First Out**: o primeiro que entra é o primeiro que sai. É a fila do banco. Resposta: **C**.\n\nO par que a prova sempre cobra junto:\n\n| Estrutura | Política | Sigla | Analogia | Operações |\n|---|---|---|---|---|\n| **Fila** | primeiro a entrar, primeiro a sair | **FIFO** | fila do banco | enqueue / dequeue |\n| **Pilha** | último a entrar, primeiro a sair | **LIFO** | pilha de pratos | push / pop |\n\nO distrator **E, FILO** existe na literatura como sinônimo de LIFO (*First In, Last Out*) — ou seja, descreve a **pilha**, não a fila. É a alternativa que pega quem lê rápido, porque as quatro letras são as mesmas.\n\nPEAP, ILO e BCOD não significam nada em estrutura de dados."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 35",
+      "dificuldade": 1,
+      "enunciado": "As árvores cujos nós têm dois filhos (possivelmente vazios) e cada filho é designado como filho à esquerda ou filho à direita são chamadas de:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Árvore de grafos"
+        },
+        {
+          "letra": "B",
+          "texto": "Floresta de árvores"
+        },
+        {
+          "letra": "C",
+          "texto": "Árvore de paginação"
+        },
+        {
+          "letra": "D",
+          "texto": "Árvore neutra"
+        },
+        {
+          "letra": "E",
+          "texto": "Árvore Binária"
+        }
+      ],
+      "gabarito": "E",
+      "explicacao": "**Árvore binária**: cada nó tem no máximo dois filhos, e a posição de cada um — esquerda ou direita — faz parte da definição. Resposta: **E**.\n\nOs dois detalhes do enunciado que importam:\n\n- \"**possivelmente vazios**\" — um nó pode ter zero, um ou dois filhos; o limite é o máximo, não o mínimo;\n- \"**designado como esquerdo ou direito**\" — a posição importa. Uma árvore com um único filho à esquerda é diferente de uma com o mesmo filho à direita. É isso que separa árvore binária de árvore genérica de grau 2.\n\nÉ dessa ordenação que sai tudo o mais: a **árvore binária de busca** (esquerda menor, direita maior) e os **percursos** pré-ordem, in-ordem e pós-ordem só fazem sentido porque esquerda e direita são distinguíveis.\n\nAs outras quatro alternativas não nomeiam estruturas reais — \"floresta\" existe (conjunto de árvores disjuntas), mas \"floresta de árvores\" não é o que o enunciado descreve."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 37",
+      "dificuldade": 2,
+      "enunciado": "Analise a árvore a seguir. Seu percurso \"em ordem\" (in order) será:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A, K, N, P, R"
+        },
+        {
+          "letra": "B",
+          "texto": "K, A, K, P, A"
+        },
+        {
+          "letra": "C",
+          "texto": "K, A, P, N, E"
+        },
+        {
+          "letra": "D",
+          "texto": "A, N, R, P, K"
+        },
+        {
+          "letra": "E",
+          "texto": "A, B, C, D, K, A"
+        }
+      ],
+      "gabarito": "A",
+      "explicacao": "Percurso **in-ordem** visita, para cada nó: **subárvore esquerda → raiz → subárvore direita**.\n\nA árvore da figura:\n\n```\n        K\n       / \\\n      A   P\n         / \\\n        N   R\n```\n\nAplicando a regra a partir da raiz K:\n\n1. esquerda de K → **A** (folha, imprime);\n2. raiz → **K**;\n3. direita de K → subárvore de P, que se resolve pela mesma regra:\n   - esquerda de P → **N**;\n   - raiz → **P**;\n   - direita de P → **R**.\n\nResultado: **A, K, N, P, R**. Resposta: **A**.\n\nUm jeito de conferir sem recursão: em árvore binária de busca, o in-ordem devolve os valores **em ordem crescente**. Aqui, A < K < N < P < R — bate, e serve de verificação.\n\nOs outros dois percursos, na mesma árvore: **pré-ordem** (raiz, esquerda, direita) dá K, A, P, N, R; **pós-ordem** (esquerda, direita, raiz) dá A, N, R, P, K — que é a alternativa D, plantada de propósito.",
+      "imagem": "avanca-sp/taboao-2022-arvore-percurso.png",
+      "imagem_alt": "Árvore binária com a raiz K no topo. K tem dois filhos: A à esquerda (folha) e P à direita. P tem dois filhos: N à esquerda e R à direita, ambos folhas."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 23",
+      "dificuldade": 1,
+      "enunciado": "O que é uma Pilha em programação e qual é o princípio de funcionamento dela?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Uma Pilha é uma estrutura de dados que armazena elementos em uma ordem não específica e permite a inserção e remoção de elementos de forma aleatória"
+        },
+        {
+          "letra": "B",
+          "texto": "Uma Pilha é uma estrutura de dados que armazena elementos em uma ordem específica, onde o primeiro elemento a ser inserido é o primeiro a ser removido"
+        },
+        {
+          "letra": "C",
+          "texto": "Uma Pilha é uma estrutura de dados que armazena elementos em uma ordem específica, onde o último elemento a ser inserido é o primeiro a ser removido"
+        },
+        {
+          "letra": "D",
+          "texto": "Uma Pilha é uma estrutura de dados que armazena elementos em uma ordem decrescente, com base nos valores dos elementos"
+        },
+        {
+          "letra": "E",
+          "texto": "Uma Pilha é uma estrutura de dados que armazena elementos em uma ordem crescente, com base nos valores dos elementos"
+        }
+      ],
+      "gabarito": "C",
+      "explicacao": "**Pilha é LIFO**: o **último** a entrar é o **primeiro** a sair. Resposta: **C**.\n\nA alternativa **B** descreve a **fila** (FIFO) — é o par que a banca sempre coloca junto para trocar. Compare palavra por palavra: B diz \"o primeiro a ser inserido é o primeiro a ser removido\"; C diz \"o **último** a ser inserido é o primeiro a ser removido\". Muda uma palavra e muda a estrutura.\n\nD e E confundem pilha com estrutura **ordenada por valor**. Pilha não ordena nada pelo conteúdo — a ordem é a de chegada, e só se mexe no topo. A ordenação por valor seria uma fila de prioridade ou um heap.\n\nOnde a pilha aparece de verdade, e costuma render questão: a **pilha de chamadas** de função (a última chamada é a primeira a retornar), o botão voltar do navegador e o desfazer (Ctrl+Z) de um editor."
+    }
+  ]
+}
