@@ -1,0 +1,45 @@
+{
+  "_leia_me": "O bloco de itens 28-30 do COFFITO 2023, vindo de logica-proposicional.json em 15/09/2026. As três premissas dadas como verdadeiras (“Todo advogado é doutor”, “Paula é advogada”, “Felipe é doutor”) vão repetidas no `texto_base` dos três itens, e o que se cobra é o que SEGUE delas: silogismo no item 28, condicional de consequente garantido no 29 e a contrapositiva de uma proposição categórica no 30. Por isso saíram de lógica proposicional. Os conectivos continuam lá dentro — mas quem abre uma sessão de tabela-verdade não espera “todo A é B”, e foi esse estranhamento que motivou a revisão. Gabarito conferido no PDF de gabarito oficial da banca, no bloco do cargo, como o resto daquele arquivo. As explicações são MINHAS, não da banca.",
+  "banca": "Quadrix",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica de argumentação",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · item 28",
+      "dificuldade": 2,
+      "comando": "Admitindo-se a veracidade das proposições acima, julgue o item a seguir.",
+      "enunciado": "A proposição “Paula é doutora ou Felipe é advogado” é necessariamente verdadeira.",
+      "gabarito": "C",
+      "explicacao": "De “Todo advogado é doutor” com “Paula é advogada” sai “Paula é doutora”. Uma parcela verdadeira já basta para a disjunção, e nem é preciso saber se Felipe é advogado. Item certo.\n\nSobre Felipe, aliás, não se conclui nada: “Todo advogado é doutor” não se inverte — ser doutor não obriga a ser advogado. Mas o “ou” se contenta com um lado.",
+      "texto_base": "• “Todo advogado é doutor”\n• “Paula é advogada”\n• “Felipe é doutor”"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · item 29",
+      "dificuldade": 3,
+      "comando": "Admitindo-se a veracidade das proposições acima, julgue o item a seguir.",
+      "enunciado": "A proposição “Se Felipe é advogado, então Paula é doutora” não é necessariamente verdadeira.",
+      "gabarito": "E",
+      "explicacao": "O consequente “Paula é doutora” já é verdadeiro (Paula é advogada, e todo advogado é doutor). Condicional com consequente verdadeiro é verdadeira, seja qual for o antecedente — as duas linhas possíveis, V → V e F → V, dão V.\n\nOu seja, a proposição É necessariamente verdadeira; o item afirma que não é. Item errado.\n\nA armadilha é parar em “não se sabe se Felipe é advogado” e concluir que a condicional fica indefinida. Antecedente desconhecido não indefine nada quando o consequente já está garantido.",
+      "texto_base": "• “Todo advogado é doutor”\n• “Paula é advogada”\n• “Felipe é doutor”"
+    },
+    {
+      "formato": "certo_errado",
+      "origem": "Quadrix · COFFITO 2023 · Analista de TI (cód. 403) · item 30",
+      "dificuldade": 2,
+      "comando": "Admitindo-se a veracidade das proposições acima, julgue o item a seguir.",
+      "enunciado": "As proposições “Todo advogado é doutor” e “Se não é doutor, então não é advogado” são equivalentes.",
+      "gabarito": "C",
+      "explicacao": "É a contrapositiva de novo, agora vestida de proposição categórica:\n\n“Todo advogado é doutor” ≡ “Se é advogado, então é doutor” ≡ “Se não é doutor, então não é advogado”.\n\nItem certo. O que NÃO vale é “Se é doutor, então é advogado” — a recíproca, que é o mesmo erro que o item 28 deste bloco cutuca com o Felipe.",
+      "texto_base": "• “Todo advogado é doutor”\n• “Paula é advogada”\n• “Felipe é doutor”"
+    }
+  ]
+}
