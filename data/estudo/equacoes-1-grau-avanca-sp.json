@@ -1,0 +1,131 @@
+{
+  "_leia_me": "As 4 questões de equações do 1º grau que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Equações do 1º grau",
+    "ordem": 12
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 19",
+      "enunciado": "Um funcionário começa a trabalhar às 7h00 e decide que vai largas às 13h00. Durante esse tempo, ele trabalhará sem intervalo. Em um certo instante durante seu expediente, ele percebe que o tempo que falta para ele largar é igual a 1/5 do tempo total decorrido desde o início do seu expediente. Em qual horário o funcionário fez esta constatação?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "8h"
+        },
+        {
+          "letra": "B",
+          "texto": "9h"
+        },
+        {
+          "letra": "C",
+          "texto": "10h"
+        },
+        {
+          "letra": "D",
+          "texto": "11h"
+        },
+        {
+          "letra": "E",
+          "texto": "12h"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 18",
+      "enunciado": "Ao ser perguntada sobre a sua idade, Bianca responde: Eu sou 7 anos mais velha que a minha irmã, Ana, e daqui a 2 anos terei o dobro da idade dela. Qual a idade da irmã de Bianca atualmente?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "12"
+        },
+        {
+          "letra": "B",
+          "texto": "14"
+        },
+        {
+          "letra": "C",
+          "texto": "9"
+        },
+        {
+          "letra": "D",
+          "texto": "5"
+        },
+        {
+          "letra": "E",
+          "texto": "7"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 18",
+      "enunciado": "João está jogando xadrez com seus irmãos e decide fazer um campeonato. A cada jogo ganho, ele acumula 5 pontos. A cada jogo perdido, ele perde 3 pontos. Se for empate, ambos os jogadores ganham 2 pontos. João jogou 15 partidas, onde ganhou as 6 primeiras, depois empatou as 6 seguintes e perdeu o restante. Qual a pontuação de João nesse campeonato?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "24"
+        },
+        {
+          "letra": "B",
+          "texto": "36"
+        },
+        {
+          "letra": "C",
+          "texto": "30"
+        },
+        {
+          "letra": "D",
+          "texto": "12"
+        },
+        {
+          "letra": "E",
+          "texto": "33"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 13 · transcrita por OCR do PDF escaneado",
+      "enunciado": "Durante uma feira escolar, Juvenal montou um estande para vender marcadores de página e chaveiros. Ele registrou que no primeiro período da feira, ela vendeu x marcadores e 6 chaveiros, totalizando 8 itens vendidos. E no segundo período, ela vendeu x marcadores e y chaveiros, totalizando 15 itens vendidos. Sabendo que o número de marcadores vendidos foi o mesmo nos dois períodos, qual é a quantidade total de marcadores e de chaveiros, respectivamente, considerando os dois períodos da feira? Assinale a alternativa correta.",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "4 marcadores e 13 chaveiros"
+        },
+        {
+          "letra": "B",
+          "texto": "4 marcadores e 19 chaveiros"
+        },
+        {
+          "letra": "C",
+          "texto": "2 marcadores e 19 chaveiros"
+        },
+        {
+          "letra": "D",
+          "texto": "2 marcadores e 6 chaveiros"
+        },
+        {
+          "letra": "E",
+          "texto": "2 marcadores e 13 chaveiros"
+        }
+      ]
+    }
+  ]
+}

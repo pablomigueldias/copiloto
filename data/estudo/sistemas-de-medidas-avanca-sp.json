@@ -1,0 +1,247 @@
+{
+  "_leia_me": "As 8 questões de sistemas de medidas que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Sistemas de medidas",
+    "ordem": 14
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 19",
+      "enunciado": "Uma certa instituição cuida de cães, gatos e pássaros. Sabe-se que cada gato consome 2 quilos de ração por mês, cada cão consome 10 quilos e cada pássaro consome 1 quilo. Em relação ao consumo de água, cada gato bebe 4 litros por mês, cada cão 15 litros e cada pássaro bebe 2 litros. Ademais, sabe-se que o consumo mensal de ração é de 72 quilos total, o consumo de água para os animais beber é de 119 ao todo e há 17 animais nessa instituição. Quantos cães, gatos e pássaros há nessa instituição?",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "5 cães, 10 gatos e 2 pássaros"
+        },
+        {
+          "letra": "B",
+          "texto": "3 cães, 11 gatos e 3 pássaros"
+        },
+        {
+          "letra": "C",
+          "texto": "5 cães, 10 gatos e 3 pássaros"
+        },
+        {
+          "letra": "D",
+          "texto": "6 cães, 9 gatos e 2 pássaros"
+        },
+        {
+          "letra": "E",
+          "texto": "5 cães, 9 gatos e 3 pássaros"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 20",
+      "enunciado": "O cimento é um pó fino que quando entra em contato com a água adquire fluidez e depois de um certo tempo, devido às reações químicas, endurece e adquire resistência mecânica. O cimento é tão fino que 1 grama desse material tem uma superfície que cobre uma área de cerca de 4000 cm² . Indique esse valor na unidade de metros quadrados por cada quilograma:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "4"
+        },
+        {
+          "letra": "B",
+          "texto": "40"
+        },
+        {
+          "letra": "C",
+          "texto": "400"
+        },
+        {
+          "letra": "D",
+          "texto": "4000"
+        },
+        {
+          "letra": "E",
+          "texto": "40000"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 16",
+      "enunciado": "A medida de área de 80 cm² , em milímetros quadrados equivale a:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "80.000 mm²"
+        },
+        {
+          "letra": "B",
+          "texto": "8.000 mm²"
+        },
+        {
+          "letra": "C",
+          "texto": "800 mm²"
+        },
+        {
+          "letra": "D",
+          "texto": "80 mm²"
+        },
+        {
+          "letra": "E",
+          "texto": "8 mm²"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 21",
+      "enunciado": "Em uma fazenda, recomenda-se que cada boi tenha disponível pelo menos uma área de 1 hectare. Já as vacas precisam de pelo menos 0,6 hectare. Suponha que a fazenda tenha 52 hectares disponíveis para criação desses dois animais. Se o número de vacas deve ser exatamente igual ao dobro do número de bois, quantos destes animais, no máximo, será possível ter na área disponível?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "96"
+        },
+        {
+          "letra": "B",
+          "texto": "75"
+        },
+        {
+          "letra": "C",
+          "texto": "66"
+        },
+        {
+          "letra": "D",
+          "texto": "72"
+        },
+        {
+          "letra": "E",
+          "texto": "69"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 19",
+      "enunciado": "Um determinado carro já percorreu 90 mil quilômetros desde que foi fabricado. Supondo-se que ele utilizou somente um tipo de combustível, e que o consumo desse carro é tal que ele percorre 12 km com um litro de combustível, indique quantos metros cúbicos de combustível já foram consumidos por esse carro desde que foi fabricado:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1,08"
+        },
+        {
+          "letra": "B",
+          "texto": "10,8"
+        },
+        {
+          "letra": "C",
+          "texto": "1080"
+        },
+        {
+          "letra": "D",
+          "texto": "7,5"
+        },
+        {
+          "letra": "E",
+          "texto": "75"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 11",
+      "enunciado": "12,9 km equivalem a",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "129000 dm"
+        },
+        {
+          "letra": "B",
+          "texto": "12900 dm"
+        },
+        {
+          "letra": "C",
+          "texto": "1290 dm"
+        },
+        {
+          "letra": "D",
+          "texto": "129 dm"
+        },
+        {
+          "letra": "E",
+          "texto": "1,29 dm"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 15 · transcrita por OCR do PDF escaneado",
+      "enunciado": "O consumo de água na residência do Sr. Hélio nos meses de outubro e novembro foi, respectivamente, de 18.550 litros e 11.050 litros. Já no mês de dezembro, houve um aumento de 2.500 litros em relação ao mês anterior. Quantos metros cúbicos foram reduzidos no consumo entre os meses de outubro e novembro e qual foi o consumo de dezembro? Assinale a alternativa correta.",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "13,5 m? e 7,5 mº"
+        },
+        {
+          "letra": "B",
+          "texto": "5,0 m' e 13,55 m”"
+        },
+        {
+          "letra": "C",
+          "texto": "7,5 m? e 2,50 m?"
+        },
+        {
+          "letra": "D",
+          "texto": "7,5 m? e 21,05 mº"
+        },
+        {
+          "letra": "E",
+          "texto": "7,5 mº e 13,55 mº"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 20 · transcrita por OCR do PDF escaneado",
+      "enunciado": "Analise as assertivas abaixo, referentes a conversão de unidades, e classifique-as em verdadeiro (V) ou falso (F). Em seguida, assinale a alternativa correta.\n(__) Um recipiente com capacidade de 2 litros possui volume equivalente a 2000 centímetros cúbicos.\n(__) Um bloco com volume de 0,5 metro cúbico corresponde a 50 litros.\n(__) Um frasco contendo 750 mililitros possui volume igual a 0,075 litro.\n(__) Um tanque com 3 metros cúbicos possui volume equivalente a 30.000 mililitros",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "V – F – F – F"
+        },
+        {
+          "letra": "B",
+          "texto": "V – V – F – F"
+        },
+        {
+          "letra": "C",
+          "texto": "F – V – V – V"
+        },
+        {
+          "letra": "D",
+          "texto": "F – F – F – V"
+        },
+        {
+          "letra": "E",
+          "texto": "F – F – F – F"
+        }
+      ]
+    }
+  ]
+}

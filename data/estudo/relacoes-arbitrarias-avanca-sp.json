@@ -1,0 +1,102 @@
+{
+  "_leia_me": "As 3 questões de relações arbitrárias e dedução que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Relações arbitrárias e dedução",
+    "ordem": 17
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 18",
+      "enunciado": "Observe as seguintes correspondências abaixo: • CUTIA → AIUCT • FUNDO → OUDFN • CARPA → AACPR Então a palavra COSME corresponderá à palavra:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "EOCMS"
+        },
+        {
+          "letra": "B",
+          "texto": "EMSOC"
+        },
+        {
+          "letra": "C",
+          "texto": "EOMSC"
+        },
+        {
+          "letra": "D",
+          "texto": "OECMS"
+        },
+        {
+          "letra": "E",
+          "texto": "OCSEM"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 20",
+      "enunciado": "Cinco amigos, chamados de A, B, C, D e E, moram num mesmo prédio, mas em andares diferentes. Os andares de cada amigo seguem nesta ordem: E > D > C > B > A. Além disso, sabe-se que: • O amigo E mora a 10 andares de distância do amigo A; • O amigo D mora a 3 andares de distância do amigo E; • O amigo A mora a 6 andares de distância do amigo C; • O amigo B mora a 6 andares de distância do amigo D Com essas informações, quantos andares de distância existem entre os amigos B e C?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2"
+        },
+        {
+          "letra": "B",
+          "texto": "3"
+        },
+        {
+          "letra": "C",
+          "texto": "4"
+        },
+        {
+          "letra": "D",
+          "texto": "5"
+        },
+        {
+          "letra": "E",
+          "texto": "6"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 19",
+      "enunciado": "Um sistema de criptografia é montado da seguinte maneira: a letra ‘A’ representa o número 0, a letra ‘B’ representa o número 1 e assim sucessivamente até a letra ‘Z’, cujo número é 25. A palavra JOGO, por exemplo, pode ser representada por 9-14-6-14. Quando se utiliza números maiores que 25, a contagem recomeça com o 26 representando a letra ‘A’, o 27 representando a letra ‘B’, e assim sucessivamente. Número Letra correspondente 0, 26, 52, 78, ... A 1, 27, 53, 79, ... B 2, 28, 24, 80, ... C Desta forma, a que palavra correspondem os números 32-92-45-104?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "GOLA"
+        },
+        {
+          "letra": "B",
+          "texto": "GATO"
+        },
+        {
+          "letra": "C",
+          "texto": "JATO"
+        },
+        {
+          "letra": "D",
+          "texto": "GOTA"
+        },
+        {
+          "letra": "E",
+          "texto": "BOLA"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "_leia_me": "As 4 questões de juro simples que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Juro simples",
+    "ordem": 11
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 11",
+      "enunciado": "Aplicando um capital de R$ 560.000,00 no regime de juros simples, a uma taxa de 1,5% ao mês, durante dois anos e meio, o montante total será de:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 1.290 000,00"
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 812.000,00"
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 550.000,00"
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 310.000,00"
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 252.000,00"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 15",
+      "enunciado": "Ana investiu seu capital de R$ 10.000,00 numa aplicação rendendo a juro simples com taxa de 12% ao ano. Marcela também tinha o mesmo capital inicial, mas somente investiu 3 meses depois de Ana. Porém, o rendimento da aplicação de Marcela era 14% ao ano. Em quanto tempo, a partir da data de aplicação de Marcela, o lucro de Marcela será igual ao de Ana?",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "24 meses"
+        },
+        {
+          "letra": "B",
+          "texto": "21 meses"
+        },
+        {
+          "letra": "C",
+          "texto": "18 meses"
+        },
+        {
+          "letra": "D",
+          "texto": "15 meses"
+        },
+        {
+          "letra": "E",
+          "texto": "20 meses"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 14",
+      "enunciado": "Lucas fez um empréstimo de R$ 5000 para ser pago durante 6 meses a uma taxa de juros simples de 4% ao mês. No entanto, ele só conseguiu pagar R$ 4000 no total após os 6 meses. Ele quer renegociar o restante da dívida (incluindo o juro não pago anteriormente) para pagamento em mais 4 meses. O banco, desta vez, cobrará uma taxa de 8% ao mês no regime de juro simples. Quanto Lucas pagará por mês ao banco após essa renegociação?",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 550,00"
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 704,00"
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 726,00"
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 330,00"
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 360,00"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 13",
+      "enunciado": "Um capital de R$7.500,00 foi aplicado à taxa semestral de 5% no regime de capitalização simples. Para que seja obtido um montante de R$9.750,00, o prazo dessa aplicação deverá ser de",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "3 anos e 6 meses"
+        },
+        {
+          "letra": "B",
+          "texto": "3 anos"
+        },
+        {
+          "letra": "C",
+          "texto": "4 anos e 6 meses"
+        },
+        {
+          "letra": "D",
+          "texto": "4 anos"
+        },
+        {
+          "letra": "E",
+          "texto": "5 anos e 6 meses"
+        }
+      ]
+    }
+  ]
+}

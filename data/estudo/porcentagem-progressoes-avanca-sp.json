@@ -1,0 +1,483 @@
+{
+  "_leia_me": "As 16 questões de porcentagem e progressões que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Porcentagem e progressões",
+    "ordem": 4
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 24",
+      "enunciado": "Se um produto, com um determinado preço inicial, sofre um desconto de 15%, e depois um aumento de 20% sobre o preço imediatamente anterior (descontado), qual o acréscimo no preço que o produto sofreu, em relação ao preço inicial?",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "5%"
+        },
+        {
+          "letra": "B",
+          "texto": "2%"
+        },
+        {
+          "letra": "C",
+          "texto": "3%"
+        },
+        {
+          "letra": "D",
+          "texto": "2,5%"
+        },
+        {
+          "letra": "E",
+          "texto": "0,5%"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 25",
+      "enunciado": "Numa empresa de ônibus, sabe-se que o número de bilhetes comprados em fevereiro foi 30% maior que em janeiro. Se em fevereiro foram vendidos 806 bilhetes, qual a média de bilhetes por dia que foi vendida durante o mês de janeiro? Considere que janeiro tem 31 dias",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "18"
+        },
+        {
+          "letra": "B",
+          "texto": "19"
+        },
+        {
+          "letra": "C",
+          "texto": "20"
+        },
+        {
+          "letra": "D",
+          "texto": "21"
+        },
+        {
+          "letra": "E",
+          "texto": "22"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 12",
+      "enunciado": "Um motorista de aplicativo trabalha da seguinte forma: há uma taxa mínima cobrada de R$ 10,00 e acrescido a isso é cobrado R$ 3,00 por quilômetro percorrido em cada corrida. Do valor total a empresa do aplicativo paga 75% ao motorista. Suponha que o motorista tenha um custo total de operação de R$ 1,50 por quilômetro percorrido. Qual a razão entre o lucro líquido do motorista e o valor recebido pela empresa de aplicativo em uma viagem de 10km?",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2"
+        },
+        {
+          "letra": "B",
+          "texto": "1,5"
+        },
+        {
+          "letra": "C",
+          "texto": "3"
+        },
+        {
+          "letra": "D",
+          "texto": "1,8"
+        },
+        {
+          "letra": "E",
+          "texto": "1,2"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 13",
+      "enunciado": "Em uma pesquisa realizada em um determinado ano, a média de preços de um determinado conjunto de alimentos era R$ 8,00. No ano seguinte, foi feita novamente a pesquisa para acompanhar o crescimento dos preços desse conjunto. Os resultados foram Preço (R$) Produto 5,00 Arroz 7,00 Feijão 30,00 Carne 9,00 Café 4,00 Açúcar 5,00 Farinha de trigo Qual a variação percentual do valor dessa média em comparação com o ano anterior?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "28%"
+        },
+        {
+          "letra": "B",
+          "texto": "20%"
+        },
+        {
+          "letra": "C",
+          "texto": "22%"
+        },
+        {
+          "letra": "D",
+          "texto": "25%"
+        },
+        {
+          "letra": "E",
+          "texto": "24%"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 14",
+      "enunciado": "Uma loja online oferece dois tipos de cupons promocionais, chamados de A e B. O cupom A dá 20% de desconto e o cupom B desconta um valor fixo de R$20,00. Os descontos podem ser sucessivamente aplicados. O primeiro cupom é aplicado sobre o valor original do produto, e os próximos são aplicados sobre o valor resultante das aplicações anteriores. Suponha que um cliente tem um cupom A e um cupom B. Ele está indeciso sobre qual aplicar primeiro. Indique a alternativa correta:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A pessoa pagará menos se primeiro usar o cupom B e depois o cupom A"
+        },
+        {
+          "letra": "B",
+          "texto": "O preço final independe da ordem de uso dos cupons"
+        },
+        {
+          "letra": "C",
+          "texto": "Se ele aplicar primeiro o cupom A e depois o cupom B, ela pagará R$ 4,00 a menos, independentemente do valor do produto original"
+        },
+        {
+          "letra": "D",
+          "texto": "A diferença entre o valor pago em cada situação depende do preço inicial do produto"
+        },
+        {
+          "letra": "E",
+          "texto": "O percentual de desconto total final, depois da aplicação dos dois cupons, será o mesmo nas duas situações"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 16",
+      "enunciado": "Um reservatório de água em formato cúbico de 1 metro de lado foi cheio até uma altura de 12 centímetros. Indique a porcentagem do volume ocupado em relação ao volume total do reservatório:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "0,12%"
+        },
+        {
+          "letra": "B",
+          "texto": "12%"
+        },
+        {
+          "letra": "C",
+          "texto": "√0,12%"
+        },
+        {
+          "letra": "D",
+          "texto": "√12%"
+        },
+        {
+          "letra": "E",
+          "texto": "1,2%"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 12",
+      "enunciado": "Um estudante está escrevendo um artigo e fará um gráfico em forma de triângulo para representar porcentagens, conforme a figura:\n\nOs triângulos são equiláteros. O estudante deseja que a área sombreada represente 10% da área total do triângulo maior. Qual deve ser a razão entre h e H (alturas dos triângulos menor e maior, respectivamente) para que isso seja possível?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1/10"
+        },
+        {
+          "letra": "B",
+          "texto": "10"
+        },
+        {
+          "letra": "C",
+          "texto": "√10"
+        },
+        {
+          "letra": "D",
+          "texto": "1/√10"
+        },
+        {
+          "letra": "E",
+          "texto": "1/10 2"
+        }
+      ],
+      "imagem": "avanca-sp/juquitiba-2024-triangulo-porcentagem.png",
+      "imagem_alt": "Triângulo equilátero com o vértice para cima. Uma linha horizontal perto do topo recorta um triângulo menor, sombreado, cuja altura é marcada à direita como h. A altura total do triângulo maior é marcada mais à direita como H."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 13",
+      "enunciado": "Em uma cidade, no mês de fevereiro, o número de casos de uma doença misteriosa aumentou em 50% em relação ao mês anterior. Isso fez com que as autoridades de saúde tomassem medidas drásticas para conter a propagação da doença. Após as medidas, no mês de março houve uma redução de 40% nos casos relatados, em relação a fevereiro. No entanto, em abril, os casos aumentaram novamente em relação a março, desta vez em 25%. Se o número de casos relatados em janeiro foi de 2000, quantos casos da doença foram relatados em abril?",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1875"
+        },
+        {
+          "letra": "B",
+          "texto": "2250"
+        },
+        {
+          "letra": "C",
+          "texto": "1800"
+        },
+        {
+          "letra": "D",
+          "texto": "3000"
+        },
+        {
+          "letra": "E",
+          "texto": "1500"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 18",
+      "enunciado": "Uma prova tem 4 questões. Cada questão tem 4 subitens, chamados a), b), c) e d), cujos pesos valem 5%, 15%, 30% e 40% da pontuação da questão, respectivamente. A nota que um aluno pode obter nessa prova vai de 0 a 10. O peso da 1ª, 2ª, 3ª e 4ª questão é, respectivamente, 2, 3, 3, 4. Nesta situação, qual nota tiraria, aproximadamente, um estudante que acertou somente o subitem d) da 4ª questão?",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1,33"
+        },
+        {
+          "letra": "B",
+          "texto": "2,66"
+        },
+        {
+          "letra": "C",
+          "texto": "0,66"
+        },
+        {
+          "letra": "D",
+          "texto": "0,33"
+        },
+        {
+          "letra": "E",
+          "texto": "1,11"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 19",
+      "enunciado": "Ana comprou uma bicicleta que estava com 20% de desconto sobre o preço original, que era de R$ 1.200,00. Após a compra, ela precisou gastar mais 10% do valor que pagou na bicicleta para fazer ajustes e melhorias. Qual foi o valor total gasto por Ana com a bicicleta, incluindo os ajustes?",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 960,00"
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 1.080,00"
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 1.056,00"
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 1.152,00"
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 1.032,00"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 16",
+      "enunciado": "No mês de março uma empresa vendeu 2500 unidades de ovos de chocolate, onde cada unidade custou R$ 50,00. No mês de abril, a empresa aumentou em 25% o preço de cada ovo de chocolate, e vendeu 15% de unidades a mais que no mês anterior. Com relação a este item, qual foi o incremento no faturamento mensal, em relação ao mês anterior pela empresa?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "42,25%"
+        },
+        {
+          "letra": "B",
+          "texto": "40,00%"
+        },
+        {
+          "letra": "C",
+          "texto": "35,00%"
+        },
+        {
+          "letra": "D",
+          "texto": "43,75%"
+        },
+        {
+          "letra": "E",
+          "texto": "45,50%"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 15",
+      "enunciado": "Para incentivar seus colaboradores, uma empresa ofereceu aos mesmos um reajuste salarial de 31,6% dividido em três parcelas anuais, sendo a primeira parcela no ano corrente e as demais para os anos sequentes. Um auxiliar administrativo com o salário de R$1.840,00 em 2021, passará a receber, em 2024, após a liberação da última parcela do reajuste, salário",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "superior a R$2.425,00"
+        },
+        {
+          "letra": "B",
+          "texto": "inferior a R$2.415,00"
+        },
+        {
+          "letra": "C",
+          "texto": "inferior a R$2.430,00"
+        },
+        {
+          "letra": "D",
+          "texto": "superior a R$2.435,00"
+        },
+        {
+          "letra": "E",
+          "texto": "inferior a R$2.420,00"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 12",
+      "enunciado": "Observe o trecho: A Mata Atlântica é a floresta mais devastada do Brasil. A Mata Atlântica abrange cerca de 15% do território nacional, em 17 estados. É o lar de 72% dos brasileiros e concentra 80% do PIB nacional. Dela dependem serviços essenciais como abastecimento de água, regulação do clima, agricultura, pesca, energia elétrica e turismo. Hoje, restam apenas 24% da floresta que existia originalmente, sendo que apenas 12,4% são florestas maduras e bem preservadas. É preciso monitorar e recuperar a floresta, além de fortalecer a legislação que a protege. Fonte: https://www.sosma.org.br/causas/mata- atlantica Com base nos dados do texto, se a área da Mata Atlântica hoje é 1,11 milhão de km 2 , então a área da Mata Atlântica originalmente era:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "462.500 km²"
+        },
+        {
+          "letra": "B",
+          "texto": "2.664.000 km²"
+        },
+        {
+          "letra": "C",
+          "texto": "4.625.000 km²"
+        },
+        {
+          "letra": "D",
+          "texto": "266.4000 km²"
+        },
+        {
+          "letra": "E",
+          "texto": "24.000.000 km²"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 20",
+      "enunciado": "A figura abaixo mostra um retângulo que tem 80% da sua área total sombreada:\n\nSe o comprimento do retângulo mede 20 cm, então o comprimento da medida X indicada na figura mede:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "14 cm"
+        },
+        {
+          "letra": "B",
+          "texto": "16 cm"
+        },
+        {
+          "letra": "C",
+          "texto": "18 cm"
+        },
+        {
+          "letra": "D",
+          "texto": "17 cm"
+        },
+        {
+          "letra": "E",
+          "texto": "19 cm"
+        }
+      ],
+      "imagem": "avanca-sp/unitau-2025-retangulo-sombreado.png",
+      "imagem_alt": "Retângulo horizontal com a parte esquerda sombreada em cinza e rotulada 80%. Uma régua acima marca o comprimento total como 20 cm; outra régua abaixo marca o comprimento da parte sombreada como x."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 21",
+      "enunciado": "Um cliente compra uma camisa e uma calça pelo valor total de R$ 320,00. Meses depois, o cliente voltou à loja e viu que a mesma camisa estava com 40% de desconto e a mesma calça estava com 20% de desconto. Se ele comprar os mesmos dois itens com os respectivos descontos, pagará R$ 240,00. Nesta situação, qual o preço da camisa com desconto?",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 96,00"
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 80,00"
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 48,00"
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 62,00"
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 64,00"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 16 · transcrita por OCR do PDF escaneado",
+      "enunciado": "A empresa de energia solar Gama registrou que a produção mensal de um de seus painéis passou de 420 kWh para 466,2 kWh após um processo de otimização. A taxa de aumento na eficiência pode ser calculada pela expressão:\n`Pf = P0 · (1 + i)`\nOnde Pf é a produção final, P0 é a produção inicial, i é a taxa de aumento na eficiência. Com base nesses dados e na expressão acima, determine a taxa de aumento da eficiência, expressa em porcentagem. Assinale a alternativa correta.",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "5%"
+        },
+        {
+          "letra": "B",
+          "texto": "10%"
+        },
+        {
+          "letra": "C",
+          "texto": "11%"
+        },
+        {
+          "letra": "D",
+          "texto": "15%"
+        },
+        {
+          "letra": "E",
+          "texto": "20%"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "_leia_me": "As 7 questões de números e divisibilidade que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Números e divisibilidade",
+    "ordem": 3
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 11",
+      "enunciado": "Joana trabalha em uma loja de roupas e recebeu a tarefa de organizar uma certa quantidade de camisetas, no maior número de pilhas e sem sobra de camisetas. Ao contabilizar as camisetas, ela concluiu que há 840 camisetas brancas, 945 camisetas pretas e 1050 camisetas azuis. Se todas as pilhas são iguais e contém camisetas dos três tipos, quantas camisetas há em cada pilha?",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "25"
+        },
+        {
+          "letra": "B",
+          "texto": "26"
+        },
+        {
+          "letra": "C",
+          "texto": "27"
+        },
+        {
+          "letra": "D",
+          "texto": "28"
+        },
+        {
+          "letra": "E",
+          "texto": "29"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 12",
+      "enunciado": "Um médico, ao prescrever um tratamento, recomenda que um enfermeiro administre três medicamentos em um paciente de acordo com a seguinte escala: remédio 1, de 5 em 5 horas, remédio 2, de 8 em 8 horas e remédio 3, de 12 em 12 horas. Se o paciente iniciou o tratamento às 10h, do dia 30 de junho, que dia o paciente irá receber os três remédios, simultaneamente, novamente?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "02 de julho"
+        },
+        {
+          "letra": "B",
+          "texto": "03 de julho"
+        },
+        {
+          "letra": "C",
+          "texto": "04 de julho"
+        },
+        {
+          "letra": "D",
+          "texto": "05 de julho"
+        },
+        {
+          "letra": "E",
+          "texto": "06 de julho"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 15",
+      "enunciado": "O Máximo Divisor Comum entre os números 56 – 24 – 10, é:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "840"
+        },
+        {
+          "letra": "B",
+          "texto": "124"
+        },
+        {
+          "letra": "C",
+          "texto": "68"
+        },
+        {
+          "letra": "D",
+          "texto": "8"
+        },
+        {
+          "letra": "E",
+          "texto": "2. ATUALIDADES"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 12",
+      "enunciado": "Na tesouraria de um supermercado, há dois maços de dinheiro, um deles com 255 cédulas de R$100,00 e o outro com 180 cédulas de R$50,00. O tesoureiro irá colocar todo esse dinheiro em malotes, cada malote com maior o número de cédulas possíveis. Sabendo que cada malote deverá ter o mesmo número de cédulas e que cédulas de R$100,00 e cédulas de R$50,00 não podem ficar juntas em um mesmo malote, então, a diferença entre o número de malotes contendo somente cédulas de R$100,00 e o número de malotes contendo somente cédula de R$50,00 é",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "7"
+        },
+        {
+          "letra": "B",
+          "texto": "6"
+        },
+        {
+          "letra": "C",
+          "texto": "5"
+        },
+        {
+          "letra": "D",
+          "texto": "4"
+        },
+        {
+          "letra": "E",
+          "texto": "3"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 20",
+      "enunciado": "Hélio comprou um pacote com menos de 160 alfinetes, e pretende utilizar diariamente o mesmo número de alfinetes. Após contabilizar o número total de alfinetes disponíveis no pacote, percebeu que poderia utilizar por dia, ou 4 alfinetes, ou 5 alfinetes, ou 6 alfinetes, e, qualquer fosse a opção, todos os alfinetes seriam utilizados. O número total de alfinetes do pacote é",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "40"
+        },
+        {
+          "letra": "B",
+          "texto": "45"
+        },
+        {
+          "letra": "C",
+          "texto": "50"
+        },
+        {
+          "letra": "D",
+          "texto": "55"
+        },
+        {
+          "letra": "E",
+          "texto": "60"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 25",
+      "enunciado": "Indique a alternativa que apresenta todos os números naturais que são divisores simultâneos dos números 48 e 72:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1, 2, 3, 4, 6, 8, 12 e 24"
+        },
+        {
+          "letra": "B",
+          "texto": "Somente 24"
+        },
+        {
+          "letra": "C",
+          "texto": "2, 4, 6 e 8"
+        },
+        {
+          "letra": "D",
+          "texto": "1, 6, 12 e 24"
+        },
+        {
+          "letra": "E",
+          "texto": "12 e 24"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 14 · transcrita por OCR do PDF escaneado",
+      "enunciado": "A filantropa Anastácia realizou uma campanha para arrecadar cestas básicas. Os voluntários se organizaram em dois grupos: o Grupo Alfa, que arrecadou 164 toneladas, e o Grupo Beta, que arrecadou 256 toneladas. Cada grupo fará as entregas utilizando caminhões e deseja dividir igualmente a quantidade arrecadada entre os veículos, sem que sobre nenhuma tonelada. Qual é o maior número de toneladas que pode ser colocado em cada caminhão, garantindo que todos transportem a mesma carga? Assinale a alternativa correta.",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2"
+        },
+        {
+          "letra": "B",
+          "texto": "4"
+        },
+        {
+          "letra": "C",
+          "texto": "6"
+        },
+        {
+          "letra": "D",
+          "texto": "8"
+        },
+        {
+          "letra": "E",
+          "texto": "10"
+        }
+      ]
+    }
+  ]
+}

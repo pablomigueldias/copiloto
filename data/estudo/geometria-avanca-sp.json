@@ -1,0 +1,340 @@
+{
+  "_leia_me": "As 11 questões de geometria que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Geometria",
+    "ordem": 15
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 21",
+      "enunciado": "Observe a frase abaixo e indique a alternativa que corretamente completa as lacunas: “Num prisma quadrangular reto, há ____ faces, ____ arestas e ____ vértices.”",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "6, 5, 9"
+        },
+        {
+          "letra": "B",
+          "texto": "12, 18, 8"
+        },
+        {
+          "letra": "C",
+          "texto": "6, 12, 8"
+        },
+        {
+          "letra": "D",
+          "texto": "6, 10, 12"
+        },
+        {
+          "letra": "E",
+          "texto": "6, 8, 12"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 22",
+      "enunciado": "Dentro de um quadrado que tem 2 metros de lado serão colocados quadrados que têm 0,1 cm de lado, até que toda a área do quadrado maior seja preenchida. Quantos quadrados menores serão utilizados?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "4 mil"
+        },
+        {
+          "letra": "B",
+          "texto": "40 mil"
+        },
+        {
+          "letra": "C",
+          "texto": "400 mil"
+        },
+        {
+          "letra": "D",
+          "texto": "4 milhões"
+        },
+        {
+          "letra": "E",
+          "texto": "40 milhões"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 14",
+      "enunciado": "Uma empresa vende galões de azeitonas em um formato de um cilindro de 20cm de raio da base e uma altura de 1m. Esses galões são transportados em uma carroceria que possui 2 m de largura por 6 m de comprimento e o transporte é feito sem empilhar uma galão sobre o outro, mas dispondo-os lado a lado, cada qual na posição vertical. Qual o volume máximo total de azeitonas transportadas em uma viagem nessa carroceria? Considere 𝜋 ≈ 3",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "9 m³"
+        },
+        {
+          "letra": "B",
+          "texto": "10 m³"
+        },
+        {
+          "letra": "C",
+          "texto": "12 m³"
+        },
+        {
+          "letra": "D",
+          "texto": "15 m³"
+        },
+        {
+          "letra": "E",
+          "texto": "11 m³"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 17",
+      "enunciado": "Considere que o cubo abaixo possui arestas de que medem 1 unidade de comprimento. H G E F D A C B Usando o teorema de Pitágoras é possível determinar o comprimento da diagonal desse cubo (segmento AG, por exemplo). Podemos afirmar que a diagonal desse cubo mede:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "√5"
+        },
+        {
+          "letra": "B",
+          "texto": "√2"
+        },
+        {
+          "letra": "C",
+          "texto": "√3"
+        },
+        {
+          "letra": "D",
+          "texto": "√6"
+        },
+        {
+          "letra": "E",
+          "texto": "√7"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 17",
+      "enunciado": "Um triângulo equilátero tem seus 3 lados congruentes. Acerca dos triângulos equiláteros, pode-se afirmar também que:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Possuem os três ângulos internos congruentes entre si"
+        },
+        {
+          "letra": "B",
+          "texto": "Os três ângulos externos não são necessariamente congruentes entre si"
+        },
+        {
+          "letra": "C",
+          "texto": "A altura do triângulo é igual ao seu lado"
+        },
+        {
+          "letra": "D",
+          "texto": "Um dos ângulos internos deste triângulo mede 90°"
+        },
+        {
+          "letra": "E",
+          "texto": "Todos os ângulos externos são maiores que 180°"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 21",
+      "enunciado": "A figura abaixo mostra um quadrado ABCD e um setor circular que passa pelos pontos BC, com centro no ponto D:\n\nIndique a área da região sombreada sabendo que o lado do quadrado é 8 cm. Considere 𝜋 ≈ 3 :",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "64 cm²"
+        },
+        {
+          "letra": "B",
+          "texto": "32 cm²"
+        },
+        {
+          "letra": "C",
+          "texto": "24 cm²"
+        },
+        {
+          "letra": "D",
+          "texto": "48 cm²"
+        },
+        {
+          "letra": "E",
+          "texto": "16 cm²"
+        }
+      ],
+      "imagem": "avanca-sp/rio-grande-da-serra-2024-quadrado-setor.png",
+      "imagem_alt": "Quadrado com os vértices rotulados A no canto superior esquerdo, C no superior direito, B no inferior esquerdo e D no inferior direito. Um arco de círculo com centro em D vai de C até B, e a região entre o arco e o canto A está sombreada."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 13",
+      "enunciado": "Num relógio de ponteiro, qual o menor ângulo compreendido entre os ponteiros das horas e dos minutos quando o relógio marcar 5h, conforme a figura abaixo?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "60°"
+        },
+        {
+          "letra": "B",
+          "texto": "90°"
+        },
+        {
+          "letra": "C",
+          "texto": "120°"
+        },
+        {
+          "letra": "D",
+          "texto": "150°"
+        },
+        {
+          "letra": "E",
+          "texto": "180°"
+        }
+      ],
+      "imagem": "avanca-sp/unitau-2025-relogio-ponteiros.png",
+      "imagem_alt": "Foto de um relógio de parede redondo com os números de 1 a 12. Os ponteiros marcam cinco horas: um aponta para o 12 e o outro para o 5."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 15",
+      "enunciado": "Um aquário tem formato de um prisma retangular reto, cujo retângulo da base tem lados 0,5 m e 0,8 m, e sua altura total mede 0,6 m. Qual será o volume de água utilizada, em litros, para preencher o aquário até que o nível da água fique 5 cm abaixo da altura total do aquário?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "240 litros"
+        },
+        {
+          "letra": "B",
+          "texto": "200 litros"
+        },
+        {
+          "letra": "C",
+          "texto": "280 litros"
+        },
+        {
+          "letra": "D",
+          "texto": "140 litros"
+        },
+        {
+          "letra": "E",
+          "texto": "220 litros"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 24",
+      "enunciado": "A ilustração abaixo mostra uma folha de papel retangular que foi dobrada e depois recortada, conforme a figura:\n\nApós abrir a folha de papel recortada, o formato resultante será: :",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I"
+        },
+        {
+          "letra": "B",
+          "texto": "II"
+        },
+        {
+          "letra": "C",
+          "texto": "III"
+        },
+        {
+          "letra": "D",
+          "texto": "IV"
+        },
+        {
+          "letra": "E",
+          "texto": "V"
+        }
+      ],
+      "imagem": "avanca-sp/unitau-2025-folha-dobrada.png",
+      "imagem_alt": "Em cima, três quadros em sequência: uma folha retangular com uma linha tracejada vertical no meio, a mesma folha sendo dobrada ao meio, e a folha dobrada com dois semicírculos recortados na borda. Embaixo, cinco opções de resultado desenhadas e rotuladas de I a V, cada uma um retângulo com recortes em posições diferentes."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 11 · transcrita por OCR do PDF escaneado",
+      "enunciado": "Zacarias trabalha como carpinteiro e está reformando o telhado de uma oficina. Para instalar uma nova viga inclinada, ele precisa calcular o comprimento dessa viga, que formará a diagonal de um triângulo retângulo. Ele mediu a altura entre a base da parede e o ponto onde a viga será fixada, obtendo 3,2 metros, e verificou que a distância horizontal entre a parede e o ponto de apoio da viga na laje é de 4,2 metros. Com base nessas medidas, qual será o comprimento da viga inclinada que Zacarias deve instalar? Assinale a alternativa correta.",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "5,28 m"
+        },
+        {
+          "letra": "B",
+          "texto": "5,19 m"
+        },
+        {
+          "letra": "C",
+          "texto": "5,0 m"
+        },
+        {
+          "letra": "D",
+          "texto": "4,9 m"
+        },
+        {
+          "letra": "E",
+          "texto": "4,8 m"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 12 · transcrita por OCR do PDF escaneado",
+      "enunciado": "Lucas é monitor na faculdade e dá aulas de reforço em matemática, no programa institucional. Ele aplicou um teste de noções de geometria para seus alunos, que perguntava qual é a área de um círculo com raio igual a 5 m, considerando que π = 3. Assinale a alternativa que apresenta o valor correto da área em m², que os alunos de monitoria devem obter.",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "50 m²"
+        },
+        {
+          "letra": "B",
+          "texto": "70 m²"
+        },
+        {
+          "letra": "C",
+          "texto": "75 m²"
+        },
+        {
+          "letra": "D",
+          "texto": "85 m²"
+        },
+        {
+          "letra": "E",
+          "texto": "90 m²"
+        }
+      ]
+    }
+  ]
+}

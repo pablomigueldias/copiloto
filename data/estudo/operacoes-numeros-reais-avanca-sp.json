@@ -1,0 +1,218 @@
+{
+  "_leia_me": "As 7 questões de operações com números reais que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Operações com números reais",
+    "ordem": 7
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 16",
+      "enunciado": "Numa segunda-feira, o professor de Lara passou uma série de questões para que os alunos fizessem em casa, e devolvessem na sexta-feira seguinte. Lara pretende começar as questões na própria segunda-feira, e terminá-las na quinta- feira. Se Lara fizer metade das questões na segunda-feira, 1/4 das questões na terça-feira, e 1/6 das questões na quarta-feira, qual a fração de questões que ainda restarão serem feitas na quinta-feira?",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1/12"
+        },
+        {
+          "letra": "B",
+          "texto": "1/9"
+        },
+        {
+          "letra": "C",
+          "texto": "1/6"
+        },
+        {
+          "letra": "D",
+          "texto": "1/11"
+        },
+        {
+          "letra": "E",
+          "texto": "1/4"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 11",
+      "enunciado": "Uma história bastante conhecida é que Isaac Newton teria criado a Lei da Gravitação depois de observar a queda de uma maçã de uma macieira. Se um objeto leva um tempo 𝑡 para cair de uma altura ℎ, segundo a equação 𝑔 ℎ− 𝑡² = 0, 2 quantos segundos uma maçã leva para cair de uma altura de 3 metros? Considere 𝑔 = 10𝑚/𝑠²",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "√2/5"
+        },
+        {
+          "letra": "B",
+          "texto": "√3/4"
+        },
+        {
+          "letra": "C",
+          "texto": "√3/5"
+        },
+        {
+          "letra": "D",
+          "texto": "√1/4"
+        },
+        {
+          "letra": "E",
+          "texto": "√2/3"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 20",
+      "enunciado": "Sabe-se que há um determinado número de pessoas numa casa. 1/3 das pessoas estão na sala, 1/4 estão na cozinha e o restante está na varanda. Qual a fração de pessoas na varanda?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2/7"
+        },
+        {
+          "letra": "B",
+          "texto": "3/4"
+        },
+        {
+          "letra": "C",
+          "texto": "7/12"
+        },
+        {
+          "letra": "D",
+          "texto": "5/12"
+        },
+        {
+          "letra": "E",
+          "texto": "1/5"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 22",
+      "enunciado": "Qual o algarismo das unidades do resultado da multiplicação de todos os números ímpares do 1 ao 99 (1 ∗ 3 ∗ 5 ∗ 7 ∗ … ∗ 99)?",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1"
+        },
+        {
+          "letra": "B",
+          "texto": "0"
+        },
+        {
+          "letra": "C",
+          "texto": "5"
+        },
+        {
+          "letra": "D",
+          "texto": "3"
+        },
+        {
+          "letra": "E",
+          "texto": "4"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 23",
+      "enunciado": "Num pacote de palitos de fósforo há 8 caixas. Cada caixa contém 26 palitos. Quantos pacotes inteiros poderiam ser formados com 1000 palitos?",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "6"
+        },
+        {
+          "letra": "B",
+          "texto": "5"
+        },
+        {
+          "letra": "C",
+          "texto": "4"
+        },
+        {
+          "letra": "D",
+          "texto": "3"
+        },
+        {
+          "letra": "E",
+          "texto": "2"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 16",
+      "enunciado": "Altino carteiro e tinha várias é correspondências para entregar, e, até às 11h ele já havia entregue 1/5 das correspondências. Das 11h até às 13h ele entregou mais 1/4 das correspondências. Após pausa para o almoço, até o fim do expediente, ele conseguiu entregar 1/2 do que faltava. A fração correspondente a entrega já realizada é:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "15/41"
+        },
+        {
+          "letra": "B",
+          "texto": "17/30"
+        },
+        {
+          "letra": "C",
+          "texto": "33/60"
+        },
+        {
+          "letra": "D",
+          "texto": "29/40"
+        },
+        {
+          "letra": "E",
+          "texto": "19/27"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 19",
+      "enunciado": "Em uma estação de trem, as plataformas são numeradas por números mistos. Uma das 3 plataformas é a 9 4 , que representa a soma do 3 número inteiro 9 com o número racional 4 . Suponha que o número da próxima plataforma 3 nesta estação é igual ao número 9 4 mais o 1 número 1 2 , então o número dessa plataforma será: 3",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "10 4 . 5"
+        },
+        {
+          "letra": "B",
+          "texto": "9 4 . 1"
+        },
+        {
+          "letra": "C",
+          "texto": "11 4 . 1"
+        },
+        {
+          "letra": "D",
+          "texto": "12 4 . 4"
+        },
+        {
+          "letra": "E",
+          "texto": "10 4"
+        }
+      ]
+    }
+  ]
+}

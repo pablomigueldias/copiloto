@@ -1,0 +1,311 @@
+{
+  "_leia_me": "As 10 questões de razão e proporção que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Razão e proporção",
+    "ordem": 8
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 14",
+      "enunciado": "No closet de Bruna há 20 calças, 12 blusas, 9 vestidos e 7 saias. A razão entre o número de blusas pelo número total de peças, é:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "5"
+        },
+        {
+          "letra": "B",
+          "texto": "1"
+        },
+        {
+          "letra": "C",
+          "texto": "0,05"
+        },
+        {
+          "letra": "D",
+          "texto": "0,25"
+        },
+        {
+          "letra": "E",
+          "texto": "1,25"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 23",
+      "enunciado": "Dois amigos brincam numa gangorra (que têm braços de mesmo comprimento), conforme a figura:\n\nEm um dado instante, a altura de um dos amigos é 0,75 metros, e do outro é 1,48 metros. Quando um amigo estiver numa altura de 1,15 metros do solo, qual será a altura do outro amigo?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1,58 m"
+        },
+        {
+          "letra": "B",
+          "texto": "0,88 m"
+        },
+        {
+          "letra": "C",
+          "texto": "1,33 m"
+        },
+        {
+          "letra": "D",
+          "texto": "0,33 m"
+        },
+        {
+          "letra": "E",
+          "texto": "1,08 m"
+        }
+      ],
+      "imagem": "avanca-sp/cacapava-2024-gangorra.png",
+      "imagem_alt": "Desenho de uma gangorra inclinada apoiada num suporte triangular central. Na ponta baixa, à esquerda, uma criança a 0,75 m do solo; na ponta alta, à direita, outra criança a 1,48 m. Setas verticais tracejadas marcam as duas alturas."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 18",
+      "enunciado": "Em, um certo horário do dia, uma pessoa observa que um poste de 2 m de altura possui uma sombra projetada no solo que possui 50 cm. Considerando que a proporção da altura e da sombra projetada seja a mesma para um prédio de 28 m de altura, podemos afirmar que a sombra projetada no solo desse prédio deve ser de:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "10 m"
+        },
+        {
+          "letra": "B",
+          "texto": "12 m"
+        },
+        {
+          "letra": "C",
+          "texto": "8 m"
+        },
+        {
+          "letra": "D",
+          "texto": "7 m"
+        },
+        {
+          "letra": "E",
+          "texto": "9 m"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 13",
+      "enunciado": "A figura abaixo mostra como são dispostas as quadras, ruas e avenidas de uma determinada cidade:\n\nEntre duas avenidas há três tipos de quadras, chamadas de Q1, Q2 e Q3. Todas elas têm a mesma largura, mas os comprimentos são diferentes, conforme a figura. A largura de cada quadra é 20 metros, e os comprimentos das quadras Q1, Q2 e Q3 são 20 m, 30 m e 40 m, respectivamente. Além disso, entre cada quadra há ruas locais, que têm 5 m de comprimento, todas elas. Repare que esse espaçamento também existe entre a última quadra e a avenida à direita da figura. Sabe-se que a distância X entre as duas avenidas dá-se no primeiro encontro em que as quadras mais à direta fiquem justapostas verticalmente, conforme a figura. Neste caso, indique quantas quadras do tipo Q1 existem entre essas avenidas",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "63"
+        },
+        {
+          "letra": "B",
+          "texto": "72"
+        },
+        {
+          "letra": "C",
+          "texto": "120"
+        },
+        {
+          "letra": "D",
+          "texto": "25"
+        },
+        {
+          "letra": "E",
+          "texto": "315"
+        }
+      ],
+      "imagem": "avanca-sp/itatiba-2024-quadras-ruas.png",
+      "imagem_alt": "Planta esquemática de um trecho de cidade entre duas avenidas verticais, uma em cada borda, ambas rotuladas AVENIDA. Entre elas, três fileiras de quadras retangulares rotuladas Q1, Q2 e Q3, de comprimentos diferentes, separadas por ruas marcadas como 5 m. Reticências indicam que as fileiras continuam. A distância entre as avenidas aparece embaixo como X m."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 17",
+      "enunciado": "Numa caixa há bolas pretas, brancas e vermelhas. Sabe-se que a razão entre o número de bolas pretas e brancas é 4/5 e a razão entre o número de bolas brancas e vermelhas é 7/12. Qual a razão entre o número de bolas vermelhas e pretas?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "7/15"
+        },
+        {
+          "letra": "B",
+          "texto": "3/35"
+        },
+        {
+          "letra": "C",
+          "texto": "35/3"
+        },
+        {
+          "letra": "D",
+          "texto": "7/20"
+        },
+        {
+          "letra": "E",
+          "texto": "15/7"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 16",
+      "enunciado": "Um casal, Alan e Bruna, divide as contas da casa proporcionalmente aos seus respectivos ganhos salariais mensais. Supondo que Bruna ganha R$ 1.000,00 a mais que Alan mensalmente, e que juntos ganham R$ 8.000,00 mensais. Numa conta de R$ 200,00, quanto Bruna irá pagar desta conta?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 87,50"
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 75,00"
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 100,00"
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 125,00"
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 112,50"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 23",
+      "enunciado": "Em uma empresa fabrica-se peças para computadores. Eventualmente, uma peça pode sair da fábrica já com defeito. Os gerentes definiram uma quantidade chamada de taxa de defeito como sendo a razão entre o número de peças com defeitos e o número de peças totais fabricadas. Em um dado mês, a taxa de defeito neste caso foi de 1/10. Supondo que os gerentes mudem a definição do cálculo da taxa de defeito para: a razão entre o número de peças com defeitos e o número de peças sem defeitos. Qual será a nova taxa de defeitos após a nova definição?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2/10"
+        },
+        {
+          "letra": "B",
+          "texto": "1/10"
+        },
+        {
+          "letra": "C",
+          "texto": "1/11"
+        },
+        {
+          "letra": "D",
+          "texto": "1/9"
+        },
+        {
+          "letra": "E",
+          "texto": "2/9"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 22",
+      "enunciado": "Leila tem duas sobrinhas cuja diferença de idade entre elas é de 3 anos. Sabendo-se que a razão entre suas idades é 6/5, qual a idade da sobrinha mais velha de Leila?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "9"
+        },
+        {
+          "letra": "B",
+          "texto": "12"
+        },
+        {
+          "letra": "C",
+          "texto": "13"
+        },
+        {
+          "letra": "D",
+          "texto": "15"
+        },
+        {
+          "letra": "E",
+          "texto": "18"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 25",
+      "enunciado": "Um chefe de cozinha decide abrir um restaurante que vende hambúrgueres. Em cada hambúrguer ele utiliza 180 g de carne. Para fazer a carne, o chefe mistura uma carne gordurosa com uma carne magra, na proporção de 1:5, nesta ordem. Sabe-se que o preço da carne gordurosa é R$ 15,00 por quilo, já o preço da carne magra é R$ 55,00 por quilo. Nessa situação, quanto custa a porção de carne que ele utiliza em cada hambúrguer?",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 3,70"
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 7,00"
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 2,10"
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 1,97"
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 2,52"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 16",
+      "enunciado": "A figura abaixo mostra uma sequência de triângulos equiláteros:\n\nSabe-se que a medida da base do 3° triângulo da sequência é o dobro da medida da base do 2° triângulo da sequência. Com isso, a razão entre as alturas do 3° e do 2° triângulo da sequência é:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "3/2"
+        },
+        {
+          "letra": "B",
+          "texto": "√3/4"
+        },
+        {
+          "letra": "C",
+          "texto": "√3/2"
+        },
+        {
+          "letra": "D",
+          "texto": "2"
+        },
+        {
+          "letra": "E",
+          "texto": "1/2"
+        }
+      ],
+      "imagem": "avanca-sp/unitau-2025-triangulos-sequencia.png",
+      "imagem_alt": "Três triângulos equiláteros lado a lado, crescendo da esquerda para a direita, rotulados 1º, 2º e 3º, seguidos de reticências indicando que a sequência continua."
+    }
+  ]
+}

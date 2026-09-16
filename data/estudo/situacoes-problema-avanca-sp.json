@@ -1,0 +1,102 @@
+{
+  "_leia_me": "As 3 questões de situações-problema que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Situações-problema",
+    "ordem": 16
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 11",
+      "enunciado": "Em um aeroporto, entre 8h da manhã e 10h da noite, decola-se um avião a cada 6 minutos. Nos demais horários do dia, decola-se um avião a cada 10 minutos. Quantos aviões decolam em 24 horas nesse aeroporto?",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "200"
+        },
+        {
+          "letra": "B",
+          "texto": "140"
+        },
+        {
+          "letra": "C",
+          "texto": "160"
+        },
+        {
+          "letra": "D",
+          "texto": "60"
+        },
+        {
+          "letra": "E",
+          "texto": "180"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 14",
+      "enunciado": "Uma pessoa consumiu 140 kWh de energia durante um determinado mês em sua casa. Sabe- se que a companhia de energia cobra o valor de R$ 0,80 por kWh consumido, mais uma taxa de R$ 2,50 a cada 7 kWh consumido, referente a iluminação pública. Quanto o cliente pagou neste mês?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 156,50"
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 142,50"
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 114,50"
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 112,00"
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 162,00"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 23",
+      "enunciado": "Em uma caixa há quatro cartões numerados: 1, 2, 3 e 4. João retira dois cartões dessa caixa e soma os números obtidos. Qual é a soma que João não pode obter?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "7"
+        },
+        {
+          "letra": "B",
+          "texto": "3"
+        },
+        {
+          "letra": "C",
+          "texto": "5"
+        },
+        {
+          "letra": "D",
+          "texto": "8"
+        },
+        {
+          "letra": "E",
+          "texto": "6"
+        }
+      ]
+    }
+  ]
+}

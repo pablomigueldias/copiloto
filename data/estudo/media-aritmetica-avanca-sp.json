@@ -1,0 +1,276 @@
+{
+  "_leia_me": "As 9 questões de média aritmética que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Média aritmética",
+    "ordem": 10
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 15",
+      "enunciado": "Um professor de inglês calculou e anotou na tabela abaixo, a média aritmética das notas de suas quatro turmas. Nº de alunos Média Turma 10 6,0 A 20 6,5 B 30 C x 40 7,5 D Sabendo que a média aritmética das notas de Inglês dos 100 alunos das turmas A, B, C e D é 7,3, qual é a média aritmética das notas da turma C?",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "7,0"
+        },
+        {
+          "letra": "B",
+          "texto": "7,5"
+        },
+        {
+          "letra": "C",
+          "texto": "8,0"
+        },
+        {
+          "letra": "D",
+          "texto": "8,5"
+        },
+        {
+          "letra": "E",
+          "texto": "9,0. ATUALIDADES"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 12",
+      "enunciado": "Antônio tem cinco netos, as respectivas idades dos mesmos estão apresentadas, abaixo. Então, a média, dessas idades, é: 8 / 4 / 12 / 7 / 14",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "12"
+        },
+        {
+          "letra": "B",
+          "texto": "11"
+        },
+        {
+          "letra": "C",
+          "texto": "10"
+        },
+        {
+          "letra": "D",
+          "texto": "9"
+        },
+        {
+          "letra": "E",
+          "texto": "8"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 17",
+      "enunciado": "Rafael produz doces para festas. Ele mede sua produtividade em quantos doces ele consegue produzir por dia. Em média, ele consegue produzir 240 doces por dia. No começo de certo dia, Rafael trabalhou por duas horas e somente produziu 20 doces. Logo após isso, ele precisou se ausentar por mais 2 horas, e consequentemente não houve produção durante esse tempo. Qual a média de doces por hora que Rafael precisa produzir nas próximas 4 horas de trabalho para que a sua média diária permaneça constante?",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "70"
+        },
+        {
+          "letra": "B",
+          "texto": "55"
+        },
+        {
+          "letra": "C",
+          "texto": "90"
+        },
+        {
+          "letra": "D",
+          "texto": "65"
+        },
+        {
+          "letra": "E",
+          "texto": "220"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 11",
+      "enunciado": "A Amazônia Legal brasileira, que pertence à bacia Amazônica, tem uma área de aproximadamente 5 milhões de quilômetros quadrados. Também estima-se que esta área tenha 400 bilhões de árvores. Considerando estes valores, qual a quantidade média de árvores por quilômetro quadrado na Amazônia Legal?",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "80"
+        },
+        {
+          "letra": "B",
+          "texto": "800"
+        },
+        {
+          "letra": "C",
+          "texto": "8000"
+        },
+        {
+          "letra": "D",
+          "texto": "80.000"
+        },
+        {
+          "letra": "E",
+          "texto": "800.000"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 20",
+      "enunciado": "Numa sala de aula, 10 alunos fizeram uma prova cuja média da turma foi 7,0. João não sabe a nota dele, mas sabe que a média dos outros 9 alunos foi 7,5. Qual foi a nota de João nesta prova?",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2,5"
+        },
+        {
+          "letra": "B",
+          "texto": "3,5"
+        },
+        {
+          "letra": "C",
+          "texto": "4,5"
+        },
+        {
+          "letra": "D",
+          "texto": "5,5"
+        },
+        {
+          "letra": "E",
+          "texto": "6,6"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 17",
+      "enunciado": "Em uma turma universitária com 25 pessoas, a média das idades das pessoas dessa turma é de 30 anos. Sabe-se que 5 novas pessoas ingressarão na turma. Qual deve ser a média das idades dessas novas pessoas para que, após o ingresso, a média das idades das 30 pessoas que comporão a turma seja de 40 anos?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "50 anos"
+        },
+        {
+          "letra": "B",
+          "texto": "60 anos"
+        },
+        {
+          "letra": "C",
+          "texto": "70 anos"
+        },
+        {
+          "letra": "D",
+          "texto": "80 anos"
+        },
+        {
+          "letra": "E",
+          "texto": "90 anos"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 22",
+      "enunciado": "Um vestibular consiste em três provas: uma de Língua Portuguesa, uma de",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "6,5"
+        },
+        {
+          "letra": "B",
+          "texto": "4,0"
+        },
+        {
+          "letra": "C",
+          "texto": "7,0"
+        },
+        {
+          "letra": "D",
+          "texto": "5,5"
+        },
+        {
+          "letra": "E",
+          "texto": "7,5"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 17 · transcrita por OCR do PDF escaneado",
+      "enunciado": "Luana estava ministrando a sua aula de Matemática sobre o assunto de operações com frações, e questionou os alunos sobre qual seria a média aritmética simples dos números racionais: 6/27 ; 16/3 ; 8/18. Assinale a alternativa que indica a média dos números acima.",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2"
+        },
+        {
+          "letra": "B",
+          "texto": "3"
+        },
+        {
+          "letra": "C",
+          "texto": "9"
+        },
+        {
+          "letra": "D",
+          "texto": "328/54"
+        },
+        {
+          "letra": "E",
+          "texto": "4/21"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 18 · transcrita por OCR do PDF escaneado",
+      "enunciado": "Wanderleia e Bernardo trabalham em um escritório como analistas de dados. Durante uma revisão, Wanderleia informou a Bernardo que a média aritmética de um conjunto com 82 números era igual a 19. Bernardo, então, percebeu que havia incluído um número indevidamente na lista. Após remover esse valor, ele recalculou a média simples. Se o valor da nova média, atualizada sem esse último dado, é 18, qual foi o número que Bernardo retirou? Assinale a alternativa correta:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O"
+        },
+        {
+          "letra": "B",
+          "texto": "59,5"
+        },
+        {
+          "letra": "C",
+          "texto": "140,5"
+        },
+        {
+          "letra": "D",
+          "texto": "100"
+        },
+        {
+          "letra": "E",
+          "texto": "181"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "_leia_me": "As 7 questões de sequências lógicas que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Sequências lógicas",
+    "ordem": 5
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 16",
+      "enunciado": "Considere a sequência abaixo: 1, 1, 2, 3, 5, 8 … Ela é chamada de sequência de Fibonacci. Observando o padrão da sequência, pode-se afirmar que sétimo termo dessa sequência é:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "14"
+        },
+        {
+          "letra": "B",
+          "texto": "13"
+        },
+        {
+          "letra": "C",
+          "texto": "55"
+        },
+        {
+          "letra": "D",
+          "texto": "21"
+        },
+        {
+          "letra": "E",
+          "texto": "34"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 11",
+      "enunciado": "Observe a seguinte sequência lógica figural:\n\nQuantos círculos sombreados haverá no 2024° elemento dessa sequência?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2"
+        },
+        {
+          "letra": "B",
+          "texto": "3"
+        },
+        {
+          "letra": "C",
+          "texto": "4"
+        },
+        {
+          "letra": "D",
+          "texto": "5"
+        },
+        {
+          "letra": "E",
+          "texto": "6"
+        }
+      ],
+      "imagem": "avanca-sp/itatiba-2024-circulos-sequencia.png",
+      "imagem_alt": "Sequência figural em duas linhas. Na primeira, os elementos 1º, 2º e 3º, cada um um anel de dez círculos pequenos, com um número crescente deles sombreado; a linha termina em reticências. Na segunda, os elementos 7º, 8º e 9º, no mesmo formato e com mais círculos sombreados; também termina em reticências."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 12",
+      "enunciado": "Uma sequência de quadrados é feita de tal forma que o primeiro elemento tem lado 1 cm e os demais elementos aumentam 5/7 cm em relação ao anterior. Indique a razão entre as áreas do 21° e 11° elemento dessa sequência: 107 2",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "57 2 . 107 2"
+        },
+        {
+          "letra": "B",
+          "texto": "50 2 . 49 2"
+        },
+        {
+          "letra": "C",
+          "texto": "25 2 (5⋅21) 2"
+        },
+        {
+          "letra": "D",
+          "texto": "(7⋅11) 2 . 25 2"
+        },
+        {
+          "letra": "E",
+          "texto": "49 2"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 19",
+      "enunciado": "Uma sequência é formada com pequenos círculos e quadrados, conforme a figura:\n\nA distância entre dois círculos subjacentes é sempre 1 cm, e a distância entre um círculo e um quadrado subjacente é sempre 3 cm. Se seguirmos essa sequência por 350 cm, quantos quadrados serão utilizados?",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "88"
+        },
+        {
+          "letra": "B",
+          "texto": "87"
+        },
+        {
+          "letra": "C",
+          "texto": "50"
+        },
+        {
+          "letra": "D",
+          "texto": "51"
+        },
+        {
+          "letra": "E",
+          "texto": "35"
+        }
+      ],
+      "imagem": "avanca-sp/juquitiba-2024-circulos-quadrados.png",
+      "imagem_alt": "Fileira horizontal alternando dois círculos pequenos e um quadrado, repetidamente, terminando em reticências. Acima, uma régua marca 1 entre os dois primeiros círculos e 3 entre o segundo círculo e o quadrado. Embaixo, uma régua marca o comprimento total da fileira como 350."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 20",
+      "enunciado": "Observe a seguinte sequência lógica numérica: 27, 24, 21, 18, 15, ... Que continua infinitamente também para valores negativos. Todos os números aparecerão na sequência EXCETO:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "− 222"
+        },
+        {
+          "letra": "B",
+          "texto": "− 273"
+        },
+        {
+          "letra": "C",
+          "texto": "− 522"
+        },
+        {
+          "letra": "D",
+          "texto": "− 421"
+        },
+        {
+          "letra": "E",
+          "texto": "− 921"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 17",
+      "enunciado": "Observe a sequência abaixo feita com quadrados enumerados: A primeira coluna apresenta o quadrado n° 1, a segunda coluna apresenta os quadrados n° 2 e 3. A terceira coluna apresenta o quadrado n° 4, e assim sucessivamente conforme sequência. A 27° coluna terá também dois quadrados. Indique a soma dos seus números:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "65"
+        },
+        {
+          "letra": "B",
+          "texto": "67"
+        },
+        {
+          "letra": "C",
+          "texto": "69"
+        },
+        {
+          "letra": "D",
+          "texto": "71"
+        },
+        {
+          "letra": "E",
+          "texto": "73"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 19 · transcrita por OCR do PDF escaneado",
+      "enunciado": "As sequências numéricas são frequentemente utilizadas para analisar padrões de produtividade em empresas. O matemático Thiago foi contratado para estimar a produção de um produto concorrente para daqui a três meses. Para isso, ele analisou os dados dos últimos três meses:\n• 105 produtos no último mês;\n• 80 produtos no penúltimo mês; e\n• 55 produtos no antepenúltimo mês.\nThiago suspeita que essa sequência possa ser uma Progressão Aritmética ou uma Progressão Geométrica e adotou como hipótese que o último mês é o terceiro da série. Após identificar o tipo de sequência, ele calcula o 6º termo como um valor teórico de previsão, e não como quantidade física de produtos. Por isso, mantém o resultado em forma decimal, caso apresente casas decimais, para utilização em análises, tabelas e gráficos. Com base nessas informações, assinale a alternativa que representa o 6º termo da sequência numérica obtido por Thiago.",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "180"
+        },
+        {
+          "letra": "B",
+          "texto": "205"
+        },
+        {
+          "letra": "C",
+          "texto": "230"
+        },
+        {
+          "letra": "D",
+          "texto": "358,09"
+        },
+        {
+          "letra": "E",
+          "texto": "683,64"
+        }
+      ]
+    }
+  ]
+}

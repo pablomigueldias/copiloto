@@ -1,0 +1,160 @@
+{
+  "_leia_me": "As 5 questões de lógica de argumentação que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Lógica de argumentação",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 17",
+      "enunciado": "Observe a seguinte proposição lógica: “Eduardo e Mônica estudam medicina” Indique a alternativa que apresenta a negação lógica dessa proposição:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Eduardo e Mônica estudam filosofia"
+        },
+        {
+          "letra": "B",
+          "texto": "Eduardo ou Mônica não estuda medicina"
+        },
+        {
+          "letra": "C",
+          "texto": "Eduardo e Mônica não estudam medicina"
+        },
+        {
+          "letra": "D",
+          "texto": "Eduardo não estuda medicina"
+        },
+        {
+          "letra": "E",
+          "texto": "Mônica não estuda medicina"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 20",
+      "enunciado": "Os países escandinavos Noruega, Dinamarca e Suécia participaram de um jogo e sobre seu desempenho podemos afirmar: I – Se Suécia obteve medalha de ouro, então Dinamarca não obteve medalha de prata. II – Se Dinamarca obteve medalha de ouro, então Suécia não obteve medalha de bronze; III – Dinamarca teve melhor desempenho que que Noruega. Considerando verdadeiras as afirmações acima, podemos dizer que obtiveram medalha de ouro, prata e bronze, respectivamente:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Noruega, Suécia e Dinamarca"
+        },
+        {
+          "letra": "B",
+          "texto": "Dinamarca, Noruega e Suécia"
+        },
+        {
+          "letra": "C",
+          "texto": "Suécia, Dinamarca e Noruega"
+        },
+        {
+          "letra": "D",
+          "texto": "Suécia, Noruega e Dinamarca"
+        },
+        {
+          "letra": "E",
+          "texto": "Dinamarca, Suécia e Noruega"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 15",
+      "enunciado": "Considere como verdadeira a proposição lógica: “Todos os mamíferos têm pelos” São negações dessa proposição, EXCETO:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Algum mamífero não tem pelo"
+        },
+        {
+          "letra": "B",
+          "texto": "Pelo menos um mamífero não tem pelo"
+        },
+        {
+          "letra": "C",
+          "texto": "Existe um mamífero que não tem pelo"
+        },
+        {
+          "letra": "D",
+          "texto": "Todos os mamíferos não têm pelo"
+        },
+        {
+          "letra": "E",
+          "texto": "Nenhum mamífero não tem pelo"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 24",
+      "enunciado": "Considere a seguinte proposição lógica: “Hoje choveu e eu não fui à praia” A negação lógica dessa proposição é: “Hoje não choveu ou eu fui à praia” Uma proposição equivalente a esta última é:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Hoje não choveu e eu não fui à praia"
+        },
+        {
+          "letra": "B",
+          "texto": "Hoje choveu e eu fui à praia"
+        },
+        {
+          "letra": "C",
+          "texto": "Se hoje não choveu, eu não fui à praia"
+        },
+        {
+          "letra": "D",
+          "texto": "Se hoje choveu, eu fui à praia"
+        },
+        {
+          "letra": "E",
+          "texto": "Hoje não choveu e eu fui à praia"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 24",
+      "enunciado": "Uma empresa de prestação de serviços em informática faz uma pesquisa de satisfação com todos os seus clientes após o serviço. A empresa faz três perguntas: I – Se o problema do cliente foi resolvido (sim ou não); II – Se o cliente está satisfeito com o atendimento (sim ou não); III – Qual nota o cliente dá para o atendimento (de 0 a 10). O diagrama abaixo foi montado com base na resposta de vários clientes: Conforme a legenda, o círculo representa os clientes que tiveram seu problema resolvido, o quadrado representa os clientes que estão satisfeitos com o atendimento, e o triângulo representa os clientes que deram nota 10. Com base nessas informações, é possível afirmar que:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Todas as pessoas que deram nota 10 para o atendimento tiveram seu problema resolvido"
+        },
+        {
+          "letra": "B",
+          "texto": "Todas as pessoas que estão satisfeitas com o atendimento tiveram seu problema resolvido"
+        },
+        {
+          "letra": "C",
+          "texto": "Todas as pessoas que estão satisfeitas com o atendimento deram nota 10"
+        },
+        {
+          "letra": "D",
+          "texto": "Toda as pessoas que tiveram seu problema resolvido estão satisfeitas com o atendimento"
+        },
+        {
+          "letra": "E",
+          "texto": "Todas as pessoas que tiveram seu problema resolvido deram nota 10 para o atendimento"
+        }
+      ]
+    }
+  ]
+}

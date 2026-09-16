@@ -1,0 +1,46 @@
+{
+  "_leia_me": "As 1 questões de grandezas, tabelas e gráficos que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Grandezas, tabelas e gráficos",
+    "ordem": 13
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 25",
+      "enunciado": "A figura abaixo mostra as médias mensais de temperatura e precipitação para uma determinada região brasileira:\n\nFonte: Revista Brasileira de Geografia Física v.12, n.02 (2019) 443-456. Com base no gráfico, é correto afirmar que:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O mês de maior temperatura é o mês de dezembro"
+        },
+        {
+          "letra": "B",
+          "texto": "Ao longo de todo o ano, a temperatura se mantém praticamente estável, com diferenças menores que 2 °C"
+        },
+        {
+          "letra": "C",
+          "texto": "Há uma diferença significativa entre as precipitações nos meses de dezembro e janeiro"
+        },
+        {
+          "letra": "D",
+          "texto": "Os dois meses de menor precipitação também são os meses de menores temperaturas"
+        },
+        {
+          "letra": "E",
+          "texto": "Há uma diferença significativa na precipitação entre os meses de junho e julho"
+        }
+      ],
+      "imagem": "avanca-sp/paraty-2024-temperatura-precipitacao.png",
+      "imagem_alt": "Gráfico combinado dos doze meses do ano. Barras azuis mostram a precipitação em milímetros no eixo da esquerda, que vai de 0 a 350; uma linha vermelha com marcadores mostra a temperatura em graus Celsius no eixo da direita, que vai de 0 a 30. A precipitação é alta de novembro a março e quase nula de junho a agosto; a temperatura varia pouco, com mínimo em junho e julho."
+    }
+  ]
+}

@@ -1,0 +1,189 @@
+{
+  "_leia_me": "As 6 questões de regra de três que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Regra de três",
+    "ordem": 9
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 13",
+      "enunciado": "Duas torneiras de vazão igual a 100 litros por minuto enchem uma caixa d’água, em 6 horas. Quanto tempo levará para encher a mesma caixa, se mais três torneiras de mesma vazão forem abertas?",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2h e 24min"
+        },
+        {
+          "letra": "B",
+          "texto": "3h"
+        },
+        {
+          "letra": "C",
+          "texto": "3h e 10min"
+        },
+        {
+          "letra": "D",
+          "texto": "4h"
+        },
+        {
+          "letra": "E",
+          "texto": "4h e 05min"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 14",
+      "enunciado": "Para construir um prédio, em 360 dias, 180 operários trabalham, 7 horas diárias. No entanto, como se deseja terminar a obra em 350 dias, de 8 horas diárias de trabalho, determine quantos operários a mais devem ser contratados",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "12"
+        },
+        {
+          "letra": "B",
+          "texto": "15"
+        },
+        {
+          "letra": "C",
+          "texto": "17"
+        },
+        {
+          "letra": "D",
+          "texto": "20"
+        },
+        {
+          "letra": "E",
+          "texto": "24"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 18",
+      "enunciado": "Um engenheiro recomenda que a cada 6 metros de viga, se coloque dois pilares de concreto. Se serão feitos 105 metros de viga, quantos pilares de concreto deverão ser feitos para atender à recomendação?",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "35"
+        },
+        {
+          "letra": "B",
+          "texto": "55"
+        },
+        {
+          "letra": "C",
+          "texto": "30"
+        },
+        {
+          "letra": "D",
+          "texto": "60"
+        },
+        {
+          "letra": "E",
+          "texto": "90"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 18",
+      "enunciado": "Uma empresa de telemarketing tem uma equipe com 6 atendentes. A equipe liga para 150 clientes a cada 2 horas. Todos os atendentes compartilham da mesma velocidade de 2 Acrescentando-se atendimento. mais atendentes, na mesma velocidade dos atendentes atuais, quantas horas levarão para a equipe ligar para 200 clientes?",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1,5"
+        },
+        {
+          "letra": "B",
+          "texto": "2,0"
+        },
+        {
+          "letra": "C",
+          "texto": "2,2"
+        },
+        {
+          "letra": "D",
+          "texto": "2,5"
+        },
+        {
+          "letra": "E",
+          "texto": "3,5"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 14",
+      "enunciado": "Se cada caixa de uma agência bancária vender certa quantidade de produtos em 8 horas, é correto afirmar que seis caixas, de mesma eficiência, venderão essa mesma quantidade de produtos em",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1h 20min"
+        },
+        {
+          "letra": "B",
+          "texto": "1h 40min"
+        },
+        {
+          "letra": "C",
+          "texto": "1h 15min"
+        },
+        {
+          "letra": "D",
+          "texto": "1h 35min"
+        },
+        {
+          "letra": "E",
+          "texto": "1h 45min"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 17",
+      "enunciado": "64 voluntários fazem a remoção de entulhos numa extensão de 100 metros de uma praia em 28 dias, trabalhando 7 horas diárias. Em quanto tempo 96 voluntários farão a remoção de entulhos numa extensão de 180 metros trabalhando 8 horas diárias?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "27 dias 1 hora e 05 minutos"
+        },
+        {
+          "letra": "B",
+          "texto": "29 dias 5 horas e 18 minutos"
+        },
+        {
+          "letra": "C",
+          "texto": "30 dias 2 horas e 15 minutos"
+        },
+        {
+          "letra": "D",
+          "texto": "27 dias 4 horas e 34 minutos"
+        },
+        {
+          "letra": "E",
+          "texto": "29 dias 3 horas e 12 minutos"
+        }
+      ]
+    }
+  ]
+}
