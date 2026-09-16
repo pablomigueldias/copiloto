@@ -1,5 +1,6 @@
 {
   "_leia_me": "Silogismo categórico da ESAF — mesmo tópico do arquivo `logica-argumentacao-fcc.json`, banca diferente, por isso arquivo separado. A `origem` não traz número de questão porque a imagem não trazia: identifiquei pelo conteúdo. Ano/órgão/cargo não identificados — identifique a prova antes de crescer este arquivo. Transcrição fiel à imagem, inclusive o ponto-e-vírgula no fim das alternativas e o \"tem clorofila\" sem circunflexo no enunciado e no item c (a própria prova escreve \"têm\" no item d — a inconsistência é da banca, não da transcrição). O gabarito (c) foi informado por mim e NÃO conferido no PDF da banca, mas é verificável na mão. A `explicacao` é MINHA, não da banca.",
+  "banca": "ESAF",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

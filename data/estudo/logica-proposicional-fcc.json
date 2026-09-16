@@ -1,5 +1,6 @@
 {
   "_leia_me": "Duas questões da FCC transcritas de imagem, das quais só a segunda traz identificação completa (Prefeitura de Recife 2019, Assistente de Gestão Pública). A primeira — “FCC · questão 02” — não traz ano/órgão/cargo, e por isso é frágil como chave de import: se aparecer outra “FCC · questão 02” sem identificação, as duas colidem. Identifique a prova antes de crescer este arquivo. As duas são de lógica proposicional, mas cobram coisas diferentes: a primeira é substituição de valores em fórmula, a segunda é cadeia de modus tollens (aí a armação é De Morgan sobre uma conjunção de três). Nenhum gabarito deste arquivo foi conferido no PDF da banca: ambos foram informados por mim e são verificáveis na mão. As `explicacao` são MINHAS, não da banca.",
+  "banca": "FCC",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

@@ -101,6 +101,12 @@ que não existe. E **o gabarito não desce para o cliente**: não viaja com a qu
 nem dentro da string de origem, porque se estivesse no DevTools a diferença entre
 "eu sabia" e "eu vi" sumiria do histórico — e é o histórico que agenda a revisão.
 
+**Trocar de concurso não custa o histórico.** Cada questão sabe de que banca
+veio, e uma banca pode ser *pausada*: sai da fila do dia e dos contadores, e
+fica inteira no acervo, com agenda e tentativas intactas. A alternativa antes
+disso era apagar o módulo, que leva junto meses de repetição espaçada — a única
+coisa aqui que não se refaz.
+
 ### 4. Adapta meu currículo a uma vaga, sem inventar nada
 
 Colo a descrição da vaga; ele extrai os requisitos, cruza com o meu Perfil Mestre,

@@ -1,5 +1,6 @@
 {
   "_leia_me": "Reconhecimento de padrão — sequência alfanumérica e matriz numérica. Nem valor de verdade, nem divisibilidade, nem razão constante de PA/PG; por isso tópico próprio. A PROCEDÊNCIA É DIFERENTE EM CADA QUESTÃO e está escrita na `origem` de cada uma, que aparece na tela: (1) CREA-RO 2026 — enunciado RECONSTRUÍDO a partir de indexação de banco de questões, não transcrito do PDF nem de imagem; a redação pode não ser a da banca, ainda que estrutura e dados sejam fiéis. Nem data de aplicação nem número da questão vieram. (2) SERPRO 2014 — cargo grafado como na questão 27 (“Administração de Serviços de TI”), que é a única das duas lida no PDF oficial; a primeira versão deste arquivo trazia “Administrador”, expansão que eu inventei a partir do “Adm.” abreviado. Questão da mesma prova que já rende a questão 27 em `logica-proposicional.json`; o enunciado veio do Pablo, e o PDF do vault (`Second-Brain/Pessoal/Provas`) não estava acessível na máquina quando esta entrou, então o gabarito NÃO foi lido no PDF oficial como foi o da 27. Em ambas o gabarito foi informado pelo Pablo e bate com resolução independente minha, escrita dentro da `explicacao` — que é MINHA, não da banca. Confira nos PDFs antes de tratar qualquer um como definitivo.",
+  "banca": "Quadrix",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

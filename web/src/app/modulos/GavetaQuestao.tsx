@@ -160,6 +160,7 @@ export function GavetaQuestao({
             <span className="text-accent">{questao.gabarito}</span> ·
             dificuldade {questao.dificuldade} ·{" "}
             {questao.formato.replace("_", " ")}
+            {questao.banca && ` · ${questao.banca}`}
           </div>
 
           {questao.origem && (

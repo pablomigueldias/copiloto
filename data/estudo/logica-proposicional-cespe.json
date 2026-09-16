@@ -1,5 +1,6 @@
 {
   "_leia_me": "Bloco de dois itens do Cespe sobre proposição simples × composta, o assunto que o acervo Quadrix não cobre: lá se julga o valor de verdade, aqui se julga se a sentença é uma proposição e se ela se decompõe. Duas ressalvas que separam este arquivo de `logica-proposicional.json`: (1) o gabarito NÃO foi conferido no PDF oficial da banca — veio da imagem da questão e foi batido contra dois bancos públicos (Gran Questões e Qconcursos), que concordam entre si (item 01 = E, item 02 = C); o órgão e o cargo na `origem` vêm da mesma fonte secundária, então confira antes de tratar como definitivo. (2) a `explicacao` está preenchida e é MINHA, não da banca — Cespe publica gabarito, não justificativa. Apague os dois campos se quiser este arquivo no mesmo padrão de rigor do acervo de prova.",
+  "banca": "Cebraspe",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

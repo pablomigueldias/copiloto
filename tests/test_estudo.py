@@ -23,7 +23,7 @@ from app.db.models.estudo.agenda import (
     Agenda,
     Tentativa,
 )
-from app.db.models.estudo.questao import Modulo, Questao, Topico
+from app.db.models.estudo.questao import Banca, Modulo, Questao, Topico
 from app.db.session import get_session
 from app.estudo import agendamento, servico
 
@@ -480,3 +480,182 @@ async def test_apagar_uma_questao_nao_leva_as_vizinhas():
 async def test_apagar_questao_que_nao_existe():
     with pytest.raises(servico.QuestaoNaoEncontrada):
         await servico.apagar_questao(uuid.uuid4())
+
+
+# ── Banca pausada ────────────────────────────────────────────────────────
+#
+# O caso que originou tudo: trocar o foco de concurso sem apagar o acervo da
+# banca anterior. Pausar tem de mudar o que a fila devolve e **não** tocar em
+# nada que não se refaça.
+
+
+async def _semear_com_banca(nome: str, *, topico_id=None) -> tuple[Questao, Banca]:
+    """Uma questão de banca. Sem `topico_id`, cria módulo e tópico do zero.
+
+    Com `topico_id`, entra num tópico que já existe — o módulo tem `nome`
+    único, e semear duas vezes do zero no mesmo teste esbarraria nisso.
+    """
+    if topico_id is None:
+        q = await _semear(gabarito="C")
+    else:
+        q = await servico.criar_questao(
+            {
+                "topico_id": topico_id,
+                "formato": "certo_errado",
+                "enunciado": f"Item de {nome}.",
+                "alternativas": [],
+                "afirmacoes": [],
+                "gabarito": "C",
+                "dificuldade": 2,
+            }
+        )
+    async with get_session() as s:
+        banca = Banca(nome=nome, ativa=True)
+        s.add(banca)
+        await s.flush()
+        questao = await s.get(Questao, q.id)
+        questao.banca_id = banca.id
+        await s.commit()
+        return q, banca
+
+
+async def test_banca_pausada_sai_da_fila():
+    q, banca = await _semear_com_banca("Quadrix")
+    assert [x.id for x in await servico.fila()] == [q.id]
+
+    await servico.atualizar_banca(banca.id, {"ativa": False})
+    assert await servico.fila() == []
+
+    await servico.atualizar_banca(banca.id, {"ativa": True})
+    assert [x.id for x in await servico.fila()] == [q.id]
+
+
+async def test_pausar_nao_encosta_no_historico():
+    """O ponto da pausa: ela é reversível, e apagar não é."""
+    q, banca = await _semear_com_banca("Quadrix")
+    await servico.responder(q.id, resposta="C")
+
+    await servico.atualizar_banca(banca.id, {"ativa": False})
+
+    async with get_session() as s:
+        agenda = await s.scalar(select(Agenda).where(Agenda.questao_id == q.id))
+        assert agenda is not None
+        assert agenda.total_acertos == 1
+        assert (
+            await s.scalar(
+                select(func.count(Tentativa.id)).where(Tentativa.questao_id == q.id)
+            )
+            == 1
+        )
+
+
+async def test_questao_sem_banca_nunca_e_pausada():
+    """`banca_id IS NULL` é a questão inédita, e ela não é de concurso nenhum.
+
+    Guarda contra a regressão do `NOT IN` com nulo, em que `NULL NOT IN (...)`
+    é `NULL` em SQL e a questão sumiria da fila junto com a banca pausada.
+    """
+    inedita = await _semear(gabarito="C")
+    _, banca = await _semear_com_banca("Quadrix", topico_id=inedita.topico_id)
+    await servico.atualizar_banca(banca.id, {"ativa": False})
+
+    assert [x.id for x in await servico.fila()] == [inedita.id]
+
+
+async def test_acervo_continua_mostrando_banca_pausada():
+    """Pausar tira do estudo, não do acervo — é lá que eu confiro o gabarito."""
+    q, banca = await _semear_com_banca("Quadrix")
+    await servico.atualizar_banca(banca.id, {"ativa": False})
+
+    total, itens = await servico.listar()
+    assert total == 1
+    assert itens[0].id == q.id
+
+
+async def test_resumo_separa_o_que_esta_pausado():
+    _, banca = await _semear_com_banca("Quadrix")
+    await servico.atualizar_banca(banca.id, {"ativa": False})
+
+    r = await servico.resumo()
+    assert r["total"] == 0
+    assert r["pausadas"] == 1
+    assert r["hoje"] == 0
+
+
+async def test_modulos_contam_pausadas_a_parte():
+    _, banca = await _semear_com_banca("Quadrix")
+    await servico.atualizar_banca(banca.id, {"ativa": False})
+
+    modulo = (await servico.modulos())[0]
+    assert modulo["questoes"] == 0
+    assert modulo["pausadas"] == 1
+    assert modulo["topicos"][0]["pausadas"] == 1
+
+
+async def test_apagar_banca_com_questoes_e_recusado():
+    """Apagar não apaga a questão, mas custa a procedência. A saída é pausar."""
+    _, banca = await _semear_com_banca("Quadrix")
+    with pytest.raises(servico.NaoVazio):
+        await servico.apagar_banca(banca.id)
+
+
+async def test_apagar_banca_forcado_deixa_a_questao_de_pe():
+    q, banca = await _semear_com_banca("Quadrix")
+    assert await servico.apagar_banca(banca.id, forcar=True) == 1
+
+    async with get_session() as s:
+        questao = await s.get(Questao, q.id)
+        assert questao is not None
+        assert questao.banca_id is None
+
+
+async def test_focar_pausa_todas_as_outras():
+    """Trocar de concurso é uma frase só; dez cliques fazem a pessoa não dizê-la."""
+    alvo, banca_alvo = await _semear_com_banca("Instituto Avança SP")
+    outra, _ = await _semear_com_banca("Quadrix", topico_id=alvo.topico_id)
+    terceira, _ = await _semear_com_banca("FCC", topico_id=alvo.topico_id)
+
+    r = await servico.focar_banca(banca_alvo.id)
+    assert r["banca"] == "Instituto Avança SP"
+    assert r["bancas_pausadas"] == 2
+    assert r["questoes_pausadas"] == 2
+
+    assert [x.id for x in await servico.fila()] == [alvo.id]
+    assert {outra.id, terceira.id}.isdisjoint({x.id for x in await servico.fila()})
+
+
+async def test_focar_reativa_a_banca_alvo_se_ela_estava_pausada():
+    alvo, banca_alvo = await _semear_com_banca("Instituto Avança SP")
+    await servico.atualizar_banca(banca_alvo.id, {"ativa": False})
+    assert await servico.fila() == []
+
+    await servico.focar_banca(banca_alvo.id)
+    assert [x.id for x in await servico.fila()] == [alvo.id]
+
+
+async def test_ativar_todas_desfaz_o_foco():
+    alvo, banca_alvo = await _semear_com_banca("Instituto Avança SP")
+    outra, _ = await _semear_com_banca("Quadrix", topico_id=alvo.topico_id)
+    await servico.focar_banca(banca_alvo.id)
+
+    assert await servico.ativar_todas() == 1
+    assert {x.id for x in await servico.fila()} == {alvo.id, outra.id}
+
+
+async def test_focar_nao_encosta_no_historico():
+    """A ação em massa é reversível porque não escreve em agenda nem tentativa."""
+    alvo, banca_alvo = await _semear_com_banca("Instituto Avança SP")
+    outra, _ = await _semear_com_banca("Quadrix", topico_id=alvo.topico_id)
+    await servico.responder(outra.id, resposta="C")
+
+    await servico.focar_banca(banca_alvo.id)
+
+    async with get_session() as s:
+        agenda = await s.scalar(select(Agenda).where(Agenda.questao_id == outra.id))
+        assert agenda.total_acertos == 1
+        assert (
+            await s.scalar(
+                select(func.count(Tentativa.id)).where(Tentativa.questao_id == outra.id)
+            )
+            == 1
+        )

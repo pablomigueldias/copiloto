@@ -1,5 +1,6 @@
 {
   "_leia_me": "Primeira questão de Cebraspe (ex-Cespe) no acervo de argumentação, e a única deste arquivo por enquanto. Ela mora aqui, e não em `logica-proposicional-cespe.json`, porque não se julga valor de verdade nem se decompõe fórmula: o que se cobra é a ANATOMIA do argumento — quem é premissa, quem é conclusão, e a diferença entre validade e verdade. Note que ela é múltipla escolha, ao contrário do certo/errado do outro arquivo Cespe. A sigla do órgão na `origem` (PMBC/SE) NÃO foi expandida: veio assim da imagem e eu não identifiquei a prefeitura — identifique antes de tratar como definitiva. O gabarito (e) foi informado por mim e NÃO conferido no PDF da banca, mas é conferível na mão: basta contar as assertivas depois do \"pois\". A `explicacao` é MINHA, não da banca — Cebraspe publica gabarito, não justificativa.",
+  "banca": "Cebraspe",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

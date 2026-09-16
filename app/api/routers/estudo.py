@@ -21,7 +21,12 @@ from app.api.schemas.estudo import (
     AdiarRequest,
     AgendaSimples,
     Apagado,
+    BancaCriada,
+    BancaPatch,
+    BancaRequest,
+    BancaResumo,
     FilaResponse,
+    Foco,
     ModuloCriado,
     ModuloPatch,
     ModuloRequest,
@@ -34,6 +39,7 @@ from app.api.schemas.estudo import (
     RespostaRequest,
     RespostaResponse,
     ResumoResponse,
+    Retomadas,
     TentativaResponse,
     TopicoCriado,
     TopicoPatch,
@@ -56,6 +62,8 @@ def _json(q: Questao, *, com_gabarito: bool = False) -> dict:
         "modulo": q.topico.modulo.nome,
         "topico": q.topico.nome,
         "topico_id": str(q.topico_id),
+        "banca": q.banca.nome if q.banca else None,
+        "banca_id": str(q.banca_id) if q.banca_id else None,
         "comando": q.comando,
         "enunciado": q.enunciado,
         "texto_base": q.texto_base,
@@ -100,6 +108,94 @@ async def get_modulos(_: UsuarioLogado) -> list[ModuloResumo]:
 @router.get("/formatos", summary="Os formatos que a tela sabe montar")
 async def get_formatos(_: UsuarioLogado) -> dict:
     return {"formatos": list(FORMATOS), "trilhas": list(TRILHAS)}
+
+
+@router.get("/bancas", response_model=list[BancaResumo], summary="Bancas do acervo")
+async def get_bancas(_: UsuarioLogado) -> list[BancaResumo]:
+    """Quem aplica prova aqui, e qual delas eu estou estudando agora."""
+    return [BancaResumo(**b) for b in await servico.bancas()]
+
+
+@router.post(
+    "/bancas", response_model=BancaCriada, status_code=201, summary="Cria uma banca"
+)
+async def post_banca(req: BancaRequest, _: UsuarioLogado) -> BancaCriada:
+    try:
+        b = await servico.criar_banca(nome=req.nome, ativa=req.ativa, ordem=req.ordem)
+    except (servico.NomeEmUso, servico.RespostaInvalida) as e:
+        raise _erros_de_nome(e) from e
+    return BancaCriada(id=str(b.id), nome=b.nome, ativa=b.ativa, ordem=b.ordem)
+
+
+@router.patch(
+    "/bancas/{banca_id}", response_model=BancaCriada, summary="Pausa, retoma ou renomeia"
+)
+async def patch_banca(
+    banca_id: UUID, req: BancaPatch, _: UsuarioLogado
+) -> BancaCriada:
+    """`ativa: false` tira a banca da fila do dia — e só isso.
+
+    Nenhuma questão, agenda ou tentativa é tocada. É a operação que faz sentido
+    quando eu troco de concurso: a Quadrix para de aparecer amanhã de manhã, e
+    volta inteira, com o histórico todo, no dia em que eu retomar.
+    """
+    try:
+        b = await servico.atualizar_banca(banca_id, req.model_dump(exclude_unset=True))
+    except servico.QuestaoNaoEncontrada as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e
+    except (servico.NomeEmUso, servico.RespostaInvalida) as e:
+        raise _erros_de_nome(e) from e
+    return BancaCriada(id=str(b.id), nome=b.nome, ativa=b.ativa, ordem=b.ordem)
+
+
+@router.post(
+    "/bancas/ativar-todas",
+    response_model=Retomadas,
+    summary="Devolve todas as bancas ao estudo",
+)
+async def post_ativar_todas(_: UsuarioLogado) -> Retomadas:
+    """O desfazer de `focar`. Nada é criado nem apagado — só `ativa` muda."""
+    return Retomadas(bancas_retomadas=await servico.ativar_todas())
+
+
+@router.post(
+    "/bancas/{banca_id}/focar",
+    response_model=Foco,
+    summary="Deixa só esta banca em estudo",
+)
+async def post_focar(banca_id: UUID, _: UsuarioLogado) -> Foco:
+    """Pausa todas as outras de uma vez — trocar de concurso é uma frase só.
+
+    O efeito é idêntico ao de pausar cada uma à mão: nenhuma questão, agenda ou
+    tentativa é tocada, e `POST /bancas/ativar-todas` desfaz.
+    """
+    try:
+        return Foco(**await servico.focar_banca(banca_id))
+    except servico.QuestaoNaoEncontrada as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e
+
+
+@router.delete("/bancas/{banca_id}", response_model=Apagado, summary="Apaga a banca")
+async def delete_banca(
+    banca_id: UUID,
+    _: UsuarioLogado,
+    forcar: Annotated[
+        bool, Query(description="Apaga mesmo com questões — elas ficam sem procedência")
+    ] = False,
+) -> Apagado:
+    """Apaga o rótulo, nunca as questões — a FK é `SET NULL`.
+
+    Recusa por padrão quando há questões dentro: o que se perde é a procedência,
+    que é o que me deixa reabrir o PDF e desconfiar do gabarito. Para tirar a
+    banca do estudo sem perder nada, o caminho é `PATCH {"ativa": false}`.
+    """
+    try:
+        n = await servico.apagar_banca(banca_id, forcar=forcar)
+    except servico.QuestaoNaoEncontrada as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e
+    except servico.NaoVazio as e:
+        raise HTTPException(status_code=409, detail=str(e)) from e
+    return Apagado(questoes_apagadas=n)
 
 
 def _erros_de_nome(e: Exception) -> HTTPException:
@@ -221,6 +317,7 @@ async def get_fila(
     _: UsuarioLogado,
     topico_id: UUID | None = None,
     modulo_id: UUID | None = None,
+    banca_id: UUID | None = None,
     questao_id: Annotated[
         UUID | None, Query(description="Uma questão só — o botão 'responder' do acervo")
     ] = None,
@@ -242,6 +339,7 @@ async def get_fila(
     itens = await servico.fila(
         topico_id=topico_id,
         modulo_id=modulo_id,
+        banca_id=banca_id,
         questao_id=questao_id,
         todas=todas,
         limite=limite,
@@ -254,12 +352,19 @@ async def get_questoes(
     _: UsuarioLogado,
     topico_id: UUID | None = None,
     modulo_id: UUID | None = None,
+    banca_id: UUID | None = None,
     busca: str | None = None,
     limite: Annotated[int, Query(ge=1, le=200)] = 50,
     offset: Annotated[int, Query(ge=0)] = 0,
 ) -> PaginaQuestoes:
+    """O acervo inteiro, banca pausada inclusive — é aqui que eu confiro."""
     total, itens = await servico.listar(
-        topico_id=topico_id, modulo_id=modulo_id, busca=busca, limite=limite, offset=offset
+        topico_id=topico_id,
+        modulo_id=modulo_id,
+        banca_id=banca_id,
+        busca=busca,
+        limite=limite,
+        offset=offset,
     )
     return PaginaQuestoes(
         total=total, itens=[_json(q, com_gabarito=True) for q in itens]

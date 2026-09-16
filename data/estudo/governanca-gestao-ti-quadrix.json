@@ -358,5 +358,6 @@
       "explicacao": "A questão dá cinco processos do PMBOK e pede o de monitoramento e controle. É realizar o controle integrado de mudanças.\n\n| Alternativa | Grupo de processos |\n|---|---|\n| realizar o controle integrado de mudanças | monitoramento e controle |\n| planejar o gerenciamento do cronograma | planejamento |\n| desenvolver o termo de abertura do projeto | iniciação |\n| encerrar o projeto ou a fase | encerramento |\n| identificar riscos | planejamento |\n\nO controle integrado de mudanças analisa todas as solicitações de mudança, aprova ou rejeita, e gerencia as alterações nas entregas e nas linhas de base — é o processo que impede que o projeto mude por fora do registro.\n\nAtalho: o verbo abre o grupo. Desenvolver o termo de abertura / identificar partes interessadas → iniciação. Planejar / definir / estimar / desenvolver o plano / identificar riscos → planejamento. Orientar e gerenciar / adquirir / conduzir → execução. Controlar / monitorar / validar → monitoramento e controle. Encerrar → encerramento.\n\nA pegadinha: \"identificar riscos\" soa como vigilância e atrai o candidato para o M&C, mas identificar é planejamento — quem monitora é monitorar os riscos.",
       "dificuldade": 2
     }
-  ]
+  ],
+  "banca": "Quadrix"
 }

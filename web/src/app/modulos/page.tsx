@@ -11,6 +11,7 @@ import { api } from "@/lib/api";
 import { useAvisos } from "@/lib/avisos";
 import type { ModuloResumo, Questao } from "@/lib/tipos";
 
+import { Bancas } from "./Bancas";
 import { GavetaQuestao } from "./GavetaQuestao";
 import {
   AcoesDoModulo,
@@ -65,11 +66,23 @@ function CardModulo({
         {plural(m.questoes, "questão", "questões")} ·{" "}
         {plural(m.topicos.length, "tópico", "tópicos")} · {m.dominadas} dominadas
         · {m.com_erro} com erro
+        {/* Sem este número, pausar a banca faria as questões evaporarem do card
+            e a primeira suspeita seria a de que o acervo sumiu. */}
+        {m.pausadas > 0 && (
+          <span className="text-neutral-600"> · {m.pausadas} pausadas</span>
+        )}
       </div>
 
       {m.topicos.length === 0 && (
         <p className="m-0 text-[13px] text-neutral-500">
           Módulo vazio. Crie um tópico — questão não mora solta no módulo.
+        </p>
+      )}
+
+      {m.topicos.length > 0 && m.questoes === 0 && m.pausadas > 0 && (
+        <p className="m-0 text-[13px] leading-[1.5] text-neutral-500">
+          Tudo aqui é de banca pausada. As {m.pausadas} questões continuam no
+          acervo, com o histórico — só não voltam na fila do dia.
         </p>
       )}
 
@@ -88,6 +101,9 @@ function CardModulo({
             </button>
             <span className="tnum flex-none text-[12px] text-neutral-600">
               {t.questoes}
+              {t.pausadas > 0 && (
+                <span className="text-neutral-700"> +{t.pausadas}</span>
+              )}
             </span>
             <Link
               href={`/revisar?topico=${t.id}`}
@@ -188,6 +204,8 @@ function Modulos() {
         }),
       }))
       .filter((m) => m.topicos.length > 0 || (!alvo && filtro === "todos"));
+    // `topicos.length` é o que sobrou do filtro, não o que o módulo tem: um
+    // módulo inteiramente pausado mantém os tópicos e some só dos contadores.
   }, [modulos, busca, filtro]);
 
   return (
@@ -245,6 +263,14 @@ function Modulos() {
           </Link>
         </div>
       </div>
+
+      <Bancas
+        onMudou={(msg) => {
+          ok(msg);
+          void carregar();
+        }}
+        onErro={falhou}
+      />
 
       {!modulos && (
         <p className="text-[13px] text-neutral-500">carregando módulos…</p>

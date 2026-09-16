@@ -28,6 +28,9 @@ export type Questao = {
   modulo: string;
   topico: string;
   topico_id: string;
+  /** Nulos na questão inédita — ela não é de banca nenhuma. */
+  banca: string | null;
+  banca_id: string | null;
   comando: string | null;
   enunciado: string;
   texto_base: string | null;
@@ -52,16 +55,37 @@ export type Resumo = {
   adiadas: number;
   dominadas: number;
   total: number;
+  /** Fora do estudo por estarem em banca pausada. Não somem, só não voltam. */
+  pausadas: number;
   respondidas_hoje: number;
+};
+
+/**
+ * Quem aplica a prova, e se eu estou estudando para ela agora.
+ *
+ * `id` é nulo na linha das inéditas: questão sem banca não se pausa nem se
+ * renomeia, e a tela usa a ausência do id para não oferecer os botões.
+ */
+export type Banca = {
+  id: string | null;
+  nome: string;
+  ativa: boolean;
+  ordem: number;
+  questoes: number;
+  hoje: number;
+  dominadas: number;
+  com_erro: number;
 };
 
 export type TopicoResumo = {
   id: string;
   nome: string;
+  /** Só as de banca ativa — as demais estão em `pausadas`. */
   questoes: number;
   hoje: number;
   dominadas: number;
   com_erro: number;
+  pausadas: number;
   proxima_em: string | null;
 };
 
@@ -73,6 +97,7 @@ export type ModuloResumo = {
   hoje: number;
   dominadas: number;
   com_erro: number;
+  pausadas: number;
   proxima_em: string | null;
   topicos: TopicoResumo[];
 };

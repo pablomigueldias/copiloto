@@ -1,5 +1,6 @@
 {
   "_leia_me": "Quatro questões do IBFC transcritas de imagem, nenhuma com gabarito conferido no PDF oficial da banca — mas todas verificáveis na mão, e eu verifiquei. EBSERH 2020 (b), IBFC 2014 (c) e Câmara de Feira de Santana 2018 (c) são gabaritos informados por você e batem com a resolução; a de Soldado PM-BA 2020 veio sem gabarito, e o (b) é resolução minha. As `explicacao` são MINHAS, não da banca — mesma ressalva dos outros arquivos de imagem do acervo.\n\nRepare que as questões de 2014 e de 2018 têm QUATRO alternativas: é assim que o IBFC aplica, e foi isso que fez o `scripts/importar_questoes.py` deixar de exigir cinco.",
+  "banca": "IBFC",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

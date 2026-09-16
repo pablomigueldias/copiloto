@@ -1,5 +1,6 @@
 {
   "_leia_me": "Primeira questão de argumentação da FGV — mesmo tópico dos arquivos `logica-argumentacao-fcc.json` e `logica-argumentacao-esaf.json`, banca diferente, por isso arquivo separado. Não confundir com `logica-proposicional-fgv.json`, que é outro tópico. Esta questão é a ponte entre os dois: a premissa \"quem joga xadrez tem bom raciocínio\" é uma universal afirmativa que também se lê como condicional, e o que a questão cobra é contrapositiva versus recíproca versus inversa. A sigla PMS aparece assim na imagem e eu NÃO a expandi — não vou chutar o órgão. O gabarito (d) foi informado por mim e conferido na resolução, mas NÃO no PDF da banca. A `explicacao` é MINHA, não da banca. NORMALIZAÇÃO DE 05/09/2026: as duas afirmativas saíram do `comando` para o `texto_base`, para caírem no bloco de apoio com borda como no resto do acervo. O `comando` ficou com a instrução (“Considere as afirmativas a seguir.”); nada da banca foi reescrito.",
+  "banca": "FGV",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

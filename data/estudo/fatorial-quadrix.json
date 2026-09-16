@@ -1,5 +1,6 @@
 {
   "_leia_me": "Bloco de cinco itens do Quadrix sobre FATORIAL, e sobre operar com uma definição nova dada no próprio enunciado (o “superfatorial”). Tópico separado de “Números e divisibilidade”: só o item 21 é divisibilidade — os outros quatro são decomposição em potências, cálculo por recorrência, contraexemplo de “para todo” e a recorrência em si. Se preferir os cinco junto da divisibilidade, é trocar `topico.nome` e reimportar. A definição de sf(n) é compartilhada pelos cinco itens e vai repetida em cada um no `texto_base`, porque o agendamento devolve cada item num dia diferente. Ressalvas: a sigla CFFa NÃO foi expandida — veio assim e eu não confirmei o conselho; e o gabarito (E, C, C, E, C) foi informado pelo Pablo e bate com a minha resolução independente, mas NÃO foi lido no PDF de gabarito oficial da banca. A `explicacao` é MINHA, não da banca.",
+  "banca": "Quadrix",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

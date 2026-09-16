@@ -297,6 +297,14 @@ function Revisao() {
           <span className="text-accent">{q!.modulo}</span>
           <span className="text-neutral-700">/</span>
           <span className="truncate text-neutral-500">{q!.topico}</span>
+          {/* A banca muda o estilo da pergunta antes de mudar o assunto dela.
+              Saber de quem é a questão enquanto se responde é parte do treino. */}
+          {q!.banca && (
+            <>
+              <span className="text-neutral-700">/</span>
+              <span className="flex-none truncate text-neutral-500">{q!.banca}</span>
+            </>
+          )}
         </div>
         <div className="ml-auto flex flex-none items-center gap-4">
           {(todas || questaoId) && (

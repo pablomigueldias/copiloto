@@ -82,6 +82,22 @@ export default function Hoje() {
               ? "A fila está limpa. Cadastre questão nova ou espere — o que você acertou hoje volta daqui a sete dias."
               : `As que você errou entram primeiro — elas voltam a cada dois dias até saírem certas.`}
           </p>
+          {/* Fila vazia com acervo pausado tem uma causa específica, e ela é
+              acionável num clique. Dizer só "a fila está limpa" mandaria
+              procurar defeito onde há uma decisão. */}
+          {vencendo === 0 && (resumo?.pausadas ?? 0) > 0 && (
+            <p className="m-0 mt-2 max-w-[46ch] text-[13.5px] text-neutral-500">
+              {resumo!.pausadas} questões estão em banca pausada e por isso não
+              entram na fila.{" "}
+              <Link
+                href="/modulos"
+                className="text-accent-300 underline underline-offset-2"
+              >
+                Retomar a banca
+              </Link>{" "}
+              devolve todas, com o histórico.
+            </p>
+          )}
         </div>
         <div className="flex flex-none gap-2">
           <Link
@@ -112,6 +128,16 @@ export default function Hoje() {
         />
         <Numero valor={resumo?.dominadas ?? 0} rotulo="Dominadas" />
         <Numero valor={resumo?.total ?? 0} rotulo="Questões no banco" />
+        {/* Só aparece quando existe. "Questões no banco" passa a contar apenas
+            o que está em estudo no minuto em que uma banca é pausada, e sem
+            este número ao lado a queda pareceria perda de dado. */}
+        {(resumo?.pausadas ?? 0) > 0 && (
+          <Numero
+            valor={resumo!.pausadas}
+            rotulo="Em banca pausada"
+            cor="text-neutral-400"
+          />
+        )}
       </div>
 
       <hr className="hr mb-[30px]" />

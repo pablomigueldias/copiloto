@@ -1,5 +1,6 @@
 {
   "_leia_me": "Duas questões da AOCP transcritas de imagem. Na de 2017 o órgão/cargo não aparecem e o gabarito (C) é resolução MINHA — você não passou; na de 2018 (IPM/SP, Agente de Administração) o gabarito (C) foi informado por você. Nenhum dos dois foi conferido no PDF da banca, mas os dois são verificáveis na mão e batem. As `explicacao` são MINHAS, não da banca.\n\nDuas esquisitices das próprias questões, transcritas como estão na imagem: na de 2017 as alternativas B e E dizem a mesma coisa (“Apenas I e II” e “Apenas II e I”); na de 2018 os distratores trocam os predicados do enunciado (aparecem “Luiza é advogada” e “Carlos é professor”, que não são as proposições dadas), e o nome oscila entre “Luíza” e “Luiza”. Nada disso muda a resposta.",
+  "banca": "AOCP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

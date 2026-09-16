@@ -1,5 +1,6 @@
 {
   "_leia_me": "Razão constante: PG e crescimento percentual composto. Não confundir com o tópico “Sequências lógicas”, que guarda padrão SEM razão constante (triangulares, matriz de potências) — a questão 28 da prova do SERPRO mora lá por isso, enquanto a 29 mora aqui. A PROCEDÊNCIA DIFERE POR QUESTÃO e está na `origem` de cada uma, que aparece na tela: CORE-SP 2025, SERPRO 2014 e CREFITO-14 2023 tiveram enunciado e gabarito informados pelo Pablo e batidos com resolução independente minha, mas NENHUM dos três foi lido no PDF de gabarito oficial da banca — o vault (`Second-Brain/Pessoal/Provas`) não estava acessível na máquina. No CREFITO-14 isso é uma ressalva a mais, porque a questão 15 da MESMA prova já está em `logica-proposicional.json` COM gabarito conferido no PDF; o cargo é grafado como lá (“Analista Administrativo – TI (cód. 404)”) para as duas entradas casarem numa busca. Confira antes de tratar como definitivo. As `explicacao` são MINHAS, não da banca.",
+  "banca": "Quadrix",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

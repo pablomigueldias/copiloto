@@ -1,5 +1,6 @@
 {
   "_leia_me": "Primeira questão da VUNESP no acervo, e a única deste arquivo por enquanto. A `origem` traz a prova completa (TJ-SP 2021, Escrevente Técnico Judiciário), então serve bem como chave de import — mantenha esse padrão ao crescer o arquivo. O que ela cobra é diferente das outras de lógica proposicional já cadastradas: não é equivalência nem tabela-verdade, é dedução a partir de valores dados, e o fio da meada é a única afirmação FALSA (condicional falsa fixa antecedente e consequente de uma vez). O gabarito (e) foi informado por mim e NÃO conferido no PDF da banca, mas é verificável na mão: os cinco valores ficam todos determinados, então cada item é uma substituição. A `explicacao` é MINHA, não da banca.",
+  "banca": "VUNESP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

@@ -12,6 +12,7 @@
  */
 import type {
   Acao,
+  Banca,
   EstadoTranscricao,
   Geracao,
   Metricas,
@@ -105,6 +106,35 @@ export const api = {
   // ── estudo ──
   resumo: () => req<Resumo>("/estudo/resumo"),
   modulos: () => req<ModuloResumo[]>("/estudo/modulos"),
+  bancas: () => req<Banca[]>("/estudo/bancas"),
+  /**
+   * `ativa: false` tira a banca da fila do dia — e só isso.
+   *
+   * Nenhuma questão, agenda ou tentativa é tocada, e por isso o botão não
+   * pergunta nada antes: é reversível num clique. É o oposto de apagar o
+   * módulo, que leva o histórico junto e exige confirmação com o número na mão.
+   */
+  editarBanca: (id: string, campos: { nome?: string; ativa?: boolean; ordem?: number }) =>
+    req<{ id: string; nome: string; ativa: boolean; ordem: number }>(
+      `/estudo/bancas/${id}`,
+      { method: "PATCH", body: JSON.stringify(campos) },
+    ),
+  /**
+   * Deixa só uma banca em estudo, pausando as outras num clique.
+   *
+   * Trocar de concurso é uma frase só ("agora é esta"), e dez cliques para
+   * dizê-la fazem a pessoa não dizer. O efeito é o mesmo de pausar cada uma à
+   * mão — nada é apagado — e `retomarTodasBancas` desfaz.
+   */
+  focarBanca: (id: string) =>
+    req<{ banca: string; bancas_pausadas: number; questoes_pausadas: number }>(
+      `/estudo/bancas/${id}/focar`,
+      { method: "POST" },
+    ),
+  retomarTodasBancas: () =>
+    req<{ bancas_retomadas: number }>("/estudo/bancas/ativar-todas", {
+      method: "POST",
+    }),
   criarModulo: (corpo: { nome: string; trilha: string; ordem?: number }) =>
     req<{ id: string; nome: string; trilha: string; ordem: number }>(
       "/estudo/modulos",
@@ -140,6 +170,7 @@ export const api = {
     p: {
       topico_id?: string;
       modulo_id?: string;
+      banca_id?: string;
       questao_id?: string;
       todas?: string;
       limite?: number;
@@ -150,6 +181,7 @@ export const api = {
     p: {
       topico_id?: string;
       modulo_id?: string;
+      banca_id?: string;
       busca?: string;
       limite?: number;
       offset?: number;

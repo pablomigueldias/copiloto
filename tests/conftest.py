@@ -47,6 +47,7 @@ TABELAS_DE_DADOS = (
     "estudo_questao",
     "estudo_topico",
     "estudo_modulo",
+    "estudo_banca",
 )
 
 

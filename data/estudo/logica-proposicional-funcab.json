@@ -1,5 +1,6 @@
 {
   "_leia_me": "Uma questão da FUNCAB, ADAPTADA — o enunciado veio de imagem, já com a marca “(ADAPTADA)”, então o texto não é o da prova original e o gabarito (b, 16) foi informado por mim, não conferido no PDF oficial da banca. O órgão e o cargo eu não tenho: a `origem` diz só o que dá para afirmar. A `explicacao` é MINHA, não da banca — mesma ressalva de `logica-proposicional-cespe.json`. Apague os dois campos se quiser este arquivo no mesmo padrão de rigor de `logica-proposicional.json`.",
+  "banca": "FUNCAB",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

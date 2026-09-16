@@ -1,5 +1,6 @@
 {
   "_leia_me": "Quatro questões da FGV transcritas de imagem: três da ALERO 2018 (uma de Assistente Legislativo – Técnico em Informática e duas de Analista Legislativo) e uma do MP-GO 2022 (Analista Contábil). No cabeçalho da primeira a largura da imagem corta o resto do título, então a `origem` registra só o que dá para ler; ALERO é a Assembleia Legislativa de Rondônia, mas isso é leitura minha da sigla, não confirmação. Nenhum gabarito foi conferido no PDF da banca: os das três de 2018 (e, c, d) foram informados por você e batem com a resolução; o da de 2022 (c) é resolução MINHA — você não passou. As `explicacao` são MINHAS, não da banca.\n\nAs quatro se completam e vale responder em sequência: negar p ∧ ~q, negar p → q, achar a equivalente de (p ∨ q) → r e achar a equivalente de ~p → ~q. Quem entende que negar uma condicional dá uma CONJUNÇÃO e que a única equivalente que continua sendo condicional é a CONTRAPOSITIVA mata as quatro.",
+  "banca": "FGV",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

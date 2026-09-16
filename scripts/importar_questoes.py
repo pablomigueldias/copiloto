@@ -10,6 +10,10 @@ apagar o histórico de quem já respondeu.
 
 Questão importada nasce vencendo hoje: cadastrar e só ver na tela semana que
 vem é o jeito mais rápido de parar de cadastrar.
+
+A `banca` do arquivo vira linha em `estudo_banca` e é por ela que eu pauso um
+concurso inteiro sem apagar nada. Banca nova entra **ativa**: importar é dizer
+"vou estudar isto".
 """
 from __future__ import annotations
 
@@ -22,7 +26,13 @@ from pathlib import Path
 from sqlalchemy import select
 
 from app.db.models.estudo.agenda import Agenda
-from app.db.models.estudo.questao import FORMATOS, Modulo, Questao, Topico
+from app.db.models.estudo.questao import (
+    FORMATOS,
+    Banca,
+    Modulo,
+    Questao,
+    Topico,
+)
 from app.db.session import dispose_engine, get_session
 from app.estudo import agendamento, servico
 
@@ -79,6 +89,19 @@ async def _importar(caminho: Path) -> int:
     novas = atualizadas = 0
 
     async with get_session() as session:
+        # A banca é opcional: questão inédita não tem uma, e o acervo antigo
+        # foi importado antes de esta tabela existir. Quando vem, ela nasce
+        # ativa — importar um arquivo é dizer que eu vou estudar aquilo.
+        banca = None
+        if nome_banca := (dados.get("banca") or "").strip():
+            banca = await session.scalar(
+                select(Banca).where(Banca.nome == nome_banca)
+            )
+            if banca is None:
+                banca = Banca(nome=nome_banca, ativa=True, ordem=0)
+                session.add(banca)
+                await session.flush()
+
         m = dados["modulo"]
         modulo = await session.scalar(select(Modulo).where(Modulo.nome == m["nome"]))
         if modulo is None:
@@ -108,10 +131,16 @@ async def _importar(caminho: Path) -> int:
                 for k, v in campos.items():
                     setattr(existente, k, v)
                 existente.topico_id = topico.id
+                if banca is not None:
+                    existente.banca_id = banca.id
                 atualizadas += 1
                 continue
 
-            questao = Questao(topico_id=topico.id, **campos)
+            questao = Questao(
+                topico_id=topico.id,
+                banca_id=banca.id if banca is not None else None,
+                **campos,
+            )
             session.add(questao)
             await session.flush()
             e = agendamento.inicial(hoje)
@@ -130,7 +159,10 @@ async def _importar(caminho: Path) -> int:
 
         await session.commit()
 
-    print(f"{modulo.nome} / {topico.nome}: {novas} nova(s), {atualizadas} atualizada(s).")
+    etiqueta = f"{modulo.nome} / {topico.nome}"
+    if banca is not None:
+        etiqueta += f" [{banca.nome}{'' if banca.ativa else ' — pausada'}]"
+    print(f"{etiqueta}: {novas} nova(s), {atualizadas} atualizada(s).")
     if atualizadas:
         print("Agendamento preservado — conteúdo e desempenho moram em tabelas diferentes.")
     return 0

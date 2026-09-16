@@ -33,6 +33,9 @@ class QuestaoResponse(BaseModel):
     modulo: str
     topico: str
     topico_id: str
+    # Nulos na questão inédita — ela não é de banca nenhuma.
+    banca: str | None = None
+    banca_id: str | None = None
     comando: str | None = None
     enunciado: str
     texto_base: str | None = None
@@ -68,6 +71,8 @@ class ResumoResponse(BaseModel):
     adiadas: int
     dominadas: int
     total: int
+    #: Quantas ficaram de fora por estarem em banca pausada.
+    pausadas: int
     respondidas_hoje: int
 
 
@@ -78,6 +83,7 @@ class TopicoResumo(BaseModel):
     hoje: int
     dominadas: int
     com_erro: int
+    pausadas: int = 0
     proxima_em: date | None = None
 
 
@@ -89,6 +95,7 @@ class ModuloResumo(BaseModel):
     hoje: int
     dominadas: int
     com_erro: int
+    pausadas: int = 0
     proxima_em: date | None = None
     topicos: list[TopicoResumo]
 
@@ -157,6 +164,55 @@ class QuestaoPatch(BaseModel):
     explicacao: str | None = None
     dificuldade: int | None = Field(default=None, ge=1, le=3)
     fonte: str | None = None
+
+
+class BancaResumo(BaseModel):
+    """Uma banca na tela de Módulos.
+
+    `id` é nulo na linha das inéditas — questão sem banca não se pausa nem se
+    renomeia, e a tela usa a ausência do id para não oferecer os botões.
+    """
+
+    id: str | None = None
+    nome: str
+    ativa: bool
+    ordem: int
+    questoes: int
+    hoje: int
+    dominadas: int
+    com_erro: int
+
+
+class BancaRequest(BaseModel):
+    nome: str = Field(min_length=1, max_length=120)
+    ativa: bool = True
+    ordem: int = Field(default=0, ge=0, le=999)
+
+
+class BancaPatch(BaseModel):
+    nome: str | None = Field(default=None, min_length=1, max_length=120)
+    #: `False` tira a banca da fila do dia sem tocar em questão nem histórico.
+    ativa: bool | None = None
+    ordem: int | None = Field(default=None, ge=0, le=999)
+
+
+class BancaCriada(BaseModel):
+    id: str
+    nome: str
+    ativa: bool
+    ordem: int
+
+
+class Foco(BaseModel):
+    """O tamanho do que a ação em massa fez — conferir sem precisar recontar."""
+
+    banca: str
+    bancas_pausadas: int
+    questoes_pausadas: int
+
+
+class Retomadas(BaseModel):
+    bancas_retomadas: int
 
 
 class ModuloRequest(BaseModel):

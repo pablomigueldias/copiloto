@@ -27,6 +27,7 @@ from app.db.models.estudo.questao import (
     FORMATOS,
     LETRAS,
     TRILHAS,
+    Banca,
     Modulo,
     Questao,
     Topico,
@@ -98,6 +99,36 @@ def _com_relacoes(stmt: Select) -> Select:
     )
 
 
+# ── Banca pausada ────────────────────────────────────────────────────────
+#
+# Uma banca pausada não sai do acervo: ela sai do **estudo**. A fila do dia, o
+# resumo e os contadores dos módulos deixam de contá-la; o acervo (`listar`) a
+# mostra inteira, porque é lá que eu confiro gabarito e escrevo explicação, e
+# esconder questão de quem foi procurá-la seria mentir sobre o que existe.
+#
+# Os dois predicados abaixo são subconsulta e não `join`, de propósito: eles
+# entram em consultas que já têm três junções e num agregado por tópico, e um
+# `outerjoin` a mais em cada uma mudaria a cardinalidade dos `count()`.
+
+
+def _sem_banca_pausada():
+    """A questão entra na fila de hoje.
+
+    `banca_id IS NULL` entra: é a questão inédita, que eu escrevi, e ela não
+    pertence a concurso nenhum. O `or_` explícito existe porque `NULL NOT IN
+    (...)` é `NULL` em SQL — sem ele, toda questão sem banca sumiria da fila.
+    """
+    return or_(
+        Questao.banca_id.is_(None),
+        Questao.banca_id.notin_(select(Banca.id).where(Banca.ativa.is_(False))),
+    )
+
+
+def _de_banca_pausada():
+    """O contrário — o que está parado, para a tela poder dizer quanto é."""
+    return Questao.banca_id.in_(select(Banca.id).where(Banca.ativa.is_(False)))
+
+
 # ── A fila do dia ────────────────────────────────────────────────────────
 
 _ITEM_NA_ORIGEM = re.compile(r"(?:item|quest(?:ão|ao))\s+(\d+)", re.IGNORECASE)
@@ -149,12 +180,13 @@ async def _irmaos_por_bloco(
         _com_relacoes(select(Questao))
         .join(Agenda, Agenda.questao_id == Questao.id)
         .where(
+            _sem_banca_pausada(),
             or_(
                 *[
                     and_(Questao.topico_id == topico, Questao.texto_base == texto)
                     for topico, texto in chaves
                 ]
-            )
+            ),
         )
     )
     blocos: dict[tuple[uuid.UUID, str], list[Questao]] = {}
@@ -171,6 +203,7 @@ async def fila(
     *,
     topico_id: uuid.UUID | None = None,
     modulo_id: uuid.UUID | None = None,
+    banca_id: uuid.UUID | None = None,
     questao_id: uuid.UUID | None = None,
     todas: bool = False,
     limite: int = 24,
@@ -199,7 +232,13 @@ async def fila(
     eu preciso rever, não o máximo que eu posso.
 
     `questao_id` é a exceção: é o botão "responder" de UMA questão do acervo, e
-    quem clica nele pediu aquela questão, não o bloco dela.
+    quem clica nele pediu aquela questão, não o bloco dela. Ela ignora a pausa
+    da banca também: quem clicou em responder aquela questão já a viu na tela e
+    não precisa que o filtro decida por ele.
+
+    **Banca pausada não entra.** É para isso que ela existe: quando eu troco de
+    concurso, a fila do dia tem de virar junto, senão a repetição espaçada me
+    devolve todo dia uma prova que eu não vou fazer.
     """
     async with get_session() as session:
         stmt = (
@@ -216,6 +255,10 @@ async def fila(
             stmt = stmt.where(Agenda.proxima_em <= hoje())
         if questao_id:
             stmt = stmt.where(Questao.id == questao_id)
+        else:
+            stmt = stmt.where(_sem_banca_pausada())
+        if banca_id:
+            stmt = stmt.where(Questao.banca_id == banca_id)
         if topico_id:
             stmt = stmt.where(Questao.topico_id == topico_id)
         if modulo_id:
@@ -244,15 +287,31 @@ async def fila(
 
 
 async def resumo() -> dict:
-    """Os números do topo da tela inicial."""
+    """Os números do topo da tela inicial.
+
+    Os contadores de acervo e de agenda excluem banca pausada; `pausadas` existe
+    justamente para dizer quanto ficou de fora. Sem esse número, trocar de
+    concurso faria 96 questões evaporarem da tela sem explicação, e a primeira
+    reação seria achar que o import quebrou.
+
+    `respondidas_hoje` é a exceção e continua global: é um fato sobre o meu dia,
+    não sobre o acervo ativo. Se eu respondi doze questões da Quadrix de manhã e
+    pausei a banca à tarde, elas continuam respondidas.
+    """
     h = hoje()
     async with get_session() as session:
-        total = await session.scalar(select(func.count(Questao.id))) or 0
+        total = await session.scalar(
+            select(func.count(Questao.id)).where(_sem_banca_pausada())
+        ) or 0
+        pausadas = await session.scalar(
+            select(func.count(Questao.id)).where(_de_banca_pausada())
+        ) or 0
 
         linhas = (
             await session.execute(
                 select(Agenda.estado, func.count(Agenda.id))
-                .where(Agenda.proxima_em <= h)
+                .join(Questao, Questao.id == Agenda.questao_id)
+                .where(Agenda.proxima_em <= h, _sem_banca_pausada())
                 .group_by(Agenda.estado)
             )
         ).all()
@@ -260,10 +319,14 @@ async def resumo() -> dict:
 
         vencendo = sum(por_estado.values())
         adiadas = await session.scalar(
-            select(func.count(Agenda.id)).where(Agenda.estado == "adiada")
+            select(func.count(Agenda.id))
+            .join(Questao, Questao.id == Agenda.questao_id)
+            .where(Agenda.estado == "adiada", _sem_banca_pausada())
         ) or 0
         dominadas = await session.scalar(
-            select(func.count(Agenda.id)).where(Agenda.estado == "dominada")
+            select(func.count(Agenda.id))
+            .join(Questao, Questao.id == Agenda.questao_id)
+            .where(Agenda.estado == "dominada", _sem_banca_pausada())
         ) or 0
         # `date(timestamptz)` no Postgres converte pelo `TimeZone` da sessão,
         # que é UTC — e a conta viraria às 21h de Brasília. `AT TIME ZONE`
@@ -284,6 +347,7 @@ async def resumo() -> dict:
             "adiadas": int(adiadas),
             "dominadas": int(dominadas),
             "total": int(total),
+            "pausadas": int(pausadas),
             "respondidas_hoje": int(respondidas_hoje),
         }
 
@@ -294,8 +358,15 @@ async def modulos() -> list[dict]:
     Uma consulta agregada por tópico e a montagem em memória. Com dez módulos e
     setenta tópicos, ir ao banco por tópico seria setenta round-trips para
     desenhar uma tela.
+
+    Os contadores são do que está **em estudo**: banca pausada sai de `questoes`,
+    `hoje`, `dominadas` e `com_erro`, e reaparece sozinha em `pausadas`. Um
+    tópico que ficou só com questão de banca pausada mostra "0 · 27 pausadas" —
+    que é a verdade, e é diferente de "tópico vazio".
     """
     h = hoje()
+    # Uma vez só: o predicado entra em cinco agregados da mesma consulta.
+    ativa = _sem_banca_pausada()
     async with get_session() as session:
         mods = list(
             (
@@ -309,11 +380,12 @@ async def modulos() -> list[dict]:
             await session.execute(
                 select(
                     Topico.id,
-                    func.count(Questao.id),
-                    func.count(Questao.id).filter(Agenda.proxima_em <= h),
-                    func.count(Questao.id).filter(Agenda.estado == "dominada"),
-                    func.count(Questao.id).filter(Agenda.total_erros > 0),
-                    func.min(Agenda.proxima_em),
+                    func.count(Questao.id).filter(ativa),
+                    func.count(Questao.id).filter(ativa, Agenda.proxima_em <= h),
+                    func.count(Questao.id).filter(ativa, Agenda.estado == "dominada"),
+                    func.count(Questao.id).filter(ativa, Agenda.total_erros > 0),
+                    func.min(Agenda.proxima_em).filter(ativa),
+                    func.count(Questao.id).filter(_de_banca_pausada()),
                 )
                 .select_from(Topico)
                 .outerjoin(Questao, Questao.topico_id == Topico.id)
@@ -328,8 +400,9 @@ async def modulos() -> list[dict]:
                 "dominadas": dom,
                 "com_erro": erradas,
                 "proxima_em": prox,
+                "pausadas": paradas,
             }
-            for tid, n, venc, dom, erradas, prox in linhas
+            for tid, n, venc, dom, erradas, prox, paradas in linhas
         }
 
         saida = []
@@ -346,6 +419,7 @@ async def modulos() -> list[dict]:
                         "dominadas": d.get("dominadas", 0),
                         "com_erro": d.get("com_erro", 0),
                         "proxima_em": d.get("proxima_em"),
+                        "pausadas": d.get("pausadas", 0),
                     }
                 )
             proximas = [t["proxima_em"] for t in topicos if t["proxima_em"]]
@@ -358,11 +432,221 @@ async def modulos() -> list[dict]:
                     "hoje": sum(t["hoje"] for t in topicos),
                     "dominadas": sum(t["dominadas"] for t in topicos),
                     "com_erro": sum(t["com_erro"] for t in topicos),
+                    "pausadas": sum(t["pausadas"] for t in topicos),
                     "proxima_em": min(proximas) if proximas else None,
                     "topicos": topicos,
                 }
             )
         return saida
+
+
+# ── Bancas ───────────────────────────────────────────────────────────────
+#
+# Nascem pelo `scripts/importar_questoes.py`, que cria a banca do arquivo que
+# está entrando. O que a tela faz é o que o import não sabe fazer: decidir qual
+# delas eu estou estudando agora.
+
+
+async def bancas() -> list[dict]:
+    """Quem aplica prova no acervo, com quanto cada uma pesa.
+
+    Ordenadas com a ativa na frente: a tela de Módulos usa isto como filtro, e
+    a banca do concurso que eu estou fazendo tem de ser a primeira coisa ali.
+    """
+    h = hoje()
+    async with get_session() as session:
+        linhas = (
+            await session.execute(
+                select(
+                    Banca.id,
+                    Banca.nome,
+                    Banca.ativa,
+                    Banca.ordem,
+                    func.count(Questao.id),
+                    func.count(Questao.id).filter(Agenda.proxima_em <= h),
+                    func.count(Questao.id).filter(Agenda.estado == "dominada"),
+                    func.count(Questao.id).filter(Agenda.total_erros > 0),
+                )
+                .select_from(Banca)
+                .outerjoin(Questao, Questao.banca_id == Banca.id)
+                .outerjoin(Agenda, Agenda.questao_id == Questao.id)
+                .group_by(Banca.id, Banca.nome, Banca.ativa, Banca.ordem)
+                .order_by(Banca.ativa.desc(), Banca.ordem, Banca.nome)
+            )
+        ).all()
+
+        # As questões sem banca não somem da tela: são as inéditas, e elas nunca
+        # são pausadas. Aparecem como uma linha própria, sem id — a tela usa a
+        # ausência do id para não oferecer os botões de pausar e renomear.
+        sem_banca = (
+            await session.execute(
+                select(
+                    func.count(Questao.id),
+                    func.count(Questao.id).filter(Agenda.proxima_em <= h),
+                    func.count(Questao.id).filter(Agenda.estado == "dominada"),
+                    func.count(Questao.id).filter(Agenda.total_erros > 0),
+                )
+                .select_from(Questao)
+                .outerjoin(Agenda, Agenda.questao_id == Questao.id)
+                .where(Questao.banca_id.is_(None))
+            )
+        ).one()
+
+        saida = [
+            {
+                "id": str(bid),
+                "nome": nome,
+                "ativa": ativa,
+                "ordem": ordem,
+                "questoes": n,
+                "hoje": venc,
+                "dominadas": dom,
+                "com_erro": erradas,
+            }
+            for bid, nome, ativa, ordem, n, venc, dom, erradas in linhas
+        ]
+        if sem_banca[0]:
+            saida.append(
+                {
+                    "id": None,
+                    "nome": "Sem banca (inéditas)",
+                    "ativa": True,
+                    "ordem": 999,
+                    "questoes": sem_banca[0],
+                    "hoje": sem_banca[1],
+                    "dominadas": sem_banca[2],
+                    "com_erro": sem_banca[3],
+                }
+            )
+        return saida
+
+
+async def criar_banca(*, nome: str, ativa: bool = True, ordem: int = 0) -> Banca:
+    nome = (nome or "").strip()
+    if not nome:
+        raise RespostaInvalida("A banca precisa de um nome.")
+    async with get_session() as session:
+        if await session.scalar(
+            select(Banca).where(func.lower(Banca.nome) == nome.lower())
+        ):
+            raise NomeEmUso(f"Já existe uma banca chamada '{nome}'.")
+        banca = Banca(nome=nome, ativa=ativa, ordem=ordem)
+        session.add(banca)
+        try:
+            await session.commit()
+        except IntegrityError as e:
+            raise NomeEmUso(f"Já existe uma banca chamada '{nome}'.") from e
+        return banca
+
+
+async def atualizar_banca(banca_id: uuid.UUID, campos: dict) -> Banca:
+    """Renomeia, reordena e — o que importa — pausa e retoma.
+
+    `ativa` é o único campo aqui que muda o que eu vou ver amanhã de manhã, e é
+    reversível: pausar não encosta em questão, agenda nem tentativa.
+    """
+    async with get_session() as session:
+        banca = await session.scalar(select(Banca).where(Banca.id == banca_id))
+        if banca is None:
+            raise QuestaoNaoEncontrada(f"Banca {banca_id} não existe.")
+        for k, v in campos.items():
+            if v is not None:
+                setattr(banca, k, v.strip() if isinstance(v, str) else v)
+        try:
+            await session.commit()
+        except IntegrityError as e:
+            raise NomeEmUso("Já existe uma banca com esse nome.") from e
+        logger.info(
+            f"Estudo: banca '{banca.nome}' agora está "
+            f"{'ativa' if banca.ativa else 'pausada'}"
+        )
+        return banca
+
+
+async def focar_banca(banca_id: uuid.UUID) -> dict:
+    """Deixa só uma banca em estudo — pausa todas as outras de uma vez.
+
+    Pausar uma a uma é a operação certa quando eu descarto uma prova; trocar de
+    concurso é outra coisa, e são dez cliques para dizer uma frase só ("agora é
+    esta"). O efeito é exatamente o de pausar cada uma à mão: nada é apagado, e
+    `ativar_todas` desfaz no mesmo clique.
+
+    Volta o que mudou, porque uma ação em massa precisa dizer o tamanho do que
+    fez — "9 bancas pausadas, 32 questões fora da fila" é a diferença entre
+    conferir e desconfiar.
+    """
+    async with get_session() as session:
+        alvo = await session.scalar(select(Banca).where(Banca.id == banca_id))
+        if alvo is None:
+            raise QuestaoNaoEncontrada(f"Banca {banca_id} não existe.")
+
+        outras = list(
+            (await session.scalars(select(Banca).where(Banca.id != banca_id))).all()
+        )
+        pausadas = [b for b in outras if b.ativa]
+        for b in outras:
+            b.ativa = False
+        alvo.ativa = True
+
+        questoes = int(
+            await session.scalar(
+                select(func.count(Questao.id)).where(
+                    Questao.banca_id.in_([b.id for b in pausadas])
+                )
+            )
+            or 0
+        ) if pausadas else 0
+
+        await session.commit()
+        logger.info(
+            f"Estudo: foco em '{alvo.nome}' — {len(pausadas)} banca(s) pausada(s)"
+        )
+        return {
+            "banca": alvo.nome,
+            "bancas_pausadas": len(pausadas),
+            "questoes_pausadas": questoes,
+        }
+
+
+async def ativar_todas() -> int:
+    """Devolve todas as bancas ao estudo. O desfazer de `focar_banca`."""
+    async with get_session() as session:
+        pausadas = list(
+            (await session.scalars(select(Banca).where(Banca.ativa.is_(False)))).all()
+        )
+        for b in pausadas:
+            b.ativa = True
+        await session.commit()
+        logger.info(f"Estudo: {len(pausadas)} banca(s) de volta ao estudo")
+        return len(pausadas)
+
+
+async def apagar_banca(banca_id: uuid.UUID, *, forcar: bool = False) -> int:
+    """Apaga o rótulo, nunca o acervo.
+
+    O `SET NULL` da FK deixa as questões onde estão, sem banca. Ainda assim a
+    remoção recusa por padrão quando há questões: perder a procedência de 96
+    itens é perder a única coisa que me deixa reabrir o PDF e desconfiar do
+    gabarito. Para tirar a banca da tela sem perder nada, o caminho é pausar.
+    """
+    async with get_session() as session:
+        banca = await session.scalar(select(Banca).where(Banca.id == banca_id))
+        if banca is None:
+            raise QuestaoNaoEncontrada(f"Banca {banca_id} não existe.")
+        n = int(
+            await session.scalar(
+                select(func.count(Questao.id)).where(Questao.banca_id == banca_id)
+            )
+            or 0
+        )
+        if n and not forcar:
+            raise NaoVazio(
+                f"'{banca.nome}' tem {n} questão(ões). Apagar não as apaga, mas "
+                "elas perdem a procedência — para tirá-la do estudo, pause."
+            )
+        await session.delete(banca)
+        await session.commit()
+        return n
 
 
 # ── Módulos e tópicos ────────────────────────────────────────────────────
@@ -645,10 +929,18 @@ async def listar(
     *,
     topico_id: uuid.UUID | None = None,
     modulo_id: uuid.UUID | None = None,
+    banca_id: uuid.UUID | None = None,
     busca: str | None = None,
     limite: int = 50,
     offset: int = 0,
 ) -> tuple[int, list[Questao]]:
+    """O acervo — e aqui banca pausada **aparece**.
+
+    É a única consulta que não filtra pela pausa, e de propósito: esta é a tela
+    onde eu confiro gabarito e escrevo explicação. Sumir com a questão de quem
+    foi procurá-la seria mentir sobre o que existe no banco. Quem quiser separar
+    passa `banca_id`.
+    """
     async with get_session() as session:
         stmt = _com_relacoes(select(Questao)).join(
             Topico, Topico.id == Questao.topico_id
@@ -662,6 +954,9 @@ async def listar(
         if modulo_id:
             stmt = stmt.where(Topico.modulo_id == modulo_id)
             conta = conta.where(Topico.modulo_id == modulo_id)
+        if banca_id:
+            stmt = stmt.where(Questao.banca_id == banca_id)
+            conta = conta.where(Questao.banca_id == banca_id)
         if busca:
             alvo = f"%{busca.strip()}%"
             stmt = stmt.where(Questao.enunciado.ilike(alvo))

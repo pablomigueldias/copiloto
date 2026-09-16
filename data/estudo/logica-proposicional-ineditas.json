@@ -1,5 +1,6 @@
 {
   "_leia_me": "Cinco questões INÉDITAS, escritas no padrão Quadrix a partir da nota `_inbox/logica-proposicional-quadrix.md` do vault. NÃO são de prova: nenhuma banca as publicou e nenhum gabarito oficial as confere. Por isso a `origem` diz \"Inédita (sem banca)\" e a `fonte` aponta a nota — na tela dá para ver de onde veio antes de discutir com o gabarito. Ao contrário do acervo de prova, aqui a `explicacao` vem preenchida: quem escreveu a questão foi a mesma nota que escreveu a resolução, então não há fonte inventada. Cobrem o que as 6 provas do Quadrix mais cobram: negação da condicional, De Morgan e valoração a partir de premissa falsa. NORMALIZAÇÃO DE 05/09/2026: no bloco (p ∧ q) → r, as definições de p, q e r e a premissa saíram do `comando` para o `texto_base`, no mesmo padrão dos blocos de prova. Como a questão é minha, não há fidelidade de PDF em jogo — só a forma na tela.",
+  "banca": "Inéditas",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",

@@ -9,13 +9,28 @@ em `estudo_tentativa`.
 
 `origem` não é enfeite: é o que me deixa desconfiar do gabarito. "COFFITO 2023,
 item 29, gabarito definitivo" é conferível; "achei na internet" não é.
+
+`Banca` é a terceira tabela e nasceu de um fato de calendário: eu estudo para
+uma banca por vez. A `origem` já dizia quem aplicou a prova, mas em texto livre
+— não dá para pedir ao banco "tire a Quadrix da fila enquanto eu faço o Avança
+SP" a partir de uma string. A banca vira linha própria justamente para ter onde
+guardar esse `ativa`, e ela fica na **questão**, não no módulo: o mesmo tópico
+recebe questão de banca diferente desde o primeiro dia do acervo.
 """
 from __future__ import annotations
 
 import uuid
 from typing import TYPE_CHECKING
 
-from sqlalchemy import CheckConstraint, ForeignKey, Index, Integer, String, Text
+from sqlalchemy import (
+    Boolean,
+    CheckConstraint,
+    ForeignKey,
+    Index,
+    Integer,
+    String,
+    Text,
+)
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
@@ -47,6 +62,28 @@ LETRAS = ("A", "B", "C", "D", "E")
 # Onde o módulo aparece na sidebar. São dois porque são dois os motivos de eu
 # estudar: a prova que tem data e o assunto que tem carreira.
 TRILHAS = ("concurso", "especializacao")
+
+
+class Banca(Base, UUIDPrimaryKeyMixin, TimestampMixin):
+    """Quem aplica a prova — e se eu estou estudando para ela agora.
+
+    `ativa=False` é a razão de esta tabela existir. Quando eu troco o foco de
+    concurso, a banca velha não some: as questões dela ficam no acervo, com o
+    histórico inteiro, e apenas param de aparecer na fila do dia. Apagar seria
+    perder meses de repetição espaçada por uma decisão que pode voltar atrás no
+    mês seguinte; deixar tudo junto seria revisar uma prova que eu não vou
+    fazer. Pausar é a terceira opção, e é a certa.
+    """
+
+    __tablename__ = "estudo_banca"
+
+    nome: Mapped[str] = mapped_column(String(120), nullable=False, unique=True)
+    # Entra na fila do dia? Quadrix fica `False` enquanto o foco é o Avança SP.
+    ativa: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    ordem: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+
+    def __repr__(self) -> str:
+        return f"<Banca {self.nome}{'' if self.ativa else ' (pausada)'}>"
 
 
 class Modulo(Base, UUIDPrimaryKeyMixin, TimestampMixin):
@@ -104,6 +141,14 @@ class Questao(Base, UUIDPrimaryKeyMixin, TimestampMixin):
         ForeignKey("estudo_topico.id", ondelete="CASCADE"),
         nullable=False,
     )
+    # Nula quando a questão é minha (inédita) ou quando a procedência não deu
+    # para identificar. `SET NULL` e não `CASCADE`: apagar a banca não pode
+    # apagar o acervo dela — some o rótulo, ficam as questões.
+    banca_id: Mapped[uuid.UUID | None] = mapped_column(
+        PG_UUID(as_uuid=True),
+        ForeignKey("estudo_banca.id", ondelete="SET NULL"),
+        nullable=True,
+    )
     formato: Mapped[str] = mapped_column(String(30), nullable=False)
 
     # O comando que vale para um bloco inteiro de itens: "Acerca da proposição
@@ -156,6 +201,7 @@ class Questao(Base, UUIDPrimaryKeyMixin, TimestampMixin):
         CheckConstraint("dificuldade between 1 and 3", name="ck_estudo_questao_dificuldade"),
         Index("ix_estudo_questao_topico", "topico_id"),
         Index("ix_estudo_questao_formato", "formato"),
+        Index("ix_estudo_questao_banca", "banca_id"),
     )
 
     def __repr__(self) -> str:
