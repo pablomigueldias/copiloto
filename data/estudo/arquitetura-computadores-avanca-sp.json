@@ -1,5 +1,5 @@
 {
-  "_leia_me": "Seção 2 do caderno do Instituto Avança SP: as 21 questões de arquitetura e\n    organização de computadores das provas de Rio Grande da Serra 2024, Itatiba\n    2024 e Juquitiba 2024. 16,8% dos específicos — dominou as três provas de 2024.\n\n    Transcritas de docs/avanca-sp/avanca-sp-especificos.md, com o gabarito oficial\n    de cada prova. Não reabri os PDFs das prefeituras.\n\n    As questões 35 de Itatiba (MFlops/MIPS) e 47 de Itatiba (papel dos\n    registradores) cobram a formulação literal do Stallings e têm alternativas\n    defensáveis fora do gabarito. Ficaram com dificuldade 3 e a explicação diz\n    onde está a pegadinha.\n\n    As explicações são minhas.",
+  "_leia_me": "Seção 2 do caderno do Instituto Avança SP: as 23 questões de arquitetura e\n    organização de computadores das provas de Amparo 2022, Rio Grande da Serra\n    2024, Itatiba 2024 e Juquitiba 2024. Dominou as três provas de 2024.\n\n    Transcritas de docs/avanca-sp/avanca-sp-especificos.md, com o gabarito oficial\n    de cada prova. Não reabri os PDFs das prefeituras — salvo as duas de Amparo.\n\n    As questões 35 de Itatiba (MFlops/MIPS) e 47 de Itatiba (papel dos\n    registradores) cobram a formulação literal do Stallings e têm alternativas\n    defensáveis fora do gabarito. Ficaram com dificuldade 3 e a explicação diz\n    onde está a pegadinha.\n\n    As duas de Amparo (31 e 34) entraram em 16/09/2026, vindas do PDF da prova:\n    as figuras estavam no repositório desde 15/09 sem questão que as citasse. A\n    31 é tabela-verdade e ficou como tabela no enunciado, não como imagem —\n    texto se lê, se pesquisa e não depende de arquivo.\n\n    As explicações são minhas.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Conhecimentos específicos de TI",
@@ -655,6 +655,68 @@
           "texto": "HDs"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 31",
+      "enunciado": "Analise a tabela verdade da porta lógica OR:\n\n| Entrada | Entrada | Saída |\n|---|---|---|\n| 0 | 0 | 0 |\n| 0 | 1 | 1 |\n| 1 | 0 | x |\n| 1 | 1 | y |\n\nAs saídas correspondentes a x e y são, respectivamente?",
+      "gabarito": "D",
+      "explicacao": "**1 e 1** — alternativa (D). A porta **OR** devolve 1 quando **pelo menos uma** entrada é 1; só devolve 0 quando as duas são 0.\n\nAplicando às duas linhas que faltam: `1 OR 0` = **1** (uma entrada é 1), e `1 OR 1` = **1** (as duas são). Logo x = 1 e y = 1.\n\nA tabela completa, que é o que vale fixar:\n\n| A | B | A OR B |\n|---|---|---|\n| 0 | 0 | 0 |\n| 0 | 1 | 1 |\n| 1 | 0 | 1 |\n| 1 | 1 | 1 |\n\nRepare que a alternativa (E), \"2 e 1\", já se elimina antes de qualquer raciocínio: lógica binária não produz 2. Sobram quatro combinações de 0 e 1, e a primeira linha dada pela banca (`0 OR 1` = 1) confirma que a porta é mesmo OR e não NOR.\n\nAs quatro portas básicas em uma tabela só — a pergunta muda de porta e a estrutura é sempre esta:\n\n| A | B | AND | OR | XOR | NAND |\n|---|---|---|---|---|---|\n| 0 | 0 | 0 | 0 | 0 | 1 |\n| 0 | 1 | 0 | 1 | 1 | 1 |\n| 1 | 0 | 0 | 1 | 1 | 1 |\n| 1 | 1 | 1 | 1 | 0 | 0 |\n\nO par que a prova costuma opor é **OR × XOR**: eles só divergem na última linha. OR com as duas entradas em 1 dá 1; XOR (\"ou exclusivo\", um **ou** outro, não os dois) dá 0. Se este enunciado fosse de XOR, a resposta seria \"1 e 0\" — que é exatamente a alternativa (B), e é por isso que ela está ali.\n\nAtalho: OR é a porta generosa — só diz não quando ninguém disse sim. AND é a exigente: só diz sim quando todos disseram sim.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "0 e 1."
+        },
+        {
+          "letra": "B",
+          "texto": "1 e 0."
+        },
+        {
+          "letra": "C",
+          "texto": "0 e 0."
+        },
+        {
+          "letra": "D",
+          "texto": "1 e 1."
+        },
+        {
+          "letra": "E",
+          "texto": "2 e 1."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 34",
+      "enunciado": "Um teclado tem apenas o padrão da imagem, abaixo, para ser instalado:\n\nO nome dessa entrada é:",
+      "gabarito": "E",
+      "explicacao": "**Entrada PS/2** — alternativa (E). \"Serral\", \"h2d2\" e \"usb 1.23\" não existem; áudio/vídeo (C) existe, mas não é este conector.\n\nO que a foto mostra é um **mini-DIN de 6 pinos**: conector redondo, seis contatos em arco e uma guia plástica retangular que só deixa encaixar numa posição. É o padrão **PS/2**, nome herdado do IBM Personal System/2, de 1987, que o introduziu.\n\nA convenção de cor, que a própria foto ilustra e que cai em prova:\n\n| Cor | Dispositivo |\n|---|---|\n| **Roxo** | teclado |\n| **Verde** | mouse |\n\nO conector da imagem é **verde** — cor de mouse — embora o enunciado fale de teclado. Isso não muda a resposta: os dois são PS/2, eletricamente e mecanicamente idênticos, e a cor é só código visual para não trocar as portas. A pergunta é pelo **nome da entrada**, e o nome é o mesmo nos dois casos.\n\nPS/2 × USB, que é a comparação que a questão sugere ao oferecer \"usb 1.23\":\n\n| | PS/2 | USB |\n|---|---|---|\n| Formato | mini-DIN 6 pinos, redondo | retangular (tipo A) |\n| Conexão a quente | **não** — exige a máquina desligada | sim, **hot plug** |\n| Dispositivos por porta | um | até 127, com hub |\n| Como o dado chega | **interrupção** dedicada | polling pelo controlador |\n\nO detalhe da interrupção é o que manteve o PS/2 vivo por anos depois de obsoleto: como não depende de varredura, ele não perde tecla em combinação simultânea e funciona antes do sistema operacional carregar — por isso placas-mãe continuaram trazendo a porta roxa para acesso ao setup e a teclados de jogo.\n\nAs versões numeradas do USB, aliás, são 1.0, 1.1, 2.0, 3.x e 4 — \"1.23\" não é nenhuma delas.\n\nAtalho: conector redondo com seis pinos e cor roxa ou verde = PS/2.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Entrada usb 1.23."
+        },
+        {
+          "letra": "B",
+          "texto": "Entrada serral."
+        },
+        {
+          "letra": "C",
+          "texto": "Entrada áudio/vídeo."
+        },
+        {
+          "letra": "D",
+          "texto": "Entrada h2d2."
+        },
+        {
+          "letra": "E",
+          "texto": "Entrada ps2/p2."
+        }
+      ],
+      "imagem": "avanca-sp/amparo-2022-conector-teclado.png",
+      "imagem_alt": "Foto aproximada de um conector PS/2 verde na ponta de um cabo: corpo plástico redondo com uma seta em relevo e, na face, seis pinos metálicos dispostos em arco ao redor de uma guia retangular."
     }
   ]
 }

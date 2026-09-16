@@ -1,5 +1,5 @@
 {
-  "_leia_me": "Seção 1 do caderno de Conhecimentos Específicos do Instituto Avança SP: as 31\n    questões de redes das cinco provas de TI (Americana 2022, Rio Grande da Serra\n    2024, Itatiba 2024, Juquitiba 2024). É o assunto mais cobrado da banca —\n    24,8% dos específicos, presente em 4 das 5 provas.\n\n    Transcritas do caderno em docs/avanca-sp/avanca-sp-especificos.md. O gabarito\n    foi conferido depois contra o PDF que a banca publicou, por\n    scripts/conferir_gabaritos_avanca_sp.py — Americana, Juquitiba e Rio Grande\n    da Serra batem item a item.\n\n    As explicações são minhas — a banca publica gabarito, não justificativa.\n\n    A foto da questão 39 de Rio Grande da Serra (alicate de crimpagem) não veio\n    na transcrição do caderno e foi recortada do PDF da prova depois, em\n    data/estudo/imagens/avanca-sp/alicate-crimpagem.png.",
+  "_leia_me": "Seção 1 do caderno de Conhecimentos Específicos do Instituto Avança SP: as 34\n    questões de redes das provas de TI (Americana 2022, Amparo 2022, Rio Grande\n    da Serra 2024, Itatiba 2024, Juquitiba 2024). É o assunto mais cobrado da\n    banca — presente em 5 das 6 provas.\n\n    Transcritas do caderno em docs/avanca-sp/avanca-sp-especificos.md. O gabarito\n    foi conferido depois contra o PDF que a banca publicou, por\n    scripts/conferir_gabaritos_avanca_sp.py — Americana, Amparo, Juquitiba e Rio\n    Grande da Serra batem item a item.\n\n    As explicações são minhas — a banca publica gabarito, não justificativa.\n\n    A foto da questão 39 de Rio Grande da Serra (alicate de crimpagem) não veio\n    na transcrição do caderno e foi recortada do PDF da prova depois, em\n    data/estudo/imagens/avanca-sp/alicate-crimpagem.png.\n\n    As três de Amparo (35, 39 e 41) entraram em 16/09/2026, pelo caminho\n    inverso: as figuras já tinham sido recortadas do PDF em 15/09 e estavam no\n    repositório sem questão que as citasse. A questão 41 é a mais interessante\n    do caderno — o desenho do anel parece uma estrela, e a alternativa (A) é\n    exatamente isso.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Conhecimentos específicos de TI",
@@ -965,6 +965,102 @@
           "texto": "tracert"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 35",
+      "enunciado": "Tendo como base conhecimentos acerca de redes de computadores. Como é conhecido o cabo da imagem abaixo:",
+      "gabarito": "C",
+      "explicacao": "**Cabo coaxial** — alternativa (C). Das cinco, três não existem: \"jtt\", \"ursss\" e \"UDD\" são nomes inventados. Sobram cabo USB e cabo coaxial, e a foto decide.\n\nO que a foto mostra, de fora para dentro, é a definição do coaxial — e é por isso que ele se chama assim: todas as camadas compartilham o **mesmo eixo**.\n\n| Camada | Na foto | Função |\n|---|---|---|\n| Capa externa | a cobertura preta | proteção mecânica |\n| Malha metálica | a trança de cobre | a **blindagem** — é o segundo condutor e o terra |\n| Dielétrico | o cilindro branco | isola a malha do centro e fixa a distância entre eles |\n| Condutor central | o fio de cobre na ponta | leva o sinal |\n\nA malha trançada é o detalhe que identifica o cabo à primeira vista, e é ela que dá ao coaxial a imunidade a interferência que justificou seu uso: o sinal viaja no centro, envolvido por um condutor aterrado que funciona como gaiola.\n\nOnde ele aparece em prova de redes:\n\n| Padrão | Cabo | Alcance | Velocidade |\n|---|---|---|---|\n| **10BASE5** (thicknet) | coaxial grosso | 500 m | 10 Mbps |\n| **10BASE2** (thinnet) | coaxial fino, conector BNC | 185 m | 10 Mbps |\n| **10BASE-T** | par trançado, RJ45 | 100 m | 10 Mbps |\n\nOs dois primeiros são a Ethernet em **barramento** — o cabo coaxial **era** o barramento, com as máquinas presas a ele e terminadores nas duas pontas. Foi o par trançado com hub/switch que aposentou esse arranjo na rede local, e é por isso que coaxial e topologia em barramento caem juntos.\n\nEle não desapareceu: é o cabo da TV a cabo, da internet via cabo (DOCSIS) e da antena — só saiu da rede local.\n\nAtalho: malha de cobre trançada à vista = coaxial. Par trançado não tem malha aparente, tem quatro pares coloridos.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Cabo USB."
+        },
+        {
+          "letra": "B",
+          "texto": "Cabo jtt."
+        },
+        {
+          "letra": "C",
+          "texto": "Cabo coaxial."
+        },
+        {
+          "letra": "D",
+          "texto": "Cabo ursss."
+        },
+        {
+          "letra": "E",
+          "texto": "Cabo UDD."
+        }
+      ],
+      "imagem": "avanca-sp/amparo-2022-cabo-rede.png",
+      "imagem_alt": "Foto de um pedaço de cabo coaxial com a ponta descascada em degraus: a capa externa preta, depois a malha de cobre trançada, depois o isolante branco e, na ponta, o condutor central de cobre."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 39",
+      "enunciado": "Analise a imagem, abaixo:\n\nA topologia de rede apresentada, na imagem, é a do tipo:",
+      "gabarito": "A",
+      "explicacao": "**Barramento** — alternativa (A). \"Inversa\", \"Conect\" e \"Oring\" não são topologias; existem só para encher as cinco linhas. Restam barramento e mesh, e o desenho não deixa dúvida.\n\nO que a figura mostra: um **tronco horizontal único** com cinco computadores pendurados nele, três acima e dois abaixo. Não há concentrador, não há circuito fechado e não há máquina ligada a outra máquina — todas mordem o mesmo cabo. Isso é barramento (bus), e o cabo é o **meio compartilhado**.\n\nAs consequências desse desenho são o que a prova cobra:\n\n| Propriedade | Por quê |\n|---|---|\n| **Colisão** | um transmite por vez; dois ao mesmo tempo corrompem o sinal — daí o CSMA/CD |\n| **Ponto único de falha** | rompeu o tronco, a rede inteira cai |\n| **Terminadores nas pontas** | sem eles o sinal reflete na extremidade e volta como ruído |\n| **Custo baixo de cabo** | um único trecho serve todos — a razão de ele ter existido |\n| **Difícil de diagnosticar** | o defeito é do segmento, não de uma porta; não há onde isolar |\n\nA comparação que fecha as cinco alternativas plausíveis de topologia:\n\n| Topologia | Desenho | Marca registrada |\n|---|---|---|\n| **Barramento** | um tronco, todos pendurados | sem centro, sem circuito fechado |\n| **Estrela** | um concentrador, todos ligados a ele | um nível, centro é ponto único |\n| **Anel** | circuito fechado, cada nó com dois vizinhos | o dado circula em volta |\n| **Malha** (mesh) | todos ligados a todos, ou quase | várias linhas saindo de cada nó |\n| **Hierárquica** | raiz e níveis ramificando | estrelas empilhadas |\n\nMesh (C) seria o distrator se o desenho tivesse linhas de máquina para máquina. Não tem: toda linha desce do tronco.\n\nAtalho: procure o tronco. Uma linha só, com todo mundo pendurado nela, é barramento — não importa quantos micros a banca desenhe.",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Barramento."
+        },
+        {
+          "letra": "B",
+          "texto": "Inversa."
+        },
+        {
+          "letra": "C",
+          "texto": "Mesh."
+        },
+        {
+          "letra": "D",
+          "texto": "Conect."
+        },
+        {
+          "letra": "E",
+          "texto": "Oring."
+        }
+      ],
+      "imagem": "avanca-sp/amparo-2022-topologia-a.png",
+      "imagem_alt": "Diagrama de topologia de rede: um cabo horizontal único atravessa a figura, com três computadores ligados a ele por cima e dois por baixo. Não há concentrador nem ligação entre computadores."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 41",
+      "enunciado": "Analise a imagem abaixo:\n\nQual topologia de rede a imagem representa?",
+      "gabarito": "B",
+      "explicacao": "**Anel** — alternativa (B). Esta é a questão da prova em que o desenho trabalha contra a resposta, e vale entender por quê antes de decorar.\n\nÀ primeira vista parecem cinco computadores ligados a um ponto central: **estrela**, que é a alternativa (A). Mas o centro não é um ponto nem um equipamento — é uma **elipse fechada**. Essa elipse **é** o anel: o cabo em circuito fechado. Cada máquina se acopla a ele, e o dado dá a volta.\n\nO que separa os dois casos no desenho:\n\n| Se o centro é… | Topologia | Por quê |\n|---|---|---|\n| um **ponto**, caixa ou switch | estrela | há um equipamento concentrador |\n| um **circuito fechado** (anel, elipse) | anel | não há centro; há um caminho que se fecha |\n\nA distinção não é só de desenho. Na estrela o concentrador **comuta**: recebe e encaminha, e é ponto único de falha. No anel não existe esse equipamento — o sinal passa **de nó em nó** até completar a volta, e cada estação repete o que recebe. É por isso que, no anel puro, uma máquina que sai do ar interrompe o caminho de todas, e a solução clássica foi o anel duplo (FDDI) e o MAU do Token Ring, que fecha o anel sozinho quando uma porta cai.\n\nO detalhe que mais confunde, e que esta figura ilustra bem: o **Token Ring** é logicamente um anel e fisicamente uma estrela — as máquinas ficam todas ligadas a um MAU, que por dentro é o anel. Topologia física e topologia lógica são perguntas diferentes, e a banca aqui pergunta o que a imagem **representa**.\n\nAs outras três: barramento (C) teria um tronco reto com todos pendurados; mesh (D) teria linhas de máquina para máquina; \"Wild\" (E) não existe.\n\nAtalho: centro redondo e vazio = anel. Centro que é um equipamento = estrela.",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Estrela."
+        },
+        {
+          "letra": "B",
+          "texto": "Anel."
+        },
+        {
+          "letra": "C",
+          "texto": "Barramento."
+        },
+        {
+          "letra": "D",
+          "texto": "Mesh."
+        },
+        {
+          "letra": "E",
+          "texto": "Wild."
+        }
+      ],
+      "imagem": "avanca-sp/amparo-2022-topologia-b.png",
+      "imagem_alt": "Diagrama de topologia de rede: uma elipse vazia no centro representa o anel, e cinco computadores ligam-se a ela por segmentos curtos, distribuídos em volta. Não há equipamento concentrador no meio."
     }
   ]
 }
