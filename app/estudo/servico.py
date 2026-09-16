@@ -21,10 +21,11 @@ from sqlalchemy import Select, and_, func, or_, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import selectinload
 
-from app.config import settings
+from app.config import BASE_DIR, settings
 from app.db.models.estudo.agenda import Agenda, Tentativa
 from app.db.models.estudo.questao import (
     FORMATOS,
+    IMAGENS_DIR,
     LETRAS,
     TRILHAS,
     Banca,
@@ -57,6 +58,10 @@ class NomeEmUso(EstudoErro):
 
 class NaoVazio(EstudoErro):
     """Apagar levaria questões junto. Quem decide isso sou eu, explicitamente."""
+
+
+class ImagemInexistente(EstudoErro):
+    """A questão aponta para um arquivo que não está em `data/estudo/imagens`."""
 
 
 def hoje() -> date:
@@ -971,6 +976,24 @@ async def listar(
         return int(total), list(itens)
 
 
+def _confere_imagem(nome: str | None) -> None:
+    """A figura tem de existir em disco antes de a questão existir no banco.
+
+    Falhar aqui é barato; falhar na tela é caro. A questão "que tipo de
+    topologia é a da imagem?" sem a imagem não é uma questão difícil, é uma
+    questão impossível — e ela apareceria no meio de uma sessão cronometrada,
+    quando não há o que fazer a respeito.
+    """
+    if not nome:
+        return
+    caminho = BASE_DIR / IMAGENS_DIR / nome
+    if not caminho.is_file():
+        raise ImagemInexistente(
+            f"A imagem '{nome}' não está em {IMAGENS_DIR}/. "
+            "Ponha o arquivo lá antes de cadastrar a questão."
+        )
+
+
 async def criar_questao(dados: dict) -> Questao:
     """Cadastra a questão e já a coloca vencendo hoje.
 
@@ -982,6 +1005,7 @@ async def criar_questao(dados: dict) -> Questao:
         raise RespostaInvalida(
             f"Formato '{dados['formato']}' desconhecido. Use um de {list(FORMATOS)}."
         )
+    _confere_imagem(dados.get("imagem"))
     async with get_session() as session:
         questao = Questao(**dados)
         session.add(questao)
@@ -1034,6 +1058,7 @@ async def atualizar_questao(questao_id: uuid.UUID, campos: dict) -> Questao:
     sem justificativa da banca, e eu escrevo a minha quando errar a questão e
     entender por quê.
     """
+    _confere_imagem(campos.get("imagem"))
     async with get_session() as session:
         questao = await session.scalar(select(Questao).where(Questao.id == questao_id))
         if questao is None:

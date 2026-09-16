@@ -107,6 +107,11 @@ fica inteira no acervo, com agenda e tentativas intactas. A alternativa antes
 disso era apagar o módulo, que leva junto meses de repetição espaçada — a única
 coisa aqui que não se refaz.
 
+Questão com figura — topologia de rede, diagrama UML, árvore binária — guarda o
+**arquivo**, versionado ao lado do JSON que o cita, nunca um link: PDF de
+prefeitura sai do ar, e um acervo que depende da internet some na véspera. A
+descrição da figura é obrigatória e aparece na tela se o arquivo faltar.
+
 ### 4. Adapta meu currículo a uma vaga, sem inventar nada
 
 Colo a descrição da vaga; ele extrai os requisitos, cruza com o meu Perfil Mestre,

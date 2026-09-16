@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Dialogo } from "@/components/Dialogo";
 import { Enunciado } from "@/components/Enunciado";
+import { ImagemQuestao } from "@/components/ImagemQuestao";
 import { quando } from "@/components/ui";
 import { api } from "@/lib/api";
 import type { Questao, Tentativa } from "@/lib/tipos";
@@ -134,6 +135,10 @@ export function GavetaQuestao({
           )}
 
           <Enunciado texto={questao.enunciado} className="text-[16px] leading-[1.55]" />
+
+          {(questao.imagem || questao.imagem_alt) && (
+            <ImagemQuestao arquivo={questao.imagem} alt={questao.imagem_alt} />
+          )}
 
           {questao.alternativas.length > 0 && (
             <div className="flex flex-col gap-[6px]">

@@ -44,6 +44,10 @@ class QuestaoResponse(BaseModel):
     linguagem: str | None = None
     alternativas: list[Alternativa] = []
     afirmacoes: list[str] = []
+    # Nome do arquivo dentro de `data/estudo/imagens`, servido em
+    # `/api/estudo/imagens/<imagem>`. `imagem_alt` descreve o que ela mostra.
+    imagem: str | None = None
+    imagem_alt: str | None = None
     explicacao: str | None = None
     origem: str | None = None
     fonte: str | None = None
@@ -149,6 +153,10 @@ class QuestaoRequest(BaseModel):
     linguagem: str | None = None
     alternativas: list[Alternativa] = []
     afirmacoes: list[str] = []
+    # Nome do arquivo dentro de `data/estudo/imagens`, servido em
+    # `/api/estudo/imagens/<imagem>`. `imagem_alt` descreve o que ela mostra.
+    imagem: str | None = None
+    imagem_alt: str | None = None
     explicacao: str | None = None
     origem: str | None = None
     fonte: str | None = None
@@ -164,6 +172,8 @@ class QuestaoPatch(BaseModel):
     explicacao: str | None = None
     dificuldade: int | None = Field(default=None, ge=1, le=3)
     fonte: str | None = None
+    imagem: str | None = Field(default=None, max_length=255)
+    imagem_alt: str | None = None
 
 
 class BancaResumo(BaseModel):

@@ -9,6 +9,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api.routers import auth as auth_router
 from app.api.routers import candidatura as candidatura_router
@@ -20,7 +21,8 @@ from app.api.routers import painel as painel_router
 from app.api.routers import transcricao as transcricao_router
 from app.api.services.auth.cookie import cookie_name
 from app.api.services.auth.csrf import valido as csrf_valido
-from app.config import settings
+from app.config import BASE_DIR, settings
+from app.db.models.estudo.questao import IMAGENS_DIR
 from app.db.session import dispose_engine
 from app.utils.logger import get_logger
 
@@ -88,6 +90,29 @@ app.include_router(fila_router.router)
 app.include_router(candidatura_router.router)
 app.include_router(painel_router.router)
 app.include_router(transcricao_router.router)
+
+# ── As imagens das questões ───────────────────────────────────────────────
+#
+# Questão de prova vem com figura: topologia de rede, diagrama UML, árvore
+# binária. O acervo guarda o **nome do arquivo** e os bytes moram ao lado do
+# JSON que os cita, em `data/estudo/imagens/` — versionados junto, porque link
+# de PDF de prefeitura morre em um ano, e questão que depende da internet para
+# ser lida é questão que some na véspera da prova.
+#
+# O prefixo é `/api/...` de propósito, e não algo como `/media`: o front chama
+# tudo por `/api/*` e o `next.config.ts` reescreve só esse caminho para cá.
+# Pendurar as imagens fora dele obrigaria a inventar uma segunda regra de proxy
+# e a discutir CORS por causa de uma `<img>`.
+#
+# O mount não passa pelo `usuario_atual` — `StaticFiles` não aceita dependência
+# de rota. É aceitável aqui: são figuras de prova pública, e o gabarito, a única
+# coisa que a API esconde de propósito, não está dentro delas.
+IMAGENS = BASE_DIR / IMAGENS_DIR
+IMAGENS.mkdir(parents=True, exist_ok=True)
+app.mount(
+    "/api/estudo/imagens", StaticFiles(directory=IMAGENS), name="estudo-imagens"
+)
+
 
 # ── A raiz ────────────────────────────────────────────────────────────────
 #

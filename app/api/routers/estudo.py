@@ -72,6 +72,8 @@ def _json(q: Questao, *, com_gabarito: bool = False) -> dict:
         "linguagem": q.linguagem,
         "alternativas": q.alternativas or [],
         "afirmacoes": q.afirmacoes or [],
+        "imagem": q.imagem,
+        "imagem_alt": q.imagem_alt,
         # A explicação só existe depois que eu escrevo. Ela viaja na listagem
         # (onde eu edito) e na resposta (depois de responder) — nunca antes.
         "explicacao": q.explicacao if com_gabarito else None,
@@ -377,7 +379,7 @@ async def post_questao(req: QuestaoRequest, _: UsuarioLogado) -> QuestaoResponse
     dados["topico_id"] = UUID(dados["topico_id"])
     try:
         questao = await servico.criar_questao(dados)
-    except servico.RespostaInvalida as e:
+    except (servico.RespostaInvalida, servico.ImagemInexistente) as e:
         raise HTTPException(status_code=422, detail=str(e)) from e
     return QuestaoResponse(**_json(questao, com_gabarito=True))
 
@@ -405,6 +407,8 @@ async def patch_questao(
         questao = await servico.atualizar_questao(questao_id, req.model_dump())
     except servico.QuestaoNaoEncontrada as e:
         raise HTTPException(status_code=404, detail=str(e)) from e
+    except servico.ImagemInexistente as e:
+        raise HTTPException(status_code=422, detail=str(e)) from e
     return QuestaoResponse(**_json(questao, com_gabarito=True))
 
 

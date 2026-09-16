@@ -39,6 +39,9 @@ export type Questao = {
   linguagem: string | null;
   alternativas: Alternativa[];
   afirmacoes: string[];
+  /** Arquivo em `data/estudo/imagens`; a URL sai de `api.urlImagem()`. */
+  imagem: string | null;
+  imagem_alt: string | null;
   explicacao: string | null;
   origem: string | null;
   fonte: string | null;

@@ -135,6 +135,12 @@ export const api = {
     req<{ bancas_retomadas: number }>("/estudo/bancas/ativar-todas", {
       method: "POST",
     }),
+  /**
+   * A figura da questão. É `GET` direto na tag `<img>`, não `fetch`: o arquivo
+   * é servido por `StaticFiles` no FastAPI e chega pelo mesmo rewrite `/api/*`
+   * do `next.config.ts` que o resto usa.
+   */
+  urlImagem: (arquivo: string) => `/api/estudo/imagens/${arquivo}`,
   criarModulo: (corpo: { nome: string; trilha: string; ordem?: number }) =>
     req<{ id: string; nome: string; trilha: string; ordem: number }>(
       "/estudo/modulos",

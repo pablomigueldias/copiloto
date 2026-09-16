@@ -25,9 +25,11 @@ from pathlib import Path
 
 from sqlalchemy import select
 
+from app.config import BASE_DIR
 from app.db.models.estudo.agenda import Agenda
 from app.db.models.estudo.questao import (
     FORMATOS,
+    IMAGENS_DIR,
     Banca,
     Modulo,
     Questao,
@@ -39,7 +41,7 @@ from app.estudo import agendamento, servico
 CAMPOS = (
     "formato", "comando", "enunciado", "texto_base", "texto_base_fonte",
     "codigo", "linguagem", "alternativas", "afirmacoes", "gabarito",
-    "explicacao", "origem", "fonte", "dificuldade",
+    "explicacao", "origem", "fonte", "dificuldade", "imagem", "imagem_alt",
 )
 
 
@@ -60,6 +62,38 @@ def _valida(q: dict, i: int) -> None:
             "tela junto com a questão. Identifique o documento e pare aí:\n"
             f"  {q['origem']}"
         )
+    # A figura tem de estar em disco **antes** de a questão entrar no banco.
+    # Falhar aqui custa uma linha de erro; falhar na tela custa uma questão
+    # impossível ("que topologia é a da imagem?" sem imagem) no meio de uma
+    # sessão cronometrada, quando não há nada a fazer a respeito.
+    if q.get("imagem"):
+        if q["imagem"].startswith(("http://", "https://", "data:")):
+            raise SystemExit(
+                f"questão {i}: `imagem` é nome de arquivo em {IMAGENS_DIR}/, não URL:\n"
+                f"  {q['imagem'][:80]}"
+            )
+        if not (BASE_DIR / IMAGENS_DIR / q["imagem"]).is_file():
+            raise SystemExit(
+                f"questão {i}: a imagem '{q['imagem']}' não existe em {IMAGENS_DIR}/"
+            )
+        if not q.get("imagem_alt"):
+            raise SystemExit(
+                f"questão {i}: imagem sem `imagem_alt`. A descrição é o que sobra "
+                "quando o arquivo se perde — e é exatamente a questão que depende "
+                "dela que fica impossível sem."
+            )
+    elif q.get("imagem_alt"):
+        # `imagem_alt` sozinha é o caso da figura que a prova tinha e eu não
+        # consegui recuperar. A tela desenha a descrição no lugar da figura e
+        # diz que ela é minha. O que **não** se faz é colar a descrição no
+        # enunciado: a banca escreveu "analise a imagem a seguir", e reescrever
+        # o enunciado dela é a mesma falta de inventar explicação em nome dela.
+        if "imagem" in q["enunciado"].lower() and "prova mostra" in q["enunciado"].lower():
+            raise SystemExit(
+                f"questão {i}: a descrição da figura está dentro do enunciado. "
+                "Ela vai em `imagem_alt`; o enunciado fica como a banca escreveu."
+            )
+
     if q["formato"] == "certo_errado":
         if q["gabarito"] not in ("C", "E"):
             raise SystemExit(f"questão {i}: gabarito '{q['gabarito']}' fora de ('C', 'E')")

@@ -659,3 +659,37 @@ async def test_focar_nao_encosta_no_historico():
             )
             == 1
         )
+
+
+# ── Imagem da questão ────────────────────────────────────────────────────
+
+
+async def test_questao_com_imagem_inexistente_e_recusada():
+    """Falhar aqui custa uma linha; falhar na tela custa uma questão sem resposta.
+
+    "Que topologia é a da imagem?" sem a imagem não é difícil, é impossível — e
+    apareceria no meio de uma sessão cronometrada.
+    """
+    async with get_session() as s:
+        modulo = Modulo(nome="Conhecimentos específicos de TI", trilha="concurso")
+        s.add(modulo)
+        await s.flush()
+        topico = Topico(modulo_id=modulo.id, nome="Redes")
+        s.add(topico)
+        await s.commit()
+        topico_id = topico.id
+
+    with pytest.raises(servico.ImagemInexistente):
+        await servico.criar_questao(
+            {
+                "topico_id": topico_id,
+                "formato": "multipla_escolha",
+                "enunciado": "Que topologia é a da imagem?",
+                "alternativas": [{"letra": letra, "texto": letra} for letra in "ABCDE"],
+                "afirmacoes": [],
+                "gabarito": "C",
+                "imagem": "avanca-sp/nao-existe.png",
+                "imagem_alt": "uma figura que não está em disco",
+                "dificuldade": 2,
+            }
+        )

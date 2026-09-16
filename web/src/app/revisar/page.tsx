@@ -6,6 +6,7 @@ import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "rea
 
 import { Enunciado } from "@/components/Enunciado";
 import { Icone } from "@/components/icones";
+import { ImagemQuestao } from "@/components/ImagemQuestao";
 import { Erro, Vazio, dataLonga } from "@/components/ui";
 import { api } from "@/lib/api";
 import type { Questao, Resposta } from "@/lib/tipos";
@@ -365,6 +366,17 @@ function Revisao() {
             texto={q!.enunciado}
             className="mb-4 text-[19px] leading-[1.5] tracking-[-0.005em]"
           />
+
+          {/* Depois do enunciado e antes das alternativas, que é onde ela
+              estava na prova: o comando manda analisar a imagem, a imagem vem,
+              e só então se escolhe. */}
+          {(q!.imagem || q!.imagem_alt) && (
+            <ImagemQuestao
+              arquivo={q!.imagem}
+              alt={q!.imagem_alt}
+              className="mb-5 max-w-[560px]"
+            />
+          )}
 
           {q!.afirmacoes.length > 0 && (
             <ol className="m-0 mb-4 flex list-[upper-roman] flex-col gap-[10px] pl-[30px] text-[15.5px] leading-[1.55] text-[color-mix(in_srgb,var(--color-text)_88%,transparent)]">

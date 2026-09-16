@@ -27,6 +27,12 @@ data/*
 # se refaz; isto não.
 !data/estudo/
 !data/estudo/*.json
+# As figuras das questões entram pelo mesmo motivo que os JSON: elas *são* a
+# questão. "Que tipo de topologia é o da imagem?" sem a imagem não é uma
+# questão difícil, é uma questão impossível. Guardá-las como link seria pior —
+# PDF de prefeitura sai do ar, e o acervo não pode depender da internet.
+!data/estudo/imagens/
+!data/estudo/imagens/**
 
 # Ferramentas
 .ruff_cache/

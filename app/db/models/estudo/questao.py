@@ -64,6 +64,13 @@ LETRAS = ("A", "B", "C", "D", "E")
 TRILHAS = ("concurso", "especializacao")
 
 
+# Onde as imagens de prova ficam, relativo a `data/estudo/imagens/`. O acervo
+# guarda o **nome do arquivo**, nunca uma URL: link de PDF de prefeitura morre
+# em um ano, e questão que depende da internet para ser lida é questão que some
+# na véspera. O arquivo entra no repositório junto com o JSON que o cita.
+IMAGENS_DIR = "data/estudo/imagens"
+
+
 class Banca(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     """Quem aplica a prova — e se eu estou estudando para ela agora.
 
@@ -186,10 +193,19 @@ class Questao(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     # Nota do vault de onde a questão saiu, quando não veio de prova.
     fonte: Mapped[str | None] = mapped_column(Text)
 
+    # A figura da questão — topologia de rede, diagrama UML, árvore binária. É
+    # o nome do arquivo dentro de `IMAGENS_DIR` ("avanca-sp/topologia.png"), e
+    # `imagem_alt` descreve o que ela mostra: serve de leitor de tela e é o que
+    # sobra quando o arquivo se perde, que é o pior caso possível numa questão
+    # cuja pergunta é "que tipo de topologia é a da imagem?".
+    imagem: Mapped[str | None] = mapped_column(String(255))
+    imagem_alt: Mapped[str | None] = mapped_column(Text)
+
     # 1 a 3. Só ordena a fila do dia; o agendamento não usa.
     dificuldade: Mapped[int] = mapped_column(Integer, nullable=False, default=2)
 
     topico: Mapped[Topico] = relationship(lazy="joined")
+    banca: Mapped[Banca | None] = relationship(lazy="joined")
     agenda: Mapped[Agenda | None] = relationship(
         back_populates="questao",
         cascade="all, delete-orphan",
