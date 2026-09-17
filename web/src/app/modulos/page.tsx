@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 
 import { Aviso } from "@/components/Dialogo";
 import { semTabelas } from "@/components/Enunciado";
 import { Erro, Vazio, plural, quando } from "@/components/ui";
 import { api } from "@/lib/api";
+import { useAtualizar } from "@/lib/atualizar";
 import { useAvisos } from "@/lib/avisos";
 import type { ModuloResumo, Questao } from "@/lib/tipos";
 
@@ -164,15 +165,22 @@ function Modulos() {
   const [modo, setModo] = useState<Modo | null>(null);
   const { aviso, ok, falhou, fechar } = useAvisos();
 
-  const carregar = () =>
-    api
-      .modulos()
-      .then(setModulos)
-      .catch((e) => setErro(String(e.message ?? e)));
+  const carregar = useCallback(
+    () =>
+      api
+        .modulos()
+        .then(setModulos)
+        .catch((e) => setErro(String(e.message ?? e))),
+    [],
+  );
 
   useEffect(() => {
     void carregar();
-  }, []);
+  }, [carregar]);
+
+  // Os cards são contador, e contador envelhece com escrita que aconteceu longe
+  // daqui — a fila respondida na outra aba, a banca pausada na tira acima.
+  useAtualizar(carregar);
 
   // ?questao=<id> — o link que a tela de revisão dá para escrever a explicação.
   useEffect(() => {
@@ -253,10 +261,9 @@ function Modulos() {
         <div className="ml-auto flex gap-2">
           <NovoModulo
             onErro={falhou}
-            onCriado={(_id, nome) => {
-              ok(`Módulo "${nome}" criado — agora crie um tópico nele`);
-              void carregar();
-            }}
+            onCriado={(_id, nome) =>
+              ok(`Módulo "${nome}" criado — agora crie um tópico nele`)
+            }
           />
           <Link href="/formatos" className="btn btn-primary">
             Nova questão
@@ -264,13 +271,7 @@ function Modulos() {
         </div>
       </div>
 
-      <Bancas
-        onMudou={(msg) => {
-          ok(msg);
-          void carregar();
-        }}
-        onErro={falhou}
-      />
+      <Bancas onMudou={ok} onErro={falhou} />
 
       {!modulos && (
         <p className="text-[13px] text-neutral-500">carregando módulos…</p>
@@ -457,10 +458,7 @@ function Modulos() {
       <DialogosDeOrganizar
         modo={modo}
         onFechar={() => setModo(null)}
-        onFeito={() => {
-          setTopicoAberto(null);
-          void carregar();
-        }}
+        onFeito={() => setTopicoAberto(null)}
         onOk={ok}
         onErro={falhou}
       />
@@ -477,13 +475,13 @@ function Modulos() {
             setQuestoes((atual) =>
               atual ? atual.map((x) => (x.id === q.id ? q : x)) : atual,
             );
-            carregar();
           }}
           onApagada={(tentativas) => {
             const id = emFoco.id;
             setEmFoco(null);
-            // Tira da tabela na hora e recarrega os contadores dos cards em
-            // seguida: esperar o `carregar()` deixaria a linha apagada visível.
+            // A linha sai da tabela aqui: a tabela é do tópico aberto, e só
+            // `abrirTopico` a busca de novo. Os contadores dos cards se
+            // recarregam sozinhos pelo `MUTOU` do `useAtualizar`.
             setQuestoes((atual) =>
               atual ? atual.filter((x) => x.id !== id) : atual,
             );
@@ -492,7 +490,6 @@ function Modulos() {
                 ? `Questão apagada — ${plural(tentativas, "tentativa", "tentativas")} junto`
                 : "Questão apagada",
             );
-            carregar();
           }}
         />
       )}

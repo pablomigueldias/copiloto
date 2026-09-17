@@ -4,7 +4,8 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 
-import { api, MUTOU } from "@/lib/api";
+import { api } from "@/lib/api";
+import { useAtualizar } from "@/lib/atualizar";
 import type { ModuloResumo, Resumo, Usuario } from "@/lib/tipos";
 
 import { Icone, type NomeIcone } from "./icones";
@@ -81,12 +82,9 @@ export function Sidebar() {
     carregar();
   }, [rota, carregar]);
 
-  // Escrita em qualquer tela mexe nos contadores daqui.
-  useEffect(() => {
-    const onMutou = () => carregar();
-    addEventListener(MUTOU, onMutou);
-    return () => removeEventListener(MUTOU, onMutou);
-  }, [carregar]);
+  // Escrita em qualquer tela mexe nos contadores daqui — inclusive escrita de
+  // outra aba, que é o que o `visibilitychange` do gancho pega.
+  useAtualizar(carregar);
 
   const trilhas = ["concurso", "especializacao"] as const;
   const rotulo: Record<string, string> = {

@@ -340,6 +340,42 @@ async def test_criar_modulo_aparece_na_sidebar_sem_trocar_de_rota(modulos):
     sem_erros(modulos)
 
 
+async def test_card_do_modulo_atualiza_o_que_foi_respondido_na_outra_aba(
+    # `questao` antes de `modulos`: a ordem dos parâmetros é a ordem em que as
+    # fixtures rodam, e `modulos` já abre a tela — semear depois dela deixaria o
+    # card montado sem a questão que o teste procura.
+    questao,
+    servidor,
+    modulos,
+):
+    """Contador velho ao lado de contador novo é pior do que contador nenhum.
+
+    A tela de Módulos busca os cards ao montar, e `MUTOU` — o evento que o
+    cliente da API dispara depois de toda escrita — é evento de `window`: ele
+    não atravessa aba. Quem revisava numa aba e olhava os módulos na outra via
+    "1 hoje" com a questão já agendada para daqui a sete dias, e a sidebar ao
+    lado do card, na mesma janela, já dizendo o número certo. Foi o que
+    aconteceu em 17/09/2026, com 24 questões respondidas e o card intacto.
+    """
+    await modulos.wait_for_selector('article >> text="1 hoje"', timeout=60000)
+
+    revisao = await modulos.context.new_page()
+    try:
+        await revisao.goto(f"{servidor}/revisar", wait_until="domcontentloaded")
+        await revisao.wait_for_selector("text=A negação de", timeout=60000)
+        await revisao.click('button:has-text("Certo")')
+        await revisao.click('button:has-text("Responder")')
+        await revisao.wait_for_selector("text=Volta em 7 dias", timeout=20000)
+    finally:
+        await revisao.close()
+
+    # Sem `bring_to_front`: o card tem de virar com a aba ainda no fundo, senão
+    # o que o teste prova é só o recarregar ao voltar para ela.
+    await modulos.wait_for_selector('article >> text="em 7 d"', timeout=20000)
+    assert not await modulos.is_visible('article >> text="1 hoje"')
+    sem_erros(modulos)
+
+
 async def test_apagar_modulo_com_questoes_avisa_quantas_vao_junto(modulos, questao):
     """Meses de repetição espaçada são o que não se refaz."""
     await modulos.reload(wait_until="domcontentloaded")

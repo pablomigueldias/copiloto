@@ -26,8 +26,21 @@ import type {
   VagaLinha,
 } from "./tipos";
 
-/** Disparado no `window` depois de cada escrita bem-sucedida. */
+/**
+ * O nome do canal por onde toda escrita bem-sucedida se anuncia.
+ *
+ * `BroadcastChannel` e não evento de `window`: o aviso precisa chegar às
+ * **outras abas**, e evento de `window` morre na aba que o disparou. Eu reviso
+ * a fila numa aba e deixo Módulos aberto na outra — era lá que o card ficava
+ * com o número de antes da revisão. A entrega inclui os outros objetos
+ * `BroadcastChannel` da mesma aba (só o remetente não se ouve), então um
+ * mecanismo cobre os dois casos.
+ */
 export const MUTOU = "copiloto:mutou";
+
+// `undefined` no build do servidor, onde não há escrita nenhuma para anunciar.
+const canal =
+  typeof BroadcastChannel === "undefined" ? null : new BroadcastChannel(MUTOU);
 
 export class ApiErro extends Error {
   constructor(
@@ -72,13 +85,11 @@ async function req<T>(caminho: string, init?: RequestInit): Promise<T> {
     }
     throw new ApiErro(r.status, detalhe);
   }
-  // Toda mutação avisa a tela inteira. A sidebar mostra contadores que
-  // dependem de coisas escritas noutras telas — o módulo que eu apaguei aqui,
-  // a questão que eu respondi ali — e recarregá-la só na troca de rota deixava
-  // "Eí · 0" no menu depois de o módulo já não existir.
-  if (init?.method && init.method !== "GET" && typeof window !== "undefined") {
-    window.dispatchEvent(new CustomEvent(MUTOU, { detail: caminho }));
-  }
+  // Toda mutação avisa as telas abertas. Elas mostram contadores que dependem
+  // de coisas escritas noutra tela — o módulo que eu apaguei aqui, a questão
+  // que eu respondi ali — e recarregá-los só na troca de rota deixava "Eí · 0"
+  // no menu depois de o módulo já não existir.
+  if (init?.method && init.method !== "GET") canal?.postMessage(caminho);
 
   if (r.status === 204) return undefined as T;
   return r.json() as Promise<T>;
