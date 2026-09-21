@@ -609,13 +609,13 @@ def test_rotulo_do_contato_e_o_mesmo_no_texto_e_no_pdf():
     fatos = montar_fatos(
         PerfilMestre(
             nome="Pablo",
-            contato={"localizacao": "Santo André, SP", "telefone": "(11) 94390-8225"},
+            contato={"localizacao": "Santo André, SP", "telefone": "(11) 90000-0000"},
             habilidades=[], projetos=[], experiencias=[], formacao=[], certificacoes=[],
         )
     )
     texto = cur.como_texto(cur.Curriculo(titulo="Dev"), fatos)
     assert "local: Santo André, SP" in texto
-    assert "tel: (11) 94390-8225" in texto
+    assert "tel: (11) 90000-0000" in texto
     assert ats.ROTULOS_CONTATO["localizacao"] == "local"
 
 
