@@ -137,7 +137,28 @@ Funil, taxa de resposta, dias até responder e follow-up vencido. A métrica mai
 tenho**. Trinta candidaturas viram uma lista de estudo derivada do que o mercado
 pediu.
 
-### 6. Para e espera por mim
+### 6. É a redação do meu blog
+
+Os posts do [pabloortiz.dev](https://pabloortiz.dev) são escritos aqui, em
+`/posts`, e só viram arquivo no repo do blog quando fecham. O motivo de não
+escrever direto no `.mdx`: rascunho no git só existe se virar commit, e num repo
+público isso significa ou ruído no histórico ou texto que ninguém salva.
+
+O editor mede o post em **cinco camadas**, uma por público que chega ao blog —
+abertura (entusiasta), resultado com número (cliente), como foi feito (técnico),
+prova e origem (recrutador) e o fechamento com **um** pedido. Todo sinal é
+mecânico: palavras do primeiro parágrafo, números com unidade, blocos de código,
+links. Checklist que depende de eu me julgar honestamente às 23h fica verde sem
+motivo.
+
+Publicar é um botão. A esteira faz os oito passos repetidos — branch da
+`origin/main`, commit **só** do `.mdx` do post, push, PR, checks — e para para
+eu decidir: o merge é um segundo botão, que só acende com o CI verde. Nada toca
+na minha árvore de trabalho (tudo acontece num `git worktree` temporário), nada
+entra na `main` sem clique, e o deploy de produção continua sendo da Cloudflare.
+Ver `docs/fase-blog.md`.
+
+### 7. Para e espera por mim
 
 Todo texto que o modelo escreve em meu nome vai para uma **fila de aprovação**. O
 agente observa e prepara sozinho; executar é decisão minha — não existe rota de
@@ -227,7 +248,7 @@ cd web && npm install && cd ..    # uma vez só
 ./scripts/copiloto.sh up          # docker, ollama, migration, worker, api e front
 ```
 
-Painel em **http://localhost:3000** — a API fica na 8010, e a raiz dela redireciona
+Painel em **http://localhost:3010** — a API fica na 8010, e a raiz dela redireciona
 para cá.
 
 ### Modelos locais
@@ -262,6 +283,7 @@ python scripts/reprocessar_nota.py "<nota>"      # passa a nota pelo pipeline at
 python scripts/importar_questoes.py "<json>"     # acervo de questões (idempotente)
 python scripts/avaliar_pergunta.py               # as 12 perguntas de avaliação
 python scripts/bakeoff.py                        # compara modelos às cegas
+python scripts/importar_mdx.py --todos           # traz os rascunhos do blog para a redação
 ```
 
 ---

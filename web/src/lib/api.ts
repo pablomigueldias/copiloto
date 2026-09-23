@@ -17,13 +17,18 @@ import type {
   Geracao,
   Metricas,
   ModuloResumo,
+  PostDetalhe,
+  PostLinha,
   Questao,
   Resposta,
   Resumo,
+  SituacaoPr,
   Tentativa,
   Usuario,
   VagaDetalhe,
   VagaLinha,
+  VersaoPost,
+  VocabularioBlog,
 } from "./tipos";
 
 /**
@@ -289,6 +294,75 @@ export const api = {
   metricasVagas: () => req<Metricas>("/vagas/metricas"),
   /** O PDF é `GET` e abre no visualizador — o mesmo arquivo que o ATS lê. */
   urlCurriculoPdf: (id: string) => `/api/vagas/${id}/curriculo.pdf`,
+
+  // ── a redação (posts do blog) ──
+  posts: (estado?: string) =>
+    req<{ total: number; por_estado: Record<string, number>; itens: PostLinha[] }>(
+      `/blog${qs({ estado, limite: 200 })}`,
+    ),
+  post: (id: string) => req<PostDetalhe>(`/blog/${id}`),
+  criarPost: (corpo: {
+    titulo: string;
+    pilar?: string | null;
+    corpo?: string;
+    origem?: Record<string, string>[];
+  }) => req<PostDetalhe>("/blog", { method: "POST", body: JSON.stringify(corpo) }),
+  /**
+   * PATCH parcial: só o que vai no corpo é gravado.
+   *
+   * É por isso que o autosave manda `{corpo}` sozinho sem apagar a descrição —
+   * o backend usa `exclude_unset`, e mandar o objeto inteiro a cada tecla faria
+   * duas abas abertas sobrescreverem uma à outra.
+   */
+  salvarPost: (id: string, campos: Record<string, unknown>) =>
+    req<PostDetalhe>(`/blog/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(campos),
+    }),
+  /** `pronto` é o único estado com portão: 409 quando falta camada. */
+  estadoPost: (id: string, estado: string) =>
+    req<PostDetalhe>(`/blog/${id}/estado`, {
+      method: "POST",
+      body: JSON.stringify({ estado }),
+    }),
+  previaPost: (id: string) => req<{ mdx: string }>(`/blog/${id}/previa`),
+  /**
+   * A prévia renderizada: escreve o rascunho no repo do blog, manda o blog
+   * regerar o índice e devolve a URL do `next dev` dele.
+   *
+   * Não é o painel que desenha o post — é o blog. Renderizar MDX aqui exigiria
+   * um segundo renderizador (Shiki, KaTeX, Mermaid, os componentes do blog), e
+   * o dia em que os dois discordassem seria o dia em que a prévia passaria a
+   * mentir sem avisar.
+   */
+  previaNoSitePost: (id: string) =>
+    req<{
+      url: string;
+      caminho: string;
+      servidor_de_pe: boolean;
+      aviso: string | null;
+    }>(`/blog/${id}/previa-no-site`, { method: "POST" }),
+  versoesPost: (id: string) => req<VersaoPost[]>(`/blog/${id}/versoes`),
+  /** Escreve o .mdx no repo do blog. Não faz commit — isso continua sendo meu. */
+  exportarPost: (id: string) =>
+    req<{ caminho: string; bytes: number }>(`/blog/${id}/exportar`, {
+      method: "POST",
+    }),
+  /**
+   * Abre o PR do post: branch da `origin/main`, commit **só** do .mdx dele,
+   * push e PR. Não mergeia — publicar é outro botão, de propósito.
+   */
+  abrirPrPost: (id: string) =>
+    req<{ pr_numero: number; pr_url: string; branch: string }>(`/blog/${id}/pr`, {
+      method: "POST",
+    }),
+  situacaoPrPost: (id: string) => req<SituacaoPr>(`/blog/${id}/pr`),
+  /** Fecha o PR na main. Recusa (422) enquanto os checks não estiverem verdes. */
+  publicarPost: (id: string) =>
+    req<{ pr_numero: number; url: string }>(`/blog/${id}/publicar`, {
+      method: "POST",
+    }),
+  vocabularioBlog: () => req<VocabularioBlog>("/blog/vocabulario"),
 
   // ── conhecimento ──
   buscarConhecimento: (q: string, limite = 8) =>

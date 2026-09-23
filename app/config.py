@@ -198,11 +198,39 @@ class Settings(BaseSettings):
 
     # ── Front ─────────────────────────────────────────────────────
     # Para onde a raiz do FastAPI redireciona. O painel é um app Next.js
-    # próprio (`web/`), servido pelo `next dev`/`next start` na 3000.
-    front_url: str = "http://localhost:3000"
+    # próprio (`web/`), servido pelo `next dev`/`next start`.
+    #
+    # **3010 e não 3000** (mudou em 22/09/2026): o blog `pabloortiz.dev` também
+    # é Next e também quer a 3000. Com os dois abertos, quem subisse depois caía
+    # na 3001 — e o CORS, o `front_url` e o favorito continuavam apontando para
+    # o outro projeto. A porta está fixada em `web/package.json` (`next dev -p`),
+    # porque Next escolhido por sorteio é o problema, não a solução.
+    front_url: str = "http://localhost:3010"
+
+    # ── Blog (a redação, `app/blog/`) ─────────────────────────────
+    # O repo do blog. É a única coisa que o Copiloto escreve **fora** da própria
+    # pasta, e por isso é configuração e não constante — máquina sem o repo
+    # clonado usa o CMS inteiro e só não exporta. Nada de git aqui: o arquivo
+    # aparece no working tree e o commit é meu.
+    #
+    # Um caminho só, e não um para o conteúdo e outro para o repo: a prévia
+    # precisa rodar `npm run conteudo` na raiz, e dois caminhos configuráveis
+    # apontando para o mesmo lugar divergem no primeiro dia em que eu mudar um.
+    blog_repo_dir: str = "~/Documentos/pabloortiz.dev"
+    # Onde o `next dev` do blog atende. A prévia abre uma URL dele: rascunho já
+    # aparece no dev (`src/content/posts.ts`), então não há o que configurar lá.
+    blog_dev_url: str = "http://localhost:3000"
+    # O site no ar. É para onde o painel aponta depois do merge — quem faz o
+    # deploy de produção é o Workers Builds da Cloudflare, disparado pela `main`.
+    blog_url: str = "https://pabloortiz.dev"
+
+    @property
+    def blog_content_dir(self) -> Path:
+        """`<repo>/content/blog` — onde o `.mdx` de cada post é escrito."""
+        return Path(self.blog_repo_dir).expanduser() / "content" / "blog"
 
     # ── CORS ──────────────────────────────────────────────────────
-    cors_origins: str = "http://localhost:3000"
+    cors_origins: str = "http://localhost:3010"
 
     @property
     def cors_origins_list(self) -> list[str]:

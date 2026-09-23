@@ -260,3 +260,107 @@ export type EstadoTranscricao = {
   erro: string | null;
   sugestao: SugestaoNota | null;
 };
+
+// ── A redação (app/blog/) ───────────────────────────────────────────
+
+export type EstadoPost =
+  | "pauta"
+  | "rascunho"
+  | "pronto"
+  | "publicado"
+  | "arquivado";
+
+/** O público que cada camada atende. `todos` é o fechamento. */
+export type PublicoPost =
+  | "entusiasta"
+  | "cliente"
+  | "tecnico"
+  | "recrutador"
+  | "todos";
+
+export type Sinal = {
+  ok: boolean;
+  texto: string;
+  /** O que fazer quando está vermelho. A regra mora no sistema, não na memória. */
+  dica: string | null;
+};
+
+export type Camada = {
+  id: string;
+  rotulo: string;
+  publico: PublicoPost;
+  pergunta: string;
+  ok: boolean;
+  sinais: Sinal[];
+};
+
+export type Diagnostico = {
+  camadas: Camada[];
+  camadas_ok: boolean;
+  falta: string[];
+  frontmatter_erros: string[];
+  exportavel: boolean;
+  palavras: number;
+  minutos: number;
+};
+
+export type Check = {
+  nome: string;
+  /** SUCCESS | FAILURE | PENDENTE | … — o que o GitHub devolveu. */
+  resultado: string;
+  url: string | null;
+};
+
+export type SituacaoPr = {
+  /** false = post ainda sem PR. Diferente de "existe e está pendente". */
+  existe: boolean;
+  estado: string | null;
+  url?: string | null;
+  checks: Check[];
+  checks_verdes: boolean;
+  merge_status?: string | null;
+  mergeavel: boolean;
+};
+
+export type PostLinha = {
+  id: string;
+  slug: string | null;
+  titulo: string;
+  descricao: string | null;
+  estado: EstadoPost;
+  pilar: string | null;
+  tags: string[];
+  palavras: number;
+  camadas_ok: boolean;
+  data_publicacao: string | null;
+  exportado_em: string | null;
+  pr_numero: number | null;
+  pr_url: string | null;
+  publicado_em: string | null;
+  updated_at: string;
+};
+
+export type PostDetalhe = PostLinha & {
+  corpo: string;
+  /** Nunca vai para o MDX: é o que eu não publico. */
+  notas: string | null;
+  origem: Record<string, string>[];
+  diagnostico: Diagnostico;
+  created_at: string;
+};
+
+export type VersaoPost = {
+  numero: number;
+  titulo: string;
+  palavras: number;
+  criada_em: string;
+};
+
+export type VocabularioBlog = {
+  pilares: string[];
+  tags: string[];
+  tags_max: number;
+  /** [mínimo, máximo] de caracteres, como o schema do blog exige. */
+  titulo: [number, number];
+  descricao: [number, number];
+};

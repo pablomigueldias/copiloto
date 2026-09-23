@@ -22,6 +22,7 @@ const ESTUDO: Item[] = [
 const RESTO: Item[] = [
   { href: "/conhecimento", rotulo: "Conhecimento", icone: "conhecimento" },
   { href: "/transcrever", rotulo: "Transcrever", icone: "transcrever" },
+  { href: "/posts", rotulo: "Redação", icone: "posts" },
   { href: "/fila", rotulo: "Fila", icone: "fila" },
   { href: "/candidaturas", rotulo: "Candidaturas", icone: "candidaturas" },
 ];
@@ -67,6 +68,10 @@ export function Sidebar() {
   const [modulos, setModulos] = useState<ModuloResumo[]>([]);
   const [usuario, setUsuario] = useState<Usuario | null>(null);
   const [pendentes, setPendentes] = useState(0);
+  // Rascunhos abertos, não o total de posts: o que o contador precisa cobrar é
+  // o texto começado e parado — foi exatamente o que aconteceu com o post do
+  // RAG, esquecido por um dia sem nada na tela lembrando dele.
+  const [rascunhos, setRascunhos] = useState(0);
 
   const carregar = useCallback(() => {
     api.resumo().then(setResumo).catch(() => {});
@@ -75,6 +80,10 @@ export function Sidebar() {
     api
       .filaAprovacao()
       .then((f) => setPendentes(Number(f.total ?? 0)))
+      .catch(() => {});
+    api
+      .posts()
+      .then((p) => setRascunhos(Number(p.por_estado?.rascunho ?? 0)))
       .catch(() => {});
   }, []);
 
@@ -120,7 +129,13 @@ export function Sidebar() {
             key={i.href}
             item={i}
             ativo={rota.startsWith(i.href)}
-            contador={i.href === "/fila" ? pendentes : undefined}
+            contador={
+              i.href === "/fila"
+                ? pendentes
+                : i.href === "/posts"
+                  ? rascunhos
+                  : undefined
+            }
           />
         ))}
       </nav>

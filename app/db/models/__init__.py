@@ -8,6 +8,7 @@ from app.db.models.acao_pendente import AcaoPendente
 from app.db.models.agente_evento import AgenteEvento
 from app.db.models.ai_call import AiCall
 from app.db.models.auth import Sessao, TentativaLogin, Usuario
+from app.db.models.blog import BlogPost, BlogPostVersao
 from app.db.models.conhecimento import ConhecimentoChunk
 from app.db.models.estudo import Agenda, Modulo, Questao, Tentativa, Topico
 from app.db.models.exemplo_estilo import ExemploEstilo
@@ -24,6 +25,8 @@ __all__ = [
     "Agenda",
     "AgenteEvento",
     "AiCall",
+    "BlogPost",
+    "BlogPostVersao",
     "CandidaturaEmail",
     "CandidaturaEvento",
     "ConhecimentoChunk",

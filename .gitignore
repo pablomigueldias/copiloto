@@ -7,8 +7,30 @@ venv/
 build/
 dist/
 
-# Ambiente
+# Ambiente — este repositório é PÚBLICO.
+#
+# `.env.*` e não só `.env`: o arquivo que vaza não é o que a gente cria de
+# propósito, é o `.env.bak` do editor, o `.env.local` de um teste e o
+# `.env.producao` copiado "só por um minuto". A exceção é o exemplo, que só
+# tem nomes de variável.
 .env
+.env.*
+!.env.example
+
+# Chaves e certificados: nenhum formato tem motivo para entrar aqui.
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+
+# Dumps do Postgres. O banco deste projeto tem o Perfil Mestre (telefone,
+# cidade), vagas, candidaturas e agora os posts do blog — um `pg_dump` solto na
+# raiz é o vazamento mais fácil de cometer e o mais caro de desfazer.
+*.dump
+*.sql
+*.sqlite
+*.db
 
 # Planejamento — mora aqui para o indexador ler (CONHECIMENTO_FONTES), mas é
 # material pessoal e fica fora do repositório.
@@ -33,6 +55,13 @@ data/*
 # PDF de prefeitura sai do ar, e o acervo não pode depender da internet.
 !data/estudo/imagens/
 !data/estudo/imagens/**
+
+# Sobras de editor e de sistema — `arquivo.py~` guarda a versão de antes, e a
+# versão de antes é justamente a que ainda tinha o segredo dentro.
+*~
+*.swp
+.DS_Store
+Thumbs.db
 
 # Ferramentas
 .ruff_cache/

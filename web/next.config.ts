@@ -3,7 +3,8 @@ import type { NextConfig } from "next";
 /**
  * O front fala com o FastAPI pela **mesma origem**.
  *
- * `next dev` sobe na 3000 e o backend na 8010. Sem esta reescrita, o browser
+ * `next dev` sobe na 3010 (fixada no `package.json`, para não brigar com o
+ * blog, que também é Next) e o backend na 8010. Sem esta reescrita, o browser
  * trataria `/api` como origem cruzada — e a autenticação do Copiloto é cookie
  * de sessão httpOnly. Cookie cross-origin custa SameSite=None, que custa HTTPS,
  * que custa certificado numa máquina local. Reescrever é uma linha.

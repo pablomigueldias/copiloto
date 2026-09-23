@@ -41,6 +41,9 @@ TABELAS_DE_DADOS = (
     "conhecimento_chunk",
     "exemplo_estilo",
     "acao_pendente",
+    # Filho antes do pai: a versão referencia o post.
+    "blog_post_versao",
+    "blog_post",
     # Ordem importa: a limpeza é feita nesta sequência e o FK aponta para trás.
     "estudo_tentativa",
     "estudo_agenda",

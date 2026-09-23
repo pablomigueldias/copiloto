@@ -12,6 +12,7 @@ from fastapi.responses import JSONResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.api.routers import auth as auth_router
+from app.api.routers import blog as blog_router
 from app.api.routers import candidatura as candidatura_router
 from app.api.routers import conhecimento as conhecimento_router
 from app.api.routers import estudo as estudo_router
@@ -87,6 +88,7 @@ app.include_router(observabilidade_router.router)
 app.include_router(conhecimento_router.router)
 app.include_router(estudo_router.router)
 app.include_router(fila_router.router)
+app.include_router(blog_router.router)
 app.include_router(candidatura_router.router)
 app.include_router(painel_router.router)
 app.include_router(transcricao_router.router)
