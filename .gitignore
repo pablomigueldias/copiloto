@@ -55,6 +55,10 @@ data/*
 # PDF de prefeitura sai do ar, e o acervo não pode depender da internet.
 !data/estudo/imagens/
 !data/estudo/imagens/**
+# Conversas-tipo: o conjunto de teste do bot, escrito à mão e sem dado de cliente.
+!data/comercial/
+!data/comercial/conversas/
+!data/comercial/conversas/*.json
 
 # Sobras de editor e de sistema — `arquivo.py~` guarda a versão de antes, e a
 # versão de antes é justamente a que ainda tinha o segredo dentro.

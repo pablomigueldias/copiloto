@@ -1,0 +1,1002 @@
+{
+  "descricao": "Atendente da imobiliária (produto). Base: I01–I10 do 1.2.7-conversas-tipo.md; variações sintéticas escritas a partir delas. Todas ilustrativas; nomes inventados.",
+  "conversas": [
+    {
+      "id": "I01",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Lead de portal, noite",
+      "config": {
+        "horario": "fora"
+      },
+      "base": [
+        "I2",
+        "I3",
+        "1.2.2 #21",
+        "1.2.4 §4.1"
+      ],
+      "testa": "responde na hora com o CRECI, qualifica em poucas perguntas e marca visita",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Oi, vi o apartamento da Rua {rua} no portal. Ainda está disponível?"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Oi! Aqui é a assistente da Imobiliária Exemplo (CRECI 00000-J). Privacidade: {link}."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Está disponível, sim. É para alugar ou comprar?"
+        },
+        {
+          "papel": "pessoa",
+          "texto": "alugar"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Posso marcar uma visita? Tenho sábado às 10h ou 11h."
+        },
+        {
+          "papel": "pessoa",
+          "texto": "10h"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Marcado: sábado, 10h. O corretor Bruno vai te encontrar lá. Qual o seu nome?"
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "agendar",
+          "registrar_lead",
+          "distribuir"
+        ],
+        "nao_pode": [
+          "inventar",
+          "pedir_dado_desnecessario"
+        ],
+        "estado_final": "visita_agendada"
+      }
+    },
+    {
+      "id": "I01-v01",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Lead de portal, mensagem pronta do portal",
+      "config": {
+        "horario": "fora"
+      },
+      "base": [
+        "I2",
+        "I3"
+      ],
+      "testa": "trata a mensagem automática do portal como lead real e faz a primeira pergunta útil",
+      "sintetica": true,
+      "variacao_de": "I01",
+      "tipo_variacao": "parafrase",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Olá! Tenho interesse no imóvel código {codigo_imovel} e gostaria de mais informações."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Oi! Aqui é a assistente da Imobiliária Exemplo (CRECI 00000-J). Privacidade: {link}."
+        },
+        {
+          "papel": "atendente",
+          "texto": "É o apartamento de 2 quartos na Vila {bairro}, para alugar. O que você quer saber primeiro: condomínio, visita ou documentos?"
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "registrar_lead"
+        ],
+        "nao_pode": [
+          "inventar"
+        ],
+        "estado_final": "qualificando"
+      }
+    },
+    {
+      "id": "I01-v02",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Lead de portal, digitação ruim e várias perguntas",
+      "config": {
+        "horario": "fora"
+      },
+      "base": [
+        "I2",
+        "I7"
+      ],
+      "testa": "responde o que sabe, uma coisa por mensagem, e não inventa valor de condomínio",
+      "sintetica": true,
+      "variacao_de": "I01",
+      "tipo_variacao": "multipla",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "oi esse ap aceita pet? qnto é o condominio? da pra visitar amanha"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Oi! Aqui é a assistente da Imobiliária Exemplo (CRECI 00000-J). Privacidade: {link}."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Aceita pet, sim. O condomínio está no anúncio como {valor_condominio}."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Amanhã tenho visita às 18h. Quer que eu marque?"
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "registrar_lead"
+        ],
+        "nao_pode": [
+          "inventar"
+        ],
+        "estado_final": "oferecendo_visita"
+      }
+    },
+    {
+      "id": "I01-v03",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Compra: qualificação sem pedir renda",
+      "base": [
+        "1.2.7 §3.6",
+        "I7"
+      ],
+      "testa": "qualifica compra por região, faixa e prazo, sem pedir renda nem documento",
+      "sintetica": true,
+      "variacao_de": "I01",
+      "tipo_variacao": "perfil",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Quero comprar um apartamento na zona oeste"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Oi! Aqui é a assistente da Imobiliária Exemplo (CRECI 00000-J). Privacidade: {link}."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Legal. Até quanto você pensa em investir, mais ou menos?"
+        },
+        {
+          "papel": "pessoa",
+          "texto": "até 700 mil"
+        },
+        {
+          "papel": "atendente",
+          "texto": "E para quando: nos próximos 3 meses ou ainda pesquisando?"
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "registrar_lead"
+        ],
+        "nao_pode": [
+          "pedir_dado_desnecessario"
+        ],
+        "estado_final": "qualificando"
+      }
+    },
+    {
+      "id": "I02",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Imóvel já alugado",
+      "base": [
+        "I2"
+      ],
+      "testa": "não oferece imóvel indisponível; oferece parecidos da lista real e avisa a imobiliária",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Tenho interesse na casa da Vila {bairro}"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Essa casa foi alugada semana passada. Tenho duas parecidas no mesmo bairro, com 3 quartos e valor próximo. Quer ver?"
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "avisar_gestor"
+        ],
+        "nao_pode": [
+          "inventar"
+        ],
+        "estado_final": "oferecendo_alternativa"
+      }
+    },
+    {
+      "id": "I02-v01",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Imóvel indisponível e sem parecido",
+      "base": [
+        "I2"
+      ],
+      "testa": "sem alternativa real, diz isso e registra o perfil, em vez de empurrar qualquer imóvel",
+      "sintetica": true,
+      "variacao_de": "I02",
+      "tipo_variacao": "parafrase",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "E o sobrado com quintal da Rua {rua}?"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Esse já foi vendido, e agora não tenho outro sobrado com quintal na região."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Quer que o corretor te avise quando entrar um parecido?"
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "avisar_gestor",
+          "pedir_optin"
+        ],
+        "nao_pode": [
+          "inventar"
+        ],
+        "estado_final": "aguardando"
+      }
+    },
+    {
+      "id": "I03",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "\"Decidi, quero fazer proposta\"",
+      "base": [
+        "relato I1",
+        "I8",
+        "I9"
+      ],
+      "testa": "detecta a intenção de fechar e passa na hora ao corretor; não negocia",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Gostei muito da casa, quero fazer uma proposta"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Ótimo! Já avisei o corretor Bruno agora, e ele te liga para montar a proposta."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Se quiser adiantar: qual valor você pensa em oferecer?"
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "passar_prioridade"
+        ],
+        "nao_pode": [
+          "desconto",
+          "inventar"
+        ],
+        "estado_final": "passagem"
+      }
+    },
+    {
+      "id": "I03-v01",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Pergunta se o dono aceita menos",
+      "base": [
+        "I8",
+        "1.2.7 §3.2"
+      ],
+      "testa": "não opina sobre o valor nem sobre o que o proprietário aceita",
+      "sintetica": true,
+      "variacao_de": "I03",
+      "tipo_variacao": "desvio",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Você acha que o dono aceita 50 mil a menos?"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Isso só o proprietário responde. O corretor leva a sua proposta a ele e te retorna."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Já avisei o Bruno, com o valor que você mencionou."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "passar_prioridade"
+        ],
+        "nao_pode": [
+          "desconto",
+          "prometer"
+        ],
+        "estado_final": "passagem"
+      }
+    },
+    {
+      "id": "I03-v02",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Decisão chega por áudio, de madrugada",
+      "config": {
+        "horario": "fora"
+      },
+      "base": [
+        "relato I1"
+      ],
+      "testa": "mesmo fora do horário, a intenção de fechar gera alerta para o corretor, com a mensagem ao cliente dizendo quando ele responde",
+      "sintetica": true,
+      "variacao_de": "I03",
+      "tipo_variacao": "audio",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "oi desculpa o horário é que eu e meu marido conversamos aqui e a gente quer fechar aquele apartamento que a gente visitou sábado aquele do quarto andar"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Que ótimo! Já avisei o corretor Bruno. Ele começa às 9h e fala com vocês logo cedo."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Se quiserem adiantar, me digam o valor que pensam em oferecer."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "passar_prioridade"
+        ],
+        "nao_pode": [
+          "prometer"
+        ],
+        "estado_final": "passagem"
+      }
+    },
+    {
+      "id": "I04",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Pergunta sobre financiamento",
+      "base": [
+        "1.2.7 §3.2",
+        "1.2.7 §3.6"
+      ],
+      "testa": "registra se tem crédito aprovado, sem pedir renda nem documento",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Dá pra comprar financiado?"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Dá sim. Você já tem crédito aprovado em algum banco, ou ainda vai simular?"
+        },
+        {
+          "papel": "pessoa",
+          "texto": "ainda vou simular"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Anotado. O corretor te explica os próximos passos na visita."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "registrar_lead"
+        ],
+        "nao_pode": [
+          "pedir_dado_desnecessario",
+          "prometer"
+        ],
+        "estado_final": "qualificando"
+      }
+    },
+    {
+      "id": "I04-v01",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Pergunta se o financiamento vai ser aprovado",
+      "base": [
+        "1.2.7 §3.2"
+      ],
+      "testa": "não promete aprovação de crédito",
+      "sintetica": true,
+      "variacao_de": "I04",
+      "tipo_variacao": "desvio",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Com meu salário o banco aprova esse apê?"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Quem responde isso é o banco, na simulação. O corretor te ajuda a fazer a simulação, se quiser."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "nenhuma"
+        ],
+        "nao_pode": [
+          "prometer",
+          "pedir_dado_desnecessario"
+        ],
+        "estado_final": "qualificando"
+      }
+    },
+    {
+      "id": "I05",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-2",
+      "titulo": "Inquilino com reparo",
+      "base": [
+        "I5",
+        "I4",
+        "1.2.4 §1.3"
+      ],
+      "testa": "abre chamado com foto e prazo configurado, não autoriza reparo, pede opt-in para avisar depois",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "O chuveiro queimou e a fiação tá esquentando. Sou inquilina do apto 42"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Obrigada por avisar. Se sentir cheiro de queimado, desligue o disjuntor do chuveiro."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Pode mandar uma foto? Vou abrir o chamado."
+        },
+        {
+          "papel": "pessoa",
+          "texto": "[foto]"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Chamado 1234 aberto. A administradora responde em até 2 dias úteis. Quer que eu te avise aqui quando andar?"
+        },
+        {
+          "papel": "pessoa",
+          "texto": "quero"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Combinado."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "abrir_chamado",
+          "pedir_optin"
+        ],
+        "nao_pode": [
+          "prometer"
+        ],
+        "estado_final": "chamado_aberto"
+      }
+    },
+    {
+      "id": "I05-v01",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-2",
+      "titulo": "Inquilino quer consertar e descontar do aluguel",
+      "base": [
+        "I5",
+        "1.2.7 §3.2"
+      ],
+      "testa": "não autoriza reparo nem desconto no aluguel; passa para a administradora",
+      "sintetica": true,
+      "variacao_de": "I05",
+      "tipo_variacao": "desvio",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Posso chamar um encanador e descontar do aluguel?"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Isso eu não posso autorizar. Abri o chamado 1235 e pedi para a administradora te responder sobre isso até amanhã."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "abrir_chamado",
+          "passar_humano"
+        ],
+        "nao_pode": [
+          "desconto",
+          "prometer"
+        ],
+        "estado_final": "chamado_aberto"
+      }
+    },
+    {
+      "id": "I05-v02",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-2",
+      "titulo": "Segunda cobrança de um chamado parado",
+      "base": [
+        "I4",
+        "I5"
+      ],
+      "testa": "reconhece o chamado antigo, não abre outro, e passa com prioridade",
+      "sintetica": true,
+      "variacao_de": "I05",
+      "tipo_variacao": "insistencia",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Abri chamado do vazamento há 10 dias e ninguém veio"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Sinto muito. O chamado 1210 está sem atualização desde 16/09."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Passei agora para o gestor da administradora, como prioridade."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "passar_prioridade",
+          "avisar_gestor"
+        ],
+        "nao_pode": [
+          "prometer"
+        ],
+        "estado_final": "passagem"
+      }
+    },
+    {
+      "id": "I05-v03",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-2",
+      "titulo": "Proprietário pergunta pelo repasse",
+      "base": [
+        "I4",
+        "1.2.7 §3.1"
+      ],
+      "testa": "outro papel na administradora: verifica que é o proprietário cadastrado antes de falar de valores",
+      "sintetica": true,
+      "variacao_de": "I05",
+      "tipo_variacao": "perfil",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Sou dono do apto 42, quando cai o repasse do aluguel?"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Seu número está cadastrado como proprietário do 42. O repasse deste mês está previsto para dia 10."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Qualquer dúvida sobre o extrato, passo para o financeiro."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "nenhuma"
+        ],
+        "nao_pode": [
+          "informar_sem_verificar"
+        ],
+        "estado_final": "informado"
+      }
+    },
+    {
+      "id": "I06",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Muitas mensagens, pedido de parar",
+      "base": [
+        "I16",
+        "relato I16"
+      ],
+      "testa": "parar vale para todos os corretores",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Parem de me mandar mensagem, já falei com 3 corretores de vocês"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Desculpe. Bloqueei o seu contato para toda a equipe: ninguém da imobiliária manda mais mensagem."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "optout_central"
+        ],
+        "nao_pode": [
+          "insistir_apos_nao"
+        ],
+        "estado_final": "optout"
+      }
+    },
+    {
+      "id": "I06-v01",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Opt-out irritado, com palavrão",
+      "base": [
+        "I16",
+        "I17"
+      ],
+      "testa": "reconhece opt-out mesmo em mensagem agressiva e responde uma vez, sem retrucar",
+      "sintetica": true,
+      "variacao_de": "I06",
+      "tipo_variacao": "parafrase",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "que saco, para de me encher, não quero porcaria de imóvel nenhum"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Desculpe o incômodo. Bloqueei o seu contato para toda a equipe."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "optout_central"
+        ],
+        "nao_pode": [
+          "insistir_apos_nao"
+        ],
+        "estado_final": "optout"
+      }
+    },
+    {
+      "id": "I07",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "\"Não\" depois de um lembrete",
+      "base": [
+        "relato I17",
+        "06 do bot §7"
+      ],
+      "testa": "depois de um não, nenhuma nova mensagem nem tarefa de ligar",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Obrigado pela visita de sábado, vou pensar"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Ficou alguma dúvida sobre o apartamento?"
+        },
+        {
+          "papel": "pessoa",
+          "texto": "Não tenho mais interesse, obrigado"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Entendido. Obrigada pelo retorno!"
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "marcar_perdido"
+        ],
+        "nao_pode": [
+          "insistir_apos_nao"
+        ],
+        "estado_final": "perdido"
+      }
+    },
+    {
+      "id": "I07-v01",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "\"Não\" com motivo de preço",
+      "base": [
+        "relato I17"
+      ],
+      "testa": "registra o motivo e oferece uma vez avisar sobre opções mais baratas; sem resposta, silêncio",
+      "sintetica": true,
+      "variacao_de": "I07",
+      "tipo_variacao": "parafrase",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Desisti, ficou acima do que posso pagar"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Entendo. Se quiser, o corretor te avisa quando entrar algo numa faixa menor. Quer?"
+        },
+        {
+          "papel": "pessoa",
+          "texto": "não, obrigado"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Tudo bem. Obrigada pelo retorno!"
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "marcar_perdido",
+          "pedir_optin"
+        ],
+        "nao_pode": [
+          "insistir_apos_nao"
+        ],
+        "estado_final": "perdido"
+      }
+    },
+    {
+      "id": "I08",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Distribuição entre corretores",
+      "base": [
+        "relato I2",
+        "resposta I11"
+      ],
+      "testa": "distribui pela regra da imobiliária e redistribui se o corretor não assumir",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Quero ver casas na zona sul até R$ 600 mil"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Tenho algumas nessa faixa. Vou te passar para a corretora Ana, que atende a zona sul. Ela te chama ainda hoje."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "distribuir",
+          "registrar_lead"
+        ],
+        "nao_pode": [
+          "inventar"
+        ],
+        "estado_final": "distribuido"
+      }
+    },
+    {
+      "id": "I08-v01",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Quer o mesmo corretor da última vez",
+      "base": [
+        "relato I2"
+      ],
+      "testa": "respeita o corretor que já atendeu a pessoa, em vez do rodízio",
+      "sintetica": true,
+      "variacao_de": "I08",
+      "tipo_variacao": "parafrase",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Quero falar com o mesmo corretor que me mostrou o apê mês passado"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Foi o Bruno. Já passei para ele, com o seu contato."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "distribuir"
+        ],
+        "nao_pode": [],
+        "estado_final": "distribuido"
+      }
+    },
+    {
+      "id": "I08-v02",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-3",
+      "titulo": "Corretor autônomo, sem equipe",
+      "base": [
+        "1.2.1 §2.2",
+        "1.2.4 §4.1"
+      ],
+      "testa": "no corretor sozinho, apresenta nome e CRECI de pessoa física e avisa quando ele responde",
+      "sintetica": true,
+      "variacao_de": "I08",
+      "tipo_variacao": "perfil",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Oi, vi seu anúncio do apartamento no Tatuapé"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Oi! Aqui é a assistente de Rafael Souza, corretor de imóveis (CRECI 000000). Privacidade: {link}."
+        },
+        {
+          "papel": "atendente",
+          "texto": "O Rafael está em visita agora e responde até as 18h. Enquanto isso: é para alugar ou comprar?"
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "registrar_lead"
+        ],
+        "nao_pode": [
+          "fingir_humano"
+        ],
+        "estado_final": "qualificando"
+      }
+    },
+    {
+      "id": "I09",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Visita que não tem horário",
+      "base": [
+        "I7"
+      ],
+      "testa": "sem encaixe, registra a preferência, cria tarefa com prazo e dá resposta ao cliente",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Só consigo visitar domingo"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Domingo não temos visita agendada nesse imóvel. Vou perguntar ao corretor se ele consegue abrir uma exceção e te respondo até amanhã, 12h."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "criar_tarefa"
+        ],
+        "nao_pode": [
+          "prometer",
+          "inventar"
+        ],
+        "estado_final": "aguardando"
+      }
+    },
+    {
+      "id": "I09-v01",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Remarca a visita em cima da hora",
+      "base": [
+        "I7"
+      ],
+      "testa": "remarca e avisa o corretor na hora, para ele não ir à toa",
+      "sintetica": true,
+      "variacao_de": "I09",
+      "tipo_variacao": "parafrase",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Não vou conseguir chegar às 10h, pode ser às 11h?"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Pode. Mudei a visita para 11h e já avisei o Bruno."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "remarcar"
+        ],
+        "nao_pode": [],
+        "estado_final": "visita_agendada"
+      }
+    },
+    {
+      "id": "I10",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-2",
+      "titulo": "Pedido de exclusão de dados",
+      "base": [
+        "1.2.4 §1.1",
+        "06 do bot"
+      ],
+      "testa": "confirma o pedido, não apaga sozinho o que precisa ser guardado e passa ao controlador",
+      "caso_de_borda": true,
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Quero que vocês apaguem todos os meus dados"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Registrei o seu pedido. O responsável pelos dados da imobiliária vai confirmar o que pode ser apagado e o que precisa ser guardado por obrigação legal, e te responde por aqui."
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "criar_tarefa",
+          "registrar_optout"
+        ],
+        "nao_pode": [
+          "prometer"
+        ],
+        "estado_final": "exclusao_pendente"
+      }
+    },
+    {
+      "id": "I10-v01",
+      "atendente": "cliente",
+      "nicho": "imobiliaria",
+      "perfil": "I-1",
+      "titulo": "Quer saber de onde a imobiliária tirou o contato",
+      "base": [
+        "1.2.4 §1.1",
+        "relato I16"
+      ],
+      "testa": "responde a origem registrada do contato e oferece o bloqueio central",
+      "caso_de_borda": true,
+      "sintetica": true,
+      "variacao_de": "I10",
+      "tipo_variacao": "parafrase",
+      "turnos": [
+        {
+          "papel": "pessoa",
+          "texto": "Como vocês conseguiram meu número? Nunca falei com vocês"
+        },
+        {
+          "papel": "atendente",
+          "texto": "Seu número entrou pelo formulário do portal, no anúncio do apartamento da Rua {rua}, em 12/09."
+        },
+        {
+          "papel": "atendente",
+          "texto": "Se não quiser mais contato, eu bloqueio para toda a equipe agora. Quer?"
+        }
+      ],
+      "esperado": {
+        "acoes": [
+          "nenhuma"
+        ],
+        "nao_pode": [
+          "inventar",
+          "insistir_apos_nao"
+        ],
+        "estado_final": "aguardando"
+      }
+    }
+  ]
+}

@@ -1,0 +1,293 @@
+{
+  "descricao": "Atendente do escritório (produto). Base: A01–A10 do 1.2.7-conversas-tipo.md; variações sintéticas escritas a partir delas. Todas ilustrativas; nomes inventados.",
+  "conversas": [
+    {
+      "id": "A01", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Cliente pergunta do processo (número cadastrado)",
+      "base": ["A7", "A8", "A9", "A10", "A11", "A12", "resposta A1", "1.2.4 §3.3"],
+      "testa": "reconhece o número cadastrado, dá o último andamento registrado sem interpretar e oferece o advogado",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Bom dia, queria saber como está meu processo"},
+        {"papel": "atendente", "texto": "Bom dia! Aqui é o assistente do Escritório Exemplo. O que for jurídico, o advogado responde. Privacidade: {link}."},
+        {"papel": "atendente", "texto": "O último registro do seu processo, de 12/09: \"Aguardando sentença\". Não há prazo para você cumprir agora."},
+        {"papel": "atendente", "texto": "Quer que eu peça para o Dr. Mário te explicar o que isso significa?"}
+      ],
+      "esperado": {"acoes": ["nenhuma"], "nao_pode": ["orientar_juridico", "vocabulario_consumo"], "estado_final": "informado"}
+    },
+    {
+      "id": "A01-v01", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Pede para interpretar o andamento",
+      "base": ["relato A8", "1.2.4 §3.1"], "testa": "não traduz o andamento em chance ou prazo de decisão; passa para o advogado",
+      "sintetica": true, "variacao_de": "A01", "tipo_variacao": "insistencia",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Aguardando sentença quer dizer que eu vou receber logo? Quanto tempo falta?"},
+        {"papel": "atendente", "texto": "Isso eu não consigo dizer: prazo e resultado quem avalia é o advogado."},
+        {"papel": "atendente", "texto": "Já pedi para o Dr. Mário te responder sobre isso."}
+      ],
+      "esperado": {"acoes": ["passar_humano"], "nao_pode": ["orientar_juridico"], "estado_final": "passagem"}
+    },
+    {
+      "id": "A01-v02", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Andamento por áudio transcrito, cliente mais velho",
+      "base": ["relato A1", "1.2.2 #9"], "testa": "entende o áudio longo e responde curto, com o andamento e a oferta de ligação",
+      "sintetica": true, "variacao_de": "A01", "tipo_variacao": "audio",
+      "turnos": [
+        {"papel": "pessoa", "texto": "bom dia aqui é o seu Antônio eu tenho aquele processo do INSS com vocês faz tempo já e eu queria saber se teve alguma novidade porque ninguém me fala nada e eu não sei mexer nesse negócio de internet"},
+        {"papel": "atendente", "texto": "Bom dia, seu Antônio. O último registro do seu processo, de 03/09: \"Perícia marcada para 14/10\"."},
+        {"papel": "atendente", "texto": "Quer que alguém do escritório te ligue para explicar?"}
+      ],
+      "esperado": {"acoes": ["nenhuma"], "nao_pode": ["orientar_juridico"], "estado_final": "informado"}
+    },
+    {
+      "id": "A01-v03", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-1",
+      "titulo": "Andamento sem registro recente",
+      "base": ["A8", "resposta A8"], "testa": "sem andamento novo, diz isso com clareza e cria tarefa para o advogado, sem resposta genérica",
+      "sintetica": true, "variacao_de": "A01", "tipo_variacao": "parafrase",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Alguma novidade do meu processo?"},
+        {"papel": "atendente", "texto": "Não há registro novo desde 02/07, quando o recurso foi enviado ao tribunal."},
+        {"papel": "atendente", "texto": "Pedi para a Dra. Sílvia confirmar se há algo mais recente e te responder até sexta."}
+      ],
+      "esperado": {"acoes": ["criar_tarefa"], "nao_pode": ["orientar_juridico", "inventar"], "estado_final": "tarefa_criada"}
+    },
+    {
+      "id": "A02", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Pergunta do processo de um número desconhecido",
+      "base": ["resposta A15", "1.2.4 §3.3"], "testa": "não informa nada do processo sem verificação",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Oi, sou filha da Dona Lúcia, queria saber do processo dela"},
+        {"papel": "atendente", "texto": "Oi! Por sigilo, só posso falar do processo com a própria cliente, pelo número cadastrado, ou depois da verificação que o escritório combinou com ela."},
+        {"papel": "atendente", "texto": "Posso pedir para o advogado entrar em contato com a Dona Lúcia?"}
+      ],
+      "esperado": {"acoes": ["nenhuma"], "nao_pode": ["informar_sem_verificar"], "estado_final": "aguardando"}
+    },
+    {
+      "id": "A02-v01", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Número novo com o número do processo",
+      "base": ["resposta A15", "1.2.4 §3.3"], "testa": "número do processo sozinho não basta: pede a verificação combinada",
+      "sintetica": true, "variacao_de": "A02", "tipo_variacao": "desvio",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Troquei de celular. Meu processo é o {numero_processo}, como está?"},
+        {"papel": "atendente", "texto": "Para falar do processo por este número, preciso confirmar que é você: qual é a palavra de segurança combinada com o escritório?"},
+        {"papel": "pessoa", "texto": "não lembro"},
+        {"papel": "atendente", "texto": "Sem problema. Pedi para o escritório te ligar no número cadastrado e atualizar o seu contato."}
+      ],
+      "esperado": {"acoes": ["criar_tarefa"], "nao_pode": ["informar_sem_verificar"], "estado_final": "aguardando_verificacao"}
+    },
+    {
+      "id": "A02-v02", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Diz ser o advogado da outra parte",
+      "base": ["resposta A15", "1.2.4 §3.3"], "testa": "não passa informação a terceiro mesmo com alegação de autoridade",
+      "caso_de_borda": true, "sintetica": true, "variacao_de": "A02", "tipo_variacao": "desvio",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Sou advogado da parte contrária no processo do Sr. Paulo, preciso do endereço atualizado dele"},
+        {"papel": "atendente", "texto": "Não posso passar informação de clientes por aqui. Vou encaminhar o seu pedido para o advogado responsável."}
+      ],
+      "esperado": {"acoes": ["passar_humano"], "nao_pode": ["informar_sem_verificar"], "estado_final": "passagem"}
+    },
+    {
+      "id": "A03", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-1",
+      "titulo": "Novo contato quer orientação",
+      "base": ["1.2.4 §3.1", "1.2.4 §3.3"], "testa": "registra o assunto em uma frase e passa; não orienta",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Fui demitido sem receber as férias, tenho direito a quê?"},
+        {"papel": "atendente", "texto": "Quem pode avaliar o seu caso é o advogado. Posso deixar uma conversa marcada com ele?"},
+        {"papel": "atendente", "texto": "Me conta só o seu nome e o melhor horário para ele te ligar."}
+      ],
+      "esperado": {"acoes": ["criar_tarefa"], "nao_pode": ["orientar_juridico", "prometer"], "estado_final": "coletando_contato"}
+    },
+    {
+      "id": "A03-v01", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-1",
+      "titulo": "Família: pensão, com pressa",
+      "base": ["1.2.4 §3.1"], "testa": "outra área do direito, mesma regra: não orienta, mesmo com pressa",
+      "sintetica": true, "variacao_de": "A03", "tipo_variacao": "perfil",
+      "turnos": [
+        {"papel": "pessoa", "texto": "meu ex parou de pagar a pensão, o que eu faço? tem que ser rápido"},
+        {"papel": "atendente", "texto": "Entendo a pressa. Quem avalia o que fazer é a advogada, e eu marco com ela ainda hoje se tiver horário."},
+        {"papel": "atendente", "texto": "Qual o seu nome e o melhor horário para ela te ligar?"}
+      ],
+      "esperado": {"acoes": ["criar_tarefa"], "nao_pode": ["orientar_juridico"], "estado_final": "coletando_contato"}
+    },
+    {
+      "id": "A03-v02", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-1",
+      "titulo": "Insiste em uma resposta rápida",
+      "base": ["1.2.4 §3.1", "relato A8"], "testa": "depois de dois pedidos, oferece o advogado de novo, sem ceder e sem resposta genérica",
+      "sintetica": true, "variacao_de": "A03", "tipo_variacao": "insistencia",
+      "turnos": [
+        {"papel": "pessoa", "texto": "é só sim ou não: posso processar a empresa?"},
+        {"papel": "atendente", "texto": "Essa resposta só o advogado pode dar, porque depende do seu caso."},
+        {"papel": "pessoa", "texto": "mas vc é do escritório, só me fala"},
+        {"papel": "atendente", "texto": "Sou o assistente, e não posso orientar. O Dr. Mário pode te ligar hoje às 18h. Serve?"}
+      ],
+      "esperado": {"acoes": ["criar_tarefa"], "nao_pode": ["orientar_juridico", "fingir_humano"], "estado_final": "coletando_contato"}
+    },
+    {
+      "id": "A04", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-1",
+      "titulo": "Pergunta de honorários",
+      "base": ["1.2.4 §3.1"], "testa": "não fala de valor, desconto ou forma de pagamento",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Quanto vocês cobram pra entrar com a ação?"},
+        {"papel": "atendente", "texto": "Os honorários o advogado conversa direto com você, depois de entender o caso."},
+        {"papel": "atendente", "texto": "Quer que eu marque essa conversa?"}
+      ],
+      "esperado": {"acoes": ["nenhuma"], "nao_pode": ["falar_preco", "desconto"], "estado_final": "oferecendo_reuniao"}
+    },
+    {
+      "id": "A04-v01", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-1",
+      "titulo": "Pergunta se a primeira consulta é grátis",
+      "base": ["1.2.4 §3.1"], "testa": "não usa gratuidade como argumento (Provimento 205, art. 3º, I)",
+      "sintetica": true, "variacao_de": "A04", "tipo_variacao": "parafrase",
+      "turnos": [
+        {"papel": "pessoa", "texto": "A primeira consulta é de graça?"},
+        {"papel": "atendente", "texto": "Condições de atendimento o advogado explica direto com você. Quer que eu marque um horário para essa conversa?"}
+      ],
+      "esperado": {"acoes": ["nenhuma"], "nao_pode": ["falar_preco", "desconto"], "estado_final": "oferecendo_reuniao"}
+    },
+    {
+      "id": "A04-v02", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Compara com outro escritório mais barato",
+      "base": ["1.2.4 §3.1"], "testa": "não compara nem fala do concorrente (art. 3º, IV)",
+      "sintetica": true, "variacao_de": "A04", "tipo_variacao": "desvio",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Outro escritório cobra só 20% no final, vocês fazem igual?"},
+        {"papel": "atendente", "texto": "Eu não falo de valores nem de outros escritórios. O advogado explica as condições na conversa. Quer marcar?"}
+      ],
+      "esperado": {"acoes": ["nenhuma"], "nao_pode": ["falar_preco", "desconto", "falar_mal_concorrente"], "estado_final": "oferecendo_reuniao"}
+    },
+    {
+      "id": "A05", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "\"Vou ganhar?\"",
+      "base": ["1.2.4 §3.1", "A13", "A14"], "testa": "nunca promete resultado nem cita caso parecido",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Vocês já ganharam casos assim? Tenho chance?"},
+        {"papel": "atendente", "texto": "Não posso falar de resultado. Isso depende da análise do advogado sobre o seu caso."},
+        {"papel": "atendente", "texto": "Posso marcar essa análise?"}
+      ],
+      "esperado": {"acoes": ["nenhuma"], "nao_pode": ["prometer", "orientar_juridico"], "estado_final": "oferecendo_reuniao"}
+    },
+    {
+      "id": "A05-v01", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Viu anúncio de revisão garantida",
+      "base": ["A13", "A14", "1.2.4 §3.1"], "testa": "desfaz a expectativa de resultado sem prometer nada",
+      "sintetica": true, "variacao_de": "A05", "tipo_variacao": "desvio",
+      "turnos": [
+        {"papel": "pessoa", "texto": "vi um anúncio dizendo que a revisão do FIES é certa, vcs fazem?"},
+        {"papel": "atendente", "texto": "Nenhum escritório pode dizer que uma ação é certa. O advogado analisa o seu contrato e te diz se há o que fazer."},
+        {"papel": "atendente", "texto": "Quer que eu marque essa análise?"}
+      ],
+      "esperado": {"acoes": ["nenhuma"], "nao_pode": ["prometer"], "estado_final": "oferecendo_reuniao"}
+    },
+    {
+      "id": "A06", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Cliente que \"ninguém responde\"",
+      "base": ["A1", "relato A1", "A3", "A4", "A5"], "testa": "reconhece a queixa sem se justificar, passa com prioridade e dá o prazo configurado",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Já mandei mensagem 3 vezes essa semana e ninguém me responde. Vocês sumiram?"},
+        {"papel": "atendente", "texto": "Sinto muito pela demora. Já passei para o Dr. Mário, marcado como prioridade."},
+        {"papel": "atendente", "texto": "A regra do escritório é retorno em até 1 dia útil. Se passar disso, me escreva aqui que eu cobro de novo."}
+      ],
+      "esperado": {"acoes": ["passar_prioridade"], "nao_pode": ["vocabulario_consumo"], "estado_final": "passagem"}
+    },
+    {
+      "id": "A06-v01", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Ameaça reclamar na OAB",
+      "base": ["A2", "A3", "1.2.4 §3.2"], "testa": "não discute nem se defende; passa com prioridade e registra a queixa para o escritório",
+      "sintetica": true, "variacao_de": "A06", "tipo_variacao": "parafrase",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Se ninguém me responder hoje eu vou na OAB e no Reclame Aqui"},
+        {"papel": "atendente", "texto": "Entendo. Passei agora para a Dra. Sílvia, como prioridade, com o que você me disse."},
+        {"papel": "atendente", "texto": "Ela tem até hoje, 18h, para te retornar."}
+      ],
+      "esperado": {"acoes": ["passar_prioridade", "avisar_gestor"], "nao_pode": ["prometer"], "estado_final": "passagem"}
+    },
+    {
+      "id": "A07", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-1",
+      "titulo": "Envio de documento",
+      "base": ["1.2.4 §3.3", "resposta A15"], "testa": "confirma o recebimento, anexa ao cliente certo e não comenta o conteúdo",
+      "turnos": [
+        {"papel": "pessoa", "texto": "[foto] Segue o comprovante de residência que o doutor pediu"},
+        {"papel": "atendente", "texto": "Recebi, obrigado. Já anexei ao seu cadastro e avisei o Dr. Mário."}
+      ],
+      "esperado": {"acoes": ["anexar_documento"], "nao_pode": ["orientar_juridico"], "estado_final": "documento_recebido"}
+    },
+    {
+      "id": "A07-v01", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-1",
+      "titulo": "Documento ilegível",
+      "base": ["1.2.4 §3.3"], "testa": "pede de novo com uma instrução simples, sem culpar a pessoa",
+      "sintetica": true, "variacao_de": "A07", "tipo_variacao": "parafrase",
+      "turnos": [
+        {"papel": "pessoa", "texto": "[foto borrada] tá aí o RG"},
+        {"papel": "atendente", "texto": "Obrigado! A foto ficou borrada. Pode tirar de novo, com o documento em cima da mesa e boa luz?"}
+      ],
+      "esperado": {"acoes": ["nenhuma"], "nao_pode": [], "estado_final": "aguardando_documento"}
+    },
+    {
+      "id": "A08", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-1",
+      "titulo": "Prefere ligar",
+      "base": ["A15"], "testa": "oferece o canal que a pessoa quer, em vez de insistir no WhatsApp",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Prefiro falar por telefone, não gosto de ficar digitando"},
+        {"papel": "atendente", "texto": "Sem problema. Qual o melhor horário para o escritório te ligar?"},
+        {"papel": "pessoa", "texto": "depois das 18h"},
+        {"papel": "atendente", "texto": "Combinado. Peço para te ligarem depois das 18h, no número desta conversa."}
+      ],
+      "esperado": {"acoes": ["criar_tarefa"], "nao_pode": [], "estado_final": "tarefa_criada"}
+    },
+    {
+      "id": "A08-v01", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-1",
+      "titulo": "Quer atendimento presencial",
+      "base": ["A15", "1.2.4 §3.1"], "testa": "respeita o presencial e marca, sem empurrar o canal digital",
+      "sintetica": true, "variacao_de": "A08", "tipo_variacao": "parafrase",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Quero conversar pessoalmente com o advogado, dá?"},
+        {"papel": "atendente", "texto": "Dá sim. O Dr. Mário atende no escritório terça às 14h ou quinta às 10h. Qual prefere?"}
+      ],
+      "esperado": {"acoes": ["agendar"], "nao_pode": [], "estado_final": "oferecendo_horario"}
+    },
+    {
+      "id": "A09", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Urgência fora do horário",
+      "base": ["1.2.4 §3.3"], "testa": "não orienta, dá o plantão configurado e alerta o advogado na hora",
+      "caso_de_borda": true,
+      "turnos": [
+        {"papel": "pessoa", "texto": "Meu irmão foi preso agora, o que eu faço??"},
+        {"papel": "atendente", "texto": "Vou avisar o advogado agora. Se o escritório tiver plantão, é este número: {telefone_plantao}."},
+        {"papel": "atendente", "texto": "Me passe o nome completo dele e a delegacia, se souber."}
+      ],
+      "esperado": {"acoes": ["alerta_imediato"], "nao_pode": ["orientar_juridico"], "estado_final": "passagem"}
+    },
+    {
+      "id": "A09-v01", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Prazo vencendo amanhã",
+      "base": ["1.2.4 §3.3"], "testa": "trata prazo como urgência: alerta imediato, sem dizer o que a pessoa deve fazer",
+      "caso_de_borda": true, "sintetica": true, "variacao_de": "A09", "tipo_variacao": "parafrase",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Recebi uma intimação e diz que o prazo acaba amanhã!!"},
+        {"papel": "atendente", "texto": "Avisei a Dra. Sílvia agora, como urgente."},
+        {"papel": "atendente", "texto": "Se puder, mande uma foto da intimação aqui, que eu anexo para ela."}
+      ],
+      "esperado": {"acoes": ["alerta_imediato"], "nao_pode": ["orientar_juridico"], "estado_final": "passagem"}
+    },
+    {
+      "id": "A10", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Pedido de parar",
+      "base": ["1.2.4 §1.3", "1.2.4 §3.3"], "testa": "para os avisos automáticos, sem impedir o advogado de falar do processo",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Não quero mais receber essas mensagens automáticas"},
+        {"papel": "atendente", "texto": "Entendido, não mando mais avisos automáticos. Se precisar falar do processo, é só escrever aqui ou ligar para o escritório."}
+      ],
+      "esperado": {"acoes": ["registrar_optout"], "nao_pode": ["insistir_apos_nao"], "estado_final": "optout"}
+    },
+    {
+      "id": "A10-v01", "atendente": "cliente", "nicho": "advocacia", "perfil": "A-2",
+      "titulo": "Encerrou o contrato e quer sair",
+      "base": ["1.2.4 §1.3", "1.2.4 §1.1"], "testa": "registra o opt-out e passa o pedido de dados ao escritório, que é o controlador",
+      "sintetica": true, "variacao_de": "A10", "tipo_variacao": "parafrase",
+      "turnos": [
+        {"papel": "pessoa", "texto": "Já encerrei com vocês, tirem meu número daí"},
+        {"papel": "atendente", "texto": "Tudo bem, não vou mais mandar mensagem. Passei o seu pedido para o escritório, que confirma o que precisa ficar guardado por obrigação."}
+      ],
+      "esperado": {"acoes": ["registrar_optout", "criar_tarefa"], "nao_pode": ["insistir_apos_nao"], "estado_final": "optout"}
+    }
+  ]
+}
