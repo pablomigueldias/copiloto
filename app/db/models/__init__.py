@@ -9,6 +9,16 @@ from app.db.models.agente_evento import AgenteEvento
 from app.db.models.ai_call import AiCall
 from app.db.models.auth import Sessao, TentativaLogin, Usuario
 from app.db.models.blog import BlogPost, BlogPostVersao
+from app.db.models.comercial import (
+    Atividade,
+    Canal,
+    Estabelecimento,
+    Fonte,
+    Identificador,
+    Importacao,
+    Origem,
+    Supressao,
+)
 from app.db.models.conhecimento import ConhecimentoChunk
 from app.db.models.estudo import Agenda, Modulo, Questao, Tentativa, Topico
 from app.db.models.exemplo_estilo import ExemploEstilo
@@ -25,17 +35,25 @@ __all__ = [
     "Agenda",
     "AgenteEvento",
     "AiCall",
+    "Atividade",
     "BlogPost",
     "BlogPostVersao",
     "CandidaturaEmail",
     "CandidaturaEvento",
+    "Canal",
     "ConhecimentoChunk",
+    "Estabelecimento",
     "ExemploEstilo",
+    "Fonte",
+    "Identificador",
+    "Importacao",
     "Modulo",
+    "Origem",
     "PerfilMestre",
     "PipelineEvent",
     "Questao",
     "Sessao",
+    "Supressao",
     "Tentativa",
     "TentativaLogin",
     "Topico",
