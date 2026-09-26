@@ -17,7 +17,7 @@ from itertools import chain
 from pathlib import Path
 
 from app.config import settings
-from app.conhecimento.fontes import Documento, ler_markdown
+from app.conhecimento.fontes import Documento, ler_markdown, ler_posts_blog
 from app.conhecimento.fontes_internas import ler_perfil_mestre, ler_vagas
 from app.conhecimento.fontes_pdf import ler_pdf
 from app.conhecimento.indexador import Resultado, indexar
@@ -30,6 +30,8 @@ LEITORES_DE_ARQUIVO = {
     "nota": ler_markdown,
     "repo": ler_markdown,
     "pdf": ler_pdf,
+    # Os posts publicados do blog (redação: não repetir assunto, linkar o antigo).
+    "blog": ler_posts_blog,
 }
 LEITORES_DE_BANCO = {
     "perfil": ler_perfil_mestre,

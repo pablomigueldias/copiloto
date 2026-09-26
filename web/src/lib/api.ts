@@ -13,17 +13,24 @@
 import type {
   Acao,
   Banca,
+  CandidataVault,
   EstadoTranscricao,
   Geracao,
+  LinkedinGerado,
   Metricas,
   ModuloResumo,
+  PainelBlog,
+  Parecido,
   PostDetalhe,
   PostLinha,
   Questao,
+  RascunhoGerado,
   Resposta,
   Resumo,
+  SituacaoGeracao,
   SituacaoPr,
   Tentativa,
+  TrechoFonte,
   Usuario,
   VagaDetalhe,
   VagaLinha,
@@ -363,6 +370,20 @@ export const api = {
       method: "POST",
     }),
   vocabularioBlog: () => req<VocabularioBlog>("/blog/vocabulario"),
+  /** Como vai o blog e o que fazer agora — tudo do banco, sem rede. */
+  painelBlog: () => req<PainelBlog>("/blog/painel"),
+  situacaoGeracao: () => req<SituacaoGeracao>("/blog/geracao"),
+  /** Notas `blog: ideia`, só das pastas liberadas do vault. */
+  vaultBlog: () => req<CandidataVault[]>("/blog/vault"),
+  importarNota: (caminho: string) =>
+    req<PostDetalhe>("/blog/vault", { method: "POST", body: JSON.stringify({ caminho }) }),
+  /** Exatamente o que iria para o modelo, já sem caminho, IP nem token. */
+  fontePost: (id: string) => req<TrechoFonte[]>(`/blog/${id}/fonte`),
+  parecidosPost: (id: string) => req<Parecido[]>(`/blog/${id}/parecidos`),
+  gerarRascunho: (id: string) => req<RascunhoGerado>(`/blog/${id}/gerar`, { method: "POST" }),
+  gerarLinkedin: (id: string) => req<LinkedinGerado>(`/blog/${id}/linkedin`, { method: "POST" }),
+  linkedinPostado: (id: string) =>
+    req<PostDetalhe>(`/blog/${id}/linkedin/postado`, { method: "POST" }),
 
   // ── conhecimento ──
   buscarConhecimento: (q: string, limite = 8) =>

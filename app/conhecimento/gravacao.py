@@ -507,10 +507,7 @@ async def _organizar(sessao: Sessao) -> None:
 
 def vault() -> Path:
     """A primeira pasta `nota:` do .env — o vault que o Copiloto já indexa."""
-    for tipo, caminho in settings.conhecimento_fontes_list:
-        if tipo == "nota":
-            return Path(caminho).expanduser()
-    return Path.home() / "Documentos" / "Notas"
+    return settings.vault_dir
 
 
 async def salvar(*, titulo: str, pasta: str, tags: list[str], nome: str | None = None) -> Path:

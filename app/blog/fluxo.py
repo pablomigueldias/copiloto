@@ -11,10 +11,10 @@ arquivo, e quem mexe na esteira não precisa reler o CRUD.
 """
 from __future__ import annotations
 
-from datetime import UTC, datetime
+from datetime import UTC, date, datetime
 from uuid import UUID
 
-from app.blog import publicacao, servico
+from app.blog import publicacao, servico, vault
 from app.db.models.blog import BlogPost
 from app.db.observability import registrar_evento
 from app.db.session import get_session
@@ -28,7 +28,23 @@ async def abrir_pr(post_id: UUID) -> dict:
     régua daqui já recusaria é gastar CI para ouvir o que eu já sabia.
     """
     post = await servico.obter(post_id)
-    if post.estado != "pronto":
+    if post.estado == "publicado":
+        # Atualização de post no ar: o mesmo portão do `pronto`, e só se houver
+        # o que publicar. A data da correção entra no frontmatter (`atualizado`).
+        d = servico.diagnostico(post)
+        if not d["exportavel"]:
+            marcadores = [f"{{{{FALTA: {f}}}}} aberto" for f in d["faltas"]]
+            raise servico.NaoEstaPronto(
+                "; ".join(d["falta"] + d["frontmatter_erros"] + marcadores)
+            )
+        if not servico.alteracoes_nao_publicadas(post):
+            raise servico.NaoEstaPronto("nada mudou desde a publicação")
+        async with get_session() as session:
+            alvo = await session.get(BlogPost, post_id)
+            alvo.atualizado = max(date.today(), alvo.data_publicacao or date.today())
+            await session.commit()
+        post = await servico.obter(post_id)
+    elif post.estado != "pronto":
         raise servico.NaoEstaPronto(
             f"o post está como `{post.estado}` — marque pronto antes de publicar"
         )
@@ -59,16 +75,32 @@ async def concluir(post_id: UUID) -> dict:
     `pronto`, porque PR aberto é texto esperando o CI, não texto publicado.
     """
     post = await servico.obter(post_id)
+    atualizacao = post.estado == "publicado"
     dados = await publicacao.mergear(post)
 
     async with get_session() as session:
         alvo = await session.get(BlogPost, post_id)
         alvo.estado = "publicado"
-        alvo.publicado_em = datetime.now(UTC)
+        # Atualização não muda a data de publicação: o post é o mesmo, com
+        # `atualizado` no frontmatter.
+        if not atualizacao:
+            alvo.publicado_em = datetime.now(UTC)
+        alvo.publicado_hash = servico.assinatura(alvo)
         # A branch morre junto (`--delete-branch`); guardar o nome depois disso
         # seria apontar para o que não existe mais.
         alvo.branch = None
         await session.commit()
 
-    await registrar_evento("blog.publicado", status="ok", detalhe=post.slug or "")
+    # A nota do vault que originou o post passa a `publicado` (§9.3 do plano do
+    # blog). Falhar aqui não desfaz o merge: é uma propriedade no Obsidian.
+    for item in post.origem or []:
+        if isinstance(item, dict) and item.get("vault"):
+            try:
+                vault.marcar(item["vault"], "publicado")
+            except (vault.VaultErro, OSError):
+                pass
+
+    await registrar_evento(
+        "blog.atualizado" if atualizacao else "blog.publicado", status="ok", detalhe=post.slug or ""
+    )
     return dados

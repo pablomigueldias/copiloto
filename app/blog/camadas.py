@@ -302,3 +302,14 @@ def tudo_verde(camadas: list[Camada]) -> bool:
 def o_que_falta(camadas: list[Camada]) -> list[str]:
     """Os sinais vermelhos, em uma linha cada — o que a tela mostra no topo."""
     return [f"{c.rotulo}: {s.texto}" for c in camadas for s in c.sinais if not s.ok]
+
+
+# O marcador que a geração escreve onde a matéria-prima não tem o fato
+# (`app/blog/geracao.py`). Aberto, ele bloqueia o `pronto` — e quebraria o build
+# do MDX de qualquer jeito, porque `{{` é expressão JS para o compilador.
+FALTA = re.compile(r"\{\{\s*FALTA\s*:([^}]*)\}\}")
+
+
+def faltas(corpo: str) -> list[str]:
+    """Os `{{FALTA: …}}` ainda abertos, na ordem do texto."""
+    return [m.strip() for m in FALTA.findall(corpo or "")]

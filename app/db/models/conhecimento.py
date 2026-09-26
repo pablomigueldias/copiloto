@@ -24,7 +24,7 @@ DIM_EMBEDDING = 1024
 class ConhecimentoChunk(Base, UUIDPrimaryKeyMixin):
     __tablename__ = "conhecimento_chunk"
 
-    # 'nota' | 'repo' | 'pdf' | 'perfil' | 'vaga'
+    # 'nota' | 'repo' | 'pdf' | 'blog' | 'perfil' | 'vaga'
     fonte_tipo: Mapped[str] = mapped_column(String(30), nullable=False)
     # Caminho do arquivo, ou `vaga:<uuid>` para o que vem do próprio banco.
     fonte_ref: Mapped[str] = mapped_column(Text, nullable=False)

@@ -34,7 +34,10 @@ logger = get_logger()
 # o corpo do PATCH é JSON de fora, e `estado` tem portão próprio — deixá-lo
 # entrar por aqui seria a porta dos fundos do `marcar_pronto`.
 CAMPOS_EDITAVEIS = frozenset(
-    {"titulo", "slug", "descricao", "pilar", "tags", "corpo", "notas", "origem", "data_publicacao"}
+    {
+        "titulo", "slug", "descricao", "pilar", "tags", "corpo", "notas", "origem",
+        "data_publicacao", "linkedin_texto", "linkedin_em",
+    }
 )
 
 
@@ -52,6 +55,45 @@ class EstadoInvalido(BlogErro):
 
 class NaoEstaPronto(BlogErro):
     """As camadas ou o frontmatter reprovaram. A mensagem lista o que falta."""
+
+
+# ── Post no ar ────────────────────────────────────────────────────
+#
+# Editar depois de publicado é permitido — corrigir número, trocar link morto é
+# o que a auditoria trimestral pede. O que **não** muda é o endereço: `slug` e
+# `data` de post no ar quebrariam o link que já foi compartilhado e a ordem do
+# blog. E o site só muda quando eu publico a atualização (PR + merge), como na
+# primeira vez.
+TRAVADOS_NO_AR = frozenset({"slug", "data_publicacao"})
+
+
+def assinatura(post: BlogPost) -> str:
+    """O que o leitor vê, resumido num hash. Muda = há o que publicar."""
+    import hashlib
+    import json
+
+    dados = {
+        "titulo": post.titulo,
+        "descricao": post.descricao,
+        "pilar": post.pilar,
+        "tags": list(post.tags or []),
+        "origem": list(post.origem or []),
+        "corpo": (post.corpo or "").strip(),
+    }
+    return hashlib.sha256(json.dumps(dados, sort_keys=True).encode()).hexdigest()
+
+
+def alteracoes_nao_publicadas(post: BlogPost) -> bool:
+    return bool(
+        post.estado == "publicado"
+        and post.publicado_hash
+        and assinatura(post) != post.publicado_hash
+    )
+
+
+def rascunho_no_arquivo(post: BlogPost) -> bool:
+    """`draft: true` no MDX? Nunca para post no ar — ele sumiria do site."""
+    return post.estado not in ("pronto", "publicado")
 
 
 async def criar(
@@ -139,6 +181,21 @@ async def salvar(post_id: UUID, campos: dict[str, Any]) -> BlogPost:
         if post is None:
             raise PostNaoEncontrado(f"Post {post_id} não existe.")
 
+        if post.estado == "publicado":
+            mudou = [
+                c for c in TRAVADOS_NO_AR
+                if c in campos and str(campos[c] or "") != str(getattr(post, c) or "")
+            ]
+            if mudou:
+                raise BlogErro(
+                    f"post no ar não muda {', '.join(sorted(mudou))}: "
+                    "o link já compartilhado quebraria"
+                )
+            # Post publicado antes desta coluna existir: o que está no banco
+            # agora é o que está no ar. Guardar antes da primeira edição.
+            if not post.publicado_hash:
+                post.publicado_hash = assinatura(post)
+
         corpo_novo = campos.get("corpo")
         mudou_corpo = corpo_novo is not None and corpo_novo != post.corpo
         if mudou_corpo:
@@ -156,9 +213,11 @@ async def salvar(post_id: UUID, campos: dict[str, Any]) -> BlogPost:
             )
 
         for campo, valor in campos.items():
-            if campo in ("titulo", "descricao", "notas") and isinstance(valor, str):
+            if campo in ("titulo", "descricao", "notas", "linkedin_texto") and isinstance(
+                valor, str
+            ):
                 valor = valor.strip() or (None if campo != "titulo" else post.titulo)
-            if campo == "data_publicacao" and isinstance(valor, str):
+            if campo in ("data_publicacao", "linkedin_em") and isinstance(valor, str):
                 valor = date.fromisoformat(valor)
             setattr(post, campo, valor)
 
@@ -202,7 +261,10 @@ def diagnostico(post: BlogPost) -> dict[str, Any]:
         data=post.data_publicacao,
         origem=list(post.origem or []),
     )
+    abertas = camadas_mod.faltas(post.corpo or "")
     return {
+        "alteracoes_nao_publicadas": alteracoes_nao_publicadas(post),
+        "faltas": abertas,
         "camadas": [
             {
                 "id": c.id,
@@ -217,7 +279,7 @@ def diagnostico(post: BlogPost) -> dict[str, Any]:
         "camadas_ok": camadas_mod.tudo_verde(camadas),
         "falta": camadas_mod.o_que_falta(camadas),
         "frontmatter_erros": erros_fm,
-        "exportavel": camadas_mod.tudo_verde(camadas) and not erros_fm,
+        "exportavel": camadas_mod.tudo_verde(camadas) and not erros_fm and not abertas,
         "palavras": camadas_mod.palavras(post.corpo or ""),
         "minutos": camadas_mod.minutos_de_leitura(post.corpo or ""),
     }
@@ -232,7 +294,8 @@ async def mudar_estado(post_id: UUID, estado: str) -> BlogPost:
     if estado == "pronto":
         d = diagnostico(post)
         if not d["exportavel"]:
-            raise NaoEstaPronto("; ".join(d["falta"] + d["frontmatter_erros"]))
+            marcadores = [f"{{{{FALTA: {f}}}}} aberto" for f in d["faltas"]]
+            raise NaoEstaPronto("; ".join(d["falta"] + d["frontmatter_erros"] + marcadores))
 
     async with get_session() as session:
         alvo = await session.get(BlogPost, post_id)
@@ -259,7 +322,7 @@ async def exportar(post_id: UUID, *, diretorio: str | Path | None = None) -> dic
     """
     post = await obter(post_id)
     destino_dir = diretorio or settings.blog_content_dir
-    caminho = mdx.exportar(post, diretorio=destino_dir, rascunho=post.estado != "pronto")
+    caminho = mdx.exportar(post, diretorio=destino_dir, rascunho=rascunho_no_arquivo(post))
 
     async with get_session() as session:
         alvo = await session.get(BlogPost, post_id)

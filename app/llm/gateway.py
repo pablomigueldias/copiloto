@@ -85,7 +85,10 @@ def _obter(nome: str) -> Provider:
     if nome not in _providers:
         from app.llm.providers.gemini import GeminiProvider
 
-        _providers[nome] = GeminiProvider()
+        # `gemini_blog` é o mesmo provider com a chave só do blog: revogar uma
+        # não derruba o fichamento das aulas, e o custo sai separado.
+        chave = settings.gemini_api_key_blog if nome == "gemini_blog" else None
+        _providers[nome] = GeminiProvider(chave=chave)
     return _providers[nome]
 
 
@@ -141,6 +144,10 @@ def rota(tarefa: Tarefa, agente: str | None = None) -> Rota:
     else:
         r = Rota(modelo=settings.ollama_model_redacao, temperatura=0.7)
 
+    # O blog tem chave e teto próprios (`app/blog/geracao.py`). Sem a chave do
+    # blog, o agente não usa a do resto do Copiloto: quem chama recusa antes.
+    if agente and agente.startswith("blog.") and settings.gemini_api_key_blog:
+        return replace(r, modelo=settings.blog_gemini_modelo, provider="gemini_blog")
     if _sai_da_maquina(tarefa, agente):
         return replace(r, modelo=_modelo_de_fora(tarefa, agente), provider="gemini")
     return r
@@ -431,7 +438,11 @@ async def gerar(
     destinos = [r]
     # `modelo=` explícito é o bake-off pedindo um modelo por nome. Cair para
     # outro seria medir a coisa errada.
-    if r.provider != "ollama" and modelo is None:
+    #
+    # O blog (`gemini_blog`) não cai: um post de 800 palavras escrito pelo 4B
+    # local seria a queda silenciosa de qualidade que o `gemini.py` descreve —
+    # melhor o botão dizer "a API não respondeu" e eu tentar de novo.
+    if r.provider == "gemini" and modelo is None:
         destinos.append(rota_local(tarefa, agente))
 
     erro_final: Exception | None = None

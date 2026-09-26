@@ -136,7 +136,10 @@ class Settings(BaseSettings):
         "nota:/mnt/dados/Second-Brain,"  # o vault do Obsidian — a fonte principal
         "nota:~/Documentos/Estudos,"
         "repo:~/Documentos/copiloto,"    # inclui docs/ — planejamento fora do git
-        "pdf:/mnt/dados/Second-Brain"
+        "pdf:/mnt/dados/Second-Brain,"
+        # Os posts publicados do blog: a redação consulta para não repetir
+        # assunto e para linkar o que já está no ar (`app/blog/painel.py`).
+        "blog:~/Documentos/pabloortiz.dev/content/blog"
     )
     conhecimento_lote_embedding: int = 16
 
@@ -161,6 +164,14 @@ class Settings(BaseSettings):
             tipo, sep, caminho = entrada.partition(":")
             saida.append((tipo.strip(), caminho.strip()) if sep else ("nota", entrada))
         return saida
+
+    @property
+    def vault_dir(self) -> Path:
+        """A primeira pasta `nota:` — o vault que o Copiloto indexa e onde grava."""
+        for tipo, caminho in self.conhecimento_fontes_list:
+            if tipo == "nota":
+                return Path(caminho).expanduser()
+        return Path.home() / "Documentos" / "Notas"
 
     # ── Worker (Fase 4) ───────────────────────────────────────────
     # Porta 6380 no compose: a 6379 pode estar ocupada por outro projeto.
@@ -228,6 +239,19 @@ class Settings(BaseSettings):
     def blog_content_dir(self) -> Path:
         """`<repo>/content/blog` — onde o `.mdx` de cada post é escrito."""
         return Path(self.blog_repo_dir).expanduser() / "content" / "blog"
+
+    # ── A geração do blog no Gemini (`app/blog/geracao.py`) ───────
+    # Chave **só do blog**, e sem queda para a chave do resto do Copiloto: é o
+    # que permite revogá-la sem mexer no fichamento das aulas, e o que faz o
+    # custo do blog aparecer separado. Sem ela, os botões de gerar explicam o
+    # que falta em vez de escrever com outra chave.
+    gemini_api_key_blog: str = ""
+    # Flash e não Pro: um post com três voltas da régua fica em centavos, e o
+    # teto abaixo é o que segura a conta se isso mudar.
+    blog_gemini_modelo: str = "gemini-2.5-flash"
+    # Teto do mês, somado de `ai_calls` dos agentes `blog.*`. É conferido
+    # **antes** de cada chamada: estourou, o botão recusa até o mês virar.
+    blog_gemini_teto_usd_mes: float = 1.0
 
     # ── CORS ──────────────────────────────────────────────────────
     cors_origins: str = "http://localhost:3010"

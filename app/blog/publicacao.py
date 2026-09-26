@@ -93,9 +93,12 @@ def _branch(slug: str) -> str:
 
 def _mensagem(post) -> tuple[str, str]:
     """Assunto e corpo do commit. Sem trailer de co-autoria: decisão do Pablo."""
-    assunto = f"post: {post.titulo}"
+    # Correção de post no ar tem assunto próprio: no histórico do blog, "publica"
+    # e "atualiza" são coisas diferentes de procurar.
+    prefixo = "post: atualiza" if post.estado == "publicado" else "post:"
+    assunto = f"{prefixo} {post.titulo}"
     if len(assunto) > 72:
-        assunto = f"post: {post.slug}"
+        assunto = f"{prefixo} {post.slug}"
     corpo = (post.descricao or "").strip()
     return assunto, corpo
 
@@ -122,7 +125,10 @@ async def abrir_pr(post, *, repo: Path | None = None) -> dict:
     try:
         destino = trabalho / "content" / "blog"
         # Publicar é tirar o rascunho: o `draft` sai do estado, não de um botão.
-        caminho = mdx.exportar(post, diretorio=destino, rascunho=post.estado != "pronto")
+        # Post no ar nunca sai como rascunho: `draft: true` o tiraria do site.
+        caminho = mdx.exportar(
+            post, diretorio=destino, rascunho=post.estado not in ("pronto", "publicado")
+        )
         relativo = str(caminho.relative_to(trabalho))
 
         # Só o arquivo deste post. Nunca `-A`.
@@ -148,7 +154,7 @@ async def abrir_pr(post, *, repo: Path | None = None) -> dict:
                 "--base", "main",
                 "--head", branch,
                 "--title", assunto,
-                "--body", _corpo_do_pr(post),
+                "--body", _corpo_do_pr(post, trabalho),
                 cwd=trabalho,
             )
             pr = {"url": url.splitlines()[-1].strip(), "numero": None}
@@ -160,7 +166,22 @@ async def abrir_pr(post, *, repo: Path | None = None) -> dict:
     return {"pr_numero": pr["numero"], "pr_url": pr["url"], "branch": branch}
 
 
-def _corpo_do_pr(post) -> str:
+def _checklist_do_blog(trabalho: Path) -> str:
+    """O checklist do template de PR do blog, do primeiro `## Checklist` em diante.
+
+    Com `--body`, o `gh` não usa o template, e o checklist de privacidade (§10.5
+    do plano) sumia justo dos PRs de post. Ler do worktree, e não copiar para
+    cá, mantém a lista num lugar só: mudou no blog, muda no próximo PR.
+    """
+    template = trabalho / ".github" / "pull_request_template.md"
+    if not template.is_file():
+        return ""
+    texto = template.read_text(encoding="utf-8")
+    inicio = texto.find("## Checklist")
+    return texto[inicio:].strip() if inicio >= 0 else ""
+
+
+def _corpo_do_pr(post, trabalho: Path) -> str:
     camadas = (
         "| abertura | entusiasta |\n"
         "| problema e resultado | cliente |\n"
@@ -168,7 +189,7 @@ def _corpo_do_pr(post) -> str:
         "| prova e origem | recrutador |\n"
         "| fechamento | todos |"
     )
-    return (
+    corpo = (
         f"{(post.descricao or '').strip()}\n\n"
         "Gerado pela redação do Copiloto. O post fechou as cinco camadas antes de "
         "poder ser exportado:\n\n"
@@ -177,6 +198,8 @@ def _corpo_do_pr(post) -> str:
         "O frontmatter sai dos campos e é validado contra o mesmo "
         "`src/content/schema.ts` que o CI usa."
     )
+    checklist = _checklist_do_blog(trabalho)
+    return f"{corpo}\n\n{checklist}" if checklist else corpo
 
 
 async def _pr_da_branch(branch: str, *, cwd: Path) -> dict | None:

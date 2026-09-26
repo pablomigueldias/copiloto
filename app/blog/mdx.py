@@ -37,12 +37,15 @@ def frontmatter(
     tags: list[str],
     origem: list[dict] | None = None,
     rascunho: bool = False,
+    atualizado: date | None = None,
 ) -> str:
     linhas = [
         "---",
         f"titulo: {_escapar(titulo)}",
         f"descricao: {_escapar(descricao or '')}",
         f"data: {data.isoformat()}",
+        # Só quando uma correção foi ao ar: o blog mostra "atualizado em …".
+        *([f"atualizado: {atualizado.isoformat()}"] if atualizado else []),
         f"pilar: {pilar}",
         f"tags: [{', '.join(tags)}]",
         f"draft: {'true' if rascunho else 'false'}",
@@ -67,6 +70,7 @@ def montar(post, *, rascunho: bool = False) -> str:
         tags=list(post.tags or []),
         origem=list(post.origem or []),
         rascunho=rascunho,
+        atualizado=getattr(post, "atualizado", None),
     )
     corpo = (post.corpo or "").strip()
     return f"{fm}\n\n{corpo}\n"

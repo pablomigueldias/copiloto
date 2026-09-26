@@ -13,6 +13,9 @@ import pytest
 from app.blog import previa, servico
 from tests.test_blog import CORPO_BOM, DESCRICAO  # o post que fecha as camadas
 
+# A de verdade, guardada antes de o `dev_fora` trocá-la em todo teste.
+SUBIR_BLOG = previa.subir_blog
+
 
 @pytest.fixture
 def repo_falso(tmp_path):
@@ -52,8 +55,59 @@ def gerador_ok(monkeypatch):
 
 @pytest.fixture(autouse=True)
 def dev_fora(monkeypatch):
-    """Sem `next dev` na suíte: quem quiser testar "de pé" liga explicitamente."""
+    """Sem `next dev` na suíte, e sem subir um de verdade: `subir_blog` falha."""
     monkeypatch.setattr(previa, "_servidor_de_pe", lambda url: False)
+    subidas: list = []
+
+    async def nao_sobe(repo, url):
+        subidas.append((repo, url))
+        return False
+
+    monkeypatch.setattr(previa, "subir_blog", nao_sobe)
+    return subidas
+
+
+async def test_blog_parado_e_subido_pela_previa(post, repo_falso, dev_fora):
+    """O passo que eu esquecia: a prévia tenta subir o blog antes de devolver a URL."""
+    r = await previa.montar(post, repo=repo_falso, url_dev="http://localhost:3000")
+    assert dev_fora == [(repo_falso, "http://localhost:3000")]
+    assert "logs/blog-dev.log" in r["aviso"]
+
+
+async def test_subir_blog_nao_sobe_segundo_servidor(monkeypatch, tmp_path):
+    """Com o blog de pé, nenhum processo novo: dois `next dev` brigam pelo `.next`."""
+    monkeypatch.setattr(previa, "_servidor_de_pe", lambda url: True)
+
+    async def proibido(*a, **k):
+        raise AssertionError("não era para subir outro next dev")
+
+    monkeypatch.setattr(previa.asyncio, "create_subprocess_exec", proibido)
+    assert await SUBIR_BLOG(tmp_path, "http://localhost:3000") is True
+
+
+async def test_subir_blog_usa_a_porta_da_url(monkeypatch, tmp_path):
+    estados = iter([False, False, True])
+    monkeypatch.setattr(previa, "_servidor_de_pe", lambda url: next(estados))
+    monkeypatch.setattr(previa, "LOGS_DIR", tmp_path)
+    chamadas: list = []
+
+    async def falso(*args, **kwargs):
+        chamadas.append((args, kwargs))
+
+    monkeypatch.setattr(previa.asyncio, "create_subprocess_exec", falso)
+    assert await SUBIR_BLOG(tmp_path, "http://localhost:3005") is True
+    args, kwargs = chamadas[0]
+    assert args == ("npm", "run", "dev", "--", "-p", "3005")
+    assert kwargs["start_new_session"] is True
+
+
+async def test_post_no_ar_nao_vira_rascunho_na_previa(post, repo_falso):
+    """`draft: true` num post publicado, no working tree do blog, é um commit
+    por engano de distância de tirar o post do ar."""
+    no_ar = await servico.mudar_estado(post.id, "publicado")
+    await previa.montar(no_ar, repo=repo_falso)
+    arquivo = repo_falso / "content" / "blog" / "rag-que-diz-nao-sei.mdx"
+    assert "draft: false" in arquivo.read_text(encoding="utf-8")
 
 
 async def test_escreve_o_arquivo_e_devolve_a_url(post, repo_falso, gerador_ok):
@@ -108,13 +162,10 @@ async def test_post_sem_frontmatter_nao_chega_a_rodar_o_gerador(repo_falso, gera
     assert gerador_ok == []
 
 
-async def test_avisa_quando_o_next_dev_do_blog_esta_fora(post, repo_falso):
-    r = await previa.montar(post, repo=repo_falso, url_dev="http://localhost:3000")
-    assert r["servidor_de_pe"] is False
-    assert "npm run dev" in r["aviso"]
-
-
 async def test_sem_aviso_quando_o_servidor_responde(post, repo_falso, monkeypatch):
-    monkeypatch.setattr(previa, "_servidor_de_pe", lambda url: True)
+    async def de_pe(repo, url):
+        return True
+
+    monkeypatch.setattr(previa, "subir_blog", de_pe)
     r = await previa.montar(post, repo=repo_falso)
     assert r["servidor_de_pe"] is True and r["aviso"] is None

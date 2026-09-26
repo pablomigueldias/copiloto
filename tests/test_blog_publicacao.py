@@ -60,6 +60,16 @@ class Executor:
         return [c for c in self.chamadas if c[: len(inicio)] == list(inicio)]
 
 
+TEMPLATE_DO_BLOG = """## O que muda
+
+<!-- Uma ou duas frases. -->
+
+## Checklist de privacidade
+
+- [ ] Nenhuma imagem com EXIF
+"""
+
+
 @pytest.fixture
 def git(monkeypatch, tmp_path):
     """Executor falso + repo falso, com o worktree escrevendo em disco de verdade."""
@@ -77,6 +87,10 @@ def git(monkeypatch, tmp_path):
         if args[:3] == ("git", "worktree", "add"):
             Path(args[5]).mkdir(parents=True, exist_ok=True)
             (Path(args[5]) / "content" / "blog").mkdir(parents=True, exist_ok=True)
+            (Path(args[5]) / ".github").mkdir(exist_ok=True)
+            (Path(args[5]) / ".github" / "pull_request_template.md").write_text(
+                TEMPLATE_DO_BLOG, encoding="utf-8"
+            )
         return await exe(*args, cwd=cwd)
 
     monkeypatch.setattr(publicacao, "_rodar", rodar)
@@ -130,6 +144,28 @@ async def test_nao_commita_na_main(pronto, git):
     for chamada in git.chamadas:
         assert chamada[:2] != ["git", "checkout"]
         assert chamada[:2] != ["git", "switch"]
+
+
+async def test_o_pr_leva_o_checklist_de_privacidade_do_blog(pronto, git):
+    """Com `--body`, o `gh` ignora o template do repo. O checklist da §10.5
+    precisa vir no corpo, lido do blog e não copiado para cá."""
+    await fluxo.abrir_pr(pronto.id)
+
+    criar = git.comandos("gh", "pr", "create")[0]
+    corpo = criar[criar.index("--body") + 1]
+    assert "## Checklist de privacidade" in corpo
+    assert "- [ ] Nenhuma imagem com EXIF" in corpo
+    # A parte do template que é para humano preencher não entra.
+    assert "## O que muda" not in corpo
+
+
+def test_sem_template_o_corpo_segue_sem_checklist(tmp_path):
+    class Post:
+        descricao = "Uma descrição."
+
+    corpo = publicacao._corpo_do_pr(Post(), tmp_path)
+    assert corpo.startswith("Uma descrição.")
+    assert "Checklist" not in corpo
 
 
 async def test_commit_sem_trailer_de_co_autoria(pronto, git):

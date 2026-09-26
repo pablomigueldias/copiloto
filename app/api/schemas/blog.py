@@ -34,6 +34,13 @@ class PostLinha(BaseModel):
     pr_numero: int | None = None
     pr_url: str | None = None
     publicado_em: datetime | None = None
+    linkedin_em: date | None = None
+    linkedin_postado_em: datetime | None = None
+    # Post no ar editado aqui e ainda não republicado.
+    alteracoes_nao_publicadas: bool = False
+    atualizado: date | None = None
+    # Há PR aberto (primeira publicação ou atualização) esperando o merge.
+    pr_aberto: bool = False
     updated_at: datetime
 
 
@@ -60,12 +67,16 @@ class Diagnostico(BaseModel):
     exportavel: bool
     palavras: int
     minutos: int
+    # Os `{{FALTA: …}}` abertos. Bloqueiam o `pronto`.
+    faltas: list[str] = []
+    alteracoes_nao_publicadas: bool = False
 
 
 class PostDetalhe(PostLinha):
     corpo: str = ""
     notas: str | None = None
     origem: list[dict] = []
+    linkedin_texto: str | None = None
     diagnostico: Diagnostico
     created_at: datetime
 
@@ -100,6 +111,8 @@ class EdicaoPost(BaseModel):
     notas: str | None = Field(default=None, max_length=50_000)
     origem: list[dict] | None = None
     data_publicacao: date | None = None
+    linkedin_texto: str | None = Field(default=None, max_length=5_000)
+    linkedin_em: date | None = None
 
 
 class EstadoRequest(BaseModel):
@@ -172,3 +185,104 @@ class Vocabulario(BaseModel):
     tags_max: int = taxonomia.TAGS_MAX
     titulo: tuple[int, int] = (taxonomia.TITULO_MIN, taxonomia.TITULO_MAX)
     descricao: tuple[int, int] = (taxonomia.DESCRICAO_MIN, taxonomia.DESCRICAO_MAX)
+
+
+# ── Etapa 12: vault, geração, distribuição e o painel ──────────────
+
+
+class CandidataVault(BaseModel):
+    """Uma nota do vault marcada `blog: ideia`, numa pasta liberada."""
+
+    caminho: str
+    titulo: str
+    pilar: str | None = None
+    tags: list[str] = []
+    palavras: int
+    trecho: str
+    post_id: str | None = None
+
+
+class ImportarNota(BaseModel):
+    caminho: str = Field(min_length=1, max_length=500)
+
+
+class SituacaoGeracao(BaseModel):
+    disponivel: bool
+    motivo: str | None = None
+    gasto_usd: float
+    teto_usd: float
+    modelo: str
+
+
+class RascunhoGerado(BaseModel):
+    rodadas: int
+    pendentes: list[str]
+    faltas: list[str]
+    palavras: int
+    gasto_usd: float
+
+
+class LinkedinGerado(BaseModel):
+    texto: str
+    pendentes: list[str]
+    gasto_usd: float
+
+
+class TrechoFonte(BaseModel):
+    rotulo: str
+    texto: str
+
+
+class Parecido(BaseModel):
+    """Um post já publicado que fala de algo perto desta pauta."""
+
+    titulo: str
+    url: str
+    trecho: str
+
+
+class Passo(BaseModel):
+    tipo: str
+    titulo: str
+    detalhe: str
+    post_id: str | None = None
+    acao: str | None = None
+
+
+class PostCalendario(BaseModel):
+    id: str
+    titulo: str
+    estado: str
+    data: date | None = None
+
+
+class SemanaCalendario(BaseModel):
+    terca: date
+    posts: list[PostCalendario]
+
+
+class PilarResumo(BaseModel):
+    pilar: str
+    publicados: int
+    na_fila: int
+    dias_sem_post: int | None = None
+
+
+class Parado(BaseModel):
+    id: str
+    titulo: str
+    dias: int | None = None
+
+
+class PainelBlog(BaseModel):
+    hoje: date
+    funil: dict[str, int]
+    m4: dict[str, int]
+    cadencia: dict
+    pilares: list[PilarResumo]
+    calendario: list[SemanaCalendario]
+    parados: list[Parado]
+    divulgacao_ativa: bool
+    gerar: SituacaoGeracao
+    candidatas_vault: int
+    proximos: list[Passo]

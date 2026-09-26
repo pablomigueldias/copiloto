@@ -302,6 +302,9 @@ export type Diagnostico = {
   exportavel: boolean;
   palavras: number;
   minutos: number;
+  /** Os `{{FALTA: …}}` abertos. Bloqueiam o `pronto`. */
+  faltas: string[];
+  alteracoes_nao_publicadas: boolean;
 };
 
 export type Check = {
@@ -337,6 +340,14 @@ export type PostLinha = {
   pr_numero: number | null;
   pr_url: string | null;
   publicado_em: string | null;
+  linkedin_em: string | null;
+  linkedin_postado_em: string | null;
+  /** Post no ar editado aqui e ainda não republicado. */
+  alteracoes_nao_publicadas: boolean;
+  /** A data da última correção que foi ao ar. */
+  atualizado: string | null;
+  /** Há PR aberto esperando o merge (post novo ou atualização). */
+  pr_aberto: boolean;
   updated_at: string;
 };
 
@@ -345,8 +356,87 @@ export type PostDetalhe = PostLinha & {
   /** Nunca vai para o MDX: é o que eu não publico. */
   notas: string | null;
   origem: Record<string, string>[];
+  linkedin_texto: string | null;
   diagnostico: Diagnostico;
   created_at: string;
+};
+
+// ── Etapa 12: vault, geração, distribuição e o painel da redação ──
+
+export type CandidataVault = {
+  /** Relativo ao vault. É o que vai para `origem`. */
+  caminho: string;
+  titulo: string;
+  pilar: string | null;
+  tags: string[];
+  palavras: number;
+  trecho: string;
+  /** A pauta que já nasceu desta nota, se houver. */
+  post_id: string | null;
+};
+
+export type SituacaoGeracao = {
+  disponivel: boolean;
+  /** Por que não dá para gerar agora (sem chave, teto do mês). */
+  motivo: string | null;
+  gasto_usd: number;
+  teto_usd: number;
+  modelo: string;
+};
+
+export type RascunhoGerado = {
+  rodadas: number;
+  /** O que a régua ainda reprova depois das voltas. */
+  pendentes: string[];
+  faltas: string[];
+  palavras: number;
+  gasto_usd: number;
+};
+
+export type LinkedinGerado = { texto: string; pendentes: string[]; gasto_usd: number };
+
+export type TrechoFonte = { rotulo: string; texto: string };
+
+export type Parecido = { titulo: string; url: string; trecho: string };
+
+export type TipoPasso =
+  | "publicar"
+  | "pr"
+  | "linkedin"
+  | "escrever"
+  | "gerar"
+  | "origem"
+  | "pauta"
+  | "calendario";
+
+export type Passo = {
+  tipo: TipoPasso;
+  titulo: string;
+  detalhe: string;
+  post_id: string | null;
+  /** O rótulo do botão. Sem ele, o passo é só aviso. */
+  acao: string | null;
+};
+
+export type PainelBlog = {
+  hoje: string;
+  funil: Record<EstadoPost, number>;
+  m4: { publicados: number; minimo: number; completo: number };
+  cadencia: {
+    ultimos_30_dias: number;
+    dias_desde_ultimo: number | null;
+    ultimo: string | null;
+  };
+  pilares: { pilar: string; publicados: number; na_fila: number; dias_sem_post: number | null }[];
+  calendario: {
+    terca: string;
+    posts: { id: string; titulo: string; estado: EstadoPost; data: string | null }[];
+  }[];
+  parados: { id: string; titulo: string; dias: number | null }[];
+  divulgacao_ativa: boolean;
+  gerar: SituacaoGeracao;
+  candidatas_vault: number;
+  proximos: Passo[];
 };
 
 export type VersaoPost = {

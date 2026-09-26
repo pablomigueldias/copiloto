@@ -144,3 +144,49 @@ def ler_markdown(raiz: Path, *, fonte_tipo: str = "nota") -> Iterator[Documento]
             conteudo=corpo.strip(),
             metadados=meta,
         )
+
+
+def ler_posts_blog(raiz: Path, *, fonte_tipo: str = "blog") -> Iterator[Documento]:
+    """Os posts **publicados** do blog: `content/blog/*.mdx` sem `draft: true`.
+
+    Rascunho fica de fora pelo mesmo motivo de ficar fora do site: o índice
+    responde "o que eu já escrevi para os outros lerem", e é isso que a redação
+    consulta para não repetir assunto e para citar post antigo com link.
+
+    O `fonte_ref` é a URL do post, não o caminho do arquivo: quem busca aqui
+    quer linkar, e o caminho local não serve para nada num texto público.
+    """
+    raiz = raiz.expanduser()
+    if not raiz.is_dir():
+        logger.warning(f"Fonte inexistente, pulando: {raiz}")
+        return
+
+    from app.config import settings
+
+    for arquivo in sorted(raiz.glob("*.mdx")):
+        try:
+            bruto = arquivo.read_text(encoding="utf-8")
+        except (UnicodeDecodeError, OSError) as e:
+            logger.warning(f"Não consegui ler {arquivo}: {e}")
+            continue
+        frontmatter, corpo = _frontmatter(bruto)
+        if str(frontmatter.get("draft", "false")).lower() == "true" or not corpo.strip():
+            continue
+        slug = arquivo.stem
+        meta = _tags_e_links(corpo, frontmatter)
+        meta.update(
+            {
+                "arquivo": arquivo.name,
+                "slug": slug,
+                "pilar": frontmatter.get("pilar"),
+                "descricao": frontmatter.get("descricao"),
+                "data": frontmatter.get("data"),
+            }
+        )
+        yield Documento(
+            fonte_tipo=fonte_tipo,
+            fonte_ref=f"{settings.blog_url.rstrip('/')}/blog/{slug}",
+            titulo=_titulo(frontmatter, corpo, arquivo),
+            conteudo=corpo.strip(),
+            metadados=meta,
+        )

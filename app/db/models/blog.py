@@ -87,6 +87,26 @@ class BlogPost(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     # (ou a caminho: o deploy da Cloudflare vem logo depois).
     publicado_em: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
 
+    # ── Editar depois de publicado ───────────────────────────────────
+    #
+    # A data da última correção que foi ao ar. Vai no frontmatter como
+    # `atualizado` — o blog mostra "atualizado em …" e usa no `dateModified`.
+    atualizado: Mapped[date | None] = mapped_column(Date)
+    # A assinatura do que está no ar (`servico.assinatura`). Diferente da atual
+    # = há alteração guardada aqui que o site ainda não tem.
+    publicado_hash: Mapped[str | None] = mapped_column(String(64))
+
+    # ── A distribuição (app/blog/distribuicao.py) ────────────────────
+    #
+    # O post do LinkedIn que sai deste post: gerado, editado por mim e colado à
+    # mão — o Copiloto não posta em rede social nenhuma. `linkedin_em` é o dia
+    # marcado para postar (a rotina da Etapa 11: quarta ou quinta seguinte).
+    linkedin_texto: Mapped[str | None] = mapped_column(Text)
+    linkedin_em: Mapped[date | None] = mapped_column(Date)
+    # Quando eu disse que postei. Sem ele o painel cobraria o mesmo post para
+    # sempre; com ele, a cobrança some no clique.
+    linkedin_postado_em: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
+
     def __repr__(self) -> str:
         return f"<BlogPost {self.estado} {self.titulo[:40]!r}>"
 

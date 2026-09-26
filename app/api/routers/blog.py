@@ -10,6 +10,7 @@ clique meu — a mesma regra da fila de aprovação, com o CI no meio.
 """
 from __future__ import annotations
 
+from dataclasses import asdict
 from typing import Annotated
 from uuid import UUID
 
@@ -17,11 +18,16 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 
 from app.api.dependencies.auth import usuario_atual
 from app.api.schemas.blog import (
+    CandidataVault,
     EdicaoPost,
     EstadoRequest,
     ExportacaoResponse,
+    ImportarNota,
+    LinkedinGerado,
     NovoPost,
     PaginaPosts,
+    PainelBlog,
+    Parecido,
     PostDetalhe,
     PostLinha,
     PrAbertoResponse,
@@ -29,13 +35,17 @@ from app.api.schemas.blog import (
     PreviaSiteResponse,
     PrResponse,
     PublicadoResponse,
+    RascunhoGerado,
+    SituacaoGeracao,
+    TrechoFonte,
     VersaoResponse,
     Vocabulario,
 )
 from app.blog import camadas as camadas_mod
-from app.blog import fluxo, mdx, publicacao, servico
+from app.blog import distribuicao, fluxo, geracao, mdx, painel, publicacao, servico, vault
 from app.blog import previa as previa_mod
 from app.db.models.auth.usuario import Usuario
+from app.llm.tipos import LLMErro
 
 UsuarioLogado = Annotated[Usuario, Depends(usuario_atual)]
 
@@ -65,6 +75,11 @@ def _linha(post) -> dict:
         "pr_numero": post.pr_numero,
         "pr_url": post.pr_url,
         "publicado_em": post.publicado_em,
+        "linkedin_em": post.linkedin_em,
+        "linkedin_postado_em": post.linkedin_postado_em,
+        "alteracoes_nao_publicadas": servico.alteracoes_nao_publicadas(post),
+        "atualizado": post.atualizado,
+        "pr_aberto": bool(post.branch),
         "updated_at": post.updated_at,
     }
 
@@ -75,6 +90,7 @@ def _detalhe(post) -> dict:
         "corpo": post.corpo or "",
         "notas": post.notas,
         "origem": list(post.origem or []),
+        "linkedin_texto": post.linkedin_texto,
         "diagnostico": servico.diagnostico(post),
         "created_at": post.created_at,
     }
@@ -83,6 +99,33 @@ def _detalhe(post) -> dict:
 @router.get("/vocabulario", response_model=Vocabulario, summary="Pilares, tags e limites do blog")
 async def get_vocabulario(_: UsuarioLogado) -> Vocabulario:
     return Vocabulario()
+
+
+# ── Rotas sem `{post_id}` primeiro: senão `/painel` casaria como um id ──
+
+
+@router.get("/painel", response_model=PainelBlog, summary="Como vai o blog e o que fazer agora")
+async def get_painel(_: UsuarioLogado) -> PainelBlog:
+    return PainelBlog(**await painel.resumo())
+
+
+@router.get("/geracao", response_model=SituacaoGeracao, summary="Chave, gasto e teto do Gemini")
+async def get_geracao(_: UsuarioLogado) -> SituacaoGeracao:
+    return SituacaoGeracao(**await geracao.situacao())
+
+
+@router.get("/vault", response_model=list[CandidataVault], summary="Notas `blog: ideia` do vault")
+async def get_vault(_: UsuarioLogado) -> list[CandidataVault]:
+    """Só das pastas liberadas (`app/blog/vault.py`). Nota fora delas não aparece."""
+    return [CandidataVault(**asdict(c)) for c in await vault.candidatas()]
+
+
+@router.post("/vault", response_model=PostDetalhe, status_code=201, summary="A nota vira pauta")
+async def post_vault(req: ImportarNota, _: UsuarioLogado) -> PostDetalhe:
+    try:
+        return PostDetalhe(**_detalhe(await vault.importar(req.caminho)))
+    except vault.VaultErro as e:
+        raise HTTPException(status_code=422, detail=str(e)) from e
 
 
 @router.get("", response_model=PaginaPosts, summary="A redação inteira")
@@ -259,3 +302,62 @@ async def post_exportar(post_id: UUID, _: UsuarioLogado) -> ExportacaoResponse:
         raise HTTPException(status_code=404, detail=str(e)) from e
     except mdx.ExportacaoErro as e:
         raise HTTPException(status_code=422, detail=str(e)) from e
+
+
+# ── Geração e distribuição (Gemini, chave e teto do blog) ─────────
+
+
+def _erro_de_geracao(e: Exception) -> HTTPException:
+    if isinstance(e, servico.PostNaoEncontrado):
+        return HTTPException(status_code=404, detail=str(e))
+    if isinstance(e, LLMErro):
+        # A API não respondeu. Sem queda para o modelo local, de propósito
+        # (`gateway.gerar`): o botão diz, e eu tento de novo.
+        return HTTPException(status_code=502, detail=f"o Gemini não respondeu: {e}")
+    return HTTPException(status_code=422, detail=str(e))
+
+
+@router.get("/{post_id}/fonte", response_model=list[TrechoFonte], summary="A matéria-prima")
+async def get_fonte(post_id: UUID, _: UsuarioLogado) -> list[TrechoFonte]:
+    """Exatamente o que iria para o modelo — para eu ver antes de gerar."""
+    try:
+        post = await servico.obter(post_id)
+    except servico.PostNaoEncontrado as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e
+    return [TrechoFonte(**t) for t in geracao.fonte_legivel(post)]
+
+
+@router.get(
+    "/{post_id}/parecidos", response_model=list[Parecido], summary="Já publicados, mesmo tema"
+)
+async def get_parecidos(post_id: UUID, _: UsuarioLogado) -> list[Parecido]:
+    try:
+        post = await servico.obter(post_id)
+    except servico.PostNaoEncontrado as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e
+    return [Parecido(**p) for p in await painel.parecidos(post)]
+
+
+@router.post("/{post_id}/gerar", response_model=RascunhoGerado, summary="Gerar o rascunho")
+async def post_gerar(post_id: UUID, _: UsuarioLogado) -> RascunhoGerado:
+    """Gera, mede com a régua e grava no corpo. A versão anterior fica guardada."""
+    try:
+        return RascunhoGerado(**await geracao.gerar_rascunho(post_id))
+    except (servico.BlogErro, LLMErro) as e:
+        raise _erro_de_geracao(e) from e
+
+
+@router.post("/{post_id}/linkedin", response_model=LinkedinGerado, summary="Gerar o LinkedIn")
+async def post_linkedin(post_id: UUID, _: UsuarioLogado) -> LinkedinGerado:
+    try:
+        return LinkedinGerado(**await distribuicao.gerar_linkedin(post_id))
+    except (servico.BlogErro, LLMErro) as e:
+        raise _erro_de_geracao(e) from e
+
+
+@router.post("/{post_id}/linkedin/postado", response_model=PostDetalhe, summary="Postei")
+async def post_linkedin_postado(post_id: UUID, _: UsuarioLogado) -> PostDetalhe:
+    try:
+        return PostDetalhe(**_detalhe(await distribuicao.marcar_postado(post_id)))
+    except servico.PostNaoEncontrado as e:
+        raise HTTPException(status_code=404, detail=str(e)) from e

@@ -29,7 +29,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from app.blog import mdx
-from app.config import settings
+from app.config import LOGS_DIR, settings
 from app.utils.logger import get_logger
 
 logger = get_logger()
@@ -38,6 +38,10 @@ logger = get_logger()
 # para o caso de o npm resolver baixar algo: melhor um erro claro em um minuto
 # do que um request pendurado até o proxy desistir.
 TIMEOUT_S = 60
+# Quanto esperar o `next dev` do blog abrir a porta depois de subir. Medido: o
+# Next 16 abre em ~3 s; a compilação da primeira página vem depois, e quem espera
+# por ela é a aba do navegador, não a API.
+SUBIDA_S = 45
 
 
 class PreviaErro(Exception):
@@ -86,6 +90,33 @@ async def gerar_indice(repo: Path) -> tuple[int, str]:
     return processo.returncode or 0, saida.decode("utf-8", "replace").strip()
 
 
+async def subir_blog(repo: Path, url_dev: str) -> bool:
+    """Sobe o `next dev` do blog, se estiver parado, e espera a porta abrir.
+
+    Era o passo que eu esquecia: a prévia abria uma aba morta e o aviso dizia
+    "rode `npm run dev`". Agora a API sobe o servidor, em sessão própria (não
+    morre quando a API reinicia) e com a saída num log, não no terminal de
+    ninguém.
+    """
+    if _servidor_de_pe(url_dev):
+        return True
+    porta = str(urlparse(url_dev).port or 3000)
+    log = open(LOGS_DIR / "blog-dev.log", "ab")  # noqa: SIM115 — fica aberto com o processo
+    await asyncio.create_subprocess_exec(
+        "npm", "run", "dev", "--", "-p", porta,
+        cwd=str(repo),
+        stdout=log,
+        stderr=asyncio.subprocess.STDOUT,
+        start_new_session=True,
+    )
+    logger.info(f"Blog: subindo o `next dev` na porta {porta}")
+    for _ in range(SUBIDA_S * 2):
+        await asyncio.sleep(0.5)
+        if _servidor_de_pe(url_dev):
+            return True
+    return False
+
+
 async def montar(post, *, repo: Path | None = None, url_dev: str | None = None) -> dict:
     """Escreve o rascunho, regera o índice e devolve a URL para abrir."""
     repo = Path(repo or settings.blog_repo_dir).expanduser()
@@ -96,8 +127,12 @@ async def montar(post, *, repo: Path | None = None, url_dev: str | None = None) 
             f"não achei o repo do blog em {repo} — ajuste BLOG_REPO_DIR"
         )
 
-    # Sempre rascunho: a prévia não é a hora de decidir que o post está pronto.
-    caminho = mdx.exportar(post, diretorio=repo / "content" / "blog", rascunho=True)
+    # Rascunho: a prévia não é a hora de decidir que o post está pronto. Post no
+    # ar é a exceção — escrevê-lo como rascunho no repo seria um `draft: true`
+    # esperando para ser commitado por engano.
+    caminho = mdx.exportar(
+        post, diretorio=repo / "content" / "blog", rascunho=post.estado != "publicado"
+    )
 
     codigo, saida = await gerar_indice(repo)
     if codigo != 0:
@@ -105,7 +140,7 @@ async def montar(post, *, repo: Path | None = None, url_dev: str | None = None) 
         # privacidade. Os dois são coisas que eu preciso ver inteiras.
         raise PreviaErro(saida or f"`npm run conteudo` saiu com {codigo}")
 
-    de_pe = _servidor_de_pe(url_dev)
+    de_pe = await subir_blog(repo, url_dev)
     logger.info(f"Blog: prévia de {post.slug} ({'dev de pé' if de_pe else 'dev fora'})")
     return {
         "url": f"{url_dev}/blog/{post.slug}",
@@ -113,5 +148,5 @@ async def montar(post, *, repo: Path | None = None, url_dev: str | None = None) 
         "servidor_de_pe": de_pe,
         "aviso": None
         if de_pe
-        else f"o `next dev` do blog não está atendendo em {url_dev} — rode `npm run dev` em {repo}",
+        else f"o `next dev` do blog não subiu em {SUBIDA_S}s — veja logs/blog-dev.log",
     }
