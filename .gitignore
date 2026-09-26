@@ -56,7 +56,10 @@ data/*
 !data/estudo/imagens/
 !data/estudo/imagens/**
 # Conversas-tipo: o conjunto de teste do bot, escrito à mão e sem dado de cliente.
+# O resto de data/comercial/ (base do passo 3, modelos e documentos do passo 4)
+# fica só na máquina (Pablo, 2026-09-26).
 !data/comercial/
+data/comercial/*
 !data/comercial/conversas/
 !data/comercial/conversas/*.json
 
