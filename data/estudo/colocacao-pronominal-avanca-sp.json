@@ -1,0 +1,77 @@
+{
+  "_leia_me": "As 2 questões de colocação pronominal que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Colocação pronominal”.\n\nDe onde vêm: Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n2 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Colocação pronominal",
+    "ordem": 12
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 7",
+      "texto_base": "**O olhar da truta**\n\nO homem pediu truta e o garçom perguntou se ele não gostaria de escolher uma pessoalmente.\n\n— Como, escolher?\n\n— No nosso viveiro. O senhor pode escolher a truta que quiser.\n\nEle não tinha visto o viveiro ao entrar no restaurante. Foi atrás do garçom. As trutas davam voltas e voltas dentro do aquário, como num cortejo. Algumas paravam por um instante e ficavam olhando através do vidro, depois retomavam o cortejo. E o homem se viu encarando, olho no olho, uma truta que estacionara com a boca encostada no vidro à sua frente.\n\n— Essa está bonita... — disse o garçom.\n\n— Eu não sabia que se podia escolher. Pensei que elas já estivessem mortas.\n\n— Não, nossas trutas são mortas na hora. Da água direto para a panela.\n\nA truta continuava parada contra o vidro, olhando para o homem.\n\n— Vai essa, doutor? Ela parece que está pedindo...\n\nMas o olhar da truta não era de quem queria ir direto para uma panela. Ela parecia examinar o homem. Parecia estar calculando a possibilidade de um diálogo. Estranho, pensou o homem. Nunca tive que tomar uma decisão assim. Decidir um destino, decidir entre a vida e a morte. Não era como no supermercado, em que os bichos já estavam mortos e a responsabilidade não era sua — pelo menos não diretamente. Você podia comê-los sem remorso. (...) Claro, era com sua aprovação tácita que bovinos, ovinos, suínos, caprinos, galinhas e peixes eram assassinados para lhe dar de comer. Mas você não estava presente no ato, não escolhia a vítima, não dava a ordem. (...) De certa maneira, pensou o homem, vivi sempre assim, protegido das entranhas do mundo. Sem precisar me comprometer. Sem encarar as vítimas. Mas agora era preciso escolher.\n\n— Vai essa, doutor? — insistiu o garçom.\n\n— Não sei. Eu...\n\n— Acho que foi ela que escolheu o senhor. Olha aí, ficou paradinha. Só faltando dizer “Me come”.\n\nO homem desejou que a truta deixasse de encará-lo e voltasse ao carrossel junto com as outras. Ou que pelo menos desviasse o olhar. Mas a truta continuava a fitá-lo.\n\n— Vamos — estava dizendo a truta. — Pelo menos uma vez na vida, seja decidido. Me escolha e me condene à morte, ou me deixe viver. (...) Não posso decidir a minha vida, ou a de ninguém. Mas você pode. (...) Até agora foi um protegido, um desobrigado, um isento da vida. Mas chegou a hora de se comprometer. (...)\n\n— Vai essa mesmo, doutor? — quis saber o garçom, já com a rede na mão para pegar a truta.\n\n— Não — disse o homem. — Mudei de ideia. Vou pedir outra coisa.\n\nE de volta na mesa, depois de reexaminar o cardápio, perguntou:\n\n— Esses camarões estão vivos?\n\n— Não, doutor. Os camarões estão mortos.\n\n— Pode trazer.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Analise o excerto a seguir quanto à colocação pronominal: “Eu não sabia que se podia escolher. Pensei que elas já estivessem mortas.” No contexto apresentado, a colocação proclítica do pronome “se” ocorre em função da:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "presença de pronome relativo anteposto ao verbo acompanhado do clítico."
+        },
+        {
+          "letra": "B",
+          "texto": "presença de conjunção subordinativa anteposta ao verbo acompanhado do clítico."
+        },
+        {
+          "letra": "C",
+          "texto": "conjugação do verbo “poder” no pretérito imperfeito do indicativo."
+        },
+        {
+          "letra": "D",
+          "texto": "relação com um verbo que configura oração reduzida de infinitivo."
+        },
+        {
+          "letra": "E",
+          "texto": "presença de elemento negativo anteposto ao verbo acompanhado do clítico."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 3",
+      "texto_base": "**Da solidão**\n\nSequioso de escrever um poema que exprimisse a maior dor do mundo, Poe chegou, por exclusão, à ideia da morte da mulher amada. Nada lhe pareceu mais definitivamente doloroso. Assim nasceu “O corvo”: o pássaro agoureiro a repetir ao homem sozinho em sua saudade a pungente litania do “nunca mais”.\n\nSerá esta a maior das solidões? Realmente, o que pode existir de pior que a impossibilidade de arrancar à morte o seu amado, que fez Orfeu descer aos Infernos em busca de Eurídice e acabou por lhe calar a lira mágica? Distante, separado, prisioneiro, ainda pode aquele que ama alimentar sua paixão com o sentimento de que o objeto amado está vivo. Morto este, só lhe restam dois caminhos: o suicídio, físico ou moral, ou uma fé qualquer. E como tal fé constitui uma possibilidade — que outra coisa é a Divina comédia para Dante senão a morte de Beatriz? — cabe uma consideração também dolorosa: a solidão que a morte da mulher amada deixa não é, porquanto absoluta, a maior solidão.\n\nQual será maior então? Os grandes momentos de solidão, a de Jó, a de Cristo no Horto, tinham a exaltá-la uma fé. A solidão de Carlitos, naquela incrível imagem em que ele aparece na eterna esquina, no final de Luzes da cidade, tinha a justificá-la o sacrifício feito pela mulher amada. Penso com mais frio n’alma na solidão dos últimos dias do pintor Toulouse-Lautrec, em seu leito de moribundo, lúcido, fechado em si mesmo, e no duro olhar de ódio que deitou ao pai, segundos antes de morrer, como a culpá-lo de o ter gerado um monstro. Penso com mais frio n’alma ainda na solidão total dos poucos minutos que terão restado ao poeta Hart Crane, quando, no auge da neurastenia, depois de se ter jogado ao mar, numa viagem de regresso do México para os Estados Unidos, viu sobre si mesmo a imensa noite do oceano imenso à sua volta, e ao longe as luzes do navio que se afastava. O que se terão dito o poeta e a eternidade nesses poucos instantes em que ele, quem sabe banhado de poesia total, boiou a esmo sobre a negra massa líquida, à espera do abandono?\n\nSolidão inenarrável, quem sabe povoada de beleza... Mas será ela, também, a maior solidão? A solidão do poeta Rilke, quando, na alta escarpa sobre o Adriático, ouviu no vento a música do primeiro verso que desencadeou as Elegias de Duino, será ela a maior solidão?\n\nNão, a maior solidão é a do ser que não ama. A maior solidão é a do ser que se ausenta, que se defende, que se fecha, que se recusa a participar da vida humana. A maior solidão é a do homem encerrado em si mesmo, no absoluto de si mesmo, e que não dá a quem pede o que ele pode dar de amor, de amizade, de socorro. O maior solitário é o que tem medo de amar, o que tem medo de ferir e de ferir-se, o ser casto da mulher, do amigo, do povo, do mundo. Esse queima como uma lâmpada triste, cujo reflexo entristece também tudo em torno. Ele é a angústia do mundo que o reflete. Ele é o que se recusa às verdadeiras fontes da emoção, as que são o patrimônio de todos e, encerrado em seu duro privilégio, semeia pedras do alto da sua fria e desolada torre.",
+      "texto_base_fonte": "MORAES, V. Da solidão. In: MORAES, V. Para viver um grande amor. 6ª ed., Sabiá, 1962, p. 182-183. Disponível em <https://cronicabrasileira.org.br/cronicas/19895/da-solidao>.",
+      "enunciado": "A colocação pronominal proclítica em “Nada lhe pareceu mais definitivamente doloroso” se deve:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "à presença do pronome indefinido “nada”, anteposto ao verbo “pareceu”."
+        },
+        {
+          "letra": "B",
+          "texto": "à presença do advérbio “mais”, posposto ao verbo “pareceu”."
+        },
+        {
+          "letra": "C",
+          "texto": "à presença do advérbio “definitivamente”, posposto ao verbo “pareceu”."
+        },
+        {
+          "letra": "D",
+          "texto": "à presença do adjetivo “doloroso”, posposto ao verbo “pareceu”."
+        },
+        {
+          "letra": "E",
+          "texto": "ao fato de o verbo “pareceu” estar no início do período."
+        }
+      ]
+    }
+  ]
+}

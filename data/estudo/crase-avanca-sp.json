@@ -1,0 +1,160 @@
+{
+  "_leia_me": "As 5 questões de crase que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Crase”.\n\nO tópico já existia com questões do Quadrix (pausado). As do Avança SP entram no mesmo tópico e se separam pela banca.\n\nDe onde vêm: Câmara de Taboão da Serra 2022 (1), Prefeitura de Americana 2022 (1), Prefeitura de Paraty 2024 (1), Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Crase",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 9",
+      "enunciado": "Em se tratando do uso do acento indicativo de crase, analise os itens abaixo e, a seguir, assinale a alternativa correta.\n\nI – Voltando àquele tempo remoto, onde as lembranças, pensei, há muito havia se perdido.\n\nII – Indubitavelmente, prefiro vinho à cerveja.\n\nIII – Lembro-me de, quando criança, chegar da escola, largar a mochila e correr à beça para ver o sol se pôr na praia.\n\nIV – Precisamos de uma conversa cara à cara.\n\nV – A cerimônia de formatura da Betina foi igual à do Lorenzo no que se refere ao glamour.",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I e II e III estão corretas."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas II e III e IV estão corretas."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I, II, III e IV estão corretas."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas IV e V estão corretas."
+        },
+        {
+          "letra": "E",
+          "texto": "Apenas I, II, III e V estão corretas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 11",
+      "enunciado": "Analise as sentenças apresentadas a seguir e identifique em qual alternativa ocorre o emprego **incorreto** do acento indicador de crase.",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "À ela tenho que dizer que seu comportamento é nocivo."
+        },
+        {
+          "letra": "B",
+          "texto": "Ninguém é imune à dor de um coração partido."
+        },
+        {
+          "letra": "C",
+          "texto": "O acesso às universidades públicas e de qualidade é um direito de todos."
+        },
+        {
+          "letra": "D",
+          "texto": "O ônibus chega à rodoviária às 19 horas."
+        },
+        {
+          "letra": "E",
+          "texto": "Plantou novas orquídeas, às quais tem dedicado muito tempo ultimamente."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 14",
+      "enunciado": "Analise o excerto a seguir:\n\n__ algum tempo, a grávida, que estava prestes __ dar __ luz, sofria tremores e quedas de pressão. Receava perder o bebê.\n\nAssinale a alternativa que preenche, na respectiva ordem, cada uma das lacunas corretamente.",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A; à; à."
+        },
+        {
+          "letra": "B",
+          "texto": "À; a; à."
+        },
+        {
+          "letra": "C",
+          "texto": "Há; a; a."
+        },
+        {
+          "letra": "D",
+          "texto": "Há; a; à."
+        },
+        {
+          "letra": "E",
+          "texto": "A; à; a."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 7",
+      "enunciado": "Há um uso adequado do acento grave indicativo de crase apenas na opção:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Não me dirigi à ela nem à ninguém durante a reunião."
+        },
+        {
+          "letra": "B",
+          "texto": "Os viajantes chegaram bem àquele território inóspito."
+        },
+        {
+          "letra": "C",
+          "texto": "Não costumo comprar nada à prazo."
+        },
+        {
+          "letra": "D",
+          "texto": "Ela se referiu à uma heroína do século XIX."
+        },
+        {
+          "letra": "E",
+          "texto": "Por causa da promoção, os produtos estavam orçados à partir de 1,99."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 10",
+      "enunciado": "Em todas as sentenças a seguir, o emprego do acento indicativo de crase está correto, **exceto** em:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "As aulas de segunda-feira começam às 15 horas."
+        },
+        {
+          "letra": "B",
+          "texto": "Começava à questionar aquele tipo de comportamento."
+        },
+        {
+          "letra": "C",
+          "texto": "O animalzinho estava à beira da morte."
+        },
+        {
+          "letra": "D",
+          "texto": "Às vezes é melhor optar pelo silêncio."
+        },
+        {
+          "letra": "E",
+          "texto": "Os moradores solicitaram à prefeitura um alvará."
+        }
+      ]
+    }
+  ]
+}

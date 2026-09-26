@@ -1,0 +1,350 @@
+{
+  "_leia_me": "As 11 questões de sinônimos, antônimos e sentido das palavras que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Sinônimos e antônimos. Sentido próprio e figurado das palavras”.\n\nDe onde vêm: Câmara de Taboão da Serra 2022 (1), Prefeitura de Americana 2022 (2), Prefeitura de Caçapava 2024 (2), Prefeitura de Paraty 2024 (2), Prefeitura de Rio Claro 2026 (1), Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n8 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Sinônimos, antônimos e sentido das palavras",
+    "ordem": 3
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 5",
+      "texto_base": "**A grama do vizinho**\n\nAo amadurecer, descobrimos que a grama do vizinho não é mais verde coisíssima nenhuma.\n\nEstamos todos no mesmo barco.\n\nHá no ar certo queixume sem razões muito claras.\n\nConverso com mulheres que estão entre os 40 e 50 anos, todas com profissão, marido, filhos, saúde, e ainda assim elas trazem dentro delas um não-sei-o-quê perturbador, algo que as incomoda, mesmo estando tudo bem.\n\nDe onde vem isso? Anos atrás, a cantora Marina Lima compôs com o seu irmão, o poeta Antônio Cícero, uma música que dizia: “Eu espero / acontecimentos / só que quando anoitece / é festa no outro apartamento”.\n\nPassei minha adolescência com esta sensação: a de que algo muito animado estava acontecendo em algum lugar para o qual eu não tinha convite. É uma das características da juventude: considerar-se deslocado e impedido de ser feliz como os outros são, ou aparentam ser. Só que chega uma hora em que é preciso deixar de ficar tão ligada na grama do vizinho.\n\nAs festas em outros apartamentos são fruto da nossa imaginação, que é infectada por falsos holofotes, falsos sorrisos e falsas notícias. Os notáveis alardeiam muito suas vitórias, mas falam pouco das suas angústias, revelam pouco suas aflições, não dão bandeira das suas fraquezas, então fica parecendo que todos estão comemorando grandes paixões e fortunas, quando na verdade a festa lá fora não está tão animada assim. Ao amadurecer, descobrimos que a grama do vizinho não é mais verde coisíssima nenhuma. Estamos todos no mesmo barco, com motivos pra dançar pela sala e também motivos pra se refugiar no escuro, alternadamente.\n\nSó que os motivos pra se refugiar no escuro raramente são divulgados.\n\nPra consumo externo, todos são belos, sexys, lúcidos, íntegros, ricos, sedutores.\n\n“Nunca conheci quem tivesse levado porrada/ todos os meus conhecidos têm sido campeões em tudo”.\n\nFernando Pessoa também já se sentiu abafado pela perfeição alheia, e olha que na época em que ele escreveu estes versos não havia esta overdose de revistas que há hoje, vendendo um mundo de faz-de-conta. Nesta era de exaltação de celebridades – reais e inventadas – fica difícil mesmo achar que a vida da gente tem graça. Mas, tem. Paz interior, amigos leais, nossas músicas, livros, fantasias, desilusões e recomeços, tudo isso vale ser incluído na nossa biografia. Ou será que é tão divertido passar dois dias na Ilha de Caras fotografando junto a todos os produtos dos patrocinadores? Compensa passar a vida comendo alface para ter o corpo que a profissão de modelo exige? Será tão gratificante ter um paparazzo na sua cola cada vez que você sai de casa? Estarão mesmo todos realizando um milhão de coisas interessantes enquanto só você está sentada no sofá pintando as unhas do pé? Favor não confundir uma vida sensacional com uma vida sensacionalista.\n\nAs melhores festas acontecem dentro do nosso próprio apartamento.",
+      "texto_base_fonte": "(Martha Medeiros)",
+      "enunciado": "Em “Favor não confundir uma vida sensacional com uma vida **sensacionalista**.”, no âmbito do texto, pode ser entendida como:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Característica de sensacional, extraordinário, espetacular."
+        },
+        {
+          "letra": "B",
+          "texto": "Aquilo que chama a atenção de maneira demasiada ou choca a sociedade, geralmente com teor falso."
+        },
+        {
+          "letra": "C",
+          "texto": "Fundamento ou teoria cujas ideias são provenientes, exclusivamente, das sensações ou das percepções sensoriais."
+        },
+        {
+          "letra": "D",
+          "texto": "Opinião emitida sem nenhum critério."
+        },
+        {
+          "letra": "E",
+          "texto": "Aquilo que busca convencer as pessoas através de representações imagéticas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 6",
+      "texto_base": "**A grama do vizinho**\n\nAo amadurecer, descobrimos que a grama do vizinho não é mais verde coisíssima nenhuma.\n\nEstamos todos no mesmo barco.\n\nHá no ar certo queixume sem razões muito claras.\n\nConverso com mulheres que estão entre os 40 e 50 anos, todas com profissão, marido, filhos, saúde, e ainda assim elas trazem dentro delas um não-sei-o-quê perturbador, algo que as incomoda, mesmo estando tudo bem.\n\nDe onde vem isso? Anos atrás, a cantora Marina Lima compôs com o seu irmão, o poeta Antônio Cícero, uma música que dizia: “Eu espero / acontecimentos / só que quando anoitece / é festa no outro apartamento”.\n\nPassei minha adolescência com esta sensação: a de que algo muito animado estava acontecendo em algum lugar para o qual eu não tinha convite. É uma das características da juventude: considerar-se deslocado e impedido de ser feliz como os outros são, ou aparentam ser. Só que chega uma hora em que é preciso deixar de ficar tão ligada na grama do vizinho.\n\nAs festas em outros apartamentos são fruto da nossa imaginação, que é infectada por falsos holofotes, falsos sorrisos e falsas notícias. Os notáveis alardeiam muito suas vitórias, mas falam pouco das suas angústias, revelam pouco suas aflições, não dão bandeira das suas fraquezas, então fica parecendo que todos estão comemorando grandes paixões e fortunas, quando na verdade a festa lá fora não está tão animada assim. Ao amadurecer, descobrimos que a grama do vizinho não é mais verde coisíssima nenhuma. Estamos todos no mesmo barco, com motivos pra dançar pela sala e também motivos pra se refugiar no escuro, alternadamente.\n\nSó que os motivos pra se refugiar no escuro raramente são divulgados.\n\nPra consumo externo, todos são belos, sexys, lúcidos, íntegros, ricos, sedutores.\n\n“Nunca conheci quem tivesse levado porrada/ todos os meus conhecidos têm sido campeões em tudo”.\n\nFernando Pessoa também já se sentiu abafado pela perfeição alheia, e olha que na época em que ele escreveu estes versos não havia esta overdose de revistas que há hoje, vendendo um mundo de faz-de-conta. Nesta era de exaltação de celebridades – reais e inventadas – fica difícil mesmo achar que a vida da gente tem graça. Mas, tem. Paz interior, amigos leais, nossas músicas, livros, fantasias, desilusões e recomeços, tudo isso vale ser incluído na nossa biografia. Ou será que é tão divertido passar dois dias na Ilha de Caras fotografando junto a todos os produtos dos patrocinadores? Compensa passar a vida comendo alface para ter o corpo que a profissão de modelo exige? Será tão gratificante ter um paparazzo na sua cola cada vez que você sai de casa? Estarão mesmo todos realizando um milhão de coisas interessantes enquanto só você está sentada no sofá pintando as unhas do pé? Favor não confundir uma vida sensacional com uma vida sensacionalista.\n\nAs melhores festas acontecem dentro do nosso próprio apartamento.",
+      "texto_base_fonte": "(Martha Medeiros)",
+      "enunciado": "Pela leitura do texto, temos emprego de sentido próprio em:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“Estamos todos no mesmo barco.”"
+        },
+        {
+          "letra": "B",
+          "texto": "“(...) ainda assim elas trazem dentro delas um não-sei-o-quê perturbador.”"
+        },
+        {
+          "letra": "C",
+          "texto": "“Passei minha adolescência com esta sensação: a de que algo muito animado estava acontecendo em algum lugar para o qual eu não tinha convite.”"
+        },
+        {
+          "letra": "D",
+          "texto": "“As festas em outros apartamentos são fruto da nossa imaginação, que é infectada por falsos holofotes, falsos sorrisos e falsas notícias.”"
+        },
+        {
+          "letra": "E",
+          "texto": "“Fernando Pessoa também já se sentiu abafado pela perfeição alheia.”"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 3",
+      "texto_base": "**Serena**\n\nSerena tinha oito anos. Quando os pais de Serena começavam a brigar na mesa, ela fechava os olhos e tentava pensar em outra coisa. Pensava na sua casa de bonecas. Os pais de Serena brigavam na mesa porque era a única hora do dia em que ficavam cara a cara. No resto do dia ia cada um para o seu lado, queixar-se do outro.\n\nNa mesa, não paravam de brigar. Serena fechava os olhos.\n\n— Passa a cenoura? — disse Serena, interrompendo uma frase da mãe.\n\n— O quê? — disse a mãe de Serena, rispidamente.\n\n— Passa a cenoura?\n\n— Ora, não comece você também! — disse a mãe de Serena, e voltou a xingar o marido.\n\nSerena saiu da mesa. Foi para o seu quarto e fechou a porta. Ajoelhou-se na frente da sua casa de bonecas. A casa tinha tudo que uma casa de verdade tem, em miniatura. Moveizinhos. Tapetinhos. Um telefonezinho. Em volta da mesinha da sala de jantar da casa de bonecas estavam sentados três bonequinhos. Um pai, uma mãe e uma menina. Serena enfiou a mão na casa e tirou a menina da mesa.\n\nO pai e a mãe de Serena nem notaram que Serena não estava mais na mesa. Continuavam brigando. Foi só quando virou-se para ordenar que Serena comesse a cenoura que a mãe viu que ela não estava mais ali. E viu outra coisa. Viu que uma parede inteira da casa tinha simplesmente desaparecido.\n\nO pai de Serena viu a expressão de horror no rosto da mulher e também virou o rosto, e viu que a parede tinha desaparecido, e viu que do lado de fora da casa tinha um monstro, um monstro gigantesco vestido de criança, uma criança gigantesca, maior que a casa. E só quando o pai e a mãe de Serena pularam da mesa e se achataram contra a outra parede da sala, apavorados, se deram conta de que a criança era a Serena. Mas a Serena era maior do que eles, maior que a casa!\n\n— Meu Deus! — gritou a mãe de Serena.\n\n— Calma, calma — disse o marido.\n\n— Calma o quê? Faz alguma coisa! Telefona para a polícia. Telefona para os bombeiros!\n\nO pai de Serena correu para o telefone e tentou em vão fazer uma ligação.\n\n— Este telefone. É... É de brinquedo!\n\n— Serena! — gritou a mãe. — O que que...\n\n— Sshhh! — fez Serena de fora da casa, e o deslocamento de ar quase derrubou os dois.\n\nSerena enfiou a mão na casa, pegou a mãe e a colocou no seu lugar na mesa. Depois pegou o pai e fez a mesma coisa. Mandou que eles comessem. Em silêncio. Sorrindo, mas em silêncio. Só então ela se ergueu, saiu do seu quarto e voltou para a mesa.\n\n— Serena... — começou a dizer a mãe, ainda de olhos arregalados.\n\n— Sssh — fez Serena.\n\nE se serviu de cenouras.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "No excerto “— O quê? — disse a mãe de Serena, rispidamente.”, o advérbio “rispidamente” poderia ser substituído, sem prejuízo de valor, por:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "grosseiramente."
+        },
+        {
+          "letra": "B",
+          "texto": "gentilmente."
+        },
+        {
+          "letra": "C",
+          "texto": "definitivamente."
+        },
+        {
+          "letra": "D",
+          "texto": "dificilmente."
+        },
+        {
+          "letra": "E",
+          "texto": "decisivamente."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 14",
+      "enunciado": "Analise as sentenças a seguir e assinale aquela em que a ambiguidade apresentada é apenas lexical, e não estrutural.",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Estava lá ajudando a minha amiga grávida."
+        },
+        {
+          "letra": "B",
+          "texto": "O alfaiate viu o cliente ao longe com os binóculos."
+        },
+        {
+          "letra": "C",
+          "texto": "Conversavam sobre a laje, quando o arquiteto chegou."
+        },
+        {
+          "letra": "D",
+          "texto": "Ele abraçou o amigo desesperado na saída do concerto."
+        },
+        {
+          "letra": "E",
+          "texto": "A professora realizou o teste rápido."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 8",
+      "texto_base": "**A ilusão da Lua no horizonte**\n\nVocê já observou a Lua nascendo ou se pondo e teve a impressão de que ela estava maior do que o normal? Todos nós experimentamos essa mesma sensação ao apreciar nosso belo satélite natural próximo ao horizonte. Essa sensação nada mais é do que um simples truque da mente humana e recebeu o nome de ilusão da Lua. Ao invés de um efeito de nossa atmosfera ou algum outro fenômeno físico, acredita-se que ela seja causada pela forma como percebemos o mundo visualmente.\n\nO fenômeno é bem documentado desde o século 4 a.C., quando o filósofo grego Aristóteles sugeriu que a atmosfera da Terra pudesse ampliar a imagem da Lua no horizonte, assim como a água pode fazer com que objetos imersos pareçam ampliados aos nossos olhos.\n\nNo século 11, o matemático árabe Ibn Al-Haytham desenvolveu a primeira teoria plausível de como a ilusão da Lua funciona, sugerindo que a diferença de tamanho tem a ver com a maneira como nossos cérebros percebem a distância e, então, como ajustamos automaticamente o tamanho aparente de um objeto para corresponder a essa percepção.\n\nApesar de todas as pessoas ao redor do mundo observarem essa ilusão há milhares de anos, ainda não existe uma explicação científica sólida sobre por que isso acontece. A maioria das respostas hoje em dia se baseia na ideia de como nosso cérebro processa a informação de distância dos objetos. Algumas hipóteses consideram, ainda, que árvores, montanhas e edifícios em primeiro plano podem ajudar a enganar o cérebro, que passa a pensar que a Lua estaria mais próxima e seria maior do que realmente é, por estar cercada por esses objetos.\n\nHá uma ilusão de ótica que demonstra bem essa ideia de tamanho relativo em comparação a elementos no entorno, chamada de ilusão de Ebbinghaus. Na imagem a seguir, o círculo central, cercado por pequenos círculos, representa a Lua no horizonte com objetos em primeiro plano, como árvores e edifícios. Já na imagem seguinte o círculo central representa a Lua no alto do céu, cercada por grandes extensões de céu. Para muitos, o segundo círculo central parece maior, mas ambos são do mesmo tamanho.\n\n[A prova reproduz aqui a figura da ilusão de Ebbinghaus — imagem de https://skyandtelescope.org/observing/moon-illusion-confusion11252015. Nenhuma questão depende dela.]\n\nPorém, essa explicação falha quando analisamos o caso dos astronautas a bordo da Estação Espacial Internacional, em órbita em torno da Terra. Eles também enxergam a ilusão da Lua, mesmo sem ter objetos em primeiro plano como indicação de distância.\n\nEntão, esse enigma ainda não foi totalmente resolvido e várias hipóteses ainda estão em discussão. Mas de uma coisa temos certeza: está tudo em nossas cabeças!",
+      "texto_base_fonte": "FONSECA, N. A ilusão da Lua no horizonte. Espaço do conhecimento. Adaptado. Disponível em: https://www.ufmg.br/espacodoconhecimento/a-ilusao-da-lua/",
+      "enunciado": "Analise o seguinte excerto: “[...] o matemático árabe Ibn Al-Haytham desenvolveu a primeira teoria plausível de como a ilusão da Lua funciona [...]”. Todas as palavras a seguir apresentam uma relação de sinonímia com a palavra “plausível”, que ocorre no excerto dado, exceto:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "razoável."
+        },
+        {
+          "letra": "B",
+          "texto": "possível."
+        },
+        {
+          "letra": "C",
+          "texto": "inadmissível."
+        },
+        {
+          "letra": "D",
+          "texto": "concebível."
+        },
+        {
+          "letra": "E",
+          "texto": "aceitável."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 10",
+      "enunciado": "A sentença a seguir em que ocorre verbo que denota sentido figurado é:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Nesta época do ano escurece mais tarde que o habitual."
+        },
+        {
+          "letra": "B",
+          "texto": "Seu cansaço era tanto que seus olhos pestanejavam lentamente."
+        },
+        {
+          "letra": "C",
+          "texto": "Na madrugada, as estrelas fulguravam no céu."
+        },
+        {
+          "letra": "D",
+          "texto": "Seu projeto de futuro desmoronou com a perda familiar."
+        },
+        {
+          "letra": "E",
+          "texto": "As caixas caíram e logo as taças se estilhaçaram pelo chão."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 2 · transcrita por OCR do PDF escaneado",
+      "texto_base": "**Um dia sem celular**\n\nPodem me achar antigo, conservador ou antiquado. Depois disso tudo, podem até calcular a idade que tenho pelos discursos que faço. Apesar dos pesares, tenho orgulho de pertencer a uma geração em que certos avanços tecnológicos tão comuns nos dias atuais não existiam e, ainda assim, vivíamos muito bem sem eles.\n\nDiz o ditado popular que “a necessidade é a mãe de todas as invenções”. O tempo passou e mostrou que o inverso também é verdadeiro. Inventa-se um produto, pensa-se nas necessidades depois. E com uma avalanche de aparatos tecnológicos, vou descobrindo (ou criando), aos poucos, necessidades que nem imaginava ter. Pense aí... Antes eu não tinha algo, mas não tinha a menor consciência de que esse algo que eu não tinha, um dia, iria me fazer alguma falta! Meio maluco, não?\n\nAos poucos, e sem me dar conta, essas necessidades vão fazendo parte da rotina e vão tomando conta de um espaço maior do tempo que dedicava a outras atividades. Sim! Porque existe um grande monstro devorador de minutos e segundos; esse bicho-papão se chama tecnologia! Alguns podem até chamar isso de resistência a mudanças. Outros podem me perguntar: e no seu tempo não tinha, pelo menos, um rádio ou uma televisão? E eu respondo que sim, mas até aí havia algum controle quanto ao tempo gasto diante deles.\n\nViver num mundo tecnologicamente desenvolvido, conectado e evoluído pode ser bom; entretanto, não chega a ser a oitava maravilha. Talvez, nisto resida o segredo da simplicidade dos lugares mais distantes de tanta modernidade. Uma casinha no campo, numa praia deserta ou um chalé no topo de uma serra têm seu valor. Como diz a canção, “sem rádio e sem notícias das terras civilizadas”. Contatos? Só se for ao vivo e em cores. (...)\n\nBem... Pertencer a uma geração anterior a esta guarda lá suas vantagens. Uma delas é, justamente, poder colocar tudo isso em perspectiva e saber valorizar o que se tinha (ou o que não se tinha) para não perder o que se tem em troca de momentos que, paradoxalmente, podem deixar você desconectado das pessoas mais próximas ou das que você mais ama.",
+      "texto_base_fonte": "KLEBER, Mano. Um dia sem celular. Recanto das letras. Disponível em <https://www.recantodasletras.com.br/cronicas/3339602>.",
+      "enunciado": "“(...) momentos que, **paradoxalmente**, podem deixar você desconectado das pessoas mais próximas ou das que você mais ama.”\n\nA palavra destacada no trecho acima apresenta o sentido relacionado a algo:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "comum, corriqueiro."
+        },
+        {
+          "letra": "B",
+          "texto": "lógico, essencial, verdadeiro."
+        },
+        {
+          "letra": "C",
+          "texto": "ilógico, contra o senso comum."
+        },
+        {
+          "letra": "D",
+          "texto": "favorável, propício."
+        },
+        {
+          "letra": "E",
+          "texto": "claro, óbvio."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 4",
+      "texto_base": "**O olhar da truta**\n\nO homem pediu truta e o garçom perguntou se ele não gostaria de escolher uma pessoalmente.\n\n— Como, escolher?\n\n— No nosso viveiro. O senhor pode escolher a truta que quiser.\n\nEle não tinha visto o viveiro ao entrar no restaurante. Foi atrás do garçom. As trutas davam voltas e voltas dentro do aquário, como num cortejo. Algumas paravam por um instante e ficavam olhando através do vidro, depois retomavam o cortejo. E o homem se viu encarando, olho no olho, uma truta que estacionara com a boca encostada no vidro à sua frente.\n\n— Essa está bonita... — disse o garçom.\n\n— Eu não sabia que se podia escolher. Pensei que elas já estivessem mortas.\n\n— Não, nossas trutas são mortas na hora. Da água direto para a panela.\n\nA truta continuava parada contra o vidro, olhando para o homem.\n\n— Vai essa, doutor? Ela parece que está pedindo...\n\nMas o olhar da truta não era de quem queria ir direto para uma panela. Ela parecia examinar o homem. Parecia estar calculando a possibilidade de um diálogo. Estranho, pensou o homem. Nunca tive que tomar uma decisão assim. Decidir um destino, decidir entre a vida e a morte. Não era como no supermercado, em que os bichos já estavam mortos e a responsabilidade não era sua — pelo menos não diretamente. Você podia comê-los sem remorso. (...) Claro, era com sua aprovação tácita que bovinos, ovinos, suínos, caprinos, galinhas e peixes eram assassinados para lhe dar de comer. Mas você não estava presente no ato, não escolhia a vítima, não dava a ordem. (...) De certa maneira, pensou o homem, vivi sempre assim, protegido das entranhas do mundo. Sem precisar me comprometer. Sem encarar as vítimas. Mas agora era preciso escolher.\n\n— Vai essa, doutor? — insistiu o garçom.\n\n— Não sei. Eu...\n\n— Acho que foi ela que escolheu o senhor. Olha aí, ficou paradinha. Só faltando dizer “Me come”.\n\nO homem desejou que a truta deixasse de encará-lo e voltasse ao carrossel junto com as outras. Ou que pelo menos desviasse o olhar. Mas a truta continuava a fitá-lo.\n\n— Vamos — estava dizendo a truta. — Pelo menos uma vez na vida, seja decidido. Me escolha e me condene à morte, ou me deixe viver. (...) Não posso decidir a minha vida, ou a de ninguém. Mas você pode. (...) Até agora foi um protegido, um desobrigado, um isento da vida. Mas chegou a hora de se comprometer. (...)\n\n— Vai essa mesmo, doutor? — quis saber o garçom, já com a rede na mão para pegar a truta.\n\n— Não — disse o homem. — Mudei de ideia. Vou pedir outra coisa.\n\nE de volta na mesa, depois de reexaminar o cardápio, perguntou:\n\n— Esses camarões estão vivos?\n\n— Não, doutor. Os camarões estão mortos.\n\n— Pode trazer.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Considere o excerto: “De certa maneira, pensou o homem, vivi sempre assim, protegido das entranhas do mundo.” Nesse contexto, verifica-se sentido figurado no emprego da palavra:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "certa."
+        },
+        {
+          "letra": "B",
+          "texto": "maneira."
+        },
+        {
+          "letra": "C",
+          "texto": "homem."
+        },
+        {
+          "letra": "D",
+          "texto": "entranhas."
+        },
+        {
+          "letra": "E",
+          "texto": "mundo."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 1",
+      "texto_base": "**O outro marido**\n\nEra conferente da Alfândega — mas isso não tem importância. Somos todos alguma coisa fora de nós; o eu irredutível nada tem a ver com as classificações profissionais. Pouco importa que nos avaliem pela casca. Por dentro, sentia-se diferente, capaz de mudar sempre, enquanto a situação exterior e familiar não mudava. Nisso está o espinho do homem: ele muda, os outros não percebem.\n\nSua mulher não tinha percebido. Era a mesma de há 23 anos, quando se casaram (quanto ao íntimo, é claro). Por falta de filhos, os dois viveram demasiado perto um do outro, sem derivativo. Tão perto que se desconheciam mutuamente, como um objeto desconhece outro, na mesma prateleira de armário. Santos doía-se de ser um objeto aos olhos de d. Laurinha. Se ela também era um objeto aos olhos dele? Sim, mas com a diferença de que d. Laurinha não procurava fugir a essa simplificação, nem reparava; era de fato objeto. Ele, Santos, sentia-se vivo e desagradado.\n\nAo aparecerem nele as primeiras dores, d. Laurinha penalizou-se, mas esse interesse não beneficiou as relações do casal. Santos parecia comprazer-se em estar doente. Não propriamente em queixar-se, mas em alegar que ia mal. A doença era para ele ocupação, emprego suplementar. O médico da Alfândega dissera-lhe que certas formas reumáticas levam anos para ser dominadas, exigem adaptação e disciplina. Santos começou a cuidar do corpo como de uma planta delicada. E mostrou a d. Laurinha a nevoenta radiografia da coluna vertebral, com certo orgulho de estar assim tão afetado.\n\n– Quando você ficar bom…\n\n– Não vou ficar. Tenho doença para o resto da vida.\n\nPara d. Laurinha, a melhor maneira de curar-se é tomar remédio e entregar o caso à alma do padre Eustáquio, que vela por nós. Começou a fatigar-se com a importância que o reumatismo assumira na vida do marido. E não se amolou muito quando ele anunciou que ia internar-se no Hospital Gaffrée Guinle.\n\n– Você não sentirá falta de nada, assegurou-lhe Santos. Tirei licença com ordenado integral. Eu mesmo virei aqui todo começo de mês trazer o dinheiro.\n\n(...) Pontualmente, Santos trazia-lhe o dinheiro da despesa, ficaram até um pouco amigos nessa breve conversa a longos intervalos. Ele chegava e saía curvado, sob a garra do reumatismo, que nem melhorava nem matava. A visita não era de todo desagradável, desde que a doença deixara de ser assunto. Ela notou como a vida de hospital pode ser distraída: os internados sabem de tudo cá de fora.\n\n– Pelo rádio — explicou Santos. (...)\n\nSantos veio um ano, dois, cinco. Certo dia não veio. D. Laurinha preocupou-se. Não só lhe faziam falta os cruzeiros; ele também fazia. Tomou o ônibus, foi ao hospital pela primeira vez, em alvoroço.\n\nLá ele não era conhecido. Na Alfândega informaram-lhe que Santos falecera havia quinze dias, a senhora quer o endereço da viúva?\n\n– Sou eu a viúva — disse d. Laurinha, espantada.\n\nO informante olhou-a com incredulidade. Conhecia muito bem a viúva do Santos, d. Crisália, fizera bons piqueniques com o casal na ilha do Governador. Santos fora seu parceiro de bilhar e de pescaria. Grande praça. Ele era padrinho do filho mais velho de Santos. Deixara três órfãos, coitado.\n\nE tirou da carteira uma foto, um grupo de praia. Lá estavam Santos, muito lépido, sorrindo, a outra mulher, os três garotos. Não havia dúvida: era ele mesmo, seu marido. Contudo, a outra realidade de Santos era tão destacada da sua, que o tornava outro homem, completamente desconhecido, irreconhecível.\n\n– Desculpe, foi engano. A pessoa a que me refiro não é essa — disse d. Laurinha, despedindo-se.",
+      "texto_base_fonte": "ANDRADE, Carlos Drummond. Disponível em: https://contobrasileiro.com.br/o-outro-marido-cronica-de-carlos-drummond-de-andrade/ (Adaptado)",
+      "enunciado": "Tendo em vista uma análise interpretativa do texto, analisando-se as passagens abaixo dele retiradas, assinale aquela em que há presença de sentido figurado:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“Era conferente da Alfândega — mas isso não tem importância.” (1º parágrafo)."
+        },
+        {
+          "letra": "B",
+          "texto": "“Pouco importa que nos avaliem pela casca.” (1º parágrafo)."
+        },
+        {
+          "letra": "C",
+          "texto": "“Sua mulher não tinha percebido.” (2º parágrafo)."
+        },
+        {
+          "letra": "D",
+          "texto": "“Ao aparecerem nele as primeiras dores, (...)” (3º parágrafo)."
+        },
+        {
+          "letra": "E",
+          "texto": "“Santos parecia comprazer-se em estar doente.” (3º parágrafo)."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 4",
+      "texto_base": "**Da solidão**\n\nSequioso de escrever um poema que exprimisse a maior dor do mundo, Poe chegou, por exclusão, à ideia da morte da mulher amada. Nada lhe pareceu mais definitivamente doloroso. Assim nasceu “O corvo”: o pássaro agoureiro a repetir ao homem sozinho em sua saudade a pungente litania do “nunca mais”.\n\nSerá esta a maior das solidões? Realmente, o que pode existir de pior que a impossibilidade de arrancar à morte o seu amado, que fez Orfeu descer aos Infernos em busca de Eurídice e acabou por lhe calar a lira mágica? Distante, separado, prisioneiro, ainda pode aquele que ama alimentar sua paixão com o sentimento de que o objeto amado está vivo. Morto este, só lhe restam dois caminhos: o suicídio, físico ou moral, ou uma fé qualquer. E como tal fé constitui uma possibilidade — que outra coisa é a Divina comédia para Dante senão a morte de Beatriz? — cabe uma consideração também dolorosa: a solidão que a morte da mulher amada deixa não é, porquanto absoluta, a maior solidão.\n\nQual será maior então? Os grandes momentos de solidão, a de Jó, a de Cristo no Horto, tinham a exaltá-la uma fé. A solidão de Carlitos, naquela incrível imagem em que ele aparece na eterna esquina, no final de Luzes da cidade, tinha a justificá-la o sacrifício feito pela mulher amada. Penso com mais frio n’alma na solidão dos últimos dias do pintor Toulouse-Lautrec, em seu leito de moribundo, lúcido, fechado em si mesmo, e no duro olhar de ódio que deitou ao pai, segundos antes de morrer, como a culpá-lo de o ter gerado um monstro. Penso com mais frio n’alma ainda na solidão total dos poucos minutos que terão restado ao poeta Hart Crane, quando, no auge da neurastenia, depois de se ter jogado ao mar, numa viagem de regresso do México para os Estados Unidos, viu sobre si mesmo a imensa noite do oceano imenso à sua volta, e ao longe as luzes do navio que se afastava. O que se terão dito o poeta e a eternidade nesses poucos instantes em que ele, quem sabe banhado de poesia total, boiou a esmo sobre a negra massa líquida, à espera do abandono?\n\nSolidão inenarrável, quem sabe povoada de beleza... Mas será ela, também, a maior solidão? A solidão do poeta Rilke, quando, na alta escarpa sobre o Adriático, ouviu no vento a música do primeiro verso que desencadeou as Elegias de Duino, será ela a maior solidão?\n\nNão, a maior solidão é a do ser que não ama. A maior solidão é a do ser que se ausenta, que se defende, que se fecha, que se recusa a participar da vida humana. A maior solidão é a do homem encerrado em si mesmo, no absoluto de si mesmo, e que não dá a quem pede o que ele pode dar de amor, de amizade, de socorro. O maior solitário é o que tem medo de amar, o que tem medo de ferir e de ferir-se, o ser casto da mulher, do amigo, do povo, do mundo. Esse queima como uma lâmpada triste, cujo reflexo entristece também tudo em torno. Ele é a angústia do mundo que o reflete. Ele é o que se recusa às verdadeiras fontes da emoção, as que são o patrimônio de todos e, encerrado em seu duro privilégio, semeia pedras do alto da sua fria e desolada torre.",
+      "texto_base_fonte": "MORAES, V. Da solidão. In: MORAES, V. Para viver um grande amor. 6ª ed., Sabiá, 1962, p. 182-183. Disponível em <https://cronicabrasileira.org.br/cronicas/19895/da-solidao>.",
+      "enunciado": "O sentido expresso pela palavra “senão” em “que outra coisa é a Divina comédia para Dante senão a morte de Beatriz?” é exatamente o mesmo que se verifica em:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Saia da chuva, senão ficará doente."
+        },
+        {
+          "letra": "B",
+          "texto": "Estava convicto de que não havia um senão em seu trabalho."
+        },
+        {
+          "letra": "C",
+          "texto": "Foi dormir mais cedo, senão acordaria atrasado no dia seguinte."
+        },
+        {
+          "letra": "D",
+          "texto": "Não há outra pessoa que me faça feliz senão você."
+        },
+        {
+          "letra": "E",
+          "texto": "A filha ligava, senão quando, para avisar sobre sua volta ao Brasil."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 7",
+      "enunciado": "Avalie os sentidos das palavras em destaque nas sentenças a seguir e assinale a alternativa que os classifica correta e respectivamente quanto à característica de próprio ou figurado.\n\nI. Chegava do trabalho todos os dias **morto** de cansaço.\n\nII. De repente teve uma **luz** e chegou à solução que precisava.\n\nIII. O pássaro **voava** cada vez mais baixo.",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I. sentido próprio; II. sentido próprio; III. sentido figurado."
+        },
+        {
+          "letra": "B",
+          "texto": "I. sentido próprio; II. sentido figurado; III. sentido figurado."
+        },
+        {
+          "letra": "C",
+          "texto": "I. sentido figurado; II. sentido figurado; III. sentido figurado."
+        },
+        {
+          "letra": "D",
+          "texto": "I. sentido figurado; II. sentido figurado; III. sentido próprio."
+        },
+        {
+          "letra": "E",
+          "texto": "I. sentido próprio; II. sentido próprio; III. sentido próprio."
+        }
+      ]
+    }
+  ]
+}

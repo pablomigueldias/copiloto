@@ -1,0 +1,288 @@
+{
+  "_leia_me": "As 9 questões de verbo: tempo, modo e voz que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Classes de palavras — o verbo”.\n\nO verbo é uma das classes de palavras do edital, e ficou num tópico próprio porque é onde a banca mais aprofunda: tempo e modo (mais-que-perfeito, futuro do subjuntivo de prever e intervir), voz passiva e conjugação de irregulares.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (1), Câmara de Taboão da Serra 2022 (1), Prefeitura de Caçapava 2024 (2), Prefeitura de Itatiba 2024 (1), Prefeitura de Rio Claro 2026 (2), Prefeitura de Rio Grande da Serra 2024 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n5 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Verbo: tempo, modo e voz",
+    "ordem": 8
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 8",
+      "texto_base": "**Serena**\n\nSerena tinha oito anos. Quando os pais de Serena começavam a brigar na mesa, ela fechava os olhos e tentava pensar em outra coisa. Pensava na sua casa de bonecas. Os pais de Serena brigavam na mesa porque era a única hora do dia em que ficavam cara a cara. No resto do dia ia cada um para o seu lado, queixar-se do outro.\n\nNa mesa, não paravam de brigar. Serena fechava os olhos.\n\n— Passa a cenoura? — disse Serena, interrompendo uma frase da mãe.\n\n— O quê? — disse a mãe de Serena, rispidamente.\n\n— Passa a cenoura?\n\n— Ora, não comece você também! — disse a mãe de Serena, e voltou a xingar o marido.\n\nSerena saiu da mesa. Foi para o seu quarto e fechou a porta. Ajoelhou-se na frente da sua casa de bonecas. A casa tinha tudo que uma casa de verdade tem, em miniatura. Moveizinhos. Tapetinhos. Um telefonezinho. Em volta da mesinha da sala de jantar da casa de bonecas estavam sentados três bonequinhos. Um pai, uma mãe e uma menina. Serena enfiou a mão na casa e tirou a menina da mesa.\n\nO pai e a mãe de Serena nem notaram que Serena não estava mais na mesa. Continuavam brigando. Foi só quando virou-se para ordenar que Serena comesse a cenoura que a mãe viu que ela não estava mais ali. E viu outra coisa. Viu que uma parede inteira da casa tinha simplesmente desaparecido.\n\nO pai de Serena viu a expressão de horror no rosto da mulher e também virou o rosto, e viu que a parede tinha desaparecido, e viu que do lado de fora da casa tinha um monstro, um monstro gigantesco vestido de criança, uma criança gigantesca, maior que a casa. E só quando o pai e a mãe de Serena pularam da mesa e se achataram contra a outra parede da sala, apavorados, se deram conta de que a criança era a Serena. Mas a Serena era maior do que eles, maior que a casa!\n\n— Meu Deus! — gritou a mãe de Serena.\n\n— Calma, calma — disse o marido.\n\n— Calma o quê? Faz alguma coisa! Telefona para a polícia. Telefona para os bombeiros!\n\nO pai de Serena correu para o telefone e tentou em vão fazer uma ligação.\n\n— Este telefone. É... É de brinquedo!\n\n— Serena! — gritou a mãe. — O que que...\n\n— Sshhh! — fez Serena de fora da casa, e o deslocamento de ar quase derrubou os dois.\n\nSerena enfiou a mão na casa, pegou a mãe e a colocou no seu lugar na mesa. Depois pegou o pai e fez a mesma coisa. Mandou que eles comessem. Em silêncio. Sorrindo, mas em silêncio. Só então ela se ergueu, saiu do seu quarto e voltou para a mesa.\n\n— Serena... — começou a dizer a mãe, ainda de olhos arregalados.\n\n— Sssh — fez Serena.\n\nE se serviu de cenouras.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Considere o excerto a seguir:\n\nO pai de Serena viu a expressão de horror no rosto da mulher e também virou o rosto, e viu que a parede tinha desaparecido, e viu **que** do lado de fora da casa tinha um monstro, um monstro gigantesco vestido de criança, uma criança gigantesca, maior **que** a casa.\n\nO aspecto semântico da locução verbal “tinha desaparecido”, que ocorre no excerto apresentado, corresponde àquele expresso pelo:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "futuro do pretérito do indicativo."
+        },
+        {
+          "letra": "B",
+          "texto": "pretérito imperfeito do indicativo."
+        },
+        {
+          "letra": "C",
+          "texto": "pretérito perfeito do indicativo."
+        },
+        {
+          "letra": "D",
+          "texto": "pretérito mais-que-perfeito do indicativo."
+        },
+        {
+          "letra": "E",
+          "texto": "pretérito imperfeito do subjuntivo."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 13",
+      "enunciado": "Analise as sentenças a seguir quanto ao emprego das formas verbais indicadas entre parênteses, ao final de cada sentença. Assinale a alternativa em que as formas verbais preenchem correta e respectivamente cada uma das lacunas apresentadas, considerando o tempo e o modo indicados ao lado de cada um dos verbos.\n\nI. A pobre garota …. em tudo o que ele dizia. (crer - pretérito imperfeito do indicativo)\n\nII. Se ele …. o resultado, ficará ainda mais ansioso. (prever - futuro do subjuntivo)\n\nIII. A professora pediu que …. no texto da autora. (intervir - pretérito imperfeito do subjuntivo)",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "cria; prever; intervissem."
+        },
+        {
+          "letra": "B",
+          "texto": "creia; previr; interviessem."
+        },
+        {
+          "letra": "C",
+          "texto": "cria; previr; interviessem."
+        },
+        {
+          "letra": "D",
+          "texto": "creu; previsse; intervissem."
+        },
+        {
+          "letra": "E",
+          "texto": "crera; prever; intervessem."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 3",
+      "texto_base": "**Vermes de 46 mil anos voltam à vida após processo de descongelamento**\n\nOs seres vivos passaram por processos de criptobiose que os preservaram durante os milhares de anos. Cientistas acreditam que estudar os vermes pode ajudar a entender como proteger outros seres vivos.\n\nCientistas na Alemanha descobriram que nematoides, que são um tipo de verme, de 46 mil anos, encontrados no permafrost da Sibéria e trazidos de volta à vida após um descongelamento, pertencem a uma espécie que ainda não havia sido descrita anteriormente, a Panagrolaimus kolymaensis. O estudo foi publicado na revista PLOS Genetics e contou com pesquisadores do Instituto de Zoologia da Universidade de Colônia, do Instituto Max Planck de Biologia Celular e Genética Molecular (MPI-CBG) em Dresden e do Centro de Biologia de Sistemas de Dresden (CSBD). Em 2018, pesquisadores russos reviveram os dois nematoides, que foram congelados em uma toca fossilizada em depósitos de lodo no permafrost, uma camada de subsolo congelado. A datação por radiocarbono - um método utilizado para estimar a idade de alguns materiais de até 60 mil anos - revelou que esses nematoides estavam em criptobiose desde cerca de 46 mil anos atrás, durante o final do período geológico Pleistoceno. Criptobiose é um estado de latência em que a atividade metabólica de alguns seres vivos para, por conta de condições ambientais adversas, até que essas condições voltem à normalidade e permitam uma “volta à vida”. “Finalmente, é superfascinante ver de repente a vida, animais vivos rastejando para fora de um pedaço de solo que está congelado há 46 mil anos”, disse o Dr. Philipp Schiffer, da Universidade de Colônia. [...] Schiffer e seus colegas foram convidados a estudar os vermes recém-descongelados para determinar as espécies e analisar seu genoma. Ele e sua equipe conseguiram definir a lombriga como uma nova espécie. [...] Os pesquisadores descobriram que a desidratação leve antes do congelamento melhorou a preparação do verme para a criptobiose e aumentou a sobrevivência a -80 graus Celsius. E, como outras espécies de nematoides, produziu o açúcar trealose em nível bioquímico quando levemente desidratado em laboratório, potencialmente permitindo que resistissem ao congelamento e à desidratação intensa. “Eles construíram esse açúcar, trealose, que de alguma forma os ajuda a proteger seu DNA e proteínas enquanto estão nesse estágio de repouso”, disse Schiffer. Estudar essas criaturas, segundo o pesquisador, poderia um dia informar os esforços de conservação à medida que o clima da Terra muda. “Podemos aprender coisas que podem nos informar para talvez salvar espécies ameaçadas e pensar em medidas de proteção e todas essas coisas”. No entanto, Schiffer não viu nenhum perigo imediato de que organismos antigos descongelados pudessem abrigar patógenos perigosos. “É algo possível. E com o Covid, todos nós vimos o que pode acontecer de repente. Mas eu não diria que há um perigo iminente dessas formas trazerem algumas bactérias que de repente começam a matar humanos”, disse ele.",
+      "texto_base_fonte": "Portal G1.",
+      "enunciado": "Considere o trecho “Em 2018, pesquisadores russos reviveram os dois nematoides”. O verbo ‘reviver’, na sentença dada, apresenta o(s) seguinte(s) tipo(s) de flexão:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "tempo."
+        },
+        {
+          "letra": "B",
+          "texto": "modo."
+        },
+        {
+          "letra": "C",
+          "texto": "tempo, modo, pessoa e número."
+        },
+        {
+          "letra": "D",
+          "texto": "tempo, modo e número."
+        },
+        {
+          "letra": "E",
+          "texto": "tempo e pessoa."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 6",
+      "texto_base": "**Como tamanho e formato do crânio influenciam na longevidade de um cão**\n\nCachorros são uma das espécies animais mais diversas do ponto de vista do fenótipo (ou seja, das características morfológicas, físicas e até comportamentais). Um dos aspectos que pode variar conforme a raça é a longevidade.\n\nPensando nisso, pesquisadores analisaram dados de milhares de cachorros do Reino Unido, com o objetivo de identificar as raças que geralmente estão associadas a um menor tempo de vida. Os resultados foram publicados na revista Scientific Reports, na última quinta-feira (1º).\n\nPara realizar esse estudo, os pesquisadores utilizaram dados de mais de 580 mil cães do Reino Unido, de 150 raças. As informações dizem respeito a raça, sexo, data de nascimento e data da morte (em cerca de 280 mil casos, os cachorros já haviam morrido).\n\nOs animais foram classificados em raças puras ou mistas, seguindo as diretrizes da organização inglesa Kennel Club. Eles foram divididos de acordo com o tamanho (pequeno, médio ou grande) e o formato do crânio: braquicefálicos (com focinho achatado), mesocefálicos (com focinho médio) ou dolicocefálicos (com focinho longo).\n\nOs cálculos feitos pelos pesquisadores indicam que cachorros dolicocefálicos pequenos têm expectativa de vida mais alta no Reino Unido: 13,3 anos, em média, para machos e fêmeas. É o caso, por exemplo, de Dachshund miniatura, Pastor-de-shetland e Whippet. Já braquicefálicos de tamanho médio (como o buldogue inglês) têm menor expectativa de vida: 9,1 anos para machos e 9,6 anos para fêmeas. O artigo ainda destaca a média para outras raças comuns: Labrador (13,1 anos), Jack Russell Terrier (13,3 anos) e Cavalier King Charles Spaniel (11,8 anos). Além disso, no estudo, raças puras apresentaram expectativa de vida maior que as mistas: 12,7 anos para as puras e 12 anos para as mistas. Também foi observada uma diferença entre fêmeas (12,7 anos) e machos (12,4 anos).\n\nConduzir trabalhos científicos focados em cachorros é uma forma importante de aprimorar as discussões sobre a saúde e o bem-estar desses animais. No entanto, vale ressaltar que esses resultados são válidos no contexto do Reino Unido, como constatam os autores da pesquisa, em nota. Considerando que as raças de cachorros apresentam uma série de diferenças – quanto a morfologia, comportamento e longevidade, por exemplo –, é necessário que também sejam feitas outras pesquisas com amostras mais variadas.",
+      "texto_base_fonte": "Revista Galileu. Disponível em: https://revistagalileu.globo.com/ciencia/biologia/noticia/2024/02/como-tamanho-e-formato-do-cranio-influenciam-na-longevidade-de-um-cao.ghtml",
+      "enunciado": "Considere o excerto: “Para realizar esse estudo, os pesquisadores utilizaram dados de mais de 580 mil cães do Reino Unido, de 150 raças.” No contexto apresentado, o verbo “utilizar” está conjugado no:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pretérito imperfeito do modo indicativo."
+        },
+        {
+          "letra": "B",
+          "texto": "pretérito perfeito do modo indicativo."
+        },
+        {
+          "letra": "C",
+          "texto": "futuro do pretérito do modo indicativo."
+        },
+        {
+          "letra": "D",
+          "texto": "pretérito imperfeito do modo subjuntivo."
+        },
+        {
+          "letra": "E",
+          "texto": "infinitivo flexionado."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 4 · transcrita por OCR do PDF escaneado",
+      "enunciado": "“Se me **fosse dado** o dom completo de escritor, eu havia de ser assim um Rousseau.” (Lima Barreto)\n\nEm relação à forma verbal destacada no período acima, é correto afirmar que ela se encontra na voz:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "reflexiva, referindo ao sujeito “me”."
+        },
+        {
+          "letra": "B",
+          "texto": "passiva sintética, referindo-se ao objeto direto “o dom completo de escritor”."
+        },
+        {
+          "letra": "C",
+          "texto": "passiva analítica, referindo-se ao objeto direto “o dom completo de escritor”."
+        },
+        {
+          "letra": "D",
+          "texto": "passiva analítica, referindo-se ao sujeito “o dom completo de escritor”."
+        },
+        {
+          "letra": "E",
+          "texto": "passiva sintética, referindo-se ao sujeito “o dom completo de escritor”."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 7 · transcrita por OCR do PDF escaneado",
+      "enunciado": "CAZO. 8 locais estão impróprios na Praia do Laranjal. Disponível em <https://blogdoaftm.com.br/category/charges/>.\n\nAs formas verbais empregadas na charge – “fosse” e “faria” – encontram-se flexionadas, nessa ordem, no:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "presente do subjuntivo e futuro do pretérito do indicativo."
+        },
+        {
+          "letra": "B",
+          "texto": "pretérito imperfeito do subjuntivo e futuro do presente do indicativo."
+        },
+        {
+          "letra": "C",
+          "texto": "pretérito imperfeito do subjuntivo e futuro do pretérito do indicativo."
+        },
+        {
+          "letra": "D",
+          "texto": "pretérito imperfeito do indicativo e pretérito mais-que-perfeito do indicativo."
+        },
+        {
+          "letra": "E",
+          "texto": "pretérito imperfeito do indicativo e futuro do subjuntivo."
+        }
+      ],
+      "imagem": "avanca-sp/rio-claro-2026-charge-peixe.png",
+      "imagem_alt": "Charge colorida numa praia. À esquerda, um peixe verde manchado de óleo caminha sobre duas pernas para fora da água, deixando pegadas pretas, e diz num balão: “SE EU FOSSE VOCÊ NÃO FARIA ISSO!”. No centro, um banhista de sunga vermelha e nariz vermelho, parado, olha para ele. À direita, o mar está sujo, com uma garrafa, um papel e lixo boiando. Assinatura: CAZO."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 8",
+      "texto_base": "**O olhar da truta**\n\nO homem pediu truta e o garçom perguntou se ele não gostaria de escolher uma pessoalmente.\n\n— Como, escolher?\n\n— No nosso viveiro. O senhor pode escolher a truta que quiser.\n\nEle não tinha visto o viveiro ao entrar no restaurante. Foi atrás do garçom. As trutas davam voltas e voltas dentro do aquário, como num cortejo. Algumas paravam por um instante e ficavam olhando através do vidro, depois retomavam o cortejo. E o homem se viu encarando, olho no olho, uma truta que estacionara com a boca encostada no vidro à sua frente.\n\n— Essa está bonita... — disse o garçom.\n\n— Eu não sabia que se podia escolher. Pensei que elas já estivessem mortas.\n\n— Não, nossas trutas são mortas na hora. Da água direto para a panela.\n\nA truta continuava parada contra o vidro, olhando para o homem.\n\n— Vai essa, doutor? Ela parece que está pedindo...\n\nMas o olhar da truta não era de quem queria ir direto para uma panela. Ela parecia examinar o homem. Parecia estar calculando a possibilidade de um diálogo. Estranho, pensou o homem. Nunca tive que tomar uma decisão assim. Decidir um destino, decidir entre a vida e a morte. Não era como no supermercado, em que os bichos já estavam mortos e a responsabilidade não era sua — pelo menos não diretamente. Você podia comê-los sem remorso. (...) Claro, era com sua aprovação tácita que bovinos, ovinos, suínos, caprinos, galinhas e peixes eram assassinados para lhe dar de comer. Mas você não estava presente no ato, não escolhia a vítima, não dava a ordem. (...) De certa maneira, pensou o homem, vivi sempre assim, protegido das entranhas do mundo. Sem precisar me comprometer. Sem encarar as vítimas. Mas agora era preciso escolher.\n\n— Vai essa, doutor? — insistiu o garçom.\n\n— Não sei. Eu...\n\n— Acho que foi ela que escolheu o senhor. Olha aí, ficou paradinha. Só faltando dizer “Me come”.\n\nO homem desejou que a truta deixasse de encará-lo e voltasse ao carrossel junto com as outras. Ou que pelo menos desviasse o olhar. Mas a truta continuava a fitá-lo.\n\n— Vamos — estava dizendo a truta. — Pelo menos uma vez na vida, seja decidido. Me escolha e me condene à morte, ou me deixe viver. (...) Não posso decidir a minha vida, ou a de ninguém. Mas você pode. (...) Até agora foi um protegido, um desobrigado, um isento da vida. Mas chegou a hora de se comprometer. (...)\n\n— Vai essa mesmo, doutor? — quis saber o garçom, já com a rede na mão para pegar a truta.\n\n— Não — disse o homem. — Mudei de ideia. Vou pedir outra coisa.\n\nE de volta na mesa, depois de reexaminar o cardápio, perguntou:\n\n— Esses camarões estão vivos?\n\n— Não, doutor. Os camarões estão mortos.\n\n— Pode trazer.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Em “(...) uma truta que estacionara com a boca encostada no vidro à sua frente.”, a desinência do verbo “estacionara”, empregado no contexto apresentado, indica o tempo e o modo:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pretérito perfeito do indicativo."
+        },
+        {
+          "letra": "B",
+          "texto": "pretérito imperfeito do indicativo."
+        },
+        {
+          "letra": "C",
+          "texto": "pretérito mais-que-perfeito do indicativo."
+        },
+        {
+          "letra": "D",
+          "texto": "futuro do pretérito do indicativo."
+        },
+        {
+          "letra": "E",
+          "texto": "pretérito imperfeito do subjuntivo."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 12",
+      "enunciado": "Analise as sentenças a seguir quanto às formas verbais empregadas e assinale a alternativa em que ocorre desvio gramatical, segundo a norma-padrão da língua portuguesa.",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Torço para que os nossos pontos de vista convirjam neste trabalho."
+        },
+        {
+          "letra": "B",
+          "texto": "Infelizmente, as ideias que apresentei na reunião não conviram à situação."
+        },
+        {
+          "letra": "C",
+          "texto": "O trabalho estará pronto quando revirmos todas as suas páginas."
+        },
+        {
+          "letra": "D",
+          "texto": "Os comportamentos dos três rapazes não condisseram com a realidade."
+        },
+        {
+          "letra": "E",
+          "texto": "Nós desfizemos todas as parcerias que tínhamos."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 6",
+      "texto_base": "**O outro marido**\n\nEra conferente da Alfândega — mas isso não tem importância. Somos todos alguma coisa fora de nós; o eu irredutível nada tem a ver com as classificações profissionais. Pouco importa que nos avaliem pela casca. Por dentro, sentia-se diferente, capaz de mudar sempre, enquanto a situação exterior e familiar não mudava. Nisso está o espinho do homem: ele muda, os outros não percebem.\n\nSua mulher não tinha percebido. Era a mesma de há 23 anos, quando se casaram (quanto ao íntimo, é claro). Por falta de filhos, os dois viveram demasiado perto um do outro, sem derivativo. Tão perto que se desconheciam mutuamente, como um objeto desconhece outro, na mesma prateleira de armário. Santos doía-se de ser um objeto aos olhos de d. Laurinha. Se ela também era um objeto aos olhos dele? Sim, mas com a diferença de que d. Laurinha não procurava fugir a essa simplificação, nem reparava; era de fato objeto. Ele, Santos, sentia-se vivo e desagradado.\n\nAo aparecerem nele as primeiras dores, d. Laurinha penalizou-se, mas esse interesse não beneficiou as relações do casal. Santos parecia comprazer-se em estar doente. Não propriamente em queixar-se, mas em alegar que ia mal. A doença era para ele ocupação, emprego suplementar. O médico da Alfândega dissera-lhe que certas formas reumáticas levam anos para ser dominadas, exigem adaptação e disciplina. Santos começou a cuidar do corpo como de uma planta delicada. E mostrou a d. Laurinha a nevoenta radiografia da coluna vertebral, com certo orgulho de estar assim tão afetado.\n\n– Quando você ficar bom…\n\n– Não vou ficar. Tenho doença para o resto da vida.\n\nPara d. Laurinha, a melhor maneira de curar-se é tomar remédio e entregar o caso à alma do padre Eustáquio, que vela por nós. Começou a fatigar-se com a importância que o reumatismo assumira na vida do marido. E não se amolou muito quando ele anunciou que ia internar-se no Hospital Gaffrée Guinle.\n\n– Você não sentirá falta de nada, assegurou-lhe Santos. Tirei licença com ordenado integral. Eu mesmo virei aqui todo começo de mês trazer o dinheiro.\n\n(...) Pontualmente, Santos trazia-lhe o dinheiro da despesa, ficaram até um pouco amigos nessa breve conversa a longos intervalos. Ele chegava e saía curvado, sob a garra do reumatismo, que nem melhorava nem matava. A visita não era de todo desagradável, desde que a doença deixara de ser assunto. Ela notou como a vida de hospital pode ser distraída: os internados sabem de tudo cá de fora.\n\n– Pelo rádio — explicou Santos. (...)\n\nSantos veio um ano, dois, cinco. Certo dia não veio. D. Laurinha preocupou-se. Não só lhe faziam falta os cruzeiros; ele também fazia. Tomou o ônibus, foi ao hospital pela primeira vez, em alvoroço.\n\nLá ele não era conhecido. Na Alfândega informaram-lhe que Santos falecera havia quinze dias, a senhora quer o endereço da viúva?\n\n– Sou eu a viúva — disse d. Laurinha, espantada.\n\nO informante olhou-a com incredulidade. Conhecia muito bem a viúva do Santos, d. Crisália, fizera bons piqueniques com o casal na ilha do Governador. Santos fora seu parceiro de bilhar e de pescaria. Grande praça. Ele era padrinho do filho mais velho de Santos. Deixara três órfãos, coitado.\n\nE tirou da carteira uma foto, um grupo de praia. Lá estavam Santos, muito lépido, sorrindo, a outra mulher, os três garotos. Não havia dúvida: era ele mesmo, seu marido. Contudo, a outra realidade de Santos era tão destacada da sua, que o tornava outro homem, completamente desconhecido, irreconhecível.\n\n– Desculpe, foi engano. A pessoa a que me refiro não é essa — disse d. Laurinha, despedindo-se.",
+      "texto_base_fonte": "ANDRADE, Carlos Drummond. Disponível em: https://contobrasileiro.com.br/o-outro-marido-cronica-de-carlos-drummond-de-andrade/ (Adaptado)",
+      "enunciado": "Quanto à flexão verbal, assinale a alternativa que apresenta uma passagem do texto, retirada do 8º parágrafo, com verbo no pretérito mais-que-perfeito do modo indicativo:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“Pontualmente, Santos trazia-lhe o dinheiro da despesa, (...)”."
+        },
+        {
+          "letra": "B",
+          "texto": "“(...) ficaram até um pouco amigos nessa breve conversa a longos intervalos.”."
+        },
+        {
+          "letra": "C",
+          "texto": "“Ele chegava e saía curvado, sob a garra do reumatismo, (...)”."
+        },
+        {
+          "letra": "D",
+          "texto": "“A visita não era de todo desagradável, (...)”."
+        },
+        {
+          "letra": "E",
+          "texto": "“(...) desde que a doença deixara de ser assunto.”."
+        }
+      ]
+    }
+  ]
+}

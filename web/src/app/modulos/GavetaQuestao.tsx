@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 import { Dialogo } from "@/components/Dialogo";
-import { Enunciado } from "@/components/Enunciado";
+import { Enunciado, TextoMarcado } from "@/components/Enunciado";
 import { ImagemQuestao } from "@/components/ImagemQuestao";
 import { quando } from "@/components/ui";
 import { api } from "@/lib/api";
@@ -154,7 +154,9 @@ export function GavetaQuestao({
                   <span className="tnum w-[16px] flex-none text-[13px]">
                     {alt.letra}
                   </span>
-                  <span>{alt.texto}</span>
+                  <span>
+                    <TextoMarcado texto={alt.texto} />
+                  </span>
                 </div>
               ))}
             </div>

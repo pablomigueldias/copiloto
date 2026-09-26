@@ -1,0 +1,104 @@
+{
+  "_leia_me": "As 3 questões de pontuação que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Pontuação”.\n\nDe onde vêm: Câmara de Taboão da Serra 2022 (1), Prefeitura de Paraty 2024 (1), Prefeitura de Rio Grande da Serra 2024 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n1 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Pontuação",
+    "ordem": 6
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 9",
+      "enunciado": "Considere a seguinte estrofe da canção O quereres, de Caetano Veloso:\n\n“Onde queres prazer, sou o que dói\nE onde queres tortura, mansidão\nOnde queres um lar, revolução”\n\nAs vírgulas empregadas no segundo e no terceiro verso da estrofe indicam:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "que as palavras “mansidão” e “revolução” são apostos em seus respectivos versos."
+        },
+        {
+          "letra": "B",
+          "texto": "que as palavras “mansidão” e “revolução” são termos coordenados das orações de seus respectivos versos."
+        },
+        {
+          "letra": "C",
+          "texto": "a elipse do verbo “queres”, das orações de seus respectivos versos."
+        },
+        {
+          "letra": "D",
+          "texto": "a elipse do verbo “sou”, do primeiro verso da estrofe, no segundo e no terceiro verso."
+        },
+        {
+          "letra": "E",
+          "texto": "a elipse do advérbio “onde”, das orações de seus respectivos versos."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 11",
+      "enunciado": "Analise as sentenças a seguir quanto aos sinais de pontuação empregados. Assinale a alternativa em que a vírgula é empregada de forma a separar uma oração reduzida de particípio de outra oração.",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Os funcionários, que fizeram a denúncia há um mês, finalmente foram ouvidos."
+        },
+        {
+          "letra": "B",
+          "texto": "Se este trabalho não der certo, mudarei de área de atuação."
+        },
+        {
+          "letra": "C",
+          "texto": "Comprados os tecidos, começaremos as aulas de corte e costura."
+        },
+        {
+          "letra": "D",
+          "texto": "A garota, desde o ano passado, tem frequentado festas."
+        },
+        {
+          "letra": "E",
+          "texto": "Os processos judiciais, de modo geral, duram meses."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 5",
+      "texto_base": "**O outro marido**\n\nEra conferente da Alfândega — mas isso não tem importância. Somos todos alguma coisa fora de nós; o eu irredutível nada tem a ver com as classificações profissionais. Pouco importa que nos avaliem pela casca. Por dentro, sentia-se diferente, capaz de mudar sempre, enquanto a situação exterior e familiar não mudava. Nisso está o espinho do homem: ele muda, os outros não percebem.\n\nSua mulher não tinha percebido. Era a mesma de há 23 anos, quando se casaram (quanto ao íntimo, é claro). Por falta de filhos, os dois viveram demasiado perto um do outro, sem derivativo. Tão perto que se desconheciam mutuamente, como um objeto desconhece outro, na mesma prateleira de armário. Santos doía-se de ser um objeto aos olhos de d. Laurinha. Se ela também era um objeto aos olhos dele? Sim, mas com a diferença de que d. Laurinha não procurava fugir a essa simplificação, nem reparava; era de fato objeto. Ele, Santos, sentia-se vivo e desagradado.\n\nAo aparecerem nele as primeiras dores, d. Laurinha penalizou-se, mas esse interesse não beneficiou as relações do casal. Santos parecia comprazer-se em estar doente. Não propriamente em queixar-se, mas em alegar que ia mal. A doença era para ele ocupação, emprego suplementar. O médico da Alfândega dissera-lhe que certas formas reumáticas levam anos para ser dominadas, exigem adaptação e disciplina. Santos começou a cuidar do corpo como de uma planta delicada. E mostrou a d. Laurinha a nevoenta radiografia da coluna vertebral, com certo orgulho de estar assim tão afetado.\n\n– Quando você ficar bom…\n\n– Não vou ficar. Tenho doença para o resto da vida.\n\nPara d. Laurinha, a melhor maneira de curar-se é tomar remédio e entregar o caso à alma do padre Eustáquio, que vela por nós. Começou a fatigar-se com a importância que o reumatismo assumira na vida do marido. E não se amolou muito quando ele anunciou que ia internar-se no Hospital Gaffrée Guinle.\n\n– Você não sentirá falta de nada, assegurou-lhe Santos. Tirei licença com ordenado integral. Eu mesmo virei aqui todo começo de mês trazer o dinheiro.\n\n(...) Pontualmente, Santos trazia-lhe o dinheiro da despesa, ficaram até um pouco amigos nessa breve conversa a longos intervalos. Ele chegava e saía curvado, sob a garra do reumatismo, que nem melhorava nem matava. A visita não era de todo desagradável, desde que a doença deixara de ser assunto. Ela notou como a vida de hospital pode ser distraída: os internados sabem de tudo cá de fora.\n\n– Pelo rádio — explicou Santos. (...)\n\nSantos veio um ano, dois, cinco. Certo dia não veio. D. Laurinha preocupou-se. Não só lhe faziam falta os cruzeiros; ele também fazia. Tomou o ônibus, foi ao hospital pela primeira vez, em alvoroço.\n\nLá ele não era conhecido. Na Alfândega informaram-lhe que Santos falecera havia quinze dias, a senhora quer o endereço da viúva?\n\n– Sou eu a viúva — disse d. Laurinha, espantada.\n\nO informante olhou-a com incredulidade. Conhecia muito bem a viúva do Santos, d. Crisália, fizera bons piqueniques com o casal na ilha do Governador. Santos fora seu parceiro de bilhar e de pescaria. Grande praça. Ele era padrinho do filho mais velho de Santos. Deixara três órfãos, coitado.\n\nE tirou da carteira uma foto, um grupo de praia. Lá estavam Santos, muito lépido, sorrindo, a outra mulher, os três garotos. Não havia dúvida: era ele mesmo, seu marido. Contudo, a outra realidade de Santos era tão destacada da sua, que o tornava outro homem, completamente desconhecido, irreconhecível.\n\n– Desculpe, foi engano. A pessoa a que me refiro não é essa — disse d. Laurinha, despedindo-se.",
+      "texto_base_fonte": "ANDRADE, Carlos Drummond. Disponível em: https://contobrasileiro.com.br/o-outro-marido-cronica-de-carlos-drummond-de-andrade/ (Adaptado)",
+      "enunciado": "As vírgulas, no fragmento “Ele, Santos, sentia-se vivo e desagradado.” (2º parágrafo), foram empregadas, pois:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Isolam um vocativo."
+        },
+        {
+          "letra": "B",
+          "texto": "Destacam uma citação."
+        },
+        {
+          "letra": "C",
+          "texto": "Marcam um termo adverbial deslocado."
+        },
+        {
+          "letra": "D",
+          "texto": "Separam um aposto."
+        },
+        {
+          "letra": "E",
+          "texto": "Marcam a omissão de um verbo."
+        }
+      ]
+    }
+  ]
+}

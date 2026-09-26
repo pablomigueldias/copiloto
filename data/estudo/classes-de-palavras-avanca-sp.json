@@ -1,0 +1,979 @@
+{
+  "_leia_me": "As 32 questões de classes de palavras que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Classes de palavras: substantivo, artigo, adjetivo, numeral, pronome, verbo, advérbio, preposição, conjunção e interjeição”.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (3), Prefeitura de Americana 2022 (1), Prefeitura de Amparo 2022 (5), Prefeitura de Caçapava 2024 (5), Prefeitura de Itatiba 2024 (4), Prefeitura de Juquitiba 2024 (4), Prefeitura de Paraty 2024 (3), Prefeitura de Rio Grande da Serra 2024 (5), Universidade de Taubaté 2025 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n18 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Classes de palavras",
+    "ordem": 7
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 7",
+      "enunciado": "Analise a oração abaixo e os itens seguintes e, após, assinale a alternativa correta:\n\n“Tratavam-se de indivíduos macérrimos, entregues à pauperização, submetidos a coerção dos agentes do Estados, na periferia do mundo.”\n\nI – No excerto há correto uso de ênclise, pois o verbo inicia a oração.\n\nII – Em “indivíduos macérrimos” temos um substantivo epiceno e um adjetivo no grau superlativo absoluto sintético, respectivamente.\n\nIII – macérrimo -e o aumentativo de magro.\n\nIV– No excerto, falta um acento indicativo de crase.\n\nV – Em “na periferia do mundo” temos uma preposição de lugar.",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I e II estão corretas."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas II e III estão corretas."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I, III e IV estão corretas."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas III e V estão corretas."
+        },
+        {
+          "letra": "E",
+          "texto": "Apenas IV e V estão corretas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 4",
+      "texto_base": "**Cientistas desenvolvem adesivo que pode permitir ultrassom via celular**\n\nCientistas do Instituto de Tecnologia de Massachusetts (MIT) desenvolveram adesivo capaz de realizar ultrassom. De acordo com informações de artigo publicado pela revista científica \"Science\", publicadas nessa quinta-feira, 28, o dispositivo funciona com a aderência na pele. Após a ativação, o item fornece imagens nítidas do coração, pulmões e outros órgãos internos por 48 horas.\n\nOs adesivos foram testados em voluntários e, de acordo com os resultados apresentados no artigo, foi comprovado que os dispositivos forneciam imagens em alta resolução dos principais vasos sanguíneos e órgãos mais profundos. Além disso, os itens também apresentaram forte adesão e, ainda, conseguiram registrar mudanças nos órgãos dos voluntários, à medida que eles realizavam atividades como sentar, ficar em pé e correr.\n\nA parte adesiva do dispositivo é feita de duas camadas finas de elastômero, que contam com uma faixa intermediária de hidrogel sólido, material principalmente à base de água e que transmite facilmente as ondas sonoras. Segundo o artigo, o elastômero evita a desidratação do hidrogel. Somente quando o hidrogel é altamente hidratado as ondas acústicas podem penetrar efetivamente e fornecer imagens de alta resolução dos órgãos internos\n\nOs dispositivos já podem ser aplicados em pacientes em hospitais, de forma semelhante aos adesivos utilizados em eletrocardiogramas de monitoramento cardíaco. Com a invenção, não é necessário a presença de um técnico.",
+      "texto_base_fonte": "(Lara Vieira - O Povo - 02/08/2022)",
+      "enunciado": "Considere o seguinte trecho, presente no último parágrafo do texto:\n\n“Os dispositivos **já** podem ser aplicados em pacientes em hospitais”\n\nO termo destacado é um:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Artigo"
+        },
+        {
+          "letra": "B",
+          "texto": "Advérbio"
+        },
+        {
+          "letra": "C",
+          "texto": "Pronome"
+        },
+        {
+          "letra": "D",
+          "texto": "Substantivo"
+        },
+        {
+          "letra": "E",
+          "texto": "Conjunção"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 6",
+      "texto_base": "**Cientistas desenvolvem adesivo que pode permitir ultrassom via celular**\n\nCientistas do Instituto de Tecnologia de Massachusetts (MIT) desenvolveram adesivo capaz de realizar ultrassom. De acordo com informações de artigo publicado pela revista científica \"Science\", publicadas nessa quinta-feira, 28, o dispositivo funciona com a aderência na pele. Após a ativação, o item fornece imagens nítidas do coração, pulmões e outros órgãos internos por 48 horas.\n\nOs adesivos foram testados em voluntários e, de acordo com os resultados apresentados no artigo, foi comprovado que os dispositivos forneciam imagens em alta resolução dos principais vasos sanguíneos e órgãos mais profundos. Além disso, os itens também apresentaram forte adesão e, ainda, conseguiram registrar mudanças nos órgãos dos voluntários, à medida que eles realizavam atividades como sentar, ficar em pé e correr.\n\nA parte adesiva do dispositivo é feita de duas camadas finas de elastômero, que contam com uma faixa intermediária de hidrogel sólido, material principalmente à base de água e que transmite facilmente as ondas sonoras. Segundo o artigo, o elastômero evita a desidratação do hidrogel. Somente quando o hidrogel é altamente hidratado as ondas acústicas podem penetrar efetivamente e fornecer imagens de alta resolução dos órgãos internos\n\nOs dispositivos já podem ser aplicados em pacientes em hospitais, de forma semelhante aos adesivos utilizados em eletrocardiogramas de monitoramento cardíaco. Com a invenção, não é necessário a presença de um técnico.",
+      "texto_base_fonte": "(Lara Vieira - O Povo - 02/08/2022)",
+      "enunciado": "Considere o seguinte trecho, presente no segundo parágrafo do texto:\n\n“(...) foi comprovado que os dispositivos forneciam imagens em **alta** resolução dos principais vasos sanguíneos e órgãos mais profundos.”\n\nO termo destacado é um:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Artigo"
+        },
+        {
+          "letra": "B",
+          "texto": "Advérbio"
+        },
+        {
+          "letra": "C",
+          "texto": "Pronome"
+        },
+        {
+          "letra": "D",
+          "texto": "Substantivo"
+        },
+        {
+          "letra": "E",
+          "texto": "Adjetivo"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 7",
+      "enunciado": "Indique, dentre as opções abaixo, aquela em que a palavra destacada **não** atua como **verbo** na frase:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Ele **buscou** fazer o melhor."
+        },
+        {
+          "letra": "B",
+          "texto": "Sinto falta de ouvir o seu **cantar**."
+        },
+        {
+          "letra": "C",
+          "texto": "Gosto de **dizer** a verdade."
+        },
+        {
+          "letra": "D",
+          "texto": "Podemos **resolver** as coisas!"
+        },
+        {
+          "letra": "E",
+          "texto": "Eu não **considero** tal possibilidade!"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 8",
+      "enunciado": "Indique, dentre as opções abaixo, aquela em que a palavra destacada é um **advérbio**:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Ela mora muito **longe**."
+        },
+        {
+          "letra": "B",
+          "texto": "A **solução** é muito simples."
+        },
+        {
+          "letra": "C",
+          "texto": "**Eles** não podem admitir isso."
+        },
+        {
+          "letra": "D",
+          "texto": "Tenho **cem** dólares."
+        },
+        {
+          "letra": "E",
+          "texto": "Trata-se de uma **ideia** complexa."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 9",
+      "enunciado": "Indique, dentre as opções abaixo, aquela em que a palavra destacada é um **adjetivo**:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "**Eu** sou um homem rico."
+        },
+        {
+          "letra": "B",
+          "texto": "Eu **sou** um homem rico."
+        },
+        {
+          "letra": "C",
+          "texto": "Eu sou **um** homem rico."
+        },
+        {
+          "letra": "D",
+          "texto": "Eu sou um **homem** rico."
+        },
+        {
+          "letra": "E",
+          "texto": "Eu sou um homem **rico**."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 6",
+      "texto_base": "**Serena**\n\nSerena tinha oito anos. Quando os pais de Serena começavam a brigar na mesa, ela fechava os olhos e tentava pensar em outra coisa. Pensava na sua casa de bonecas. Os pais de Serena brigavam na mesa porque era a única hora do dia em que ficavam cara a cara. No resto do dia ia cada um para o seu lado, queixar-se do outro.\n\nNa mesa, não paravam de brigar. Serena fechava os olhos.\n\n— Passa a cenoura? — disse Serena, interrompendo uma frase da mãe.\n\n— O quê? — disse a mãe de Serena, rispidamente.\n\n— Passa a cenoura?\n\n— Ora, não comece você também! — disse a mãe de Serena, e voltou a xingar o marido.\n\nSerena saiu da mesa. Foi para o seu quarto e fechou a porta. Ajoelhou-se na frente da sua casa de bonecas. A casa tinha tudo que uma casa de verdade tem, em miniatura. Moveizinhos. Tapetinhos. Um telefonezinho. Em volta da mesinha da sala de jantar da casa de bonecas estavam sentados três bonequinhos. Um pai, uma mãe e uma menina. Serena enfiou a mão na casa e tirou a menina da mesa.\n\nO pai e a mãe de Serena nem notaram que Serena não estava mais na mesa. Continuavam brigando. Foi só quando virou-se para ordenar que Serena comesse a cenoura que a mãe viu que ela não estava mais ali. E viu outra coisa. Viu que uma parede inteira da casa tinha simplesmente desaparecido.\n\nO pai de Serena viu a expressão de horror no rosto da mulher e também virou o rosto, e viu que a parede tinha desaparecido, e viu que do lado de fora da casa tinha um monstro, um monstro gigantesco vestido de criança, uma criança gigantesca, maior que a casa. E só quando o pai e a mãe de Serena pularam da mesa e se achataram contra a outra parede da sala, apavorados, se deram conta de que a criança era a Serena. Mas a Serena era maior do que eles, maior que a casa!\n\n— Meu Deus! — gritou a mãe de Serena.\n\n— Calma, calma — disse o marido.\n\n— Calma o quê? Faz alguma coisa! Telefona para a polícia. Telefona para os bombeiros!\n\nO pai de Serena correu para o telefone e tentou em vão fazer uma ligação.\n\n— Este telefone. É... É de brinquedo!\n\n— Serena! — gritou a mãe. — O que que...\n\n— Sshhh! — fez Serena de fora da casa, e o deslocamento de ar quase derrubou os dois.\n\nSerena enfiou a mão na casa, pegou a mãe e a colocou no seu lugar na mesa. Depois pegou o pai e fez a mesma coisa. Mandou que eles comessem. Em silêncio. Sorrindo, mas em silêncio. Só então ela se ergueu, saiu do seu quarto e voltou para a mesa.\n\n— Serena... — começou a dizer a mãe, ainda de olhos arregalados.\n\n— Sssh — fez Serena.\n\nE se serviu de cenouras.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Considere o excerto a seguir:\n\nO pai de Serena viu a expressão de horror no rosto da mulher e também virou o rosto, e viu que a parede tinha desaparecido, e viu **que** do lado de fora da casa tinha um monstro, um monstro gigantesco vestido de criança, uma criança gigantesca, maior **que** a casa.\n\nNas ocorrências em destaque, o vocábulo“que” desempenha, respectivamente, as funções gramaticais de:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pronome relativo e conjunção comparativa."
+        },
+        {
+          "letra": "B",
+          "texto": "conjunção causal e pronome relativo."
+        },
+        {
+          "letra": "C",
+          "texto": "conjunção integrante e pronome relativo."
+        },
+        {
+          "letra": "D",
+          "texto": "pronome relativo e pronome relativo."
+        },
+        {
+          "letra": "E",
+          "texto": "conjunção integrante e conjunção comparativa."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 7",
+      "texto_base": "**Serena**\n\nSerena tinha oito anos. Quando os pais de Serena começavam a brigar na mesa, ela fechava os olhos e tentava pensar em outra coisa. Pensava na sua casa de bonecas. Os pais de Serena brigavam na mesa porque era a única hora do dia em que ficavam cara a cara. No resto do dia ia cada um para o seu lado, queixar-se do outro.\n\nNa mesa, não paravam de brigar. Serena fechava os olhos.\n\n— Passa a cenoura? — disse Serena, interrompendo uma frase da mãe.\n\n— O quê? — disse a mãe de Serena, rispidamente.\n\n— Passa a cenoura?\n\n— Ora, não comece você também! — disse a mãe de Serena, e voltou a xingar o marido.\n\nSerena saiu da mesa. Foi para o seu quarto e fechou a porta. Ajoelhou-se na frente da sua casa de bonecas. A casa tinha tudo que uma casa de verdade tem, em miniatura. Moveizinhos. Tapetinhos. Um telefonezinho. Em volta da mesinha da sala de jantar da casa de bonecas estavam sentados três bonequinhos. Um pai, uma mãe e uma menina. Serena enfiou a mão na casa e tirou a menina da mesa.\n\nO pai e a mãe de Serena nem notaram que Serena não estava mais na mesa. Continuavam brigando. Foi só quando virou-se para ordenar que Serena comesse a cenoura que a mãe viu que ela não estava mais ali. E viu outra coisa. Viu que uma parede inteira da casa tinha simplesmente desaparecido.\n\nO pai de Serena viu a expressão de horror no rosto da mulher e também virou o rosto, e viu que a parede tinha desaparecido, e viu que do lado de fora da casa tinha um monstro, um monstro gigantesco vestido de criança, uma criança gigantesca, maior que a casa. E só quando o pai e a mãe de Serena pularam da mesa e se achataram contra a outra parede da sala, apavorados, se deram conta de que a criança era a Serena. Mas a Serena era maior do que eles, maior que a casa!\n\n— Meu Deus! — gritou a mãe de Serena.\n\n— Calma, calma — disse o marido.\n\n— Calma o quê? Faz alguma coisa! Telefona para a polícia. Telefona para os bombeiros!\n\nO pai de Serena correu para o telefone e tentou em vão fazer uma ligação.\n\n— Este telefone. É... É de brinquedo!\n\n— Serena! — gritou a mãe. — O que que...\n\n— Sshhh! — fez Serena de fora da casa, e o deslocamento de ar quase derrubou os dois.\n\nSerena enfiou a mão na casa, pegou a mãe e a colocou no seu lugar na mesa. Depois pegou o pai e fez a mesma coisa. Mandou que eles comessem. Em silêncio. Sorrindo, mas em silêncio. Só então ela se ergueu, saiu do seu quarto e voltou para a mesa.\n\n— Serena... — começou a dizer a mãe, ainda de olhos arregalados.\n\n— Sssh — fez Serena.\n\nE se serviu de cenouras.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Considere o excerto a seguir:\n\nO pai de Serena viu a expressão de horror no rosto da mulher e também virou o rosto, e viu que a parede tinha desaparecido, e viu **que** do lado de fora da casa tinha um monstro, um monstro gigantesco vestido de criança, uma criança gigantesca, maior **que** a casa.\n\nAnalise a palavra “também”, que ocorre no excerto indicado. Assinale a alternativa que a classifica corretamente do ponto de vista gramatical, bem como o valor que expressa no contexto apresentado.",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "conjunção de oposição."
+        },
+        {
+          "letra": "B",
+          "texto": "advérbio de adição."
+        },
+        {
+          "letra": "C",
+          "texto": "interjeição de surpresa."
+        },
+        {
+          "letra": "D",
+          "texto": "advérbio de ênfase."
+        },
+        {
+          "letra": "E",
+          "texto": "conjunção de adição."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 9",
+      "texto_base": "**Serena**\n\nSerena tinha oito anos. Quando os pais de Serena começavam a brigar na mesa, ela fechava os olhos e tentava pensar em outra coisa. Pensava na sua casa de bonecas. Os pais de Serena brigavam na mesa porque era a única hora do dia em que ficavam cara a cara. No resto do dia ia cada um para o seu lado, queixar-se do outro.\n\nNa mesa, não paravam de brigar. Serena fechava os olhos.\n\n— Passa a cenoura? — disse Serena, interrompendo uma frase da mãe.\n\n— O quê? — disse a mãe de Serena, rispidamente.\n\n— Passa a cenoura?\n\n— Ora, não comece você também! — disse a mãe de Serena, e voltou a xingar o marido.\n\nSerena saiu da mesa. Foi para o seu quarto e fechou a porta. Ajoelhou-se na frente da sua casa de bonecas. A casa tinha tudo que uma casa de verdade tem, em miniatura. Moveizinhos. Tapetinhos. Um telefonezinho. Em volta da mesinha da sala de jantar da casa de bonecas estavam sentados três bonequinhos. Um pai, uma mãe e uma menina. Serena enfiou a mão na casa e tirou a menina da mesa.\n\nO pai e a mãe de Serena nem notaram que Serena não estava mais na mesa. Continuavam brigando. Foi só quando virou-se para ordenar que Serena comesse a cenoura que a mãe viu que ela não estava mais ali. E viu outra coisa. Viu que uma parede inteira da casa tinha simplesmente desaparecido.\n\nO pai de Serena viu a expressão de horror no rosto da mulher e também virou o rosto, e viu que a parede tinha desaparecido, e viu que do lado de fora da casa tinha um monstro, um monstro gigantesco vestido de criança, uma criança gigantesca, maior que a casa. E só quando o pai e a mãe de Serena pularam da mesa e se achataram contra a outra parede da sala, apavorados, se deram conta de que a criança era a Serena. Mas a Serena era maior do que eles, maior que a casa!\n\n— Meu Deus! — gritou a mãe de Serena.\n\n— Calma, calma — disse o marido.\n\n— Calma o quê? Faz alguma coisa! Telefona para a polícia. Telefona para os bombeiros!\n\nO pai de Serena correu para o telefone e tentou em vão fazer uma ligação.\n\n— Este telefone. É... É de brinquedo!\n\n— Serena! — gritou a mãe. — O que que...\n\n— Sshhh! — fez Serena de fora da casa, e o deslocamento de ar quase derrubou os dois.\n\nSerena enfiou a mão na casa, pegou a mãe e a colocou no seu lugar na mesa. Depois pegou o pai e fez a mesma coisa. Mandou que eles comessem. Em silêncio. Sorrindo, mas em silêncio. Só então ela se ergueu, saiu do seu quarto e voltou para a mesa.\n\n— Serena... — começou a dizer a mãe, ainda de olhos arregalados.\n\n— Sssh — fez Serena.\n\nE se serviu de cenouras.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Considere o excerto a seguir:\n\nO pai de Serena viu a expressão de horror no rosto da mulher e também virou o rosto, e viu que a parede tinha desaparecido, e viu **que** do lado de fora da casa tinha um monstro, um monstro gigantesco vestido de criança, uma criança gigantesca, maior **que** a casa.\n\nAnalise as palavras a seguir, conforme ocorrem no excerto indicado. Considerando as funções que desempenham no excerto, admite flexão de gênero apenas:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "rosto."
+        },
+        {
+          "letra": "B",
+          "texto": "desaparecido."
+        },
+        {
+          "letra": "C",
+          "texto": "monstro."
+        },
+        {
+          "letra": "D",
+          "texto": "vestido."
+        },
+        {
+          "letra": "E",
+          "texto": "maior."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 12",
+      "enunciado": "Analise as sentenças a seguir e assinale a alternativa em que a palavra “até” é empregada como advérbio.",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A estagiária deve entregar o relatório à coordenação até amanhã."
+        },
+        {
+          "letra": "B",
+          "texto": "A criança come de tudo, vegetais, frutas, até peixe cru, sem reclamar."
+        },
+        {
+          "letra": "C",
+          "texto": "A duração de uma viagem de Campinas até São Paulo é de duas horas."
+        },
+        {
+          "letra": "D",
+          "texto": "Neste ano, as férias de verão serão até fevereiro."
+        },
+        {
+          "letra": "E",
+          "texto": "Os alunos foram até a sala do diretor para fazer uma reclamação formal."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 15",
+      "enunciado": "Analise as palavras a seguir quanto à flexão de número. Assinale a alternativa em que a palavra flexionada está incorreta, considerando o emprego do hífen e a classe gramatical à qual pertence.",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "anos-novos."
+        },
+        {
+          "letra": "B",
+          "texto": "águas-bentas."
+        },
+        {
+          "letra": "C",
+          "texto": "vices-versas."
+        },
+        {
+          "letra": "D",
+          "texto": "meio-campistas."
+        },
+        {
+          "letra": "E",
+          "texto": "secas-d’água."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 4",
+      "texto_base": "**Vermes de 46 mil anos voltam à vida após processo de descongelamento**\n\nOs seres vivos passaram por processos de criptobiose que os preservaram durante os milhares de anos. Cientistas acreditam que estudar os vermes pode ajudar a entender como proteger outros seres vivos.\n\nCientistas na Alemanha descobriram que nematoides, que são um tipo de verme, de 46 mil anos, encontrados no permafrost da Sibéria e trazidos de volta à vida após um descongelamento, pertencem a uma espécie que ainda não havia sido descrita anteriormente, a Panagrolaimus kolymaensis. O estudo foi publicado na revista PLOS Genetics e contou com pesquisadores do Instituto de Zoologia da Universidade de Colônia, do Instituto Max Planck de Biologia Celular e Genética Molecular (MPI-CBG) em Dresden e do Centro de Biologia de Sistemas de Dresden (CSBD). Em 2018, pesquisadores russos reviveram os dois nematoides, que foram congelados em uma toca fossilizada em depósitos de lodo no permafrost, uma camada de subsolo congelado. A datação por radiocarbono - um método utilizado para estimar a idade de alguns materiais de até 60 mil anos - revelou que esses nematoides estavam em criptobiose desde cerca de 46 mil anos atrás, durante o final do período geológico Pleistoceno. Criptobiose é um estado de latência em que a atividade metabólica de alguns seres vivos para, por conta de condições ambientais adversas, até que essas condições voltem à normalidade e permitam uma “volta à vida”. “Finalmente, é superfascinante ver de repente a vida, animais vivos rastejando para fora de um pedaço de solo que está congelado há 46 mil anos”, disse o Dr. Philipp Schiffer, da Universidade de Colônia. [...] Schiffer e seus colegas foram convidados a estudar os vermes recém-descongelados para determinar as espécies e analisar seu genoma. Ele e sua equipe conseguiram definir a lombriga como uma nova espécie. [...] Os pesquisadores descobriram que a desidratação leve antes do congelamento melhorou a preparação do verme para a criptobiose e aumentou a sobrevivência a -80 graus Celsius. E, como outras espécies de nematoides, produziu o açúcar trealose em nível bioquímico quando levemente desidratado em laboratório, potencialmente permitindo que resistissem ao congelamento e à desidratação intensa. “Eles construíram esse açúcar, trealose, que de alguma forma os ajuda a proteger seu DNA e proteínas enquanto estão nesse estágio de repouso”, disse Schiffer. Estudar essas criaturas, segundo o pesquisador, poderia um dia informar os esforços de conservação à medida que o clima da Terra muda. “Podemos aprender coisas que podem nos informar para talvez salvar espécies ameaçadas e pensar em medidas de proteção e todas essas coisas”. No entanto, Schiffer não viu nenhum perigo imediato de que organismos antigos descongelados pudessem abrigar patógenos perigosos. “É algo possível. E com o Covid, todos nós vimos o que pode acontecer de repente. Mas eu não diria que há um perigo iminente dessas formas trazerem algumas bactérias que de repente começam a matar humanos”, disse ele.",
+      "texto_base_fonte": "Portal G1.",
+      "enunciado": "Considere o seguinte excerto “Eles construíram esse açúcar, trealose, que de alguma forma os ajuda a proteger seu DNA”. Os pronomes “eles”, “esse” e “seu” são, respectivamente:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pronome pessoal reto, pronome demonstrativo e pronome possessivo."
+        },
+        {
+          "letra": "B",
+          "texto": "pronome pessoal reto, pronome relativo e pronome possessivo."
+        },
+        {
+          "letra": "C",
+          "texto": "pronome pessoal oblíquo, pronome demonstrativo e pronome pessoal reto."
+        },
+        {
+          "letra": "D",
+          "texto": "pronome pessoal oblíquo, pronome demonstrativo e pronome possessivo."
+        },
+        {
+          "letra": "E",
+          "texto": "pronome pessoal reto, pronome relativo e pronome pessoal oblíquo."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 7",
+      "texto_base": "**Vermes de 46 mil anos voltam à vida após processo de descongelamento**\n\nOs seres vivos passaram por processos de criptobiose que os preservaram durante os milhares de anos. Cientistas acreditam que estudar os vermes pode ajudar a entender como proteger outros seres vivos.\n\nCientistas na Alemanha descobriram que nematoides, que são um tipo de verme, de 46 mil anos, encontrados no permafrost da Sibéria e trazidos de volta à vida após um descongelamento, pertencem a uma espécie que ainda não havia sido descrita anteriormente, a Panagrolaimus kolymaensis. O estudo foi publicado na revista PLOS Genetics e contou com pesquisadores do Instituto de Zoologia da Universidade de Colônia, do Instituto Max Planck de Biologia Celular e Genética Molecular (MPI-CBG) em Dresden e do Centro de Biologia de Sistemas de Dresden (CSBD). Em 2018, pesquisadores russos reviveram os dois nematoides, que foram congelados em uma toca fossilizada em depósitos de lodo no permafrost, uma camada de subsolo congelado. A datação por radiocarbono - um método utilizado para estimar a idade de alguns materiais de até 60 mil anos - revelou que esses nematoides estavam em criptobiose desde cerca de 46 mil anos atrás, durante o final do período geológico Pleistoceno. Criptobiose é um estado de latência em que a atividade metabólica de alguns seres vivos para, por conta de condições ambientais adversas, até que essas condições voltem à normalidade e permitam uma “volta à vida”. “Finalmente, é superfascinante ver de repente a vida, animais vivos rastejando para fora de um pedaço de solo que está congelado há 46 mil anos”, disse o Dr. Philipp Schiffer, da Universidade de Colônia. [...] Schiffer e seus colegas foram convidados a estudar os vermes recém-descongelados para determinar as espécies e analisar seu genoma. Ele e sua equipe conseguiram definir a lombriga como uma nova espécie. [...] Os pesquisadores descobriram que a desidratação leve antes do congelamento melhorou a preparação do verme para a criptobiose e aumentou a sobrevivência a -80 graus Celsius. E, como outras espécies de nematoides, produziu o açúcar trealose em nível bioquímico quando levemente desidratado em laboratório, potencialmente permitindo que resistissem ao congelamento e à desidratação intensa. “Eles construíram esse açúcar, trealose, que de alguma forma os ajuda a proteger seu DNA e proteínas enquanto estão nesse estágio de repouso”, disse Schiffer. Estudar essas criaturas, segundo o pesquisador, poderia um dia informar os esforços de conservação à medida que o clima da Terra muda. “Podemos aprender coisas que podem nos informar para talvez salvar espécies ameaçadas e pensar em medidas de proteção e todas essas coisas”. No entanto, Schiffer não viu nenhum perigo imediato de que organismos antigos descongelados pudessem abrigar patógenos perigosos. “É algo possível. E com o Covid, todos nós vimos o que pode acontecer de repente. Mas eu não diria que há um perigo iminente dessas formas trazerem algumas bactérias que de repente começam a matar humanos”, disse ele.",
+      "texto_base_fonte": "Portal G1.",
+      "enunciado": "Considere o excerto “esses nematoides estavam em criptobiose desde cerca de 46 mil anos atrás”.\n\nEm relação às classes gramaticais, neste contexto, as palavras “criptobiose”, “cerca”, “de” e “atrás” são, respectivamente:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "adjetivo, substantivo, preposição e advérbio."
+        },
+        {
+          "letra": "B",
+          "texto": "substantivo, advérbio, preposição e substantivo."
+        },
+        {
+          "letra": "C",
+          "texto": "substantivo, substantivo, conjunção e advérbio."
+        },
+        {
+          "letra": "D",
+          "texto": "substantivo, advérbio, preposição e advérbio."
+        },
+        {
+          "letra": "E",
+          "texto": "adjetivo, adjetivo, conjunção e adjetivo."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 10",
+      "enunciado": "Considere as seguintes sentenças:\n\nI. Tudo está perdido.\n\nII. Para cada problema há uma solução.\n\nNas sentenças dadas, as palavras “tudo” e “cada” são, respectivamente:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "advérbio e substantivo."
+        },
+        {
+          "letra": "B",
+          "texto": "pronome indefinido e advérbio."
+        },
+        {
+          "letra": "C",
+          "texto": "substantivo e substantivo."
+        },
+        {
+          "letra": "D",
+          "texto": "substantivo e pronome indefinido."
+        },
+        {
+          "letra": "E",
+          "texto": "pronome indefinido e pronome indefinido."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 3",
+      "texto_base": "**Como tamanho e formato do crânio influenciam na longevidade de um cão**\n\nCachorros são uma das espécies animais mais diversas do ponto de vista do fenótipo (ou seja, das características morfológicas, físicas e até comportamentais). Um dos aspectos que pode variar conforme a raça é a longevidade.\n\nPensando nisso, pesquisadores analisaram dados de milhares de cachorros do Reino Unido, com o objetivo de identificar as raças que geralmente estão associadas a um menor tempo de vida. Os resultados foram publicados na revista Scientific Reports, na última quinta-feira (1º).\n\nPara realizar esse estudo, os pesquisadores utilizaram dados de mais de 580 mil cães do Reino Unido, de 150 raças. As informações dizem respeito a raça, sexo, data de nascimento e data da morte (em cerca de 280 mil casos, os cachorros já haviam morrido).\n\nOs animais foram classificados em raças puras ou mistas, seguindo as diretrizes da organização inglesa Kennel Club. Eles foram divididos de acordo com o tamanho (pequeno, médio ou grande) e o formato do crânio: braquicefálicos (com focinho achatado), mesocefálicos (com focinho médio) ou dolicocefálicos (com focinho longo).\n\nOs cálculos feitos pelos pesquisadores indicam que cachorros dolicocefálicos pequenos têm expectativa de vida mais alta no Reino Unido: 13,3 anos, em média, para machos e fêmeas. É o caso, por exemplo, de Dachshund miniatura, Pastor-de-shetland e Whippet. Já braquicefálicos de tamanho médio (como o buldogue inglês) têm menor expectativa de vida: 9,1 anos para machos e 9,6 anos para fêmeas. O artigo ainda destaca a média para outras raças comuns: Labrador (13,1 anos), Jack Russell Terrier (13,3 anos) e Cavalier King Charles Spaniel (11,8 anos). Além disso, no estudo, raças puras apresentaram expectativa de vida maior que as mistas: 12,7 anos para as puras e 12 anos para as mistas. Também foi observada uma diferença entre fêmeas (12,7 anos) e machos (12,4 anos).\n\nConduzir trabalhos científicos focados em cachorros é uma forma importante de aprimorar as discussões sobre a saúde e o bem-estar desses animais. No entanto, vale ressaltar que esses resultados são válidos no contexto do Reino Unido, como constatam os autores da pesquisa, em nota. Considerando que as raças de cachorros apresentam uma série de diferenças – quanto a morfologia, comportamento e longevidade, por exemplo –, é necessário que também sejam feitas outras pesquisas com amostras mais variadas.",
+      "texto_base_fonte": "Revista Galileu. Disponível em: https://revistagalileu.globo.com/ciencia/biologia/noticia/2024/02/como-tamanho-e-formato-do-cranio-influenciam-na-longevidade-de-um-cao.ghtml",
+      "enunciado": "Considere o excerto a seguir:\n\n“Conduzir trabalhos científicos focados em cachorros é uma forma importante de aprimorar as discussões sobre a saúde e o bem-estar desses animais. No entanto, vale ressaltar que esses resultados são válidos no contexto do Reino Unido, como constatam os autores da pesquisa, em nota.”\n\nAs palavras “desses” e “no” são classificadas gramaticalmente como contrações. Isso porque cada uma delas envolve duas palavras contraídas em uma só forma. No primeiro caso, uma palavra de uma classe gramatical “X” é contraída com um pronome demonstrativo. No segundo caso, outra palavra da mesma classe gramatical “X” é contraída com um artigo definido. Essa classe gramatical denominada “X” é:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "conjunção."
+        },
+        {
+          "letra": "B",
+          "texto": "pronome."
+        },
+        {
+          "letra": "C",
+          "texto": "preposição."
+        },
+        {
+          "letra": "D",
+          "texto": "substantivo."
+        },
+        {
+          "letra": "E",
+          "texto": "pronome."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 4",
+      "texto_base": "**Como tamanho e formato do crânio influenciam na longevidade de um cão**\n\nCachorros são uma das espécies animais mais diversas do ponto de vista do fenótipo (ou seja, das características morfológicas, físicas e até comportamentais). Um dos aspectos que pode variar conforme a raça é a longevidade.\n\nPensando nisso, pesquisadores analisaram dados de milhares de cachorros do Reino Unido, com o objetivo de identificar as raças que geralmente estão associadas a um menor tempo de vida. Os resultados foram publicados na revista Scientific Reports, na última quinta-feira (1º).\n\nPara realizar esse estudo, os pesquisadores utilizaram dados de mais de 580 mil cães do Reino Unido, de 150 raças. As informações dizem respeito a raça, sexo, data de nascimento e data da morte (em cerca de 280 mil casos, os cachorros já haviam morrido).\n\nOs animais foram classificados em raças puras ou mistas, seguindo as diretrizes da organização inglesa Kennel Club. Eles foram divididos de acordo com o tamanho (pequeno, médio ou grande) e o formato do crânio: braquicefálicos (com focinho achatado), mesocefálicos (com focinho médio) ou dolicocefálicos (com focinho longo).\n\nOs cálculos feitos pelos pesquisadores indicam que cachorros dolicocefálicos pequenos têm expectativa de vida mais alta no Reino Unido: 13,3 anos, em média, para machos e fêmeas. É o caso, por exemplo, de Dachshund miniatura, Pastor-de-shetland e Whippet. Já braquicefálicos de tamanho médio (como o buldogue inglês) têm menor expectativa de vida: 9,1 anos para machos e 9,6 anos para fêmeas. O artigo ainda destaca a média para outras raças comuns: Labrador (13,1 anos), Jack Russell Terrier (13,3 anos) e Cavalier King Charles Spaniel (11,8 anos). Além disso, no estudo, raças puras apresentaram expectativa de vida maior que as mistas: 12,7 anos para as puras e 12 anos para as mistas. Também foi observada uma diferença entre fêmeas (12,7 anos) e machos (12,4 anos).\n\nConduzir trabalhos científicos focados em cachorros é uma forma importante de aprimorar as discussões sobre a saúde e o bem-estar desses animais. No entanto, vale ressaltar que esses resultados são válidos no contexto do Reino Unido, como constatam os autores da pesquisa, em nota. Considerando que as raças de cachorros apresentam uma série de diferenças – quanto a morfologia, comportamento e longevidade, por exemplo –, é necessário que também sejam feitas outras pesquisas com amostras mais variadas.",
+      "texto_base_fonte": "Revista Galileu. Disponível em: https://revistagalileu.globo.com/ciencia/biologia/noticia/2024/02/como-tamanho-e-formato-do-cranio-influenciam-na-longevidade-de-um-cao.ghtml",
+      "enunciado": "Considere o excerto: “Cachorros são uma das espécies animais mais diversas do ponto de vista do fenótipo (ou seja, das características morfológicas, físicas e até comportamentais).”\n\nAs palavras “mais”, “ou”, “fenótipo” e “até”, que ocorrem no excerto apresentado, classificam-se gramaticalmente e respectivamente como:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "adjetivo, conjunção, adjetivo, preposição."
+        },
+        {
+          "letra": "B",
+          "texto": "adjetivo, preposição, substantivo, advérbio."
+        },
+        {
+          "letra": "C",
+          "texto": "advérbio, preposição, adjetivo, preposição."
+        },
+        {
+          "letra": "D",
+          "texto": "advérbio, conjunção, substantivo, preposição."
+        },
+        {
+          "letra": "E",
+          "texto": "advérbio, conjunção, substantivo, advérbio."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 7",
+      "texto_base": "**Como tamanho e formato do crânio influenciam na longevidade de um cão**\n\nCachorros são uma das espécies animais mais diversas do ponto de vista do fenótipo (ou seja, das características morfológicas, físicas e até comportamentais). Um dos aspectos que pode variar conforme a raça é a longevidade.\n\nPensando nisso, pesquisadores analisaram dados de milhares de cachorros do Reino Unido, com o objetivo de identificar as raças que geralmente estão associadas a um menor tempo de vida. Os resultados foram publicados na revista Scientific Reports, na última quinta-feira (1º).\n\nPara realizar esse estudo, os pesquisadores utilizaram dados de mais de 580 mil cães do Reino Unido, de 150 raças. As informações dizem respeito a raça, sexo, data de nascimento e data da morte (em cerca de 280 mil casos, os cachorros já haviam morrido).\n\nOs animais foram classificados em raças puras ou mistas, seguindo as diretrizes da organização inglesa Kennel Club. Eles foram divididos de acordo com o tamanho (pequeno, médio ou grande) e o formato do crânio: braquicefálicos (com focinho achatado), mesocefálicos (com focinho médio) ou dolicocefálicos (com focinho longo).\n\nOs cálculos feitos pelos pesquisadores indicam que cachorros dolicocefálicos pequenos têm expectativa de vida mais alta no Reino Unido: 13,3 anos, em média, para machos e fêmeas. É o caso, por exemplo, de Dachshund miniatura, Pastor-de-shetland e Whippet. Já braquicefálicos de tamanho médio (como o buldogue inglês) têm menor expectativa de vida: 9,1 anos para machos e 9,6 anos para fêmeas. O artigo ainda destaca a média para outras raças comuns: Labrador (13,1 anos), Jack Russell Terrier (13,3 anos) e Cavalier King Charles Spaniel (11,8 anos). Além disso, no estudo, raças puras apresentaram expectativa de vida maior que as mistas: 12,7 anos para as puras e 12 anos para as mistas. Também foi observada uma diferença entre fêmeas (12,7 anos) e machos (12,4 anos).\n\nConduzir trabalhos científicos focados em cachorros é uma forma importante de aprimorar as discussões sobre a saúde e o bem-estar desses animais. No entanto, vale ressaltar que esses resultados são válidos no contexto do Reino Unido, como constatam os autores da pesquisa, em nota. Considerando que as raças de cachorros apresentam uma série de diferenças – quanto a morfologia, comportamento e longevidade, por exemplo –, é necessário que também sejam feitas outras pesquisas com amostras mais variadas.",
+      "texto_base_fonte": "Revista Galileu. Disponível em: https://revistagalileu.globo.com/ciencia/biologia/noticia/2024/02/como-tamanho-e-formato-do-cranio-influenciam-na-longevidade-de-um-cao.ghtml",
+      "enunciado": "Analise as palavras compostas “quinta-feira”, “Pastor-de-shetland” e “bem-estar”, que ocorrem no texto. Aquela(s) em que, quando pluralizada(s), apenas o último elemento varia é (são):",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "quinta-feira."
+        },
+        {
+          "letra": "B",
+          "texto": "Pastor-de-shetland."
+        },
+        {
+          "letra": "C",
+          "texto": "bem-estar."
+        },
+        {
+          "letra": "D",
+          "texto": "quinta-feira e bem-estar."
+        },
+        {
+          "letra": "E",
+          "texto": "Pastor-de-shetland e quinta-feira."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 9",
+      "enunciado": "Analise as palavras a seguir e assinale a alternativa em que todas as palavras dadas flexionam em gênero e em número.",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "representante; escritor; vizinha."
+        },
+        {
+          "letra": "B",
+          "texto": "fisioterapeuta; aluno; vigia."
+        },
+        {
+          "letra": "C",
+          "texto": "trabalhador; pesquisador; mestre."
+        },
+        {
+          "letra": "D",
+          "texto": "lápis; jogador; poeta."
+        },
+        {
+          "letra": "E",
+          "texto": "planeta; professor; enxadrista."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 5",
+      "texto_base": "**Microplásticos são descobertos pela 1ª vez em vestígios arqueológicos**\n\nDezenas de partículas de plástico foram encontradas em coletas atuais e em amostras extraídas do solo na década de 1980 em dois sítios arqueológicos em York, Inglaterra\n\nNos últimos anos, uma série de estudos têm evidenciado a presença de microplásticos no oceano, no ar e até mesmo no organismo humano. Agora, pesquisadores descobriram que esses pequenos materiais estão contaminando também vestígios arqueológicos retirados do solo.\n\nUma pesquisa publicada em 1º de março na revista Science of The Total Environment identificou em coletas de solo 66 partículas de 16 tipos de polímeros de microplástico. “O que antes se acreditava serem depósitos arqueológicos puros, prontos para investigação, estão, na realidade, contaminados por plástico”, afirma em comunicado o arqueólogo John Schofield, da Universidade de York, no Reino Unido.\n\nOs microplásticos são partículas de plástico com tamanho entre 1 micrômetro (milésimo de milímetro) e 5 milímetros. A sua origem é diversa: podem estar em itens de higiene pessoal, cosméticos, garrafas PET, celulares e roupas.\n\nOs pesquisadores analisaram amostras de dois períodos: as mais antigas são datadas dos séculos 1 ou 2 e foram retiradas do solo na década de 1980, em dois sítios arqueológicos de York, a uma profundidade de mais de 7 metros. Já as demais foram coletadas na contemporaneidade em regiões próximas de onde ocorreram as escavações no passado.\n\n“Nós pensamos nos microplásticos como um fenômeno moderno, já que só temos ouvido falar deles nos últimos 20 anos”, contextualiza David Jennings, pesquisador da Universidade de York. Ele explica que há duas décadas, no ano de 2004, o professor Richard Thompson revelou que microplásticos estavam em águas marítimas desde 1960, em decorrência da grande produção de plástico após a Segunda Guerra Mundial. “Esse novo estudo mostra que as partículas se infiltraram em depósitos arqueológicos. E, como no caso dos oceanos, isso provavelmente está acontecendo há um período similar, considerando que partículas foram encontradas em amostras de solo retiradas e arquivadas em 1988, de Wellington Row, em York”, sugere Jennings. Os achados inéditos levantam questionamentos sobre o impacto dos microplásticos em materiais estudados por arqueólogos. Acredita-se que essas partículas podem afetar a química do solo e prejudicar a preservação de resquícios importantes. Assim, surge uma dúvida: será que preservar amostras arqueológicas in situ continua sendo a abordagem mais adequada? “Daqui para frente, tentaremos descobrir até que ponto essa contaminação compromete o valor de evidência desses depósitos e qual a sua importância nacional”, comenta Schofield.",
+      "texto_base_fonte": "Revista Galileu. Disponível em <https://revistagalileu.globo.com/ciencia/arqueologia/noticia/2024/03/microplasticos-sao-descobertos-pela-1a-vez-em-vestigios-arqueologicos.ghtml>",
+      "enunciado": "Considere o excerto a seguir:\n\n“Esse novo estudo mostra **que** as partículas se infiltraram em depósitos arqueológicos. E, como no caso dos oceanos, isso provavelmente está acontecendo há um período similar, considerando que partículas foram encontradas em amostras de solo retiradas e arquivadas em 1988, de Wellington Row, em York”, sugere Jennings.\n\nO vocábulo “que”, em destaque no excerto apresentado, classifica-se quanto à função gramatical que desempenha como:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "conjunção causal."
+        },
+        {
+          "letra": "B",
+          "texto": "conjunção explicativa."
+        },
+        {
+          "letra": "C",
+          "texto": "conjunção integrante."
+        },
+        {
+          "letra": "D",
+          "texto": "pronome relativo."
+        },
+        {
+          "letra": "E",
+          "texto": "preposição."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 8",
+      "enunciado": "A palavra substantiva cuja designação é abstrata é:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "equidade."
+        },
+        {
+          "letra": "B",
+          "texto": "galáxia."
+        },
+        {
+          "letra": "C",
+          "texto": "lírio."
+        },
+        {
+          "letra": "D",
+          "texto": "pó."
+        },
+        {
+          "letra": "E",
+          "texto": "farol."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 9",
+      "enunciado": "Analise as sentenças a seguir e assinale a alternativa em que o termo em destaque é um advérbio que exprime noções relacionadas a possibilidade.",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Podiam estar **muito** à frente do oponente se tivessem se preparado antes."
+        },
+        {
+          "letra": "B",
+          "texto": "Altair preferia usar massas de bolo que vinham **já** misturadas na proporção certa."
+        },
+        {
+          "letra": "C",
+          "texto": "Querer começar um novo negócio **agora** é um pouco irresponsável."
+        },
+        {
+          "letra": "D",
+          "texto": "Não esperaram a comida esfriar **sequer** por um minuto."
+        },
+        {
+          "letra": "E",
+          "texto": "Adiantou aos amigos que **talvez** não encontrassem mais ingressos para o evento."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 10",
+      "enunciado": "Dentre as palavras a seguir, aquela que é comum de dois gêneros é:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "reles."
+        },
+        {
+          "letra": "B",
+          "texto": "mestre."
+        },
+        {
+          "letra": "C",
+          "texto": "pagão."
+        },
+        {
+          "letra": "D",
+          "texto": "étnico."
+        },
+        {
+          "letra": "E",
+          "texto": "binário."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 4",
+      "texto_base": "**A ilusão da Lua no horizonte**\n\nVocê já observou a Lua nascendo ou se pondo e teve a impressão de que ela estava maior do que o normal? Todos nós experimentamos essa mesma sensação ao apreciar nosso belo satélite natural próximo ao horizonte. Essa sensação nada mais é do que um simples truque da mente humana e recebeu o nome de ilusão da Lua. Ao invés de um efeito de nossa atmosfera ou algum outro fenômeno físico, acredita-se que ela seja causada pela forma como percebemos o mundo visualmente.\n\nO fenômeno é bem documentado desde o século 4 a.C., quando o filósofo grego Aristóteles sugeriu que a atmosfera da Terra pudesse ampliar a imagem da Lua no horizonte, assim como a água pode fazer com que objetos imersos pareçam ampliados aos nossos olhos.\n\nNo século 11, o matemático árabe Ibn Al-Haytham desenvolveu a primeira teoria plausível de como a ilusão da Lua funciona, sugerindo que a diferença de tamanho tem a ver com a maneira como nossos cérebros percebem a distância e, então, como ajustamos automaticamente o tamanho aparente de um objeto para corresponder a essa percepção.\n\nApesar de todas as pessoas ao redor do mundo observarem essa ilusão há milhares de anos, ainda não existe uma explicação científica sólida sobre por que isso acontece. A maioria das respostas hoje em dia se baseia na ideia de como nosso cérebro processa a informação de distância dos objetos. Algumas hipóteses consideram, ainda, que árvores, montanhas e edifícios em primeiro plano podem ajudar a enganar o cérebro, que passa a pensar que a Lua estaria mais próxima e seria maior do que realmente é, por estar cercada por esses objetos.\n\nHá uma ilusão de ótica que demonstra bem essa ideia de tamanho relativo em comparação a elementos no entorno, chamada de ilusão de Ebbinghaus. Na imagem a seguir, o círculo central, cercado por pequenos círculos, representa a Lua no horizonte com objetos em primeiro plano, como árvores e edifícios. Já na imagem seguinte o círculo central representa a Lua no alto do céu, cercada por grandes extensões de céu. Para muitos, o segundo círculo central parece maior, mas ambos são do mesmo tamanho.\n\n[A prova reproduz aqui a figura da ilusão de Ebbinghaus — imagem de https://skyandtelescope.org/observing/moon-illusion-confusion11252015. Nenhuma questão depende dela.]\n\nPorém, essa explicação falha quando analisamos o caso dos astronautas a bordo da Estação Espacial Internacional, em órbita em torno da Terra. Eles também enxergam a ilusão da Lua, mesmo sem ter objetos em primeiro plano como indicação de distância.\n\nEntão, esse enigma ainda não foi totalmente resolvido e várias hipóteses ainda estão em discussão. Mas de uma coisa temos certeza: está tudo em nossas cabeças!",
+      "texto_base_fonte": "FONSECA, N. A ilusão da Lua no horizonte. Espaço do conhecimento. Adaptado. Disponível em: https://www.ufmg.br/espacodoconhecimento/a-ilusao-da-lua/",
+      "enunciado": "Analise o seguinte excerto: “[...] ainda não existe uma explicação científica sólida sobre por que isso acontece.” Na expressão “por que”, que ocorre no excerto dado, a palavra “que” tem função gramatical de:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pronome relativo."
+        },
+        {
+          "letra": "B",
+          "texto": "pronome demonstrativo."
+        },
+        {
+          "letra": "C",
+          "texto": "conjunção integrante."
+        },
+        {
+          "letra": "D",
+          "texto": "conjunção causal."
+        },
+        {
+          "letra": "E",
+          "texto": "advérbio."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 6",
+      "texto_base": "**A ilusão da Lua no horizonte**\n\nVocê já observou a Lua nascendo ou se pondo e teve a impressão de que ela estava maior do que o normal? Todos nós experimentamos essa mesma sensação ao apreciar nosso belo satélite natural próximo ao horizonte. Essa sensação nada mais é do que um simples truque da mente humana e recebeu o nome de ilusão da Lua. Ao invés de um efeito de nossa atmosfera ou algum outro fenômeno físico, acredita-se que ela seja causada pela forma como percebemos o mundo visualmente.\n\nO fenômeno é bem documentado desde o século 4 a.C., quando o filósofo grego Aristóteles sugeriu que a atmosfera da Terra pudesse ampliar a imagem da Lua no horizonte, assim como a água pode fazer com que objetos imersos pareçam ampliados aos nossos olhos.\n\nNo século 11, o matemático árabe Ibn Al-Haytham desenvolveu a primeira teoria plausível de como a ilusão da Lua funciona, sugerindo que a diferença de tamanho tem a ver com a maneira como nossos cérebros percebem a distância e, então, como ajustamos automaticamente o tamanho aparente de um objeto para corresponder a essa percepção.\n\nApesar de todas as pessoas ao redor do mundo observarem essa ilusão há milhares de anos, ainda não existe uma explicação científica sólida sobre por que isso acontece. A maioria das respostas hoje em dia se baseia na ideia de como nosso cérebro processa a informação de distância dos objetos. Algumas hipóteses consideram, ainda, que árvores, montanhas e edifícios em primeiro plano podem ajudar a enganar o cérebro, que passa a pensar que a Lua estaria mais próxima e seria maior do que realmente é, por estar cercada por esses objetos.\n\nHá uma ilusão de ótica que demonstra bem essa ideia de tamanho relativo em comparação a elementos no entorno, chamada de ilusão de Ebbinghaus. Na imagem a seguir, o círculo central, cercado por pequenos círculos, representa a Lua no horizonte com objetos em primeiro plano, como árvores e edifícios. Já na imagem seguinte o círculo central representa a Lua no alto do céu, cercada por grandes extensões de céu. Para muitos, o segundo círculo central parece maior, mas ambos são do mesmo tamanho.\n\n[A prova reproduz aqui a figura da ilusão de Ebbinghaus — imagem de https://skyandtelescope.org/observing/moon-illusion-confusion11252015. Nenhuma questão depende dela.]\n\nPorém, essa explicação falha quando analisamos o caso dos astronautas a bordo da Estação Espacial Internacional, em órbita em torno da Terra. Eles também enxergam a ilusão da Lua, mesmo sem ter objetos em primeiro plano como indicação de distância.\n\nEntão, esse enigma ainda não foi totalmente resolvido e várias hipóteses ainda estão em discussão. Mas de uma coisa temos certeza: está tudo em nossas cabeças!",
+      "texto_base_fonte": "FONSECA, N. A ilusão da Lua no horizonte. Espaço do conhecimento. Adaptado. Disponível em: https://www.ufmg.br/espacodoconhecimento/a-ilusao-da-lua/",
+      "enunciado": "A palavra “bem”, que ocorre no excerto “Há uma ilusão de ótica que demonstra bem essa ideia de tamanho relativo [...]” pertence à classe gramatical:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "adjetivo."
+        },
+        {
+          "letra": "B",
+          "texto": "substantivo."
+        },
+        {
+          "letra": "C",
+          "texto": "pronome indefinido."
+        },
+        {
+          "letra": "D",
+          "texto": "conjunção."
+        },
+        {
+          "letra": "E",
+          "texto": "advérbio."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 13",
+      "enunciado": "Analise os substantivos apresentados a seguir quanto às suas flexões. Aquele que apresenta **apenas** flexão de número é:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "poetisas."
+        },
+        {
+          "letra": "B",
+          "texto": "trabalhadores."
+        },
+        {
+          "letra": "C",
+          "texto": "riacho."
+        },
+        {
+          "letra": "D",
+          "texto": "gentalha."
+        },
+        {
+          "letra": "E",
+          "texto": "gerentes."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 5",
+      "texto_base": "**O olhar da truta**\n\nO homem pediu truta e o garçom perguntou se ele não gostaria de escolher uma pessoalmente.\n\n— Como, escolher?\n\n— No nosso viveiro. O senhor pode escolher a truta que quiser.\n\nEle não tinha visto o viveiro ao entrar no restaurante. Foi atrás do garçom. As trutas davam voltas e voltas dentro do aquário, como num cortejo. Algumas paravam por um instante e ficavam olhando através do vidro, depois retomavam o cortejo. E o homem se viu encarando, olho no olho, uma truta que estacionara com a boca encostada no vidro à sua frente.\n\n— Essa está bonita... — disse o garçom.\n\n— Eu não sabia que se podia escolher. Pensei que elas já estivessem mortas.\n\n— Não, nossas trutas são mortas na hora. Da água direto para a panela.\n\nA truta continuava parada contra o vidro, olhando para o homem.\n\n— Vai essa, doutor? Ela parece que está pedindo...\n\nMas o olhar da truta não era de quem queria ir direto para uma panela. Ela parecia examinar o homem. Parecia estar calculando a possibilidade de um diálogo. Estranho, pensou o homem. Nunca tive que tomar uma decisão assim. Decidir um destino, decidir entre a vida e a morte. Não era como no supermercado, em que os bichos já estavam mortos e a responsabilidade não era sua — pelo menos não diretamente. Você podia comê-los sem remorso. (...) Claro, era com sua aprovação tácita que bovinos, ovinos, suínos, caprinos, galinhas e peixes eram assassinados para lhe dar de comer. Mas você não estava presente no ato, não escolhia a vítima, não dava a ordem. (...) De certa maneira, pensou o homem, vivi sempre assim, protegido das entranhas do mundo. Sem precisar me comprometer. Sem encarar as vítimas. Mas agora era preciso escolher.\n\n— Vai essa, doutor? — insistiu o garçom.\n\n— Não sei. Eu...\n\n— Acho que foi ela que escolheu o senhor. Olha aí, ficou paradinha. Só faltando dizer “Me come”.\n\nO homem desejou que a truta deixasse de encará-lo e voltasse ao carrossel junto com as outras. Ou que pelo menos desviasse o olhar. Mas a truta continuava a fitá-lo.\n\n— Vamos — estava dizendo a truta. — Pelo menos uma vez na vida, seja decidido. Me escolha e me condene à morte, ou me deixe viver. (...) Não posso decidir a minha vida, ou a de ninguém. Mas você pode. (...) Até agora foi um protegido, um desobrigado, um isento da vida. Mas chegou a hora de se comprometer. (...)\n\n— Vai essa mesmo, doutor? — quis saber o garçom, já com a rede na mão para pegar a truta.\n\n— Não — disse o homem. — Mudei de ideia. Vou pedir outra coisa.\n\nE de volta na mesa, depois de reexaminar o cardápio, perguntou:\n\n— Esses camarões estão vivos?\n\n— Não, doutor. Os camarões estão mortos.\n\n— Pode trazer.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Considere o excerto: “Não posso decidir a minha vida, ou **a** de ninguém.” No contexto apresentado, o vocábulo “a”, em sua segunda ocorrência, desempenha o papel gramatical de:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "artigo definido."
+        },
+        {
+          "letra": "B",
+          "texto": "pronome indefinido."
+        },
+        {
+          "letra": "C",
+          "texto": "pronome demonstrativo."
+        },
+        {
+          "letra": "D",
+          "texto": "pronome pessoal oblíquo átono."
+        },
+        {
+          "letra": "E",
+          "texto": "preposição."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 6",
+      "texto_base": "**O olhar da truta**\n\nO homem pediu truta e o garçom perguntou se ele não gostaria de escolher uma pessoalmente.\n\n— Como, escolher?\n\n— No nosso viveiro. O senhor pode escolher a truta que quiser.\n\nEle não tinha visto o viveiro ao entrar no restaurante. Foi atrás do garçom. As trutas davam voltas e voltas dentro do aquário, como num cortejo. Algumas paravam por um instante e ficavam olhando através do vidro, depois retomavam o cortejo. E o homem se viu encarando, olho no olho, uma truta que estacionara com a boca encostada no vidro à sua frente.\n\n— Essa está bonita... — disse o garçom.\n\n— Eu não sabia que se podia escolher. Pensei que elas já estivessem mortas.\n\n— Não, nossas trutas são mortas na hora. Da água direto para a panela.\n\nA truta continuava parada contra o vidro, olhando para o homem.\n\n— Vai essa, doutor? Ela parece que está pedindo...\n\nMas o olhar da truta não era de quem queria ir direto para uma panela. Ela parecia examinar o homem. Parecia estar calculando a possibilidade de um diálogo. Estranho, pensou o homem. Nunca tive que tomar uma decisão assim. Decidir um destino, decidir entre a vida e a morte. Não era como no supermercado, em que os bichos já estavam mortos e a responsabilidade não era sua — pelo menos não diretamente. Você podia comê-los sem remorso. (...) Claro, era com sua aprovação tácita que bovinos, ovinos, suínos, caprinos, galinhas e peixes eram assassinados para lhe dar de comer. Mas você não estava presente no ato, não escolhia a vítima, não dava a ordem. (...) De certa maneira, pensou o homem, vivi sempre assim, protegido das entranhas do mundo. Sem precisar me comprometer. Sem encarar as vítimas. Mas agora era preciso escolher.\n\n— Vai essa, doutor? — insistiu o garçom.\n\n— Não sei. Eu...\n\n— Acho que foi ela que escolheu o senhor. Olha aí, ficou paradinha. Só faltando dizer “Me come”.\n\nO homem desejou que a truta deixasse de encará-lo e voltasse ao carrossel junto com as outras. Ou que pelo menos desviasse o olhar. Mas a truta continuava a fitá-lo.\n\n— Vamos — estava dizendo a truta. — Pelo menos uma vez na vida, seja decidido. Me escolha e me condene à morte, ou me deixe viver. (...) Não posso decidir a minha vida, ou a de ninguém. Mas você pode. (...) Até agora foi um protegido, um desobrigado, um isento da vida. Mas chegou a hora de se comprometer. (...)\n\n— Vai essa mesmo, doutor? — quis saber o garçom, já com a rede na mão para pegar a truta.\n\n— Não — disse o homem. — Mudei de ideia. Vou pedir outra coisa.\n\nE de volta na mesa, depois de reexaminar o cardápio, perguntou:\n\n— Esses camarões estão vivos?\n\n— Não, doutor. Os camarões estão mortos.\n\n— Pode trazer.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Analise os excertos a seguir e assinale a alternativa em que o vocábulo “que” desempenha a função gramatical de preposição.",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O senhor pode escolher a truta que quiser."
+        },
+        {
+          "letra": "B",
+          "texto": "— Eu não sabia que se podia escolher."
+        },
+        {
+          "letra": "C",
+          "texto": "— Acho que foi ela que escolheu o senhor."
+        },
+        {
+          "letra": "D",
+          "texto": "Nunca tive que tomar uma decisão assim."
+        },
+        {
+          "letra": "E",
+          "texto": "Ela parece que está pedindo..."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 9",
+      "texto_base": "**O olhar da truta**\n\nO homem pediu truta e o garçom perguntou se ele não gostaria de escolher uma pessoalmente.\n\n— Como, escolher?\n\n— No nosso viveiro. O senhor pode escolher a truta que quiser.\n\nEle não tinha visto o viveiro ao entrar no restaurante. Foi atrás do garçom. As trutas davam voltas e voltas dentro do aquário, como num cortejo. Algumas paravam por um instante e ficavam olhando através do vidro, depois retomavam o cortejo. E o homem se viu encarando, olho no olho, uma truta que estacionara com a boca encostada no vidro à sua frente.\n\n— Essa está bonita... — disse o garçom.\n\n— Eu não sabia que se podia escolher. Pensei que elas já estivessem mortas.\n\n— Não, nossas trutas são mortas na hora. Da água direto para a panela.\n\nA truta continuava parada contra o vidro, olhando para o homem.\n\n— Vai essa, doutor? Ela parece que está pedindo...\n\nMas o olhar da truta não era de quem queria ir direto para uma panela. Ela parecia examinar o homem. Parecia estar calculando a possibilidade de um diálogo. Estranho, pensou o homem. Nunca tive que tomar uma decisão assim. Decidir um destino, decidir entre a vida e a morte. Não era como no supermercado, em que os bichos já estavam mortos e a responsabilidade não era sua — pelo menos não diretamente. Você podia comê-los sem remorso. (...) Claro, era com sua aprovação tácita que bovinos, ovinos, suínos, caprinos, galinhas e peixes eram assassinados para lhe dar de comer. Mas você não estava presente no ato, não escolhia a vítima, não dava a ordem. (...) De certa maneira, pensou o homem, vivi sempre assim, protegido das entranhas do mundo. Sem precisar me comprometer. Sem encarar as vítimas. Mas agora era preciso escolher.\n\n— Vai essa, doutor? — insistiu o garçom.\n\n— Não sei. Eu...\n\n— Acho que foi ela que escolheu o senhor. Olha aí, ficou paradinha. Só faltando dizer “Me come”.\n\nO homem desejou que a truta deixasse de encará-lo e voltasse ao carrossel junto com as outras. Ou que pelo menos desviasse o olhar. Mas a truta continuava a fitá-lo.\n\n— Vamos — estava dizendo a truta. — Pelo menos uma vez na vida, seja decidido. Me escolha e me condene à morte, ou me deixe viver. (...) Não posso decidir a minha vida, ou a de ninguém. Mas você pode. (...) Até agora foi um protegido, um desobrigado, um isento da vida. Mas chegou a hora de se comprometer. (...)\n\n— Vai essa mesmo, doutor? — quis saber o garçom, já com a rede na mão para pegar a truta.\n\n— Não — disse o homem. — Mudei de ideia. Vou pedir outra coisa.\n\nE de volta na mesa, depois de reexaminar o cardápio, perguntou:\n\n— Esses camarões estão vivos?\n\n— Não, doutor. Os camarões estão mortos.\n\n— Pode trazer.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Considere o excerto a seguir:\n\nNão era como no supermercado, em que os bichos já estavam mortos e a responsabilidade não era sua — pelo menos não diretamente.\n\nAnalise a locução “pelo menos” e assinale a alternativa que a classifica corretamente quanto ao papel gramatical que exerce no contexto dado, bem como cada um dos elementos que a compõem.",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "locução prepositiva, formada pela contração de uma preposição com um pronome demonstrativo, e um advérbio."
+        },
+        {
+          "letra": "B",
+          "texto": "locução prepositiva, formada pela contração de uma preposição com um artigo, e um adjetivo."
+        },
+        {
+          "letra": "C",
+          "texto": "locução adjetiva, formada pela contração de uma preposição com um artigo, e um adjetivo."
+        },
+        {
+          "letra": "D",
+          "texto": "locução adverbial, formada pela contração de uma preposição com um artigo, e um substantivo."
+        },
+        {
+          "letra": "E",
+          "texto": "locução adverbial, formada pela contração de uma preposição com um pronome demonstrativo, e um substantivo."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 10",
+      "texto_base": "**O olhar da truta**\n\nO homem pediu truta e o garçom perguntou se ele não gostaria de escolher uma pessoalmente.\n\n— Como, escolher?\n\n— No nosso viveiro. O senhor pode escolher a truta que quiser.\n\nEle não tinha visto o viveiro ao entrar no restaurante. Foi atrás do garçom. As trutas davam voltas e voltas dentro do aquário, como num cortejo. Algumas paravam por um instante e ficavam olhando através do vidro, depois retomavam o cortejo. E o homem se viu encarando, olho no olho, uma truta que estacionara com a boca encostada no vidro à sua frente.\n\n— Essa está bonita... — disse o garçom.\n\n— Eu não sabia que se podia escolher. Pensei que elas já estivessem mortas.\n\n— Não, nossas trutas são mortas na hora. Da água direto para a panela.\n\nA truta continuava parada contra o vidro, olhando para o homem.\n\n— Vai essa, doutor? Ela parece que está pedindo...\n\nMas o olhar da truta não era de quem queria ir direto para uma panela. Ela parecia examinar o homem. Parecia estar calculando a possibilidade de um diálogo. Estranho, pensou o homem. Nunca tive que tomar uma decisão assim. Decidir um destino, decidir entre a vida e a morte. Não era como no supermercado, em que os bichos já estavam mortos e a responsabilidade não era sua — pelo menos não diretamente. Você podia comê-los sem remorso. (...) Claro, era com sua aprovação tácita que bovinos, ovinos, suínos, caprinos, galinhas e peixes eram assassinados para lhe dar de comer. Mas você não estava presente no ato, não escolhia a vítima, não dava a ordem. (...) De certa maneira, pensou o homem, vivi sempre assim, protegido das entranhas do mundo. Sem precisar me comprometer. Sem encarar as vítimas. Mas agora era preciso escolher.\n\n— Vai essa, doutor? — insistiu o garçom.\n\n— Não sei. Eu...\n\n— Acho que foi ela que escolheu o senhor. Olha aí, ficou paradinha. Só faltando dizer “Me come”.\n\nO homem desejou que a truta deixasse de encará-lo e voltasse ao carrossel junto com as outras. Ou que pelo menos desviasse o olhar. Mas a truta continuava a fitá-lo.\n\n— Vamos — estava dizendo a truta. — Pelo menos uma vez na vida, seja decidido. Me escolha e me condene à morte, ou me deixe viver. (...) Não posso decidir a minha vida, ou a de ninguém. Mas você pode. (...) Até agora foi um protegido, um desobrigado, um isento da vida. Mas chegou a hora de se comprometer. (...)\n\n— Vai essa mesmo, doutor? — quis saber o garçom, já com a rede na mão para pegar a truta.\n\n— Não — disse o homem. — Mudei de ideia. Vou pedir outra coisa.\n\nE de volta na mesa, depois de reexaminar o cardápio, perguntou:\n\n— Esses camarões estão vivos?\n\n— Não, doutor. Os camarões estão mortos.\n\n— Pode trazer.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Considere o excerto a seguir:\n\nNão era como no supermercado, em que os bichos já estavam mortos e a responsabilidade não era sua — pelo menos não diretamente.\n\nNo contexto apresentado, os advérbios “não”, “já” e “diretamente” exprimem, respectivamente, noções de:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "intensidade, conformidade e modo."
+        },
+        {
+          "letra": "B",
+          "texto": "dúvida, intensidade e afirmação."
+        },
+        {
+          "letra": "C",
+          "texto": "intensidade, tempo e finalidade."
+        },
+        {
+          "letra": "D",
+          "texto": "negação, afirmação e modo."
+        },
+        {
+          "letra": "E",
+          "texto": "negação, tempo e modo."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 13",
+      "enunciado": "Analise as sentenças a seguir e assinale a alternativa em que o adjetivo em destaque não é relativo ao respectivo substantivo entre parênteses posto ao fim da sentença.",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Da janela, avistam-se montanhas **frígidas** e distantes. (frio)"
+        },
+        {
+          "letra": "B",
+          "texto": "Fez as análises por eletrólise **ígnea**. (fogo)"
+        },
+        {
+          "letra": "C",
+          "texto": "As peças de seda vinham **amagotadas** no caminhão. (âmago)"
+        },
+        {
+          "letra": "D",
+          "texto": "Seu aspecto **varonil** não se perdeu com o tempo. (varão)"
+        },
+        {
+          "letra": "E",
+          "texto": "O governo tomou ações favoráveis à indústria **bélica**. (guerra)"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 5",
+      "texto_base": "**Da solidão**\n\nSequioso de escrever um poema que exprimisse a maior dor do mundo, Poe chegou, por exclusão, à ideia da morte da mulher amada. Nada lhe pareceu mais definitivamente doloroso. Assim nasceu “O corvo”: o pássaro agoureiro a repetir ao homem sozinho em sua saudade a pungente litania do “nunca mais”.\n\nSerá esta a maior das solidões? Realmente, o que pode existir de pior que a impossibilidade de arrancar à morte o seu amado, que fez Orfeu descer aos Infernos em busca de Eurídice e acabou por lhe calar a lira mágica? Distante, separado, prisioneiro, ainda pode aquele que ama alimentar sua paixão com o sentimento de que o objeto amado está vivo. Morto este, só lhe restam dois caminhos: o suicídio, físico ou moral, ou uma fé qualquer. E como tal fé constitui uma possibilidade — que outra coisa é a Divina comédia para Dante senão a morte de Beatriz? — cabe uma consideração também dolorosa: a solidão que a morte da mulher amada deixa não é, porquanto absoluta, a maior solidão.\n\nQual será maior então? Os grandes momentos de solidão, a de Jó, a de Cristo no Horto, tinham a exaltá-la uma fé. A solidão de Carlitos, naquela incrível imagem em que ele aparece na eterna esquina, no final de Luzes da cidade, tinha a justificá-la o sacrifício feito pela mulher amada. Penso com mais frio n’alma na solidão dos últimos dias do pintor Toulouse-Lautrec, em seu leito de moribundo, lúcido, fechado em si mesmo, e no duro olhar de ódio que deitou ao pai, segundos antes de morrer, como a culpá-lo de o ter gerado um monstro. Penso com mais frio n’alma ainda na solidão total dos poucos minutos que terão restado ao poeta Hart Crane, quando, no auge da neurastenia, depois de se ter jogado ao mar, numa viagem de regresso do México para os Estados Unidos, viu sobre si mesmo a imensa noite do oceano imenso à sua volta, e ao longe as luzes do navio que se afastava. O que se terão dito o poeta e a eternidade nesses poucos instantes em que ele, quem sabe banhado de poesia total, boiou a esmo sobre a negra massa líquida, à espera do abandono?\n\nSolidão inenarrável, quem sabe povoada de beleza... Mas será ela, também, a maior solidão? A solidão do poeta Rilke, quando, na alta escarpa sobre o Adriático, ouviu no vento a música do primeiro verso que desencadeou as Elegias de Duino, será ela a maior solidão?\n\nNão, a maior solidão é a do ser que não ama. A maior solidão é a do ser que se ausenta, que se defende, que se fecha, que se recusa a participar da vida humana. A maior solidão é a do homem encerrado em si mesmo, no absoluto de si mesmo, e que não dá a quem pede o que ele pode dar de amor, de amizade, de socorro. O maior solitário é o que tem medo de amar, o que tem medo de ferir e de ferir-se, o ser casto da mulher, do amigo, do povo, do mundo. Esse queima como uma lâmpada triste, cujo reflexo entristece também tudo em torno. Ele é a angústia do mundo que o reflete. Ele é o que se recusa às verdadeiras fontes da emoção, as que são o patrimônio de todos e, encerrado em seu duro privilégio, semeia pedras do alto da sua fria e desolada torre.",
+      "texto_base_fonte": "MORAES, V. Da solidão. In: MORAES, V. Para viver um grande amor. 6ª ed., Sabiá, 1962, p. 182-183. Disponível em <https://cronicabrasileira.org.br/cronicas/19895/da-solidao>.",
+      "enunciado": "Na sentença “Não, a maior solidão é a do ser que não ama”, é (são) substantivo(s) apenas:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“solidão”."
+        },
+        {
+          "letra": "B",
+          "texto": "“ser”."
+        },
+        {
+          "letra": "C",
+          "texto": "“não”; “maior”."
+        },
+        {
+          "letra": "D",
+          "texto": "“solidão”; “ser”."
+        },
+        {
+          "letra": "E",
+          "texto": "“maior”; “solidão”."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 8",
+      "enunciado": "As palavras em destaque nas sentenças a seguir recebem uma classificação gramatical, apresentada entre parênteses. Avalie-as e assinale a alternativa em que a classificação proposta está incorreta.",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Lamento por tudo **o** que tem passado. (pronome)"
+        },
+        {
+          "letra": "B",
+          "texto": "A diretora da escola se posicionou **contra** a fala do professor. (preposição)"
+        },
+        {
+          "letra": "C",
+          "texto": "**Todos** que estavam presentes votaram na enquete. (adjetivo)"
+        },
+        {
+          "letra": "D",
+          "texto": "O casal está hospedado no **terceiro** andar. (numeral)"
+        },
+        {
+          "letra": "E",
+          "texto": "Compraram salgadinhos **e** doces para o aniversário. (conjunção)"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "_leia_me": "A única questão de análise sintática que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Análise sintática”.\n\nUma questão só. A banca quase não cobra análise sintática isolada; ela aparece embutida em regência, pontuação e colocação pronominal.\n\nDe onde vêm: Prefeitura de Juquitiba 2024 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n1 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Análise sintática",
+    "ordem": 11
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 4",
+      "texto_base": "**Microplásticos são descobertos pela 1ª vez em vestígios arqueológicos**\n\nDezenas de partículas de plástico foram encontradas em coletas atuais e em amostras extraídas do solo na década de 1980 em dois sítios arqueológicos em York, Inglaterra\n\nNos últimos anos, uma série de estudos têm evidenciado a presença de microplásticos no oceano, no ar e até mesmo no organismo humano. Agora, pesquisadores descobriram que esses pequenos materiais estão contaminando também vestígios arqueológicos retirados do solo.\n\nUma pesquisa publicada em 1º de março na revista Science of The Total Environment identificou em coletas de solo 66 partículas de 16 tipos de polímeros de microplástico. “O que antes se acreditava serem depósitos arqueológicos puros, prontos para investigação, estão, na realidade, contaminados por plástico”, afirma em comunicado o arqueólogo John Schofield, da Universidade de York, no Reino Unido.\n\nOs microplásticos são partículas de plástico com tamanho entre 1 micrômetro (milésimo de milímetro) e 5 milímetros. A sua origem é diversa: podem estar em itens de higiene pessoal, cosméticos, garrafas PET, celulares e roupas.\n\nOs pesquisadores analisaram amostras de dois períodos: as mais antigas são datadas dos séculos 1 ou 2 e foram retiradas do solo na década de 1980, em dois sítios arqueológicos de York, a uma profundidade de mais de 7 metros. Já as demais foram coletadas na contemporaneidade em regiões próximas de onde ocorreram as escavações no passado.\n\n“Nós pensamos nos microplásticos como um fenômeno moderno, já que só temos ouvido falar deles nos últimos 20 anos”, contextualiza David Jennings, pesquisador da Universidade de York. Ele explica que há duas décadas, no ano de 2004, o professor Richard Thompson revelou que microplásticos estavam em águas marítimas desde 1960, em decorrência da grande produção de plástico após a Segunda Guerra Mundial. “Esse novo estudo mostra que as partículas se infiltraram em depósitos arqueológicos. E, como no caso dos oceanos, isso provavelmente está acontecendo há um período similar, considerando que partículas foram encontradas em amostras de solo retiradas e arquivadas em 1988, de Wellington Row, em York”, sugere Jennings. Os achados inéditos levantam questionamentos sobre o impacto dos microplásticos em materiais estudados por arqueólogos. Acredita-se que essas partículas podem afetar a química do solo e prejudicar a preservação de resquícios importantes. Assim, surge uma dúvida: será que preservar amostras arqueológicas in situ continua sendo a abordagem mais adequada? “Daqui para frente, tentaremos descobrir até que ponto essa contaminação compromete o valor de evidência desses depósitos e qual a sua importância nacional”, comenta Schofield.",
+      "texto_base_fonte": "Revista Galileu. Disponível em <https://revistagalileu.globo.com/ciencia/arqueologia/noticia/2024/03/microplasticos-sao-descobertos-pela-1a-vez-em-vestigios-arqueologicos.ghtml>",
+      "enunciado": "Considere o excerto a seguir:\n\n“Esse novo estudo mostra **que** as partículas se infiltraram em depósitos arqueológicos. E, como no caso dos oceanos, isso provavelmente está acontecendo há um período similar, considerando que partículas foram encontradas em amostras de solo retiradas e arquivadas em 1988, de Wellington Row, em York”, sugere Jennings.\n\nNo contexto apresentado, o elemento com o qual o verbo “infiltraram” concorda, que atua, portanto, como sujeito da oração em que ocorre, é:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“novo estudo”."
+        },
+        {
+          "letra": "B",
+          "texto": "“as partículas”."
+        },
+        {
+          "letra": "C",
+          "texto": "“as partículas se”."
+        },
+        {
+          "letra": "D",
+          "texto": "“depósitos arqueológicos”."
+        },
+        {
+          "letra": "E",
+          "texto": "“se”."
+        }
+      ]
+    }
+  ]
+}

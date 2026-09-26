@@ -1,0 +1,191 @@
+{
+  "_leia_me": "As 6 questões de concordância verbal e nominal que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Concordância verbal e nominal”.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (1), Câmara de Taboão da Serra 2022 (1), Prefeitura de Americana 2022 (1), Prefeitura de Amparo 2022 (2), Prefeitura de Rio Claro 2026 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n1 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Concordância verbal e nominal",
+    "ordem": 10
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 8",
+      "enunciado": "Analise os itens abaixo e, em seguida, assinale a alternativa correta:\n\nI – Em “Fazem dez anos que eu não vejo a maioria dos meus familiares.” há incorreta concordância verbal.\n\nII – Em “Seguem anexos os documentos ao e-mail.” há incorreta concordância nominal.\n\nIII – Em “paciência é necessário, mas eu não tenho.” há correta concordância nominal.\n\nIV – Em “A multidão de fãs invadiu o palco.” há correta concordância verbal.",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I e II estão corretas."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas II e III estão corretas."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas III e IV estão corretas."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas I, III e IV estão corretas."
+        },
+        {
+          "letra": "E",
+          "texto": "Apenas II, III e IV estão corretas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 5",
+      "texto_base": "**Cientistas desenvolvem adesivo que pode permitir ultrassom via celular**\n\nCientistas do Instituto de Tecnologia de Massachusetts (MIT) desenvolveram adesivo capaz de realizar ultrassom. De acordo com informações de artigo publicado pela revista científica \"Science\", publicadas nessa quinta-feira, 28, o dispositivo funciona com a aderência na pele. Após a ativação, o item fornece imagens nítidas do coração, pulmões e outros órgãos internos por 48 horas.\n\nOs adesivos foram testados em voluntários e, de acordo com os resultados apresentados no artigo, foi comprovado que os dispositivos forneciam imagens em alta resolução dos principais vasos sanguíneos e órgãos mais profundos. Além disso, os itens também apresentaram forte adesão e, ainda, conseguiram registrar mudanças nos órgãos dos voluntários, à medida que eles realizavam atividades como sentar, ficar em pé e correr.\n\nA parte adesiva do dispositivo é feita de duas camadas finas de elastômero, que contam com uma faixa intermediária de hidrogel sólido, material principalmente à base de água e que transmite facilmente as ondas sonoras. Segundo o artigo, o elastômero evita a desidratação do hidrogel. Somente quando o hidrogel é altamente hidratado as ondas acústicas podem penetrar efetivamente e fornecer imagens de alta resolução dos órgãos internos\n\nOs dispositivos já podem ser aplicados em pacientes em hospitais, de forma semelhante aos adesivos utilizados em eletrocardiogramas de monitoramento cardíaco. Com a invenção, não é necessário a presença de um técnico.",
+      "texto_base_fonte": "(Lara Vieira - O Povo - 02/08/2022)",
+      "enunciado": "Considere o seguinte excerto, presente no último parágrafo do texto:\n\n“Com a invenção, não é necessário a presença de um técnico.”\n\nIndique a opção **correta**:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Não há erros de ortografia ou gramática no trecho em questão."
+        },
+        {
+          "letra": "B",
+          "texto": "O gênero de “necessário” está corretamente aplicado, pois tal adjetivo, quando usado com função predicativa e anteposto ao sujeito, fica invariável, no masculino singular."
+        },
+        {
+          "letra": "C",
+          "texto": "O gênero de “necessário” está incorretamente aplicado, pois, como houve a determinação do sujeito por um artigo definido, o adjetivo deveria concordar com “presença”."
+        },
+        {
+          "letra": "D",
+          "texto": "No que diz respeito à gramática e à ortografia, a frase está incorreta por não explicar a razão pela qual a afirmação é feita."
+        },
+        {
+          "letra": "E",
+          "texto": "No que diz respeito à gramática e à ortografia, a frase não teria erros se, ao invés de “necessário” e “presença”, fossem usados os termos “exigido” e “atuação”, que são os corretos."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 10",
+      "enunciado": "Indique a frase escrita **corretamente**:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A gente somos pessoas boas."
+        },
+        {
+          "letra": "B",
+          "texto": "Preocupo-me bastante."
+        },
+        {
+          "letra": "C",
+          "texto": "Nós foi lá falar com eles."
+        },
+        {
+          "letra": "D",
+          "texto": "Houveram muitos problemas."
+        },
+        {
+          "letra": "E",
+          "texto": "Temos duas amigas incomum."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 9",
+      "enunciado": "Assinale a alternativa que apresenta a sentença incorreta em relação à concordância verbal ou nominal.",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A pasta e o envelope foram entregues à supervisora."
+        },
+        {
+          "letra": "B",
+          "texto": "É proibido a entrada de animais neste local."
+        },
+        {
+          "letra": "C",
+          "texto": "Sua beleza e simpatia a tornam mais bonita."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas 1/3 dos convidados compareceu ao espetáculo."
+        },
+        {
+          "letra": "E",
+          "texto": "Nenhum de nós merece tal arrogância."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 6 · transcrita por OCR do PDF escaneado",
+      "enunciado": "Assinale a alternativa cuja forma verbal destacada apresenta concordância de acordo com os casos previstos pela norma-padrão.",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "**Vende**-se vários apartamentos a preços populares naquela cidade."
+        },
+        {
+          "letra": "B",
+          "texto": "A lista de mercadorias entregues na loja **vieram** com erros de informação."
+        },
+        {
+          "letra": "C",
+          "texto": "**São** meio-dia dia e vinte minutos, de acordo com o relógio da matriz central."
+        },
+        {
+          "letra": "D",
+          "texto": "**Precisa**-se de máquinas e equipamentos para terminar a obra dentro do prazo."
+        },
+        {
+          "letra": "E",
+          "texto": "Um quinto da população da cidade **foram** ao evento no estádio municipal."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 8",
+      "enunciado": "Em relação aos aspectos de concordância nominal, assinale a alternativa correta:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Era proibida entrada de menores no estabelecimento."
+        },
+        {
+          "letra": "B",
+          "texto": "Escolhemos estampas o mais belas possíveis."
+        },
+        {
+          "letra": "C",
+          "texto": "A porta estava meia aberta quando cheguei à sala de aula."
+        },
+        {
+          "letra": "D",
+          "texto": "Seguem anexas ao e-mail as propostas de compra e venda do imóvel."
+        },
+        {
+          "letra": "E",
+          "texto": "Compramos bastante livros na feira literária."
+        }
+      ]
+    }
+  ]
+}

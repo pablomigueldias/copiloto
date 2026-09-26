@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "react";
 
-import { Enunciado } from "@/components/Enunciado";
+import { Enunciado, TextoMarcado } from "@/components/Enunciado";
 import { Icone } from "@/components/icones";
 import { ImagemQuestao } from "@/components/ImagemQuestao";
 import { Erro, Vazio, dataLonga } from "@/components/ui";
@@ -73,7 +73,9 @@ function Alternativa({
       >
         {letra}
       </span>
-      <span className="min-w-0 flex-1 leading-[1.5]">{texto}</span>
+      <span className="min-w-0 flex-1 leading-[1.5]">
+        <TextoMarcado texto={texto} />
+      </span>
       {rotulo && (
         <span
           className={`mt-px flex-none text-[11px] ${

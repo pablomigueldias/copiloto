@@ -1,0 +1,367 @@
+{
+  "_leia_me": "As 12 questões de ortografia e acentuação que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Ortografia”.\n\nO edital diz só “Ortografia”; aqui entram também acentuação, tonicidade, hífen, encontro vocálico e os pares mau/mal e onde/aonde, que a banca cobra como desvio de grafia.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (1), Câmara de Taboão da Serra 2022 (1), Prefeitura de Caçapava 2024 (2), Prefeitura de Itatiba 2024 (1), Prefeitura de Juquitiba 2024 (2), Prefeitura de Paraty 2024 (3), Prefeitura de Rio Claro 2026 (1), Universidade de Taubaté 2025 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n2 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Ortografia e acentuação",
+    "ordem": 5
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 10",
+      "enunciado": "Analise as sentenças a seguir e assinale a alternativa em que se verifica desvio ortográfico.",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Hoje de manhã, ela compareceu ao exame admissional da empresa."
+        },
+        {
+          "letra": "B",
+          "texto": "A recisão do contrato será analisada pelo advogado."
+        },
+        {
+          "letra": "C",
+          "texto": "De longe se via o esvaecimento da névoa no horizonte."
+        },
+        {
+          "letra": "D",
+          "texto": "Saiba que será julgado por tamanha devassidão."
+        },
+        {
+          "letra": "E",
+          "texto": "Endividou-se com tantas compras no cartão de crédito."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 11",
+      "enunciado": "Considere as sentenças a seguir, cujas lacunas se preenchem ora por mau, ora por mal:\n\nI. …. posso esperar para que possamos nos encontrar novamente.\n\nII. É conhecida por ter um …. gênio.\n\nIII. O adolescente estava indo …. na escola.\n\nAssinale a alternativa que preenche correta e respectivamente cada uma das lacunas das sentenças apresentadas.",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "mal; mau; mal."
+        },
+        {
+          "letra": "B",
+          "texto": "mal; mal; mal."
+        },
+        {
+          "letra": "C",
+          "texto": "mau; mal; mal."
+        },
+        {
+          "letra": "D",
+          "texto": "mal; mau; mau."
+        },
+        {
+          "letra": "E",
+          "texto": "mau; mal; mau."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 8",
+      "enunciado": "Assinale a alternativa que apresenta a palavra correta ortograficamente.",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "indoeuropeu."
+        },
+        {
+          "letra": "B",
+          "texto": "interracial."
+        },
+        {
+          "letra": "C",
+          "texto": "microondas."
+        },
+        {
+          "letra": "D",
+          "texto": "ultrahumano."
+        },
+        {
+          "letra": "E",
+          "texto": "subárea."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 10",
+      "enunciado": "Analise as sentenças a seguir e assinale a alternativa em que não ocorre desvio ortográfico ou gramatical.",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A atitude de Valéria foi muito desrespeitosa ao meu ver."
+        },
+        {
+          "letra": "B",
+          "texto": "Nelson sentiu muito pela perca de seu pai."
+        },
+        {
+          "letra": "C",
+          "texto": "Na brincadeira das meninas, uma maqueia a outra para um concurso de dança."
+        },
+        {
+          "letra": "D",
+          "texto": "Os guardas-civis foram convocados para o evento da prefeitura."
+        },
+        {
+          "letra": "E",
+          "texto": "Fotografamos vários botos-cores-de-rosa durante a viagem à Amazônia."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 6",
+      "enunciado": "A palavra “exequível” é paroxítona e polissílaba. Uma palavra que tem exatamente a mesma tonicidade e quantidade de sílabas é:",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "esquelético."
+        },
+        {
+          "letra": "B",
+          "texto": "inexorável."
+        },
+        {
+          "letra": "C",
+          "texto": "inóspito."
+        },
+        {
+          "letra": "D",
+          "texto": "frutescente."
+        },
+        {
+          "letra": "E",
+          "texto": "polímero."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 7",
+      "enunciado": "Dentre as palavras a seguir, aquela em que ocorre emprego incorreto do hífen é:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "cobra-d’água."
+        },
+        {
+          "letra": "B",
+          "texto": "pré-vestibular."
+        },
+        {
+          "letra": "C",
+          "texto": "auto-eficácia."
+        },
+        {
+          "letra": "D",
+          "texto": "sub-região."
+        },
+        {
+          "letra": "E",
+          "texto": "vice-diretor."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 5",
+      "texto_base": "**A ilusão da Lua no horizonte**\n\nVocê já observou a Lua nascendo ou se pondo e teve a impressão de que ela estava maior do que o normal? Todos nós experimentamos essa mesma sensação ao apreciar nosso belo satélite natural próximo ao horizonte. Essa sensação nada mais é do que um simples truque da mente humana e recebeu o nome de ilusão da Lua. Ao invés de um efeito de nossa atmosfera ou algum outro fenômeno físico, acredita-se que ela seja causada pela forma como percebemos o mundo visualmente.\n\nO fenômeno é bem documentado desde o século 4 a.C., quando o filósofo grego Aristóteles sugeriu que a atmosfera da Terra pudesse ampliar a imagem da Lua no horizonte, assim como a água pode fazer com que objetos imersos pareçam ampliados aos nossos olhos.\n\nNo século 11, o matemático árabe Ibn Al-Haytham desenvolveu a primeira teoria plausível de como a ilusão da Lua funciona, sugerindo que a diferença de tamanho tem a ver com a maneira como nossos cérebros percebem a distância e, então, como ajustamos automaticamente o tamanho aparente de um objeto para corresponder a essa percepção.\n\nApesar de todas as pessoas ao redor do mundo observarem essa ilusão há milhares de anos, ainda não existe uma explicação científica sólida sobre por que isso acontece. A maioria das respostas hoje em dia se baseia na ideia de como nosso cérebro processa a informação de distância dos objetos. Algumas hipóteses consideram, ainda, que árvores, montanhas e edifícios em primeiro plano podem ajudar a enganar o cérebro, que passa a pensar que a Lua estaria mais próxima e seria maior do que realmente é, por estar cercada por esses objetos.\n\nHá uma ilusão de ótica que demonstra bem essa ideia de tamanho relativo em comparação a elementos no entorno, chamada de ilusão de Ebbinghaus. Na imagem a seguir, o círculo central, cercado por pequenos círculos, representa a Lua no horizonte com objetos em primeiro plano, como árvores e edifícios. Já na imagem seguinte o círculo central representa a Lua no alto do céu, cercada por grandes extensões de céu. Para muitos, o segundo círculo central parece maior, mas ambos são do mesmo tamanho.\n\n[A prova reproduz aqui a figura da ilusão de Ebbinghaus — imagem de https://skyandtelescope.org/observing/moon-illusion-confusion11252015. Nenhuma questão depende dela.]\n\nPorém, essa explicação falha quando analisamos o caso dos astronautas a bordo da Estação Espacial Internacional, em órbita em torno da Terra. Eles também enxergam a ilusão da Lua, mesmo sem ter objetos em primeiro plano como indicação de distância.\n\nEntão, esse enigma ainda não foi totalmente resolvido e várias hipóteses ainda estão em discussão. Mas de uma coisa temos certeza: está tudo em nossas cabeças!",
+      "texto_base_fonte": "FONSECA, N. A ilusão da Lua no horizonte. Espaço do conhecimento. Adaptado. Disponível em: https://www.ufmg.br/espacodoconhecimento/a-ilusao-da-lua/",
+      "enunciado": "O tipo de encontro vocálico que ocorre na palavra “efeito”, retirada do texto apresentado, é o mesmo que ocorre em:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "ága."
+        },
+        {
+          "letra": "B",
+          "texto": "várias."
+        },
+        {
+          "letra": "C",
+          "texto": "distância."
+        },
+        {
+          "letra": "D",
+          "texto": "internacional."
+        },
+        {
+          "letra": "E",
+          "texto": "outro."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 14",
+      "enunciado": "Dentre as palavras a seguir, é paroxítona apenas:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "vazio."
+        },
+        {
+          "letra": "B",
+          "texto": "azul."
+        },
+        {
+          "letra": "C",
+          "texto": "lático."
+        },
+        {
+          "letra": "D",
+          "texto": "solar."
+        },
+        {
+          "letra": "E",
+          "texto": "carimbó."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 15",
+      "enunciado": "Nas sentenças a seguir ocorrem diferentes tipos de desvios, segundo a norma-padrão da língua portuguesa. Identifique-os e assinale a alternativa em que o desvio apresentado é apenas de natureza ortográfica.",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Não sei porquê você não gostou do evento."
+        },
+        {
+          "letra": "B",
+          "texto": "Estes documentos requerem uma rúbrica em cada página."
+        },
+        {
+          "letra": "C",
+          "texto": "Eu ajudaria-lhe se tivesse me contado sobre isso."
+        },
+        {
+          "letra": "D",
+          "texto": "Os rapazes fizeram ele se sentir mal com o comentário."
+        },
+        {
+          "letra": "E",
+          "texto": "Quando ver Ana por aí, diga que estou a procurando."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 9 · transcrita por OCR do PDF escaneado",
+      "enunciado": "Assinale a alternativa cuja palavra destacada está sendo empregada corretamente.",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "**Aonde** você está morando atualmente?"
+        },
+        {
+          "letra": "B",
+          "texto": "Quero saber **onde** está o xis da questão."
+        },
+        {
+          "letra": "C",
+          "texto": "Diga-me **aonde** está a minha caneta."
+        },
+        {
+          "letra": "D",
+          "texto": "Eu paro sempre **aonde** fico cansado."
+        },
+        {
+          "letra": "E",
+          "texto": "**Onde** você for, eu vou com você."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 9",
+      "enunciado": "O vocábulo corretamente grafado está presente na alternativa:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Pretencioso."
+        },
+        {
+          "letra": "B",
+          "texto": "Inadmiscível."
+        },
+        {
+          "letra": "C",
+          "texto": "Sisudez."
+        },
+        {
+          "letra": "D",
+          "texto": "Enxarcado."
+        },
+        {
+          "letra": "E",
+          "texto": "Xávena."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 6",
+      "texto_base": "**Da solidão**\n\nSequioso de escrever um poema que exprimisse a maior dor do mundo, Poe chegou, por exclusão, à ideia da morte da mulher amada. Nada lhe pareceu mais definitivamente doloroso. Assim nasceu “O corvo”: o pássaro agoureiro a repetir ao homem sozinho em sua saudade a pungente litania do “nunca mais”.\n\nSerá esta a maior das solidões? Realmente, o que pode existir de pior que a impossibilidade de arrancar à morte o seu amado, que fez Orfeu descer aos Infernos em busca de Eurídice e acabou por lhe calar a lira mágica? Distante, separado, prisioneiro, ainda pode aquele que ama alimentar sua paixão com o sentimento de que o objeto amado está vivo. Morto este, só lhe restam dois caminhos: o suicídio, físico ou moral, ou uma fé qualquer. E como tal fé constitui uma possibilidade — que outra coisa é a Divina comédia para Dante senão a morte de Beatriz? — cabe uma consideração também dolorosa: a solidão que a morte da mulher amada deixa não é, porquanto absoluta, a maior solidão.\n\nQual será maior então? Os grandes momentos de solidão, a de Jó, a de Cristo no Horto, tinham a exaltá-la uma fé. A solidão de Carlitos, naquela incrível imagem em que ele aparece na eterna esquina, no final de Luzes da cidade, tinha a justificá-la o sacrifício feito pela mulher amada. Penso com mais frio n’alma na solidão dos últimos dias do pintor Toulouse-Lautrec, em seu leito de moribundo, lúcido, fechado em si mesmo, e no duro olhar de ódio que deitou ao pai, segundos antes de morrer, como a culpá-lo de o ter gerado um monstro. Penso com mais frio n’alma ainda na solidão total dos poucos minutos que terão restado ao poeta Hart Crane, quando, no auge da neurastenia, depois de se ter jogado ao mar, numa viagem de regresso do México para os Estados Unidos, viu sobre si mesmo a imensa noite do oceano imenso à sua volta, e ao longe as luzes do navio que se afastava. O que se terão dito o poeta e a eternidade nesses poucos instantes em que ele, quem sabe banhado de poesia total, boiou a esmo sobre a negra massa líquida, à espera do abandono?\n\nSolidão inenarrável, quem sabe povoada de beleza... Mas será ela, também, a maior solidão? A solidão do poeta Rilke, quando, na alta escarpa sobre o Adriático, ouviu no vento a música do primeiro verso que desencadeou as Elegias de Duino, será ela a maior solidão?\n\nNão, a maior solidão é a do ser que não ama. A maior solidão é a do ser que se ausenta, que se defende, que se fecha, que se recusa a participar da vida humana. A maior solidão é a do homem encerrado em si mesmo, no absoluto de si mesmo, e que não dá a quem pede o que ele pode dar de amor, de amizade, de socorro. O maior solitário é o que tem medo de amar, o que tem medo de ferir e de ferir-se, o ser casto da mulher, do amigo, do povo, do mundo. Esse queima como uma lâmpada triste, cujo reflexo entristece também tudo em torno. Ele é a angústia do mundo que o reflete. Ele é o que se recusa às verdadeiras fontes da emoção, as que são o patrimônio de todos e, encerrado em seu duro privilégio, semeia pedras do alto da sua fria e desolada torre.",
+      "texto_base_fonte": "MORAES, V. Da solidão. In: MORAES, V. Para viver um grande amor. 6ª ed., Sabiá, 1962, p. 182-183. Disponível em <https://cronicabrasileira.org.br/cronicas/19895/da-solidao>.",
+      "enunciado": "Todas as palavras a seguir, que ocorrem no texto, são paroxítonas, **exceto**:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“eternidade”."
+        },
+        {
+          "letra": "B",
+          "texto": "“poeta”."
+        },
+        {
+          "letra": "C",
+          "texto": "“inenarrável”."
+        },
+        {
+          "letra": "D",
+          "texto": "“oceano”."
+        },
+        {
+          "letra": "E",
+          "texto": "“líquida”."
+        }
+      ]
+    }
+  ]
+}

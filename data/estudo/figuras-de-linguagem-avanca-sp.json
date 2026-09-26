@@ -1,0 +1,77 @@
+{
+  "_leia_me": "As 2 questões de figuras de linguagem que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Figuras de Linguagem”.\n\nDe onde vêm: Prefeitura de Americana 2022 (1), Prefeitura de Rio Claro 2026 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n2 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Figuras de linguagem",
+    "ordem": 4
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 4",
+      "texto_base": "**A grama do vizinho**\n\nAo amadurecer, descobrimos que a grama do vizinho não é mais verde coisíssima nenhuma.\n\nEstamos todos no mesmo barco.\n\nHá no ar certo queixume sem razões muito claras.\n\nConverso com mulheres que estão entre os 40 e 50 anos, todas com profissão, marido, filhos, saúde, e ainda assim elas trazem dentro delas um não-sei-o-quê perturbador, algo que as incomoda, mesmo estando tudo bem.\n\nDe onde vem isso? Anos atrás, a cantora Marina Lima compôs com o seu irmão, o poeta Antônio Cícero, uma música que dizia: “Eu espero / acontecimentos / só que quando anoitece / é festa no outro apartamento”.\n\nPassei minha adolescência com esta sensação: a de que algo muito animado estava acontecendo em algum lugar para o qual eu não tinha convite. É uma das características da juventude: considerar-se deslocado e impedido de ser feliz como os outros são, ou aparentam ser. Só que chega uma hora em que é preciso deixar de ficar tão ligada na grama do vizinho.\n\nAs festas em outros apartamentos são fruto da nossa imaginação, que é infectada por falsos holofotes, falsos sorrisos e falsas notícias. Os notáveis alardeiam muito suas vitórias, mas falam pouco das suas angústias, revelam pouco suas aflições, não dão bandeira das suas fraquezas, então fica parecendo que todos estão comemorando grandes paixões e fortunas, quando na verdade a festa lá fora não está tão animada assim. Ao amadurecer, descobrimos que a grama do vizinho não é mais verde coisíssima nenhuma. Estamos todos no mesmo barco, com motivos pra dançar pela sala e também motivos pra se refugiar no escuro, alternadamente.\n\nSó que os motivos pra se refugiar no escuro raramente são divulgados.\n\nPra consumo externo, todos são belos, sexys, lúcidos, íntegros, ricos, sedutores.\n\n“Nunca conheci quem tivesse levado porrada/ todos os meus conhecidos têm sido campeões em tudo”.\n\nFernando Pessoa também já se sentiu abafado pela perfeição alheia, e olha que na época em que ele escreveu estes versos não havia esta overdose de revistas que há hoje, vendendo um mundo de faz-de-conta. Nesta era de exaltação de celebridades – reais e inventadas – fica difícil mesmo achar que a vida da gente tem graça. Mas, tem. Paz interior, amigos leais, nossas músicas, livros, fantasias, desilusões e recomeços, tudo isso vale ser incluído na nossa biografia. Ou será que é tão divertido passar dois dias na Ilha de Caras fotografando junto a todos os produtos dos patrocinadores? Compensa passar a vida comendo alface para ter o corpo que a profissão de modelo exige? Será tão gratificante ter um paparazzo na sua cola cada vez que você sai de casa? Estarão mesmo todos realizando um milhão de coisas interessantes enquanto só você está sentada no sofá pintando as unhas do pé? Favor não confundir uma vida sensacional com uma vida sensacionalista.\n\nAs melhores festas acontecem dentro do nosso próprio apartamento.",
+      "texto_base_fonte": "(Martha Medeiros)",
+      "enunciado": "Em “Ao amanhecer descobrimos que a grama do vizinho não é mais verde coisíssima nenhuma.” temos o uso da seguinte figura de linguagem:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Metonímia."
+        },
+        {
+          "letra": "B",
+          "texto": "Metáfora."
+        },
+        {
+          "letra": "C",
+          "texto": "Sinestesia."
+        },
+        {
+          "letra": "D",
+          "texto": "Eufemismo."
+        },
+        {
+          "letra": "E",
+          "texto": "Paradoxo."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 3 · transcrita por OCR do PDF escaneado",
+      "texto_base": "**Um dia sem celular**\n\nPodem me achar antigo, conservador ou antiquado. Depois disso tudo, podem até calcular a idade que tenho pelos discursos que faço. Apesar dos pesares, tenho orgulho de pertencer a uma geração em que certos avanços tecnológicos tão comuns nos dias atuais não existiam e, ainda assim, vivíamos muito bem sem eles.\n\nDiz o ditado popular que “a necessidade é a mãe de todas as invenções”. O tempo passou e mostrou que o inverso também é verdadeiro. Inventa-se um produto, pensa-se nas necessidades depois. E com uma avalanche de aparatos tecnológicos, vou descobrindo (ou criando), aos poucos, necessidades que nem imaginava ter. Pense aí... Antes eu não tinha algo, mas não tinha a menor consciência de que esse algo que eu não tinha, um dia, iria me fazer alguma falta! Meio maluco, não?\n\nAos poucos, e sem me dar conta, essas necessidades vão fazendo parte da rotina e vão tomando conta de um espaço maior do tempo que dedicava a outras atividades. Sim! Porque existe um grande monstro devorador de minutos e segundos; esse bicho-papão se chama tecnologia! Alguns podem até chamar isso de resistência a mudanças. Outros podem me perguntar: e no seu tempo não tinha, pelo menos, um rádio ou uma televisão? E eu respondo que sim, mas até aí havia algum controle quanto ao tempo gasto diante deles.\n\nViver num mundo tecnologicamente desenvolvido, conectado e evoluído pode ser bom; entretanto, não chega a ser a oitava maravilha. Talvez, nisto resida o segredo da simplicidade dos lugares mais distantes de tanta modernidade. Uma casinha no campo, numa praia deserta ou um chalé no topo de uma serra têm seu valor. Como diz a canção, “sem rádio e sem notícias das terras civilizadas”. Contatos? Só se for ao vivo e em cores. (...)\n\nBem... Pertencer a uma geração anterior a esta guarda lá suas vantagens. Uma delas é, justamente, poder colocar tudo isso em perspectiva e saber valorizar o que se tinha (ou o que não se tinha) para não perder o que se tem em troca de momentos que, paradoxalmente, podem deixar você desconectado das pessoas mais próximas ou das que você mais ama.",
+      "texto_base_fonte": "KLEBER, Mano. Um dia sem celular. Recanto das letras. Disponível em <https://www.recantodasletras.com.br/cronicas/3339602>.",
+      "enunciado": "Qual é a figura de linguagem presente no trecho “a necessidade é a mãe de todas as invenções”?",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Metonímia"
+        },
+        {
+          "letra": "B",
+          "texto": "Hipérbole"
+        },
+        {
+          "letra": "C",
+          "texto": "Hipérbato"
+        },
+        {
+          "letra": "D",
+          "texto": "Catacrese"
+        },
+        {
+          "letra": "E",
+          "texto": "Metáfora"
+        }
+      ]
+    }
+  ]
+}

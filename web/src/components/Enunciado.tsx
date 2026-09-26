@@ -51,16 +51,28 @@ function comCodigo(texto: string): ReactNode[] {
  * código, senão `**`fork()`**` — negrito com código dentro, que o acervo usa —
  * sairia com as crases à mostra.
  */
-function comMarcas(texto: string): ReactNode[] {
+function comMarcas(texto: string, negrito = "font-semibold text-text"): ReactNode[] {
   return texto.split(/(\*\*[^*\n]+\*\*)/g).flatMap((parte, i) =>
     parte.startsWith("**") && parte.endsWith("**") && parte.length > 4 ? (
-      <strong key={i} className="font-semibold text-text">
+      <strong key={i} className={negrito}>
         {comCodigo(parte.slice(2, -2))}
       </strong>
     ) : (
       comCodigo(parte)
     ),
   );
+}
+
+/**
+ * O texto de uma alternativa, com as mesmas marcas do enunciado.
+ *
+ * A prova de português destaca a palavra **dentro** da alternativa — "Ela mora
+ * muito **longe**", "em qual o termo destacado é advérbio" —, e sem o destaque
+ * a questão perde o objeto. O negrito herda a cor da linha: a alternativa muda
+ * de cor quando é a certa ou a errada, e a palavra destacada tem de ir junto.
+ */
+export function TextoMarcado({ texto }: { texto: string }) {
+  return <>{comMarcas(texto, "font-semibold")}</>;
 }
 
 type Bloco =

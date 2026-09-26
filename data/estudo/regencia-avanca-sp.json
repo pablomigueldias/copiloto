@@ -1,0 +1,164 @@
+{
+  "_leia_me": "As 5 questões de regência verbal e nominal que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Regência verbal e nominal”.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (1), Prefeitura de Caçapava 2024 (1), Prefeitura de Itatiba 2024 (1), Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n2 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Regência verbal e nominal",
+    "ordem": 13
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Caçapava 2024 · Analista de Informática · questão 5",
+      "texto_base": "**Serena**\n\nSerena tinha oito anos. Quando os pais de Serena começavam a brigar na mesa, ela fechava os olhos e tentava pensar em outra coisa. Pensava na sua casa de bonecas. Os pais de Serena brigavam na mesa porque era a única hora do dia em que ficavam cara a cara. No resto do dia ia cada um para o seu lado, queixar-se do outro.\n\nNa mesa, não paravam de brigar. Serena fechava os olhos.\n\n— Passa a cenoura? — disse Serena, interrompendo uma frase da mãe.\n\n— O quê? — disse a mãe de Serena, rispidamente.\n\n— Passa a cenoura?\n\n— Ora, não comece você também! — disse a mãe de Serena, e voltou a xingar o marido.\n\nSerena saiu da mesa. Foi para o seu quarto e fechou a porta. Ajoelhou-se na frente da sua casa de bonecas. A casa tinha tudo que uma casa de verdade tem, em miniatura. Moveizinhos. Tapetinhos. Um telefonezinho. Em volta da mesinha da sala de jantar da casa de bonecas estavam sentados três bonequinhos. Um pai, uma mãe e uma menina. Serena enfiou a mão na casa e tirou a menina da mesa.\n\nO pai e a mãe de Serena nem notaram que Serena não estava mais na mesa. Continuavam brigando. Foi só quando virou-se para ordenar que Serena comesse a cenoura que a mãe viu que ela não estava mais ali. E viu outra coisa. Viu que uma parede inteira da casa tinha simplesmente desaparecido.\n\nO pai de Serena viu a expressão de horror no rosto da mulher e também virou o rosto, e viu que a parede tinha desaparecido, e viu que do lado de fora da casa tinha um monstro, um monstro gigantesco vestido de criança, uma criança gigantesca, maior que a casa. E só quando o pai e a mãe de Serena pularam da mesa e se achataram contra a outra parede da sala, apavorados, se deram conta de que a criança era a Serena. Mas a Serena era maior do que eles, maior que a casa!\n\n— Meu Deus! — gritou a mãe de Serena.\n\n— Calma, calma — disse o marido.\n\n— Calma o quê? Faz alguma coisa! Telefona para a polícia. Telefona para os bombeiros!\n\nO pai de Serena correu para o telefone e tentou em vão fazer uma ligação.\n\n— Este telefone. É... É de brinquedo!\n\n— Serena! — gritou a mãe. — O que que...\n\n— Sshhh! — fez Serena de fora da casa, e o deslocamento de ar quase derrubou os dois.\n\nSerena enfiou a mão na casa, pegou a mãe e a colocou no seu lugar na mesa. Depois pegou o pai e fez a mesma coisa. Mandou que eles comessem. Em silêncio. Sorrindo, mas em silêncio. Só então ela se ergueu, saiu do seu quarto e voltou para a mesa.\n\n— Serena... — começou a dizer a mãe, ainda de olhos arregalados.\n\n— Sssh — fez Serena.\n\nE se serviu de cenouras.",
+      "texto_base_fonte": "VERISSIMO, L. F. Verissimo antológico: meio século de crônicas, ou coisa parecida. São Paulo: Objetiva, 2020.",
+      "enunciado": "Analise os excertos a seguir, retirados do texto, e assinale a alternativa em que ocorre verbo com regência bitransitiva.",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Foi para o seu quarto e fechou a porta."
+        },
+        {
+          "letra": "B",
+          "texto": "No resto do dia ia cada um para o seu lado, queixar-se do outro."
+        },
+        {
+          "letra": "C",
+          "texto": "O pai de Serena correu para o telefone e tentou em vão fazer uma ligação."
+        },
+        {
+          "letra": "D",
+          "texto": "O pai e a mãe de Serena nem notaram que Serena não estava mais na mesa."
+        },
+        {
+          "letra": "E",
+          "texto": "Ajoelhou-se na frente da sua casa de bonecas."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 5",
+      "texto_base": "**Vermes de 46 mil anos voltam à vida após processo de descongelamento**\n\nOs seres vivos passaram por processos de criptobiose que os preservaram durante os milhares de anos. Cientistas acreditam que estudar os vermes pode ajudar a entender como proteger outros seres vivos.\n\nCientistas na Alemanha descobriram que nematoides, que são um tipo de verme, de 46 mil anos, encontrados no permafrost da Sibéria e trazidos de volta à vida após um descongelamento, pertencem a uma espécie que ainda não havia sido descrita anteriormente, a Panagrolaimus kolymaensis. O estudo foi publicado na revista PLOS Genetics e contou com pesquisadores do Instituto de Zoologia da Universidade de Colônia, do Instituto Max Planck de Biologia Celular e Genética Molecular (MPI-CBG) em Dresden e do Centro de Biologia de Sistemas de Dresden (CSBD). Em 2018, pesquisadores russos reviveram os dois nematoides, que foram congelados em uma toca fossilizada em depósitos de lodo no permafrost, uma camada de subsolo congelado. A datação por radiocarbono - um método utilizado para estimar a idade de alguns materiais de até 60 mil anos - revelou que esses nematoides estavam em criptobiose desde cerca de 46 mil anos atrás, durante o final do período geológico Pleistoceno. Criptobiose é um estado de latência em que a atividade metabólica de alguns seres vivos para, por conta de condições ambientais adversas, até que essas condições voltem à normalidade e permitam uma “volta à vida”. “Finalmente, é superfascinante ver de repente a vida, animais vivos rastejando para fora de um pedaço de solo que está congelado há 46 mil anos”, disse o Dr. Philipp Schiffer, da Universidade de Colônia. [...] Schiffer e seus colegas foram convidados a estudar os vermes recém-descongelados para determinar as espécies e analisar seu genoma. Ele e sua equipe conseguiram definir a lombriga como uma nova espécie. [...] Os pesquisadores descobriram que a desidratação leve antes do congelamento melhorou a preparação do verme para a criptobiose e aumentou a sobrevivência a -80 graus Celsius. E, como outras espécies de nematoides, produziu o açúcar trealose em nível bioquímico quando levemente desidratado em laboratório, potencialmente permitindo que resistissem ao congelamento e à desidratação intensa. “Eles construíram esse açúcar, trealose, que de alguma forma os ajuda a proteger seu DNA e proteínas enquanto estão nesse estágio de repouso”, disse Schiffer. Estudar essas criaturas, segundo o pesquisador, poderia um dia informar os esforços de conservação à medida que o clima da Terra muda. “Podemos aprender coisas que podem nos informar para talvez salvar espécies ameaçadas e pensar em medidas de proteção e todas essas coisas”. No entanto, Schiffer não viu nenhum perigo imediato de que organismos antigos descongelados pudessem abrigar patógenos perigosos. “É algo possível. E com o Covid, todos nós vimos o que pode acontecer de repente. Mas eu não diria que há um perigo iminente dessas formas trazerem algumas bactérias que de repente começam a matar humanos”, disse ele.",
+      "texto_base_fonte": "Portal G1.",
+      "enunciado": "Considere as seguintes sentenças, retiradas do texto:\n\nI. “Criptobiose é um estado de latência”\n\nII. “Schiffer e seus colegas foram convidados a estudar os vermes recém-descongelados”\n\nEm relação à regência, os verbos “é” e “estudar”, nas sentenças dadas, são, respectivamente:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "verbo de ligação e verbo transitivo direto."
+        },
+        {
+          "letra": "B",
+          "texto": "verbo de ligação e verbo transitivo indireto."
+        },
+        {
+          "letra": "C",
+          "texto": "verbo transitivo direto e verbo transitivo direto."
+        },
+        {
+          "letra": "D",
+          "texto": "verbo intransitivo e verbo intransitivo."
+        },
+        {
+          "letra": "E",
+          "texto": "verbo de ligação e verbo intransitivo."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 8",
+      "enunciado": "Considere a seguinte sentença: “Acautelou os soldados ___ a chegada da neve.” No contexto apresentado, o verbo “acautelar” é transitivo indireto. Assinale a alternativa que indica corretamente a preposição requerida pelo verbo.",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "contra."
+        },
+        {
+          "letra": "B",
+          "texto": "a."
+        },
+        {
+          "letra": "C",
+          "texto": "para."
+        },
+        {
+          "letra": "D",
+          "texto": "com."
+        },
+        {
+          "letra": "E",
+          "texto": "sobre."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 15",
+      "enunciado": "Analise as sentenças a seguir quanto à regência verbal e assinale a alternativa em que a preposição em destaque não introduz um objeto indireto.",
+      "gabarito": "D",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Não cumpriu **com** a própria palavra."
+        },
+        {
+          "letra": "B",
+          "texto": "Durante a reunião, ele se absteve **de** falar."
+        },
+        {
+          "letra": "C",
+          "texto": "A loja de variedades não trabalhava **com** artigos de festa."
+        },
+        {
+          "letra": "D",
+          "texto": "Abrigaram-se **sob** a marquise da loja."
+        },
+        {
+          "letra": "E",
+          "texto": "Os investigadores inquiriram-no **sobre** a morte do vizinho."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 9",
+      "enunciado": "Verifica-se o emprego de uma preposição inadequada na relação de regência nominal apenas em:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A moça estava alheia aos últimos boletins do hospital."
+        },
+        {
+          "letra": "B",
+          "texto": "As pessoas que estão alojadas na região terão de se retirar."
+        },
+        {
+          "letra": "C",
+          "texto": "A fala do professor fez alusão com o livro de Guimarães Rosa."
+        },
+        {
+          "letra": "D",
+          "texto": "O rapaz foi deposto de seu cargo nesta semana."
+        },
+        {
+          "letra": "E",
+          "texto": "Ela mostrou-se incansável em ajudar o companheiro."
+        }
+      ]
+    }
+  ]
+}

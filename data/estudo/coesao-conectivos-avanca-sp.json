@@ -1,0 +1,352 @@
+{
+  "_leia_me": "As 11 questões de coesão e conectivos que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Coesão — e, das classes de palavras, a conjunção pelo “sentido que imprime às relações””.\n\nJunta duas linhas do edital que a banca cobra com o mesmo comando: “Coesão” (referenciação anafórica e catafórica, sequenciação, coesão lexical) e o “sentido que [as conjunções] imprimem às relações” — o valor causal, concessivo ou conformativo de um conectivo.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (1), Câmara de Taboão da Serra 2022 (1), Prefeitura de Amparo 2022 (1), Prefeitura de Itatiba 2024 (1), Prefeitura de Juquitiba 2024 (2), Prefeitura de Paraty 2024 (3), Prefeitura de Rio Claro 2026 (1), Universidade de Taubaté 2025 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n9 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Coesão e conectivos",
+    "ordem": 14
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Amparo 2022 · Analista de Tecnologia da Informação · questão 3",
+      "texto_base": "**Cientistas desenvolvem adesivo que pode permitir ultrassom via celular**\n\nCientistas do Instituto de Tecnologia de Massachusetts (MIT) desenvolveram adesivo capaz de realizar ultrassom. De acordo com informações de artigo publicado pela revista científica \"Science\", publicadas nessa quinta-feira, 28, o dispositivo funciona com a aderência na pele. Após a ativação, o item fornece imagens nítidas do coração, pulmões e outros órgãos internos por 48 horas.\n\nOs adesivos foram testados em voluntários e, de acordo com os resultados apresentados no artigo, foi comprovado que os dispositivos forneciam imagens em alta resolução dos principais vasos sanguíneos e órgãos mais profundos. Além disso, os itens também apresentaram forte adesão e, ainda, conseguiram registrar mudanças nos órgãos dos voluntários, à medida que eles realizavam atividades como sentar, ficar em pé e correr.\n\nA parte adesiva do dispositivo é feita de duas camadas finas de elastômero, que contam com uma faixa intermediária de hidrogel sólido, material principalmente à base de água e que transmite facilmente as ondas sonoras. Segundo o artigo, o elastômero evita a desidratação do hidrogel. Somente quando o hidrogel é altamente hidratado as ondas acústicas podem penetrar efetivamente e fornecer imagens de alta resolução dos órgãos internos\n\nOs dispositivos já podem ser aplicados em pacientes em hospitais, de forma semelhante aos adesivos utilizados em eletrocardiogramas de monitoramento cardíaco. Com a invenção, não é necessário a presença de um técnico.",
+      "texto_base_fonte": "(Lara Vieira - O Povo - 02/08/2022)",
+      "enunciado": "Considere o seguinte trecho, presente no segundo parágrafo do texto:\n\n“Além disso, os itens também apresentaram forte adesão e, ainda, conseguiram registrar mudanças nos órgãos dos voluntários, **à medida que** eles realizavam atividades como sentar, ficar em pé e correr.”\n\nIndique a opção que substituiria, **corretamente**, a parte destacada, preservando o sentido do texto:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "enquanto"
+        },
+        {
+          "letra": "B",
+          "texto": "enquanto em que"
+        },
+        {
+          "letra": "C",
+          "texto": "a medida em que"
+        },
+        {
+          "letra": "D",
+          "texto": "à medida em que"
+        },
+        {
+          "letra": "E",
+          "texto": "na medida na qual"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2023 · Analista de Tecnologia da Informação · questão 2",
+      "texto_base": "**Vermes de 46 mil anos voltam à vida após processo de descongelamento**\n\nOs seres vivos passaram por processos de criptobiose que os preservaram durante os milhares de anos. Cientistas acreditam que estudar os vermes pode ajudar a entender como proteger outros seres vivos.\n\nCientistas na Alemanha descobriram que nematoides, que são um tipo de verme, de 46 mil anos, encontrados no permafrost da Sibéria e trazidos de volta à vida após um descongelamento, pertencem a uma espécie que ainda não havia sido descrita anteriormente, a Panagrolaimus kolymaensis. O estudo foi publicado na revista PLOS Genetics e contou com pesquisadores do Instituto de Zoologia da Universidade de Colônia, do Instituto Max Planck de Biologia Celular e Genética Molecular (MPI-CBG) em Dresden e do Centro de Biologia de Sistemas de Dresden (CSBD). Em 2018, pesquisadores russos reviveram os dois nematoides, que foram congelados em uma toca fossilizada em depósitos de lodo no permafrost, uma camada de subsolo congelado. A datação por radiocarbono - um método utilizado para estimar a idade de alguns materiais de até 60 mil anos - revelou que esses nematoides estavam em criptobiose desde cerca de 46 mil anos atrás, durante o final do período geológico Pleistoceno. Criptobiose é um estado de latência em que a atividade metabólica de alguns seres vivos para, por conta de condições ambientais adversas, até que essas condições voltem à normalidade e permitam uma “volta à vida”. “Finalmente, é superfascinante ver de repente a vida, animais vivos rastejando para fora de um pedaço de solo que está congelado há 46 mil anos”, disse o Dr. Philipp Schiffer, da Universidade de Colônia. [...] Schiffer e seus colegas foram convidados a estudar os vermes recém-descongelados para determinar as espécies e analisar seu genoma. Ele e sua equipe conseguiram definir a lombriga como uma nova espécie. [...] Os pesquisadores descobriram que a desidratação leve antes do congelamento melhorou a preparação do verme para a criptobiose e aumentou a sobrevivência a -80 graus Celsius. E, como outras espécies de nematoides, produziu o açúcar trealose em nível bioquímico quando levemente desidratado em laboratório, potencialmente permitindo que resistissem ao congelamento e à desidratação intensa. “Eles construíram esse açúcar, trealose, que de alguma forma os ajuda a proteger seu DNA e proteínas enquanto estão nesse estágio de repouso”, disse Schiffer. Estudar essas criaturas, segundo o pesquisador, poderia um dia informar os esforços de conservação à medida que o clima da Terra muda. “Podemos aprender coisas que podem nos informar para talvez salvar espécies ameaçadas e pensar em medidas de proteção e todas essas coisas”. No entanto, Schiffer não viu nenhum perigo imediato de que organismos antigos descongelados pudessem abrigar patógenos perigosos. “É algo possível. E com o Covid, todos nós vimos o que pode acontecer de repente. Mas eu não diria que há um perigo iminente dessas formas trazerem algumas bactérias que de repente começam a matar humanos”, disse ele.",
+      "texto_base_fonte": "Portal G1.",
+      "enunciado": "Considere o seguinte excerto: “Schiffer e seus colegas foram convidados a estudar os vermes recém-descongelados para determinar as espécies e analisar seu genoma.” Neste contexto, os pronomes possessivos retomam:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "apenas Schiffer."
+        },
+        {
+          "letra": "B",
+          "texto": "apenas os vermes recém-descongelados."
+        },
+        {
+          "letra": "C",
+          "texto": "Schiffer e os vermes recém-descongelados, respectivamente."
+        },
+        {
+          "letra": "D",
+          "texto": "apenas os colegas de Schiffer."
+        },
+        {
+          "letra": "E",
+          "texto": "os vermes recém-descongelados e Schiffer, respectivamente."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Itatiba 2024 · Analista de Tecnologia da Informação · questão 2",
+      "texto_base": "**Como tamanho e formato do crânio influenciam na longevidade de um cão**\n\nCachorros são uma das espécies animais mais diversas do ponto de vista do fenótipo (ou seja, das características morfológicas, físicas e até comportamentais). Um dos aspectos que pode variar conforme a raça é a longevidade.\n\nPensando nisso, pesquisadores analisaram dados de milhares de cachorros do Reino Unido, com o objetivo de identificar as raças que geralmente estão associadas a um menor tempo de vida. Os resultados foram publicados na revista Scientific Reports, na última quinta-feira (1º).\n\nPara realizar esse estudo, os pesquisadores utilizaram dados de mais de 580 mil cães do Reino Unido, de 150 raças. As informações dizem respeito a raça, sexo, data de nascimento e data da morte (em cerca de 280 mil casos, os cachorros já haviam morrido).\n\nOs animais foram classificados em raças puras ou mistas, seguindo as diretrizes da organização inglesa Kennel Club. Eles foram divididos de acordo com o tamanho (pequeno, médio ou grande) e o formato do crânio: braquicefálicos (com focinho achatado), mesocefálicos (com focinho médio) ou dolicocefálicos (com focinho longo).\n\nOs cálculos feitos pelos pesquisadores indicam que cachorros dolicocefálicos pequenos têm expectativa de vida mais alta no Reino Unido: 13,3 anos, em média, para machos e fêmeas. É o caso, por exemplo, de Dachshund miniatura, Pastor-de-shetland e Whippet. Já braquicefálicos de tamanho médio (como o buldogue inglês) têm menor expectativa de vida: 9,1 anos para machos e 9,6 anos para fêmeas. O artigo ainda destaca a média para outras raças comuns: Labrador (13,1 anos), Jack Russell Terrier (13,3 anos) e Cavalier King Charles Spaniel (11,8 anos). Além disso, no estudo, raças puras apresentaram expectativa de vida maior que as mistas: 12,7 anos para as puras e 12 anos para as mistas. Também foi observada uma diferença entre fêmeas (12,7 anos) e machos (12,4 anos).\n\nConduzir trabalhos científicos focados em cachorros é uma forma importante de aprimorar as discussões sobre a saúde e o bem-estar desses animais. No entanto, vale ressaltar que esses resultados são válidos no contexto do Reino Unido, como constatam os autores da pesquisa, em nota. Considerando que as raças de cachorros apresentam uma série de diferenças – quanto a morfologia, comportamento e longevidade, por exemplo –, é necessário que também sejam feitas outras pesquisas com amostras mais variadas.",
+      "texto_base_fonte": "Revista Galileu. Disponível em: https://revistagalileu.globo.com/ciencia/biologia/noticia/2024/02/como-tamanho-e-formato-do-cranio-influenciam-na-longevidade-de-um-cao.ghtml",
+      "enunciado": "Considere o excerto a seguir:\n\n“Conduzir trabalhos científicos focados em cachorros é uma forma importante de aprimorar as discussões sobre a saúde e o bem-estar desses animais. No entanto, vale ressaltar que esses resultados são válidos no contexto do Reino Unido, como constatam os autores da pesquisa, em nota.”\n\nEnquanto recurso de coesão textual, o papel da locução “no entanto”, no excerto apresentado, é de:",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "referenciação anafórica."
+        },
+        {
+          "letra": "B",
+          "texto": "sequenciação."
+        },
+        {
+          "letra": "C",
+          "texto": "referenciação catafórica."
+        },
+        {
+          "letra": "D",
+          "texto": "sinonímia."
+        },
+        {
+          "letra": "E",
+          "texto": "hiperonímia."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 2",
+      "texto_base": "**Microplásticos são descobertos pela 1ª vez em vestígios arqueológicos**\n\nDezenas de partículas de plástico foram encontradas em coletas atuais e em amostras extraídas do solo na década de 1980 em dois sítios arqueológicos em York, Inglaterra\n\nNos últimos anos, uma série de estudos têm evidenciado a presença de microplásticos no oceano, no ar e até mesmo no organismo humano. Agora, pesquisadores descobriram que esses pequenos materiais estão contaminando também vestígios arqueológicos retirados do solo.\n\nUma pesquisa publicada em 1º de março na revista Science of The Total Environment identificou em coletas de solo 66 partículas de 16 tipos de polímeros de microplástico. “O que antes se acreditava serem depósitos arqueológicos puros, prontos para investigação, estão, na realidade, contaminados por plástico”, afirma em comunicado o arqueólogo John Schofield, da Universidade de York, no Reino Unido.\n\nOs microplásticos são partículas de plástico com tamanho entre 1 micrômetro (milésimo de milímetro) e 5 milímetros. A sua origem é diversa: podem estar em itens de higiene pessoal, cosméticos, garrafas PET, celulares e roupas.\n\nOs pesquisadores analisaram amostras de dois períodos: as mais antigas são datadas dos séculos 1 ou 2 e foram retiradas do solo na década de 1980, em dois sítios arqueológicos de York, a uma profundidade de mais de 7 metros. Já as demais foram coletadas na contemporaneidade em regiões próximas de onde ocorreram as escavações no passado.\n\n“Nós pensamos nos microplásticos como um fenômeno moderno, já que só temos ouvido falar deles nos últimos 20 anos”, contextualiza David Jennings, pesquisador da Universidade de York. Ele explica que há duas décadas, no ano de 2004, o professor Richard Thompson revelou que microplásticos estavam em águas marítimas desde 1960, em decorrência da grande produção de plástico após a Segunda Guerra Mundial. “Esse novo estudo mostra que as partículas se infiltraram em depósitos arqueológicos. E, como no caso dos oceanos, isso provavelmente está acontecendo há um período similar, considerando que partículas foram encontradas em amostras de solo retiradas e arquivadas em 1988, de Wellington Row, em York”, sugere Jennings. Os achados inéditos levantam questionamentos sobre o impacto dos microplásticos em materiais estudados por arqueólogos. Acredita-se que essas partículas podem afetar a química do solo e prejudicar a preservação de resquícios importantes. Assim, surge uma dúvida: será que preservar amostras arqueológicas in situ continua sendo a abordagem mais adequada? “Daqui para frente, tentaremos descobrir até que ponto essa contaminação compromete o valor de evidência desses depósitos e qual a sua importância nacional”, comenta Schofield.",
+      "texto_base_fonte": "Revista Galileu. Disponível em <https://revistagalileu.globo.com/ciencia/arqueologia/noticia/2024/03/microplasticos-sao-descobertos-pela-1a-vez-em-vestigios-arqueologicos.ghtml>",
+      "enunciado": "Considere o excerto: “Nós pensamos nos microplásticos como um fenômeno moderno, já que só temos ouvido falar deles nos últimos 20 anos”. A relação estabelecida entre a oração principal e a oração subordinada no contexto apresentado é:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "causal."
+        },
+        {
+          "letra": "B",
+          "texto": "concessiva."
+        },
+        {
+          "letra": "C",
+          "texto": "adversativa."
+        },
+        {
+          "letra": "D",
+          "texto": "conformativa."
+        },
+        {
+          "letra": "E",
+          "texto": "comparativa."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Juquitiba 2024 · Analista de Tecnologia da Informação · questão 3",
+      "texto_base": "**Microplásticos são descobertos pela 1ª vez em vestígios arqueológicos**\n\nDezenas de partículas de plástico foram encontradas em coletas atuais e em amostras extraídas do solo na década de 1980 em dois sítios arqueológicos em York, Inglaterra\n\nNos últimos anos, uma série de estudos têm evidenciado a presença de microplásticos no oceano, no ar e até mesmo no organismo humano. Agora, pesquisadores descobriram que esses pequenos materiais estão contaminando também vestígios arqueológicos retirados do solo.\n\nUma pesquisa publicada em 1º de março na revista Science of The Total Environment identificou em coletas de solo 66 partículas de 16 tipos de polímeros de microplástico. “O que antes se acreditava serem depósitos arqueológicos puros, prontos para investigação, estão, na realidade, contaminados por plástico”, afirma em comunicado o arqueólogo John Schofield, da Universidade de York, no Reino Unido.\n\nOs microplásticos são partículas de plástico com tamanho entre 1 micrômetro (milésimo de milímetro) e 5 milímetros. A sua origem é diversa: podem estar em itens de higiene pessoal, cosméticos, garrafas PET, celulares e roupas.\n\nOs pesquisadores analisaram amostras de dois períodos: as mais antigas são datadas dos séculos 1 ou 2 e foram retiradas do solo na década de 1980, em dois sítios arqueológicos de York, a uma profundidade de mais de 7 metros. Já as demais foram coletadas na contemporaneidade em regiões próximas de onde ocorreram as escavações no passado.\n\n“Nós pensamos nos microplásticos como um fenômeno moderno, já que só temos ouvido falar deles nos últimos 20 anos”, contextualiza David Jennings, pesquisador da Universidade de York. Ele explica que há duas décadas, no ano de 2004, o professor Richard Thompson revelou que microplásticos estavam em águas marítimas desde 1960, em decorrência da grande produção de plástico após a Segunda Guerra Mundial. “Esse novo estudo mostra que as partículas se infiltraram em depósitos arqueológicos. E, como no caso dos oceanos, isso provavelmente está acontecendo há um período similar, considerando que partículas foram encontradas em amostras de solo retiradas e arquivadas em 1988, de Wellington Row, em York”, sugere Jennings. Os achados inéditos levantam questionamentos sobre o impacto dos microplásticos em materiais estudados por arqueólogos. Acredita-se que essas partículas podem afetar a química do solo e prejudicar a preservação de resquícios importantes. Assim, surge uma dúvida: será que preservar amostras arqueológicas in situ continua sendo a abordagem mais adequada? “Daqui para frente, tentaremos descobrir até que ponto essa contaminação compromete o valor de evidência desses depósitos e qual a sua importância nacional”, comenta Schofield.",
+      "texto_base_fonte": "Revista Galileu. Disponível em <https://revistagalileu.globo.com/ciencia/arqueologia/noticia/2024/03/microplasticos-sao-descobertos-pela-1a-vez-em-vestigios-arqueologicos.ghtml>",
+      "enunciado": "Considere o excerto: “Assim, surge uma dúvida: será que preservar amostras arqueológicas in situ continua sendo a abordagem mais adequada?”\n\nNesse contexto, em relação à coesão textual, o papel da expressão “assim” é estabelecer:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "referenciação anafórica."
+        },
+        {
+          "letra": "B",
+          "texto": "referenciação catafórica."
+        },
+        {
+          "letra": "C",
+          "texto": "sinonímia."
+        },
+        {
+          "letra": "D",
+          "texto": "substituição."
+        },
+        {
+          "letra": "E",
+          "texto": "sequenciação."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 2",
+      "texto_base": "**A ilusão da Lua no horizonte**\n\nVocê já observou a Lua nascendo ou se pondo e teve a impressão de que ela estava maior do que o normal? Todos nós experimentamos essa mesma sensação ao apreciar nosso belo satélite natural próximo ao horizonte. Essa sensação nada mais é do que um simples truque da mente humana e recebeu o nome de ilusão da Lua. Ao invés de um efeito de nossa atmosfera ou algum outro fenômeno físico, acredita-se que ela seja causada pela forma como percebemos o mundo visualmente.\n\nO fenômeno é bem documentado desde o século 4 a.C., quando o filósofo grego Aristóteles sugeriu que a atmosfera da Terra pudesse ampliar a imagem da Lua no horizonte, assim como a água pode fazer com que objetos imersos pareçam ampliados aos nossos olhos.\n\nNo século 11, o matemático árabe Ibn Al-Haytham desenvolveu a primeira teoria plausível de como a ilusão da Lua funciona, sugerindo que a diferença de tamanho tem a ver com a maneira como nossos cérebros percebem a distância e, então, como ajustamos automaticamente o tamanho aparente de um objeto para corresponder a essa percepção.\n\nApesar de todas as pessoas ao redor do mundo observarem essa ilusão há milhares de anos, ainda não existe uma explicação científica sólida sobre por que isso acontece. A maioria das respostas hoje em dia se baseia na ideia de como nosso cérebro processa a informação de distância dos objetos. Algumas hipóteses consideram, ainda, que árvores, montanhas e edifícios em primeiro plano podem ajudar a enganar o cérebro, que passa a pensar que a Lua estaria mais próxima e seria maior do que realmente é, por estar cercada por esses objetos.\n\nHá uma ilusão de ótica que demonstra bem essa ideia de tamanho relativo em comparação a elementos no entorno, chamada de ilusão de Ebbinghaus. Na imagem a seguir, o círculo central, cercado por pequenos círculos, representa a Lua no horizonte com objetos em primeiro plano, como árvores e edifícios. Já na imagem seguinte o círculo central representa a Lua no alto do céu, cercada por grandes extensões de céu. Para muitos, o segundo círculo central parece maior, mas ambos são do mesmo tamanho.\n\n[A prova reproduz aqui a figura da ilusão de Ebbinghaus — imagem de https://skyandtelescope.org/observing/moon-illusion-confusion11252015. Nenhuma questão depende dela.]\n\nPorém, essa explicação falha quando analisamos o caso dos astronautas a bordo da Estação Espacial Internacional, em órbita em torno da Terra. Eles também enxergam a ilusão da Lua, mesmo sem ter objetos em primeiro plano como indicação de distância.\n\nEntão, esse enigma ainda não foi totalmente resolvido e várias hipóteses ainda estão em discussão. Mas de uma coisa temos certeza: está tudo em nossas cabeças!",
+      "texto_base_fonte": "FONSECA, N. A ilusão da Lua no horizonte. Espaço do conhecimento. Adaptado. Disponível em: https://www.ufmg.br/espacodoconhecimento/a-ilusao-da-lua/",
+      "enunciado": "A expressão “satélite natural” é empregada, no primeiro parágrafo do texto, para se referir à Lua. Nesse sentido, é um recurso de coesão:",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "sequencial por justaposição."
+        },
+        {
+          "letra": "B",
+          "texto": "sequencial por conexão."
+        },
+        {
+          "letra": "C",
+          "texto": "referencial catafórico."
+        },
+        {
+          "letra": "D",
+          "texto": "por elipse."
+        },
+        {
+          "letra": "E",
+          "texto": "lexical."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 3",
+      "texto_base": "**A ilusão da Lua no horizonte**\n\nVocê já observou a Lua nascendo ou se pondo e teve a impressão de que ela estava maior do que o normal? Todos nós experimentamos essa mesma sensação ao apreciar nosso belo satélite natural próximo ao horizonte. Essa sensação nada mais é do que um simples truque da mente humana e recebeu o nome de ilusão da Lua. Ao invés de um efeito de nossa atmosfera ou algum outro fenômeno físico, acredita-se que ela seja causada pela forma como percebemos o mundo visualmente.\n\nO fenômeno é bem documentado desde o século 4 a.C., quando o filósofo grego Aristóteles sugeriu que a atmosfera da Terra pudesse ampliar a imagem da Lua no horizonte, assim como a água pode fazer com que objetos imersos pareçam ampliados aos nossos olhos.\n\nNo século 11, o matemático árabe Ibn Al-Haytham desenvolveu a primeira teoria plausível de como a ilusão da Lua funciona, sugerindo que a diferença de tamanho tem a ver com a maneira como nossos cérebros percebem a distância e, então, como ajustamos automaticamente o tamanho aparente de um objeto para corresponder a essa percepção.\n\nApesar de todas as pessoas ao redor do mundo observarem essa ilusão há milhares de anos, ainda não existe uma explicação científica sólida sobre por que isso acontece. A maioria das respostas hoje em dia se baseia na ideia de como nosso cérebro processa a informação de distância dos objetos. Algumas hipóteses consideram, ainda, que árvores, montanhas e edifícios em primeiro plano podem ajudar a enganar o cérebro, que passa a pensar que a Lua estaria mais próxima e seria maior do que realmente é, por estar cercada por esses objetos.\n\nHá uma ilusão de ótica que demonstra bem essa ideia de tamanho relativo em comparação a elementos no entorno, chamada de ilusão de Ebbinghaus. Na imagem a seguir, o círculo central, cercado por pequenos círculos, representa a Lua no horizonte com objetos em primeiro plano, como árvores e edifícios. Já na imagem seguinte o círculo central representa a Lua no alto do céu, cercada por grandes extensões de céu. Para muitos, o segundo círculo central parece maior, mas ambos são do mesmo tamanho.\n\n[A prova reproduz aqui a figura da ilusão de Ebbinghaus — imagem de https://skyandtelescope.org/observing/moon-illusion-confusion11252015. Nenhuma questão depende dela.]\n\nPorém, essa explicação falha quando analisamos o caso dos astronautas a bordo da Estação Espacial Internacional, em órbita em torno da Terra. Eles também enxergam a ilusão da Lua, mesmo sem ter objetos em primeiro plano como indicação de distância.\n\nEntão, esse enigma ainda não foi totalmente resolvido e várias hipóteses ainda estão em discussão. Mas de uma coisa temos certeza: está tudo em nossas cabeças!",
+      "texto_base_fonte": "FONSECA, N. A ilusão da Lua no horizonte. Espaço do conhecimento. Adaptado. Disponível em: https://www.ufmg.br/espacodoconhecimento/a-ilusao-da-lua/",
+      "enunciado": "A oração introduzida pelo vocábulo “mesmo”, no excerto “Eles também enxergam a ilusão da Lua, **mesmo** sem ter objetos em primeiro plano como indicação de distância.”, exprime um sentido:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "conformativo."
+        },
+        {
+          "letra": "B",
+          "texto": "condicional."
+        },
+        {
+          "letra": "C",
+          "texto": "concessivo."
+        },
+        {
+          "letra": "D",
+          "texto": "comparativo."
+        },
+        {
+          "letra": "E",
+          "texto": "causal."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Paraty 2024 · Analista de Sistema · questão 12",
+      "enunciado": "Verifica-se o emprego de uma conjunção subordinativa de valor conformativo apenas em:",
+      "gabarito": "C",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Não se distraia enquanto está em reunião."
+        },
+        {
+          "letra": "B",
+          "texto": "Justifique sua falta, porque corre o risco de ser reprovado."
+        },
+        {
+          "letra": "C",
+          "texto": "A situação não é bem assim como dizem por aí."
+        },
+        {
+          "letra": "D",
+          "texto": "Seu desempenho na prova foi ruim, conquanto estivesse se preparando há meses."
+        },
+        {
+          "letra": "E",
+          "texto": "Se tivéssemos ido à praia, teríamos encarado uma forte chuva."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 5 · transcrita por OCR do PDF escaneado",
+      "enunciado": "Assinale a alternativa em que o elemento destacado faz referência a algo apresentado posteriormente dentro do enunciado.",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Ontem acabei conhecendo os seus pais. **Eles** são muito simpáticos e agradáveis."
+        },
+        {
+          "letra": "B",
+          "texto": "Exijo de você apenas **uma coisa**: que se dedique com muita afeição às suas tarefas."
+        },
+        {
+          "letra": "C",
+          "texto": "Eu já lhe disse que você deve conferir cada item, e você não está fazendo **isso** como deve."
+        },
+        {
+          "letra": "D",
+          "texto": "A face oculta da Lua é a parte d**o satélite natural** que nunca se mostra para nós."
+        },
+        {
+          "letra": "E",
+          "texto": "Seja prudente e atento; **essas características** lhe ensinam a viver bem."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Taboão da Serra 2022 · Analista de Tecnologia da Informação · questão 4",
+      "texto_base": "**O outro marido**\n\nEra conferente da Alfândega — mas isso não tem importância. Somos todos alguma coisa fora de nós; o eu irredutível nada tem a ver com as classificações profissionais. Pouco importa que nos avaliem pela casca. Por dentro, sentia-se diferente, capaz de mudar sempre, enquanto a situação exterior e familiar não mudava. Nisso está o espinho do homem: ele muda, os outros não percebem.\n\nSua mulher não tinha percebido. Era a mesma de há 23 anos, quando se casaram (quanto ao íntimo, é claro). Por falta de filhos, os dois viveram demasiado perto um do outro, sem derivativo. Tão perto que se desconheciam mutuamente, como um objeto desconhece outro, na mesma prateleira de armário. Santos doía-se de ser um objeto aos olhos de d. Laurinha. Se ela também era um objeto aos olhos dele? Sim, mas com a diferença de que d. Laurinha não procurava fugir a essa simplificação, nem reparava; era de fato objeto. Ele, Santos, sentia-se vivo e desagradado.\n\nAo aparecerem nele as primeiras dores, d. Laurinha penalizou-se, mas esse interesse não beneficiou as relações do casal. Santos parecia comprazer-se em estar doente. Não propriamente em queixar-se, mas em alegar que ia mal. A doença era para ele ocupação, emprego suplementar. O médico da Alfândega dissera-lhe que certas formas reumáticas levam anos para ser dominadas, exigem adaptação e disciplina. Santos começou a cuidar do corpo como de uma planta delicada. E mostrou a d. Laurinha a nevoenta radiografia da coluna vertebral, com certo orgulho de estar assim tão afetado.\n\n– Quando você ficar bom…\n\n– Não vou ficar. Tenho doença para o resto da vida.\n\nPara d. Laurinha, a melhor maneira de curar-se é tomar remédio e entregar o caso à alma do padre Eustáquio, que vela por nós. Começou a fatigar-se com a importância que o reumatismo assumira na vida do marido. E não se amolou muito quando ele anunciou que ia internar-se no Hospital Gaffrée Guinle.\n\n– Você não sentirá falta de nada, assegurou-lhe Santos. Tirei licença com ordenado integral. Eu mesmo virei aqui todo começo de mês trazer o dinheiro.\n\n(...) Pontualmente, Santos trazia-lhe o dinheiro da despesa, ficaram até um pouco amigos nessa breve conversa a longos intervalos. Ele chegava e saía curvado, sob a garra do reumatismo, que nem melhorava nem matava. A visita não era de todo desagradável, desde que a doença deixara de ser assunto. Ela notou como a vida de hospital pode ser distraída: os internados sabem de tudo cá de fora.\n\n– Pelo rádio — explicou Santos. (...)\n\nSantos veio um ano, dois, cinco. Certo dia não veio. D. Laurinha preocupou-se. Não só lhe faziam falta os cruzeiros; ele também fazia. Tomou o ônibus, foi ao hospital pela primeira vez, em alvoroço.\n\nLá ele não era conhecido. Na Alfândega informaram-lhe que Santos falecera havia quinze dias, a senhora quer o endereço da viúva?\n\n– Sou eu a viúva — disse d. Laurinha, espantada.\n\nO informante olhou-a com incredulidade. Conhecia muito bem a viúva do Santos, d. Crisália, fizera bons piqueniques com o casal na ilha do Governador. Santos fora seu parceiro de bilhar e de pescaria. Grande praça. Ele era padrinho do filho mais velho de Santos. Deixara três órfãos, coitado.\n\nE tirou da carteira uma foto, um grupo de praia. Lá estavam Santos, muito lépido, sorrindo, a outra mulher, os três garotos. Não havia dúvida: era ele mesmo, seu marido. Contudo, a outra realidade de Santos era tão destacada da sua, que o tornava outro homem, completamente desconhecido, irreconhecível.\n\n– Desculpe, foi engano. A pessoa a que me refiro não é essa — disse d. Laurinha, despedindo-se.",
+      "texto_base_fonte": "ANDRADE, Carlos Drummond. Disponível em: https://contobrasileiro.com.br/o-outro-marido-cronica-de-carlos-drummond-de-andrade/ (Adaptado)",
+      "enunciado": "Na passagem “Nisso está o espinho do homem: ele muda, os outros não percebem.” (1º parágrafo), poder-se-ia incluir uma conjunção depois da vírgula corretamente apontada na alternativa:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Mas."
+        },
+        {
+          "letra": "B",
+          "texto": "Porque."
+        },
+        {
+          "letra": "C",
+          "texto": "Logo."
+        },
+        {
+          "letra": "D",
+          "texto": "Porquanto."
+        },
+        {
+          "letra": "E",
+          "texto": "Sem que."
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 2",
+      "texto_base": "**Da solidão**\n\nSequioso de escrever um poema que exprimisse a maior dor do mundo, Poe chegou, por exclusão, à ideia da morte da mulher amada. Nada lhe pareceu mais definitivamente doloroso. Assim nasceu “O corvo”: o pássaro agoureiro a repetir ao homem sozinho em sua saudade a pungente litania do “nunca mais”.\n\nSerá esta a maior das solidões? Realmente, o que pode existir de pior que a impossibilidade de arrancar à morte o seu amado, que fez Orfeu descer aos Infernos em busca de Eurídice e acabou por lhe calar a lira mágica? Distante, separado, prisioneiro, ainda pode aquele que ama alimentar sua paixão com o sentimento de que o objeto amado está vivo. Morto este, só lhe restam dois caminhos: o suicídio, físico ou moral, ou uma fé qualquer. E como tal fé constitui uma possibilidade — que outra coisa é a Divina comédia para Dante senão a morte de Beatriz? — cabe uma consideração também dolorosa: a solidão que a morte da mulher amada deixa não é, porquanto absoluta, a maior solidão.\n\nQual será maior então? Os grandes momentos de solidão, a de Jó, a de Cristo no Horto, tinham a exaltá-la uma fé. A solidão de Carlitos, naquela incrível imagem em que ele aparece na eterna esquina, no final de Luzes da cidade, tinha a justificá-la o sacrifício feito pela mulher amada. Penso com mais frio n’alma na solidão dos últimos dias do pintor Toulouse-Lautrec, em seu leito de moribundo, lúcido, fechado em si mesmo, e no duro olhar de ódio que deitou ao pai, segundos antes de morrer, como a culpá-lo de o ter gerado um monstro. Penso com mais frio n’alma ainda na solidão total dos poucos minutos que terão restado ao poeta Hart Crane, quando, no auge da neurastenia, depois de se ter jogado ao mar, numa viagem de regresso do México para os Estados Unidos, viu sobre si mesmo a imensa noite do oceano imenso à sua volta, e ao longe as luzes do navio que se afastava. O que se terão dito o poeta e a eternidade nesses poucos instantes em que ele, quem sabe banhado de poesia total, boiou a esmo sobre a negra massa líquida, à espera do abandono?\n\nSolidão inenarrável, quem sabe povoada de beleza... Mas será ela, também, a maior solidão? A solidão do poeta Rilke, quando, na alta escarpa sobre o Adriático, ouviu no vento a música do primeiro verso que desencadeou as Elegias de Duino, será ela a maior solidão?\n\nNão, a maior solidão é a do ser que não ama. A maior solidão é a do ser que se ausenta, que se defende, que se fecha, que se recusa a participar da vida humana. A maior solidão é a do homem encerrado em si mesmo, no absoluto de si mesmo, e que não dá a quem pede o que ele pode dar de amor, de amizade, de socorro. O maior solitário é o que tem medo de amar, o que tem medo de ferir e de ferir-se, o ser casto da mulher, do amigo, do povo, do mundo. Esse queima como uma lâmpada triste, cujo reflexo entristece também tudo em torno. Ele é a angústia do mundo que o reflete. Ele é o que se recusa às verdadeiras fontes da emoção, as que são o patrimônio de todos e, encerrado em seu duro privilégio, semeia pedras do alto da sua fria e desolada torre.",
+      "texto_base_fonte": "MORAES, V. Da solidão. In: MORAES, V. Para viver um grande amor. 6ª ed., Sabiá, 1962, p. 182-183. Disponível em <https://cronicabrasileira.org.br/cronicas/19895/da-solidao>.",
+      "enunciado": "A palavra “porquanto”, empregada em “a solidão que a morte da mulher amada deixa não é, porquanto absoluta, a maior solidão”, tem o mesmo valor semântico que:",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“porque”."
+        },
+        {
+          "letra": "B",
+          "texto": "“todavia”."
+        },
+        {
+          "letra": "C",
+          "texto": "“conforme”."
+        },
+        {
+          "letra": "D",
+          "texto": "“entretanto”."
+        },
+        {
+          "letra": "E",
+          "texto": "“como”."
+        }
+      ]
+    }
+  ]
+}

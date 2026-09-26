@@ -1,0 +1,73 @@
+{
+  "_leia_me": "As 2 questões de redação oficial que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Redação oficial: atributos da redação oficial, pronomes de tratamento, tipos de documentos”.\n\nAs duas únicas de redação oficial do acervo são de Rio Claro 2026, a prova mais nova da banca, e o edital de nível superior pede o assunto por extenso (atributos, pronomes de tratamento, tipos de documentos). Duas questões é pouco para o que o edital promete — este tópico precisa de estudo pelo Manual de Redação da Presidência, não só de prova anterior.\n\nDe onde vêm: Prefeitura de Rio Claro 2026 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "banca": "Instituto Avança SP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Redação oficial",
+    "ordem": 15
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 8 · transcrita por OCR do PDF escaneado",
+      "enunciado": "Assinale a alternativa que apresenta o pronome de tratamento adequado, na comunicação oficial, para se dirigir a agentes públicos federais, independentemente da hierarquia ou cargo.",
+      "gabarito": "A",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Senhor(a)"
+        },
+        {
+          "letra": "B",
+          "texto": "Vossa Santidade"
+        },
+        {
+          "letra": "C",
+          "texto": "Vossa Eminência"
+        },
+        {
+          "letra": "D",
+          "texto": "Vossa Magnificência"
+        },
+        {
+          "letra": "E",
+          "texto": "Vossa Reverendíssima"
+        }
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de Rio Claro 2026 · Analista em Tecnologia da Informação · questão 10 · transcrita por OCR do PDF escaneado",
+      "enunciado": "Em relação ao e-mail na comunicação oficial, assinale a afirmativa correta.",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O e-mail pode ser utilizado como forma de envio e recebimento de documentos, mas de forma limitada, pelo seu alto custo."
+        },
+        {
+          "letra": "B",
+          "texto": "Não existe nenhum tipo de padrão ou de estrutura exigidos para o e-mail; portanto, sua linguagem pode ser absolutamente livre."
+        },
+        {
+          "letra": "C",
+          "texto": "Não é recomendável encaminhar anexos por e-mail, devendo os mesmos ser entregues em formato impresso."
+        },
+        {
+          "letra": "D",
+          "texto": "Assuntos pessoais são muito valorizados em e-mails, mesmo que o endereço seja específico de repartições ou empresas."
+        },
+        {
+          "letra": "E",
+          "texto": "Como gênero textual, o e-mail pode ser considerado um documento oficial, assim como o ofício."
+        }
+      ]
+    }
+  ]
+}
