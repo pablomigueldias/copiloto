@@ -19,6 +19,8 @@ import type {
   LinkedinGerado,
   Metricas,
   ModuloResumo,
+  FiltroEmpresas,
+  PaginaEmpresas,
   PainelBlog,
   Parecido,
   Pendencia,
@@ -33,6 +35,7 @@ import type {
   SituacaoGeracao,
   SituacaoPr,
   Tentativa,
+  TrazerResposta,
   TrechoFonte,
   Usuario,
   VagaDetalhe,
@@ -249,6 +252,25 @@ export const api = {
     req<Questao>("/estudo/questoes", {
       method: "POST",
       body: JSON.stringify(corpo),
+    }),
+
+  // ── CRM comercial ──
+  empresas: (f: FiltroEmpresas) =>
+    req<PaginaEmpresas>(
+      `/comercial/empresas${qs({
+        termo: f.termo ?? "psic",
+        segmento: f.segmento ?? "clinica_especialidade",
+        bairro: f.bairro || undefined,
+        so_com_email: String(f.so_com_email ?? true),
+        incluir_no_crm: String(f.incluir_no_crm ?? true),
+        limite: 50,
+        offset: f.offset ?? 0,
+      })}`,
+    ),
+  trazerEmpresas: (ids: number[], confirmarPessoaFisica = false) =>
+    req<TrazerResposta>("/comercial/empresas/trazer", {
+      method: "POST",
+      body: JSON.stringify({ ids, confirmar_pessoa_fisica: confirmarPessoaFisica }),
     }),
 
   // ── quadro de pendências ──

@@ -23,6 +23,7 @@ const RESTO: Item[] = [
   { href: "/conhecimento", rotulo: "Conhecimento", icone: "conhecimento" },
   { href: "/transcrever", rotulo: "Transcrever", icone: "transcrever" },
   { href: "/pendencias", rotulo: "Pendências", icone: "pendencias" },
+  { href: "/comercial/empresas", rotulo: "Comercial", icone: "comercial" },
   { href: "/posts", rotulo: "Redação", icone: "posts" },
   { href: "/fila", rotulo: "Fila", icone: "fila" },
   { href: "/candidaturas", rotulo: "Candidaturas", icone: "candidaturas" },

@@ -312,3 +312,8 @@ async def com_curriculo():
 @pytest.fixture
 async def pendencias(painel):
     return await _ir_para(painel, "Pendências", 'h1:has-text("O que é meu fazer")')
+
+
+@pytest.fixture
+async def comercial_empresas(painel):
+    return await _ir_para(painel, "Comercial", 'h1:has-text("Quem trazer para o CRM")')

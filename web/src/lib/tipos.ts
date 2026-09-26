@@ -487,3 +487,35 @@ export type PendenciaCampos = {
   coluna?: ColunaPendencia;
   ordem?: number;
 };
+
+// ── CRM comercial (/comercial) ──
+
+export type EmpresaLinha = {
+  id: number;
+  nome: string;
+  segmento: string | null;
+  bairro: string | null;
+  pessoa_fisica: boolean;
+  cnes: string | null;
+  emails: string[];
+  telefones: string[];
+  /** Lead aberto no CRM, se já foi trazida. */
+  lead_id: number | null;
+};
+
+export type PaginaEmpresas = { total: number; itens: EmpresaLinha[] };
+
+export type FiltroEmpresas = {
+  termo?: string;
+  segmento?: string;
+  bairro?: string;
+  so_com_email?: boolean;
+  incluir_no_crm?: boolean;
+  offset?: number;
+};
+
+export type TrazerResposta = {
+  trazidos: number[];
+  /** estabelecimento → por que ficou de fora */
+  pulados: Record<string, string>;
+};
