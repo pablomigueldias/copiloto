@@ -50,6 +50,7 @@ const ROTULO_ESTADO: Record<EstadoPost, string> = {
 const ROTULO_PILAR: Record<string, string> = {
   "ia-llms": "IA aplicada & LLMs",
   "dados-ml": "Dados, Análise & ML",
+  "automacao-negocio": "Automação para negócios",
 };
 
 function haQuanto(iso: string): string {

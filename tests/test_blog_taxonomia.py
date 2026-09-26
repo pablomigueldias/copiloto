@@ -90,6 +90,18 @@ def test_frontmatter_bom_nao_tem_erro():
     assert taxonomia.validar_frontmatter(**BOM) == []
 
 
+def test_post_do_pilar_de_negocio_valida():
+    """O pilar do dono de negócio (passo 8.1) abre com tags do assunto dele."""
+    post = {
+        **BOM,
+        "slug": "quanto-um-lead-esfria-em-uma-hora",
+        "titulo": "Quanto um paciente esfria em uma hora sem resposta",
+        "pilar": "automacao-negocio",
+        "tags": ["whatsapp", "atendimento"],
+    }
+    assert taxonomia.validar_frontmatter(**post) == []
+
+
 def test_lista_todos_os_erros_de_uma_vez():
     """Um erro por vez, com um round-trip de painel a cada um, é o que faz
     ninguém usar a ferramenta."""

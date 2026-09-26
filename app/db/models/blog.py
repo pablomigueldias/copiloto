@@ -46,7 +46,7 @@ class BlogPost(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     estado: Mapped[str] = mapped_column(
         String(20), nullable=False, default="pauta", server_default="pauta"
     )
-    # 'ia-llms' | 'dados-ml' — a lista vem do blog (`app/blog/taxonomia.py`).
+    # 'ia-llms' | 'dados-ml' | 'automacao-negocio' — a lista vem do blog (`app/blog/taxonomia.py`).
     pilar: Mapped[str | None] = mapped_column(String(40))
     # Lista de strings da lista curada do blog. JSONB e não tabela de ligação:
     # são no máximo cinco por post, sem atributo próprio e sem consulta que

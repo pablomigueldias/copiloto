@@ -128,7 +128,7 @@ async def test_vocabulario_traz_a_taxonomia_do_blog(logado):
     r = await logado.get("/api/blog/vocabulario")
     assert r.status_code == 200
     v = r.json()
-    assert v["pilares"] == ["ia-llms", "dados-ml"]
+    assert v["pilares"] == ["ia-llms", "dados-ml", "automacao-negocio"]
     assert "rag" in v["tags"]
     assert v["tags_max"] == 5
 

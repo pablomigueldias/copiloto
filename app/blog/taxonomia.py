@@ -16,7 +16,8 @@ from __future__ import annotations
 import re
 
 # "hardware" ainda não existe no blog: abre com o primeiro projeto documentado.
-PILARES = ("ia-llms", "dados-ml")
+# "automacao-negocio" é o pilar do dono de negócio (passo 8.1 do motor comercial).
+PILARES = ("ia-llms", "dados-ml", "automacao-negocio")
 
 # Tag nova entra aqui **e** no schema.ts antes de ser usada num post.
 TAGS = (
@@ -38,6 +39,12 @@ TAGS = (
     "whisper",
     "fundamentos",
     "carreira",
+    # Pilar automacao-negocio: o assunto do dono de negócio, não a tecnologia.
+    "whatsapp",
+    "atendimento",
+    "crm",
+    "lgpd",
+    "automacao",
 )
 
 SLUG_RE = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
