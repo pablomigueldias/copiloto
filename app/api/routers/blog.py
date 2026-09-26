@@ -68,6 +68,7 @@ def _linha(post) -> dict:
                 descricao=post.descricao,
                 tags=list(post.tags or []),
                 origem=list(post.origem or []),
+                pilar=post.pilar,
             )
         ),
         "data_publicacao": post.data_publicacao,

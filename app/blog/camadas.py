@@ -43,6 +43,48 @@ META_FRASES = (
     "com o avanço da",
 )
 
+# O pilar do dono de negócio (passo 8.1 do motor comercial) muda duas réguas:
+# o "como" deixa de ser código e passa a ser o que ele faz sozinho, e a prosa
+# não pode ter jargão sem explicação (`prompts/voz-post-negocio.md`).
+PILAR_NEGOCIO = "automacao-negocio"
+
+# Palavra de quem constrói, na frente de quem compra. Explicada logo depois, entre
+# parênteses, ela passa: "API oficial da Meta (o jeito que a Meta autoriza...)".
+JARGAO = (
+    "lead",
+    "leads",
+    "funil",
+    "conversão",
+    "churn",
+    "chatbot",
+    "bot",
+    "llm",
+    "modelo de linguagem",
+    "ia generativa",
+    "rag",
+    "embedding",
+    "prompt",
+    "token",
+    "tokens",
+    "api",
+    "webhook",
+    "backend",
+    "deploy",
+    "pipeline",
+    "dashboard",
+    "stack",
+    "saas",
+    "onboarding",
+)
+_JARGAO = re.compile(
+    r"\b(" + "|".join(re.escape(t) for t in sorted(JARGAO, key=len, reverse=True)) + r")\b"
+    r"(?!\w)(?P<explicada>(?:\s+[\w-]+){0,3}\s*\()?",
+    re.IGNORECASE,
+)
+PASSOS_MIN = 3
+_PASSO = re.compile(r"^\s*\d+[.)]\s+\S", re.MULTILINE)
+_BLOCO_TEXTO = re.compile(r"^```text\b", re.MULTILINE)
+
 ABERTURA_MAX_PALAVRAS = 60
 MIN_NUMEROS = 2
 MIN_SUBTITULOS = 2
@@ -159,14 +201,34 @@ def _links(texto: str) -> list[str]:
     return _LINK_MD.findall(p) + _LINK_HTML.findall(p)
 
 
+def jargao(corpo: str) -> list[str]:
+    """As palavras de `JARGAO` na prosa, sem explicação entre parênteses logo depois.
+
+    "Logo depois" é até três palavras: "API oficial da Meta (…)" explica a API.
+    Sem repetição, na ordem em que aparecem.
+    """
+    achadas: list[str] = []
+    for m in _JARGAO.finditer(prosa(corpo)):
+        termo = m.group(1).lower()
+        if not m.group("explicada") and termo not in achadas:
+            achadas.append(termo)
+    return achadas
+
+
 def analisar(
     *,
     corpo: str,
     descricao: str | None = None,
     tags: list[str] | None = None,
     origem: list[dict] | None = None,
+    pilar: str | None = None,
 ) -> list[Camada]:
-    """As cinco camadas do post, cada uma com os sinais que a sustentam."""
+    """As cinco camadas do post, cada uma com os sinais que a sustentam.
+
+    No pilar do dono de negócio, o "como" mede passo a passo ou texto pronto em
+    vez de código, e o "resultado" ganha o sinal de jargão.
+    """
+    negocio = pilar == PILAR_NEGOCIO
     tags = tags or []
     origem = origem or []
     blocos = paragrafos(corpo)
@@ -222,28 +284,61 @@ def analisar(
             ),
         ],
     )
+    if negocio:
+        termos = jargao(corpo)
+        resultado.sinais.append(
+            Sinal(
+                ok=not termos,
+                texto="sem jargão" if not termos else f"jargão: {', '.join(termos)}",
+                dica='troque pela palavra do dono ("paciente novo", e não "lead") ou explique entre parênteses na primeira vez',
+            )
+        )
 
     # ── técnico: ele quer conseguir repetir ───────────────────────────
+    # (no pilar de negócio, quem repete é o dono: passo a passo ou texto pronto)
     n_subtitulos = len(re.findall(r"^##\s+\S", corpo, re.MULTILINE))
-    tem_codigo = bool(_FENCE.search(corpo)) or bool(_FORMULA_BLOCO.search(corpo))
-    como = Camada(
-        id="como",
-        rotulo="Como foi feito",
-        publico="tecnico",
-        pergunta="Como foi feito? Eu conseguiria repetir?",
-        sinais=[
-            Sinal(
-                ok=tem_codigo,
-                texto="tem bloco de código ou fórmula" if tem_codigo else "sem código nem fórmula",
-                dica="um trecho de código real, com o nome das coisas, é o que separa post técnico de resenha",
-            ),
-            Sinal(
-                ok=n_subtitulos >= MIN_SUBTITULOS,
-                texto=f"{n_subtitulos} subtítulo(s) ## (mín. {MIN_SUBTITULOS})",
-                dica="quem lê na diagonal lê os subtítulos; sem eles o post é um bloco",
-            ),
-        ],
+    subtitulos = Sinal(
+        ok=n_subtitulos >= MIN_SUBTITULOS,
+        texto=f"{n_subtitulos} subtítulo(s) ## (mín. {MIN_SUBTITULOS})",
+        dica="quem lê na diagonal lê os subtítulos; sem eles o post é um bloco",
     )
+    if negocio:
+        n_passos = len(_PASSO.findall(_BLOCO_CODIGO.sub("", corpo)))
+        tem_texto = bool(_BLOCO_TEXTO.search(corpo))
+        como = Camada(
+            id="como",
+            rotulo="Como fazer",
+            publico="cliente",
+            pergunta="Dá para fazer amanhã, sem me contratar?",
+            sinais=[
+                Sinal(
+                    ok=n_passos >= PASSOS_MIN or tem_texto,
+                    texto=(
+                        "tem texto pronto para copiar"
+                        if tem_texto
+                        else f"{n_passos} passo(s) numerado(s) (mín. {PASSOS_MIN}, ou um bloco ```text)"
+                    ),
+                    dica="dê o que ele faz sozinho: os passos numerados ou o texto inteiro, pronto para colar",
+                ),
+                subtitulos,
+            ],
+        )
+    else:
+        tem_codigo = bool(_FENCE.search(corpo)) or bool(_FORMULA_BLOCO.search(corpo))
+        como = Camada(
+            id="como",
+            rotulo="Como foi feito",
+            publico="tecnico",
+            pergunta="Como foi feito? Eu conseguiria repetir?",
+            sinais=[
+                Sinal(
+                    ok=tem_codigo,
+                    texto="tem bloco de código ou fórmula" if tem_codigo else "sem código nem fórmula",
+                    dica="um trecho de código real, com o nome das coisas, é o que separa post técnico de resenha",
+                ),
+                subtitulos,
+            ],
+        )
 
     # ── recrutador: ele quer saber se você fez mesmo ──────────────────
     tem_repo = any("github.com" in u or "gitlab.com" in u for u in links)

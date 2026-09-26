@@ -620,3 +620,13 @@ def test_commit_de_atualizacao_diz_que_atualiza(publicado):
 
     assunto, _ = publicacao._mensagem(publicado)
     assert assunto.startswith("post: atualiza ")
+
+
+def test_pilar_de_negocio_leva_o_guia_do_dono_de_negocio():
+    """Passo 8.2: a voz do dono de negócio vai por cima da voz de post, e só no pilar dele."""
+    from app.blog import geracao
+
+    tecnico = geracao._spec("ia-llms")
+    negocio = geracao._spec("automacao-negocio")
+    assert "Sem jargão" not in tecnico
+    assert negocio.startswith(tecnico) and "Sem jargão" in negocio

@@ -59,6 +59,7 @@ def _diag(p: BlogPost) -> tuple[list[str], list[str]]:
         descricao=p.descricao,
         tags=list(p.tags or []),
         origem=list(p.origem or []),
+        pilar=p.pilar,
     )
     return camadas_mod.o_que_falta(cs), camadas_mod.faltas(p.corpo or "")
 

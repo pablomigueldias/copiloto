@@ -251,6 +251,7 @@ def diagnostico(post: BlogPost) -> dict[str, Any]:
         descricao=post.descricao,
         tags=list(post.tags or []),
         origem=list(post.origem or []),
+        pilar=post.pilar,
     )
     erros_fm = taxonomia.validar_frontmatter(
         slug=post.slug,

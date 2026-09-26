@@ -192,3 +192,93 @@ def test_minutos_de_leitura_tem_piso_de_um():
 
 def test_palavras_ignora_codigo():
     assert camadas.palavras("uma duas\n\n```\nlixo lixo lixo lixo\n```") == 2
+
+
+# ── o pilar do dono de negócio (passo 8.2 do motor comercial) ─────────
+
+# O post de teste do aceite do 8.2: sem código, com passos, sem jargão.
+POST_NEGOCIO = """\
+Uma paciente escreve às 22h pedindo horário. A recepção sai às 18h. Quando alguém
+responde, às 9h do dia seguinte, ela já marcou com outra clínica.
+
+## Quanto custa deixar para amanhã
+
+Numa pesquisa com 2 mil consumidores, 51% disseram que o ideal é receber retorno
+em até 5 minutos, e o WhatsApp foi o canal preferido
+([CX Trends 2026](https://www.octadesk.com/cx-trends)). Só 34% dos
+estabelecimentos de saúde oferecem agendamento online.
+
+## O que dá para fazer hoje, sem contratar ninguém
+
+1. Abra o WhatsApp Business e vá em Ferramentas comerciais.
+2. Ligue a mensagem de ausência para fora do horário.
+3. Cole o texto abaixo e troque o horário pelo seu.
+
+```text
+Oi! Recebemos sua mensagem. Respondemos a partir das 8h.
+```
+
+Quer saber onde o seu WhatsApp está perdendo paciente? <CTA assunto="mensagem de ausência" />
+"""
+
+CAMPOS_NEGOCIO = {
+    "descricao": "51% querem resposta em até 5 minutos. O que a clínica perde à noite e a mensagem que resolve hoje.",
+    "tags": ["whatsapp", "atendimento"],
+    "origem": [{"vault": "Blog/lead-esfria.md"}],
+    "pilar": camadas.PILAR_NEGOCIO,
+}
+
+
+def test_post_de_negocio_passa_sem_codigo_e_sem_jargao():
+    achadas = camadas.analisar(corpo=POST_NEGOCIO, **CAMPOS_NEGOCIO)
+    assert camadas.o_que_falta(achadas) == []
+    como = next(c for c in achadas if c.id == "como")
+    assert como.rotulo == "Como fazer" and como.publico == "cliente"
+
+
+def test_o_mesmo_post_no_pilar_tecnico_pede_codigo():
+    """A régua de negócio só vale no pilar dele: o post técnico continua pedindo código."""
+    como = _camada(POST_NEGOCIO.replace("```text", "```"), "como", pilar="ia-llms")
+    # ``` sem linguagem ainda é bloco de código para o técnico; sem bloco, reprova.
+    assert como.ok
+    sem_bloco = POST_NEGOCIO.split("```text")[0]
+    assert not _camada(sem_bloco, "como", pilar="ia-llms").ok
+
+
+def test_negocio_sem_passos_nem_texto_pronto_reprova():
+    corpo = POST_NEGOCIO.split("1. Abra")[0] + "Ligue a mensagem de ausência.\n"
+    como = _camada(corpo, "como", **CAMPOS_NEGOCIO)
+    assert not como.ok
+    assert "0 passo(s)" in como.sinais[0].texto
+
+
+def test_texto_pronto_sozinho_basta_como_passo():
+    corpo = POST_NEGOCIO.replace("1. Abra", "Abra").replace("2. Ligue", "Ligue").replace(
+        "3. Cole", "Cole"
+    )
+    assert _camada(corpo, "como", **CAMPOS_NEGOCIO).ok
+
+
+def test_jargao_aparece_no_resultado_do_negocio():
+    corpo = POST_NEGOCIO.replace("Uma paciente escreve", "Um lead escreve ao chatbot")
+    resultado = _camada(corpo, "resultado", **CAMPOS_NEGOCIO)
+    assert not resultado.ok
+    assert "jargão: lead, chatbot" in [s.texto for s in resultado.sinais]
+
+
+def test_jargao_nao_e_medido_no_pilar_tecnico():
+    corpo = POST_BOM.replace("Perguntei ao meu assistente", "Perguntei ao meu chatbot via API")
+    assert _camada(corpo, "resultado").ok
+
+
+def test_jargao_explicado_entre_parenteses_passa():
+    assert camadas.jargao("A API oficial da Meta (o jeito que ela autoriza) é a mesma.") == []
+    assert camadas.jargao("A API oficial da Meta é a mesma.") == ["api"]
+
+
+def test_jargao_nao_pega_palavra_que_so_comeca_igual():
+    assert camadas.jargao("O botão do app, a tokenização e o apimentado.") == []
+
+
+def test_jargao_ignora_codigo():
+    assert camadas.jargao("Rode `deploy` e veja.\n\n```\napi.chamar()\n```") == []

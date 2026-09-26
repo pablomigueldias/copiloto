@@ -49,6 +49,9 @@ from app.utils.logger import get_logger
 logger = get_logger()
 
 SPEC_POST = BASE_DIR / "prompts" / "voz-post.md"
+# O leitor do pilar de negócio é o dono de clínica, não o dev: a mesma voz, com o
+# "como" em passos e sem jargão (passo 8.2 do motor comercial).
+SPEC_NEGOCIO = BASE_DIR / "prompts" / "voz-post-negocio.md"
 RODADAS = 3
 MAX_MATERIA_PALAVRAS = 6000
 MAX_EXEMPLO_PALAVRAS = 900
@@ -185,6 +188,14 @@ def publicados() -> list[dict]:
     return sorted(saida, key=lambda p: p["data"], reverse=True)
 
 
+def _spec(pilar: str | None) -> str:
+    """A voz do post, e a do dono de negócio por cima quando o pilar é o dele."""
+    spec = SPEC_POST.read_text(encoding="utf-8").strip()
+    if pilar == camadas_mod.PILAR_NEGOCIO:
+        spec += "\n\n" + SPEC_NEGOCIO.read_text(encoding="utf-8").strip()
+    return spec
+
+
 def _prompt(post: BlogPost, materia: list[tuple[str, str]]) -> str:
     no_ar = [p for p in publicados() if p["slug"] != post.slug]
     exemplos = "\n\n".join(
@@ -194,7 +205,7 @@ def _prompt(post: BlogPost, materia: list[tuple[str, str]]) -> str:
     links = "\n".join(f"- {p['titulo']} → {p['url']}" for p in no_ar) or "(nenhum ainda)"
     fontes = "\n\n".join(f"### {rotulo}\n\n{texto}" for rotulo, texto in materia)
 
-    return f"""{SPEC_POST.read_text(encoding="utf-8").strip()}
+    return f"""{_spec(post.pilar)}
 
 ## Frases proibidas (as mesmas das mensagens)
 
@@ -235,9 +246,9 @@ def _proibidas_legiveis() -> str:
     return "\n".join(f"- {rotulo}" for _, rotulo in voz_mod.FRASES_PROIBIDAS)
 
 
-def _revisao(corpo: str, descricao: str, problemas: list[str]) -> str:
+def _revisao(corpo: str, descricao: str, problemas: list[str], pilar: str | None = None) -> str:
     lista = "\n".join(f"- {p}" for p in problemas)
-    return f"""{SPEC_POST.read_text(encoding="utf-8").strip()}
+    return f"""{_spec(pilar)}
 
 O rascunho abaixo foi medido e reprovou nestes pontos, e só nestes:
 
@@ -279,6 +290,7 @@ def _problemas(post: BlogPost, corpo: str, descricao: str) -> list[str]:
         descricao=descricao or post.descricao,
         tags=tags,
         origem=list(post.origem or []),
+        pilar=post.pilar,
     )
     problemas = [
         f"{c.rotulo}: {s.texto}" + (f" — {s.dica}" if s.dica else "")
@@ -312,7 +324,7 @@ async def gerar_rascunho(post_id: UUID) -> dict:
     while problemas and rodadas < RODADAS:
         await _exigir_orcamento()
         r = await gateway.gerar(
-            _revisao(corpo, descricao, problemas),
+            _revisao(corpo, descricao, problemas, post.pilar),
             tarefa="redigir",
             agente="blog.revisao",
             alvo_ref=str(post.id),
