@@ -383,8 +383,12 @@ def _selecionar_certificacoes(fatos: Fatos, requisitos: Requisitos, *, n: int = 
         stack_casada, total = pontos(c)
         return 2 * stack_casada + total
 
+    # `"mostrar": false` no perfil tira a certificação de qualquer currículo. É
+    # decisão minha, caso a caso ("Python 3 - Mundo 1" é introdutório; "Fundamentos
+    # de SOC" não é segurança em cloud), e não uma regra que o casador adivinha.
+    candidatas = [c for c in fatos.certificacoes if c.get("mostrar", True) is not False]
     ordenadas = sorted(
-        fatos.certificacoes, key=lambda c: (-forca(c), normalizar(c.get("nome", "")))
+        candidatas, key=lambda c: (-forca(c), normalizar(c.get("nome", "")))
     )
     relevantes = [c for c in ordenadas if entra(c)]
     # Sem nenhuma relevante, vale mostrar as que existem — currículo sem seção

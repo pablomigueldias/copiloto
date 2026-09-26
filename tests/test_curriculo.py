@@ -787,3 +787,20 @@ def test_palavra_funcional_do_portugues_nao_elege():
     # relevância inventada por "como".
     escolhidas = _selecionar_certificacoes(montar_fatos(perfil), req)
     assert len(escolhidas) == 1  # o fallback, não o acerto
+
+
+def test_certificacao_com_mostrar_false_nunca_entra():
+    """A curadoria é minha: "mostrar": false tira do currículo mesmo casando a vaga."""
+    from app.candidatura.curriculo import _selecionar_certificacoes
+
+    perfil = PerfilMestre(
+        nome=PERFIL.nome, resumo=PERFIL.resumo, contato=PERFIL.contato,
+        habilidades=PERFIL.habilidades, projetos=PERFIL.projetos,
+        experiencias=PERFIL.experiencias, formacao=PERFIL.formacao,
+        certificacoes=[
+            {"nome": "Python 3 - Mundo 1", "tema": "python", "mostrar": False},
+            {"nome": "Python para dados", "tema": "python pandas"},
+        ],
+    )
+    escolhidas = _selecionar_certificacoes(montar_fatos(perfil), Requisitos(stack=["Python"]))
+    assert [c["nome"] for c in escolhidas] == ["Python para dados"]
