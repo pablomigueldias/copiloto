@@ -307,3 +307,8 @@ async def com_curriculo():
             await s.commit()
 
     return gravar
+
+
+@pytest.fixture
+async def pendencias(painel):
+    return await _ir_para(painel, "Pendências", 'h1:has-text("O que é meu fazer")')

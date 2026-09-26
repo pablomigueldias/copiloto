@@ -19,6 +19,7 @@ from app.api.routers import estudo as estudo_router
 from app.api.routers import fila as fila_router
 from app.api.routers import observabilidade as observabilidade_router
 from app.api.routers import painel as painel_router
+from app.api.routers import pendencias as pendencias_router
 from app.api.routers import transcricao as transcricao_router
 from app.api.services.auth.cookie import cookie_name
 from app.api.services.auth.csrf import valido as csrf_valido
@@ -92,6 +93,7 @@ app.include_router(blog_router.router)
 app.include_router(candidatura_router.router)
 app.include_router(painel_router.router)
 app.include_router(transcricao_router.router)
+app.include_router(pendencias_router.router)
 
 # ── As imagens das questões ───────────────────────────────────────────────
 #

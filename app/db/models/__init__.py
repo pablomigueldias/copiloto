@@ -22,6 +22,7 @@ from app.db.models.comercial import (
 from app.db.models.conhecimento import ConhecimentoChunk
 from app.db.models.estudo import Agenda, Modulo, Questao, Tentativa, Topico
 from app.db.models.exemplo_estilo import ExemploEstilo
+from app.db.models.pendencia import Pendencia
 from app.db.models.pessoal import (
     CandidaturaEmail,
     CandidaturaEvento,
@@ -49,6 +50,7 @@ __all__ = [
     "Importacao",
     "Modulo",
     "Origem",
+    "Pendencia",
     "PerfilMestre",
     "PipelineEvent",
     "Questao",

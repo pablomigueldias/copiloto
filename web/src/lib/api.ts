@@ -21,8 +21,11 @@ import type {
   ModuloResumo,
   PainelBlog,
   Parecido,
+  Pendencia,
+  PendenciaCampos,
   PostDetalhe,
   PostLinha,
+  QuadroPendencias,
   Questao,
   RascunhoGerado,
   Resposta,
@@ -247,6 +250,16 @@ export const api = {
       method: "POST",
       body: JSON.stringify(corpo),
     }),
+
+  // ── quadro de pendências ──
+  pendencias: () => req<QuadroPendencias>("/pendencias"),
+  criarPendencia: (campos: PendenciaCampos & { titulo: string; topico: string }) =>
+    req<Pendencia>("/pendencias", { method: "POST", body: JSON.stringify(campos) }),
+  /** Editar e mover são a mesma rota: mover é mudar `coluna` (e `ordem`). */
+  editarPendencia: (id: string, campos: PendenciaCampos) =>
+    req<Pendencia>(`/pendencias/${id}`, { method: "PATCH", body: JSON.stringify(campos) }),
+  apagarPendencia: (id: string) =>
+    req<void>(`/pendencias/${id}`, { method: "DELETE" }),
 
   // ── fila de aprovação ──
   filaAprovacao: (status = "pendente") =>

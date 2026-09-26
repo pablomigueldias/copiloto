@@ -22,6 +22,7 @@ const ESTUDO: Item[] = [
 const RESTO: Item[] = [
   { href: "/conhecimento", rotulo: "Conhecimento", icone: "conhecimento" },
   { href: "/transcrever", rotulo: "Transcrever", icone: "transcrever" },
+  { href: "/pendencias", rotulo: "Pendências", icone: "pendencias" },
   { href: "/posts", rotulo: "Redação", icone: "posts" },
   { href: "/fila", rotulo: "Fila", icone: "fila" },
   { href: "/candidaturas", rotulo: "Candidaturas", icone: "candidaturas" },
@@ -72,6 +73,9 @@ export function Sidebar() {
   // o texto começado e parado — foi exatamente o que aconteceu com o post do
   // RAG, esquecido por um dia sem nada na tela lembrando dele.
   const [rascunhos, setRascunhos] = useState(0);
+  // Só o que vence em até 7 dias (ou já venceu), não o total: com quarenta
+  // cartões abertos, o total vira paisagem. O que precisa gritar é o prazo.
+  const [vencendo, setVencendo] = useState(0);
 
   const carregar = useCallback(() => {
     api.resumo().then(setResumo).catch(() => {});
@@ -84,6 +88,20 @@ export function Sidebar() {
     api
       .posts()
       .then((p) => setRascunhos(Number(p.por_estado?.rascunho ?? 0)))
+      .catch(() => {});
+    api
+      .pendencias()
+      .then((q) => {
+        const limite = Date.now() + 7 * 86_400_000;
+        setVencendo(
+          q.itens.filter(
+            (p) =>
+              p.coluna !== "feito" &&
+              p.prazo &&
+              new Date(`${p.prazo}T23:59:59`).getTime() <= limite,
+          ).length,
+        );
+      })
       .catch(() => {});
   }, []);
 
@@ -134,7 +152,9 @@ export function Sidebar() {
                 ? pendentes
                 : i.href === "/posts"
                   ? rascunhos
-                  : undefined
+                  : i.href === "/pendencias"
+                    ? vencendo
+                    : undefined
             }
           />
         ))}

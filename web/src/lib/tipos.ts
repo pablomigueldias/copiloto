@@ -454,3 +454,36 @@ export type VocabularioBlog = {
   titulo: [number, number];
   descricao: [number, number];
 };
+
+// ── quadro de pendências (/pendencias) ──
+
+export type ColunaPendencia = "a_fazer" | "fazendo" | "feito";
+
+export type Pendencia = {
+  id: string;
+  titulo: string;
+  descricao: string | null;
+  topico: string;
+  /** O gatilho como foi escrito: "agora", "antes do 1º contrato", "03/10". */
+  quando: string | null;
+  /** Só quando há um dia de verdade (AAAA-MM-DD). */
+  prazo: string | null;
+  onde: string | null;
+  coluna: ColunaPendencia;
+  ordem: number;
+  concluida_em: string | null;
+  created_at: string;
+};
+
+export type QuadroPendencias = { topicos: string[]; itens: Pendencia[] };
+
+export type PendenciaCampos = {
+  titulo?: string;
+  topico?: string;
+  descricao?: string | null;
+  quando?: string | null;
+  prazo?: string | null;
+  onde?: string | null;
+  coluna?: ColunaPendencia;
+  ordem?: number;
+};
