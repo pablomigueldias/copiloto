@@ -52,6 +52,10 @@ TABELAS_DE_DADOS = (
     "estudo_modulo",
     "estudo_banca",
     "pendencia",
+    "comercial_tarefa",
+    "comercial_interacao",
+    "comercial_transicao",
+    "comercial_lead",
     # A fonte fica: é cadastro da migration, não dado de teste.
     "prospeccao_origem",
     "prospeccao_canal",
