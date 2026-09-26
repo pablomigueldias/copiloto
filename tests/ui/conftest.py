@@ -316,4 +316,4 @@ async def pendencias(painel):
 
 @pytest.fixture
 async def comercial_empresas(painel):
-    return await _ir_para(painel, "Comercial", 'h1:has-text("Quem trazer para o CRM")')
+    return await _ir_para(painel, "Comercial", 'h1:text-is("CRM")')

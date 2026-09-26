@@ -33,7 +33,7 @@ async def base():
 async def test_marcar_e_trazer_para_o_crm(comercial_empresas, base):
     p = comercial_empresas
     await p.reload(wait_until="domcontentloaded")
-    await p.wait_for_selector('h1:has-text("Quem trazer para o CRM")', timeout=60000)
+    await p.wait_for_selector('h1:text-is("CRM")', timeout=60000)
     await p.get_by_text("Clínica de Psicologia Aurora").wait_for(timeout=10000)
     shot = os.environ.get("EMPRESAS_SCREENSHOT")
     if shot:
@@ -49,4 +49,33 @@ async def test_marcar_e_trazer_para_o_crm(comercial_empresas, base):
         tarefas = list(await s.scalars(select(Tarefa)))
     assert [lead.nome for lead in leads] == ["Clínica de Psicologia Aurora"]
     assert [t.tipo for t in tarefas] == ["pesquisar"]
+    sem_erros(p)
+
+
+async def test_pagina_do_lead_mostra_a_ficha_com_fonte(painel):
+    from app.comercial.crm import leads as leads_mod
+    from app.db.models.comercial.crm import Interacao, OrigemLead
+
+    async with get_session() as s:
+        lead = await leads_mod.criar(s, origem=OrigemLead.PROSPECCAO, nome="Clínica Aurora", email="fulana@gmail.com")
+        s.add(Interacao(
+            lead_id=lead.id, canal="nota", direcao="interna", tipo="ficha", texto="Ficha de teste",
+            dados={
+                "site": "https://clinicaaurora.test", "paginas": ["https://clinicaaurora.test/"],
+                "emails": [], "whatsapp": None, "agendamento_online": None,
+                "psicologos_crp": {"valor": 4, "fonte": "https://clinicaaurora.test/equipe"},
+                "o_que_faz": {"valor": "psicoterapia para adultos", "fonte": "https://clinicaaurora.test/"},
+                "gancho": None,
+            },
+        ))
+        await s.commit()
+    p = painel
+    await p.goto(p.url.split("/", 3)[0] + "//" + p.url.split("/")[2] + f"/comercial/leads/{lead.id}", wait_until="domcontentloaded")
+    await p.get_by_text("psicoterapia para adultos").wait_for(timeout=60000)
+    assert await p.locator('a[href="https://clinicaaurora.test/equipe"]').count() == 1
+    await p.click('button:has-text("Pesquisar de novo")')
+    await p.get_by_text("provedor gratuito").wait_for(timeout=10000)
+    shot = os.environ.get("LEAD_SCREENSHOT")
+    if shot:
+        await p.screenshot(path=shot, full_page=True)
     sem_erros(p)

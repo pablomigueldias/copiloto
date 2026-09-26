@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
 
 import { Aviso, Dialogo } from "@/components/Dialogo";
+import { AbasComercial } from "@/components/comercial/Abas";
 import { Cabecalho, Erro, Vazio, plural } from "@/components/ui";
 import { api } from "@/lib/api";
 import { useAtualizar } from "@/lib/atualizar";
@@ -64,7 +66,14 @@ function Linha({
               pessoa física: revisão manual
             </span>
           )}
-          {noCrm && <span className="text-accent">no CRM</span>}
+          {noCrm && (
+            <Link
+              href={`/comercial/leads/${e.lead_id}`}
+              className="text-accent no-underline hover:underline"
+            >
+              no CRM →
+            </Link>
+          )}
         </div>
       </td>
       <td className="py-[10px] pr-3 text-[13px] text-muted">
@@ -152,15 +161,15 @@ export default function Empresas() {
   return (
     <div className="max-w-[1100px] px-[clamp(24px,4vw,56px)] pb-14 pt-[34px]">
       <Cabecalho>Comercial · Empresas</Cabecalho>
-      <h1 className="m-0 mb-3 text-[clamp(32px,3.6vw,42px)]">
-        Quem trazer para o CRM
-      </h1>
+      <h1 className="m-0 mb-3 text-[clamp(32px,3.6vw,42px)]">CRM</h1>
       <p className="m-0 mb-6 max-w-[64ch] text-[15px] text-muted">
         A base de prospecção tem o que existe; o CRM tem quem você escolheu
         abordar. Marque até {MAX} e traga: cada uma vira um lead com a tarefa
         &ldquo;pesquisar&rdquo;. O e-mail da base só vira destinatário depois
         que o Pesquisador confirmar que a clínica o publica.
       </p>
+
+      <AbasComercial />
 
       <div className="mb-5 flex flex-wrap items-end gap-3">
         <div>

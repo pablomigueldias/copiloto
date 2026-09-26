@@ -519,3 +519,63 @@ export type TrazerResposta = {
   /** estabelecimento → por que ficou de fora */
   pulados: Record<string, string>;
 };
+
+export type LeadLinha = {
+  id: number;
+  nome: string;
+  estagio: string;
+  email: string | null;
+  /** A clínica publica o e-mail no próprio site (regras-prospeccao §4). */
+  email_confirmado: boolean;
+  site: string | null;
+  proxima_acao: string | null;
+  pesquisado_em: string | null;
+  criado_em: string;
+};
+
+export type FatoFicha = { valor: string | number | boolean; fonte: string };
+
+export type FichaDados = {
+  site: string;
+  paginas: string[];
+  emails: FatoFicha[];
+  whatsapp: FatoFicha | null;
+  agendamento_online: FatoFicha | null;
+  psicologos_crp: FatoFicha | null;
+  o_que_faz: FatoFicha | null;
+  gancho: FatoFicha | null;
+  com_javascript?: string[];
+  parou_porque?: string;
+};
+
+export type Interacao = {
+  id: number;
+  canal: string;
+  direcao: string;
+  tipo: string | null;
+  texto: string | null;
+  dados: FichaDados | null;
+  criado_em: string;
+};
+
+export type TarefaCrm = {
+  id: number;
+  tipo: string;
+  vence_em: string;
+  feita_em: string | null;
+};
+
+export type LeadDetalhe = LeadLinha & {
+  email_fonte: string | null;
+  telefone: string | null;
+  estabelecimento_id: number | null;
+  interacoes: Interacao[];
+  tarefas: TarefaCrm[];
+};
+
+export type PesquisarResposta = {
+  status: "ok" | "sem_site" | "site_fora" | "nao_e_da_clinica";
+  email_confirmado: boolean;
+  mensagem: string;
+  lead: LeadDetalhe;
+};

@@ -30,6 +30,7 @@ from sqlalchemy import (
     Text,
     func,
 )
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -110,6 +111,10 @@ class Lead(Base):
     email: Mapped[str | None] = mapped_column(Text)
     telefone: Mapped[str | None] = mapped_column(String(20))
     site: Mapped[str | None] = mapped_column(Text)
+    # Onde a própria clínica publica o e-mail (Pesquisador, passo 3). Nulo = não
+    # confirmado, e e-mail não confirmado não vira destinatário (regras §4).
+    email_fonte: Mapped[str | None] = mapped_column(Text)
+    pesquisado_em: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     estagio: Mapped[str] = mapped_column(String(12), nullable=False, default="prospect")
     proxima_acao: Mapped[str | None] = mapped_column(Text)
     proxima_em: Mapped[date | None] = mapped_column(Date)
@@ -154,6 +159,8 @@ class Interacao(Base):
     # "email_1", "lembrete", "resposta", "ficha"... livre: é rótulo, não regra.
     tipo: Mapped[str | None] = mapped_column(String(30))
     texto: Mapped[str | None] = mapped_column(Text)
+    # A ficha do Pesquisador: cada fato com a URL de onde veio.
+    dados: Mapped[dict | None] = mapped_column(JSONB)
     ai_call_id: Mapped[uuid.UUID | None] = mapped_column(
         PG_UUID(as_uuid=True), ForeignKey("ai_calls.id", ondelete="SET NULL")
     )

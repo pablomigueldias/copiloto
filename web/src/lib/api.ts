@@ -20,8 +20,11 @@ import type {
   Metricas,
   ModuloResumo,
   FiltroEmpresas,
+  LeadDetalhe,
+  LeadLinha,
   PaginaEmpresas,
   PainelBlog,
+  PesquisarResposta,
   Parecido,
   Pendencia,
   PendenciaCampos,
@@ -271,6 +274,15 @@ export const api = {
     req<TrazerResposta>("/comercial/empresas/trazer", {
       method: "POST",
       body: JSON.stringify({ ids, confirmar_pessoa_fisica: confirmarPessoaFisica }),
+    }),
+
+  leads: () => req<LeadLinha[]>("/comercial/leads"),
+  lead: (id: number) => req<LeadDetalhe>(`/comercial/leads/${id}`),
+  /** Pesquisador: lê o site público da clínica e monta a ficha, com fonte. */
+  pesquisarLead: (id: number, site?: string) =>
+    req<PesquisarResposta>(`/comercial/leads/${id}/pesquisar`, {
+      method: "POST",
+      body: JSON.stringify({ site: site || null }),
     }),
 
   // ── quadro de pendências ──
