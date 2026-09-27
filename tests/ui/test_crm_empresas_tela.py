@@ -6,6 +6,7 @@ import os
 import pytest
 from sqlalchemy import select
 
+from app.db.models.acao_pendente import AcaoPendente
 from app.db.models.comercial.crm import Lead, Tarefa
 from app.db.models.comercial.prospeccao import Canal, Estabelecimento
 from app.db.session import get_session
@@ -78,4 +79,50 @@ async def test_pagina_do_lead_mostra_a_ficha_com_fonte(painel):
     shot = os.environ.get("LEAD_SCREENSHOT")
     if shot:
         await p.screenshot(path=shot, full_page=True)
+    sem_erros(p)
+
+
+async def test_escrever_aprovar_e_marcar_enviei(painel):
+    """Passo 4: escrever vai para a fila; aprovado, a tela mostra o texto e o "Enviei"."""
+    from app.comercial.crm import leads as leads_mod
+    from app.db.models.comercial.crm import Interacao, OrigemLead
+    from app.fila import servico as fila
+
+    async with get_session() as s:
+        lead = await leads_mod.criar(
+            s, origem=OrigemLead.PROSPECCAO, nome="CLINICA AURORA LTDA", email="contato@clinicaaurora.test"
+        )
+        lead.email_fonte = "https://clinicaaurora.test/contato"
+        # Ficha sem fato para a abertura: o Redator não chama a IA (a API roda noutro processo).
+        s.add(Interacao(
+            lead_id=lead.id, canal="nota", direcao="interna", tipo="ficha", texto="Ficha de teste",
+            dados={"site": "https://clinicaaurora.test", "paginas": ["https://clinicaaurora.test"], "emails": [],
+                   "whatsapp": None, "agendamento_online": None, "psicologos_crp": None, "o_que_faz": None,
+                   "gancho": None},
+        ))
+        await s.commit()
+    p = painel
+    base = p.url.split("/", 3)[0] + "//" + p.url.split("/")[2]
+    await p.goto(f"{base}/comercial/leads/{lead.id}", wait_until="domcontentloaded")
+    await p.click('button:has-text("Escrever o e-mail 1")', timeout=60000)
+    await p.get_by_text("fila de aprovação →").wait_for(timeout=10000)
+
+    async with get_session() as s:
+        (acao,) = await s.scalars(select(AcaoPendente).where(AcaoPendente.alvo_ref == f"comercial_lead:{lead.id}"))
+    assert "Oi, pessoal da Clinica Aurora." in acao.texto_gerado
+    await fila.decidir(acao.id, decisao="aprovar")
+
+    await p.reload(wait_until="domcontentloaded")
+    await p.get_by_text("Aprovado. Copie para o webmail").wait_for(timeout=10000)
+    await p.get_by_text("Achei este e-mail na página de contato do site de vocês.").wait_for()
+    shot = os.environ.get("REDATOR_SCREENSHOT")
+    if shot:
+        await p.screenshot(path=shot, full_page=True)
+    await p.click('button:has-text("Enviei")')
+    await p.get_by_text("o lembrete pode sair a partir de").wait_for(timeout=10000)
+    await p.get_by_text("e-mail 1 enviado ·").wait_for()
+
+    async with get_session() as s:
+        lead = await s.get(Lead, lead.id)
+    assert lead.estagio == "contatado"
     sem_erros(p)

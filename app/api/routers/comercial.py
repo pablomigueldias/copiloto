@@ -1,7 +1,8 @@
 """Rotas do CRM comercial — /api/comercial/*.
 
 Empresas (Fase 1, passo 2): procurar na base e trazer para o CRM. Leads
-(passo 3): listar, ver a ficha e pesquisar. As regras moram em
+(passo 3): listar, ver a ficha e pesquisar. Redator (passo 4): escrever o
+e-mail 1 ou o lembrete para a fila, e marcar o aprovado como enviado. As regras moram em
 `app/comercial/crm/`; aqui só a porta.
 """
 from __future__ import annotations
@@ -14,17 +15,21 @@ from sqlalchemy import select
 from app.api.dependencies.auth import usuario_atual
 from app.api.schemas.comercial import (
     EmpresaLinha,
+    EnvieiRequest,
+    EscreverRequest,
+    EscreverResposta,
     InteracaoResponse,
     LeadDetalhe,
     LeadLinha,
     PaginaEmpresas,
     PesquisarRequest,
     PesquisarResposta,
+    RascunhoResponse,
     TarefaResponse,
     TrazerRequest,
     TrazerResposta,
 )
-from app.comercial.crm import empresas, leads, pesquisador
+from app.comercial.crm import empresas, leads, pesquisador, redator
 from app.db.models.auth.usuario import Usuario
 from app.db.models.comercial.crm import Interacao, Lead, Tarefa
 from app.db.session import get_session
@@ -91,6 +96,10 @@ async def _detalhe(session, lead_id: int) -> LeadDetalhe:
         email_fonte=lead.email_fonte, telefone=lead.telefone, estabelecimento_id=lead.estabelecimento_id,
         interacoes=[InteracaoResponse.model_validate(i, from_attributes=True) for i in interacoes],
         tarefas=[TarefaResponse.model_validate(t, from_attributes=True) for t in tarefas],
+        rascunhos=[
+            RascunhoResponse.model_validate(r, from_attributes=True)
+            for r in await redator.rascunhos(session, lead_id)
+        ],
     )
 
 
@@ -119,3 +128,27 @@ async def post_pesquisar(lead_id: int, req: PesquisarRequest, _: UsuarioLogado) 
             mensagem=r.mensagem or ("ficha pronta" if r.status == "ok" else ""),
             lead=await _detalhe(session, lead_id),
         )
+
+
+@router.post("/leads/{lead_id}/escrever", response_model=EscreverResposta, summary="Redator: texto para a fila")
+async def post_escrever(lead_id: int, req: EscreverRequest, _: UsuarioLogado) -> EscreverResposta:
+    async with get_session() as session:
+        try:
+            r = await redator.escrever(session, lead_id, tipo=req.tipo)
+        except redator.NaoPode as e:
+            raise HTTPException(status_code=409, detail=str(e)) from e
+        except leads.CrmErro as e:
+            raise HTTPException(status_code=404, detail=str(e)) from e
+        return EscreverResposta(acao_id=r.acao_id, avisos=r.avisos, lead=await _detalhe(session, lead_id))
+
+
+@router.post("/leads/{lead_id}/enviei", response_model=LeadDetalhe, summary="Marcar o texto aprovado como enviado")
+async def post_enviei(lead_id: int, req: EnvieiRequest, _: UsuarioLogado) -> LeadDetalhe:
+    async with get_session() as session:
+        try:
+            await redator.enviei(session, lead_id, req.acao_id)
+        except redator.NaoPode as e:
+            raise HTTPException(status_code=409, detail=str(e)) from e
+        except leads.CrmErro as e:
+            raise HTTPException(status_code=404, detail=str(e)) from e
+        return await _detalhe(session, lead_id)

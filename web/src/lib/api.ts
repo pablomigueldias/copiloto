@@ -21,6 +21,7 @@ import type {
   ModuloResumo,
   FiltroEmpresas,
   LeadDetalhe,
+  EscreverResposta,
   LeadLinha,
   PaginaEmpresas,
   PainelBlog,
@@ -283,6 +284,18 @@ export const api = {
     req<PesquisarResposta>(`/comercial/leads/${id}/pesquisar`, {
       method: "POST",
       body: JSON.stringify({ site: site || null }),
+    }),
+  /** Redator: escreve o e-mail 1 ou o lembrete e põe na fila. Não envia. */
+  escreverLead: (id: number, tipo: "email_frio" | "lembrete_frio") =>
+    req<EscreverResposta>(`/comercial/leads/${id}/escrever`, {
+      method: "POST",
+      body: JSON.stringify({ tipo }),
+    }),
+  /** Marca o texto aprovado como enviado pelo webmail do comercial@. */
+  envieiLead: (id: number, acaoId: string) =>
+    req<LeadDetalhe>(`/comercial/leads/${id}/enviei`, {
+      method: "POST",
+      body: JSON.stringify({ acao_id: acaoId }),
     }),
 
   // ── quadro de pendências ──

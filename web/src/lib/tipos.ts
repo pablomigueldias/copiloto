@@ -571,6 +571,27 @@ export type LeadDetalhe = LeadLinha & {
   estabelecimento_id: number | null;
   interacoes: Interacao[];
   tarefas: TarefaCrm[];
+  rascunhos: RascunhoCrm[];
+};
+
+/** Um texto do Redator: na fila, aprovado esperando o envio, ou já enviado. */
+export type RascunhoCrm = {
+  acao_id: string;
+  tipo: "email_frio" | "lembrete_frio";
+  status: "pendente" | "aprovada" | "editada" | "rejeitada";
+  assunto: string;
+  corpo: string;
+  motivo: string | null;
+  avisos: string[];
+  problemas: string[];
+  criada_em: string;
+  enviado_em: string | null;
+};
+
+export type EscreverResposta = {
+  acao_id: string;
+  avisos: string[];
+  lead: LeadDetalhe;
 };
 
 export type PesquisarResposta = {

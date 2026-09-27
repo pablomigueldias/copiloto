@@ -1,8 +1,10 @@
 """Fronteira do módulo comercial (D1 do bot): importa só do motor.
 
-`app/comercial/` pode usar `app.db`, `app.config`, `app.utils`, `app.llm` e ele
-mesmo. O `app.llm` (gateway e registro de chamada) é motor, e já constava na
-fronteira do `bot-comercial/05`; entrou aqui com o Pesquisador (Fase 1, passo 3).
+`app/comercial/` pode usar `app.db`, `app.config`, `app.utils`, `app.llm`,
+`app.fila` e ele mesmo. O `app.llm` (gateway e registro de chamada) é motor, e já
+constava na fronteira do `bot-comercial/05`; entrou aqui com o Pesquisador (Fase
+1, passo 3). A `app.fila` (aprovação e few-shot) também é motor, serve a todo
+agente que escreve em meu nome; entrou com o Redator (passo 4).
 Importar de `app.estudo`, `app.blog` etc. amarraria o comercial a um módulo que
 muda por outro motivo — e o dia de separar os dois ficaria caro.
 """
@@ -11,7 +13,7 @@ from __future__ import annotations
 import ast
 from pathlib import Path
 
-PERMITIDOS = ("app.db", "app.config", "app.utils", "app.llm", "app.comercial")
+PERMITIDOS = ("app.db", "app.config", "app.utils", "app.llm", "app.fila", "app.comercial")
 RAIZ = Path(__file__).resolve().parents[1] / "app" / "comercial"
 
 

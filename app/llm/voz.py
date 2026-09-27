@@ -20,7 +20,7 @@ MAX_PALAVRAS = 120
 # Cada entrada saiu de texto realmente produzido pelo sistema antigo (propostas
 # via Gemini, incluindo as perdidas). É o vocabulário a não reproduzir.
 FRASES_PROIBIDAS: tuple[tuple[str, str], ...] = (
-    (r"espero que (você )?esteja bem", "abertura de robô"),
+    (r"espero que (voc[êe]s? )?estejam? bem", "abertura de robô"),
     (r"li com aten[çc][ãa]o", "abertura de robô"),
     (r"meu nome [ée] \w+ e", "começa falando de si"),
     (r"gostaria de (me )?(apresentar|oferecer)", "abertura de vendedor"),
