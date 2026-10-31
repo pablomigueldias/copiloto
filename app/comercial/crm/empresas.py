@@ -23,7 +23,7 @@ from datetime import date
 from sqlalchemy import and_, exists, func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.comercial.crm import leads
+from app.comercial.crm import cadastro, leads
 from app.db.models.comercial.crm import Lead, OrigemLead, Tarefa, TipoTarefa
 from app.db.models.comercial.prospeccao import (
     Canal,
@@ -149,7 +149,11 @@ async def trazer(
     confirmar_pessoa_fisica: bool = False,
     hoje: date | None = None,
 ) -> Resultado:
-    """Cria o lead e a tarefa "pesquisar" de cada um. Pula, com o motivo, quem não pode."""
+    """Cria a empresa, o negócio (lead) e a tarefa "pesquisar" de cada um.
+
+    Pula, com o motivo, quem não pode. A empresa é reaproveitada quando o
+    estabelecimento já passou pelo CRM (o "não agora" que volta).
+    """
     if len(ids) > MAX_POR_VEZ:
         raise leads.CrmErro(f"no máximo {MAX_POR_VEZ} por vez")
     if confirmar_pessoa_fisica and len(ids) != 1:
@@ -190,6 +194,10 @@ async def trazer(
         except leads.JaNoCrm:
             resultado.pulados[est_id] = "já está no CRM"
             continue
+        empresa = await cadastro.empresa_da_base(
+            session, e, nome=lead.nome, email=lead.email, telefone=lead.telefone, site=lead.site
+        )
+        lead.empresa_id = empresa.id
         session.add(Tarefa(lead_id=lead.id, tipo=TipoTarefa.PESQUISAR.value, vence_em=hoje))
         await session.commit()
         resultado.trazidos.append(lead.id)

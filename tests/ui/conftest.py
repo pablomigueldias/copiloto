@@ -315,5 +315,14 @@ async def pendencias(painel):
 
 
 @pytest.fixture
-async def comercial_empresas(painel):
+async def comercial(painel):
+    """O CRM pela Visão geral, que é onde o menu "Comercial" leva."""
     return await _ir_para(painel, "Comercial", 'h1:text-is("CRM")')
+
+
+@pytest.fixture
+async def comercial_empresas(comercial):
+    """A base de prospecção, pela aba (a tela onde se trazem clínicas para o CRM)."""
+    await comercial.click('nav[aria-label="CRM comercial"] a:has-text("Base de prospecção")')
+    await comercial.wait_for_selector('text=Comercial · Base de prospecção', timeout=60000)
+    return comercial

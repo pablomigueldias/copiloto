@@ -1,0 +1,45 @@
+{
+  "_leia_me": "Valor semântico de conjunção, VUNESP: Fundação CASA 2010, questão 9. Procedência: docs/avanca-sp/outras-bancas/vunesp-fundacao-casa-2010-especialista-informatica-rede.pdf, prova de 07/03/2010; gabarito lido em gabarito-vunesp-fundacao-casa-2010.pdf, no bloco 'Especialista em Desenvolvimento e Gestão (Informática - Rede)'. O PDF é o edital de divulgação dos gabaritos (Edital 005/2010) e não fala em recurso. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "VUNESP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 5
+  },
+  "topico": {
+    "nome": "Coesão e conectivos",
+    "ordem": 14
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · Fundação CASA 2010 · Especialista em Desenvolvimento e Gestão (Informática – Rede) · questão 9",
+      "enunciado": "Assinale a alternativa em que a conjunção “ou” pode ser substituída pela conjunção “e”, como no trecho – Acho que, se os brasileiros mudaram, foi no sentido de não acreditarem mais nelas. Deixamos para trás a atitude infantil de insistir em sonhos que acabam em decepções. Ou de crer em falsas promessas.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A partir de agora, as pessoas têm de escolher: a incerteza das previsões ou a segurança da ciência."
+        },
+        {
+          "letra": "B",
+          "texto": "Progresso técnico ou progresso moral? Eis o dilema do homem do século 21."
+        },
+        {
+          "letra": "C",
+          "texto": "O pessimismo já havia sido delineado pelo instinto de destruição com Freud ou pelo caminho do sofrimento com Orwell."
+        },
+        {
+          "letra": "D",
+          "texto": "Diante dos mistérios do século 21, as pessoas se dividiram: o apocalipse ou o paraíso."
+        },
+        {
+          "letra": "E",
+          "texto": "Há duas opções a serem oferecidas às pessoas: projetar-se para o futuro ou concentrar-se no presente."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Em qual frase o 'ou' SOMA, em vez de excluir? Letra C.\n\nNo trecho do texto, os brasileiros deixaram para trás as DUAS atitudes: insistir em sonhos E crer em falsas promessas. O 'ou' ali é aditivo.\n\nEm C, o pessimismo foi delineado por Freud E por Orwell — os dois contribuíram, um não exclui o outro. 'Ou' aditivo.\n\nEm A, B, D e E o 'ou' é ALTERNATIVO EXCLUDENTE: escolher, dilema, dividir-se, duas opções. Trocar por 'e' destrói a ideia de escolha — 'têm de escolher: a incerteza E a segurança' não é escolha.\n\nAtalho: palavras como escolher, opção, dilema, dividir-se marcam 'ou' excludente. Se as duas coisas podem ser verdade ao mesmo tempo, o 'ou' é aditivo e aceita 'e'."
+    }
+  ]
+}

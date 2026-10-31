@@ -89,6 +89,39 @@ FONTES: dict[str, tuple[str, str]] = {
         "gabarito-rio-claro-2026-definitivo.pdf",
         "ANALISTA EM TECNOLOGIA DA INFORMAÇÃO",
     ),
+    # O gabarito de Sorocaba chegou em 07/10/2026 — até ali as 29 questões
+    # dela eram as únicas do acervo sem conferência contra o PDF da banca.
+    "sorocaba-2022-analista de sistemas i": (
+        "gabarito-sorocaba-2022-definitivo.pdf",
+        "ANALISTA DE SISTEMAS I",
+    ),
+    # Bloco comum (Português e Matemática) de cargos que não são de TI, que
+    # entrou em 07/10/2026 por scripts/avanca_sp/bloco_comum.py. O bloco comum
+    # é o mesmo para todos os cargos do concurso.
+    "embu-guaçu-2022-analista legislativo": (
+        "gabarito-embu-guacu-2022-preliminar.pdf",
+        "ANALISTA LEGISLATIVO",
+    ),
+    "itupeva-2024-analista legislativo - contabilidade pública": (
+        "gabarito-itupeva-2024-preliminar.pdf",
+        "ANALISTA LEGISLATIVO - CONTABILIDADE PÚBLICA",
+    ),
+    "ituprev itu-2024-analista previdenciário": (
+        "gabarito-ituprev-2024-definitivo.pdf",
+        "ANALISTA PREVIDENCIÁRIO",
+    ),
+    "jaguariúna-2023-analista legislativo": (
+        "gabarito-jaguariuna-2023-preliminar.pdf",
+        "ANALISTA LEGISLATIVO",
+    ),
+    "saae amparo-2023-analista fiscalização": (
+        "gabarito-saae-amparo-2023-preliminar.pdf",
+        "ANALISTA FISCALIZAÇÃO",
+    ),
+    "são miguel arcanjo-2023-analista fiscal de tributos municipais": (
+        "gabarito-sao-miguel-arcanjo-2023-definitivo.pdf",
+        "ANALISTA FISCAL DE TRIBUTOS MUNICIPAIS",
+    ),
 }
 
 LINHA_DE_RESPOSTA = re.compile(r"^\d{2}:\s*[A-EX]\b")

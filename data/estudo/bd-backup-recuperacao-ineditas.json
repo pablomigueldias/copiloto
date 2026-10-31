@@ -1,0 +1,645 @@
+{
+  "_leia_me": "Questões INÉDITAS, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — não são de banca nenhuma, e o gabarito e a explicação são meus. Moram num módulo separado ('Banco de dados — inéditas') para nunca se misturarem com as questões de prova real. Cada tópico é um item do programa de Conhecimentos Específicos do edital CRECI-SP 01/2026 (Instituto Avança SP), cargo PAS – Analista de TI – Banco de Dados, Anexo II; o item está no campo `fonte` de cada questão. FORMATO: imita o padrão das bancas que caem nessa prova — cinco alternativas (Avança SP, Cesgranrio, FCC, Vunesp), enunciado de cenário ('Considere que...', estilo Cesgranrio), afirmações I/II/III, NÃO/INCORRETO em caixa alta e questões de código SQL. O gabarito é distribuído entre A e E de propósito, para que a posição não dê pista. VERIFICAÇÃO: as questões de código SQL do tópico de SQL rodam contra um banco SQLite com as mesmas tabelas do enunciado, no gerador (scripts/ineditas_bd/gerar.py), e o resultado é conferido com o gabarito antes de gravar. As demais foram conferidas na documentação dos SGBDs como eu a conheço — sem fonte externa citada; desconfie e corrija se a prova real disser outra coisa. Para pedir mais: 'faz mais X questões' (ver a memória `questoes-ineditas-bd`).",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Banco de dados — inéditas",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Backup e recuperação",
+    "ordem": 6
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 01",
+      "enunciado": "O tipo de backup que copia apenas os dados alterados desde o último backup completo (full), independentemente de outros backups parciais feitos depois dele, é o backup",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "diferencial."
+        },
+        {
+          "letra": "B",
+          "texto": "incremental."
+        },
+        {
+          "letra": "C",
+          "texto": "completo."
+        },
+        {
+          "letra": "D",
+          "texto": "espelhado."
+        },
+        {
+          "letra": "E",
+          "texto": "de cópia (copy-only)."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Alterações desde o último FULL: letra A, diferencial.\n\n| Tipo | Copia | Restaurar exige |\n|---|---|---|\n| completo (full) | tudo | só ele |\n| diferencial | o que mudou desde o último FULL | full + o ÚLTIMO diferencial |\n| incremental | o que mudou desde o último backup de QUALQUER tipo | full + TODOS os incrementais em sequência |\n\nO diferencial CRESCE ao longo da semana (acumula tudo desde o full), mas restaura rápido. O incremental é pequeno a cada dia, mas a restauração depende de uma corrente inteira — se um elo falhar, perde-se o resto.\n\nAtalho: Diferencial = Desde o full. Incremental = Imediatamente anterior.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 02",
+      "enunciado": "Uma empresa faz backup completo aos domingos e backups incrementais de segunda a sábado, às 23h. Na quinta-feira, às 10h, o servidor falhou. Para recuperar os dados até o último backup disponível, é necessário restaurar",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "apenas o backup completo de domingo."
+        },
+        {
+          "letra": "B",
+          "texto": "o backup completo de domingo e os incrementais de segunda, terça e quarta, nessa ordem."
+        },
+        {
+          "letra": "C",
+          "texto": "o backup completo de domingo e somente o incremental de quarta."
+        },
+        {
+          "letra": "D",
+          "texto": "somente os incrementais de segunda, terça e quarta."
+        },
+        {
+          "letra": "E",
+          "texto": "o incremental de quarta, seguido do completo de domingo."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Full no domingo + incrementais diários, falha na quinta às 10h: letra B.\n\nCada incremental guarda só o que mudou desde o backup ANTERIOR. O de quarta não contém o que mudou na segunda nem na terça. Por isso: full de domingo → incremental de segunda → terça → quarta, nessa ordem.\n\nO que se perde: tudo de quinta, da 0h às 10h. Para não perder, é preciso backup de log de transações — o que permite recuperar até um ponto no tempo.\n\nCompare: se fossem DIFERENCIAIS, bastaria full de domingo + diferencial de quarta.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 03",
+      "enunciado": "Uma empresa faz backup completo aos domingos e backups diferenciais de segunda a sábado, às 23h. Na sexta-feira, às 9h, o banco foi corrompido. O conjunto mínimo de backups a restaurar para chegar ao último ponto disponível é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o completo de domingo e os diferenciais de segunda a quinta-feira."
+        },
+        {
+          "letra": "B",
+          "texto": "apenas o diferencial de quinta-feira."
+        },
+        {
+          "letra": "C",
+          "texto": "o completo de domingo e o diferencial de quinta-feira."
+        },
+        {
+          "letra": "D",
+          "texto": "o completo de domingo e o diferencial de segunda-feira."
+        },
+        {
+          "letra": "E",
+          "texto": "apenas o completo de domingo."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Full no domingo + diferenciais diários, falha na sexta às 9h: letra C.\n\nO diferencial de quinta contém TUDO o que mudou desde domingo — inclusive o que os de segunda, terça e quarta continham. Basta o full + o ÚLTIMO diferencial.\n\nRestaurar todos os diferenciais em sequência não é errado em resultado, mas não é o MÍNIMO, e é o erro de quem confunde com incremental. O diferencial sozinho não serve: ele precisa do full como base.\n\nPerde-se o período de quinta 23h até sexta 9h, a menos que haja backup de log.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 04",
+      "enunciado": "No Microsoft SQL Server, o modelo de recuperação (recovery model) que permite fazer backups do log de transações e restaurar o banco até um ponto específico no tempo é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "FULL."
+        },
+        {
+          "letra": "B",
+          "texto": "SIMPLE."
+        },
+        {
+          "letra": "C",
+          "texto": "BULK_LOGGED, que garante ponto no tempo em qualquer situação."
+        },
+        {
+          "letra": "D",
+          "texto": "MINIMAL."
+        },
+        {
+          "letra": "E",
+          "texto": "READ_ONLY."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Ponto no tempo no SQL Server: letra A, modelo FULL.\n\n| Recovery model | Backup de log? | Ponto no tempo? | Log |\n|---|---|---|---|\n| SIMPLE | não | não; só até o último full ou diferencial | truncado automaticamente no checkpoint |\n| FULL | sim | sim | só é liberado após BACKUP LOG |\n| BULK_LOGGED | sim | não dentro de um backup de log que contenha operação em massa | registra minimamente as cargas em massa |\n\nMINIMAL e READ_ONLY não são modelos de recuperação.\n\nArmadilha operacional: banco em FULL SEM rotina de BACKUP LOG faz o arquivo de log crescer até lotar o disco. FULL exige backup de log agendado.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 05",
+      "enunciado": "Um banco de dados do SQL Server está configurado com o modelo de recuperação SIMPLE e recebe um backup completo diário às 22h. Às 15h, um usuário apagou por engano uma tabela importante. Nesse cenário,",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "é possível restaurar até as 14h59, imediatamente antes da exclusão, usando o log de transações."
+        },
+        {
+          "letra": "B",
+          "texto": "basta executar ROLLBACK para desfazer a exclusão, mesmo após o COMMIT."
+        },
+        {
+          "letra": "C",
+          "texto": "o modelo SIMPLE mantém automaticamente uma cópia de cada tabela excluída."
+        },
+        {
+          "letra": "D",
+          "texto": "é possível fazer um backup do final do log (tail-log) para recuperar até o momento da falha."
+        },
+        {
+          "letra": "E",
+          "texto": "só é possível recuperar os dados até o backup completo das 22h do dia anterior, perdendo as alterações feitas desde então."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Modelo SIMPLE, backup diário às 22h, erro às 15h: letra E.\n\nNo SIMPLE não há backup de log: o log é reaproveitado a cada checkpoint. Sem a sequência de logs, não há como recuperar até um instante — o ponto de restauração possível é o último backup completo (ou diferencial).\n\nPerda: das 22h de ontem até as 15h de hoje — essa janela é o RPO real da política.\n\nROLLBACK só desfaz transação ainda NÃO confirmada. Backup tail-log só existe no FULL e no BULK_LOGGED.\n\nLição: banco cujo dado do dia importa não pode ficar em SIMPLE.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 06",
+      "enunciado": "Um banco no SQL Server, em modelo de recuperação FULL, tem backup completo às 0h e backups de log a cada hora. Às 10h40 um DELETE sem WHERE apagou a tabela de clientes. O DBA quer restaurar o banco até as 10h39. A sequência correta é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "fazer o backup do final do log (tail-log); restaurar o completo das 0h WITH NORECOVERY; restaurar os logs de 1h a 10h WITH NORECOVERY; restaurar o tail-log com STOPAT = '10:39' WITH RECOVERY."
+        },
+        {
+          "letra": "B",
+          "texto": "restaurar o completo das 0h WITH RECOVERY e, em seguida, os logs de 1h a 10h."
+        },
+        {
+          "letra": "C",
+          "texto": "restaurar apenas o backup de log das 10h WITH RECOVERY."
+        },
+        {
+          "letra": "D",
+          "texto": "restaurar os logs de 1h a 10h e, por último, o completo das 0h."
+        },
+        {
+          "letra": "E",
+          "texto": "executar ROLLBACK TO '10:39' no banco de produção."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 3,
+      "explicacao": "Restaurar até as 10h39 no modelo FULL: letra A.\n\n1. BACKUP LOG ... WITH NORECOVERY (tail-log) — captura o que aconteceu entre 10h e o momento atual, inclusive o DELETE. Sem ele, o máximo seria 10h00.\n\n2. RESTORE DATABASE (full das 0h) WITH NORECOVERY.\n\n3. RESTORE LOG de cada hora, em ordem, WITH NORECOVERY.\n\n4. RESTORE LOG (tail-log) WITH STOPAT = '... 10:39', RECOVERY.\n\n| Opção | Efeito |\n|---|---|\n| WITH NORECOVERY | deixa o banco 'restaurando', aceitando o próximo backup da sequência |\n| WITH RECOVERY | finaliza: desfaz o que ficou sem COMMIT e abre o banco; depois disso, NADA mais pode ser aplicado |\n\nUsar RECOVERY no full encerra a sequência cedo demais. ROLLBACK não volta no tempo depois do COMMIT.\n\nBoa prática: restaurar numa cópia (outro nome de banco) e copiar só a tabela de volta, sem derrubar a produção inteira.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 07",
+      "enunciado": "Em um plano de continuidade, o RPO (Recovery Point Objective) de um sistema foi definido em 15 minutos. Isso significa que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o sistema deve voltar a funcionar em no máximo 15 minutos após o desastre."
+        },
+        {
+          "letra": "B",
+          "texto": "a organização aceita perder no máximo 15 minutos de dados, o que exige cópias (por exemplo, backups de log ou replicação) com intervalo de até 15 minutos."
+        },
+        {
+          "letra": "C",
+          "texto": "os backups completos devem levar no máximo 15 minutos para serem executados."
+        },
+        {
+          "letra": "D",
+          "texto": "os testes de restauração devem ocorrer a cada 15 minutos."
+        },
+        {
+          "letra": "E",
+          "texto": "os dados de backup devem ser mantidos por 15 minutos antes de descartados."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "RPO de 15 minutos: letra B — perda máxima de DADOS.\n\n| Métrica | Pergunta | Medida no eixo do tempo |\n|---|---|---|\n| RPO — Recovery Point Objective | quanto DADO posso perder? | PARA TRÁS a partir do desastre: até onde volta o último ponto recuperável |\n| RTO — Recovery Time Objective | em quanto TEMPO o sistema tem de voltar? | PARA A FRENTE: do desastre até o sistema no ar |\n\nA alternativa 'voltar a funcionar em 15 minutos' é a definição de RTO — a confusão mais cobrada.\n\nRPO de 15 min → backup de log a cada 15 min (ou replicação). RPO perto de zero → replicação síncrona.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 08",
+      "enunciado": "Após uma falha grave, o sistema de faturamento de uma empresa pode ficar fora do ar por, no máximo, 4 horas, conforme definido na análise de impacto no negócio. Esse limite corresponde ao",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "RPO (Recovery Point Objective)."
+        },
+        {
+          "letra": "B",
+          "texto": "MTBF (Mean Time Between Failures)."
+        },
+        {
+          "letra": "C",
+          "texto": "SLA de backup diferencial."
+        },
+        {
+          "letra": "D",
+          "texto": "RTO (Recovery Time Objective)."
+        },
+        {
+          "letra": "E",
+          "texto": "ponto de verificação (checkpoint)."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Tempo máximo fora do ar: letra D, RTO.\n\nRTO = do desastre até o serviço restabelecido. Ele dimensiona o PROCESSO de recuperação: com RTO de 4 h não dá para depender de restaurar 5 TB de fita que leva 10 h; é preciso site espelhado, réplica ou restauração mais rápida.\n\nRPO é perda de DADOS. MTBF é tempo médio entre falhas (confiabilidade). Checkpoint é mecanismo interno do SGBD que grava páginas do buffer em disco.\n\nAtalho: RPO = Ponto (dado). RTO = Tempo (volta).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 09",
+      "enunciado": "Segundo a regra 3-2-1, amplamente recomendada para políticas de backup, deve-se manter",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "três backups completos por dia, dois diferenciais e um incremental."
+        },
+        {
+          "letra": "B",
+          "texto": "três cópias dos dados, em dois tipos de mídia diferentes, com uma cópia fora do local (off-site)."
+        },
+        {
+          "letra": "C",
+          "texto": "três servidores de banco, dois em produção e um em homologação."
+        },
+        {
+          "letra": "D",
+          "texto": "backups por três dias, em dois discos, com uma restauração por semana."
+        },
+        {
+          "letra": "E",
+          "texto": "três cópias no mesmo servidor, em duas pastas diferentes, com uma criptografada."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Regra 3-2-1: letra B.\n\n3 — três cópias (a produção + 2 backups);\n\n2 — em duas mídias diferentes (disco e fita; disco local e nuvem);\n\n1 — uma delas FORA do local (outro prédio, outra região de nuvem).\n\nA cópia off-site protege contra incêndio, enchente, roubo. Versões atuais acrescentam '3-2-1-1-0': uma cópia IMUTÁVEL ou offline (contra ransomware, que criptografa também o backup acessível pela rede) e zero erro na verificação da restauração.\n\nTrês cópias no mesmo servidor morrem juntas com ele.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 10",
+      "enunciado": "Sobre backup lógico e backup físico de bancos de dados, é correto afirmar que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o backup lógico copia os arquivos binários de dados, e o físico gera comandos SQL."
+        },
+        {
+          "letra": "B",
+          "texto": "o backup físico permite restaurar em qualquer SGBD de outro fabricante, por ser independente de versão."
+        },
+        {
+          "letra": "C",
+          "texto": "mysqldump e pg_dump são ferramentas de backup físico."
+        },
+        {
+          "letra": "D",
+          "texto": "o backup lógico exporta os objetos e dados como comandos ou formato portátil (como mysqldump e pg_dump), enquanto o físico copia os arquivos de dados do SGBD, sendo em geral mais rápido de restaurar em bancos grandes."
+        },
+        {
+          "letra": "E",
+          "texto": "o backup lógico é sempre mais rápido de restaurar do que o físico."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Lógico × físico: letra D.\n\n| | Lógico | Físico |\n|---|---|---|\n| o que gera | CREATE TABLE + INSERT, ou formato de exportação | cópia dos arquivos de dados e log |\n| ferramentas | mysqldump, pg_dump, bcp, exportar dados | BACKUP DATABASE (SQL Server), pg_basebackup, Percona XtraBackup, MySQL Enterprise Backup, snapshot |\n| restauração | reexecuta tudo e recria índices: LENTA em banco grande | copia arquivos: rápida |\n| portabilidade | alta (outra versão, às vezes outro SGBD) | baixa (mesma versão e plataforma) |\n| granularidade | fácil restaurar uma tabela | em geral, o banco inteiro |\n\nNa prática combinam-se os dois: físico para recuperação de desastre e lógico para migrar ou recuperar uma tabela.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 11",
+      "enunciado": "Um backup realizado com o SGBD em funcionamento, sem interromper o acesso dos usuários, é chamado de backup",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "quente (online)."
+        },
+        {
+          "letra": "B",
+          "texto": "frio (offline)."
+        },
+        {
+          "letra": "C",
+          "texto": "diferencial."
+        },
+        {
+          "letra": "D",
+          "texto": "completo."
+        },
+        {
+          "letra": "E",
+          "texto": "incremental."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Backup com o banco rodando: letra A, quente (online / hot).\n\n| | Quente (online) | Frio (offline) |\n|---|---|---|\n| banco | em uso | parado |\n| disponibilidade | mantida | interrompida |\n| consistência | garantida pelo SGBD (log aplicado na restauração) | trivial: nada muda durante a cópia |\n\nO BACKUP DATABASE do SQL Server, o pg_basebackup e o mysqldump --single-transaction (InnoDB) são online.\n\nCuidado: copiar os arquivos do banco com o serviço RODANDO, por fora do SGBD (cópia de pasta comum), NÃO é backup quente — gera cópia inconsistente. O quente tem de usar o mecanismo do SGBD.\n\nDiferencial, completo e incremental classificam O QUE se copia, não se o banco está no ar.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 12",
+      "enunciado": "Para fazer backup lógico de um banco MySQL com tabelas InnoDB sem bloquear as gravações e obtendo uma cópia consistente de todas as tabelas, deve-se usar o mysqldump com a opção",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "--lock-all-tables."
+        },
+        {
+          "letra": "B",
+          "texto": "--no-data."
+        },
+        {
+          "letra": "C",
+          "texto": "--single-transaction."
+        },
+        {
+          "letra": "D",
+          "texto": "--skip-triggers."
+        },
+        {
+          "letra": "E",
+          "texto": "--compact."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "mysqldump consistente e sem bloqueio no InnoDB: letra C, --single-transaction.\n\nA opção abre uma transação em REPEATABLE READ antes de começar: o dump enxerga o banco 'congelado' no instante inicial (MVCC), enquanto os usuários continuam gravando.\n\nmysqldump --single-transaction --routines --triggers vendas > vendas.sql\n\n| Opção | Efeito |\n|---|---|\n| --lock-all-tables | bloqueia TUDO durante o dump (necessário para MyISAM) |\n| --no-data | só a estrutura |\n| --routines / --triggers | inclui procedures e triggers |\n\nSó funciona para tabelas transacionais (InnoDB). MyISAM no meio fica inconsistente.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 13",
+      "enunciado": "Uma empresa mantém uma réplica síncrona do banco de produção em outro datacenter e, por isso, decidiu abolir os backups. Essa decisão é inadequada porque",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "réplicas síncronas não mantêm os dados idênticos ao primário."
+        },
+        {
+          "letra": "B",
+          "texto": "a replicação só funciona com backup diferencial ativo."
+        },
+        {
+          "letra": "C",
+          "texto": "réplicas não podem ser usadas para leitura."
+        },
+        {
+          "letra": "D",
+          "texto": "a replicação síncrona impede a ocorrência de falhas de hardware."
+        },
+        {
+          "letra": "E",
+          "texto": "a replicação copia também exclusões acidentais, corrupção lógica e ataques como ransomware, sem permitir voltar a um ponto anterior no tempo."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Réplica não substitui backup: letra E.\n\nReplicação protege contra a perda do SERVIDOR (disponibilidade). Backup protege contra a perda do DADO CERTO (recuperação no tempo).\n\nSe alguém executar DROP TABLE, a réplica síncrona executa o mesmo DROP milissegundos depois. Se um bug gravar lixo, a réplica grava o mesmo lixo. Só um backup de ANTES do erro resolve.\n\n| Mecanismo | Protege contra |\n|---|---|\n| replicação, cluster, Always On | falha de hardware, perda do datacenter |\n| backup com histórico | erro humano, corrupção lógica, ransomware, auditoria |\n\nExceção parcial: réplica com ATRASO proposital (delayed replica) dá uma janela para reagir, mas ainda não substitui backup.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 14",
+      "enunciado": "Um DBA executa backups diários há dois anos, mas nunca testou a restauração. Do ponto de vista da política de backup, essa prática é falha porque",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "backups não testados ocupam o dobro do espaço em disco."
+        },
+        {
+          "letra": "B",
+          "texto": "testar a restauração apaga os backups mais antigos."
+        },
+        {
+          "letra": "C",
+          "texto": "a restauração só pode ser testada em caso de desastre real."
+        },
+        {
+          "letra": "D",
+          "texto": "o SGBD invalida automaticamente backups que nunca foram restaurados."
+        },
+        {
+          "letra": "E",
+          "texto": "só a restauração comprova que o backup é íntegro, completo e recuperável dentro do RTO exigido."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Backup nunca restaurado: letra E.\n\nBackup que não foi testado é hipótese. Os problemas aparecem na hora da restauração: arquivo corrompido, mídia ilegível, backup que não incluía um banco novo, senha da chave de criptografia perdida, restauração que leva 12 h quando o RTO é 4 h.\n\nBoas práticas:\n\n— restaurar periodicamente em ambiente separado e rodar DBCC CHECKDB na cópia restaurada;\n\n— usar BACKUP ... WITH CHECKSUM e RESTORE VERIFYONLY (SQL Server) — verificam a legibilidade, mas NÃO substituem a restauração real;\n\n— cronometrar a restauração e comparar com o RTO;\n\n— documentar o procedimento passo a passo.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 15",
+      "enunciado": "Antes de restaurar um banco do SQL Server cujo arquivo de dados foi danificado, mas cujo arquivo de log continua acessível, o DBA deve, sempre que possível, executar um",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "DBCC SHRINKFILE no arquivo de log."
+        },
+        {
+          "letra": "B",
+          "texto": "backup do final do log (tail-log backup), para não perder as transações registradas após o último backup de log."
+        },
+        {
+          "letra": "C",
+          "texto": "backup diferencial do banco danificado."
+        },
+        {
+          "letra": "D",
+          "texto": "TRUNCATE em todas as tabelas."
+        },
+        {
+          "letra": "E",
+          "texto": "ALTER DATABASE ... SET RECOVERY SIMPLE."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 3,
+      "explicacao": "Arquivo de dados perdido, log intacto: letra B, tail-log backup.\n\nO log ainda guarda as transações desde o último backup de log. O tail-log captura esse 'rabo':\n\nBACKUP LOG vendas TO DISK = 'D:\\bk\\vendas_tail.trn' WITH NO_TRUNCATE, NORECOVERY;\n\nNO_TRUNCATE permite o backup mesmo com o banco danificado; NORECOVERY deixa o banco em estado de restauração, impedindo novas transações.\n\nDepois: restaurar full, diferencial, logs e, por último, o tail-log WITH RECOVERY — perda ZERO.\n\nMudar para SIMPLE nessa hora trunca o log e joga fora exatamente o que se queria salvar.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 16",
+      "enunciado": "Em uma estratégia de recuperação de desastres, o site alternativo que já possui equipamentos instalados e dados sincronizados com a produção, podendo assumir a operação em minutos, é chamado de site",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "frio (cold site)."
+        },
+        {
+          "letra": "B",
+          "texto": "morno (warm site)."
+        },
+        {
+          "letra": "C",
+          "texto": "quente (hot site)."
+        },
+        {
+          "letra": "D",
+          "texto": "espelho de backup em fita."
+        },
+        {
+          "letra": "E",
+          "texto": "de teste (staging)."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Pronto e sincronizado, assume em minutos: letra C, hot site.\n\n| Site | Tem | Volta em | Custo |\n|---|---|---|---|\n| quente (hot) | equipamento + dados sincronizados (réplica) | minutos | alto |\n| morno (warm) | equipamento, dados de backup recentes, não em tempo real | horas | médio |\n| frio (cold) | espaço, energia, rede; sem equipamento ou dados prontos | dias | baixo |\n\nA escolha decorre do RTO e do RPO: RTO de minutos exige site quente; RTO de dias aceita site frio. O DRaaS (Disaster Recovery as a Service) é o site quente ou morno alugado de um provedor de nuvem.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 17",
+      "enunciado": "No processo de gestão de continuidade de negócios, a etapa que identifica os processos críticos, estima o impacto financeiro e operacional de sua interrupção ao longo do tempo e serve de base para definir RTO e RPO é a",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "análise de impacto no negócio (BIA — Business Impact Analysis)."
+        },
+        {
+          "letra": "B",
+          "texto": "análise de pontos de função."
+        },
+        {
+          "letra": "C",
+          "texto": "auditoria de permissões."
+        },
+        {
+          "letra": "D",
+          "texto": "normalização dos dados."
+        },
+        {
+          "letra": "E",
+          "texto": "gestão de mudanças."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Medir o impacto da parada e derivar RTO e RPO: letra A, BIA.\n\nOrdem típica da gestão de continuidade (ISO 22301):\n\n1. BIA — quais processos são críticos e quanto custa cada hora parada → define RTO, RPO e prioridades;\n\n2. análise de riscos — o que pode causar a parada;\n\n3. estratégia de continuidade — site quente, backup em nuvem, DRaaS;\n\n4. plano de continuidade de negócios (PCN) e plano de recuperação de desastres (PRD/DRP);\n\n5. testes, treinamento e revisão.\n\nPara o DBA: o banco do faturamento com RTO de 1 h e o banco de histórico com RTO de 3 dias recebem políticas de backup e alta disponibilidade diferentes.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 18",
+      "enunciado": "Sobre políticas de backup de bancos de dados, analise as afirmativas a seguir.",
+      "afirmacoes": [
+        "A política de backup deve definir, entre outros pontos, a frequência das cópias, os tipos de backup utilizados e o prazo de retenção.",
+        "Armazenar os arquivos de backup no mesmo disco dos arquivos de dados é suficiente, desde que estejam em pastas diferentes.",
+        "Os arquivos de backup devem receber controles de segurança, como criptografia e restrição de acesso, pois contêm os mesmos dados sensíveis do banco."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas III."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I e III."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Quais estão certas? Letra C: I e III.\n\nI — certa. A política deve definir o quê, a frequência, o tipo, a retenção (por quanto tempo guardar), onde guardar e quem responde por isso.\n\nII — errada. Guardar o backup no mesmo disco ou servidor do banco não protege contra a falha mais básica: a perda daquele disco ou servidor.\n\nIII — certa. Backup tem os mesmos dados do banco, então precisa da mesma proteção: criptografia (BACKUP ... WITH ENCRYPTION no SQL Server) e controle de acesso. Backup vazado é vazamento de dados, inclusive para a LGPD.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 19",
+      "enunciado": "Sobre os comandos de backup e restauração do Microsoft SQL Server, analise as afirmativas.",
+      "afirmacoes": [
+        "O comando BACKUP DATABASE com a opção WITH DIFFERENTIAL gera um backup diferencial.",
+        "Um backup completo feito com a opção COPY_ONLY não altera a base dos backups diferenciais seguintes.",
+        "Ao restaurar uma sequência de backups, todos exceto o último devem ser restaurados com a opção WITH NORECOVERY."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas II."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I e II."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 3,
+      "explicacao": "As três estão certas — letra E.\n\nI — BACKUP DATABASE ... WITH DIFFERENTIAL gera o backup diferencial.\n\nII — WITH COPY_ONLY gera um backup avulso que NÃO interfere na sequência: não vira a nova base dos diferenciais. Serve para tirar uma cópia para homologação sem bagunçar a estratégia da produção.\n\nIII — RESTORE ... WITH NORECOVERY mantém o banco em estado de restauração para aplicar os próximos backups; o último usa WITH RECOVERY.\n\nExemplos:\n\nBACKUP DATABASE vendas TO DISK = 'D:\\bk\\vendas_full.bak' WITH CHECKSUM;\nBACKUP DATABASE vendas TO DISK = 'D:\\bk\\vendas_dif.bak' WITH DIFFERENTIAL;\nBACKUP LOG vendas TO DISK = 'D:\\bk\\vendas_1000.trn';",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Backup e recuperação · nº 20",
+      "enunciado": "No PostgreSQL, a técnica que permite restaurar um banco até um instante específico combinando um backup físico de base (como o feito com pg_basebackup) com o arquivamento contínuo dos arquivos de log de escrita antecipada é conhecida como",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pg_dump em formato texto."
+        },
+        {
+          "letra": "B",
+          "texto": "VACUUM FULL."
+        },
+        {
+          "letra": "C",
+          "texto": "replicação lógica por publicação."
+        },
+        {
+          "letra": "D",
+          "texto": "PITR (Point-in-Time Recovery), com arquivamento de WAL."
+        },
+        {
+          "letra": "E",
+          "texto": "TRUNCATE com CASCADE."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 3,
+      "explicacao": "Backup de base + arquivamento contínuo do log, até um instante: letra D, PITR com WAL.\n\nWAL (Write-Ahead Log) é o log de transações do PostgreSQL. Com archive_mode = on e archive_command configurados, cada segmento de WAL é copiado para um local seguro. Para recuperar: restaura-se o backup de base e reaplica-se o WAL até recovery_target_time.\n\n| SGBD | Ponto no tempo |\n|---|---|\n| SQL Server | full + backups de log (recovery model FULL) |\n| PostgreSQL | pg_basebackup + arquivamento de WAL |\n| MySQL | backup completo + binary log (mysqlbinlog --stop-datetime) |\n\npg_dump é lógico e restaura só até o instante do dump. VACUUM é manutenção.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Backup e recuperação: políticas de backup, restore, disaster recovery e procedimentos de continuidade de negócios"
+    }
+  ]
+}

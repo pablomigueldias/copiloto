@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 2 questões de colocação pronominal que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Colocação pronominal”.\n\nDe onde vêm: Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n2 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 2 questões de colocação pronominal que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Colocação pronominal”.\n\nDe onde vêm: Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n2 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Língua portuguesa",
     "trilha": "concurso",
-    "ordem": 2
+    "ordem": 5
   },
   "topico": {
     "nome": "Colocação pronominal",
@@ -72,6 +72,130 @@
           "texto": "ao fato de o verbo “pareceu” estar no início do período."
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2022 · Analista Legislativo · questão 8",
+      "assunto": "Colocação pronominal (próclise, ênclise e mesóclise)",
+      "enunciado": "Quanto à colocação dos pronomes pessoais oblíquos átonos, julgue os itens, abaixo, e assinale o que está correto:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Te entreguei os livros emprestados."
+        },
+        {
+          "letra": "B",
+          "texto": "Não referi-me ao professor."
+        },
+        {
+          "letra": "C",
+          "texto": "Quando a vi, abri um sorriso largo."
+        },
+        {
+          "letra": "D",
+          "texto": "Ninguém dirigiu-me a palavra ali."
+        },
+        {
+          "letra": "E",
+          "texto": "Não sei o que responderam-lhe ontem."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Conjunção subordinativa atrai o pronome: letra C.\n\n| Frase | Problema | Correção |\n|---|---|---|\n| Te entreguei | pronome no início da frase | Entreguei-te |\n| Não referi-me | 'não' atrai | Não me referi |\n| Ninguém dirigiu-me | pronome indefinido atrai | Ninguém me dirigiu |\n| o que responderam-lhe | pronome relativo/interrogativo atrai | o que lhe responderam |\n\nPalavras atrativas (pedem próclise): negação, advérbio, pronome relativo, indefinido e interrogativo, conjunção subordinativa."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 8",
+      "assunto": "Colocação pronominal (próclise, ênclise e mesóclise)",
+      "enunciado": "Analise as alternativas abaixo, marque a que possui um erro de colocação pronominal.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Diga-me como foram as festas de final de ano."
+        },
+        {
+          "letra": "B",
+          "texto": "Estava fazendo-se de desentendida para evitar problemas com o marido."
+        },
+        {
+          "letra": "C",
+          "texto": "Me sigam, se quiserem conhecer o mundo."
+        },
+        {
+          "letra": "D",
+          "texto": "Quero encontrar-te mais tarde."
+        },
+        {
+          "letra": "E",
+          "texto": "Suas desculpas não me convenceram."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Não se inicia frase com pronome oblíquo átono: letra C.\n\nCorreto: 'Sigam-me, se quiserem conhecer o mundo.'\n\n| Alternativa | Por que está certa |\n|---|---|\n| A | imperativo no início → ênclise |\n| B | locução com gerúndio, sem palavra atrativa → ênclise ao gerúndio |\n| D | locução com infinitivo → ênclise ao infinitivo |\n| E | 'não' atrai → próclise |"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 4",
+      "assunto": "Colocação pronominal (próclise, ênclise e mesóclise)",
+      "enunciado": "A regra gramatical que determina a colocação pronominal proclítica em “Enquanto as empresas de tecnologia e as plataformas de conteúdo SE beneficiam dessa abundância de música barata [...]” é a mesma que se aplica ao contexto em:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Ele não me chamou para ir ao bar no fim de semana."
+        },
+        {
+          "letra": "B",
+          "texto": "A moça estava desconcertada, porque seu noivo a abandonou."
+        },
+        {
+          "letra": "C",
+          "texto": "Ela talvez o ajudasse sem que ele pedisse."
+        },
+        {
+          "letra": "D",
+          "texto": "Ninguém se conformava com aquela situação."
+        },
+        {
+          "letra": "E",
+          "texto": "Só se vê o pássaro na varanda do apartamento."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "'Enquanto' é conjunção subordinativa e atrai o pronome; 'porque' também: letra B.\n\n| Alternativa | O que atrai |\n|---|---|\n| A | advérbio de negação 'não' |\n| B | conjunção subordinativa 'porque' ✔ |\n| C | advérbio 'talvez' |\n| D | pronome indefinido 'ninguém' |\n| E | palavra denotativa 'só' |\n\nTodas têm próclise; a questão pede a MESMA causa da próclise."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 7",
+      "assunto": "Colocação pronominal (próclise, ênclise e mesóclise)",
+      "enunciado": "Considere os seguintes excertos:\n\nI. “Mas como é que ME arrumo com essa simples e tranquila alegria.”\nII. “Talvez seja isso ao que SE poderia chamar de estar vivo.”\n\nNeste contexto, a ordem de colocação dos pronomes “me” e “se” corresponde, respectivamente, a:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "próclise e mesóclise."
+        },
+        {
+          "letra": "B",
+          "texto": "ênclise e próclise."
+        },
+        {
+          "letra": "C",
+          "texto": "mesóclise e próclise."
+        },
+        {
+          "letra": "D",
+          "texto": "próclise e próclise."
+        },
+        {
+          "letra": "E",
+          "texto": "ênclise e ênclise."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Os dois vêm ANTES do verbo: letra D.\n\n| Colocação | Posição | Exemplo |\n|---|---|---|\n| próclise | antes do verbo | me arrumo, se poderia |\n| ênclise | depois, com hífen | arrumo-me |\n| mesóclise | no meio (futuro do presente/pretérito) | poder-se-ia |\n\nNa II, 'poderia' é futuro do pretérito, e por isso a mesóclise seria possível (poder-se-ia) — é a pegadinha. Mas o pronome relativo 'que' atrai, e a próclise é obrigatória."
     }
   ]
 }

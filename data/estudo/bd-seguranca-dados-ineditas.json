@@ -1,0 +1,649 @@
+{
+  "_leia_me": "Questões INÉDITAS, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — não são de banca nenhuma, e o gabarito e a explicação são meus. Moram num módulo separado ('Banco de dados — inéditas') para nunca se misturarem com as questões de prova real. Cada tópico é um item do programa de Conhecimentos Específicos do edital CRECI-SP 01/2026 (Instituto Avança SP), cargo PAS – Analista de TI – Banco de Dados, Anexo II; o item está no campo `fonte` de cada questão. FORMATO: imita o padrão das bancas que caem nessa prova — cinco alternativas (Avança SP, Cesgranrio, FCC, Vunesp), enunciado de cenário ('Considere que...', estilo Cesgranrio), afirmações I/II/III, NÃO/INCORRETO em caixa alta e questões de código SQL. O gabarito é distribuído entre A e E de propósito, para que a posição não dê pista. VERIFICAÇÃO: as questões de código SQL do tópico de SQL rodam contra um banco SQLite com as mesmas tabelas do enunciado, no gerador (scripts/ineditas_bd/gerar.py), e o resultado é conferido com o gabarito antes de gravar. As demais foram conferidas na documentação dos SGBDs como eu a conheço — sem fonte externa citada; desconfie e corrija se a prova real disser outra coisa. Para pedir mais: 'faz mais X questões' (ver a memória `questoes-ineditas-bd`).",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Banco de dados — inéditas",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Segurança de dados",
+    "ordem": 7
+  },
+  "questoes": [
+    {
+      "formato": "codigo",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 01",
+      "enunciado": "Uma aplicação monta a consulta concatenando o texto digitado pelo usuário, conforme o trecho abaixo. Se o atacante digitar no campo login o valor ' OR '1'='1' -- , o efeito mais provável é",
+      "codigo": "sql = \"SELECT * FROM USUARIO WHERE login = '\" + login +\n      \"' AND senha = '\" + senha + \"'\";",
+      "linguagem": "sql",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a condição do WHERE passar a ser sempre verdadeira e o restante da consulta ser comentado, permitindo entrar sem saber a senha."
+        },
+        {
+          "letra": "B",
+          "texto": "o SGBD recusar a consulta por erro de sintaxe, bloqueando o ataque."
+        },
+        {
+          "letra": "C",
+          "texto": "a senha do usuário ser criptografada automaticamente."
+        },
+        {
+          "letra": "D",
+          "texto": "a consulta retornar apenas o usuário de login vazio."
+        },
+        {
+          "letra": "E",
+          "texto": "a tabela USUARIO ser apagada."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Login ' OR '1'='1' -- : letra A.\n\nA consulta montada fica:\n\nSELECT * FROM USUARIO WHERE login = '' OR '1'='1' -- ' AND senha = '...'\n\n— a aspa digitada FECHA a string do login;\n\n— OR '1'='1' torna o WHERE verdadeiro para todas as linhas;\n\n— o -- comenta o resto, inclusive a verificação de senha.\n\nA aplicação recebe linhas e considera o login válido — em geral entra como o PRIMEIRO usuário da tabela, muitas vezes o administrador.\n\nApagar a tabela seria outra carga útil ('; DROP TABLE ...), não essa.\n\nDefesa: consulta parametrizada (prepared statement), em que o valor digitado vai separado do comando e nunca é interpretado como SQL.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 02",
+      "enunciado": "A medida mais eficaz para prevenir ataques de SQL injection em uma aplicação que acessa banco de dados é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "esconder as mensagens de erro do banco de dados."
+        },
+        {
+          "letra": "B",
+          "texto": "trocar aspas simples por aspas duplas na entrada do usuário."
+        },
+        {
+          "letra": "C",
+          "texto": "usar HTTPS na comunicação entre navegador e servidor."
+        },
+        {
+          "letra": "D",
+          "texto": "criptografar a coluna de senha no banco."
+        },
+        {
+          "letra": "E",
+          "texto": "usar consultas parametrizadas (prepared statements), nas quais os valores informados pelo usuário são enviados separados do comando SQL."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Prevenir SQL injection: letra E, consulta parametrizada.\n\nSELECT * FROM USUARIO WHERE login = ? AND senha_hash = ?\n\nO comando é enviado ao SGBD com marcadores; os valores vão SEPARADOS e são tratados sempre como DADO, nunca como código. Uma aspa digitada vira só um caractere do login.\n\nAs outras não resolvem: esconder erro só atrapalha o atacante (ainda há injection 'cega'); trocar aspas é filtro frágil, contornável; HTTPS protege o trânsito, não a consulta; criptografar a senha não impede o OR '1'='1'.\n\nCamadas complementares: conta da aplicação com menor privilégio, validação de entrada (lista do que é permitido), stored procedures sem SQL dinâmico concatenado e WAF.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 03",
+      "enunciado": "O recurso Transparent Data Encryption (TDE), disponível no SQL Server, protege os dados",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "em trânsito entre a aplicação e o servidor, substituindo o TLS."
+        },
+        {
+          "letra": "B",
+          "texto": "em repouso, criptografando os arquivos de dados, de log e os backups, de forma transparente para as aplicações."
+        },
+        {
+          "letra": "C",
+          "texto": "contra consultas de usuários autorizados, que passam a ver os dados cifrados."
+        },
+        {
+          "letra": "D",
+          "texto": "apenas nas colunas marcadas, que ficam ilegíveis inclusive para o DBA."
+        },
+        {
+          "letra": "E",
+          "texto": "contra SQL injection, ao validar os comandos recebidos."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "O que o TDE protege: letra B — dados EM REPOUSO.\n\nO SGBD cifra as páginas ao gravá-las em disco e as decifra ao ler para a memória. Quem rouba o arquivo .mdf, .ldf ou o .bak não consegue anexá-lo nem restaurá-lo em outro servidor sem o certificado.\n\nO que o TDE NÃO faz:\n\n— não cifra o tráfego de rede (isso é TLS);\n\n— não esconde nada de quem tem permissão: o SELECT devolve texto claro;\n\n— não protege contra DBA nem contra SQL injection.\n\n| Recurso (SQL Server) | Protege |\n|---|---|\n| TDE | arquivos e backups em disco |\n| TLS | dados na rede |\n| Always Encrypted | colunas cifradas no CLIENTE; o servidor e o DBA não veem o texto claro |\n| Dynamic Data Masking | só MASCARA na exibição; não cifra |\n\nPegadinha operacional: sem backup do certificado do TDE, o backup do banco não restaura em lugar nenhum.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 04",
+      "enunciado": "Uma organização precisa garantir que o número do cartão de crédito armazenado no SQL Server não possa ser lido nem pelos administradores do banco de dados, ficando os dados cifrados no servidor e sendo decifrados apenas pela aplicação cliente autorizada. O recurso adequado é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Transparent Data Encryption (TDE)."
+        },
+        {
+          "letra": "B",
+          "texto": "Dynamic Data Masking."
+        },
+        {
+          "letra": "C",
+          "texto": "Row-Level Security."
+        },
+        {
+          "letra": "D",
+          "texto": "Always Encrypted."
+        },
+        {
+          "letra": "E",
+          "texto": "backup com compressão."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 3,
+      "explicacao": "Nem o DBA pode ler: letra D, Always Encrypted.\n\nAs chaves ficam com o CLIENTE (no driver da aplicação, com chave mestra em cofre ou certificado). O SQL Server só recebe e armazena dados cifrados — na memória do servidor também ficam cifrados.\n\nTDE cifra o disco, mas o DBA consulta e vê texto claro. Dynamic Data Masking mostra 'XXXX-XXXX-XXXX-1234' para usuários sem permissão UNMASK, mas o dado está em claro no banco e um privilegiado vê tudo. Row-Level Security filtra LINHAS, não protege colunas.\n\nCusto do Always Encrypted: limita consultas sobre a coluna (não dá para fazer LIKE nem somar valores cifrados).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 05",
+      "enunciado": "No SQL Server, o recurso que exibe parcialmente os dados sensíveis — por exemplo, mostrando apenas os quatro últimos dígitos do CPF — para usuários sem permissão especial, sem alterar os dados armazenados, é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Transparent Data Encryption."
+        },
+        {
+          "letra": "B",
+          "texto": "Dynamic Data Masking."
+        },
+        {
+          "letra": "C",
+          "texto": "Always Encrypted."
+        },
+        {
+          "letra": "D",
+          "texto": "SQL Server Audit."
+        },
+        {
+          "letra": "E",
+          "texto": "Change Data Capture."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Mostrar só parte do dado, sem mudar o armazenado: letra B, Dynamic Data Masking.\n\nALTER TABLE cliente ALTER COLUMN cpf ADD MASKED WITH (FUNCTION = 'partial(0,\"XXX.XXX.XXX-\",2)');\n\nQuem não tem a permissão UNMASK vê o valor mascarado; quem tem vê o real.\n\nLimites: é recurso de EXIBIÇÃO, não de segurança forte. O dado está em claro no disco e no backup, e um usuário com acesso de consulta pode inferir valores com WHERE (cpf LIKE '123%'). Serve para tela de atendimento e relatório, não substitui criptografia.\n\nChange Data Capture registra alterações para integração; Audit registra eventos.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 06",
+      "enunciado": "Em um sistema multiempresa que compartilha a mesma tabela de PEDIDOS, deseja-se que cada usuário veja somente as linhas da sua própria empresa, com o filtro aplicado pelo SGBD a qualquer consulta, mesmo que a aplicação esqueça de incluir o WHERE. O recurso adequado é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o mascaramento dinâmico de dados na coluna empresa_id."
+        },
+        {
+          "letra": "B",
+          "texto": "a criptografia transparente do arquivo de dados."
+        },
+        {
+          "letra": "C",
+          "texto": "um índice clusterizado na coluna empresa_id."
+        },
+        {
+          "letra": "D",
+          "texto": "a segurança em nível de linha (Row-Level Security), com uma política de filtro por empresa."
+        },
+        {
+          "letra": "E",
+          "texto": "a revogação do privilégio SELECT na tabela para todos os usuários."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Cada usuário vê só as linhas da sua empresa, imposto pelo banco: letra D, Row-Level Security.\n\nSQL Server: CREATE SECURITY POLICY com uma função de predicado. PostgreSQL: ALTER TABLE pedidos ENABLE ROW LEVEL SECURITY + CREATE POLICY ... USING (empresa_id = current_setting('app.empresa')::int).\n\nDaí em diante, todo SELECT, UPDATE e DELETE recebe o filtro automaticamente.\n\n| Recurso | Restringe |\n|---|---|\n| GRANT / REVOKE | objeto inteiro (tabela, view) e colunas |\n| view | colunas e linhas, se o usuário só acessar pela view |\n| Row-Level Security | LINHAS, em qualquer acesso direto |\n| Data Masking | exibição de colunas |\n\nÍndice é desempenho, não segurança. Revogar SELECT de todos impede o uso do sistema.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 07",
+      "enunciado": "Para armazenar as senhas dos usuários de um sistema em uma tabela do banco de dados, a prática recomendada é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "gravar um hash da senha gerado por algoritmo próprio para senhas e lento por projeto (como bcrypt, scrypt, Argon2 ou PBKDF2), com salt único por usuário."
+        },
+        {
+          "letra": "B",
+          "texto": "gravar a senha criptografada com AES, guardando a chave na mesma tabela."
+        },
+        {
+          "letra": "C",
+          "texto": "gravar o hash MD5 da senha, sem salt, por ser rápido."
+        },
+        {
+          "letra": "D",
+          "texto": "gravar a senha em texto claro em uma coluna com Dynamic Data Masking."
+        },
+        {
+          "letra": "E",
+          "texto": "gravar a senha codificada em Base64."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Armazenar senha: letra A.\n\nSenha não precisa ser DECIFRADA, só VERIFICADA: calcula-se o hash do que o usuário digitou e compara-se com o armazenado. Por isso usa-se hash (irreversível), não criptografia (reversível).\n\n— SALT único por usuário: dois usuários com a mesma senha têm hashes diferentes, e tabelas pré-calculadas (rainbow tables) deixam de funcionar;\n\n— algoritmo LENTO (bcrypt, Argon2, PBKDF2): torna a força bruta cara.\n\n| Prática | Problema |\n|---|---|\n| MD5 ou SHA-1 sem salt | rápido demais e quebrado por rainbow table |\n| AES com a chave junto | quem rouba a tabela leva a chave |\n| Base64 | é CODIFICAÇÃO, não segurança: decodifica-se em um segundo |\n| texto claro mascarado | a máscara só esconde na tela |",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 08",
+      "enunciado": "O recurso nativo do Microsoft SQL Server para registrar eventos de segurança e de acesso — como logins com falha, alterações de permissões e consultas a tabelas sensíveis —, gravando-os em arquivo, no log de segurança ou no log de aplicação do Windows, é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "SQL Server Agent."
+        },
+        {
+          "letra": "B",
+          "texto": "Query Store."
+        },
+        {
+          "letra": "C",
+          "texto": "SQL Server Audit."
+        },
+        {
+          "letra": "D",
+          "texto": "Database Mail."
+        },
+        {
+          "letra": "E",
+          "texto": "Log Shipping."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Auditoria nativa no SQL Server: letra C, SQL Server Audit.\n\nMontagem em duas partes:\n\n1. SERVER AUDIT — define o DESTINO (arquivo, Windows Security Log, Application Log);\n\n2. AUDIT SPECIFICATION — define O QUE registrar: no nível do servidor (FAILED_LOGIN_GROUP, alteração de logins) ou do banco (SELECT, UPDATE em dbo.salarios por qualquer usuário).\n\nEquivalentes: no MySQL, Enterprise Audit ou o plugin audit do Percona/MariaDB; no PostgreSQL, a extensão pgaudit.\n\nQuery Store registra DESEMPENHO; Agent agenda jobs; Log Shipping é alta disponibilidade.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 09",
+      "enunciado": "Para manter uma trilha de auditoria das alterações de salário na tabela FUNCIONARIO — registrando o valor antigo, o novo, o usuário e a data —, uma solução implementada no próprio banco de dados é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "uma view que exibe apenas a coluna salário."
+        },
+        {
+          "letra": "B",
+          "texto": "um índice na coluna salário."
+        },
+        {
+          "letra": "C",
+          "texto": "uma restrição CHECK que impede alterações no salário."
+        },
+        {
+          "letra": "D",
+          "texto": "uma função escalar que calcula o salário médio."
+        },
+        {
+          "letra": "E",
+          "texto": "um trigger AFTER UPDATE que grava esses dados em uma tabela de auditoria."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Registrar antes, depois, quem e quando: letra E, trigger de auditoria.\n\nExemplo em T-SQL:\n\nCREATE TRIGGER trg_aud_salario ON FUNCIONARIO AFTER UPDATE AS\nINSERT INTO AUD_SALARIO (matricula, salario_antigo, salario_novo, usuario, data_hora)\nSELECT d.matricula, d.salario, i.salario, SUSER_SNAME(), SYSDATETIME()\nFROM deleted d JOIN inserted i ON i.matricula = d.matricula\nWHERE d.salario <> i.salario;\n\nO trigger dispara qualquer que seja o caminho da alteração: aplicação, script ou ferramenta.\n\nPara a auditoria ser confiável, quem é auditado não pode ter permissão de apagar ou alterar a tabela de auditoria — segregação de funções.\n\nAlternativas prontas: temporal tables (SQL Server 2016+), Change Data Capture, SQL Server Audit.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 10",
+      "enunciado": "Para que a comunicação entre a aplicação e o servidor de banco de dados não possa ser interceptada e lida na rede, deve-se",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "ativar o Transparent Data Encryption."
+        },
+        {
+          "letra": "B",
+          "texto": "usar Dynamic Data Masking em todas as colunas."
+        },
+        {
+          "letra": "C",
+          "texto": "trocar a porta padrão do SGBD."
+        },
+        {
+          "letra": "D",
+          "texto": "aplicar hash em todos os dados antes de gravá-los."
+        },
+        {
+          "letra": "E",
+          "texto": "habilitar criptografia da conexão com TLS (SSL), exigindo-a no servidor e configurando os clientes para validar o certificado."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Proteger o dado EM TRÂNSITO: letra E, TLS.\n\n| Estado do dado | Proteção |\n|---|---|\n| em trânsito (rede) | TLS: Encrypt=True e certificado no SQL Server; require_secure_transport no MySQL; ssl e hostssl no pg_hba.conf do PostgreSQL |\n| em repouso (disco) | TDE, criptografia de disco ou de tablespace |\n| em uso (memória e consulta) | Always Encrypted, enclaves |\n\nValidar o certificado no cliente importa: sem isso, um atacante no meio pode se passar pelo servidor.\n\nTrocar a porta é obscuridade, não proteção. Hash em todos os dados os tornaria inúteis para consulta.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 11",
+      "enunciado": "Segundo a Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018), é classificado como dado pessoal sensível o dado sobre",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "nome completo e endereço residencial."
+        },
+        {
+          "letra": "B",
+          "texto": "origem racial ou étnica, convicção religiosa, opinião política, saúde, vida sexual, dado genético ou biométrico, quando vinculado a uma pessoa natural."
+        },
+        {
+          "letra": "C",
+          "texto": "número de CPF e data de nascimento."
+        },
+        {
+          "letra": "D",
+          "texto": "faturamento de uma pessoa jurídica."
+        },
+        {
+          "letra": "E",
+          "texto": "endereço de e-mail corporativo de uma empresa."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Dado pessoal sensível na LGPD: letra B (art. 5º, II).\n\n| Categoria (art. 5º) | Exemplos |\n|---|---|\n| dado pessoal | nome, CPF, endereço, e-mail, IP — identifica ou torna identificável uma pessoa natural |\n| dado pessoal SENSÍVEL | origem racial ou étnica, religião, opinião política, filiação sindical, saúde, vida sexual, genético, biométrico |\n| dado anonimizado | não permite identificar o titular — fica fora da LGPD |\n\nDado de PESSOA JURÍDICA não é dado pessoal. Nome e CPF são pessoais, mas não sensíveis.\n\nPara o DBA, sensível significa mais controle: criptografia, acesso restrito, auditoria de quem consultou.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 12",
+      "enunciado": "Para disponibilizar uma base de clientes à equipe de desenvolvimento, o DBA substituiu nome e CPF por códigos aleatórios, mantendo em outra tabela, sob acesso restrito, a correspondência entre os códigos e os titulares. Segundo a LGPD, essa técnica é a",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "anonimização, e os dados deixam de ser pessoais."
+        },
+        {
+          "letra": "B",
+          "texto": "criptografia homomórfica."
+        },
+        {
+          "letra": "C",
+          "texto": "pseudonimização, e os dados continuam sendo dados pessoais."
+        },
+        {
+          "letra": "D",
+          "texto": "eliminação definitiva dos dados."
+        },
+        {
+          "letra": "E",
+          "texto": "portabilidade dos dados."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Troca por código, com tabela de correspondência guardada à parte: letra C, pseudonimização.\n\n| Técnica | Dá para voltar ao titular? | Status na LGPD |\n|---|---|---|\n| pseudonimização (art. 13, §4º) | SIM, com a informação adicional mantida separada | continua dado pessoal |\n| anonimização (art. 5º, XI) | não, por meios razoáveis | deixa de ser dado pessoal |\n\nComo a tabela de correspondência existe, a reidentificação é possível — logo, não é anonimização.\n\nPara ambiente de desenvolvimento e teste, o ideal é mascaramento irreversível ou dados sintéticos: copiar a produção 'como está' para o dev é vazamento.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 13",
+      "enunciado": "Relacione cada controle de segurança ao pilar da segurança da informação que ele protege prioritariamente.\n\n1. Criptografia dos dados sensíveis\n2. Hash para verificar se um arquivo de backup foi alterado\n3. Replicação do banco em outro datacenter\n\nA associação correta é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1 – confidencialidade; 2 – integridade; 3 – disponibilidade."
+        },
+        {
+          "letra": "B",
+          "texto": "1 – integridade; 2 – confidencialidade; 3 – disponibilidade."
+        },
+        {
+          "letra": "C",
+          "texto": "1 – disponibilidade; 2 – integridade; 3 – confidencialidade."
+        },
+        {
+          "letra": "D",
+          "texto": "1 – confidencialidade; 2 – disponibilidade; 3 – integridade."
+        },
+        {
+          "letra": "E",
+          "texto": "1 – integridade; 2 – disponibilidade; 3 – confidencialidade."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Controle × pilar: letra A.\n\n| Pilar | Pergunta | Controles típicos em banco |\n|---|---|---|\n| CONFIDENCIALIDADE | só quem pode, lê? | criptografia, GRANT/REVOKE, mascaramento |\n| INTEGRIDADE | o dado está correto e não foi alterado indevidamente? | hash e checksum, constraints, transações, auditoria |\n| DISPONIBILIDADE | está acessível quando precisa? | replicação, cluster, backup, site de contingência |\n\nHash não esconde nada: qualquer mudança no arquivo muda o hash, então ele DETECTA alteração — é integridade. Replicação mantém o serviço no ar se um datacenter cair.\n\nCompletam o quadro: autenticidade (é quem diz ser?) e não repúdio (não pode negar que fez), garantidos por assinatura digital.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 14",
+      "enunciado": "Uma consultoria recomendou criar a view VW_FUNCIONARIO_PUBLICO, contendo apenas nome, cargo e ramal, conceder SELECT nessa view aos usuários do setor de atendimento e não conceder acesso à tabela FUNCIONARIO, que contém salário e CPF. Essa medida",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "restringe o acesso às colunas sensíveis, aplicando o princípio do menor privilégio por meio de uma visão."
+        },
+        {
+          "letra": "B",
+          "texto": "é ineficaz, pois quem tem SELECT na view tem automaticamente SELECT na tabela-base."
+        },
+        {
+          "letra": "C",
+          "texto": "duplica fisicamente os dados de FUNCIONARIO, aumentando o risco de vazamento."
+        },
+        {
+          "letra": "D",
+          "texto": "impede que a tabela FUNCIONARIO receba novos registros."
+        },
+        {
+          "letra": "E",
+          "texto": "só funciona se a view for materializada."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "View como controle de acesso: letra A.\n\nO usuário recebe SELECT na VIEW e nenhum privilégio na tabela. Ele consulta nome, cargo e ramal, e não há caminho para salário e CPF.\n\nFunciona por causa do encadeamento de propriedade (ownership chaining no SQL Server; mecanismo equivalente nos demais): se a view e a tabela têm o mesmo dono, o SGBD confere a permissão só na view.\n\nA view comum não copia dado, não bloqueia INSERT de quem tem permissão na tabela e não precisa ser materializada.\n\nAlternativa com o mesmo efeito: permissão por COLUNA — GRANT SELECT (nome, cargo, ramal) ON FUNCIONARIO TO atendimento.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "negativa",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 15",
+      "enunciado": "Entre as práticas a seguir, a que NÃO é recomendada para proteger um servidor de banco de dados é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "manter o SGBD e o sistema operacional atualizados com os patches de segurança."
+        },
+        {
+          "letra": "B",
+          "texto": "desabilitar contas padrão e recursos não utilizados."
+        },
+        {
+          "letra": "C",
+          "texto": "restringir por firewall quais endereços podem se conectar ao banco."
+        },
+        {
+          "letra": "D",
+          "texto": "expor a porta do SGBD diretamente à internet, para facilitar o acesso remoto dos desenvolvedores."
+        },
+        {
+          "letra": "E",
+          "texto": "exigir senhas fortes e autenticação multifator para contas administrativas."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Qual NÃO é recomendada? Letra D.\n\nPorta 1433, 3306 ou 5432 aberta para a internet recebe varredura e força bruta em minutos — é uma das causas mais comuns de banco sequestrado por ransomware. Acesso remoto se faz por VPN, bastion host ou túnel SSH, nunca expondo o SGBD.\n\nAs demais são hardening básico:\n\n— patches em dia;\n\n— desabilitar o que não se usa (contas padrão como sa, xp_cmdshell, bancos de exemplo);\n\n— firewall com lista de origens permitidas;\n\n— senha forte e MFA para quem administra.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 16",
+      "enunciado": "Sobre auditoria em bancos de dados, analise as afirmativas a seguir.",
+      "afirmacoes": [
+        "A auditoria permite identificar quem executou determinada operação, quando e a partir de onde.",
+        "Os registros de auditoria devem ser protegidos contra alteração e exclusão, inclusive por parte dos administradores auditados.",
+        "A boa prática é auditar todas as consultas SELECT de todas as tabelas, pois o volume de registros não afeta o desempenho."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas II."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I e II."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Quais estão certas? Letra C: I e II.\n\nI — certa. A trilha de auditoria responde quem, o quê, quando e de onde.\n\nII — certa. Se o próprio DBA auditado pode apagar o log, a auditoria não vale como prova. Os registros vão para destino protegido (outro servidor, SIEM, log de segurança do Windows) com acesso segregado.\n\nIII — errada. Auditar tudo gera volume enorme, custo de desempenho e registros que ninguém lê. Audita-se o que importa: logins com falha, mudanças de permissão, DDL, acesso a tabelas sensíveis, ações de contas privilegiadas.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 17",
+      "enunciado": "Para proteger os arquivos de backup de um banco do SQL Server que contém dados pessoais, o DBA decidiu usar BACKUP DATABASE ... WITH ENCRYPTION. Para que esses backups possam ser restaurados no futuro, inclusive em outro servidor, é indispensável",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "desabilitar a criptografia antes de cada restauração."
+        },
+        {
+          "letra": "B",
+          "texto": "armazenar o certificado no mesmo arquivo do backup."
+        },
+        {
+          "letra": "C",
+          "texto": "usar o modelo de recuperação SIMPLE."
+        },
+        {
+          "letra": "D",
+          "texto": "guardar com segurança, em local separado dos backups, uma cópia do certificado (ou chave assimétrica) usado na criptografia, com sua chave privada."
+        },
+        {
+          "letra": "E",
+          "texto": "compactar o backup com ZIP antes de copiá-lo."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Backup criptografado: letra D.\n\nSem o certificado, o backup é um arquivo ilegível para sempre — inclusive para você. É o caso clássico de servidor que morre levando junto o único certificado.\n\nBACKUP CERTIFICATE cert_backup TO FILE = '...cer'\n  WITH PRIVATE KEY (FILE = '...pvk', ENCRYPTION BY PASSWORD = '...');\n\nGuardar o certificado junto com o backup anula a proteção: quem leva um leva o outro. O certificado vai para um cofre de chaves, outro local, com senha custodiada.\n\nO mesmo vale para o TDE: sem o certificado, não se restaura o banco em outro servidor.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 18",
+      "enunciado": "Para proteger grandes volumes de dados armazenados no banco, os sistemas normalmente usam criptografia simétrica, como o AES. A principal razão dessa escolha é que a criptografia simétrica",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "dispensa o gerenciamento de chaves."
+        },
+        {
+          "letra": "B",
+          "texto": "usa um par de chaves pública e privada."
+        },
+        {
+          "letra": "C",
+          "texto": "é muito mais rápida que a assimétrica, sendo adequada para cifrar grandes volumes de dados."
+        },
+        {
+          "letra": "D",
+          "texto": "é irreversível, como uma função hash."
+        },
+        {
+          "letra": "E",
+          "texto": "só pode ser quebrada com acesso físico ao servidor."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Por que AES para dados volumosos: letra C, desempenho.\n\n| | Simétrica (AES) | Assimétrica (RSA, ECC) |\n|---|---|---|\n| chaves | uma, compartilhada | par pública/privada |\n| velocidade | alta | centenas de vezes mais lenta |\n| uso típico | cifrar os dados (TDE, coluna, backup) | trocar e proteger a chave simétrica; assinatura digital |\n\nArquitetura do TDE, por exemplo: os dados são cifrados com uma chave simétrica (DEK, AES-256), e a DEK é protegida por um certificado (assimétrico). Cada uma faz o que sabe fazer melhor.\n\nA simétrica PRECISA de gestão de chaves — guardar, girar, proteger. Irreversível é hash, não criptografia.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 19",
+      "enunciado": "Sobre controle de acesso em bancos de dados, analise as afirmativas a seguir.",
+      "afirmacoes": [
+        "A autenticação verifica a identidade do usuário, e a autorização define o que esse usuário pode fazer no banco depois de autenticado.",
+        "O uso de uma única conta administrativa compartilhada entre os DBAs facilita a auditoria, pois concentra os registros em um só usuário.",
+        "As permissões concedidas devem ser revisadas periodicamente, removendo acessos de usuários desligados ou que mudaram de função."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas III."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I e III."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Quais estão certas? Letra C: I e III.\n\nI — certa. Autenticação (quem você é) vem antes da autorização (o que você pode). O SGBD primeiro valida o login e depois confere as permissões em cada objeto.\n\nII — errada. Contas compartilhadas destroem a rastreabilidade: a auditoria registra 'admin' e não se sabe qual pessoa agiu. Cada pessoa tem conta nominal.\n\nIII — certa. Revisão periódica de acessos remove permissões acumuladas e contas de quem saiu — muitos incidentes vêm de conta órfã.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    },
+    {
+      "formato": "codigo",
+      "origem": "Inédita (sem banca) · BD Avança SP · Segurança de dados · nº 20",
+      "enunciado": "Uma stored procedure do SQL Server recebe o nome de uma cidade no parâmetro @cidade e executa o código abaixo. Sobre a segurança dessa procedure, é correto afirmar que",
+      "codigo": "DECLARE @sql NVARCHAR(500);\nSET @sql = 'SELECT * FROM CLIENTE WHERE cidade = ''' + @cidade + '''';\nEXEC (@sql);",
+      "linguagem": "sql",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "ela é imune a SQL injection, pois todo código dentro de stored procedure é seguro."
+        },
+        {
+          "letra": "B",
+          "texto": "ela só seria vulnerável se a tabela CLIENTE não tivesse chave primária."
+        },
+        {
+          "letra": "C",
+          "texto": "a vulnerabilidade é eliminada se o usuário tiver apenas permissão EXECUTE."
+        },
+        {
+          "letra": "D",
+          "texto": "o EXEC impede a execução de mais de um comando por chamada."
+        },
+        {
+          "letra": "E",
+          "texto": "ela continua vulnerável a SQL injection, pois concatena a entrada em SQL dinâmico; o correto é usar sp_executesql com parâmetro."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 3,
+      "explicacao": "Procedure com SQL dinâmico concatenado: letra E, continua vulnerável.\n\nStored procedure só protege quando o parâmetro é usado COMO PARÂMETRO (WHERE cidade = @cidade). Ao concatenar o texto e executar com EXEC, volta-se ao problema da aplicação: a entrada Santos'; DROP TABLE CLIENTE; -- vira código.\n\nCorreção em T-SQL:\n\nEXEC sp_executesql\n  N'SELECT * FROM CLIENTE WHERE cidade = @c',\n  N'@c VARCHAR(40)',\n  @c = @cidade;\n\nPermissão só de EXECUTE não ajuda: o código injetado roda no contexto da procedure. E o EXEC executa lotes com vários comandos.\n\nAtalho: o perigo é CONCATENAR entrada em comando, seja na aplicação, seja dentro do banco.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Segurança de dados: controle de acesso, auditoria, criptografia e boas práticas de proteção de informações"
+    }
+  ]
+}

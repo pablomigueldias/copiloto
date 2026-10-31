@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 4 questões de equações do 1º grau que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 4 questões de equações do 1º grau que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Equações do 1º grau",
@@ -126,6 +126,99 @@
           "texto": "2 marcadores e 13 chaveiros"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 15",
+      "assunto": "Equação do 1º grau: problemas",
+      "enunciado": "Em uma determinada modalidade de um jogo de basquete só há cestas de 2 e 3 pontos. Sabe-se que um jogador nessa modalidade fez 7 pontos no total. Quantas cestas no total esse jogador fez?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "3."
+        },
+        {
+          "letra": "B",
+          "texto": "4."
+        },
+        {
+          "letra": "C",
+          "texto": "5."
+        },
+        {
+          "letra": "D",
+          "texto": "6."
+        },
+        {
+          "letra": "E",
+          "texto": "7."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "2a + 3b = 7 com a e b inteiros: letra A.\n\n| cestas de 3 (b) | pontos que sobram | cestas de 2 (a) |\n|---|---|---|\n| 0 | 7 | 3,5 — não serve |\n| 1 | 4 | 2 ✔ |\n| 2 | 1 | 0,5 — não serve |\n\nÚnica solução: 2 cestas de 2 e 1 de 3 → 3 cestas.\n\nAtalho: 7 é ímpar e 2a é par → precisa de um número ímpar de cestas de 3."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 17",
+      "assunto": "Equação do 1º grau: problemas",
+      "enunciado": "Sabe-se que André tem 5 anos a mais que a sua irmã, Carol, e que daqui a 4 anos Carol terá 4/5 da idade de André (também daqui a 4 anos). Quantos anos Carol tem atualmente?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "12."
+        },
+        {
+          "letra": "B",
+          "texto": "25."
+        },
+        {
+          "letra": "C",
+          "texto": "16."
+        },
+        {
+          "letra": "D",
+          "texto": "20."
+        },
+        {
+          "letra": "E",
+          "texto": "21."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Equação com as idades daqui a 4 anos: letra C.\n\nCarol = c; André = c + 5. Daqui a 4 anos: c + 4 = (4/5)(c + 9).\n\n5c + 20 = 4c + 36 → c = 16.\n\nConferência: daqui a 4 anos, Carol 20 e André 25; 20/25 = 4/5. ✔\n\nPegadinha: 20 é a idade de Carol DAQUI A 4 ANOS; a pergunta é a de hoje."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 13",
+      "assunto": "Sistema de equações do 1º grau",
+      "enunciado": "Uma copiadora faz xerox de documentos. As cópias podem ser em preto-e-branco ou coloridas, e têm preços diferentes. Bruno foi na copiadora e pediu 10 xerox coloridas e 15 xerox preto e branco, e o valor total foi R$14,50. João foi na mesma copiadora e pediu 15 xerox coloridas e 10 xerox preto e branco, e pagou um valor total de R$ 15,50. Nessa situação, qual o valor da unidade da xerox colorida? Considere que o valor unitário das cópias não mudou entre as compras de Bruno e João.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 0,60."
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 0,65."
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 0,70."
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 0,75."
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 0,80."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Sistema simétrico: some e subtraia. Letra C.\n\n10c + 15p = 14,50\n15c + 10p = 15,50\n\nSomando: 25c + 25p = 30 → c + p = 1,20.\nSubtraindo: 5c − 5p = 1 → c − p = 0,20.\n\nc = (1,20 + 0,20) ÷ 2 = 0,70 (e p = 0,50).\n\nConferência: 10 × 0,70 + 15 × 0,50 = 7 + 7,50 = 14,50. ✔\n\nQuando os coeficientes se trocam (10/15 e 15/10), somar e subtrair as equações resolve sem substituição."
     }
   ]
 }

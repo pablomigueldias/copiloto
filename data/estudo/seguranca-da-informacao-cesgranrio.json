@@ -1,0 +1,45 @@
+{
+  "_leia_me": "Controle de acesso, CESGRANRIO: BNDES 2024 Desenvolvimento, questão 42 (RBAC × autenticação). Cobre a linha 'Segurança de dados: controle de acesso' do edital de BD. As outras de segurança do BNDES (proxy reverso, firewall proxy, vírus polimórfico, 802.1X) ficaram de fora: são de redes e malware, não de banco. Procedência: cadernos e gabaritos em docs/avanca-sp/outras-bancas/ (ver o README de lá). BNDES 2024 = Seleção Pública 01/2024, provas de 13/10/2024, Prova 3 (Análise de Sistemas – Desenvolvimento) e Prova 4 (Suporte); o bloco básico (1 a 35) é o MESMO nos dois cadernos e entrou uma vez só, pelo de Desenvolvimento. UNEMAT 2024 = Edital 01/2023, provas de 03/03/2024, Prova 3 (Técnico Universitário – Analista de Sistemas). Gabarito lido no PDF da própria banca, no bloco do cargo; nenhum dos dois PDFs diz se é preliminar ou definitivo. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "CESGRANRIO",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Segurança da informação e LGPD",
+    "ordem": 7
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 42",
+      "enunciado": "Em uma aplicação financeira, um banco está implementando a autenticação multifatorial dos usuários junto com um sistema de Controle de Acesso Baseado em Papéis (RBAC, sigla em inglês) para gerenciar as permissões desses mesmos usuários.\n\nConsiderando-se esse contexto, quando implementado, o RBAC",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "atribuirá permissões baseadas em funções sem considerar a identidade do usuário, enquanto a autenticação atribuirá permissões diretamente aos usuários."
+        },
+        {
+          "letra": "B",
+          "texto": "lidará exclusivamente com a autenticação dos usuários, garantindo que apenas usuários autenticados possam acessar a aplicação."
+        },
+        {
+          "letra": "C",
+          "texto": "será responsável por determinar as permissões dos usuários com base em seus papéis, enquanto a autenticação verificará a identidade dos usuários antes de atribuir esses papéis."
+        },
+        {
+          "letra": "D",
+          "texto": "será independente da autenticação, e ambos não se relacionarão na gestão de acesso."
+        },
+        {
+          "letra": "E",
+          "texto": "substituirá a necessidade de autenticação multifatorial, uma vez que os papéis já definem quem pode acessar a aplicação."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Autenticação multifator + RBAC: quem faz o quê? Letra C.\n\n| Etapa | Pergunta | Mecanismo |\n|---|---|---|\n| AUTENTICAÇÃO | quem é você? | senha, token, biometria — MFA combina dois ou mais fatores |\n| AUTORIZAÇÃO | o que você pode fazer? | RBAC: permissões dadas ao PAPEL, e o usuário recebe papéis |\n| AUDITORIA | o que você fez? | log de acesso |\n\nA ordem importa: primeiro se prova a identidade, depois se consulta o papel. São complementares — por isso D e E caem.\n\nA erra duas vezes: a autenticação não atribui permissão, e o RBAC usa SIM a identidade (é por ela que se sabe qual papel o usuário tem). B confunde RBAC com autenticação.\n\nNo banco de dados é o mesmo modelo:\n\nCREATE ROLE analista;\nGRANT SELECT ON vendas TO analista;\nGRANT analista TO maria;   -- SQL Server: ALTER ROLE analista ADD MEMBER maria\n\nAtalho: autenticação = identidade; autorização = permissão; RBAC é um jeito de fazer autorização."
+    }
+  ]
+}

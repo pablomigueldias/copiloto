@@ -1,0 +1,209 @@
+{
+  "_leia_me": "Questões INÉDITAS de Inglês técnico, escritas por mim (Claude) a pedido do Pablo em 07/10/2026 — sem banca; textos de apoio, gabarito e explicação são meus. A Avança SP não tem nenhuma questão de inglês nas 14 provas levantadas; o padrão vem da pesquisa em docs/avanca-sp/ingles-tecnico-padrao.md (Cesgranrio: texto + perguntas em inglês; FCC/Vunesp: perguntas em português) e o conteúdo, do programa de Inglês Técnico do edital CRECI-SP 01/2026. Cada questão traz o `assunto` do simulado. As normas citadas (RFC 2119, NIST SP 800-63B, NIST CSF 2.0, ISO/IEC 27001) foram conferidas como eu as conheço, sem fonte externa aberta na hora — desconfie e corrija.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Inglês técnico — inéditas",
+    "trilha": "concurso",
+    "ordem": 8
+  },
+  "topico": {
+    "nome": "Normas, RFCs e redação técnica",
+    "ordem": 5
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Normas, RFCs e redação técnica · nº 01",
+      "enunciado": "Considering the meaning of the keywords defined in RFC 2119, the sentence “systems SHOULD accept passwords of at least 64 characters” indicates that accepting such passwords is",
+      "texto_base": "Password Policy — adapted from the NIST Digital Identity Guidelines (SP 800-63B)\n\n(1) For many years, organizations required users to create passwords containing uppercase letters, digits and symbols, and to change them every 90 days. Research has shown that these rules often backfire: users respond with predictable patterns, such as \"Password1!\" followed by \"Password2!\".\n\n(2) Current guidance therefore focuses on length rather than complexity. User-chosen passwords MUST be at least 8 characters long, and systems SHOULD accept passwords of at least 64 characters, so that users can adopt long passphrases. Every new password MUST be checked against a list of values known to be commonly used or previously compromised.\n\n(3) Verifiers SHOULD NOT require passwords to be changed periodically. A change MUST, however, be forced whenever there is evidence that the password has been compromised. Password hints and security questions such as \"What was the name of your first pet?\" MUST NOT be used, since their answers can often be found on social media.\n\n(4) Finally, passwords MUST be stored only as salted hashes computed with a function designed to be slow, which makes offline guessing attacks considerably more expensive.\n\nIn this text, the keywords MUST, MUST NOT, SHOULD and SHOULD NOT are to be interpreted as described in RFC 2119.",
+      "texto_base_fonte": "Texto escrito para esta questão, a partir das recomendações do NIST SP 800-63B.",
+      "assunto": "RFCs e palavras-chave MUST, SHOULD e MAY",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "recommended, although there may be valid reasons in particular circumstances to do otherwise."
+        },
+        {
+          "letra": "B",
+          "texto": "an absolute requirement of the specification."
+        },
+        {
+          "letra": "C",
+          "texto": "an absolute prohibition of the specification."
+        },
+        {
+          "letra": "D",
+          "texto": "truly optional, with no recommendation either way."
+        },
+        {
+          "letra": "E",
+          "texto": "the minimum length that every password must have."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "SHOULD na RFC 2119: recomendado. Letra A.\n\n| Palavra-chave | Sinônimos na RFC | Sentido |\n|---|---|---|\n| MUST | REQUIRED, SHALL | requisito absoluto |\n| MUST NOT | SHALL NOT | proibição absoluta |\n| SHOULD | RECOMMENDED | recomendado; pode haver razão válida para não seguir, desde que as implicações sejam entendidas |\n| SHOULD NOT | NOT RECOMMENDED | não recomendado, com a mesma ressalva |\n| MAY | OPTIONAL | opcional de verdade |\n\nA última errada confunde os números: o mínimo é 8 (MUST); 64 é o que o sistema deveria ACEITAR (SHOULD).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Leitura de protocolos e normas (RFCs, ISO, NIST); redação técnica"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Normas, RFCs e redação técnica · nº 02",
+      "enunciado": "In RFC 2119, the phrase “MUST NOT” means that the described behavior is",
+      "assunto": "RFCs e palavras-chave MUST, SHOULD e MAY",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "recommended, but optional."
+        },
+        {
+          "letra": "B",
+          "texto": "an absolute prohibition of the specification."
+        },
+        {
+          "letra": "C",
+          "texto": "allowed only in test environments."
+        },
+        {
+          "letra": "D",
+          "texto": "truly optional."
+        },
+        {
+          "letra": "E",
+          "texto": "required in every implementation."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "MUST NOT = SHALL NOT = proibição absoluta. Letra B.\n\n| Palavra-chave | Sentido |\n|---|---|\n| MUST / REQUIRED / SHALL | obrigatório |\n| MUST NOT / SHALL NOT | proibido |\n| SHOULD / RECOMMENDED | recomendado |\n| SHOULD NOT / NOT RECOMMENDED | não recomendado |\n| MAY / OPTIONAL | opcional |\n\nA RFC 2119 define essas palavras para que as outras RFCs (HTTP, TLS, SMTP) as usem com sentido exato, sempre em maiúsculas.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Leitura de protocolos e normas (RFCs, ISO, NIST); redação técnica"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Normas, RFCs e redação técnica · nº 03",
+      "enunciado": "The NIST Cybersecurity Framework 2.0 organizes cybersecurity outcomes into six functions: Govern, Identify, Protect, Detect, Respond and Recover. Restoring the company's databases from backups after a ransomware attack belongs mainly to the function",
+      "assunto": "Normas ISO e NIST",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Identify."
+        },
+        {
+          "letra": "B",
+          "texto": "Detect."
+        },
+        {
+          "letra": "C",
+          "texto": "Recover."
+        },
+        {
+          "letra": "D",
+          "texto": "Govern."
+        },
+        {
+          "letra": "E",
+          "texto": "Protect."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Recover = restaurar as operações depois do incidente. Letra C.\n\n| Função | Exemplo em banco de dados |\n|---|---|\n| Govern | política e papéis de segurança |\n| Identify | inventário de bancos e dados sensíveis |\n| Protect | controle de acesso, criptografia, backup |\n| Detect | auditoria, alerta de acesso anômalo |\n| Respond | conter o ataque, isolar o servidor |\n| Recover | restaurar do backup, voltar a operar |\n\nFazer o backup é Protect; usar o backup para voltar é Recover.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Leitura de protocolos e normas (RFCs, ISO, NIST); redação técnica"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Normas, RFCs e redação técnica · nº 04",
+      "enunciado": "ISO/IEC 27001 is an international standard that specifies requirements for",
+      "assunto": "Normas ISO e NIST",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "establishing, implementing, maintaining and continually improving an information security management system (ISMS)."
+        },
+        {
+          "letra": "B",
+          "texto": "designing normalized relational databases."
+        },
+        {
+          "letra": "C",
+          "texto": "measuring software quality in agile projects."
+        },
+        {
+          "letra": "D",
+          "texto": "managing IT services, such as the service desk."
+        },
+        {
+          "letra": "E",
+          "texto": "protecting personal data under Brazilian law."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "ISO/IEC 27001 = requisitos de um SGSI (ISMS em inglês). Letra A.\n\n| Norma / lei | Assunto |\n|---|---|\n| ISO/IEC 27001 | requisitos do sistema de gestão de segurança da informação (certificável) |\n| ISO/IEC 27002 | guia de controles de segurança |\n| ISO/IEC 20000 | gestão de serviços de TI |\n| ISO/IEC 25010 | qualidade de software |\n| LGPD (Lei 13.709/2018) | proteção de dados pessoais no Brasil |\n\n'continually improving' remete ao ciclo PDCA (Plan-Do-Check-Act).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Leitura de protocolos e normas (RFCs, ISO, NIST); redação técnica"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Normas, RFCs e redação técnica · nº 05",
+      "enunciado": "Which sentence is the most appropriate to open a formal e-mail reporting an incident to a software vendor?",
+      "assunto": "Redação técnica: e-mail e relatório",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Hey guys, your stuff broke again!!!"
+        },
+        {
+          "letra": "B",
+          "texto": "Replication dead. Fix it ASAP."
+        },
+        {
+          "letra": "C",
+          "texto": "As you probably know, nothing in your product works."
+        },
+        {
+          "letra": "D",
+          "texto": "I wanna tell you that the system is kinda down."
+        },
+        {
+          "letra": "E",
+          "texto": "I am writing to report a failure in the replication service that began at 2:00 a.m. today."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Registro formal: letra E.\n\nA abertura formal diz o motivo do e-mail logo de cara ('I am writing to...'), com fato, hora e serviço afetado.\n\n| Informal | Formal |\n|---|---|\n| Hey guys | Dear Sir or Madam / Dear support team |\n| wanna, kinda | want to, somewhat |\n| ASAP | at your earliest convenience / as soon as possible |\n| Fix it. | Could you please investigate...? |\n| Thanks! | Kind regards / Best regards |\n\nFórmulas úteis: 'Please find attached the log file.' / 'I look forward to your reply.'",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Leitura de protocolos e normas (RFCs, ISO, NIST); redação técnica"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Normas, RFCs e redação técnica · nº 06",
+      "enunciado": "In a technical report, which sentence is written in the passive voice?",
+      "assunto": "Verbos modais e voz passiva em documentação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "The system replicates the data to two regions every hour."
+        },
+        {
+          "letra": "B",
+          "texto": "The data is replicated to two regions every hour."
+        },
+        {
+          "letra": "C",
+          "texto": "We replicate the data to two regions every hour."
+        },
+        {
+          "letra": "D",
+          "texto": "Replicate the data to two regions every hour."
+        },
+        {
+          "letra": "E",
+          "texto": "The administrator should replicate the data every hour."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Voz passiva = to be + particípio (is replicated). Letra B.\n\n| Frase | Voz |\n|---|---|\n| The data is replicated... | passiva: o foco é no dado, não em quem replica |\n| The system replicates... | ativa |\n| Replicate the data... | imperativo (instrução) |\n| should replicate | ativa com modal |\n\nDocumentação técnica usa muito a passiva: 'The file is created automatically', 'Errors are logged to...'. Passiva com modal: 'Backups must be tested'.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Leitura de protocolos e normas (RFCs, ISO, NIST); redação técnica"
+    }
+  ]
+}

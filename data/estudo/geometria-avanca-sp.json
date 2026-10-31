@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 11 questões de geometria que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 11 questões de geometria que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Geometria",
@@ -335,6 +335,354 @@
           "texto": "90 m²"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2022 · Analista Legislativo · questão 13",
+      "assunto": "Ângulos e triângulos",
+      "enunciado": "A porta do quarto de Ugo ficou aberta formando um ângulo de 35° com a parede. Sobre esse ângulo é correto afirmar:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "é um ângulo raso."
+        },
+        {
+          "letra": "B",
+          "texto": "é um ângulo raro."
+        },
+        {
+          "letra": "C",
+          "texto": "é um ângulo agudo."
+        },
+        {
+          "letra": "D",
+          "texto": "é um ângulo obtuso."
+        },
+        {
+          "letra": "E",
+          "texto": "é um ângulo obeso."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "35° é menor que 90°: agudo. Letra C.\n\n| Ângulo | Medida |\n|---|---|\n| agudo | entre 0° e 90° |\n| reto | 90° |\n| obtuso | entre 90° e 180° |\n| raso | 180° |\n\n'Raro' e 'obeso' não existem como classificação de ângulo."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2022 · Analista Legislativo · questão 14",
+      "assunto": "Volume e capacidade de sólidos",
+      "enunciado": "Um tanque aquático cúbico foi comprado para colocar tartarugas. Sabe-se que o mesmo possui 800 cm de lado, então seu volume é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "5,12 litros."
+        },
+        {
+          "letra": "B",
+          "texto": "51,2 litros."
+        },
+        {
+          "letra": "C",
+          "texto": "512 litros."
+        },
+        {
+          "letra": "D",
+          "texto": "5 120 litros."
+        },
+        {
+          "letra": "E",
+          "texto": "512 000 litros."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Converta antes de elevar ao cubo: letra E.\n\n800 cm = 8 m → V = 8³ = 512 m³ → 512 × 1.000 L = 512.000 L.\n\nAtalho: 1 m³ = 1.000 L e 1 dm³ = 1 L. Por dm: 800 cm = 80 dm → 80³ = 512.000 dm³ = 512.000 L.\n\nA pegadinha é o 512 sem o fator 1.000: a alternativa 512 litros é a resposta de quem esqueceu que 1 m³ tem mil litros."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2022 · Analista Legislativo · questão 15",
+      "assunto": "Área e perímetro",
+      "enunciado": "Um tapete foi feito com formato quadrado. Sabe-se que seu lado mede 185,6 m, então seu perímetro é de:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "742,4 m."
+        },
+        {
+          "letra": "B",
+          "texto": "864 m."
+        },
+        {
+          "letra": "C",
+          "texto": "921,8 m."
+        },
+        {
+          "letra": "D",
+          "texto": "967,36 m."
+        },
+        {
+          "letra": "E",
+          "texto": "995,3 m."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Perímetro do quadrado = 4 × lado: letra A.\n\n4 × 185,6 = 742,4 m.\n\nPerímetro é contorno (soma dos lados, em m); área é superfície (lado², em m²). Não confundir."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 20",
+      "assunto": "Teorema de Pitágoras",
+      "enunciado": "Indique a área de um triângulo retângulo que tem um dos catetos com medida de 4 cm e a hipotenusa com medida de 5 cm:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "6 cm²."
+        },
+        {
+          "letra": "B",
+          "texto": "9 cm²."
+        },
+        {
+          "letra": "C",
+          "texto": "10 cm²."
+        },
+        {
+          "letra": "D",
+          "texto": "15 cm²."
+        },
+        {
+          "letra": "E",
+          "texto": "20 cm²."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Pitágoras para o cateto que falta, depois a área: letra A.\n\n5² = 4² + b² → 25 = 16 + b² → b = 3.\n\nNo triângulo retângulo, os dois catetos são base e altura: A = 3 × 4 ÷ 2 = 6 cm².\n\nAtalho: 3-4-5 é o triângulo pitagórico mais cobrado (e seus múltiplos 6-8-10, 9-12-15).\n\nPegadinha: 10 cm² é 4 × 5 ÷ 2 — usar a hipotenusa como altura."
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 14",
+      "assunto": "Ângulos e triângulos",
+      "enunciado": "Observe as seguintes afirmativas a respeito de polígonos convexos:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Somente I."
+        },
+        {
+          "letra": "B",
+          "texto": "Somente II."
+        },
+        {
+          "letra": "C",
+          "texto": "I e II."
+        },
+        {
+          "letra": "D",
+          "texto": "II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Todas certas: letra E.\n\nI — certa. A soma dos ângulos internos de QUALQUER triângulo é 180°, seja ele escaleno, isósceles ou equilátero.\n\nII — certa. Losango é o quadrilátero de quatro lados iguais; é a definição dele.\n\nIII — certa. Quadrado: internos 4 × 90° = 360°. Os externos de qualquer polígono convexo somam 360°. As duas somas dão 360°.\n\n| Polígono de n lados | Soma |\n|---|---|\n| ângulos internos | (n − 2) × 180° |\n| ângulos externos | sempre 360° |\n\nNo quadrado (n = 4): (4 − 2) × 180° = 360° — é o único polígono em que as duas somas coincidem.",
+      "afirmacoes": [
+        "A soma dos ângulos internos de um triângulo é sempre igual a 180° mesmo se o triângulo for escaleno;",
+        "Um losango tem necessariamente todos os lados congruentes;",
+        "A soma dos ângulos internos de um quadrado é igual à soma dos seus ângulos externos;"
+      ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 11",
+      "assunto": "Área e perímetro",
+      "enunciado": "Uma parede será construída utilizando tijolos de altura e comprimento iguais a 20 cm, e largura 10 cm. Eles serão colocados sempre em posição ‘vertical’, de forma que a espessura da parede será correspondente ao lado de 10 cm do tijolo. Quantos tijolos no mínimo serão necessários para construir uma parede de 10 metros de comprimento e 3 metros de altura? Considere que não haverá espaçamento entre tijolos adjacentes.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "750."
+        },
+        {
+          "letra": "B",
+          "texto": "950."
+        },
+        {
+          "letra": "C",
+          "texto": "1050."
+        },
+        {
+          "letra": "D",
+          "texto": "1200."
+        },
+        {
+          "letra": "E",
+          "texto": "1350."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Área da parede ÷ área da face do tijolo: letra A.\n\nA espessura (10 cm) é a do tijolo; a face visível é 20 cm × 20 cm.\n\nComprimento: 1.000 ÷ 20 = 50 tijolos. Altura: 300 ÷ 20 = 15 fileiras. Total: 50 × 15 = 750.\n\nPela área: 10 × 3 = 30 m² ÷ 0,04 m² = 750.\n\nPegadinha: usar a face 20 × 10 (que daria 1.500, nem está nas alternativas) — a questão diz que o lado de 10 cm vira a espessura."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 16",
+      "assunto": "Teorema de Pitágoras",
+      "enunciado": "Uma folha de papel de formato quadrado foi cortada conforme a figura:\n\nO ponto A é o ponto médio do lado. Indique o perímetro da figura resultante (em cm) sabendo-se que o lado do quadrado original media 1 cm. Dado: √5 ≈ 2,24.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1,12."
+        },
+        {
+          "letra": "B",
+          "texto": "1,24."
+        },
+        {
+          "letra": "C",
+          "texto": "3,24."
+        },
+        {
+          "letra": "D",
+          "texto": "3,06."
+        },
+        {
+          "letra": "E",
+          "texto": "3,62."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Contorno da peça cinza: letra E.\n\nO corte vai de A (meio do lado esquerdo) até o canto inferior direito, e sai o triângulo de catetos 1 e 0,5.\n\nCorte = hipotenusa: √(1² + 0,5²) = √1,25 = √5 / 2 ≈ 2,24 ÷ 2 = 1,12.\n\n| Lado da figura | Medida |\n|---|---|\n| topo | 1 |\n| direita | 1 |\n| esquerda (topo até A) | 0,5 |\n| corte | 1,12 |\n| perímetro | 3,62 |\n\nPegadinha: 1,12 é só o corte; esquecer o meio lado esquerdo dá 3,12.",
+      "imagem": "avanca-sp/jaguariuna-2023-quadrado-cortado.png",
+      "imagem_alt": "Um quadrado cinza e, ao lado, o mesmo quadrado cortado: o ponto A fica no meio do lado esquerdo, e um corte tracejado vai de A até o canto inferior direito, retirando o triângulo de baixo."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 12",
+      "assunto": "Área e perímetro",
+      "enunciado": "Qual o perímetro, em metros, de um terreno quadrado, cujo lado L pode ser calculado pela equação: L = 45 – X? Considere que o valor de X equivale a 20% (vinte por cento) de 150.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "30"
+        },
+        {
+          "letra": "B",
+          "texto": "40"
+        },
+        {
+          "letra": "C",
+          "texto": "50"
+        },
+        {
+          "letra": "D",
+          "texto": "60"
+        },
+        {
+          "letra": "E",
+          "texto": "70"
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Três passos curtos: letra D.\n\nX = 0,20 × 150 = 30. L = 45 − 30 = 15. Perímetro = 4 × 15 = 60 m.\n\nA alternativa 30 é o X; quem para no meio marca o número que acabou de achar."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 15",
+      "assunto": "Área e perímetro",
+      "enunciado": "Um construtor deseja adquirir azulejos a fim de revestir apenas o fundo de uma piscina circular, a qual possui diâmetro de 6 metros. Considerando Pi = 3, e que o valor do metro quadrado de azulejo que ele deseja comprar custa R$ 50,00 (cinquenta reais), qual o valor total dispendido por ele para adquirir a quantidade necessária do produto?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 1.200,00"
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 1.350,00"
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 1.700,00"
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 3.500,00"
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 5.400,00"
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Área do círculo usa o RAIO: letra B.\n\nr = 6 ÷ 2 = 3 m. A = π r² = 3 × 9 = 27 m². Custo: 27 × 50 = R$ 1.350.\n\nPegadinha: usar o diâmetro como raio → 3 × 36 = 108 m² → R$ 5.400 (alternativa E)."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 19",
+      "assunto": "Teorema de Pitágoras",
+      "enunciado": "Um morador deseja dividir uma sala, que possui formato quadrado, construindo uma parede ligando os vértices opostos por meio de uma linha diagonal, formando assim dois triângulos retângulos. Considerando que a sala possui lados iguais a 10 (dez) metros, a parede que a separará terá comprimento, em metros, equivalente a:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Raiz quadrada de 25"
+        },
+        {
+          "letra": "B",
+          "texto": "Raiz quadrada de 100"
+        },
+        {
+          "letra": "C",
+          "texto": "Raiz quadrada de 150"
+        },
+        {
+          "letra": "D",
+          "texto": "Raiz quadrada de 200"
+        },
+        {
+          "letra": "E",
+          "texto": "Raiz quadrada de 250"
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Diagonal do quadrado por Pitágoras: letra D.\n\nd² = 10² + 10² = 200 → d = √200 (= 10√2 ≈ 14,1 m).\n\nAtalho: diagonal do quadrado de lado ℓ = ℓ√2. Diagonal do cubo = ℓ√3."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de São Miguel Arcanjo 2023 · Analista Fiscal de Tributos Municipais · questão 12",
+      "assunto": "Área e perímetro",
+      "enunciado": "Um carpinteiro, durante a construção de uma residência, necessita de uma ripa de madeira retangular que possua 3 m² de área. Dentre as configurações abaixo, qual representa o objeto que pode ser utilizado pelo trabalhador em sua obra, considerando que os valores representam o cumprimento dos lado do retângulo:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "100 centímetros e 2 metros"
+        },
+        {
+          "letra": "B",
+          "texto": "100 centímetros e 2,5 metros"
+        },
+        {
+          "letra": "C",
+          "texto": "50 centímetros e 3 metros"
+        },
+        {
+          "letra": "D",
+          "texto": "50 centímetros e 6 metros"
+        },
+        {
+          "letra": "E",
+          "texto": "160 centímetro e 2 metros"
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Converta para metro e multiplique: letra D.\n\n| Lados | Área |\n|---|---|\n| 1 m × 2 m | 2 m² |\n| 1 m × 2,5 m | 2,5 m² |\n| 0,5 m × 3 m | 1,5 m² |\n| 0,5 m × 6 m | 3 m² ✔ |\n| 1,6 m × 2 m | 3,2 m² |\n\nMisturar cm e m sem converter (50 × 6 = 300) é o erro que a questão quer."
     }
   ]
 }

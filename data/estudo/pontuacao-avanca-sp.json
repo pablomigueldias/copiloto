@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 3 questões de pontuação que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Pontuação”.\n\nDe onde vêm: Câmara de Taboão da Serra 2022 (1), Prefeitura de Paraty 2024 (1), Prefeitura de Rio Grande da Serra 2024 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n1 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 3 questões de pontuação que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Pontuação”.\n\nDe onde vêm: Câmara de Taboão da Serra 2022 (1), Prefeitura de Paraty 2024 (1), Prefeitura de Rio Grande da Serra 2024 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n1 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Língua portuguesa",
     "trilha": "concurso",
-    "ordem": 2
+    "ordem": 5
   },
   "topico": {
     "nome": "Pontuação",
@@ -99,6 +99,130 @@
           "texto": "Marcam a omissão de um verbo."
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2022 · Analista Legislativo · questão 4",
+      "assunto": "Dois-pontos, travessão e outros sinais",
+      "enunciado": "O emprego dos parênteses no excerto “Esta Sabra foi criada antes de duas intifadas (revoltas palestinas), (...)” (10º parágrafo), justifica-se gramaticalmente, pois:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Destacam uma explicação."
+        },
+        {
+          "letra": "B",
+          "texto": "Indicam um juízo de valor."
+        },
+        {
+          "letra": "C",
+          "texto": "Isolam uma citação."
+        },
+        {
+          "letra": "D",
+          "texto": "Demarcam um exemplo."
+        },
+        {
+          "letra": "E",
+          "texto": "Sugerem uma ironia."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "'Revoltas palestinas' explica o que são intifadas: letra A.\n\n| Sinal | Uso típico |\n|---|---|\n| parênteses | explicação, comentário acessório, sigla |\n| aspas | citação, ironia, estrangeirismo |\n| travessão | fala, intercalação enfática |\n| dois-pontos | enumeração, explicação, citação |\n\nTeste: o termo entre parênteses responde 'o que é isso?' sobre a palavra anterior → explicação."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 4",
+      "assunto": "Vírgula",
+      "enunciado": "Analise as alternativas abaixo, destaque a que traz um erro de pontuação.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Paula, muito generosa, compartilhou seu lanche."
+        },
+        {
+          "letra": "B",
+          "texto": "Bruna era desorganizada; seu irmão organizado."
+        },
+        {
+          "letra": "C",
+          "texto": "Nas férias, visitamos o Cristo Redentor, no Rio de Janeiro; a Praça da Liberdade, em Belo Horizonte."
+        },
+        {
+          "letra": "D",
+          "texto": "Vamos ao... Que explosão foi essa?"
+        },
+        {
+          "letra": "E",
+          "texto": "Essas teorias foram influenciadas pela teoria do “grande homem”."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Falta a vírgula da elipse do verbo: letra B.\n\nCorreto: 'Bruna era desorganizada; seu irmão, organizado.' — a vírgula marca o lugar do verbo 'era', omitido.\n\n| Alternativa | Por que está certa |\n|---|---|\n| A | vírgulas isolam o aposto/explicativo 'muito generosa' |\n| C | ponto e vírgula separa itens que já têm vírgula dentro |\n| D | reticências marcam interrupção da fala |\n| E | sem pontuação a corrigir |"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 5",
+      "assunto": "Vírgula",
+      "enunciado": "As vírgulas empregadas no excerto “Um relatório divulgado pela MiDiA, uma empresa de análise de dados, mostrou que cerca de 75.9 milhões de pessoas se consideram criadores de música” isolam um termo de mesmo valor sintático daquele isolado pela pontuação em:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A massa do pão crescerá, desde que a deixe descansar por uma hora."
+        },
+        {
+          "letra": "B",
+          "texto": "Foram deixados à porta da igreja sapatos velhos, sujos."
+        },
+        {
+          "letra": "C",
+          "texto": "As passagens áreas estão muito, muito caras."
+        },
+        {
+          "letra": "D",
+          "texto": "A menina, filha mais velha do casal, se esforçava para manter a seriedade."
+        },
+        {
+          "letra": "E",
+          "texto": "Desista disso, meu amigo, pois não lhe fará bem a longo prazo."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "'uma empresa de análise de dados' é aposto explicativo de MiDiA; 'filha mais velha do casal' é aposto de 'a menina'. Letra D.\n\n| Alternativa | O que a vírgula isola |\n|---|---|\n| A | oração subordinada adverbial condicional |\n| B | adjetivos em sequência |\n| C | repetição enfática |\n| D | aposto explicativo ✔ |\n| E | vocativo (chamamento) |\n\nAposto × vocativo: aposto explica um termo da oração; vocativo chama o interlocutor e não faz parte da oração."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de São Miguel Arcanjo 2023 · Analista Fiscal de Tributos Municipais · questão 9",
+      "assunto": "Dois-pontos, travessão e outros sinais",
+      "enunciado": "Considere a seguinte sentença: “Uma senhora tinha um cão filhote e o pai da senhora era também a mãe do filhote”. Assinale a alternativa que apresenta corretamente o uso dos sinais de pontuação:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Uma senhora, tinha um cão filhote, e o pai da senhora, era também a mãe do filhote."
+        },
+        {
+          "letra": "B",
+          "texto": "Uma senhora tinha um cão filhote e o pai da senhora era, também, a mãe do filhote."
+        },
+        {
+          "letra": "C",
+          "texto": "Uma senhora tinha um cão filhote e o pai; da senhora era também a mãe do filhote."
+        },
+        {
+          "letra": "D",
+          "texto": "Uma senhora tinha um cão filhote, e, o pai da senhora, era também a mãe do filhote."
+        },
+        {
+          "letra": "E",
+          "texto": "Uma senhora tinha um cão filhote, e o pai, da senhora era também a mãe do filhote."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 3,
+      "explicacao": "A pontuação desfaz o absurdo ('o pai da senhora era a mãe do filhote'): letra C.\n\nCom o ponto e vírgula: a senhora tinha o filhote E O PAI do filhote; a cadela da senhora era também a mãe do filhote. O ponto e vírgula separa as duas orações e 'da senhora era também a mãe' passa a falar da dona.\n\n| Alternativa | Problema |\n|---|---|\n| A | vírgula entre sujeito e verbo (2 vezes) |\n| B | sintaxe correta, mas mantém o sentido absurdo |\n| D, E | vírgula separando sujeito de verbo |\n\nÉ questão-charada: a banca quer a pontuação que dá SENTIDO lógico à frase."
     }
   ]
 }

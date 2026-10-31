@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 2 questões de redação oficial que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Redação oficial: atributos da redação oficial, pronomes de tratamento, tipos de documentos”.\n\nAs duas únicas de redação oficial do acervo são de Rio Claro 2026, a prova mais nova da banca, e o edital de nível superior pede o assunto por extenso (atributos, pronomes de tratamento, tipos de documentos). Duas questões é pouco para o que o edital promete — este tópico precisa de estudo pelo Manual de Redação da Presidência, não só de prova anterior.\n\nDe onde vêm: Prefeitura de Rio Claro 2026 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 2 questões de redação oficial que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Redação oficial: atributos da redação oficial, pronomes de tratamento, tipos de documentos”.\n\nAs duas únicas de redação oficial do acervo são de Rio Claro 2026, a prova mais nova da banca, e o edital de nível superior pede o assunto por extenso (atributos, pronomes de tratamento, tipos de documentos). Duas questões é pouco para o que o edital promete — este tópico precisa de estudo pelo Manual de Redação da Presidência, não só de prova anterior.\n\nDe onde vêm: Prefeitura de Rio Claro 2026 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Língua portuguesa",
     "trilha": "concurso",
-    "ordem": 2
+    "ordem": 5
   },
   "topico": {
     "nome": "Redação oficial",
@@ -68,6 +68,37 @@
           "texto": "Como gênero textual, o e-mail pode ser considerado um documento oficial, assim como o ofício."
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2022 · Analista Legislativo · questão 10",
+      "assunto": "Redação oficial: atributos (clareza, concisão, impessoalidade)",
+      "enunciado": "Quando se trata de comunicações oficiais, existe a necessidade de que sejam uniformes, pois há sempre um único comunicador (o Serviço Público) e o receptor dessas comunicações ou é o próprio Serviço Público (no caso de expedientes dirigidos por um órgão a outro) ou o conjunto dos cidadãos ou instituições, tratados de forma homogênea (o público). Essa assertiva refere-se ao princípio da:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Legalidade."
+        },
+        {
+          "letra": "B",
+          "texto": "Moralidade."
+        },
+        {
+          "letra": "C",
+          "texto": "Eficiência."
+        },
+        {
+          "letra": "D",
+          "texto": "Seriedade."
+        },
+        {
+          "letra": "E",
+          "texto": "Impessoalidade."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Trecho do Manual de Redação da Presidência sobre impessoalidade: letra E.\n\nComunicador único (o Serviço Público, não a pessoa do servidor) e destinatário tratado de forma homogênea = impessoalidade.\n\n| Atributo da redação oficial | Ideia |\n|---|---|\n| clareza | entendimento imediato |\n| concisão | sem palavra inútil |\n| objetividade | ir direto ao ponto |\n| formalidade e padronização | norma-padrão e modelos fixos |\n| impessoalidade | quem fala é o órgão; sem impressão pessoal |"
     }
   ]
 }

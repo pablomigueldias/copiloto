@@ -1,0 +1,473 @@
+{
+  "_leia_me": "Questões INÉDITAS de Inglês técnico, escritas por mim (Claude) a pedido do Pablo em 07/10/2026 — sem banca; textos de apoio, gabarito e explicação são meus. A Avança SP não tem nenhuma questão de inglês nas 14 provas levantadas; o padrão vem da pesquisa em docs/avanca-sp/ingles-tecnico-padrao.md (Cesgranrio: texto + perguntas em inglês; FCC/Vunesp: perguntas em português) e o conteúdo, do programa de Inglês Técnico do edital CRECI-SP 01/2026. Cada questão traz o `assunto` do simulado. As normas citadas (RFC 2119, NIST SP 800-63B, NIST CSF 2.0, ISO/IEC 27001) foram conferidas como eu as conheço, sem fonte externa aberta na hora — desconfie e corrija.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Inglês técnico — inéditas",
+    "trilha": "concurso",
+    "ordem": 8
+  },
+  "topico": {
+    "nome": "Vocabulário técnico",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 01",
+      "enunciado": "In paragraph 4, the word “throughput” is closest in meaning to",
+      "texto_base": "Transaction Isolation\n\n(1) Transactions allow several operations to be grouped so that they either all succeed or all fail. However, when many transactions run at the same time, the database must decide how much one transaction is allowed to see of the changes made by the others. This decision is controlled by the isolation level.\n\n(2) At the READ COMMITTED level, which is the default in PostgreSQL and SQL Server, a query sees only data that was committed before the query began. It never sees uncommitted changes from concurrent transactions. Nevertheless, two identical queries in the same transaction may return different results if another transaction commits changes between them. This phenomenon is known as a non-repeatable read.\n\n(3) The SERIALIZABLE level provides the strictest isolation. It guarantees that the result of concurrent transactions is the same as if they had been executed one after another. This protection comes at a cost: applications using this level must be prepared to retry transactions, since the server may abort them to prevent anomalies.\n\n(4) Developers should choose the lowest level that still guarantees correct results for their workload. Raising the isolation level unnecessarily may reduce throughput and increase the number of failed transactions.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo da documentação do PostgreSQL e do SQL Server.",
+      "assunto": "Vocabulário em contexto (sinônimo)",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "the delay before a single response is returned."
+        },
+        {
+          "letra": "B",
+          "texto": "the size of the database files on disk."
+        },
+        {
+          "letra": "C",
+          "texto": "the number of users who have access to the database."
+        },
+        {
+          "letra": "D",
+          "texto": "the amount of work a system completes in a given period of time."
+        },
+        {
+          "letra": "E",
+          "texto": "the level of encryption applied to the data."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Throughput = vazão, quantidade de trabalho por unidade de tempo (transações por segundo, MB/s). Letra D.\n\n| Termo | Mede | Exemplo |\n|---|---|---|\n| throughput | volume por tempo | 2.000 transações/s |\n| latency | demora de UMA resposta | 15 ms |\n| bandwidth | capacidade máxima do canal | 1 Gbps |\n\nA primeira errada é a definição de latency — o par que a banca troca.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 02",
+      "enunciado": "In the note, the expression “Back up” is",
+      "texto_base": "Installing MySQL Server on Ubuntu\n\n1. Update the package index:\n   $ sudo apt update\n2. Install the server package:\n   $ sudo apt install mysql-server\n3. Check whether the service is running:\n   $ sudo systemctl status mysql\n   If the output shows \"inactive (dead)\", start it with: sudo systemctl start mysql\n4. Run the security script, which removes anonymous users, disables remote root login and deletes the test database:\n   $ sudo mysql_secure_installation\n5. Make sure that port 3306 is not exposed to the internet unless remote access is strictly required. If it is, restrict incoming connections to known IP addresses in the firewall.\n\nNote: Do not edit the configuration files while the service is being upgraded. Back up /etc/mysql before making any changes.",
+      "texto_base_fonte": "Texto escrito para esta questão, no formato de um guia de instalação.",
+      "assunto": "Vocabulário em contexto (sinônimo)",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a noun meaning a copy of the data."
+        },
+        {
+          "letra": "B",
+          "texto": "an adjective describing the configuration files."
+        },
+        {
+          "letra": "C",
+          "texto": "a verb meaning to move files back to their original folder."
+        },
+        {
+          "letra": "D",
+          "texto": "a verb meaning to delete old configuration files."
+        },
+        {
+          "letra": "E",
+          "texto": "a phrasal verb meaning to make a copy of data so that it can be restored later."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Back up (duas palavras, verbo) × backup (uma palavra, substantivo). Letra E.\n\n| Forma | Classe | Exemplo |\n|---|---|---|\n| back up | verbo (phrasal verb) | Back up /etc/mysql before... |\n| backup | substantivo | The backup failed. |\n| backup | adjetivo (antes de nome) | a backup server |\n\nNo texto ele vem no início da frase dando uma ordem (imperativo), o que já mostra que é verbo. O mesmo padrão: log in (verbo) × login (substantivo); set up × setup; shut down × shutdown.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 03",
+      "enunciado": "In paragraph 1, the verb “backfire” means",
+      "texto_base": "Password Policy — adapted from the NIST Digital Identity Guidelines (SP 800-63B)\n\n(1) For many years, organizations required users to create passwords containing uppercase letters, digits and symbols, and to change them every 90 days. Research has shown that these rules often backfire: users respond with predictable patterns, such as \"Password1!\" followed by \"Password2!\".\n\n(2) Current guidance therefore focuses on length rather than complexity. User-chosen passwords MUST be at least 8 characters long, and systems SHOULD accept passwords of at least 64 characters, so that users can adopt long passphrases. Every new password MUST be checked against a list of values known to be commonly used or previously compromised.\n\n(3) Verifiers SHOULD NOT require passwords to be changed periodically. A change MUST, however, be forced whenever there is evidence that the password has been compromised. Password hints and security questions such as \"What was the name of your first pet?\" MUST NOT be used, since their answers can often be found on social media.\n\n(4) Finally, passwords MUST be stored only as salted hashes computed with a function designed to be slow, which makes offline guessing attacks considerably more expensive.\n\nIn this text, the keywords MUST, MUST NOT, SHOULD and SHOULD NOT are to be interpreted as described in RFC 2119.",
+      "texto_base_fonte": "Texto escrito para esta questão, a partir das recomendações do NIST SP 800-63B.",
+      "assunto": "Vocabulário em contexto (sinônimo)",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "to start a fire in the server room."
+        },
+        {
+          "letra": "B",
+          "texto": "to work exactly as expected."
+        },
+        {
+          "letra": "C",
+          "texto": "to become mandatory by law."
+        },
+        {
+          "letra": "D",
+          "texto": "to produce the opposite of the intended effect."
+        },
+        {
+          "letra": "E",
+          "texto": "to be easily memorized."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Backfire = sair pela culatra, ter efeito contrário. Letra D.\n\nO próprio texto explica logo depois dos dois-pontos: as regras de complexidade fizeram os usuários criar senhas PREVISÍVEIS ('Password1!', 'Password2!') — o contrário do que se queria.\n\nDica de prova: quando a palavra é desconhecida, a explicação costuma vir depois de ':' ou de 'such as'. Não traduza pedaço por pedaço (back + fire).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 04",
+      "enunciado": "In paragraph 4, the expression “salted hashes” refers to",
+      "texto_base": "Password Policy — adapted from the NIST Digital Identity Guidelines (SP 800-63B)\n\n(1) For many years, organizations required users to create passwords containing uppercase letters, digits and symbols, and to change them every 90 days. Research has shown that these rules often backfire: users respond with predictable patterns, such as \"Password1!\" followed by \"Password2!\".\n\n(2) Current guidance therefore focuses on length rather than complexity. User-chosen passwords MUST be at least 8 characters long, and systems SHOULD accept passwords of at least 64 characters, so that users can adopt long passphrases. Every new password MUST be checked against a list of values known to be commonly used or previously compromised.\n\n(3) Verifiers SHOULD NOT require passwords to be changed periodically. A change MUST, however, be forced whenever there is evidence that the password has been compromised. Password hints and security questions such as \"What was the name of your first pet?\" MUST NOT be used, since their answers can often be found on social media.\n\n(4) Finally, passwords MUST be stored only as salted hashes computed with a function designed to be slow, which makes offline guessing attacks considerably more expensive.\n\nIn this text, the keywords MUST, MUST NOT, SHOULD and SHOULD NOT are to be interpreted as described in RFC 2119.",
+      "texto_base_fonte": "Texto escrito para esta questão, a partir das recomendações do NIST SP 800-63B.",
+      "assunto": "Glossário de TI: segurança da informação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "hash values computed after a random value is added to each password."
+        },
+        {
+          "letra": "B",
+          "texto": "passwords encrypted with the user's public key."
+        },
+        {
+          "letra": "C",
+          "texto": "passwords stored in plain text with a fixed prefix."
+        },
+        {
+          "letra": "D",
+          "texto": "a single hash shared by all users who chose the same password."
+        },
+        {
+          "letra": "E",
+          "texto": "passwords compressed to save disk space."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Salt = valor aleatório, diferente para cada usuário, juntado à senha antes do hash. Letra A.\n\nEfeito: duas pessoas com a senha '123456' ficam com hashes DIFERENTES — a quarta errada é justamente o que o salt evita.\n\n| Termo | Significado |\n|---|---|\n| hash | resumo de tamanho fixo, de mão única |\n| salt | aleatório guardado junto do hash |\n| encryption | cifragem reversível com chave |\n| plain text | texto em claro |",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 05",
+      "enunciado": "In paragraph 1, a “hypervisor” is",
+      "texto_base": "Containers and Virtual Machines\n\n(1) Virtual machines (VMs) and containers are both used to run applications in isolated environments, but they achieve isolation at different levels. A VM emulates a complete computer, including its own operating system kernel, on top of a hypervisor. Containers, on the other hand, share the kernel of the host and isolate only the application and its dependencies.\n\n(2) Because they do not boot a full operating system, containers start in seconds and consume less memory, which allows a single server to host many more of them. VMs, although heavier, offer stronger isolation. That is why they remain the preferred choice when workloads from different customers must run on the same physical hardware.\n\n(3) In cloud computing, the two technologies are frequently combined: providers run customer containers inside lightweight VMs, obtaining the density of containers together with the security boundary of a hypervisor.\n\n(4) For database servers, containers are widely adopted in development and testing environments. In production, however, administrators must ensure that data is written to persistent volumes; otherwise, it will be lost when the container is removed.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo de artigo técnico sobre cloud computing.",
+      "assunto": "Glossário de TI: hardware, redes e cloud",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a container that shares the kernel of the host."
+        },
+        {
+          "letra": "B",
+          "texto": "the software layer that creates and runs virtual machines on a physical host."
+        },
+        {
+          "letra": "C",
+          "texto": "a network device that filters incoming traffic."
+        },
+        {
+          "letra": "D",
+          "texto": "a database that stores the configuration of each VM."
+        },
+        {
+          "letra": "E",
+          "texto": "the physical processor of the server."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Hypervisor = monitor de máquinas virtuais. Letra B.\n\n| Tipo | Roda sobre | Exemplos |\n|---|---|---|\n| tipo 1 (bare metal) | direto no hardware | VMware ESXi, Microsoft Hyper-V, KVM, Xen |\n| tipo 2 (hosted) | sobre um SO | VirtualBox, VMware Workstation |\n\nGlossário de cloud do edital: VM, hypervisor, container, IaaS / PaaS / SaaS, scalability (escalabilidade), elasticity, region e availability zone.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 06",
+      "enunciado": "Na frase “The migration will eventually be completed, after all tables are copied”, a palavra “eventually” significa",
+      "assunto": "Falsos cognatos",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "eventualmente, isto é, talvez."
+        },
+        {
+          "letra": "B",
+          "texto": "imediatamente."
+        },
+        {
+          "letra": "C",
+          "texto": "ocasionalmente, de vez em quando."
+        },
+        {
+          "letra": "D",
+          "texto": "anteriormente."
+        },
+        {
+          "letra": "E",
+          "texto": "por fim, depois de algum tempo."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Falso cognato: eventually = finalmente, no fim das contas. Letra E.\n\n| Inglês | Significa | NÃO significa |\n|---|---|---|\n| eventually | por fim | eventualmente (= occasionally, possibly) |\n| actually | na verdade | atualmente (= currently, nowadays) |\n| pretend | fingir | pretender (= intend) |\n| library | biblioteca | livraria (= bookstore) |\n| push | empurrar (no Git: enviar commits) | puxar (= pull) |\n| data | dados | data do calendário (= date) |\n| support | dar suporte, aceitar | suportar no sentido de tolerar (= stand) |\n\nNa frase, 'after all tables are copied' confirma: acontece no fim.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 07",
+      "enunciado": "Em “Actually, the index was never used by the query planner”, a palavra “Actually” pode ser traduzida por",
+      "assunto": "Falsos cognatos",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "atualmente."
+        },
+        {
+          "letra": "B",
+          "texto": "na verdade."
+        },
+        {
+          "letra": "C",
+          "texto": "atualizado."
+        },
+        {
+          "letra": "D",
+          "texto": "ativamente."
+        },
+        {
+          "letra": "E",
+          "texto": "neste exato momento."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Actually = na verdade, de fato. Letra B.\n\n'Atualmente' em inglês é currently ou nowadays. 'Atualizado' é updated.\n\nA frase corrige uma suposição: na verdade, o otimizador nunca usou o índice — e então o índice só custa espaço e escrita.\n\nOutros falsos cognatos de TI: to realize (perceber, não realizar), to assist (ajudar), to attend (comparecer), to record (gravar).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 08",
+      "enunciado": "Na frase “Do not pretend the backup worked; check the restore log”, o verbo “pretend” significa",
+      "assunto": "Falsos cognatos",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pretender."
+        },
+        {
+          "letra": "B",
+          "texto": "planejar."
+        },
+        {
+          "letra": "C",
+          "texto": "fingir."
+        },
+        {
+          "letra": "D",
+          "texto": "prever."
+        },
+        {
+          "letra": "E",
+          "texto": "desejar."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Pretend = fingir. Letra C.\n\n'Não finja que o backup funcionou; confira o log da restauração.' — backup que nunca foi restaurado em teste não é backup confiável.\n\n'Pretender' em inglês é to intend ou to plan. 'Prever' é to predict / to forecast.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 09",
+      "enunciado": "In database terminology, a named set of SQL statements that is stored in the database and executed when it is explicitly called, possibly with parameters, is a",
+      "assunto": "Glossário de TI: banco de dados e programação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "stored procedure."
+        },
+        {
+          "letra": "B",
+          "texto": "view."
+        },
+        {
+          "letra": "C",
+          "texto": "index."
+        },
+        {
+          "letra": "D",
+          "texto": "trigger."
+        },
+        {
+          "letra": "E",
+          "texto": "schema."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Stored procedure = procedimento armazenado. Letra A.\n\n| Termo | O que é |\n|---|---|\n| stored procedure | código guardado no banco, executado quando CHAMADO (CALL / EXEC) |\n| trigger | código executado AUTOMATICAMENTE por um evento (INSERT, UPDATE, DELETE) |\n| view | consulta salva que funciona como tabela virtual |\n| index | estrutura que acelera buscas |\n| schema | agrupamento lógico de objetos (ou a estrutura do banco) |\n\nA diferença que a banca cobra: procedure é chamada; trigger dispara sozinho.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 10",
+      "enunciado": "In the sentence “A trigger fires before each INSERT on the orders table”, the verb “fires” means that the trigger",
+      "assunto": "Glossário de TI: banco de dados e programação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "is deleted from the database."
+        },
+        {
+          "letra": "B",
+          "texto": "must be called manually by the user."
+        },
+        {
+          "letra": "C",
+          "texto": "blocks all access to the orders table."
+        },
+        {
+          "letra": "D",
+          "texto": "is executed automatically when the event occurs."
+        },
+        {
+          "letra": "E",
+          "texto": "is converted into a stored procedure."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Fire, no contexto de trigger = disparar. Letra D.\n\n| Expressão | Sentido |\n|---|---|\n| the trigger fires | o gatilho dispara |\n| BEFORE INSERT | antes da inserção (pode alterar NEW) |\n| AFTER UPDATE | depois da atualização (auditoria) |\n| FOR EACH ROW | uma vez por linha afetada |\n\nContraste com a procedure, que precisa ser chamada (called / executed).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 11",
+      "enunciado": "Which term refers to a logical subdivision of an IP network, such as 192.168.10.0/24?",
+      "assunto": "Glossário de TI: hardware, redes e cloud",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Router."
+        },
+        {
+          "letra": "B",
+          "texto": "Firewall."
+        },
+        {
+          "letra": "C",
+          "texto": "Proxy."
+        },
+        {
+          "letra": "D",
+          "texto": "Subnet."
+        },
+        {
+          "letra": "E",
+          "texto": "Hub."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Subnet = sub-rede. Letra D.\n\n| Termo | O que é |\n|---|---|\n| subnet | parte de uma rede IP definida pela máscara (/24 = 255.255.255.0) |\n| router | equipamento que encaminha pacotes entre redes |\n| firewall | filtra tráfego por regras |\n| proxy | intermediário entre cliente e servidor |\n| gateway | saída da rede (geralmente o roteador) |\n\nGlossário de redes do edital: LAN, WAN, IP address, subnet, routing, firewall.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 12",
+      "enunciado": "In programming, a loop is",
+      "assunto": "Glossário de TI: banco de dados e programação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a variable whose value cannot change."
+        },
+        {
+          "letra": "B",
+          "texto": "an error that stops the program."
+        },
+        {
+          "letra": "C",
+          "texto": "a structure that repeats a block of instructions while a condition holds or for each element of a collection."
+        },
+        {
+          "letra": "D",
+          "texto": "a function that returns no value."
+        },
+        {
+          "letra": "E",
+          "texto": "a comment ignored by the compiler."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Loop = laço de repetição (for, while). Letra C.\n\n| Termo | Significado |\n|---|---|\n| loop | repetição |\n| variable / constant | variável / constante |\n| function / method | função / método |\n| bug | erro no código |\n| exception | erro tratável em tempo de execução |\n| comment | comentário |\n| API | interface para um programa usar outro |\n\nInfinite loop = laço que nunca termina.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 13",
+      "enunciado": "Malicious software that encrypts the victim's files and demands a payment in exchange for the decryption key is called",
+      "assunto": "Glossário de TI: segurança da informação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "spyware."
+        },
+        {
+          "letra": "B",
+          "texto": "worm."
+        },
+        {
+          "letra": "C",
+          "texto": "adware."
+        },
+        {
+          "letra": "D",
+          "texto": "rootkit."
+        },
+        {
+          "letra": "E",
+          "texto": "ransomware."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Ransom = resgate. Letra E.\n\n| Termo | O que faz |\n|---|---|\n| ransomware | sequestra dados (cifra) e pede resgate |\n| spyware | espiona e coleta informação |\n| worm | se replica sozinho pela rede |\n| adware | exibe propaganda |\n| rootkit | esconde a presença do invasor no sistema |\n| trojan | se disfarça de programa legítimo |\n\nContra ransomware, o que salva o banco é backup offline e testado (a regra 3-2-1).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Vocabulário técnico · nº 14",
+      "enunciado": "In information security, “authentication” is the process of",
+      "assunto": "Glossário de TI: segurança da informação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "verifying the identity of a user or system."
+        },
+        {
+          "letra": "B",
+          "texto": "deciding which resources an identified user is allowed to access."
+        },
+        {
+          "letra": "C",
+          "texto": "recording every action performed by users."
+        },
+        {
+          "letra": "D",
+          "texto": "converting data into an unreadable format."
+        },
+        {
+          "letra": "E",
+          "texto": "making a copy of data to restore it later."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Authentication = provar quem você é. Letra A.\n\n| Termo | Pergunta que responde |\n|---|---|\n| authentication (autenticação) | quem é você? |\n| authorization (autorização) | o que você pode fazer? |\n| accounting / auditing | o que você fez? |\n| encryption | cifrar |\n| backup | cópia de segurança |\n\nA primeira errada é a definição de authorization — o par que mais cai.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Vocabulário técnico em TI e glossário básico de TI em inglês"
+    }
+  ]
+}

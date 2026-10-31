@@ -1,0 +1,45 @@
+{
+  "_leia_me": "Reescrita com sinônimos, VUNESP: Fundação CASA 2010, questão 10. Procedência: docs/avanca-sp/outras-bancas/vunesp-fundacao-casa-2010-especialista-informatica-rede.pdf, prova de 07/03/2010; gabarito lido em gabarito-vunesp-fundacao-casa-2010.pdf, no bloco 'Especialista em Desenvolvimento e Gestão (Informática - Rede)'. O PDF é o edital de divulgação dos gabaritos (Edital 005/2010) e não fala em recurso. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "VUNESP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 5
+  },
+  "topico": {
+    "nome": "Sinônimos, antônimos e sentido das palavras",
+    "ordem": 3
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · Fundação CASA 2010 · Especialista em Desenvolvimento e Gestão (Informática – Rede) · questão 10",
+      "enunciado": "Assinale a alternativa que reescreve, corretamente, quanto ao sentido, as frases – ... o homem não deixa de querer conhecer o futuro.../ Cada época tem necessidade de sonhar com um amanhã.../ Deixamos para trás a atitude infantil...",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "... o homem abre mão de conhecer o futuro.../ Cada época necessita sonhar com um amanhã.../ Desprezamos a atitude infantil..."
+        },
+        {
+          "letra": "B",
+          "texto": "... o homem impõe-se conhecer o futuro... / Cada época busca sonhar com um amanhã... / Enfatizamos a atitude infantil..."
+        },
+        {
+          "letra": "C",
+          "texto": "... o homem privilegia conhecer o futuro... / Cada época ignora a necessidade de sonhar com um amanhã... / Prescindimos da atitude infantil..."
+        },
+        {
+          "letra": "D",
+          "texto": "... o homem não vislumbra querer conhecer o futuro.../ Cada época perde de vista sonhar com um amanhã.../ Relegamos a atitude infantil..."
+        },
+        {
+          "letra": "E",
+          "texto": "... o homem almeja conhecer o futuro.../ Cada época precisa sonhar com um amanhã.../ Descartamos a atitude infantil..."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Três trocas, todas têm de manter o sentido. Letra E.\n\n| Original | Equivale a | Na E |\n|---|---|---|\n| não deixa de querer | quer, deseja (dupla negação = afirmação) | almeja ✓ |\n| tem necessidade de | precisa | precisa ✓ |\n| deixamos para trás | abandonamos | descartamos ✓ |\n\nCada errada tem pelo menos uma troca que inverte ou desvia:\n\nA — 'abre mão de' = desiste; o oposto de 'não deixa de querer'.\n\nB — 'enfatizamos a atitude infantil' = o oposto de deixá-la para trás.\n\nC — 'ignora a necessidade' nega o original (embora 'prescindimos' = dispensamos esteja certo).\n\nD — 'não vislumbra querer' e 'perde de vista' negam (embora 'relegamos' = deixamos de lado esteja certo).\n\nAtalho: em questão de três trocas, procure a troca ERRADA de cada alternativa, não a certa. C e D têm uma troca boa para atrair."
+    }
+  ]
+}

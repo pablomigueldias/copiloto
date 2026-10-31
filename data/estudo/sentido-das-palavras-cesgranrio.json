@@ -1,0 +1,79 @@
+{
+  "_leia_me": "Sinonímia e sentido denotativo × conotativo, CESGRANRIO: UNEMAT 2024 questões 5 e 10. A expressão em negrito no caderno vai aqui em CAIXA ALTA. Procedência: cadernos e gabaritos em docs/avanca-sp/outras-bancas/ (ver o README de lá). BNDES 2024 = Seleção Pública 01/2024, provas de 13/10/2024, Prova 3 (Análise de Sistemas – Desenvolvimento) e Prova 4 (Suporte); o bloco básico (1 a 35) é o MESMO nos dois cadernos e entrou uma vez só, pelo de Desenvolvimento. UNEMAT 2024 = Edital 01/2023, provas de 03/03/2024, Prova 3 (Técnico Universitário – Analista de Sistemas). Gabarito lido no PDF da própria banca, no bloco do cargo; nenhum dos dois PDFs diz se é preliminar ou definitivo. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "CESGRANRIO",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 5
+  },
+  "topico": {
+    "nome": "Sinônimos, antônimos e sentido das palavras",
+    "ordem": 3
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · UNEMAT 2024 · Técnico Universitário – Analista de Sistemas · questão 5",
+      "texto_base": "Sombra e água\n\n(1) Finalmente, a jabuticabeira começa um estirão, deixa aquele estágio arbustivo e fica maior do que a dona da casa. Passa do metro e setenta, uns galhos centrais mais eretos e dirigidos ao céu, enquanto outros, mais periféricos, pendem um pouco para todos os lados, formando uma possível copa, embora ainda baixa demais para caber uma pessoa adulta sob sua folhagem verde-escura.\n\n(2) A muda da jabuticabeira não foi adquirida por conta de sua fruta. Todos ao redor advertiam sobre a demora da florada e das jabuticabas, que precisam de água abundante, e aqui... neste terreno seco, pobre, nada haveria de frutificar. A muda foi comprada primeiro porque a dona da casa queria, no futuro, uma sombra. A sombra na varanda era uma espécie de sonho inalcançável, e disseram que, com uma jabuticabeira, neste solo infértil, seria como esperar pela aposentadoria. Demoraria a vida inteira e talvez nem chegasse a tempo de existirem, nesta casa, uma mulher e uma rede, na qual ela se sentaria ou se deitaria para ler um livro ou uma revista ou com um gato cego para acarinhar.\n\n(3) Mas não parece que é o que vai acontecer. Pelo visto, a sombra chegará bem antes da aposentadoria dessa mulher que trabalha diariamente, por três turnos, interrompidos apenas por um pedaço de novela das seis e um café para acordar. A jabuticabeira cresceu mais depois das chuvas abundantes, o que ajudou a confirmar as ambiguidades e os contrassensos do mundo. Enquanto aqui a água alimentou a terra e as raízes de uma sombra frutífera futura, nos bairros ao redor ela levou encostas, fez transbordar o rio, afogou casas e animais de estimação e pessoas, incluindo velhos e crianças em pleno sono. No quintal em que está, a jabuticabeira deu resposta positiva à água que caiu do céu, crescendo mais do que o esperado pela vizinhança inteira, enchendo de alegria a dona da casa, essa mulher que cuida sozinha do filho e que pretende, um dia, habitar mais a própria casa.\n\n(4) Também para desafiar os palpites da vizinhança e dos familiares de pouca fé, a jabuticabeira, ainda bem pequena, começou a dar jabuticabas, mesmo antes de ter um metro e meio, e eram frutas que amadureciam, cresciam, ficavam suculentas e podiam ser consumidas, se alguém as colhesse daquele caule onde nascem grudadas como insetos, depois da floração branca. [...]\n\n(5) Contra todos os palpites da vizinhança e dos poucos familiares com quem ainda conversa pelas redes sociais, a mulher cultiva a jabuticabeira com forte esperança de que seja possível cochilar sob sua sombra um dia; então, não raro, enquanto faz o almoço, a dona da casa dá olhadelas carinhosas para a árvore, já com mais de um metro e setenta de altura e galhos para todos os lados, além do tronco que a eleva e sustenta, e vê florezinhas, depois jabuticabas que, como ninguém colhe, são comidas pelos passarinhos e até por insetos, que descobriram este quintal, esta casa e esta mulher que espera pela jabuticabeira com muito mais esperança e animação do que pela aposentadoria.\n\n(6) A mulher não pode criar seu filho com a dedicação que gostaria, não pode alimentar o gato duas vezes por dia, não consegue regar as mudas com frequência, não está em casa quando o carteiro toca a campainha para entregar correspondências que exigem sua assinatura. Ela acorda muito cedo, faz as entregas do filho, das senhas, das chaves, os acordos com as outras vizinhas, e sai a trabalhar descontente, como provavelmente todas as pessoas do mundo, em especial as que não trabalham para si e para os seus. Ela retorna para o almoço, à tarde muda de endereço profissional, retorna para um café e muda novamente de direção. Nesse exercício de vaivém, quase como uma engrenagem, ela consegue dar olhadelas furtivas para a árvore que se forma no quintal, prometendo algo difícil de comprar, seu maior investimento: sombra e descanso.\n\n(7) Fruem a presença da jabuticabeira borboletas, formigas, passarinhos e mesmo o gato, que cabe embaixo dela e não se importa com a terra molhada ou as folhas em decomposição. Observam a árvore algumas pessoas da vizinhança, numa espécie de aposta controversa, em alguns casos desejando que os galhos sequem, a planta morra, a confirmar as previsões de tão inteligentes pessoas. Outras, no entanto, conseguem ter bons sentimentos e, em pensamento, ficar felizes porque a dona da casa, em alguns tantos anos, haverá de conseguir sua sombra, depois sua rede, onde se deitar com o gato cego e, em paz, morrer.",
+      "texto_base_fonte": "RIBEIRO, A. E. Sombra e água. Estado de Minas. Belo Horizonte. Acesso em: 6 nov. 2023. Adaptado.",
+      "enunciado": "No trecho “PELO VISTO, a sombra chegará bem antes da aposentadoria dessa mulher” (parágrafo 3), a expressão em destaque pode ser substituída, sem alteração de seu sentido, por",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "felizmente"
+        },
+        {
+          "letra": "B",
+          "texto": "certamente"
+        },
+        {
+          "letra": "C",
+          "texto": "indubitavelmente"
+        },
+        {
+          "letra": "D",
+          "texto": "presumivelmente"
+        },
+        {
+          "letra": "E",
+          "texto": "consequentemente"
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "'Pelo visto' = ? Letra D.\n\n'Pelo visto' quer dizer 'ao que parece', 'a julgar pelo que se vê' — uma suposição a partir de indícios. 'Presumivelmente' é exatamente isso.\n\nB e C são a pegadinha: dizem CERTEZA ('certamente', 'indubitavelmente'), e 'pelo visto' é o contrário de certeza. A expressa sentimento do falante; E expressa consequência lógica.\n\nAtalho: em troca de expressão, classifique primeiro o TIPO (certeza, dúvida, sentimento, conclusão) e só depois olhe as palavras."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · UNEMAT 2024 · Técnico Universitário – Analista de Sistemas · questão 10",
+      "texto_base": "Sombra e água\n\n(1) Finalmente, a jabuticabeira começa um estirão, deixa aquele estágio arbustivo e fica maior do que a dona da casa. Passa do metro e setenta, uns galhos centrais mais eretos e dirigidos ao céu, enquanto outros, mais periféricos, pendem um pouco para todos os lados, formando uma possível copa, embora ainda baixa demais para caber uma pessoa adulta sob sua folhagem verde-escura.\n\n(2) A muda da jabuticabeira não foi adquirida por conta de sua fruta. Todos ao redor advertiam sobre a demora da florada e das jabuticabas, que precisam de água abundante, e aqui... neste terreno seco, pobre, nada haveria de frutificar. A muda foi comprada primeiro porque a dona da casa queria, no futuro, uma sombra. A sombra na varanda era uma espécie de sonho inalcançável, e disseram que, com uma jabuticabeira, neste solo infértil, seria como esperar pela aposentadoria. Demoraria a vida inteira e talvez nem chegasse a tempo de existirem, nesta casa, uma mulher e uma rede, na qual ela se sentaria ou se deitaria para ler um livro ou uma revista ou com um gato cego para acarinhar.\n\n(3) Mas não parece que é o que vai acontecer. Pelo visto, a sombra chegará bem antes da aposentadoria dessa mulher que trabalha diariamente, por três turnos, interrompidos apenas por um pedaço de novela das seis e um café para acordar. A jabuticabeira cresceu mais depois das chuvas abundantes, o que ajudou a confirmar as ambiguidades e os contrassensos do mundo. Enquanto aqui a água alimentou a terra e as raízes de uma sombra frutífera futura, nos bairros ao redor ela levou encostas, fez transbordar o rio, afogou casas e animais de estimação e pessoas, incluindo velhos e crianças em pleno sono. No quintal em que está, a jabuticabeira deu resposta positiva à água que caiu do céu, crescendo mais do que o esperado pela vizinhança inteira, enchendo de alegria a dona da casa, essa mulher que cuida sozinha do filho e que pretende, um dia, habitar mais a própria casa.\n\n(4) Também para desafiar os palpites da vizinhança e dos familiares de pouca fé, a jabuticabeira, ainda bem pequena, começou a dar jabuticabas, mesmo antes de ter um metro e meio, e eram frutas que amadureciam, cresciam, ficavam suculentas e podiam ser consumidas, se alguém as colhesse daquele caule onde nascem grudadas como insetos, depois da floração branca. [...]\n\n(5) Contra todos os palpites da vizinhança e dos poucos familiares com quem ainda conversa pelas redes sociais, a mulher cultiva a jabuticabeira com forte esperança de que seja possível cochilar sob sua sombra um dia; então, não raro, enquanto faz o almoço, a dona da casa dá olhadelas carinhosas para a árvore, já com mais de um metro e setenta de altura e galhos para todos os lados, além do tronco que a eleva e sustenta, e vê florezinhas, depois jabuticabas que, como ninguém colhe, são comidas pelos passarinhos e até por insetos, que descobriram este quintal, esta casa e esta mulher que espera pela jabuticabeira com muito mais esperança e animação do que pela aposentadoria.\n\n(6) A mulher não pode criar seu filho com a dedicação que gostaria, não pode alimentar o gato duas vezes por dia, não consegue regar as mudas com frequência, não está em casa quando o carteiro toca a campainha para entregar correspondências que exigem sua assinatura. Ela acorda muito cedo, faz as entregas do filho, das senhas, das chaves, os acordos com as outras vizinhas, e sai a trabalhar descontente, como provavelmente todas as pessoas do mundo, em especial as que não trabalham para si e para os seus. Ela retorna para o almoço, à tarde muda de endereço profissional, retorna para um café e muda novamente de direção. Nesse exercício de vaivém, quase como uma engrenagem, ela consegue dar olhadelas furtivas para a árvore que se forma no quintal, prometendo algo difícil de comprar, seu maior investimento: sombra e descanso.\n\n(7) Fruem a presença da jabuticabeira borboletas, formigas, passarinhos e mesmo o gato, que cabe embaixo dela e não se importa com a terra molhada ou as folhas em decomposição. Observam a árvore algumas pessoas da vizinhança, numa espécie de aposta controversa, em alguns casos desejando que os galhos sequem, a planta morra, a confirmar as previsões de tão inteligentes pessoas. Outras, no entanto, conseguem ter bons sentimentos e, em pensamento, ficar felizes porque a dona da casa, em alguns tantos anos, haverá de conseguir sua sombra, depois sua rede, onde se deitar com o gato cego e, em paz, morrer.",
+      "texto_base_fonte": "RIBEIRO, A. E. Sombra e água. Estado de Minas. Belo Horizonte. Acesso em: 6 nov. 2023. Adaptado.",
+      "enunciado": "O trecho que, no texto, apresenta sentido conotativo é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“para caber uma pessoa adulta sob sua folhagem” (parágrafo 1)."
+        },
+        {
+          "letra": "B",
+          "texto": "“Todos ao redor advertiam sobre a demora da florada e das jabuticabas” (parágrafo 2)."
+        },
+        {
+          "letra": "C",
+          "texto": "“afogou casas” (parágrafo 3)."
+        },
+        {
+          "letra": "D",
+          "texto": "“A jabuticabeira cresceu mais depois das chuvas abundantes” (parágrafo 3)."
+        },
+        {
+          "letra": "E",
+          "texto": "“Ela acorda muito cedo” (parágrafo 6)."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Qual trecho está em sentido figurado? Letra C.\n\nAfogar é morrer por falta de ar debaixo d'água — coisa de ser vivo. Casa não respira e não se afoga; dizer que a água 'afogou casas' é estender o verbo para 'inundou, submergiu'. Sentido conotativo.\n\nNo mesmo período, 'afogou [...] animais de estimação e pessoas' seria literal — por isso a banca recortou só 'afogou casas'.\n\nA, B, D e E descrevem fatos com as palavras no sentido de dicionário: denotação.\n\nAtalho: conotação = a palavra aplicada a algo que, ao pé da letra, não aceita aquela ação ou qualidade."
+    }
+  ]
+}

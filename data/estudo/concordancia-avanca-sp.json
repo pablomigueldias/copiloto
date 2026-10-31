@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 6 questões de concordância verbal e nominal que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Concordância verbal e nominal”.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (1), Câmara de Taboão da Serra 2022 (1), Prefeitura de Americana 2022 (1), Prefeitura de Amparo 2022 (2), Prefeitura de Rio Claro 2026 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n1 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 6 questões de concordância verbal e nominal que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Concordância verbal e nominal”.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (1), Câmara de Taboão da Serra 2022 (1), Prefeitura de Americana 2022 (1), Prefeitura de Amparo 2022 (2), Prefeitura de Rio Claro 2026 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n1 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Língua portuguesa",
     "trilha": "concurso",
-    "ordem": 2
+    "ordem": 5
   },
   "topico": {
     "nome": "Concordância verbal e nominal",
@@ -186,6 +186,99 @@
           "texto": "Compramos bastante livros na feira literária."
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2022 · Analista Legislativo · questão 5",
+      "assunto": "Concordância verbal",
+      "enunciado": "Tendo em vista o verbo destacado na passagem “(...) que foi introduzida pela primeira vez nos quadrinhos HÁ mais de 40 anos”, (...)” (8º parágrafo), assinale o comentário correto sobre sua concordância:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A concordância está correta no singular, visto que o termo ao qual ele se refere, “primeira vez”, está no singular."
+        },
+        {
+          "letra": "B",
+          "texto": "A concordância deveria se realizar no plural, uma vez que o termo com valor temporal está no plural."
+        },
+        {
+          "letra": "C",
+          "texto": "A concordância está inadequada, já que o termo ao qual ele se refere, “quadrinhos”, está no plural."
+        },
+        {
+          "letra": "D",
+          "texto": "A concordância pode ser facultativa, ou seja, tanto no singular como no plural."
+        },
+        {
+          "letra": "E",
+          "texto": "A concordância está correta no singular, pois se trata de verbo impessoal."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Haver indicando tempo decorrido é impessoal: letra E.\n\nVerbo impessoal não tem sujeito, então não tem com quem concordar — fica sempre na 3ª pessoa do singular: há 40 anos, havia muitos dias, faz dez anos.\n\n| Verbo impessoal | Exemplo |\n|---|---|\n| haver = existir | Há problemas. Havia alunos. |\n| haver / fazer = tempo | Há 40 anos. Faz dez anos. |\n| fenômeno da natureza | Choveu muito. |\n\n'Mais de 40 anos' é complemento (objeto direto), não sujeito — por isso não puxa o plural."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 6",
+      "assunto": "Concordância nominal",
+      "enunciado": "Não há erro de concordância em qual das alternativas abaixo?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Há bastantes livros na estante que ainda não foram lidos."
+        },
+        {
+          "letra": "B",
+          "texto": "Tratavam-se de empregados terceirizados."
+        },
+        {
+          "letra": "C",
+          "texto": "É proibida entrada de menores desacompanhados."
+        },
+        {
+          "letra": "D",
+          "texto": "Meu filho só consegue dormir a partir das zero horas da manhã."
+        },
+        {
+          "letra": "E",
+          "texto": "Poderá ainda ocorrer desavenças entre pais e filhos."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "'Bastantes' antes de substantivo é adjetivo (= muitos) e varia: letra A.\n\n| Frase | Erro | Correção |\n|---|---|---|\n| Tratavam-se de | 'tratar-se de' é impessoal (sujeito indeterminado) | Tratava-se de |\n| É proibida entrada | sem artigo, fica invariável | É proibido entrada / É proibida A entrada |\n| das zero horas | zero pede singular | da zero hora |\n| Poderá ocorrer desavenças | o sujeito é 'desavenças' | Poderão ocorrer |\n\nTeste do 'bastante': troque por 'muitos'. Se couber, varia (bastantes livros); se couber 'muito' (bastante cansados), não varia."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 10",
+      "assunto": "Concordância verbal",
+      "enunciado": "A concordância verbal está incorreta apenas em:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Não só a igreja como também o príncipe pagariam impostos na província."
+        },
+        {
+          "letra": "B",
+          "texto": "A alegria, a satisfação, a motivação, tudo me levou à decisão de deixar o país."
+        },
+        {
+          "letra": "C",
+          "texto": "A maior parte dos políticos estava envolvida com corrupção."
+        },
+        {
+          "letra": "D",
+          "texto": "Nem eu nem ele o convidou para o jantar."
+        },
+        {
+          "letra": "E",
+          "texto": "Metade dos alunos tirou notas abaixo de seis."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Sujeito composto com 'nem… nem' e pessoas diferentes: prevalece a 1ª pessoa. Letra D.\n\nCorreto: 'Nem eu nem ele o convidamos.'\n\n| Regra | Exemplo |\n|---|---|\n| não só… como também → plural | igreja e príncipe pagariam |\n| enumeração resumida por 'tudo' → singular com o resumo | tudo me levou |\n| coletivo partitivo + plural → singular ou plural | a maior parte dos políticos estava/estavam |\n| eu + ele → nós | convidamos |"
     }
   ]
 }

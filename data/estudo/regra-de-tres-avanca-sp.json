@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 6 questões de regra de três que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 5 questões de regra de três que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    A questão 14 de Americana 2022 (a dos 180 operários) saiu em\n    05/10/2026: 180·360·7 / (350·8) dá 162 operários, 18 a MENOS, e o\n    enunciado pergunta quantos a mais; nenhuma alternativa serve.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Regra de três",
@@ -37,35 +37,6 @@
         {
           "letra": "E",
           "texto": "4h e 05min"
-        }
-      ]
-    },
-    {
-      "formato": "multipla_escolha",
-      "origem": "Instituto Avança SP · Prefeitura de Americana 2022 · Analista de Administração de Dados · questão 14",
-      "enunciado": "Para construir um prédio, em 360 dias, 180 operários trabalham, 7 horas diárias. No entanto, como se deseja terminar a obra em 350 dias, de 8 horas diárias de trabalho, determine quantos operários a mais devem ser contratados",
-      "gabarito": "D",
-      "dificuldade": 2,
-      "alternativas": [
-        {
-          "letra": "A",
-          "texto": "12"
-        },
-        {
-          "letra": "B",
-          "texto": "15"
-        },
-        {
-          "letra": "C",
-          "texto": "17"
-        },
-        {
-          "letra": "D",
-          "texto": "20"
-        },
-        {
-          "letra": "E",
-          "texto": "24"
         }
       ]
     },
@@ -184,6 +155,99 @@
           "texto": "29 dias 3 horas e 12 minutos"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 12",
+      "assunto": "Regra de três simples direta",
+      "enunciado": "Um pintor precisa pintar uma parede com área total de 810 metros quadrados e deseja saber quantos litros de tinta deve comprar. Cada 8 litros de tinta rendem o suficiente para cobrir 360 metros quadrados de área. No entanto, durante o trabalho, 10% da tinta comprada é desperdiçada, ou seja, apenas 90% da tinta adquirida é realmente usada na pintura. Com essas condições, quantos litros de tinta o pintor precisa comprar para garantir que o serviço seja concluído?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "21,3."
+        },
+        {
+          "letra": "B",
+          "texto": "19,5."
+        },
+        {
+          "letra": "C",
+          "texto": "18,0."
+        },
+        {
+          "letra": "D",
+          "texto": "20,0."
+        },
+        {
+          "letra": "E",
+          "texto": "20,4."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Regra de três e depois o desperdício: letra D.\n\n1. Tinta que vai para a parede: 8 L → 360 m², x → 810 m². x = 8 × 810 ÷ 360 = 18 L.\n2. Só 90% do que se compra é aproveitado: compra × 0,9 = 18 → compra = 20 L.\n\nPegadinha: somar 10% (18 × 1,1 = 19,8) não é o mesmo que dividir por 0,9. O desperdício é 10% do COMPRADO, não do usado."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 16",
+      "assunto": "Regra de três composta",
+      "enunciado": "Em uma lavanderia, 5 máquinas idênticas trabalham juntas lavando 60 kg de roupa a cada 3 horas. Se o gerente adquirir mais uma máquina, cuja velocidade de lavagem seja 50% maior comparado a uma máquina do modelo já existente, então em quantas horas o novo conjunto de máquinas lavará 65 kg de roupa?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2,5."
+        },
+        {
+          "letra": "B",
+          "texto": "1,75."
+        },
+        {
+          "letra": "C",
+          "texto": "2,25."
+        },
+        {
+          "letra": "D",
+          "texto": "2,0."
+        },
+        {
+          "letra": "E",
+          "texto": "3,5."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 3,
+      "explicacao": "Converta tudo para kg por hora: letra A.\n\n1. 5 máquinas: 60 kg em 3 h = 20 kg/h → cada máquina 4 kg/h.\n2. Máquina nova: 50% mais rápida → 6 kg/h.\n3. Conjunto: 5 × 4 + 6 = 26 kg/h.\n4. 65 ÷ 26 = 2,5 h.\n\nAtalho: a nova vale 1,5 máquina antiga → equivale a 6,5 máquinas. Tempo = 65 ÷ (6,5 × 4) = 2,5 h."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 11",
+      "assunto": "Regra de três simples direta",
+      "enunciado": "Para viajar até a cidade A, distante cinquenta quilômetros de sua casa, um motorista utiliza seu automóvel, o qual consome oito litros de gasolina para realizar o trajeto de ida e volta até a referida cidade. Considerando que cada litro de combustível custa R$ 5,00 (cinco reais), qual o valor total gasto pelo condutor ao realizar uma viagem de ida e volta até a cidade B, utilizando o mesmo automóvel e considerando o mesmo consumo de combustível por quilômetro rodado? Considere que a cidade B está a trezentos quilômetros de sua residência.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 200,00"
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 220,00"
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 240,00"
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 260,00"
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 280,00"
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Ida e volta nos dois casos: letra C.\n\nA: 100 km (ida e volta) → 8 L. B: 600 km (ida e volta) → 6 vezes mais → 48 L. 48 × 5 = R$ 240.\n\nPegadinha: comparar 50 km com 300 km é a mesma razão (×6) — mas quem calcula 8 L para 50 km dobra o consumo e erra."
     }
   ]
 }

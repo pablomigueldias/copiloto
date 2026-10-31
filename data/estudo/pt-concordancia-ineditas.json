@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Língua Portuguesa, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa de Língua Portuguesa de nível superior do edital CRECI-SP 01/2026 (Avança SP), com peso nos tópicos que o acervo de prova real tinha finos em 02/10 (análise sintática, colocação pronominal, figuras, redação oficial, regência). Base: norma-padrão da gramática tradicional e o Manual de Redação da Presidência da República, 3ª ed. (2018). Interpretação de texto e coesão ficaram de fora desta leva por já terem muitas questões reais.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Língua portuguesa — inéditas",
+    "trilha": "concurso",
+    "ordem": 6
+  },
+  "topico": {
+    "nome": "Concordância verbal e nominal",
+    "ordem": 8
+  },
+  "questoes": [
+    {
+      "formato": "negativa",
+      "origem": "Inédita (sem banca) · Português Avança SP · Concordância verbal e nominal · nº 01",
+      "enunciado": "Assinale a alternativa em DESACORDO com a norma-padrão quanto à concordância.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Fazem três meses que o novo sistema foi implantado."
+        },
+        {
+          "letra": "B",
+          "texto": "Mais de um servidor faltou à reunião de ontem."
+        },
+        {
+          "letra": "C",
+          "texto": "Deve haver soluções mais simples para esse problema."
+        },
+        {
+          "letra": "D",
+          "texto": "A maioria dos candidatos chegou cedo ao local de prova."
+        },
+        {
+          "letra": "E",
+          "texto": "Seguem anexas as planilhas solicitadas."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Concordância em DESACORDO: letra A.\n\nFAZER indicando tempo decorrido é IMPESSOAL: fica no singular. 'Faz três meses', 'fazia dois anos'.\n\nAs demais estão corretas:\n\n— 'Mais de um servidor faltou': com 'mais de um', o verbo fica no singular (o plural só se impõe com reciprocidade ou repetição: 'mais de um servidor se cumprimentaram');\n\n— 'Deve haver soluções': haver (existir) impessoal transmite a impessoalidade ao auxiliar — 'deve haver', nunca 'devem haver';\n\n— 'A maioria dos candidatos chegou': com coletivo partitivo, singular ou plural são aceitos;\n\n— 'Seguem anexas as planilhas': 'anexo' é adjetivo e concorda (anexas, femininas e plurais).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Concordância verbal e nominal"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Concordância verbal e nominal · nº 02",
+      "enunciado": "Assinale a alternativa correta quanto à concordância nominal.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "É proibida entrada de pessoas não autorizadas na sala dos servidores."
+        },
+        {
+          "letra": "B",
+          "texto": "É proibida a entrada de pessoas não autorizadas na sala dos servidores."
+        },
+        {
+          "letra": "C",
+          "texto": "Seguem anexo os relatórios de desempenho."
+        },
+        {
+          "letra": "D",
+          "texto": "As informações estavam meias incompletas."
+        },
+        {
+          "letra": "E",
+          "texto": "Os documentos foram bastante revisados e estavam bastantes claros."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Concordância nominal: letra B.\n\nCom 'é proibido', 'é necessário', 'é bom': se o substantivo vem COM artigo ou determinante, o adjetivo concorda ('é proibida A entrada'); sem determinante, fica no masculino singular ('é proibido entrada'). Por isso 'é proibida entrada', sem o artigo, está errada.\n\n| Frase errada | Regra | Correção |\n|---|---|---|\n| anexo os relatórios | 'anexo' é adjetivo e concorda | anexos os relatórios |\n| meias incompletas | 'meio' = um pouco é ADVÉRBIO, invariável | meio incompletas |\n| bastantes claros | 'bastante' antes de adjetivo é advérbio, invariável | bastante claros |\n\nAtalho: meio, bastante, menos, só (= somente) modificando ADJETIVO não variam; modificando SUBSTANTIVO, variam ('bastantes documentos', 'meia hora').",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Concordância verbal e nominal"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "_leia_me": "Emprego da vírgula, CESGRANRIO: BNDES 2024 questão 25. As frases das alternativas são da própria questão, não do texto. Procedência: cadernos e gabaritos em docs/avanca-sp/outras-bancas/ (ver o README de lá). BNDES 2024 = Seleção Pública 01/2024, provas de 13/10/2024, Prova 3 (Análise de Sistemas – Desenvolvimento) e Prova 4 (Suporte); o bloco básico (1 a 35) é o MESMO nos dois cadernos e entrou uma vez só, pelo de Desenvolvimento. UNEMAT 2024 = Edital 01/2023, provas de 03/03/2024, Prova 3 (Técnico Universitário – Analista de Sistemas). Gabarito lido no PDF da própria banca, no bloco do cargo; nenhum dos dois PDFs diz se é preliminar ou definitivo. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "CESGRANRIO",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 5
+  },
+  "topico": {
+    "nome": "Pontuação",
+    "ordem": 6
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 25",
+      "enunciado": "Com relação à exigência do uso das vírgulas, considerando-se as regras de pontuação vigentes, respeita-se a norma-padrão da língua portuguesa em:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A cultura do consumismo que se enraíza na sociedade moderna, faz com que indivíduos, influenciados por propagandas, redes sociais e pela pressão do grupo priorizem a aquisição de bens materiais em detrimento de experiências."
+        },
+        {
+          "letra": "B",
+          "texto": "As práticas consumistas e as estratégias de marketing cada vez mais sofisticadas, fazem com que a obsolescência programada se torne uma norma, forçando os consumidores a substituir seus produtos com frequência, o que gera mais lixo e impacto ambiental."
+        },
+        {
+          "letra": "C",
+          "texto": "Com o aumento do poder aquisitivo em diversas partes do mundo, o consumismo torna-se uma ferramenta para suprir carências emocionais, levando as pessoas a acreditarem que a felicidade pode ser comprada, o que resulta em sentimentos constantes de frustração."
+        },
+        {
+          "letra": "D",
+          "texto": "O consumismo desenfreado, impulsionado pela incessante busca por status leva as pessoas a adquirir produtos e serviços que muitas vezes não são necessários, o que alimenta a necessidade de um consumo ainda maior."
+        },
+        {
+          "letra": "E",
+          "texto": "O consumismo, visto por muitos, como uma forma de expressão e identidade, acaba por condenar as pessoas a um ciclo interminável de compras, dívidas e trabalho, fazendo, assim, com que esqueçamos o verdadeiro sentido da vida."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 3,
+      "explicacao": "Qual frase usa as vírgulas como a norma exige? Letra C.\n\nC: adjunto adverbial longo deslocado para o início ('Com o aumento [...] do mundo,'), oração reduzida de gerúndio separada ('levando as pessoas...'), e 'o que resulta' retomando a oração anterior. Tudo certo.\n\n| Alt. | Erro |\n|---|---|\n| A | vírgula entre sujeito e verbo ('...sociedade moderna, faz') e falta a vírgula que fecha o termo intercalado ('pressão do grupo, priorizem') |\n| B | vírgula entre sujeito e verbo ('...cada vez mais sofisticadas, fazem') |\n| D | abre o intercalado ('desenfreado, impulsionado') e não fecha: falta vírgula em 'status, leva' |\n| E | vírgula separando o particípio do seu complemento: 'visto por muitos, como uma forma' — o certo é 'visto por muitos como uma forma de expressão e identidade,' |\n\nRegras que resolvem quase toda questão de vírgula:\n\n1. NUNCA vírgula entre sujeito e verbo, por mais longo que seja o sujeito. É o erro de A e B.\n\n2. Termo intercalado vai entre DUAS vírgulas — abriu, fecha. É o erro de A e D.\n\n3. Não se separa um termo do complemento que ele pede. É o erro de E."
+    }
+  ]
+}

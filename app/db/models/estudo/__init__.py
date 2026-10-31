@@ -18,6 +18,12 @@ from app.db.models.estudo.questao import (
     Questao,
     Topico,
 )
+from app.db.models.estudo.simulado import (
+    Reforco,
+    ReforcoItem,
+    Simulado,
+    SimuladoItem,
+)
 
 __all__ = [
     "ACERTOS_PARA_DOMINAR",
@@ -33,6 +39,10 @@ __all__ = [
     "Agenda",
     "Modulo",
     "Questao",
+    "Reforco",
+    "ReforcoItem",
+    "Simulado",
+    "SimuladoItem",
     "Tentativa",
     "Topico",
 ]

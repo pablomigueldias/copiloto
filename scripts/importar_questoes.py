@@ -36,13 +36,25 @@ from app.db.models.estudo.questao import (
     Topico,
 )
 from app.db.session import dispose_engine, get_session
-from app.estudo import agendamento, servico
+from app.estudo import agendamento, assuntos, servico
 
 CAMPOS = (
     "formato", "comando", "enunciado", "texto_base", "texto_base_fonte",
     "codigo", "linguagem", "alternativas", "afirmacoes", "gabarito",
     "explicacao", "origem", "fonte", "dificuldade", "imagem", "imagem_alt",
 )
+
+# O assunto fino do acervo que já existia quando o simulado nasceu, pela
+# origem. Questão nova traz o campo `assunto` no próprio JSON; este mapa é o
+# que evita reescrever 40 arquivos e os geradores de inéditas para pôr nele um
+# campo de uma linha. O JSON da questão, quando traz, vence o mapa.
+ASSUNTOS = BASE_DIR / "data" / "estudo" / "assuntos.json"
+
+
+def _mapa_assuntos() -> dict[str, str]:
+    if not ASSUNTOS.is_file():
+        return {}
+    return json.loads(ASSUNTOS.read_text(encoding="utf-8"))["assuntos"]
 
 
 def _valida(q: dict, i: int) -> None:
@@ -94,6 +106,14 @@ def _valida(q: dict, i: int) -> None:
                 "Ela vai em `imagem_alt`; o enunciado fica como a banca escreveu."
             )
 
+    # Vocabulário fechado: "Trigger" e "Triggers" partiriam o mesmo erro em dois
+    # no diagnóstico, e o reforço sairia pela metade.
+    if q.get("assunto") and not assuntos.valido(q["assunto"]):
+        raise SystemExit(
+            f"questão {i}: assunto '{q['assunto']}' não está no catálogo de "
+            "app/estudo/assuntos.py — use um de lá ou acrescente-o primeiro."
+        )
+
     if q["formato"] == "certo_errado":
         if q["gabarito"] not in ("C", "E"):
             raise SystemExit(f"questão {i}: gabarito '{q['gabarito']}' fora de ('C', 'E')")
@@ -121,6 +141,10 @@ async def _importar(caminho: Path) -> int:
 
     hoje = servico.hoje()
     novas = atualizadas = 0
+    mapa = _mapa_assuntos()
+    for o, a in mapa.items():
+        if not assuntos.valido(a):
+            raise SystemExit(f"{ASSUNTOS.name}: '{a}' (de {o}) não está no catálogo")
 
     async with get_session() as session:
         # A banca é opcional: questão inédita não tem uma, e o acervo antigo
@@ -165,6 +189,8 @@ async def _importar(caminho: Path) -> int:
             campos.setdefault("alternativas", [])
             campos.setdefault("afirmacoes", [])
             campos.setdefault("dificuldade", 2)
+            if assunto := (q.get("assunto") or mapa.get(q["origem"])):
+                campos["assunto"] = assunto
 
             existente = await session.scalar(
                 select(Questao).where(Questao.origem == q["origem"])

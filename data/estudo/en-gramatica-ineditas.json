@@ -1,0 +1,253 @@
+{
+  "_leia_me": "Questões INÉDITAS de Inglês técnico, escritas por mim (Claude) a pedido do Pablo em 07/10/2026 — sem banca; textos de apoio, gabarito e explicação são meus. A Avança SP não tem nenhuma questão de inglês nas 14 provas levantadas; o padrão vem da pesquisa em docs/avanca-sp/ingles-tecnico-padrao.md (Cesgranrio: texto + perguntas em inglês; FCC/Vunesp: perguntas em português) e o conteúdo, do programa de Inglês Técnico do edital CRECI-SP 01/2026. Cada questão traz o `assunto` do simulado. As normas citadas (RFC 2119, NIST SP 800-63B, NIST CSF 2.0, ISO/IEC 27001) foram conferidas como eu as conheço, sem fonte externa aberta na hora — desconfie e corrija.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Inglês técnico — inéditas",
+    "trilha": "concurso",
+    "ordem": 8
+  },
+  "topico": {
+    "nome": "Gramática aplicada à leitura",
+    "ordem": 3
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Gramática aplicada à leitura · nº 01",
+      "enunciado": "In paragraph 2, the word “Nevertheless” introduces an idea of",
+      "texto_base": "Transaction Isolation\n\n(1) Transactions allow several operations to be grouped so that they either all succeed or all fail. However, when many transactions run at the same time, the database must decide how much one transaction is allowed to see of the changes made by the others. This decision is controlled by the isolation level.\n\n(2) At the READ COMMITTED level, which is the default in PostgreSQL and SQL Server, a query sees only data that was committed before the query began. It never sees uncommitted changes from concurrent transactions. Nevertheless, two identical queries in the same transaction may return different results if another transaction commits changes between them. This phenomenon is known as a non-repeatable read.\n\n(3) The SERIALIZABLE level provides the strictest isolation. It guarantees that the result of concurrent transactions is the same as if they had been executed one after another. This protection comes at a cost: applications using this level must be prepared to retry transactions, since the server may abort them to prevent anomalies.\n\n(4) Developers should choose the lowest level that still guarantees correct results for their workload. Raising the isolation level unnecessarily may reduce throughput and increase the number of failed transactions.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo da documentação do PostgreSQL e do SQL Server.",
+      "assunto": "Conectivos e marcadores de coesão",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "addition."
+        },
+        {
+          "letra": "B",
+          "texto": "consequence."
+        },
+        {
+          "letra": "C",
+          "texto": "exemplification."
+        },
+        {
+          "letra": "D",
+          "texto": "time sequence."
+        },
+        {
+          "letra": "E",
+          "texto": "contrast."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Nevertheless = no entanto, mesmo assim. Letra E.\n\nO trecho anterior diz algo bom (não vê dado não confirmado); o seguinte faz a ressalva (mas pode ver resultados diferentes).\n\n| Ideia | Conectivos |\n|---|---|\n| contraste | however, nevertheless, nonetheless, yet, but, whereas |\n| concessão | although, even though, despite, in spite of |\n| consequência | therefore, thus, hence, consequently, as a result |\n| adição | moreover, furthermore, in addition, besides |\n| exemplo | for instance, for example, such as |\n\nTruque: 'never' dentro da palavra não tem nada a ver com 'nunca' aqui.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: leitura e interpretação"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Gramática aplicada à leitura · nº 02",
+      "enunciado": "In paragraph 3, the pronoun “them”, in “the server may abort them”, refers to",
+      "texto_base": "Transaction Isolation\n\n(1) Transactions allow several operations to be grouped so that they either all succeed or all fail. However, when many transactions run at the same time, the database must decide how much one transaction is allowed to see of the changes made by the others. This decision is controlled by the isolation level.\n\n(2) At the READ COMMITTED level, which is the default in PostgreSQL and SQL Server, a query sees only data that was committed before the query began. It never sees uncommitted changes from concurrent transactions. Nevertheless, two identical queries in the same transaction may return different results if another transaction commits changes between them. This phenomenon is known as a non-repeatable read.\n\n(3) The SERIALIZABLE level provides the strictest isolation. It guarantees that the result of concurrent transactions is the same as if they had been executed one after another. This protection comes at a cost: applications using this level must be prepared to retry transactions, since the server may abort them to prevent anomalies.\n\n(4) Developers should choose the lowest level that still guarantees correct results for their workload. Raising the isolation level unnecessarily may reduce throughput and increase the number of failed transactions.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo da documentação do PostgreSQL e do SQL Server.",
+      "assunto": "Referência pronominal",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "applications."
+        },
+        {
+          "letra": "B",
+          "texto": "transactions."
+        },
+        {
+          "letra": "C",
+          "texto": "anomalies."
+        },
+        {
+          "letra": "D",
+          "texto": "isolation levels."
+        },
+        {
+          "letra": "E",
+          "texto": "results."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Referência: letra B.\n\n'applications ... must be prepared to retry transactions, since the server may abort them'. O servidor aborta (cancela) o quê? As transações que a aplicação tenta de novo.\n\nMétodo: pegue o verbo do pronome (abort) e teste cada candidato no plural anterior. 'Abort applications' não faz sentido técnico; 'abort anomalies' é o contrário do que o texto diz (aborta PARA evitar anomalias).\n\nPlural: them / their / they só retomam nome no plural — já elimina candidatos no singular.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: leitura e interpretação"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Gramática aplicada à leitura · nº 03",
+      "enunciado": "In paragraph 4, the modal verb in “Developers should choose the lowest level” expresses",
+      "texto_base": "Transaction Isolation\n\n(1) Transactions allow several operations to be grouped so that they either all succeed or all fail. However, when many transactions run at the same time, the database must decide how much one transaction is allowed to see of the changes made by the others. This decision is controlled by the isolation level.\n\n(2) At the READ COMMITTED level, which is the default in PostgreSQL and SQL Server, a query sees only data that was committed before the query began. It never sees uncommitted changes from concurrent transactions. Nevertheless, two identical queries in the same transaction may return different results if another transaction commits changes between them. This phenomenon is known as a non-repeatable read.\n\n(3) The SERIALIZABLE level provides the strictest isolation. It guarantees that the result of concurrent transactions is the same as if they had been executed one after another. This protection comes at a cost: applications using this level must be prepared to retry transactions, since the server may abort them to prevent anomalies.\n\n(4) Developers should choose the lowest level that still guarantees correct results for their workload. Raising the isolation level unnecessarily may reduce throughput and increase the number of failed transactions.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo da documentação do PostgreSQL e do SQL Server.",
+      "assunto": "Verbos modais e voz passiva em documentação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "an obligation imposed by law."
+        },
+        {
+          "letra": "B",
+          "texto": "a prohibition."
+        },
+        {
+          "letra": "C",
+          "texto": "an ability in the past."
+        },
+        {
+          "letra": "D",
+          "texto": "a recommendation."
+        },
+        {
+          "letra": "E",
+          "texto": "a certainty about the future."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Modal should = deveria / é recomendável. Letra D.\n\n| Modal | Sentido | Em português |\n|---|---|---|\n| must | obrigação forte | tem de |\n| should | recomendação, conselho | deveria |\n| may / might | possibilidade (ou permissão) | pode, talvez |\n| can | capacidade, possibilidade | pode, consegue |\n| could | capacidade no passado / possibilidade | podia, poderia |\n| must not | proibição | não pode |\n| will | certeza / futuro | vai |\n\nNo mesmo parágrafo: 'may reduce throughput' = PODE reduzir (possibilidade).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: leitura e interpretação"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Gramática aplicada à leitura · nº 04",
+      "enunciado": "In step 5, the word “unless” can be replaced, without change in meaning, by",
+      "texto_base": "Installing MySQL Server on Ubuntu\n\n1. Update the package index:\n   $ sudo apt update\n2. Install the server package:\n   $ sudo apt install mysql-server\n3. Check whether the service is running:\n   $ sudo systemctl status mysql\n   If the output shows \"inactive (dead)\", start it with: sudo systemctl start mysql\n4. Run the security script, which removes anonymous users, disables remote root login and deletes the test database:\n   $ sudo mysql_secure_installation\n5. Make sure that port 3306 is not exposed to the internet unless remote access is strictly required. If it is, restrict incoming connections to known IP addresses in the firewall.\n\nNote: Do not edit the configuration files while the service is being upgraded. Back up /etc/mysql before making any changes.",
+      "texto_base_fonte": "Texto escrito para esta questão, no formato de um guia de instalação.",
+      "assunto": "Conectivos e marcadores de coesão",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "because."
+        },
+        {
+          "letra": "B",
+          "texto": "except if."
+        },
+        {
+          "letra": "C",
+          "texto": "although."
+        },
+        {
+          "letra": "D",
+          "texto": "as soon as."
+        },
+        {
+          "letra": "E",
+          "texto": "in addition."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Unless = a menos que, exceto se. Letra B.\n\n'not exposed unless remote access is required' = não exposta, exceto se o acesso remoto for necessário.\n\n| Conectivo | Sentido |\n|---|---|\n| unless | condição negativa (a menos que) |\n| if | condição |\n| because / since | causa |\n| although / even though | concessão |\n| as soon as | tempo (assim que) |\n\nUnless já é negativo: 'unless it is required' = 'if it is not required'.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: leitura e interpretação"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Gramática aplicada à leitura · nº 05",
+      "enunciado": "In paragraph 3, the word “their”, in “since their answers can often be found on social media”, refers to",
+      "texto_base": "Password Policy — adapted from the NIST Digital Identity Guidelines (SP 800-63B)\n\n(1) For many years, organizations required users to create passwords containing uppercase letters, digits and symbols, and to change them every 90 days. Research has shown that these rules often backfire: users respond with predictable patterns, such as \"Password1!\" followed by \"Password2!\".\n\n(2) Current guidance therefore focuses on length rather than complexity. User-chosen passwords MUST be at least 8 characters long, and systems SHOULD accept passwords of at least 64 characters, so that users can adopt long passphrases. Every new password MUST be checked against a list of values known to be commonly used or previously compromised.\n\n(3) Verifiers SHOULD NOT require passwords to be changed periodically. A change MUST, however, be forced whenever there is evidence that the password has been compromised. Password hints and security questions such as \"What was the name of your first pet?\" MUST NOT be used, since their answers can often be found on social media.\n\n(4) Finally, passwords MUST be stored only as salted hashes computed with a function designed to be slow, which makes offline guessing attacks considerably more expensive.\n\nIn this text, the keywords MUST, MUST NOT, SHOULD and SHOULD NOT are to be interpreted as described in RFC 2119.",
+      "texto_base_fonte": "Texto escrito para esta questão, a partir das recomendações do NIST SP 800-63B.",
+      "assunto": "Referência pronominal",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "verifiers."
+        },
+        {
+          "letra": "B",
+          "texto": "users' passwords."
+        },
+        {
+          "letra": "C",
+          "texto": "password hints and security questions."
+        },
+        {
+          "letra": "D",
+          "texto": "social media platforms."
+        },
+        {
+          "letra": "E",
+          "texto": "compromised passwords."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Referência: letra C.\n\n'Password hints and security questions ... MUST NOT be used, since their answers can often be found on social media.' As RESPOSTAS de quê aparecem nas redes sociais? Das perguntas de segurança (o nome do primeiro pet).\n\ntheir = deles/delas (plural). O referente é o sujeito da mesma frase, que vem antes do pronome.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: leitura e interpretação"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Gramática aplicada à leitura · nº 06",
+      "enunciado": "In paragraph 2, the word “although”, in “VMs, although heavier, offer stronger isolation”, introduces",
+      "texto_base": "Containers and Virtual Machines\n\n(1) Virtual machines (VMs) and containers are both used to run applications in isolated environments, but they achieve isolation at different levels. A VM emulates a complete computer, including its own operating system kernel, on top of a hypervisor. Containers, on the other hand, share the kernel of the host and isolate only the application and its dependencies.\n\n(2) Because they do not boot a full operating system, containers start in seconds and consume less memory, which allows a single server to host many more of them. VMs, although heavier, offer stronger isolation. That is why they remain the preferred choice when workloads from different customers must run on the same physical hardware.\n\n(3) In cloud computing, the two technologies are frequently combined: providers run customer containers inside lightweight VMs, obtaining the density of containers together with the security boundary of a hypervisor.\n\n(4) For database servers, containers are widely adopted in development and testing environments. In production, however, administrators must ensure that data is written to persistent volumes; otherwise, it will be lost when the container is removed.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo de artigo técnico sobre cloud computing.",
+      "assunto": "Conectivos e marcadores de coesão",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a concession."
+        },
+        {
+          "letra": "B",
+          "texto": "a cause."
+        },
+        {
+          "letra": "C",
+          "texto": "a result."
+        },
+        {
+          "letra": "D",
+          "texto": "a condition."
+        },
+        {
+          "letra": "E",
+          "texto": "an addition."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Although = embora. Concessão: admite um ponto contra (são mais pesadas) sem negar a ideia principal (isolam melhor). Letra A.\n\n| Ideia | Inglês | Português |\n|---|---|---|\n| concessão | although, though, even though, despite, in spite of | embora, apesar de |\n| causa | because, since, as, due to | porque, devido a |\n| resultado | so, therefore, thus | então, portanto |\n| condição | if, unless, provided that | se, a menos que, desde que |\n\nDespite e in spite of vêm com substantivo ou -ing (despite being heavier); although vem com oração ou adjetivo.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: leitura e interpretação"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Gramática aplicada à leitura · nº 07",
+      "enunciado": "The suffixes in the words “isolation” and “environments” (paragraph 1) are used to form",
+      "texto_base": "Containers and Virtual Machines\n\n(1) Virtual machines (VMs) and containers are both used to run applications in isolated environments, but they achieve isolation at different levels. A VM emulates a complete computer, including its own operating system kernel, on top of a hypervisor. Containers, on the other hand, share the kernel of the host and isolate only the application and its dependencies.\n\n(2) Because they do not boot a full operating system, containers start in seconds and consume less memory, which allows a single server to host many more of them. VMs, although heavier, offer stronger isolation. That is why they remain the preferred choice when workloads from different customers must run on the same physical hardware.\n\n(3) In cloud computing, the two technologies are frequently combined: providers run customer containers inside lightweight VMs, obtaining the density of containers together with the security boundary of a hypervisor.\n\n(4) For database servers, containers are widely adopted in development and testing environments. In production, however, administrators must ensure that data is written to persistent volumes; otherwise, it will be lost when the container is removed.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo de artigo técnico sobre cloud computing.",
+      "assunto": "Formação de palavras (prefixos e sufixos)",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "adverbs."
+        },
+        {
+          "letra": "B",
+          "texto": "adjectives."
+        },
+        {
+          "letra": "C",
+          "texto": "verbs in the past tense."
+        },
+        {
+          "letra": "D",
+          "texto": "nouns."
+        },
+        {
+          "letra": "E",
+          "texto": "comparative forms."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "-tion e -ment formam substantivos. Letra D.\n\n| Sufixo | Forma | Exemplo do texto / da área |\n|---|---|---|\n| -tion, -sion, -ment, -ness, -ity | substantivo | isolation, environment, availability |\n| -ly | advérbio | frequently, widely |\n| -ful, -less, -able, -ive, -al, -ent | adjetivo | reliable, physical, persistent |\n| -ed | passado / particípio | adopted, combined |\n| -er, -est | comparativo / superlativo | heavier, stronger |\n| -ize, -ify | verbo | virtualize, optimize, verify |\n\nNo mesmo texto: heavier e stronger levam -er (comparativo); frequently e widely levam -ly (advérbio).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: leitura e interpretação"
+    }
+  ]
+}

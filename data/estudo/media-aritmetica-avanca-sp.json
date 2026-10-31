@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 9 questões de média aritmética que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 9 questões de média aritmética que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Média aritmética",
@@ -271,6 +271,68 @@
           "texto": "181"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 17",
+      "assunto": "Média ponderada",
+      "enunciado": "Em jogo de pega-varetas, cada cor de vareta tem uma pontuação. Varetas verdes valem 50 pontos e varetas vermelhas valem 40 pontos. Suponha que em uma caixa há varetas verdes e vermelhas misturadas, num total de 50 varetas. A média aritmética simples dos pontos das varetas é 42 pontos. Quantas varetas verdes há na caixa?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "10."
+        },
+        {
+          "letra": "B",
+          "texto": "50."
+        },
+        {
+          "letra": "C",
+          "texto": "40."
+        },
+        {
+          "letra": "D",
+          "texto": "30."
+        },
+        {
+          "letra": "E",
+          "texto": "25."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Total de pontos = média × quantidade: letra A.\n\nTotal: 42 × 50 = 2.100 pontos. Com v verdes: 50v + 40(50 − v) = 2.100 → 10v + 2.000 = 2.100 → v = 10.\n\nAtalho: a média 42 está a 2 do 40 e a 8 do 50 → as quantidades ficam na razão inversa, 8 vermelhas para 2 verdes. Verdes = 2/10 de 50 = 10.\n\nMédia 42 bem perto de 40 já avisa: há muito mais vermelhas."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 20",
+      "assunto": "Média ponderada",
+      "enunciado": "Em uma faculdade, três atividades contribuíram para a nota final de um estudante, cada uma com pesos diferentes. A atividade ‘A’ tem peso 1, a atividade ‘B’ tem peso 3 e a atividade ‘C’ tem peso 6. As notas obtidas pelo estudante foram: 7 na atividade ‘A’, 8 na atividade ‘B’ e 10 na atividade ‘C’. Contudo, o professor aplicou uma penalidade de 25% sobre a nota da atividade ‘C’ devido a atraso na entrega. Indique a média aritmética ponderada final do estudante considerando a penalidade:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "7,9."
+        },
+        {
+          "letra": "B",
+          "texto": "7,1."
+        },
+        {
+          "letra": "C",
+          "texto": "7,2."
+        },
+        {
+          "letra": "D",
+          "texto": "7,6."
+        },
+        {
+          "letra": "E",
+          "texto": "6,5."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Penalidade na nota, depois a ponderada: letra D.\n\nC = 10 × 0,75 = 7,5.\n\n| Atividade | Nota | Peso | Nota × peso |\n|---|---|---|---|\n| A | 7 | 1 | 7 |\n| B | 8 | 3 | 24 |\n| C | 7,5 | 6 | 45 |\n| total | | 10 | 76 |\n\nMédia = 76 ÷ 10 = 7,6.\n\nPegadinha: tirar 25% da MÉDIA (sem penalidade daria 9,1) em vez de só da nota C."
     }
   ]
 }

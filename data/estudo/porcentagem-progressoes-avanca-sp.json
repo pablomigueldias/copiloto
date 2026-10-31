@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 16 questões de porcentagem e progressões que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 16 questões de porcentagem e progressões que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Porcentagem e progressões",
@@ -478,6 +478,223 @@
           "texto": "20%"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2022 · Analista Legislativo · questão 12",
+      "assunto": "Porcentagem: cálculo básico",
+      "enunciado": "Sônia fez 80 meias de crochê, em um mês. No mês seguinte, ela fez 25 % a mais de meias. Daí, a quantidade total de meias que ela fez, nesses dois meses, é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "100."
+        },
+        {
+          "letra": "B",
+          "texto": "120."
+        },
+        {
+          "letra": "C",
+          "texto": "180."
+        },
+        {
+          "letra": "D",
+          "texto": "200."
+        },
+        {
+          "letra": "E",
+          "texto": "210."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Total dos DOIS meses: letra C.\n\n| Mês | Meias |\n|---|---|\n| 1º | 80 |\n| 2º | 80 × 1,25 = 100 |\n| total | 180 |\n\nA alternativa 100 é só o segundo mês — a resposta de quem para no meio. Leia de novo o que a pergunta pede."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 19",
+      "assunto": "Porcentagem: cálculo básico",
+      "enunciado": "Suponha que um cliente tomará emprestado num banco a quantia de R$ 2.400,00 e pagará uma taxa de 5% do valor. O cliente pagará o montante da sua dívida em 12 iguais parcelas mensais. Qual será o valor da parcela mensal paga pelo cliente?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 228,00."
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 252,00."
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 240,00."
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 200,00."
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 210,00."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Montante primeiro, divisão depois: letra E.\n\nMontante = 2.400 × 1,05 = 2.520. Parcela = 2.520 ÷ 12 = 210.\n\nA taxa aqui é de 5% sobre o valor, uma vez só — não 5% ao mês.\n\nR$ 200 é a parcela sem a taxa; R$ 252 é o montante dividido por 10."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 12",
+      "assunto": "Aumentos e descontos sucessivos",
+      "enunciado": "João comprou um carro por cem mil reais e após alguns anos vendeu para Marcelo com um desconto de 25%. Marcelo passou mais alguns anos com o carro, e após uma alta valorização do mercado, vendeu o carro com um acréscimo de 24% sobre o valor que ele comprou. Por quanto Marcelo vendeu o carro?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 99.000,00."
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 124.000,00."
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 93.000,00."
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 98.990,00."
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 95.000,00."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Sucessivos se MULTIPLICAM: letra C.\n\n100.000 × 0,75 = 75.000 (Marcelo compra). 75.000 × 1,24 = 93.000 (Marcelo vende).\n\nPegadinha: −25% e +24% não dão −1% (que seria 99.000). O 24% incide sobre 75 mil, não sobre 100 mil.\n\nAtalho: 0,75 × 1,24 = 0,93 → queda total de 7%."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 17",
+      "assunto": "Porcentagem: cálculo básico",
+      "enunciado": "Um fabricante de lâmpadas especiais produz lâmpadas azuis, vermelhas e amarelas. Da produção total, as azuis representam 25%, as vermelhas 30%, e as amarelas 45%. Num certo dia de produção, uma determinada máquina parou de funcionar e sabe-se que 10% das lâmpadas azuis apresentaram defeitos. O mesmo aconteceu para 20% das lâmpadas vermelhas e 30% das lâmpadas amarelas. Nessa situação, quantos por cento do total da produção diária apresentou defeito?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "30%."
+        },
+        {
+          "letra": "B",
+          "texto": "28%."
+        },
+        {
+          "letra": "C",
+          "texto": "24%."
+        },
+        {
+          "letra": "D",
+          "texto": "22%."
+        },
+        {
+          "letra": "E",
+          "texto": "20%."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Porcentagem de porcentagem, depois a soma: letra D.\n\n| Cor | Parte do total | Defeito | Do total |\n|---|---|---|---|\n| azul | 25% | 10% | 2,5% |\n| vermelha | 30% | 20% | 6% |\n| amarela | 45% | 30% | 13,5% |\n| total | | | 22% |\n\nAtalho: pense em 100 lâmpadas — 2,5 + 6 + 13,5 = 22.\n\nPegadinha: a média simples de 10, 20 e 30 dá 20% — mas as cores não têm o mesmo peso."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 18",
+      "assunto": "Aumentos e descontos sucessivos",
+      "enunciado": "Um supermercado utiliza uma estratégia sucessiva de descontos a depender da quantidade de um dado item em estoque e da proximidade do seu vencimento. A tabela abaixo mostra o desconto aplicado sobre o valor original do produto a depender dessas variáveis:\n\n| Dias para o vencimento | > 5000 itens | 3000 a 4999 | 1000 a 2999 | < 999 |\n|---|---|---|---|---|\n| > 30 | 5% | 3% | 0% | 0% |\n| 30 a 21 | 10% | 5% | 5% | 0% |\n| 20 a 11 | 30% | 20% | 10% | 2% |\n| 01 a 10 | 60% | 50% | 30% | 10% |\n\nUm determinado produto que tinha 1500 unidades em estoque, faltando 25 dias para o seu vencimento, estava sendo comercializado por R$ 76,00. Após 5 dias, foram vendidas apenas 200 unidades. Qual o novo valor do produto?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 76,00."
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 72,20."
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 72,00."
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 66,60."
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 64,00."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 3,
+      "explicacao": "O desconto é sobre o valor ORIGINAL — ache-o primeiro. Letra C.\n\n1. Antes: 1.500 itens e 25 dias → coluna 1000–2999, linha 30–21 → 5%. 76 = 0,95 × original → original = 80.\n2. Depois: 1.300 itens e 20 dias → mesma coluna, linha 20–11 → 10%. Novo preço: 80 × 0,90 = 72,00.\n\nPegadinha: aplicar 10% sobre 76 dá 68,40; aplicar 5% a mais sobre 76 dá 72,20 (alternativa B). A tabela fala em desconto 'sobre o valor original'."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 18",
+      "assunto": "Porcentagem: cálculo básico",
+      "enunciado": "Para suprir a demanda regular de produção de energia, uma usina termoelétrica que funciona ininterruptamente utiliza, em média, quinhentos litros de óleo por dia. Em um mês em que houve necessidade de aumento da produção de energia em 20% (vinte por cento), o que acarreta o mesmo aumento proporcional no consumo de combustível, qual será o volume total, em litros, de óleo utilizado pela usina? Considere que o mês possui 30 (trinta) dias.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "15.000"
+        },
+        {
+          "letra": "B",
+          "texto": "16.000"
+        },
+        {
+          "letra": "C",
+          "texto": "18.000"
+        },
+        {
+          "letra": "D",
+          "texto": "20.000"
+        },
+        {
+          "letra": "E",
+          "texto": "22.000"
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Aumento de 20% = multiplicar por 1,2: letra C.\n\n500 × 1,2 = 600 L/dia × 30 dias = 18.000 L.\n\n15.000 é o mês SEM o aumento (500 × 30)."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 20",
+      "assunto": "Porcentagem: cálculo básico",
+      "enunciado": "João e Maria divorciaram-se, certo que, diante do regime de bens adotado por eles quando do casamento, cada um ficaria com metade do patrimônio do casal quando da separação. Considerando que o casal possuía bens que totalizavam o montante de R$ 1.500.000,00 (um milhão e quinhentos mil reais), e que Maria, após receber sua parte, irá doar 20 % (vinte por cento) de tudo o que receber, qual o valor da partilha que restará a ela após referida doação?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 500.000,00"
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 600.000,00"
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 650.000,00"
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 675.000,00"
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 700.000,00"
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Metade, depois 80% da metade: letra B.\n\n1.500.000 ÷ 2 = 750.000. Doa 20% → fica com 80%: 750.000 × 0,8 = 600.000.\n\nFica com 80% = multiplicar por 0,8 direto, sem calcular a doação à parte."
     }
   ]
 }

@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 10 questões de razão e proporção que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 9 questões de razão e proporção que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    A questão 25 de Rio Grande da Serra 2024 (a do hambúrguer) saiu em\n    05/10/2026: a conta dá R$ 8,70 e nenhuma das alternativas traz esse\n    valor.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Razão e proporção",
@@ -249,35 +249,6 @@
     },
     {
       "formato": "multipla_escolha",
-      "origem": "Instituto Avança SP · Prefeitura de Rio Grande da Serra 2024 · Analista de Tecnologia da Informação · questão 25",
-      "enunciado": "Um chefe de cozinha decide abrir um restaurante que vende hambúrgueres. Em cada hambúrguer ele utiliza 180 g de carne. Para fazer a carne, o chefe mistura uma carne gordurosa com uma carne magra, na proporção de 1:5, nesta ordem. Sabe-se que o preço da carne gordurosa é R$ 15,00 por quilo, já o preço da carne magra é R$ 55,00 por quilo. Nessa situação, quanto custa a porção de carne que ele utiliza em cada hambúrguer?",
-      "gabarito": "C",
-      "dificuldade": 2,
-      "alternativas": [
-        {
-          "letra": "A",
-          "texto": "R$ 3,70"
-        },
-        {
-          "letra": "B",
-          "texto": "R$ 7,00"
-        },
-        {
-          "letra": "C",
-          "texto": "R$ 2,10"
-        },
-        {
-          "letra": "D",
-          "texto": "R$ 1,97"
-        },
-        {
-          "letra": "E",
-          "texto": "R$ 2,52"
-        }
-      ]
-    },
-    {
-      "formato": "multipla_escolha",
       "origem": "Instituto Avança SP · Universidade de Taubaté 2025 · Analista de Sistema Sênior · questão 16",
       "enunciado": "A figura abaixo mostra uma sequência de triângulos equiláteros:\n\nSabe-se que a medida da base do 3° triângulo da sequência é o dobro da medida da base do 2° triângulo da sequência. Com isso, a razão entre as alturas do 3° e do 2° triângulo da sequência é:",
       "gabarito": "D",
@@ -306,6 +277,223 @@
       ],
       "imagem": "avanca-sp/unitau-2025-triangulos-sequencia.png",
       "imagem_alt": "Três triângulos equiláteros lado a lado, crescendo da esquerda para a direita, rotulados 1º, 2º e 3º, seguidos de reticências indicando que a sequência continua."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Embu-Guaçu 2022 · Analista Legislativo · questão 11",
+      "assunto": "Razão: cálculo e interpretação",
+      "enunciado": "Uma sorveteria vendeu, em um dia, 36 picolés, 28 sorvetes e 14 geladinhos. A razão entre o número de geladinhos vendidos pelo número de sorvetes vendidos, é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "0,5."
+        },
+        {
+          "letra": "B",
+          "texto": "1."
+        },
+        {
+          "letra": "C",
+          "texto": "2."
+        },
+        {
+          "letra": "D",
+          "texto": "5."
+        },
+        {
+          "letra": "E",
+          "texto": "7,5."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Razão de A PARA B = A ÷ B, na ordem em que o enunciado fala: letra A.\n\ngeladinhos ÷ sorvetes = 14 ÷ 28 = 0,5.\n\nOs 36 picolés são distração: não entram na conta.\n\nPegadinha: inverter a ordem dá 28 ÷ 14 = 2, que também está nas alternativas."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 11",
+      "assunto": "Divisão em partes proporcionais",
+      "enunciado": "Três irmãos ganharam uma herança de 6,30 milhões de reais e dividirão em partes diretamente proporcionais a 5, 7 e 9. Qual a diferença dos valores recebidos entre o irmão que mais recebeu e o que menos recebeu?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 1,5 milhão."
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 1,2 milhão."
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 2,7 milhões."
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 2,1 milhões."
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 1,7 milhão."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Divisão proporcional: letra B.\n\n1. Some as partes: 5 + 7 + 9 = 21.\n2. Valor de uma parte: 6,3 milhões ÷ 21 = 0,3 milhão.\n\n| Irmão | Partes | Recebe |\n|---|---|---|\n| menor | 5 | 1,5 mi |\n| meio | 7 | 2,1 mi |\n| maior | 9 | 2,7 mi |\n\nDiferença: 2,7 − 1,5 = 1,2 milhão. Atalho: (9 − 5) partes × 0,3 = 1,2.\n\nAs erradas 1,5, 2,1 e 2,7 são as próprias partes — a banca põe o caminho no lugar da chegada."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 16",
+      "assunto": "Grandezas diretamente proporcionais",
+      "enunciado": "Em uma receita de bolo, pede-se para colocar 100 g de farinha de aveia para cada 250 g de farinha de trigo. Uma confeiteira comprou 1 kg de uma mistura que continha 75% de farinha de trigo e 25% de farinha de aveia. Quanto de farinha de aveia ela deve adicionar à mistura para atender à especificação da receita?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "20 g."
+        },
+        {
+          "letra": "B",
+          "texto": "25 g."
+        },
+        {
+          "letra": "C",
+          "texto": "40 g."
+        },
+        {
+          "letra": "D",
+          "texto": "50 g."
+        },
+        {
+          "letra": "E",
+          "texto": "100 g."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "O trigo não muda; ajusta-se a aveia a ele. Letra D.\n\nMistura: 750 g de trigo e 250 g de aveia.\n\nReceita: 100 g de aveia / 250 g de trigo → para 750 g de trigo, 750 × 100 ÷ 250 = 300 g de aveia.\n\nJá há 250 g: faltam 300 − 250 = 50 g.\n\nAtalho: a proporção aveia:trigo da receita é 2:5; a da mistura é 1:3. Fixe o que você não pode tirar (trigo) e calcule o que falta."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 11",
+      "assunto": "Divisão em partes proporcionais",
+      "enunciado": "Uma mãe paga uma mesada para os seus 4 filhos de acordo com a tabela:\n\n| Filho | Valor |\n|---|---|\n| Ana | R$ 500,00 |\n| Bruna | R$ 300,00 |\n| Carlos | R$ 200,00 |\n| Davi | Não recebe |\n\nSuponha que Davi começará a receber R$ 100,00 e que a mãe irá subtrair a quantia dos demais filhos para não alterar o total que ela atualmente já gasta com as suas mesadas. Suponha também que a redução que cada filho sofrerá será diretamente proporcional ao quanto eles atualmente ganham. Quanto Carlos passará a receber após os ajustes?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 150,00."
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 180,00."
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 130,00."
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 190,00."
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 198,00."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Os R$ 100 saem dos três na proporção 500 : 300 : 200. Letra B.\n\nTotal atual: 1.000. Carlos ganha 200/1.000 = 20% do total → paga 20% da redução: 0,2 × 100 = 20.\n\n| Filho | Antes | Corte | Depois |\n|---|---|---|---|\n| Ana | 500 | 50 | 450 |\n| Bruna | 300 | 30 | 270 |\n| Carlos | 200 | 20 | 180 |\n| Davi | 0 | — | 100 |\n\nConferência: 450 + 270 + 180 + 100 = 1.000. Todos perderam os mesmos 10%."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 13",
+      "assunto": "Razão: cálculo e interpretação",
+      "enunciado": "Um recipiente contém uma mistura de água e álcool na proporção de 2:5, com um volume total de 280 ml. O recipiente foi deixado aberto por 24 horas e o líquido evaporou parcialmente. Sabe-se que evaporou 10 ml de álcool e 2 ml de água nas 24 horas. Qual a nova proporção entre água e álcool após a evaporação?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "25:88."
+        },
+        {
+          "letra": "B",
+          "texto": "39:95."
+        },
+        {
+          "letra": "C",
+          "texto": "31:99."
+        },
+        {
+          "letra": "D",
+          "texto": "12:41."
+        },
+        {
+          "letra": "E",
+          "texto": "33:70."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Volumes primeiro, razão depois: letra B.\n\n2 + 5 = 7 partes → 280 ÷ 7 = 40 ml cada parte.\n\n| | Antes | Evaporou | Depois |\n|---|---|---|---|\n| água | 2 × 40 = 80 | 2 | 78 |\n| álcool | 5 × 40 = 200 | 10 | 190 |\n\n78 : 190, simplificando por 2 → 39 : 95.\n\nRazão se aplica a quantidade, não a variação: subtrair 2 e 10 direto de 2:5 não faz sentido."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 14",
+      "assunto": "Razão: cálculo e interpretação",
+      "enunciado": "Um fio de nylon tem diâmetro da ordem de 0,5 mm, e um fio de cabelo tem diâmetro da ordem de 60 micrômetros (μm). Um micrômetro representa um milionésimo de um metro (ou seja, 1 m = 1.000.000 μm). Qual a razão entre o diâmetro de um fio de cabelo e o diâmetro de um fio de nylon?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1,2."
+        },
+        {
+          "letra": "B",
+          "texto": "0,12."
+        },
+        {
+          "letra": "C",
+          "texto": "0,012."
+        },
+        {
+          "letra": "D",
+          "texto": "0,0012."
+        },
+        {
+          "letra": "E",
+          "texto": "0,00012."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Mesma unidade, depois a razão na ordem pedida: letra B.\n\n0,5 mm = 500 μm (1 mm = 1.000 μm).\n\ncabelo ÷ nylon = 60 ÷ 500 = 0,12.\n\nSem converter, 60 ÷ 0,5 = 120 — nem está nas alternativas, mas é o erro clássico."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de São Miguel Arcanjo 2023 · Analista Fiscal de Tributos Municipais · questão 11",
+      "assunto": "Razão: cálculo e interpretação",
+      "enunciado": "Ao se dirigir a uma barraca que comercializa chope artesanal, um consumidor deparou-se com os seguintes preços: 300ml do produto custam R$15,00; 500ml custam R$20,00 e 750ml custam R$30,00. Nesta situação, qual das opções representará maior economia para o consumidor, considerando o volume do produto adquirido e o valor pago?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "300ml"
+        },
+        {
+          "letra": "B",
+          "texto": "500ml"
+        },
+        {
+          "letra": "C",
+          "texto": "750ml"
+        },
+        {
+          "letra": "D",
+          "texto": "300ml ou 500ml, visto que ambos possuem o mesmo valor por volume do produto"
+        },
+        {
+          "letra": "E",
+          "texto": "500ml ou 750ml, visto que ambos possuem o mesmo valor por volume do produto"
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Compare o preço por mL: letra E.\n\n| Copo | Conta | R$ por mL |\n|---|---|---|\n| 300 mL | 15 ÷ 300 | 0,05 |\n| 500 mL | 20 ÷ 500 | 0,04 |\n| 750 mL | 30 ÷ 750 | 0,04 |\n\n500 e 750 empatam no mais barato por mL.\n\nPegadinha: achar que o maior copo é sempre o mais vantajoso."
     }
   ]
 }

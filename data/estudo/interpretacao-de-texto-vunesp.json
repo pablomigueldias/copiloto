@@ -1,0 +1,175 @@
+{
+  "_leia_me": "Interpretação de texto, VUNESP: Fundação CASA 2010, questões 1 a 5, sobre a crônica 'O futuro é um mistério' (Mary Del Priore). Prova antiga, mas é a Vunesp — a banca que provas-para-buscar.md aponta como a mais parecida com a Avança SP (paulista, cinco alternativas, cobrança conceitual). O texto vai repetido no `texto_base` de cada questão; o caderno não numera parágrafos, os números entre parênteses são meus. Procedência: docs/avanca-sp/outras-bancas/vunesp-fundacao-casa-2010-especialista-informatica-rede.pdf, prova de 07/03/2010; gabarito lido em gabarito-vunesp-fundacao-casa-2010.pdf, no bloco 'Especialista em Desenvolvimento e Gestão (Informática - Rede)'. O PDF é o edital de divulgação dos gabaritos (Edital 005/2010) e não fala em recurso. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "VUNESP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 5
+  },
+  "topico": {
+    "nome": "Interpretação de texto",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · Fundação CASA 2010 · Especialista em Desenvolvimento e Gestão (Informática – Rede) · questão 1",
+      "texto_base": "O futuro é um mistério\n\n(1) Nesta época do ano, é impossível escapar da tentação de fazer previsões. Afinal, desde a pré-história, o homem não deixa de querer conhecer o futuro e de dominá-lo. Das técnicas de adivinhação inventadas pelos povos da Antiguidade aos métodos “científicos” elaborados por técnicos, os meios de predição variam: astrologia, leitura da borra de café ou cartas, até por internet. Pouco importa. Cada época tem necessidade de sonhar com um amanhã: melhor ou pior. Oráculos, profecias, predições, utopias, todas as antecipações que os homens construíram, no decorrer da história, não se realizaram. Mas elas são reflexos de suas esperanças e crenças. (...)\n\n(2) Um poeta disse que, para ser profeta, bastava ser pessimista. Já na metade do século 19, havia quem escrevesse sobre um mundo futuro mecanizado, sem ideias espirituais, vivendo-se ao ritmo das crises econômicas e ameaças de guerra. Marcados pela Primeira Guerra Mundial, muitos pensadores fizeram coro ao pessimismo. Freud contestou a ideia de progresso e supôs a existência de um instinto de destruição. Não faltou quem visse nas marcas do tempo o anúncio do fim de tudo, ou uma caminhada na direção ao sofrimento, como predisse o escritor George Orwell. Boa parte desse pessimismo se enraizava na tomada de consciência de uma distância crescente entre progresso técnico e progresso moral. Para solucionar essa pendência, em 1971, o Clube de Roma reuniu uma elite de pensadores. Conclusão? O grupo anteviu que o crescimento demográfico e econômico provocaria uma catástrofe e uma crise ecológica sem precedentes, em meados do século 21.\n\n(3) E nós ainda acreditamos em previsões? Acho que, se os brasileiros mudaram, foi no sentido de não acreditarem mais nelas. Deixamos para trás a atitude infantil de insistir em sonhos que acabam em decepções. Ou de crer em falsas promessas. Nunca o futuro foi tão misterioso quanto neste início de século 21. Nenhuma máquina de previsão conseguiu explicar a complexidade do mundo atual, onde tudo se confunde, onde realidade e espetáculo se misturam, valores e ideologias desmoronam, tudo se desencanta. Aquecimento do planeta, desastres climáticos, aumento do nível dos oceanos, fim das florestas, fome, corrupção em toda a parte, empobrecimento dos mais pobres, enriquecimento dos mais ricos, enfim, a lista é longa. A resposta, talvez, esteja em fugir das previsões de futuro e jogar no presente. Vivê-lo com delicadeza e investir nos pequenos prazeres. Fórmula excelente para enfrentarmos o apocalipse, como querem muitos. Ou o paraíso, como esperam outros.",
+      "texto_base_fonte": "Mary Del Priore, O Estado de S.Paulo, 03.01.2010. Adaptado.",
+      "enunciado": "Sobre as previsões, é correto afirmar que a autora, no primeiro parágrafo,",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "reconhece a eficácia que elas têm, já que se constituíram em um método seguro de aprender com o passado para prever o futuro."
+        },
+        {
+          "letra": "B",
+          "texto": "admite que elas são perigosas, já que, a partir delas, as pessoas traçam planos para conduzir a vida."
+        },
+        {
+          "letra": "C",
+          "texto": "confere-lhes legitimidade científica, pois elas vêm se pautando por critérios comprovados pelas ciências em geral."
+        },
+        {
+          "letra": "D",
+          "texto": "discorda da maneira como são praticadas hoje, cada vez mais distanciadas dos modelos concebidos na Antiguidade."
+        },
+        {
+          "letra": "E",
+          "texto": "aceita a validade delas para nutrir as aspirações humanas, apesar de não se realizarem concretamente."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "O que a autora diz das previsões no 1º parágrafo? Letra E.\n\nDuas frases do parágrafo montam a alternativa: 'todas as antecipações [...] não se realizaram' + 'Mas elas são reflexos de suas esperanças e crenças'. Não se cumprem, MAS alimentam o que as pessoas esperam — o 'apesar de' da E é o 'mas' do texto.\n\nA — o texto diz o contrário: nenhuma se realizou; não há 'método seguro'.\n\nC — 'científicos' aparece ENTRE ASPAS no texto: a autora ironiza a cientificidade, não a confere.\n\nB e D — o parágrafo não fala em perigo nem compara com a Antiguidade ('Pouco importa' o meio).\n\nAtalho Vunesp: aspas numa palavra do texto costumam marcar ironia ou distanciamento. Alternativa que leva a palavra a sério cai."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · Fundação CASA 2010 · Especialista em Desenvolvimento e Gestão (Informática – Rede) · questão 2",
+      "texto_base": "O futuro é um mistério\n\n(1) Nesta época do ano, é impossível escapar da tentação de fazer previsões. Afinal, desde a pré-história, o homem não deixa de querer conhecer o futuro e de dominá-lo. Das técnicas de adivinhação inventadas pelos povos da Antiguidade aos métodos “científicos” elaborados por técnicos, os meios de predição variam: astrologia, leitura da borra de café ou cartas, até por internet. Pouco importa. Cada época tem necessidade de sonhar com um amanhã: melhor ou pior. Oráculos, profecias, predições, utopias, todas as antecipações que os homens construíram, no decorrer da história, não se realizaram. Mas elas são reflexos de suas esperanças e crenças. (...)\n\n(2) Um poeta disse que, para ser profeta, bastava ser pessimista. Já na metade do século 19, havia quem escrevesse sobre um mundo futuro mecanizado, sem ideias espirituais, vivendo-se ao ritmo das crises econômicas e ameaças de guerra. Marcados pela Primeira Guerra Mundial, muitos pensadores fizeram coro ao pessimismo. Freud contestou a ideia de progresso e supôs a existência de um instinto de destruição. Não faltou quem visse nas marcas do tempo o anúncio do fim de tudo, ou uma caminhada na direção ao sofrimento, como predisse o escritor George Orwell. Boa parte desse pessimismo se enraizava na tomada de consciência de uma distância crescente entre progresso técnico e progresso moral. Para solucionar essa pendência, em 1971, o Clube de Roma reuniu uma elite de pensadores. Conclusão? O grupo anteviu que o crescimento demográfico e econômico provocaria uma catástrofe e uma crise ecológica sem precedentes, em meados do século 21.\n\n(3) E nós ainda acreditamos em previsões? Acho que, se os brasileiros mudaram, foi no sentido de não acreditarem mais nelas. Deixamos para trás a atitude infantil de insistir em sonhos que acabam em decepções. Ou de crer em falsas promessas. Nunca o futuro foi tão misterioso quanto neste início de século 21. Nenhuma máquina de previsão conseguiu explicar a complexidade do mundo atual, onde tudo se confunde, onde realidade e espetáculo se misturam, valores e ideologias desmoronam, tudo se desencanta. Aquecimento do planeta, desastres climáticos, aumento do nível dos oceanos, fim das florestas, fome, corrupção em toda a parte, empobrecimento dos mais pobres, enriquecimento dos mais ricos, enfim, a lista é longa. A resposta, talvez, esteja em fugir das previsões de futuro e jogar no presente. Vivê-lo com delicadeza e investir nos pequenos prazeres. Fórmula excelente para enfrentarmos o apocalipse, como querem muitos. Ou o paraíso, como esperam outros.",
+      "texto_base_fonte": "Mary Del Priore, O Estado de S.Paulo, 03.01.2010. Adaptado.",
+      "enunciado": "Assinale a alternativa correta quanto às relações que podem ser estabelecidas entre Freud, George Orwell e o Clube de Roma.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "As conclusões do Clube de Roma contrapõem-se às expectativas pessimistas de Freud e de George Orwell."
+        },
+        {
+          "letra": "B",
+          "texto": "George Orwell e Freud previram, como o Clube de Roma, que o século 21 teria um progresso inimaginável, apesar de toda a crise ecológica que se deflagraria."
+        },
+        {
+          "letra": "C",
+          "texto": "As previsões de George Orwell caminham na direção contrária às previsões otimistas do Clube de Roma sobre o século 21."
+        },
+        {
+          "letra": "D",
+          "texto": "As previsões do Clube de Roma confirmam a negatividade contida nas posições de Freud e de George Orwell."
+        },
+        {
+          "letra": "E",
+          "texto": "O instinto de destruição e o sofrimento, previstos, respectivamente, por Freud e Orwell, foram negados pelo Clube de Roma."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Freud, Orwell e o Clube de Roma: o que os une? Letra D — os três são pessimistas.\n\n| Quem | O que previu |\n|---|---|\n| Freud | contestou o progresso; supôs um 'instinto de destruição' |\n| Orwell | 'uma caminhada na direção ao sofrimento' |\n| Clube de Roma (1971) | 'uma catástrofe e uma crise ecológica sem precedentes' no século 21 |\n\nO Clube de Roma foi reunido 'para solucionar essa pendência' — e a conclusão dele, catástrofe, CONFIRMA o pessimismo dos dois.\n\nA, C e E dizem que o Clube de Roma foi otimista ou contrário — é a pegadinha: quem esperava uma solução do grupo esperava otimismo, e o texto frustra essa expectativa. B inventa 'progresso inimaginável'."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · Fundação CASA 2010 · Especialista em Desenvolvimento e Gestão (Informática – Rede) · questão 3",
+      "texto_base": "O futuro é um mistério\n\n(1) Nesta época do ano, é impossível escapar da tentação de fazer previsões. Afinal, desde a pré-história, o homem não deixa de querer conhecer o futuro e de dominá-lo. Das técnicas de adivinhação inventadas pelos povos da Antiguidade aos métodos “científicos” elaborados por técnicos, os meios de predição variam: astrologia, leitura da borra de café ou cartas, até por internet. Pouco importa. Cada época tem necessidade de sonhar com um amanhã: melhor ou pior. Oráculos, profecias, predições, utopias, todas as antecipações que os homens construíram, no decorrer da história, não se realizaram. Mas elas são reflexos de suas esperanças e crenças. (...)\n\n(2) Um poeta disse que, para ser profeta, bastava ser pessimista. Já na metade do século 19, havia quem escrevesse sobre um mundo futuro mecanizado, sem ideias espirituais, vivendo-se ao ritmo das crises econômicas e ameaças de guerra. Marcados pela Primeira Guerra Mundial, muitos pensadores fizeram coro ao pessimismo. Freud contestou a ideia de progresso e supôs a existência de um instinto de destruição. Não faltou quem visse nas marcas do tempo o anúncio do fim de tudo, ou uma caminhada na direção ao sofrimento, como predisse o escritor George Orwell. Boa parte desse pessimismo se enraizava na tomada de consciência de uma distância crescente entre progresso técnico e progresso moral. Para solucionar essa pendência, em 1971, o Clube de Roma reuniu uma elite de pensadores. Conclusão? O grupo anteviu que o crescimento demográfico e econômico provocaria uma catástrofe e uma crise ecológica sem precedentes, em meados do século 21.\n\n(3) E nós ainda acreditamos em previsões? Acho que, se os brasileiros mudaram, foi no sentido de não acreditarem mais nelas. Deixamos para trás a atitude infantil de insistir em sonhos que acabam em decepções. Ou de crer em falsas promessas. Nunca o futuro foi tão misterioso quanto neste início de século 21. Nenhuma máquina de previsão conseguiu explicar a complexidade do mundo atual, onde tudo se confunde, onde realidade e espetáculo se misturam, valores e ideologias desmoronam, tudo se desencanta. Aquecimento do planeta, desastres climáticos, aumento do nível dos oceanos, fim das florestas, fome, corrupção em toda a parte, empobrecimento dos mais pobres, enriquecimento dos mais ricos, enfim, a lista é longa. A resposta, talvez, esteja em fugir das previsões de futuro e jogar no presente. Vivê-lo com delicadeza e investir nos pequenos prazeres. Fórmula excelente para enfrentarmos o apocalipse, como querem muitos. Ou o paraíso, como esperam outros.",
+      "texto_base_fonte": "Mary Del Priore, O Estado de S.Paulo, 03.01.2010. Adaptado.",
+      "enunciado": "De acordo com o texto, pode-se afirmar que os brasileiros",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "deixam-se guiar pelas previsões, quanto à melhor maneira de conduzir a vida."
+        },
+        {
+          "letra": "B",
+          "texto": "analisam com prudência as profecias, mas acabam se influenciando por elas."
+        },
+        {
+          "letra": "C",
+          "texto": "assumem uma atitude cética diante de crenças desprovidas de realismo."
+        },
+        {
+          "letra": "D",
+          "texto": "mantêm-se arraigados a sólidas convicções quanto aos mistérios do futuro."
+        },
+        {
+          "letra": "E",
+          "texto": "continuam à mercê das previsões, mas previnem-se contra possíveis decepções."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "O que a autora diz dos brasileiros? Letra C.\n\nParágrafo 3: 'se os brasileiros mudaram, foi no sentido de não acreditarem mais nelas [nas previsões]. Deixamos para trás a atitude infantil de insistir em sonhos que acabam em decepções. Ou de crer em falsas promessas.' Não acreditar mais em promessas falsas = atitude CÉTICA diante de crenças sem realismo.\n\nA, B e E dizem que os brasileiros ainda se deixam influenciar — o contrário do texto. E é a mais traiçoeira: 'previnem-se contra decepções' parece o texto, mas 'continuam à mercê das previsões' o nega.\n\nVocabulário: cético = quem duvida, não acredita sem prova; arraigado = enraizado."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · Fundação CASA 2010 · Especialista em Desenvolvimento e Gestão (Informática – Rede) · questão 4",
+      "texto_base": "O futuro é um mistério\n\n(1) Nesta época do ano, é impossível escapar da tentação de fazer previsões. Afinal, desde a pré-história, o homem não deixa de querer conhecer o futuro e de dominá-lo. Das técnicas de adivinhação inventadas pelos povos da Antiguidade aos métodos “científicos” elaborados por técnicos, os meios de predição variam: astrologia, leitura da borra de café ou cartas, até por internet. Pouco importa. Cada época tem necessidade de sonhar com um amanhã: melhor ou pior. Oráculos, profecias, predições, utopias, todas as antecipações que os homens construíram, no decorrer da história, não se realizaram. Mas elas são reflexos de suas esperanças e crenças. (...)\n\n(2) Um poeta disse que, para ser profeta, bastava ser pessimista. Já na metade do século 19, havia quem escrevesse sobre um mundo futuro mecanizado, sem ideias espirituais, vivendo-se ao ritmo das crises econômicas e ameaças de guerra. Marcados pela Primeira Guerra Mundial, muitos pensadores fizeram coro ao pessimismo. Freud contestou a ideia de progresso e supôs a existência de um instinto de destruição. Não faltou quem visse nas marcas do tempo o anúncio do fim de tudo, ou uma caminhada na direção ao sofrimento, como predisse o escritor George Orwell. Boa parte desse pessimismo se enraizava na tomada de consciência de uma distância crescente entre progresso técnico e progresso moral. Para solucionar essa pendência, em 1971, o Clube de Roma reuniu uma elite de pensadores. Conclusão? O grupo anteviu que o crescimento demográfico e econômico provocaria uma catástrofe e uma crise ecológica sem precedentes, em meados do século 21.\n\n(3) E nós ainda acreditamos em previsões? Acho que, se os brasileiros mudaram, foi no sentido de não acreditarem mais nelas. Deixamos para trás a atitude infantil de insistir em sonhos que acabam em decepções. Ou de crer em falsas promessas. Nunca o futuro foi tão misterioso quanto neste início de século 21. Nenhuma máquina de previsão conseguiu explicar a complexidade do mundo atual, onde tudo se confunde, onde realidade e espetáculo se misturam, valores e ideologias desmoronam, tudo se desencanta. Aquecimento do planeta, desastres climáticos, aumento do nível dos oceanos, fim das florestas, fome, corrupção em toda a parte, empobrecimento dos mais pobres, enriquecimento dos mais ricos, enfim, a lista é longa. A resposta, talvez, esteja em fugir das previsões de futuro e jogar no presente. Vivê-lo com delicadeza e investir nos pequenos prazeres. Fórmula excelente para enfrentarmos o apocalipse, como querem muitos. Ou o paraíso, como esperam outros.",
+      "texto_base_fonte": "Mary Del Priore, O Estado de S.Paulo, 03.01.2010. Adaptado.",
+      "enunciado": "Assinale a alternativa em que se estabelece entre as ideias da frase uma relação de causa e consequência, de acordo com o texto.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Profecias e predições expressas pelos homens acabaram não se realizando."
+        },
+        {
+          "letra": "B",
+          "texto": "A distância entre progresso técnico e progresso moral levou os homens ao pessimismo."
+        },
+        {
+          "letra": "C",
+          "texto": "A complexidade do mundo atual está além de qualquer máquina de previsão."
+        },
+        {
+          "letra": "D",
+          "texto": "Investir em previsões é a fórmula ideal para escapar do apocalipse."
+        },
+        {
+          "letra": "E",
+          "texto": "A crença em sonhos e previsões é a garantia contra o pessimismo."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Qual frase tem causa → consequência E é fiel ao texto? Letra B.\n\nTexto, §2: 'Boa parte desse pessimismo se ENRAIZAVA na tomada de consciência de uma distância crescente entre progresso técnico e progresso moral.' Causa: a distância técnica × moral. Consequência: o pessimismo. 'Levou ... ao' expressa exatamente isso.\n\nA e C são constatações, sem causa nem efeito.\n\nD e E têm estrutura de causa ('é a fórmula para', 'é a garantia contra'), mas contrariam o texto: a autora diz que a resposta talvez seja 'fugir das previsões' e investir nos pequenos prazeres.\n\nAtalho: a questão tem DOIS filtros — a relação lógica e a fidelidade ao texto. Elimine primeiro as que não têm a relação (A, C) e depois as que distorcem o texto (D, E)."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · Fundação CASA 2010 · Especialista em Desenvolvimento e Gestão (Informática – Rede) · questão 5",
+      "texto_base": "O futuro é um mistério\n\n(1) Nesta época do ano, é impossível escapar da tentação de fazer previsões. Afinal, desde a pré-história, o homem não deixa de querer conhecer o futuro e de dominá-lo. Das técnicas de adivinhação inventadas pelos povos da Antiguidade aos métodos “científicos” elaborados por técnicos, os meios de predição variam: astrologia, leitura da borra de café ou cartas, até por internet. Pouco importa. Cada época tem necessidade de sonhar com um amanhã: melhor ou pior. Oráculos, profecias, predições, utopias, todas as antecipações que os homens construíram, no decorrer da história, não se realizaram. Mas elas são reflexos de suas esperanças e crenças. (...)\n\n(2) Um poeta disse que, para ser profeta, bastava ser pessimista. Já na metade do século 19, havia quem escrevesse sobre um mundo futuro mecanizado, sem ideias espirituais, vivendo-se ao ritmo das crises econômicas e ameaças de guerra. Marcados pela Primeira Guerra Mundial, muitos pensadores fizeram coro ao pessimismo. Freud contestou a ideia de progresso e supôs a existência de um instinto de destruição. Não faltou quem visse nas marcas do tempo o anúncio do fim de tudo, ou uma caminhada na direção ao sofrimento, como predisse o escritor George Orwell. Boa parte desse pessimismo se enraizava na tomada de consciência de uma distância crescente entre progresso técnico e progresso moral. Para solucionar essa pendência, em 1971, o Clube de Roma reuniu uma elite de pensadores. Conclusão? O grupo anteviu que o crescimento demográfico e econômico provocaria uma catástrofe e uma crise ecológica sem precedentes, em meados do século 21.\n\n(3) E nós ainda acreditamos em previsões? Acho que, se os brasileiros mudaram, foi no sentido de não acreditarem mais nelas. Deixamos para trás a atitude infantil de insistir em sonhos que acabam em decepções. Ou de crer em falsas promessas. Nunca o futuro foi tão misterioso quanto neste início de século 21. Nenhuma máquina de previsão conseguiu explicar a complexidade do mundo atual, onde tudo se confunde, onde realidade e espetáculo se misturam, valores e ideologias desmoronam, tudo se desencanta. Aquecimento do planeta, desastres climáticos, aumento do nível dos oceanos, fim das florestas, fome, corrupção em toda a parte, empobrecimento dos mais pobres, enriquecimento dos mais ricos, enfim, a lista é longa. A resposta, talvez, esteja em fugir das previsões de futuro e jogar no presente. Vivê-lo com delicadeza e investir nos pequenos prazeres. Fórmula excelente para enfrentarmos o apocalipse, como querem muitos. Ou o paraíso, como esperam outros.",
+      "texto_base_fonte": "Mary Del Priore, O Estado de S.Paulo, 03.01.2010. Adaptado.",
+      "enunciado": "A respeito do texto, pode-se concluir que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "para enfrentar as incertezas do futuro, os desequilíbrios provocados pelo clima e pela desigualdade entre pobres e ricos, a solução é dedicar-se aos momentos presentes de forma suave e prazerosa."
+        },
+        {
+          "letra": "B",
+          "texto": "ninguém conseguiu até hoje decifrar o futuro, no entanto, o século 21, ao mesmo tempo misterioso e complexo, acena com possibilidades de se reverter, pela primeira vez, essa situação."
+        },
+        {
+          "letra": "C",
+          "texto": "a descrença cada vez maior em previsões e em profecias que nunca se cumpriram é a garantia de que se pode delinear, com clareza, um futuro mais promissor e menos misterioso."
+        },
+        {
+          "letra": "D",
+          "texto": "o investimento nos pequenos prazeres do presente pode seduzir as pessoas, mas não se configura como uma fórmula ideal para o enfrentamento dos problemas que o mundo hoje apresenta."
+        },
+        {
+          "letra": "E",
+          "texto": "o progresso técnico, acompanhado do progresso moral, constitui-se numa síntese perfeita, capaz de solucionar os enigmas que sempre vêm rondando, em especial, os mistérios do século 21."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Qual a conclusão do texto? Letra A.\n\nO fim do §3: 'A resposta, talvez, esteja em fugir das previsões de futuro e jogar no presente. Vivê-lo com delicadeza e investir nos pequenos prazeres. Fórmula EXCELENTE para enfrentarmos o apocalipse'. 'Com delicadeza' = de forma suave; 'pequenos prazeres' = prazerosa. A lista de desequilíbrios (clima, empobrecimento dos pobres, enriquecimento dos ricos) também está no parágrafo.\n\nD é a pegadinha: diz que os pequenos prazeres NÃO são fórmula ideal, quando a autora os chama de 'fórmula excelente'.\n\nB e C contrariam 'Nunca o futuro foi tão misterioso quanto neste início de século 21'. E inventa uma síntese que o texto não faz.\n\nRepare no 'talvez' do texto: a A diz 'a solução é', mais assertiva que a autora. A Vunesp aceita essa pequena perda de nuance quando as outras alternativas contradizem o texto."
+    }
+  ]
+}

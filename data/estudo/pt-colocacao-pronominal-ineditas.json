@@ -1,0 +1,108 @@
+{
+  "_leia_me": "Questões INÉDITAS de Língua Portuguesa, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa de Língua Portuguesa de nível superior do edital CRECI-SP 01/2026 (Avança SP), com peso nos tópicos que o acervo de prova real tinha finos em 02/10 (análise sintática, colocação pronominal, figuras, redação oficial, regência). Base: norma-padrão da gramática tradicional e o Manual de Redação da Presidência da República, 3ª ed. (2018). Interpretação de texto e coesão ficaram de fora desta leva por já terem muitas questões reais.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Língua portuguesa — inéditas",
+    "trilha": "concurso",
+    "ordem": 6
+  },
+  "topico": {
+    "nome": "Colocação pronominal",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Colocação pronominal · nº 01",
+      "enunciado": "Assinale a alternativa em que a colocação do pronome oblíquo átono está de acordo com a norma-padrão.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Não informaram-me o novo prazo de entrega do sistema."
+        },
+        {
+          "letra": "B",
+          "texto": "Não me informaram o novo prazo de entrega do sistema."
+        },
+        {
+          "letra": "C",
+          "texto": "Me informaram ontem o novo prazo de entrega do sistema."
+        },
+        {
+          "letra": "D",
+          "texto": "Quem informou-me o prazo foi o coordenador do projeto."
+        },
+        {
+          "letra": "E",
+          "texto": "Espero que informem-me o novo prazo ainda hoje."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Colocação pronominal: letra B.\n\nPalavra NEGATIVA (não, nunca, ninguém, nada) atrai o pronome para antes do verbo: PRÓCLISE. 'Não me informaram.'\n\n| Frase errada | Por quê | Correção |\n|---|---|---|\n| Não informaram-me | 'não' atrai o pronome | Não me informaram |\n| Me informaram ontem | não se inicia período com pronome átono | Informaram-me ontem |\n| Quem informou-me | pronome interrogativo ou relativo atrai | Quem me informou |\n| Espero que informem-me | conjunção subordinativa ('que') atrai | Espero que me informem |\n\nFatores de próclise: palavras negativas, pronomes relativos, interrogativos e indefinidos, conjunções subordinativas, advérbios sem vírgula depois ('Aqui se trabalha').",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Colocação pronominal"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Colocação pronominal · nº 02",
+      "enunciado": "Considerando a norma-padrão, a forma correta de colocar o pronome “lhe” junto ao verbo “enviar” no futuro do presente, em início de oração e sem palavra atrativa, é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Enviaremos-lhe o relatório até sexta-feira."
+        },
+        {
+          "letra": "B",
+          "texto": "Lhe enviaremos o relatório até sexta-feira."
+        },
+        {
+          "letra": "C",
+          "texto": "Enviaremo-lhe o relatório até sexta-feira."
+        },
+        {
+          "letra": "D",
+          "texto": "Enviar-lhe-emos o relatório até sexta-feira."
+        },
+        {
+          "letra": "E",
+          "texto": "Enviar-emos-lhe o relatório até sexta-feira."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Futuro do presente, início de oração, sem atrativo: letra D, MESÓCLISE.\n\nCom verbo no futuro do presente ou no futuro do pretérito, a norma proíbe a ênclise. Sem palavra atrativa, o pronome entra NO MEIO do verbo, entre o infinitivo e a terminação:\n\nenviar + emos → enviar-lhe-emos\nfar + ia → far-se-ia\nentregar + ei → entregar-lhe-ei\n\nSe houver palavra atrativa, vira próclise: 'Não lhe enviaremos', 'Logo lhe enviaremos'.\n\n'Enviaremos-lhe' é ênclise ao futuro (proibida). 'Lhe enviaremos' inicia período com átono (proibido na norma, embora comum na fala).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Colocação pronominal"
+    },
+    {
+      "formato": "negativa",
+      "origem": "Inédita (sem banca) · Português Avança SP · Colocação pronominal · nº 03",
+      "enunciado": "Assinale a alternativa que apresenta colocação pronominal em DESACORDO com a norma-padrão.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Avise-me assim que o servidor voltar a funcionar."
+        },
+        {
+          "letra": "B",
+          "texto": "Os documentos tinham sido entregues-lhe pela manhã."
+        },
+        {
+          "letra": "C",
+          "texto": "Ninguém nos comunicou a mudança de horário."
+        },
+        {
+          "letra": "D",
+          "texto": "Os relatórios que lhe enviei estavam incompletos."
+        },
+        {
+          "letra": "E",
+          "texto": "Tudo se resolveu depois da atualização do sistema."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Colocação em DESACORDO: letra B.\n\nNunca se coloca pronome átono depois de PARTICÍPIO. Em locução com particípio, o pronome vai junto ao verbo auxiliar: 'Os documentos tinham-lhe sido entregues' ou 'lhe tinham sido entregues' (havendo atrativo).\n\nAs demais estão corretas:\n\n— 'Avise-me': ênclise no imperativo afirmativo, início de oração;\n\n— 'Ninguém nos comunicou': pronome indefinido negativo atrai;\n\n— 'que lhe enviei': pronome relativo atrai;\n\n— 'Tudo se resolveu': pronome indefinido 'tudo' atrai.\n\nRegras de 'nunca': nunca ênclise a particípio; nunca ênclise a futuro (use mesóclise); nunca pronome átono iniciando período.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Colocação pronominal"
+    }
+  ]
+}

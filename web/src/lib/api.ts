@@ -12,6 +12,15 @@
  */
 import type {
   Acao,
+  AtividadeCrm,
+  CamposCrm,
+  ContatoCrm,
+  EmpresaCrm,
+  NegocioCrm,
+  OpcoesCrm,
+  PainelCrm,
+  Registro,
+  TipoRegistro,
   Banca,
   CandidataVault,
   EstadoTranscricao,
@@ -22,6 +31,12 @@ import type {
   FiltroEmpresas,
   LeadDetalhe,
   EscreverResposta,
+  EstadoSimulado,
+  ReforcoDetalhe,
+  ReforcoResumo,
+  RespostaReforco,
+  ResultadoSimulado,
+  SimuladoDetalhe,
   LeadLinha,
   PaginaEmpresas,
   PainelBlog,
@@ -136,6 +151,36 @@ export const api = {
     }),
   sair: () => req<{ mensagem: string }>("/auth/logout", { method: "POST" }),
 
+  // ── simulado ──
+  simulado: () => req<EstadoSimulado>("/estudo/simulado"),
+  /** 409 enquanto houver reforço pendente: é a trava do ciclo. */
+  iniciarSimulado: () =>
+    req<SimuladoDetalhe>("/estudo/simulado", { method: "POST" }),
+  caderno: (id: string) => req<SimuladoDetalhe>(`/estudo/simulado/${id}`),
+  marcar: (id: string, ordem: number, resposta: string | null) =>
+    req<{ ordem: number; resposta: string | null; respondidas: number }>(
+      `/estudo/simulado/${id}/${ordem}`,
+      { method: "PUT", body: JSON.stringify({ resposta }) },
+    ),
+  entregar: (id: string) =>
+    req<ResultadoSimulado>(`/estudo/simulado/${id}/entregar`, {
+      method: "POST",
+    }),
+  resultado: (id: string) =>
+    req<ResultadoSimulado>(`/estudo/simulado/${id}/resultado`),
+  /** Dispara a escrita das 5 questões (leva minutos; volta na hora). */
+  gerarReforco: (id: string) =>
+    req<ReforcoResumo[]>(`/estudo/simulado/reforco/${id}/gerar`, { method: "POST" }),
+  gerarTodosReforcos: () =>
+    req<ReforcoResumo[]>("/estudo/simulado/reforcos/gerar", { method: "POST" }),
+  reforco: (id: string) =>
+    req<ReforcoDetalhe>(`/estudo/simulado/reforco/${id}`),
+  responderReforco: (id: string, ordem: number, resposta: string) =>
+    req<RespostaReforco>(`/estudo/simulado/reforco/${id}/${ordem}`, {
+      method: "POST",
+      body: JSON.stringify({ resposta }),
+    }),
+
   // ── estudo ──
   resumo: () => req<Resumo>("/estudo/resumo"),
   modulos: () => req<ModuloResumo[]>("/estudo/modulos"),
@@ -195,8 +240,8 @@ export const api = {
       `/estudo/modulos/${moduloId}/topicos`,
       { method: "POST", body: JSON.stringify(corpo) },
     ),
-  editarTopico: (id: string, campos: { nome?: string }) =>
-    req<{ id: string; modulo_id: string; nome: string; ordem: number }>(
+  editarTopico: (id: string, campos: { nome?: string; ativo?: boolean }) =>
+    req<{ id: string; modulo_id: string; nome: string; ordem: number; ativo: boolean }>(
       `/estudo/topicos/${id}`,
       { method: "PATCH", body: JSON.stringify(campos) },
     ),
@@ -296,6 +341,48 @@ export const api = {
     req<LeadDetalhe>(`/comercial/leads/${id}/enviei`, {
       method: "POST",
       body: JSON.stringify({ acao_id: acaoId }),
+    }),
+
+  // ── o cadastro do CRM: empresa, contato, negócio (o lead), atividade ──
+  crmOpcoes: () => req<OpcoesCrm>("/comercial/crm/opcoes"),
+  crmPainel: () => req<PainelCrm>("/comercial/crm/painel"),
+  crmEmpresas: (p: { busca?: string; status?: string } = {}) =>
+    req<{ total: number; itens: EmpresaCrm[] }>(
+      `/comercial/crm/empresas${qs(p)}`,
+    ),
+  crmContatos: (p: { busca?: string; empresa_id?: number } = {}) =>
+    req<{ total: number; itens: ContatoCrm[] }>(
+      `/comercial/crm/contatos${qs(p)}`,
+    ),
+  crmNegocios: (p: { busca?: string; empresa_id?: number } = {}) =>
+    req<NegocioCrm[]>(`/comercial/crm/negocios${qs(p)}`),
+  crmAtividades: (p: { situacao?: string; lead_id?: number } = {}) =>
+    req<AtividadeCrm[]>(`/comercial/crm/atividades${qs(p)}`),
+  crmRegistro: (tipo: TipoRegistro, id: number) =>
+    req<Registro>(`/comercial/crm/${tipo}/${id}`),
+  crmCriar: (tipo: TipoRegistro, campos: CamposCrm) =>
+    req<{ id: number }>(`/comercial/crm/${tipo}`, {
+      method: "POST",
+      body: JSON.stringify({ campos }),
+    }),
+  /** Parcial: só os campos que vão no corpo são gravados. */
+  crmEditar: (tipo: TipoRegistro, id: number, campos: CamposCrm) =>
+    req<Registro>(`/comercial/crm/${tipo}/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify({ campos }),
+    }),
+  crmExcluir: (tipo: TipoRegistro, id: number) =>
+    req<void>(`/comercial/crm/${tipo}/${id}`, { method: "DELETE" }),
+  /** Estágio só anda pela regra: transição proibida volta 409 com o motivo. */
+  crmMover: (id: number, para: string, motivo?: string) =>
+    req<Registro>(`/comercial/crm/negocio/${id}/mover`, {
+      method: "POST",
+      body: JSON.stringify({ para, motivo: motivo || null }),
+    }),
+  crmRegistrar: (id: number, texto: string, canal = "nota", direcao?: string) =>
+    req<Registro>(`/comercial/crm/negocio/${id}/registrar`, {
+      method: "POST",
+      body: JSON.stringify({ texto, canal, direcao: direcao ?? null }),
     }),
 
   // ── quadro de pendências ──

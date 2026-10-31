@@ -44,8 +44,57 @@ services:
       timeout: 3s
       retries: 10
 
+  # A caixa de entrada do bot comercial (`docs/bot-comercial/07`, passo 1).
+  # Só sobe de propósito:  python scripts/comercial/chatwoot.py subir
+  #
+  # CE e não `latest`: a `latest` traz a pasta `enterprise/`, que só vai para
+  # produção com assinatura (P27). `network_mode: host` e `-b 127.0.0.1`: o
+  # Chatwoot chama o webhook do Copiloto em 127.0.0.1:8010 e nada fica
+  # exposto. Banco `chatwoot` no Postgres daqui e Redis daqui no db 2.
+  chatwoot-rails: &chatwoot
+    image: chatwoot/chatwoot:v4.18.0-ce
+    container_name: copiloto-chatwoot
+    profiles: ["chatwoot"]
+    restart: unless-stopped
+    network_mode: host
+    depends_on: [db, redis]
+    environment: &chatwoot-env
+      RAILS_ENV: production
+      NODE_ENV: production
+      INSTALLATION_ENV: docker
+      SECRET_KEY_BASE: ${CHATWOOT_SECRET_KEY_BASE:-}
+      FRONTEND_URL: http://127.0.0.1:3100
+      DEFAULT_LOCALE: pt_BR
+      ENABLE_ACCOUNT_SIGNUP: "false"
+      POSTGRES_HOST: 127.0.0.1
+      POSTGRES_PORT: "5434"
+      POSTGRES_USERNAME: copiloto
+      POSTGRES_PASSWORD: copiloto_dev
+      POSTGRES_DATABASE: chatwoot
+      REDIS_URL: redis://127.0.0.1:6380/2
+      RAILS_LOG_TO_STDOUT: "true"
+      LOG_LEVEL: warn
+      ACTIVE_STORAGE_SERVICE: local
+      # O webhook do bot é endereço privado (127.0.0.1); sem isto o Chatwoot
+      # recusa chamá-lo (proteção contra SSRF, P27 achado 3).
+      SAFE_FETCH_ALLOW_PRIVATE_NETWORK: "true"
+      # Nada de telemetria nem "novidades" para a Chatwoot (P27 achado 4).
+      DISABLE_TELEMETRY: "true"
+    volumes:
+      - copiloto_chatwoot_storage:/app/storage
+    entrypoint: docker/entrypoints/rails.sh
+    command: ["bundle", "exec", "rails", "s", "-p", "3100", "-b", "127.0.0.1"]
+
+  chatwoot-sidekiq:
+    <<: *chatwoot
+    container_name: copiloto-chatwoot-sidekiq
+    entrypoint: []
+    command: ["bundle", "exec", "sidekiq", "-C", "config/sidekiq.yml"]
+
 volumes:
   copiloto_db_data:
     name: copiloto_db_data
   copiloto_redis_data:
     name: copiloto_redis_data
+  copiloto_chatwoot_storage:
+    name: copiloto_chatwoot_storage

@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 9 questões de verbo: tempo, modo e voz que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Classes de palavras — o verbo”.\n\nO verbo é uma das classes de palavras do edital, e ficou num tópico próprio porque é onde a banca mais aprofunda: tempo e modo (mais-que-perfeito, futuro do subjuntivo de prever e intervir), voz passiva e conjugação de irregulares.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (1), Câmara de Taboão da Serra 2022 (1), Prefeitura de Caçapava 2024 (2), Prefeitura de Itatiba 2024 (1), Prefeitura de Rio Claro 2026 (2), Prefeitura de Rio Grande da Serra 2024 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n5 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 9 questões de verbo: tempo, modo e voz que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Classes de palavras — o verbo”.\n\nO verbo é uma das classes de palavras do edital, e ficou num tópico próprio porque é onde a banca mais aprofunda: tempo e modo (mais-que-perfeito, futuro do subjuntivo de prever e intervir), voz passiva e conjugação de irregulares.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (1), Câmara de Taboão da Serra 2022 (1), Prefeitura de Caçapava 2024 (2), Prefeitura de Itatiba 2024 (1), Prefeitura de Rio Claro 2026 (2), Prefeitura de Rio Grande da Serra 2024 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n5 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Língua portuguesa",
     "trilha": "concurso",
-    "ordem": 2
+    "ordem": 5
   },
   "topico": {
     "nome": "Verbo: tempo, modo e voz",
@@ -283,6 +283,37 @@
           "texto": "“(...) desde que a doença deixara de ser assunto.”."
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 10",
+      "assunto": "Vozes verbais",
+      "enunciado": "Observe as alternativas abaixo e assinale aquela que NÃO contém um verbo pronominal.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O jornaleiro penteou-se e preparou-se para mais um dia de trabalho."
+        },
+        {
+          "letra": "B",
+          "texto": "As nações envolvidas atinham-se aos fatos mais recentes."
+        },
+        {
+          "letra": "C",
+          "texto": "O odor do perfume espalhou-se pelo corredor."
+        },
+        {
+          "letra": "D",
+          "texto": "Os empreendimentos foram realocados no novo centro comercial, onde construiu-se um prédio mais moderno que o anterior."
+        },
+        {
+          "letra": "E",
+          "texto": "As artistas terminaram sua performance e se sentaram à beira do picadeiro."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "'Construiu-se um prédio' = um prédio foi construído: voz passiva sintética. Letra D.\n\nO 'se' ali é partícula apassivadora, não parte de verbo pronominal.\n\nTeste da passiva: troque por 'foi + particípio'. 'Construiu-se um prédio' → 'um prédio foi construído' (funciona). 'Sentaram-se' → 'foram sentadas'? (muda o sentido) → pronominal.\n\nBônus de norma: 'onde construiu-se' deveria ser 'onde se construiu' — 'onde' atrai o pronome. A banca não cobrou isso aqui."
     }
   ]
 }

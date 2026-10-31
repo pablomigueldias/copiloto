@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Leitura de gráfico e de tabela, CESGRANRIO: BNDES 2024 questões 10 e 11 (bloco 'Conhecimentos Transversais', que no edital do Avança SP corresponde a 'Relação entre grandezas: tabelas e gráficos'). O gráfico da questão 10 foi recortado do PDF, página 4, para data/estudo/imagens/cesgranrio/. A tabela da questão 11 foi transcrita em Markdown no enunciado. As outras questões do bloco transversal (coeficiente de variação, tipos de variável, políticas públicas) ficaram de fora: não estão no edital. Procedência: cadernos e gabaritos em docs/avanca-sp/outras-bancas/ (ver o README de lá). BNDES 2024 = Seleção Pública 01/2024, provas de 13/10/2024, Prova 3 (Análise de Sistemas – Desenvolvimento) e Prova 4 (Suporte); o bloco básico (1 a 35) é o MESMO nos dois cadernos e entrou uma vez só, pelo de Desenvolvimento. UNEMAT 2024 = Edital 01/2023, provas de 03/03/2024, Prova 3 (Técnico Universitário – Analista de Sistemas). Gabarito lido no PDF da própria banca, no bloco do cargo; nenhum dos dois PDFs diz se é preliminar ou definitivo. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "CESGRANRIO",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Grandezas, tabelas e gráficos",
+    "ordem": 13
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 10",
+      "imagem": "cesgranrio/bndes-2024-contribuicoes-pib-global.png",
+      "imagem_alt": "Gráfico de barras empilhadas 'Contribuições para o crescimento anual do PIB global, 1970-2020 (em pontos percentuais)', eixo vertical de 0 a 5, uma barra por década (1970, 1980, 1990, 2000, 2010). De baixo para cima, cada barra empilha China (cinza claro), Índia (preto), EUA + UE (cinza escuro) e Resto do Mundo (branco). Limites aproximados dos pedaços: 1970 — China até 0,2, EUA+UE até 2,2, Resto até 4,2; 1980 — China até 0,4, Índia até 0,6, EUA+UE até 2,1, Resto até 3,9; 1990 — China até 1,0, Índia até 1,2, EUA+UE até 3,2, Resto até 4,7; 2000 — China até 1,5, Índia até 1,7, EUA+UE até 3,5, Resto até 4,3; 2010 — China até 1,5, Índia até 1,7, EUA+UE até 2,7, Resto até 3,5.",
+      "enunciado": "Considere o gráfico sobre as contribuições para o crescimento da economia mundial de China, Índia, Estados Unidos e União Europeia (EUA + UE) e do resto do mundo.\n\nA análise comparativa das informações contidas no gráfico conduz à seguinte conclusão:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o crescimento econômico da União Europeia foi o que mais contribuiu para o crescimento econômico mundial na década de 1970."
+        },
+        {
+          "letra": "B",
+          "texto": "a contribuição do crescimento econômico da China e da Índia cresceu, na mesma proporção, em termos de suas contribuições para o crescimento econômico mundial a partir da década de 1990."
+        },
+        {
+          "letra": "C",
+          "texto": "a contribuição do crescimento econômico dos Estados Unidos e da União Europeia para o crescimento econômico mundial aumentou em 2010."
+        },
+        {
+          "letra": "D",
+          "texto": "o resto do mundo ganhou participação em termos de suas contribuições para o crescimento econômico mundial nos anos 2000."
+        },
+        {
+          "letra": "E",
+          "texto": "a contribuição do crescimento econômico da China para o crescimento econômico mundial foi maior do que a contribuição do resto do mundo nos anos de 2010."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Barras empilhadas: a contribuição de cada região é a ALTURA DO SEU PEDAÇO, não a altura onde o pedaço termina. Letra E.\n\nLendo cada pedaço (topo menos base, valores aproximados):\n\n| Década | China | Índia | EUA + UE | Resto do mundo | Total |\n|---|---|---|---|---|---|\n| 1970 | 0,2 | ~0 | 2,0 | 2,0 | 4,2 |\n| 1980 | 0,4 | 0,2 | 1,5 | 1,8 | 3,9 |\n| 1990 | 1,0 | 0,2 | 2,0 | 1,5 | 4,7 |\n| 2000 | 1,5 | 0,2 | 1,8 | 0,8 | 4,3 |\n| 2010 | 1,5 | 0,2 | 1,0 | 0,8 | 3,5 |\n\nE — em 2010, China 1,5 contra resto do mundo 0,8 (de 2,7 a 3,5). Certa.\n\nA — o gráfico junta EUA + UE numa barra só; não dá para isolar a UE. E em 1970 o bloco empata com o resto do mundo.\n\nB — a China salta de 0,4 para 1,0 e depois 1,5; a Índia fica parada em ~0,2. Nada de 'mesma proporção'.\n\nC — EUA + UE CAIU em 2010 (de 1,8 para 1,0).\n\nD — o resto do mundo caiu nos anos 2000 (de 1,5 para 0,8).\n\nA pegadinha da E: o pedaço branco do resto do mundo termina em 3,5, bem acima do topo da China (1,5). Quem compara o TOPO dos pedaços erra; tem que medir a espessura."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 11",
+      "enunciado": "Considere as informações da Tabela a seguir sobre a taxa de desemprego de mulheres, a taxa de participação de mulheres no mercado de trabalho e a razão entre o salário médio feminino e o masculino.\n\n| Variável | 2003 | 2004 | 2005 | 2006 | 2007 | 2008 | 2009 | 2011 | 2012 |\n|---|---|---|---|---|---|---|---|---|---|\n| Taxa de desemprego (em p.p.) | 4,5 | 4,9 | 5,1 | 4,6 | 4,7 | 4,4 | 4,9 | 4,2 | 3,6 |\n| Taxa de participação (em p.p.) | 22,2 | 21,6 | 20,7 | 20,3 | 20,1 | 20,2 | 19,6 | 20,7 | 40,1 |\n| Razão entre o salário médio feminino e o masculino | 0,63 | 0,63 | 0,64 | 0,65 | 0,66 | 0,66 | 0,67 | 0,7 | 0,7 |\n\nDe acordo com a leitura dos dados da Tabela, é possível concluir que:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o salário dos homens aumentou, em relação ao salário das mulheres, entre 2003 e 2012."
+        },
+        {
+          "letra": "B",
+          "texto": "o salário dos homens em 2012 representa 70% do salário das mulheres."
+        },
+        {
+          "letra": "C",
+          "texto": "o salário dos homens aumentou, em relação ao salário das mulheres, entre 2004 e 2007."
+        },
+        {
+          "letra": "D",
+          "texto": "a taxa de participação das mulheres no mercado de trabalho aumentou entre 2003 e 2009."
+        },
+        {
+          "letra": "E",
+          "texto": "a taxa de participação das mulheres no mercado de trabalho, no ano de 2012, pode ser considerada um outlier."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "O que a tabela permite concluir? Letra E.\n\nA taxa de participação fica entre 19,6 e 22,2 de 2003 a 2011 e salta para 40,1 em 2012 — quase o dobro, sem nada que prepare o salto. Valor que destoa muito do padrão do resto da série é um outlier (valor atípico).\n\nA razão é SALÁRIO FEMININO ÷ SALÁRIO MASCULINO. Ela subiu de 0,63 para 0,7: as mulheres passaram a ganhar proporcionalmente mais. Isso derruba A e C, que dizem que o salário dos homens subiu em relação ao das mulheres (seria a razão caindo).\n\nB — inverte a razão: em 2012 o salário das MULHERES é 70% do dos homens.\n\nD — a participação caiu de 22,2 para 19,6 entre 2003 e 2009.\n\nAtalho: em razão A/B, escreva a fração antes de ler as alternativas. 'Feminino sobre masculino = 0,7' — e a B troca numerador por denominador."
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "_leia_me": "Questões INÉDITAS de Língua Portuguesa, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa de Língua Portuguesa de nível superior do edital CRECI-SP 01/2026 (Avança SP), com peso nos tópicos que o acervo de prova real tinha finos em 02/10 (análise sintática, colocação pronominal, figuras, redação oficial, regência). Base: norma-padrão da gramática tradicional e o Manual de Redação da Presidência da República, 3ª ed. (2018). Interpretação de texto e coesão ficaram de fora desta leva por já terem muitas questões reais.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Língua portuguesa — inéditas",
+    "trilha": "concurso",
+    "ordem": 6
+  },
+  "topico": {
+    "nome": "Análise sintática",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Análise sintática · nº 01",
+      "enunciado": "Na oração “Faltaram dois candidatos à prova de ontem.”, o sujeito é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "oculto, identificável pela desinência do verbo."
+        },
+        {
+          "letra": "B",
+          "texto": "indeterminado, pois não se sabe quem faltou."
+        },
+        {
+          "letra": "C",
+          "texto": "“dois candidatos”, sujeito simples posposto ao verbo."
+        },
+        {
+          "letra": "D",
+          "texto": "inexistente, pois o verbo faltar é impessoal."
+        },
+        {
+          "letra": "E",
+          "texto": "“à prova de ontem”, por indicar o que faltou."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Quem faltou? Letra C: “dois candidatos”.\n\nPara achar o sujeito, pergunte ao verbo 'o que / quem faltou?' → dois candidatos. Ele vem DEPOIS do verbo (posposto), e o verbo concorda com ele no plural: faltaram.\n\nTeste da concordância: troque por singular — 'Faltou um candidato à prova'. O verbo acompanhou, então é o sujeito.\n\nFaltar NÃO é impessoal (impessoais são haver no sentido de existir, fazer e haver indicando tempo, verbos de fenômeno da natureza). “À prova de ontem” é complemento (adjunto adverbial / objeto indireto, conforme a análise), nunca sujeito, porque vem com preposição.\n\nAtalho: sujeito não começa com preposição.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Análise sintática"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Análise sintática · nº 02",
+      "enunciado": "Assinale a alternativa em que há oração sem sujeito.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Havia muitos processos acumulados na mesa do analista."
+        },
+        {
+          "letra": "B",
+          "texto": "Existiam muitos processos acumulados na mesa do analista."
+        },
+        {
+          "letra": "C",
+          "texto": "Os servidores chegaram cedo à repartição."
+        },
+        {
+          "letra": "D",
+          "texto": "Aconteceram falhas graves no sistema durante a migração."
+        },
+        {
+          "letra": "E",
+          "texto": "Precisa-se de técnicos com experiência em banco de dados."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Oração sem sujeito: letra A.\n\nHaver no sentido de EXISTIR é impessoal: não tem sujeito e fica na 3ª pessoa do singular. 'Muitos processos' é objeto direto. Por isso o certo é 'havia muitos processos', nunca 'haviam'.\n\n| Frase | Sujeito |\n|---|---|\n| Existiam muitos processos | muitos processos (existir TEM sujeito e concorda) |\n| Os servidores chegaram | os servidores |\n| Aconteceram falhas graves | falhas graves (posposto) |\n| Precisa-se de técnicos | INDETERMINADO (verbo + preposição + se) — existe sujeito, só não é identificado |\n\nPrincipais orações sem sujeito: haver = existir ou indicando tempo ('há dois anos'); fazer indicando tempo ou clima ('faz frio', 'faz três meses'); fenômenos da natureza (chover, ventar, anoitecer).\n\nSujeito indeterminado ≠ oração sem sujeito: é a pegadinha da última alternativa.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Análise sintática"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Análise sintática · nº 03",
+      "enunciado": "No período “A obediência às normas de segurança é obrigatória para todos os servidores.”, o termo “às normas de segurança” exerce a função sintática de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "objeto indireto."
+        },
+        {
+          "letra": "B",
+          "texto": "adjunto adnominal."
+        },
+        {
+          "letra": "C",
+          "texto": "agente da passiva."
+        },
+        {
+          "letra": "D",
+          "texto": "adjunto adverbial."
+        },
+        {
+          "letra": "E",
+          "texto": "complemento nominal."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 3,
+      "explicacao": "“Às normas de segurança” completando “obediência”: letra E, complemento nominal.\n\nO termo completa um SUBSTANTIVO (obediência), e não um verbo. Complemento de nome = complemento nominal.\n\nCompare:\n\n— 'Os servidores OBEDECEM às normas' → completa VERBO → objeto indireto;\n\n— 'A OBEDIÊNCIA às normas' → completa NOME → complemento nominal.\n\nComplemento nominal × adjunto adnominal (a dúvida mais cobrada): com substantivo abstrato, o complemento nominal tem sentido PASSIVO (as normas SÃO obedecidas); o adjunto adnominal tem sentido ATIVO ou de posse ('a obediência DOS SERVIDORES' — os servidores obedecem → adjunto adnominal).\n\nAtalho: o termo preposicionado ligado a adjetivo ou advérbio é sempre complemento nominal ('útil AO PROJETO', 'favoravelmente À PROPOSTA').",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Análise sintática"
+    }
+  ]
+}

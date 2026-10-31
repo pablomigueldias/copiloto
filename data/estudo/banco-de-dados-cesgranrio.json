@@ -1,0 +1,435 @@
+{
+  "_leia_me": "Banco de dados, CESGRANRIO — o bloco que mais fecha lacunas do edital de BD do Avança SP listadas em docs/avanca-sp/provas-para-buscar.md: transação e ACID (q62), nível de isolamento (q69), chave candidata × primária (q61), CHECK e restrições de integridade (q70), especialização no DER (q68), índice clusterizado × não clusterizado no SQL Server (Suporte q68 e UNEMAT q52), disaster recovery (q53), tipos de SGBD NoSQL (Suporte q66 e q70) e modelagem dimensional (q64 e q65). De onde vêm: BNDES 2024 Desenvolvimento (questões 53, 61 a 65, 68 a 70), BNDES 2024 Suporte (66, 68, 70) e UNEMAT 2024 (52 e 55). FICARAM DE FORA: data lake (BNDES Dev 66 e Suporte 67), qualidade de dados (Dev 67) e ETL (Suporte 69) — fora do edital. E a UNEMAT 53 (procedures × gatilhos): o gabarito oficial é D, 'os procedimentos armazenados são adequados para automatizar a execução de ações em resposta a eventos específicos', que é a definição de GATILHO; cadastrá-la ensinaria o conceito ao contrário. A UNEMAT 52 entrou, mas a explicação registra que a alternativa A também é defensável. Procedência: cadernos e gabaritos em docs/avanca-sp/outras-bancas/ (ver o README de lá). BNDES 2024 = Seleção Pública 01/2024, provas de 13/10/2024, Prova 3 (Análise de Sistemas – Desenvolvimento) e Prova 4 (Suporte); o bloco básico (1 a 35) é o MESMO nos dois cadernos e entrou uma vez só, pelo de Desenvolvimento. UNEMAT 2024 = Edital 01/2023, provas de 03/03/2024, Prova 3 (Técnico Universitário – Analista de Sistemas). Gabarito lido no PDF da própria banca, no bloco do cargo; nenhum dos dois PDFs diz se é preliminar ou definitivo. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "CESGRANRIO",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Banco de dados",
+    "ordem": 5
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 61",
+      "enunciado": "Considere que uma tabela, definida segundo o modelo relacional de dados, possui dados de pessoas físicas (chave primária: CPF).\n\nPESSOA (CPF, nome, data-nascimento, email)\n\nO atributo RG (número do Registro Geral, principal documento de identificação de pessoas físicas no Brasil) precisa ser adicionado a essa tabela.\n\nDiante disso, uma vez adicionado o atributo RG, verifica-se que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a chave primária da tabela passa a ser composta por CPF e RG."
+        },
+        {
+          "letra": "B",
+          "texto": "a tabela passará a ter duas chaves primárias."
+        },
+        {
+          "letra": "C",
+          "texto": "o atributo CPF continuará a ser a chave primária."
+        },
+        {
+          "letra": "D",
+          "texto": "o atributo RG precisa ser necessariamente definido como chave estrangeira."
+        },
+        {
+          "letra": "E",
+          "texto": "os domínios dos atributos CPF e RG precisam ser compatibilizados."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Entrou o RG na tabela PESSOA, cuja chave é o CPF. O que muda na chave? Nada — letra C.\n\nA hierarquia das chaves:\n\n| Termo | O que é |\n|---|---|\n| superchave | qualquer conjunto de atributos que identifica a linha (CPF; CPF+nome; CPF+RG...) |\n| chave candidata | superchave MÍNIMA — não dá para tirar atributo nenhum |\n| chave primária | UMA candidata escolhida pelo projetista |\n| chave alternativa | as candidatas que não foram escolhidas (viram UNIQUE) |\n\nO RG pode ser, no máximo, outra chave candidata. A primária já foi escolhida e continua sendo o CPF.\n\nA — CPF + RG é superchave, mas não mínima: o CPF sozinho já identifica.\n\nB — toda tabela tem UMA chave primária (que pode ser composta, mas é uma só).\n\nD — chave estrangeira é referência a OUTRA tabela; o RG aqui é atributo próprio.\n\nE — compatibilidade de domínio só se exige entre FK e a PK que ela referencia.\n\nAtalho: adicionar coluna não mexe na chave primária. Só se mexe nela de propósito."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 62",
+      "enunciado": "Para um Sistema Gerenciador de Banco de Dados (SGBD), uma transação é um recurso que possui múltiplas finalidades no momento da execução de um conjunto de comandos (por exemplo, em SQL) pelo SGBD.\n\nDentre essas finalidades, verifica-se que uma transação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "realiza a transferência de recursos de uma conta SQL para outra."
+        },
+        {
+          "letra": "B",
+          "texto": "permite agrupar vários comandos SQL de modo que ou todos são executados ou nenhum deles é executado."
+        },
+        {
+          "letra": "C",
+          "texto": "coordena a troca de prioridades entre uma transação principal e outra secundária."
+        },
+        {
+          "letra": "D",
+          "texto": "combina vários comandos SELECT da SQL em apenas um antes da sua execução."
+        },
+        {
+          "letra": "E",
+          "texto": "atesta que nenhum dos comandos SQL informados foi executado anteriormente, no mesmo dia."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Para que serve uma transação? Letra B — é a ATOMICIDADE, o 'A' de ACID.\n\n| Propriedade | Garante que | Quem cuida |\n|---|---|---|\n| Atomicidade | tudo ou nada: ou todos os comandos valem, ou nenhum | log + ROLLBACK |\n| Consistência | a transação leva o banco de um estado válido a outro válido (restrições respeitadas) | constraints + aplicação |\n| Isolamento | transações concorrentes não enxergam o trabalho pela metade uma da outra | locks / MVCC, nível de isolamento |\n| Durabilidade | depois do COMMIT, o dado sobrevive a queda de energia | log gravado em disco |\n\nExemplo clássico: transferência bancária = UPDATE que debita + UPDATE que credita. Se cair entre os dois, o ROLLBACK desfaz o débito.\n\nBEGIN TRANSACTION;\n  UPDATE conta SET saldo = saldo - 100 WHERE id = 1;\n  UPDATE conta SET saldo = saldo + 100 WHERE id = 2;\nCOMMIT;   -- ou ROLLBACK se algo falhar\n\nA é a pegadinha: usa o EXEMPLO da transferência como se fosse a definição. As demais não existem."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 63",
+      "enunciado": "O Diagrama de Entidades e Relacionamentos (DER) é uma ferramenta bastante conhecida e útil para a modelagem conceitual dos dados que um determinado sistema de informação deve tratar.\n\nEm particular, os relacionamentos, representados por meio de losangos no DER, são utilizados para indicar que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "atributos de uma entidade têm uma relação mais forte entre si."
+        },
+        {
+          "letra": "B",
+          "texto": "atributos devem ser usados para identificar uma instância de uma entidade."
+        },
+        {
+          "letra": "C",
+          "texto": "dois, e apenas dois, relacionamentos estão relacionados entre si."
+        },
+        {
+          "letra": "D",
+          "texto": "duas ou mais entidades estão relacionadas entre si."
+        },
+        {
+          "letra": "E",
+          "texto": "entidades compartilham os mesmos atributos identificadores."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "O losango do DER indica o quê? Letra D: uma associação entre DUAS OU MAIS entidades.\n\n| Símbolo (notação de Chen) | Significa |\n|---|---|\n| retângulo | entidade |\n| retângulo duplo | entidade fraca |\n| losango | relacionamento |\n| losango duplo | relacionamento identificador (da entidade fraca) |\n| elipse | atributo |\n| elipse com nome sublinhado | atributo identificador |\n| elipse dupla | atributo multivalorado |\n\n'Duas ou mais' porque existe relacionamento ternário (três entidades) — e até o autorrelacionamento, em que uma entidade se liga a ela mesma em papéis diferentes.\n\nC troca 'entidades' por 'relacionamentos' e ainda limita a dois. B descreve o atributo identificador (elipse sublinhada)."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 64",
+      "enunciado": "Considere que um dos estados do Brasil resolveu executar obras de infraestrutura em um de seus principais rios. Esse rio percorre um trajeto desde a serra até o mar, passando por 15 municípios desse estado. Todo o percurso do rio foi segmentado em trechos que recebem as obras. Cada trecho pode ter uma ou mais obras, uma obra é realizada em apenas um trecho e em apenas um município. As obras em questão podem demorar de seis meses a dois anos. Mensalmente, todas as obras são avaliadas quanto ao seu valor executado (no mês) comparado ao respectivo valor orçado (para despesas no mesmo mês). Foram criadas quatro tabelas segundo o modelo relacional de dados (o primeiro atributo de cada tabela é a chave primária; as chaves estrangeiras estão indicadas pelo sinal @ no início do nome do atributo):\n\nOBRA (ID-obra, @município, @trecho, @mês, valor-orçado, valor-executado)\nMUNICÍPIO (ID-município, nome, quantidade-habitantes, IDH)\nTRECHO (ID-trecho, extensão-em-km)\nTEMPO (ID-mês, mês-calendário, ano-calendário)\n\nConsidere ainda os domínios de alguns atributos:\n\nMUNICÍPIO.quantidade-habitantes [1.000,10.000.000]\nTRECHO.extensão-em-km [10,1.000]\nTEMPO.mês-calendário [1,12]\n\nPor fim, considere as seguintes dependências funcionais (em que a notação A → B indica que A determina B):\n\nID-município → quantidade-habitantes\nnome → IDH\n\nO modelo de dados apresentado com quatro tabelas, que implementa um modelo dimensional,",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "está incorreto pois OBRA.mês deveria apontar para TEMPO.mês-calendário."
+        },
+        {
+          "letra": "B",
+          "texto": "não permite o drill down por município para os valores executado e orçado."
+        },
+        {
+          "letra": "C",
+          "texto": "possui a tabela TRECHO que representa uma dimensão não aditiva."
+        },
+        {
+          "letra": "D",
+          "texto": "possui uma tabela fato (OBRA)."
+        },
+        {
+          "letra": "E",
+          "texto": "é do tipo floco de neve."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 3,
+      "explicacao": "Quatro tabelas, modelo dimensional: qual afirmação vale? Letra D.\n\nNo modelo dimensional há dois papéis:\n\n| Tabela | Papel | Por quê |\n|---|---|---|\n| OBRA | FATO | tem as MEDIDAS numéricas (valor-orçado, valor-executado) e uma FK para cada dimensão |\n| MUNICÍPIO, TRECHO, TEMPO | DIMENSÕES | descrevem o contexto (onde, em que trecho, quando) |\n\nE — é ESTRELA, não floco de neve: as três dimensões ligam direto na fato e nenhuma delas se desdobra em subdimensão. Floco de neve seria, por exemplo, MUNICÍPIO apontando para uma tabela UF.\n\nA — chave estrangeira aponta para a CHAVE PRIMÁRIA da outra tabela (ID-mês), nunca para um atributo comum como mês-calendário.\n\nB — a FK @município na fato é justamente o que permite abrir (drill down) os valores por município.\n\nC — 'aditiva' é propriedade de MEDIDA (fato), não de dimensão. Não existe 'dimensão não aditiva'.\n\nOs domínios e as dependências funcionais do enunciado são distração: nenhuma alternativa depende deles."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 65",
+      "enunciado": "Um dos indicadores mais utilizados para avaliação de políticas públicas em municípios brasileiros na área da saúde é a taxa de mortalidade infantil. Para essas políticas, também é importante acompanhar a quantidade de leitos hospitalares disponíveis. Considere três tabelas que representam um modelo dimensional (o primeiro atributo de cada tabela é a chave primária; as chaves estrangeiras estão indicadas pelo sinal @):\n\nMUNICÍPIO (ID-município, @UF, @mês, taxa-mortalidade-infantil, qtd-leitos)\nTEMPO (ID-mês, mês-calendário, ano-calendário)\nESTADO (sigla, nome, região)\n\nEsse modelo dimensional permite apresentar de um estado da federação, em um dos meses cadastrados, a",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "divisão da quantidade de leitos pela taxa de mortalidade infantil."
+        },
+        {
+          "letra": "B",
+          "texto": "divisão da taxa de mortalidade infantil pela quantidade de leitos."
+        },
+        {
+          "letra": "C",
+          "texto": "média da taxa de mortalidade infantil."
+        },
+        {
+          "letra": "D",
+          "texto": "soma da taxa de mortalidade infantil."
+        },
+        {
+          "letra": "E",
+          "texto": "soma da quantidade de leitos."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 3,
+      "explicacao": "Juntar todos os municípios de um estado num mês: qual número faz sentido? Letra E.\n\nA fato é MUNICÍPIO, com duas medidas de natureza diferente:\n\n| Medida | Tipo | Somar municípios dá o estado? |\n|---|---|---|\n| qtd-leitos | ADITIVA (contagem) | sim: leitos do estado = soma dos leitos dos municípios |\n| taxa-mortalidade-infantil | NÃO ADITIVA (razão: óbitos ÷ nascidos vivos × 1000) | não |\n\nD (soma da taxa) não tem significado: somar taxas de 645 municípios dá um número sem unidade.\n\nC (média da taxa) parece certa e é a pegadinha: média simples trata igual um município de 2 mil e um de 2 milhões de habitantes. A taxa do estado exigiria a soma dos óbitos e a soma dos nascidos vivos — e o modelo não guarda nenhum dos dois.\n\nA e B misturam as duas medidas numa divisão que não mede nada.\n\nAtalho: contagem e valor monetário somam; taxa, percentual e média NÃO somam e também não se tiram por média simples."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 68",
+      "enunciado": "Considere um modelo conceitual representado por meio de um Diagrama de Entidades e Relacionamentos (DER) em que há uma entidade denominada PRÉDIO. Nesse contexto, um prédio pode ser de uso exclusivamente residencial, exclusivamente comercial, de uso misto (residencial e comercial), e apenas isso. No DER, a entidade PRÉDIO foi corretamente especializada em duas outras: RESIDENCIAL e COMERCIAL.\n\nSendo assim, nesse DER, as duas especializações são",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "totais e sobrepostas"
+        },
+        {
+          "letra": "B",
+          "texto": "totais e parciais"
+        },
+        {
+          "letra": "C",
+          "texto": "totais e disjuntas"
+        },
+        {
+          "letra": "D",
+          "texto": "parciais e sobrepostas"
+        },
+        {
+          "letra": "E",
+          "texto": "parciais e disjuntas"
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "PRÉDIO especializado em RESIDENCIAL e COMERCIAL, com prédio misto possível. Letra A.\n\nA especialização se classifica em dois eixos independentes:\n\n| Eixo | Opção | Pergunta |\n|---|---|---|\n| participação | TOTAL | todo prédio cai em pelo menos uma subclasse? |\n| participação | parcial | pode existir prédio que não é nenhuma delas? |\n| sobreposição | disjunta (exclusiva) | um prédio só pode estar em UMA subclasse? |\n| sobreposição | SOBREPOSTA (compartilhada) | um prédio pode estar nas DUAS? |\n\n'E apenas isso' → não existe prédio que não seja residencial nem comercial → TOTAL.\n\n'Uso misto (residencial e comercial)' → o mesmo prédio está nas duas → SOBREPOSTA.\n\nB é a pegadinha estrutural: 'totais e parciais' mistura as duas opções do MESMO eixo — não pode ser as duas coisas ao mesmo tempo.\n\nAtalho: 'apenas isso / somente' → total. 'Pode ser os dois' → sobreposta."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 69",
+      "enunciado": "No contexto de um Sistema Gerenciador de Banco de Dados (SGBD), é possível definir o nível de isolamento de uma transação por meio do comando SET TRANSACTION ISOLATION LEVEL. Há vários níveis de isolamento possíveis.\n\nEntre tais níveis encontra-se o SERIALIZABLE, que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "configura o SGBD para modo de leitura de todas as suas tabelas."
+        },
+        {
+          "letra": "B",
+          "texto": "define que apenas uma transação será executada por vez pelo SGBD."
+        },
+        {
+          "letra": "C",
+          "texto": "garante o mais alto nível possível de isolamento de uma transação."
+        },
+        {
+          "letra": "D",
+          "texto": "permite a serialização de objetos JSON em uma transação."
+        },
+        {
+          "letra": "E",
+          "texto": "prepara uma transação W para enviar dados a outra transação Y."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "O que é o SERIALIZABLE? Letra C: o nível mais alto de isolamento do padrão SQL.\n\nOs quatro níveis, do mais fraco ao mais forte, e as anomalias que cada um ainda deixa passar:\n\n| Nível | Leitura suja | Leitura não repetível | Fantasma |\n|---|---|---|---|\n| READ UNCOMMITTED | pode | pode | pode |\n| READ COMMITTED | — | pode | pode |\n| REPEATABLE READ | — | — | pode |\n| SERIALIZABLE | — | — | — |\n\nLeitura suja = ler dado que outra transação ainda não confirmou. Não repetível = ler a mesma linha duas vezes e vir diferente. Fantasma = repetir a mesma consulta e aparecer linha nova.\n\nB é a pegadinha: SERIALIZABLE NÃO executa uma transação por vez. Ele garante que o RESULTADO seja equivalente a ALGUMA execução em série, mas as transações continuam rodando em paralelo (com bloqueios ou detecção de conflito). D brinca com 'serializar' no sentido de converter objeto em texto.\n\nPara a prova: o padrão do SQL Server e do PostgreSQL é READ COMMITTED; o do MySQL/InnoDB é REPEATABLE READ."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 70",
+      "enunciado": "No momento da criação de uma tabela em um Sistema Gerenciador de Banco de Dados (SGBD), por meio do comando CREATE TABLE, definem-se regras para o controle de integridade e para a garantia de qualidade dos dados dessa tabela. Considere que W e Y são duas tabelas. A é um atributo de W, e B é um atributo de Y. Foi criada corretamente uma cláusula CHECK no atributo A.\n\nEssa cláusula permite verificar se o atributo A",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "tem valor único em todas as linhas da tabela W."
+        },
+        {
+          "letra": "B",
+          "texto": "tem valor maior ou igual a zero."
+        },
+        {
+          "letra": "C",
+          "texto": "tem valor existente em uma ou mais linhas da tabela Y na coluna B."
+        },
+        {
+          "letra": "D",
+          "texto": "inviabiliza o acesso a alguma linha da tabela Y."
+        },
+        {
+          "letra": "E",
+          "texto": "está preenchido com algum valor ou não."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "O que um CHECK no atributo A consegue verificar? Letra B — uma condição sobre o valor da própria linha.\n\nCada alternativa errada descreve OUTRA restrição do CREATE TABLE:\n\n| Alt. | O que descreve | Restrição certa |\n|---|---|---|\n| A | valor único na tabela | UNIQUE (ou PRIMARY KEY) |\n| B | condição sobre o valor, ex. A >= 0 | CHECK |\n| C | valor existe em Y.B | FOREIGN KEY ... REFERENCES Y(B) |\n| D | bloquear acesso | não é restrição de integridade; é GRANT/REVOKE |\n| E | preenchido ou não | NOT NULL |\n\nCREATE TABLE W (\n  A INT CHECK (A >= 0),\n  ...\n);\n\nAtalho: CHECK olha só para a linha que está sendo gravada. Tudo que exige olhar OUTRAS linhas (unicidade) ou OUTRA tabela (existência em Y) é trabalho de UNIQUE e FOREIGN KEY."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 53",
+      "enunciado": "Uma empresa financeira está elaborando um projeto para dar continuidade aos negócios de TI nas situações de recuperação de desastres, focando na parte de backup dos dados e na infraestrutura de TI. Para isso, a empresa permitirá que tais ações sejam sempre hospedadas em uma infraestrutura de nuvem, associada a um provedor de terceiros. Nesse modelo proposto, ocorrendo uma crise, esse provedor implementará e orquestrará o plano de recuperação de desastres, de modo a dar continuidade ao acesso e à funcionalidade dos sistemas, com o mínimo de interrupções nas operações.\n\nEsse tipo de recuperação de desastres utilizará o modelo de serviços",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "IaaS"
+        },
+        {
+          "letra": "B",
+          "texto": "BaaS"
+        },
+        {
+          "letra": "C",
+          "texto": "DRaaS"
+        },
+        {
+          "letra": "D",
+          "texto": "DRVMaaS"
+        },
+        {
+          "letra": "E",
+          "texto": "PaaS"
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Provedor de nuvem que, na crise, EXECUTA e ORQUESTRA o plano de recuperação. Letra C: DRaaS, Disaster Recovery as a Service.\n\n| Modelo | O que o provedor entrega |\n|---|---|\n| BaaS (Backup as a Service) | guarda as CÓPIAS; restaurar e subir o ambiente é problema seu |\n| DRaaS (Disaster Recovery as a Service) | replica servidores e dados e faz o FAILOVER: sobe o ambiente no site dele e mantém o negócio rodando |\n| IaaS | máquina, rede e disco genéricos, sem plano de recuperação |\n| PaaS | plataforma para desenvolver e rodar aplicação |\n| DRVMaaS | não existe; é distrator |\n\nB é a pegadinha: o enunciado fala em 'backup dos dados', mas pede quem 'implementará e orquestrará o plano' — isso vai além do backup.\n\nVocabulário de continuidade que cai junto:\n\nRPO (Recovery Point Objective) = quanto DADO posso perder, medido em tempo (backup a cada 4 h → RPO de 4 h).\n\nRTO (Recovery Time Objective) = em quanto TEMPO o sistema tem de voltar.\n\nSite quente (hot) = pronto e sincronizado, volta em minutos; morno (warm) = equipamento pronto, dados defasados; frio (cold) = só espaço e energia."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Suporte) · questão 66",
+      "enunciado": "Existem dois tipos principais de bancos de dados orientados a grafos: Resource Description Framework (RDF) e Labeled Property Graph (LPG). Ambos permitem modelar e persistir dados de um grafo que contém nós e arestas.\n\nConsidere que foi preparada uma modelagem conceitual de dados, realizada por meio do Diagrama de Entidades e Relacionamentos (DER), para um sistema de informações.\n\nNesse contexto, um SGBD NoSQL orientado a grafos será utilizado para persistir dados de um sistema de informações quando",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "as especializações no DER tiverem atributo determinante."
+        },
+        {
+          "letra": "B",
+          "texto": "cada entidade no DER se relacionar com pelo menos duas outras."
+        },
+        {
+          "letra": "C",
+          "texto": "houver mais entidades do que relacionamentos no DER."
+        },
+        {
+          "letra": "D",
+          "texto": "os relacionamentos identificados no DER forem frequentemente consultados."
+        },
+        {
+          "letra": "E",
+          "texto": "uma das entidades no DER for fraca."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Quando um banco de grafos compensa? Letra D: quando o que mais se consulta são os RELACIONAMENTOS.\n\nNo relacional, cada salto de relacionamento é um JOIN; 'amigos dos amigos dos amigos' são três JOINs encadeados que ficam caros. No banco de grafos (Neo4j, por exemplo), a aresta é guardada como ponteiro direto entre os nós, e percorrer muitos saltos custa pouco.\n\nCasos típicos: rede social, recomendação ('quem comprou isto também comprou'), detecção de fraude (cadeias de contas), rotas.\n\nA, B, C e E falam da FORMA do DER (quantas entidades, entidade fraca, especialização). Nenhuma delas decide o tipo de banco — o que decide é o padrão de CONSULTA.\n\n| NoSQL | Bom para |\n|---|---|\n| chave-valor | buscar por chave exata; cache, sessão |\n| documentos | registros de estrutura variável, consultados por campo |\n| colunar (família de colunas) | escrita massiva, tabelas largas e esparsas |\n| grafos | relacionamentos percorridos com frequência |"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Suporte) · questão 68",
+      "enunciado": "Considere que uma tabela com dados de equipamentos médicos (para raio X, tomografia, etc.) foi criada em um Sistema Gerenciador de Banco de Dados (SGBD) Microsoft SQL Server, com uma chave primária composta por “tipo” e “número de série”, e duas chaves estrangeiras, sigla do fabricante e número da nota fiscal de compra (no esquema apresentado, os dois primeiros atributos formam a chave primária e as chaves estrangeiras estão indicadas pelo sinal @ no início do nome do atributo):\n\nEQUIPAMENTO (tipo, numero-de-serie, nome, @sigla-do-fabricante, @nota-fiscal)\n\nConsidere ainda que uma consulta aos equipamentos dessa tabela, informando-se apenas um número de nota fiscal, possui um baixo desempenho.\n\nUma ação a ser executada para melhorar o desempenho dessa consulta é a criação de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "dois índices clusterizados, um para o par “tipo e número de série” e outro para o número da nota fiscal."
+        },
+        {
+          "letra": "B",
+          "texto": "dois índices naturais, sendo um deles com o número da nota fiscal."
+        },
+        {
+          "letra": "C",
+          "texto": "um índice composto por tipo, número de série e número da nota fiscal."
+        },
+        {
+          "letra": "D",
+          "texto": "um índice não clusterizado para o número da nota fiscal."
+        },
+        {
+          "letra": "E",
+          "texto": "uma visão materializada que tenha apenas o número da nota fiscal."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 3,
+      "explicacao": "Consulta lenta filtrando só pela nota fiscal, no SQL Server. Letra D: CREATE NONCLUSTERED INDEX na coluna nota-fiscal.\n\nPor que está lenta: o SQL Server cria índice automaticamente para PRIMARY KEY (clusterizado, por padrão) e UNIQUE, mas NÃO para FOREIGN KEY. Sem índice em nota-fiscal, a busca varre a tabela inteira (table/clustered index scan).\n\nCREATE NONCLUSTERED INDEX ix_equipamento_nf\n  ON EQUIPAMENTO (nota_fiscal);\n\n| Tipo | Quantos por tabela | O que é |\n|---|---|---|\n| clusterizado | UM só | a própria tabela, ordenada fisicamente pela chave do índice |\n| não clusterizado | vários | estrutura à parte com a chave e um ponteiro para a linha |\n\nA — impossível: a tabela só tem uma ordem física, logo um só índice clusterizado (que já é o da PK).\n\nC — índice composto (tipo, numero-de-serie, nota-fiscal) só é usado para busca que comece pela PRIMEIRA coluna. Filtrando só pela nota, que é a terceira, ele não ajuda — é a regra do prefixo à esquerda.\n\nB — 'índice natural' não existe. E — uma visão só com a nota fiscal não devolve os equipamentos (e no SQL Server o nome é 'indexed view').\n\nAtalho: coluna de FK usada em filtro ou JOIN → índice não clusterizado nela."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Suporte) · questão 70",
+      "enunciado": "Considere um cenário em que uma equipe de analistas foi deslocada para um município brasileiro de modo a avaliar aspectos da sua infraestrutura urbana (saneamento básico, iluminação pública, transporte público), em duas etapas: coleta de dados e análise. Essa equipe optou por não utilizar formulários predefinidos e estruturados para coleta de dados, e sim registrar todo e qualquer dado que julgasse ser relevante, para uma posterior triagem na fase de análise. A coleta estará focada nos dados em si, e não em como eles estão inter-relacionados. De modo a persistir os dados coletados, com os metadados possíveis (parciais), os analistas optaram por utilizar um Sistema Gerenciador de Banco de Dados (SGBD) NoSQL.\n\nO tipo de SGBD a ser escolhido para a etapa de coleta de dados descrita é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Chave-valor"
+        },
+        {
+          "letra": "B",
+          "texto": "Colunar"
+        },
+        {
+          "letra": "C",
+          "texto": "Documentos"
+        },
+        {
+          "letra": "D",
+          "texto": "Grafos"
+        },
+        {
+          "letra": "E",
+          "texto": "Relacional"
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Dados sem formulário fixo, com metadados parciais, foco no dado e não na relação. Letra C: banco de documentos.\n\nCada registro vira um documento (JSON/BSON) com os campos que aquele registro tiver — um tem 'bairro' e 'foto', outro tem 'poste' e 'horário'. Não há esquema prévio, e mesmo assim dá para consultar pelos campos depois, na triagem. É o caso de uso do MongoDB.\n\nPor eliminação, cada pista do enunciado mata uma alternativa:\n\n| Pista | Elimina |\n|---|---|\n| 'SGBD NoSQL' | E (relacional) |\n| 'não em como eles estão inter-relacionados' | D (grafos) |\n| 'com os metadados possíveis', para triagem posterior | A (chave-valor guarda o valor opaco; só se busca pela chave) |\n| coleta de campo, volume pequeno, sem tabela larga | B (colunar é para escrita massiva e análise de colunas) |\n\nAtalho: 'sem esquema fixo' + 'quero consultar o conteúdo depois' = documentos."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · UNEMAT 2024 · Técnico Universitário – Analista de Sistemas · questão 52",
+      "enunciado": "Considere que uma equipe está realizando uma otimização de desempenho em um banco de dados relacional.\n\nNesse contexto, e considerando-se índices, verifica-se que os",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "índices únicos impedem a duplicação de valores em uma coluna específica, garantindo integridade."
+        },
+        {
+          "letra": "B",
+          "texto": "índices bitmap são ideais para colunas com alta cardinalidade e consultas de igualdade, mas podem não ser eficazes em cenários de atualização frequente."
+        },
+        {
+          "letra": "C",
+          "texto": "índices compostos são sempre mais eficientes que os índices simples, pois oferecem maior granularidade na seleção de registros."
+        },
+        {
+          "letra": "D",
+          "texto": "clustered indexes são eficientes para consultas que envolvem operações de ordenação e agregação, mas podem causar fragmentação de dados."
+        },
+        {
+          "letra": "E",
+          "texto": "non-clustered indexes mantêm a ordenação física dos dados na tabela, melhorando o desempenho em consultas de intervalo, mas podem aumentar a complexidade da manutenção."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 3,
+      "explicacao": "Afirmações sobre tipos de índice: o gabarito oficial é D.\n\nD — o índice clusterizado ORDENA FISICAMENTE a tabela pela chave. Por isso ORDER BY, faixas (BETWEEN) e agregação por essa chave leem páginas em sequência, sem reordenar. O custo: inserir no meio da ordem obriga a dividir páginas (page split), e isso fragmenta. Certa.\n\n| Alt. | Erro |\n|---|---|\n| B | bitmap serve para BAIXA cardinalidade (sexo, UF, status), não alta |\n| C | 'sempre' — índice composto só ajuda quem filtra pela primeira coluna, e custa mais para manter |\n| E | quem mantém a ordem física é o CLUSTERIZADO; o não clusterizado é estrutura à parte com ponteiros |\n\nA alternativa A também é verdadeira na prática: índice único impede valor repetido e é assim que SGBDs implementam UNIQUE. A banca ficou com a D; se aparecer de novo, a leitura dela é que 'garantir integridade' é papel da RESTRIÇÃO (constraint), e o índice é só o mecanismo. Questão com cara de recurso — o que não pode é errar B, C ou E.\n\nAtalho: clusterizado = a tabela em ordem (um só por tabela). Bitmap = poucos valores distintos."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · UNEMAT 2024 · Técnico Universitário – Analista de Sistemas · questão 55",
+      "enunciado": "Considere a criação de um banco de dados relacional para a biblioteca de uma universidade.\n\nNesse contexto, Data Definition Language, DDL; Data Manipulation Language, DML; e Data Query Language, DQL, são utilizados para",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "DDL: Criar tabelas para armazenar informações sobre livros, autores e editoras. DML: Inserir registros nas tabelas com detalhes específicos de um novo livro. DQL: Recuperar todos os livros de um determinado autor."
+        },
+        {
+          "letra": "B",
+          "texto": "DDL: Criar tabelas para armazenar informações sobre livros, autores e editoras. DML: Atualizar a quantidade disponível de exemplares de um livro. DQL: Inserir registros nas tabelas com detalhes específicos de um novo livro."
+        },
+        {
+          "letra": "C",
+          "texto": "DDL: Atualizar a quantidade disponível de exemplares de um livro. DML: Criar tabelas para armazenar informações sobre livros, autores e editoras. DQL: Recuperar todos os livros emprestados por um usuário específico."
+        },
+        {
+          "letra": "D",
+          "texto": "DDL: Inserir registros nas tabelas com detalhes específicos de um novo livro. DML: Criar tabelas para armazenar informações sobre livros, autores e editoras. DQL: Atualizar a quantidade disponível de exemplares de um livro."
+        },
+        {
+          "letra": "E",
+          "texto": "DDL: Recuperar todos os livros de um determinado autor. DML: Criar tabelas para armazenar informações sobre livros, autores e editoras. DQL: Inserir registros nas tabelas com detalhes específicos de um novo livro."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Associar DDL, DML e DQL ao uso certo. Letra A.\n\n| Sublinguagem | Mexe em | Comandos | Na biblioteca |\n|---|---|---|---|\n| DDL | ESTRUTURA | CREATE, ALTER, DROP, TRUNCATE | criar a tabela LIVRO |\n| DML | DADO | INSERT, UPDATE, DELETE | inserir um livro novo; atualizar exemplares |\n| DQL | LEITURA | SELECT | listar os livros de um autor |\n| DCL | PERMISSÃO | GRANT, REVOKE | dar acesso de leitura ao bibliotecário |\n| DTL/TCL | TRANSAÇÃO | COMMIT, ROLLBACK | confirmar o empréstimo |\n\nA B começa certa (DDL e DML) e erra só no fim: inserir é DML, não DQL. É a armadilha de ler só a primeira linha da alternativa.\n\nAtalho: atualizar exemplares é UPDATE → DML. Recuperar é SELECT → DQL."
+    }
+  ]
+}

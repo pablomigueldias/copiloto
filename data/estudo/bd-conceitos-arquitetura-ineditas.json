@@ -1,0 +1,645 @@
+{
+  "_leia_me": "Questões INÉDITAS, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — não são de banca nenhuma, e o gabarito e a explicação são meus. Moram num módulo separado ('Banco de dados — inéditas') para nunca se misturarem com as questões de prova real. Cada tópico é um item do programa de Conhecimentos Específicos do edital CRECI-SP 01/2026 (Instituto Avança SP), cargo PAS – Analista de TI – Banco de Dados, Anexo II; o item está no campo `fonte` de cada questão. FORMATO: imita o padrão das bancas que caem nessa prova — cinco alternativas (Avança SP, Cesgranrio, FCC, Vunesp), enunciado de cenário ('Considere que...', estilo Cesgranrio), afirmações I/II/III, NÃO/INCORRETO em caixa alta e questões de código SQL. O gabarito é distribuído entre A e E de propósito, para que a posição não dê pista. VERIFICAÇÃO: as questões de código SQL do tópico de SQL rodam contra um banco SQLite com as mesmas tabelas do enunciado, no gerador (scripts/ineditas_bd/gerar.py), e o resultado é conferido com o gabarito antes de gravar. As demais foram conferidas na documentação dos SGBDs como eu a conheço — sem fonte externa citada; desconfie e corrija se a prova real disser outra coisa. Para pedir mais: 'faz mais X questões' (ver a memória `questoes-ineditas-bd`).",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Banco de dados — inéditas",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Conceitos, arquitetura e tipos de SGBD",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 01",
+      "enunciado": "Na arquitetura de três esquemas (ANSI/SPARC) de um sistema de banco de dados, o nível que descreve a estrutura de armazenamento físico do banco, incluindo detalhes de organização dos arquivos e caminhos de acesso, é o nível",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "externo."
+        },
+        {
+          "letra": "B",
+          "texto": "interno."
+        },
+        {
+          "letra": "C",
+          "texto": "conceitual."
+        },
+        {
+          "letra": "D",
+          "texto": "de visão."
+        },
+        {
+          "letra": "E",
+          "texto": "de aplicação."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Qual nível da arquitetura ANSI/SPARC descreve o armazenamento físico? Letra B: o nível INTERNO.\n\n| Nível | Descreve | Quem enxerga |\n|---|---|---|\n| externo (visão) | a parte do banco que interessa a cada grupo de usuários | usuário, aplicação |\n| conceitual (lógico) | a estrutura do banco inteiro: entidades, tipos, relacionamentos, restrições — sem detalhe físico | projetista, DBA |\n| interno (físico) | como os dados ficam gravados: arquivos, páginas, índices, caminhos de acesso | SGBD, DBA |\n\n'Visão' é outro nome do nível externo; 'de aplicação' não é nível da arquitetura.\n\nAtalho: externo = o que EU vejo; conceitual = o que EXISTE; interno = como está GRAVADO.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 02",
+      "enunciado": "Um DBA criou um novo índice e moveu os arquivos de dados de uma tabela para outro disco, sem que fosse preciso alterar o esquema conceitual nem as aplicações que acessam o banco. Esse cenário ilustra a",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "independência lógica de dados."
+        },
+        {
+          "letra": "B",
+          "texto": "redundância controlada de dados."
+        },
+        {
+          "letra": "C",
+          "texto": "integridade referencial."
+        },
+        {
+          "letra": "D",
+          "texto": "independência física de dados."
+        },
+        {
+          "letra": "E",
+          "texto": "atomicidade das transações."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Mudou o armazenamento, e o esquema conceitual e as aplicações não perceberam. Letra D: independência FÍSICA.\n\n| Independência | Muda-se | Sem precisar mudar |\n|---|---|---|\n| física | o nível interno: índice, arquivo, disco, organização | o esquema conceitual |\n| lógica | o esquema conceitual: nova coluna, nova tabela | os esquemas externos e as aplicações |\n\nA independência lógica é a mais difícil de conseguir, porque as aplicações dependem diretamente da estrutura lógica. A física é a mais comum: criar índice é rotina e nenhum SELECT precisa ser reescrito.\n\nAtalho: mexeu em disco, arquivo ou índice → física. Mexeu em tabela ou coluna → lógica.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 03",
+      "enunciado": "Em um SGBD relacional, o componente que armazena as descrições das tabelas, colunas, tipos de dados, restrições, índices e permissões — isto é, os metadados do banco — é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "log de transações."
+        },
+        {
+          "letra": "B",
+          "texto": "catálogo do sistema (dicionário de dados)."
+        },
+        {
+          "letra": "C",
+          "texto": "buffer de dados."
+        },
+        {
+          "letra": "D",
+          "texto": "otimizador de consultas."
+        },
+        {
+          "letra": "E",
+          "texto": "gerenciador de bloqueios."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Onde ficam os metadados? Letra B: no catálogo do sistema, também chamado de dicionário de dados.\n\nO banco é autodescritivo: a definição da estrutura fica dentro dele, consultável por SQL. No padrão SQL isso aparece como INFORMATION_SCHEMA; no SQL Server, também nas views sys.tables, sys.columns; no PostgreSQL, em pg_catalog.\n\n| Componente | Função |\n|---|---|\n| log de transações | registra as alterações para desfazer e refazer (recuperação) |\n| buffer | mantém páginas de dados em memória |\n| otimizador | escolhe o plano de execução da consulta |\n| gerenciador de bloqueios | controla a concorrência entre transações |",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "negativa",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 04",
+      "enunciado": "Em comparação com o armazenamento de dados em arquivos isolados por aplicação, a abordagem de banco de dados NÃO oferece, como vantagem,",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o controle da redundância de dados."
+        },
+        {
+          "letra": "B",
+          "texto": "o compartilhamento de dados entre vários usuários e aplicações."
+        },
+        {
+          "letra": "C",
+          "texto": "a imposição de restrições de integridade."
+        },
+        {
+          "letra": "D",
+          "texto": "a eliminação da necessidade de cópias de segurança, já que o SGBD impede a perda de dados."
+        },
+        {
+          "letra": "E",
+          "texto": "a restrição de acesso não autorizado."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Qual NÃO é vantagem da abordagem de banco de dados? Letra D.\n\nNenhum SGBD dispensa backup. Ele protege contra falha de transação e queda de energia (por meio do log), mas não contra disco destruído, exclusão acidental, ransomware ou incêndio. Backup continua sendo obrigação do DBA.\n\nAs outras quatro são as vantagens clássicas (Elmasri e Navathe): controle de redundância, compartilhamento, restrições de integridade, controle de acesso — e ainda backup e recuperação como SERVIÇO oferecido pelo SGBD, o que é diferente de dispensá-lo.\n\nAtalho: em questão de NÃO, a alternativa absoluta ('elimina a necessidade', 'impede qualquer') costuma ser a errada.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 05",
+      "enunciado": "Ao receber uma consulta SQL, o SGBD analisa diferentes formas de executá-la — ordem das junções, uso ou não de índices, algoritmos de junção — e escolhe a de menor custo estimado. O componente responsável por essa escolha é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "otimizador de consultas."
+        },
+        {
+          "letra": "B",
+          "texto": "gerenciador de recuperação."
+        },
+        {
+          "letra": "C",
+          "texto": "catálogo do sistema."
+        },
+        {
+          "letra": "D",
+          "texto": "pré-compilador de DML embutida."
+        },
+        {
+          "letra": "E",
+          "texto": "gerenciador de buffer."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Quem escolhe COMO executar a consulta? Letra A: o otimizador de consultas.\n\nSQL é declarativa: você diz O QUE quer, e o otimizador decide o caminho. O resultado da decisão é o PLANO DE EXECUÇÃO — o mesmo que o DBA lê com EXPLAIN (MySQL, PostgreSQL) ou com o plano de execução do SQL Server Management Studio.\n\nOs otimizadores modernos são baseados em CUSTO e usam as ESTATÍSTICAS das tabelas (quantas linhas, distribuição dos valores). Por isso estatística desatualizada gera plano ruim — assunto de tuning.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 06",
+      "enunciado": "A linguagem procedural estendida do Microsoft SQL Server, usada para escrever stored procedures, funções e triggers com variáveis, laços e tratamento de erros, é a",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "PL/SQL."
+        },
+        {
+          "letra": "B",
+          "texto": "PL/pgSQL."
+        },
+        {
+          "letra": "C",
+          "texto": "Transact-SQL (T-SQL)."
+        },
+        {
+          "letra": "D",
+          "texto": "SQL/PSM do MySQL, chamada MyPL."
+        },
+        {
+          "letra": "E",
+          "texto": "SQL*Plus."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Dialeto procedural do SQL Server: letra C, Transact-SQL.\n\n| SGBD | Linguagem procedural |\n|---|---|\n| Microsoft SQL Server | Transact-SQL (T-SQL) |\n| Oracle | PL/SQL |\n| PostgreSQL | PL/pgSQL |\n| MySQL / MariaDB | segue o padrão SQL/PSM, sem nome comercial próprio |\n\n'MyPL' não existe. SQL*Plus é a ferramenta de linha de comando do Oracle, não uma linguagem.\n\nPista de T-SQL em questão: variáveis com @ (DECLARE @total INT), TRY...CATCH, TOP, IDENTITY.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 07",
+      "enunciado": "No MySQL, o mecanismo de armazenamento (storage engine) padrão nas versões atuais, que oferece suporte a transações ACID, bloqueio em nível de linha e chaves estrangeiras, é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "MyISAM."
+        },
+        {
+          "letra": "B",
+          "texto": "MEMORY."
+        },
+        {
+          "letra": "C",
+          "texto": "CSV."
+        },
+        {
+          "letra": "D",
+          "texto": "ARCHIVE."
+        },
+        {
+          "letra": "E",
+          "texto": "InnoDB."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Engine do MySQL com transação e chave estrangeira: letra E, InnoDB — o padrão desde o MySQL 5.5.\n\n| Engine | Transação | FK | Bloqueio | Uso |\n|---|---|---|---|---|\n| InnoDB | sim | sim | linha | padrão, uso geral |\n| MyISAM | não | não | tabela inteira | legado, leitura intensa |\n| MEMORY | não | não | tabela | dados temporários em RAM, somem ao reiniciar |\n| CSV / ARCHIVE | não | não | — | troca de arquivo / histórico compactado |\n\nPegadinha frequente: MyISAM foi o padrão antigo e NÃO tem transação nem FK. Uma tabela MyISAM ignora a cláusula FOREIGN KEY em silêncio.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 08",
+      "enunciado": "No Microsoft SQL Server, o banco de dados de sistema usado como modelo para a criação de todo novo banco de dados da instância — de modo que objetos e configurações nele definidos são copiados para os bancos criados depois — é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "master."
+        },
+        {
+          "letra": "B",
+          "texto": "msdb."
+        },
+        {
+          "letra": "C",
+          "texto": "tempdb."
+        },
+        {
+          "letra": "D",
+          "texto": "resource."
+        },
+        {
+          "letra": "E",
+          "texto": "model."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Banco que serve de molde para os novos: letra E, model.\n\n| Banco de sistema | Guarda |\n|---|---|\n| master | configuração da instância, logins, lista de bancos — sem ele a instância não sobe |\n| model | o modelo copiado a cada CREATE DATABASE |\n| msdb | jobs e alertas do SQL Server Agent, histórico de backup e restore |\n| tempdb | objetos temporários (#tabelas, ordenações); é recriado a cada reinício |\n| resource | objetos de sistema, somente leitura, oculto |\n\nAtalho: master manda, model molda, msdb agenda, tempdb é descartável.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 09",
+      "enunciado": "Sobre os bancos de dados de sistema do Microsoft SQL Server, analise as afirmativas a seguir.",
+      "afirmacoes": [
+        "O tempdb é recriado a cada reinicialização da instância, e os objetos temporários nele criados não sobrevivem ao reinício.",
+        "O msdb armazena, entre outras informações, os jobs do SQL Server Agent e o histórico de operações de backup e restauração.",
+        "O master pode ser excluído sem impacto para a instância, pois guarda apenas cópias de segurança dos demais bancos."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas II."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I e II."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Quais afirmativas sobre os bancos de sistema estão certas? Letra C: I e II.\n\nI — certa. O tempdb é recriado do zero a cada reinício do serviço; não faz sentido fazer backup dele.\n\nII — certa. O msdb guarda os jobs do SQL Server Agent e o histórico de backup e restore — por isso é ele que se consulta para saber quando foi o último backup.\n\nIII — errada. Sem o master a instância nem inicia: ele guarda a configuração, os logins e a localização de todos os bancos. Ele deve entrar na rotina de backup.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 10",
+      "enunciado": "Uma tabela de um banco de dados relacional possui 7 colunas e armazena 1.250 linhas. Na terminologia do modelo relacional, o grau e a cardinalidade dessa relação são, respectivamente,",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "7 e 1.250."
+        },
+        {
+          "letra": "B",
+          "texto": "1.250 e 7."
+        },
+        {
+          "letra": "C",
+          "texto": "7 e 7."
+        },
+        {
+          "letra": "D",
+          "texto": "1.250 e 1.250."
+        },
+        {
+          "letra": "E",
+          "texto": "8.750 e 7."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Grau e cardinalidade da relação com 7 colunas e 1.250 linhas: letra A, 7 e 1.250.\n\n| Termo do modelo relacional | Equivale a |\n|---|---|\n| relação | tabela |\n| tupla | linha |\n| atributo | coluna |\n| GRAU | número de ATRIBUTOS (colunas) |\n| CARDINALIDADE | número de TUPLAS (linhas) |\n| domínio | conjunto de valores permitidos para um atributo |\n\nB inverte os dois — é a pegadinha. 8.750 é o número de células, que não tem nome no modelo.\n\nAtalho: Grau = Grade de colunas; Cardinalidade = Contagem de linhas.\n\nCuidado: 'cardinalidade' também se usa no MER para a razão do relacionamento (1:1, 1:N, N:N). Contexto de TABELA → número de linhas.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 11",
+      "enunciado": "Assinale a alternativa que associa corretamente cada categoria de banco de dados NoSQL a um produto representativo dela.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Chave-valor: MongoDB; documentos: Redis; família de colunas: Neo4j; grafos: Cassandra."
+        },
+        {
+          "letra": "B",
+          "texto": "Chave-valor: Redis; documentos: MongoDB; família de colunas: Cassandra; grafos: Neo4j."
+        },
+        {
+          "letra": "C",
+          "texto": "Chave-valor: Cassandra; documentos: Neo4j; família de colunas: Redis; grafos: MongoDB."
+        },
+        {
+          "letra": "D",
+          "texto": "Chave-valor: Neo4j; documentos: Cassandra; família de colunas: MongoDB; grafos: Redis."
+        },
+        {
+          "letra": "E",
+          "texto": "Chave-valor: Redis; documentos: Cassandra; família de colunas: MongoDB; grafos: Neo4j."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Associação NoSQL × produto: letra B.\n\n| Categoria | Produto típico | Bom para |\n|---|---|---|\n| chave-valor | Redis, DynamoDB | cache, sessão, busca por chave exata |\n| documentos | MongoDB, CouchDB | registros JSON de estrutura variável |\n| família de colunas | Cassandra, HBase | escrita massiva, tabelas largas e esparsas |\n| grafos | Neo4j | relacionamentos percorridos com frequência |\n\nA última alternativa errada acerta Redis e Neo4j e troca só os dois do meio — é a armadilha de quem decorou metade.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 12",
+      "enunciado": "Segundo o teorema CAP, aplicado a sistemas de banco de dados distribuídos, quando ocorre uma partição na rede o sistema",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "consegue garantir simultaneamente consistência, disponibilidade e tolerância a partição."
+        },
+        {
+          "letra": "B",
+          "texto": "deixa de ser tolerante a partição, mas mantém consistência e disponibilidade."
+        },
+        {
+          "letra": "C",
+          "texto": "precisa escolher entre manter a consistência e manter a disponibilidade."
+        },
+        {
+          "letra": "D",
+          "texto": "perde automaticamente as propriedades ACID de todas as transações já confirmadas."
+        },
+        {
+          "letra": "E",
+          "texto": "passa a operar apenas em modo somente leitura, por exigência do teorema."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 3,
+      "explicacao": "Teorema CAP com partição na rede: letra C.\n\nC = Consistency (todos os nós veem o mesmo dado), A = Availability (todo pedido recebe resposta), P = Partition tolerance (o sistema sobrevive a falha de comunicação entre nós).\n\nNum sistema distribuído a partição VAI acontecer, então P não é opcional. Quando ela ocorre, ou o sistema recusa responder até sincronizar (fica consistente, perde disponibilidade — CP), ou responde com o dado que tem (fica disponível, pode devolver dado velho — AP).\n\nA primeira alternativa errada é a negação do teorema. A que fala em 'somente leitura' inventa uma regra; isso seria só uma das estratégias possíveis.\n\nExemplos comuns em prova: MongoDB e HBase costumam ser citados como CP; Cassandra e DynamoDB como AP.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 13",
+      "enunciado": "Muitos bancos de dados NoSQL distribuídos adotam o modelo BASE em lugar das propriedades ACID. Nesse modelo, a característica segundo a qual as réplicas podem divergir temporariamente, mas convergem para o mesmo valor se não houver novas atualizações, é chamada de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "consistência eventual."
+        },
+        {
+          "letra": "B",
+          "texto": "atomicidade parcial."
+        },
+        {
+          "letra": "C",
+          "texto": "isolamento serializável."
+        },
+        {
+          "letra": "D",
+          "texto": "durabilidade adiada."
+        },
+        {
+          "letra": "E",
+          "texto": "consistência forte."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Réplicas que divergem e depois convergem: letra A, consistência eventual (o E de BASE).\n\nBASE = Basically Available, Soft state, Eventual consistency. É a resposta 'AP' do teorema CAP: prioriza responder sempre, aceitando que uma leitura logo após a escrita veja o valor antigo.\n\n| ACID (relacional) | BASE (muitos NoSQL) |\n|---|---|\n| consistência forte: leu, está atualizado | consistência eventual |\n| pessimista: bloqueia | otimista: replica depois |\n| escala vertical | escala horizontal |\n\nExemplo do dia a dia: o número de curtidas de uma postagem pode aparecer diferente em dois celulares por alguns segundos.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 14",
+      "enunciado": "Considere dois ambientes de banco de dados de uma empresa: o primeiro registra as vendas no caixa, com milhares de pequenas transações por minuto; o segundo atende à diretoria, com consultas que agregam anos de histórico de vendas. Esses ambientes correspondem, respectivamente, a sistemas",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "OLAP e OLTP."
+        },
+        {
+          "letra": "B",
+          "texto": "OLTP e OLTP, diferindo apenas no volume de dados."
+        },
+        {
+          "letra": "C",
+          "texto": "ETL e OLTP."
+        },
+        {
+          "letra": "D",
+          "texto": "OLTP e OLAP."
+        },
+        {
+          "letra": "E",
+          "texto": "OLAP e ETL."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Caixa registrando vendas × diretoria analisando histórico: letra D, OLTP e OLAP.\n\n| | OLTP (transacional) | OLAP (analítico) |\n|---|---|---|\n| operação típica | INSERT, UPDATE, SELECT de poucas linhas | SELECT com SUM, GROUP BY sobre milhões |\n| dados | atuais | históricos |\n| modelagem | normalizada (3FN) | dimensional (estrela, floco de neve) |\n| usuários | muitos, operacionais | poucos, gerenciais |\n| prioridade | tempo de resposta e integridade | velocidade de consulta agregada |\n\nETL não é tipo de sistema, é o processo que leva dados do OLTP para o data warehouse do OLAP.\n\nAtalho: T de Transação (balcão); A de Análise (diretoria).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 15",
+      "enunciado": "As portas TCP padrão do Microsoft SQL Server (instância padrão), do MySQL e do PostgreSQL são, respectivamente,",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "3306, 1433 e 5432."
+        },
+        {
+          "letra": "B",
+          "texto": "1521, 3306 e 5432."
+        },
+        {
+          "letra": "C",
+          "texto": "1433, 5432 e 3306."
+        },
+        {
+          "letra": "D",
+          "texto": "1433, 3306 e 5432."
+        },
+        {
+          "letra": "E",
+          "texto": "5432, 1433 e 3306."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Portas padrão: letra D — SQL Server 1433, MySQL 3306, PostgreSQL 5432.\n\n| SGBD | Porta padrão |\n|---|---|\n| SQL Server (instância padrão) | 1433 TCP; o SQL Server Browser usa 1434 UDP |\n| MySQL / MariaDB | 3306 |\n| PostgreSQL | 5432 |\n| Oracle (listener) | 1521 |\n| MongoDB | 27017 |\n\n1521 é a do Oracle — distrator clássico.\n\nInstância NOMEADA do SQL Server usa porta dinâmica por padrão, descoberta via SQL Server Browser — por isso firewall de SQL Server às vezes libera também a 1434/UDP.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 16",
+      "enunciado": "Em uma organização, o profissional responsável por autorizar o acesso ao banco de dados, coordenar e monitorar seu uso, garantir backup e recuperação e adquirir recursos de software e hardware necessários ao SGBD é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "projetista de banco de dados."
+        },
+        {
+          "letra": "B",
+          "texto": "analista de sistemas."
+        },
+        {
+          "letra": "C",
+          "texto": "administrador de banco de dados (DBA)."
+        },
+        {
+          "letra": "D",
+          "texto": "usuário final paramétrico."
+        },
+        {
+          "letra": "E",
+          "texto": "programador de aplicações."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Quem autoriza acesso, monitora, faz backup e cuida dos recursos? Letra C: o DBA.\n\n| Papel | Responsabilidade |\n|---|---|\n| DBA | acesso e permissões, desempenho, backup e recuperação, instalação e atualização do SGBD |\n| projetista de BD | identificar os dados e modelar a estrutura (MER, esquema) antes de o banco existir |\n| analista de sistemas | levantar requisitos dos usuários e especificar as transações |\n| programador | implementar as aplicações que usam o banco |\n| usuário paramétrico | usa transações prontas (o caixa de banco, o atendente) |\n\nÉ exatamente o recorte do cargo do edital: administração, tuning, backup e segurança são o dia a dia do DBA.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 17",
+      "enunciado": "Sobre visões (views) em bancos de dados relacionais, é correto afirmar que uma visão comum",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "armazena fisicamente uma cópia dos dados das tabelas-base, atualizada a cada COMMIT."
+        },
+        {
+          "letra": "B",
+          "texto": "não pode ser usada para restringir o acesso de usuários a determinadas colunas."
+        },
+        {
+          "letra": "C",
+          "texto": "só pode ser criada sobre uma única tabela, sem junções."
+        },
+        {
+          "letra": "D",
+          "texto": "elimina a necessidade de índices nas tabelas-base."
+        },
+        {
+          "letra": "E",
+          "texto": "é uma tabela virtual definida por uma consulta, cujo resultado é obtido das tabelas-base no momento em que a visão é consultada."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "O que é uma view comum? Letra E: tabela virtual; guarda a CONSULTA, não os dados.\n\nCada vez que alguém faz SELECT na view, o SGBD executa a consulta que a define sobre as tabelas-base.\n\nQuem armazena fisicamente o resultado é a VISÃO MATERIALIZADA (PostgreSQL, Oracle; no SQL Server, 'indexed view') — e ela não se atualiza 'a cada COMMIT' por definição; depende de REFRESH ou de manutenção automática.\n\nViews servem justamente para SEGURANÇA: dá-se GRANT SELECT na view que mostra só nome e cidade, e não na tabela que tem salário. Podem ter junções, agregações e subconsultas. E não dispensam índice — a consulta da view usa os índices das tabelas-base.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 18",
+      "enunciado": "Uma empresa precisa de uma edição gratuita do Microsoft SQL Server para colocar em produção um sistema pequeno. Considerando as edições do produto, a escolha adequada é a edição",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Express, que é gratuita e pode ser usada em produção, mas tem limites, como o tamanho máximo de 10 GB por banco de dados."
+        },
+        {
+          "letra": "B",
+          "texto": "Developer, que é gratuita e tem todos os recursos da Enterprise, sendo indicada para produção."
+        },
+        {
+          "letra": "C",
+          "texto": "Enterprise, que é gratuita para órgãos públicos."
+        },
+        {
+          "letra": "D",
+          "texto": "Standard, que é gratuita para até 50 usuários."
+        },
+        {
+          "letra": "E",
+          "texto": "Express, que é gratuita e não tem limite de tamanho de banco nem de memória."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Edição gratuita do SQL Server para PRODUÇÃO: letra A, Express — com limite de 10 GB por banco (além de limite de CPU e memória).\n\n| Edição | Custo | Produção? |\n|---|---|---|\n| Express | gratuita | sim, com limites (10 GB por banco) |\n| Developer | gratuita | NÃO — só desenvolvimento e teste, apesar de ter todos os recursos da Enterprise |\n| Standard | paga | sim |\n| Enterprise | paga | sim, todos os recursos |\n\nA pegadinha é a Developer: é gratuita e completa, mas a licença proíbe produção. A outra Express errada nega o limite que a define.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 19",
+      "enunciado": "O modelo de dados em que os registros são organizados em uma estrutura de árvore, na qual cada registro filho possui exatamente um registro pai, é o modelo",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "em rede."
+        },
+        {
+          "letra": "B",
+          "texto": "hierárquico."
+        },
+        {
+          "letra": "C",
+          "texto": "relacional."
+        },
+        {
+          "letra": "D",
+          "texto": "orientado a objetos."
+        },
+        {
+          "letra": "E",
+          "texto": "de documentos."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Árvore, um pai por filho: letra B, modelo hierárquico (o IMS da IBM é o exemplo histórico).\n\n| Modelo | Estrutura |\n|---|---|\n| hierárquico | árvore: cada filho tem UM pai |\n| em rede (CODASYL) | grafo: um registro pode ter VÁRIOS pais |\n| relacional | tabelas ligadas por valores (chaves), sem ponteiros físicos |\n| orientado a objetos | objetos com atributos, métodos e herança |\n| documentos (NoSQL) | documentos JSON aninhados |\n\nA diferença entre hierárquico e rede é o número de pais. Os dois navegam por ponteiros; o relacional liga pelo VALOR da chave — por isso é independente do caminho de acesso.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Inédita (sem banca) · BD Avança SP · Conceitos, arquitetura e tipos de SGBD · nº 20",
+      "enunciado": "Analise as afirmativas a seguir sobre sistemas gerenciadores de banco de dados.",
+      "afirmacoes": [
+        "MySQL e PostgreSQL são SGBDs de código aberto, enquanto o Microsoft SQL Server é um produto proprietário.",
+        "O Microsoft SQL Server só pode ser instalado em sistemas operacionais Windows.",
+        "Embora a SQL seja padronizada, cada SGBD possui extensões próprias, como TOP no SQL Server e LIMIT no MySQL para limitar o número de linhas retornadas."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas III."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I e III."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Quais estão certas? Letra C: I e III.\n\nI — certa. MySQL e PostgreSQL são livres; o SQL Server é proprietário da Microsoft (com edições gratuitas, mas licença proprietária).\n\nII — errada. Desde 2017 o SQL Server roda também em Linux e em contêineres Docker.\n\nIII — certa. SQL é padrão ISO/ANSI, mas cada SGBD tem extensões próprias: TOP no SQL Server e LIMIT no MySQL e PostgreSQL para limitar linhas; IDENTITY no SQL Server e AUTO_INCREMENT no MySQL para chave automática.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Banco de dados: conceitos, arquitetura, modelos de dados e tipos de SGBD (SQL Server, MySQL ou similares)"
+    }
+  ]
+}

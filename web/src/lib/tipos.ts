@@ -83,13 +83,15 @@ export type Banca = {
 export type TopicoResumo = {
   id: string;
   nome: string;
-  /** Só as de banca ativa — as demais estão em `pausadas`. */
+  /** Só as em estudo — banca ou tópico pausado vão para `pausadas`. */
   questoes: number;
   hoje: number;
   dominadas: number;
   com_erro: number;
   pausadas: number;
   proxima_em: string | null;
+  /** `false` = tópico fora do edital, fora da fila até eu retomar. */
+  ativo: boolean;
 };
 
 export type ModuloResumo = {
@@ -599,4 +601,257 @@ export type PesquisarResposta = {
   email_confirmado: boolean;
   mensagem: string;
   lead: LeadDetalhe;
+};
+
+// ── o cadastro do CRM (empresa, contato, negócio, atividade) ──
+
+export type TipoRegistro = "empresa" | "contato" | "negocio" | "atividade";
+
+export type OpcoesCrm = Record<
+  "estagio" | "status_empresa" | "origem" | "tipo_tarefa" | "canal",
+  Record<string, string>
+>;
+
+export type CampoRegistro = {
+  /** Nulo quando o campo só se lê aqui. */
+  campo: string | null;
+  rotulo: string;
+  tipo: string;
+  valor: string | number | boolean | null;
+  exibicao: string;
+  opcoes: { valor: string; rotulo: string }[];
+};
+
+export type LinkRegistro = {
+  tipo: TipoRegistro;
+  id: number;
+  nome: string;
+  sub: string | null;
+};
+
+export type EventoLinha = {
+  quando: string;
+  tipo: "interacao" | "transicao";
+  canal: string | null;
+  direcao: string | null;
+  rotulo: string | null;
+  texto: string | null;
+  lead_id: number;
+  negocio_nome: string | null;
+};
+
+export type Registro = {
+  tipo: TipoRegistro;
+  id: number;
+  titulo: string;
+  campos: CampoRegistro[];
+  grupos: { titulo: string; tipo: TipoRegistro; itens: LinkRegistro[] }[];
+  notas: string | null;
+  linha_do_tempo: EventoLinha[];
+  valores: Record<string, string | number | boolean | null>;
+};
+
+export type EmpresaCrm = {
+  id: number;
+  nome: string;
+  status: string;
+  segmento: string | null;
+  site: string | null;
+  email: string | null;
+  telefone: string | null;
+  bairro: string | null;
+  cidade: string | null;
+  uf: string | null;
+  estabelecimento_id: number | null;
+  n_contatos: number;
+  n_negocios: number;
+};
+
+export type ContatoCrm = {
+  id: number;
+  nome: string;
+  cargo: string | null;
+  decisor: boolean;
+  email: string | null;
+  telefone: string | null;
+  linkedin: string | null;
+  empresa_id: number | null;
+  empresa_nome: string | null;
+};
+
+export type NegocioCrm = {
+  id: number;
+  nome: string;
+  estagio: string;
+  origem: string;
+  valor_estimado: number | null;
+  empresa_id: number | null;
+  empresa_nome: string | null;
+  contato_id: number | null;
+  contato_nome: string | null;
+  email: string | null;
+  email_confirmado: boolean;
+  proxima_acao: string | null;
+  proxima_em: string | null;
+  motivo_perda: string | null;
+  tarefas_abertas: number;
+  pode_ir: string[];
+  criado_em: string;
+  atualizado_em: string;
+};
+
+export type AtividadeCrm = {
+  id: number;
+  tipo: string;
+  descricao: string | null;
+  vence_em: string;
+  feita_em: string | null;
+  atrasada: boolean;
+  lead_id: number;
+  negocio_nome: string;
+  negocio_estagio: string;
+  empresa_id: number | null;
+  empresa_nome: string | null;
+};
+
+export type PainelCrm = {
+  negocios_abertos: number;
+  valor_aberto: number;
+  ganhos: number;
+  valor_ganho: number;
+  perdidos: number;
+  por_estagio: {
+    estagio: string;
+    rotulo: string;
+    total: number;
+    valor: number;
+  }[];
+  tarefas_abertas: number;
+  tarefas_atrasadas: number;
+  tarefas_hoje: number;
+  empresas: number;
+  clientes: number;
+  contatos: number;
+  motivos_perda: { motivo: string; total: number }[];
+  proximas: AtividadeCrm[];
+};
+
+export type CamposCrm = Record<string, string | number | boolean | null>;
+
+// ── simulado ──
+
+export type Materia = "pt" | "mat" | "en" | "bd";
+
+export type SimuladoResumo = {
+  id: string;
+  numero: number;
+  estado: "em_andamento" | "finalizado";
+  iniciado_em: string;
+  finalizado_em: string | null;
+  total: number;
+  respondidas: number;
+  acertos: number | null;
+  nota: number | null;
+  habilitado: boolean | null;
+};
+
+export type ReforcoResumo = {
+  id: string;
+  simulado_id: string;
+  materia: Materia;
+  materia_nome: string;
+  grupo: string | null;
+  assunto: string;
+  rodada: number;
+  estado: "aguardando_questoes" | "pronto" | "aprovado" | "reprovado";
+  erros_no_simulado: number;
+  total: number;
+  respondidas: number;
+  acertos: number | null;
+  minimo: number;
+  /** A escrita das questões pelo botão: null = ninguém pediu. */
+  geracao: "gerando" | "erro" | "ok" | null;
+  geracao_em: string | null;
+  geracao_erro: string | null;
+};
+
+export type EstadoSimulado = {
+  liberado: boolean;
+  em_andamento: SimuladoResumo | null;
+  reforcos_pendentes: ReforcoResumo[];
+  reforcos_concluidos: ReforcoResumo[];
+  historico: SimuladoResumo[];
+  materias: { chave: Materia; nome: string; questoes: number; estoque: number }[];
+  nota_minima: number;
+};
+
+/** A questão como o simulado a manda: sem gabarito até entregar. */
+export type QuestaoProva = {
+  id: string;
+  formato: string;
+  comando: string | null;
+  enunciado: string;
+  texto_base: string | null;
+  texto_base_fonte: string | null;
+  codigo: string | null;
+  linguagem: string | null;
+  alternativas: { letra: string; texto: string }[];
+  afirmacoes: string[];
+  imagem: string | null;
+  imagem_alt: string | null;
+  banca: string | null;
+  origem: string | null;
+  gabarito: string | null;
+  explicacao: string | null;
+};
+
+export type ItemSimulado = {
+  ordem: number;
+  materia: Materia;
+  materia_nome: string;
+  assunto: string | null;
+  revisao: boolean | null;
+  resposta: string | null;
+  acertou: boolean | null;
+  questao: QuestaoProva;
+};
+
+export type SimuladoDetalhe = SimuladoResumo & { itens: ItemSimulado[] };
+
+export type AssuntoErrado = {
+  assunto: string;
+  grupo: string | null;
+  total: number;
+  erros: number;
+};
+
+export type ResultadoSimulado = SimuladoResumo & {
+  nota_minima: number;
+  por_materia: {
+    chave: Materia;
+    nome: string;
+    acertos: number;
+    total: number;
+    percentual: number;
+    assuntos_errados: AssuntoErrado[];
+  }[];
+  erros: ItemSimulado[];
+  reforcos: ReforcoResumo[];
+};
+
+export type ReforcoDetalhe = ReforcoResumo & {
+  itens: {
+    ordem: number;
+    resposta: string | null;
+    acertou: boolean | null;
+    questao: QuestaoProva;
+  }[];
+};
+
+export type RespostaReforco = {
+  ordem: number;
+  acertou: boolean;
+  gabarito: string;
+  explicacao: string | null;
+  reforco: ReforcoResumo;
 };

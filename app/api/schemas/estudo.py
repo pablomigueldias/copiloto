@@ -89,6 +89,7 @@ class TopicoResumo(BaseModel):
     com_erro: int
     pausadas: int = 0
     proxima_em: date | None = None
+    ativo: bool = True
 
 
 class ModuloResumo(BaseModel):
@@ -245,6 +246,8 @@ class TopicoRequest(BaseModel):
 class TopicoPatch(BaseModel):
     nome: str | None = Field(default=None, min_length=1, max_length=160)
     ordem: int | None = Field(default=None, ge=0, le=999)
+    # Pausa o tópico: sai da fila e dos contadores, nada é apagado.
+    ativo: bool | None = None
 
 
 class ModuloCriado(BaseModel):
@@ -259,6 +262,7 @@ class TopicoCriado(BaseModel):
     modulo_id: str
     nome: str
     ordem: int
+    ativo: bool = True
 
 
 class Apagado(BaseModel):

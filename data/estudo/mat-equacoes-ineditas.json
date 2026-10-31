@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Matemática e Raciocínio Lógico, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa do edital CRECI-SP 01/2026 (Avança SP), com peso no que o acervo real tinha fino (diagramas lógicos, relações arbitrárias, média ponderada, MMC/MDC, sistemas, regra de três composta). TODA conta e todo problema de lógica é conferido por script no gerador (scripts/ineditas_bd/mat.py, `verificar`): os problemas de relações arbitrárias são resolvidos por força bruta e só entram se a solução for única.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico — inéditas",
+    "trilha": "concurso",
+    "ordem": 4
+  },
+  "topico": {
+    "nome": "Equações do 1º grau",
+    "ordem": 6
+  },
+  "questoes": [
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Equações do 1º grau · nº 01",
+      "enunciado": "Em uma papelaria, 3 canetas e 2 cadernos custam R$ 31,00, e 2 canetas e 3 cadernos custam R$ 34,00. O preço de uma caneta somado ao de um caderno é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 12,00."
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 14,00."
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 15,00."
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 65,00."
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 13,00."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "3c + 2k = 31 e 2c + 3k = 34. Letra E: R$ 13,00.\n\nAtalho de prova: SOME as duas equações → 5c + 5k = 65 → c + k = 13. Nem é preciso achar cada preço.\n\nResolvendo por completo (para conferir): subtraindo, a segunda menos a primeira → −c + k = 3 → k = c + 3. Em c + k = 13: 2c + 3 = 13 → c = 5 e k = 8.\n\nConferindo: 3 × 5 + 2 × 8 = 31 ✓; 2 × 5 + 3 × 8 = 34 ✓.\n\n65 é a soma bruta, antes de dividir por 5. Quando a pergunta pede uma COMBINAÇÃO das incógnitas, tente somar ou subtrair as equações antes de resolver.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Sistema de equações do 1º grau"
+    },
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Equações do 1º grau · nº 02",
+      "enunciado": "No estacionamento de um órgão público há apenas carros e motos, totalizando 30 veículos e 100 rodas. O número de motos é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "20."
+        },
+        {
+          "letra": "B",
+          "texto": "10."
+        },
+        {
+          "letra": "C",
+          "texto": "15."
+        },
+        {
+          "letra": "D",
+          "texto": "25."
+        },
+        {
+          "letra": "E",
+          "texto": "5."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "30 veículos, 100 rodas, carros (4) e motos (2). Letra B: 10 motos.\n\nc + m = 30\n4c + 2m = 100\n\nMultiplicando a primeira por 2: 2c + 2m = 60. Subtraindo da segunda: 2c = 40 → c = 20 carros e m = 10 motos.\n\nRaciocínio sem álgebra: se fossem 30 motos, seriam 60 rodas. Faltam 40 rodas; cada troca de moto por carro acrescenta 2 → 20 trocas → 20 carros e 10 motos.\n\n20 é o número de CARROS — a pegadinha de quem resolve certo e responde a incógnita errada.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Sistema de equações do 1º grau"
+    }
+  ]
+}

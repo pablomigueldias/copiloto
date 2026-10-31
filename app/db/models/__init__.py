@@ -20,7 +20,17 @@ from app.db.models.comercial import (
     Supressao,
 )
 from app.db.models.conhecimento import ConhecimentoChunk
-from app.db.models.estudo import Agenda, Modulo, Questao, Tentativa, Topico
+from app.db.models.estudo import (
+    Agenda,
+    Modulo,
+    Questao,
+    Reforco,
+    ReforcoItem,
+    Simulado,
+    SimuladoItem,
+    Tentativa,
+    Topico,
+)
 from app.db.models.exemplo_estilo import ExemploEstilo
 from app.db.models.pendencia import Pendencia
 from app.db.models.pessoal import (
@@ -54,6 +64,10 @@ __all__ = [
     "PerfilMestre",
     "PipelineEvent",
     "Questao",
+    "Reforco",
+    "ReforcoItem",
+    "Simulado",
+    "SimuladoItem",
     "Sessao",
     "Supressao",
     "Tentativa",

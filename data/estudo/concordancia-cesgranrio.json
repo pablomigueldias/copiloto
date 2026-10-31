@@ -1,0 +1,45 @@
+{
+  "_leia_me": "Concordância verbal, CESGRANRIO: BNDES 2024 questão 26. O verbo que o caderno destaca em negrito vai aqui em CAIXA ALTA. Procedência: cadernos e gabaritos em docs/avanca-sp/outras-bancas/ (ver o README de lá). BNDES 2024 = Seleção Pública 01/2024, provas de 13/10/2024, Prova 3 (Análise de Sistemas – Desenvolvimento) e Prova 4 (Suporte); o bloco básico (1 a 35) é o MESMO nos dois cadernos e entrou uma vez só, pelo de Desenvolvimento. UNEMAT 2024 = Edital 01/2023, provas de 03/03/2024, Prova 3 (Técnico Universitário – Analista de Sistemas). Gabarito lido no PDF da própria banca, no bloco do cargo; nenhum dos dois PDFs diz se é preliminar ou definitivo. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "CESGRANRIO",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 5
+  },
+  "topico": {
+    "nome": "Concordância verbal e nominal",
+    "ordem": 10
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · BNDES 2024 · Analista – Análise de Sistemas (Desenvolvimento) · questão 26",
+      "enunciado": "Com relação à concordância verbal, considerando-se as regras vigentes, respeita-se a norma-padrão da língua portuguesa, no verbo destacado, em:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Futuramente, em nossa sociedade, HAVERÃO constantes pressões para que as pessoas consumam cada vez mais, já que o sucesso está diretamente ligado à posse de bens materiais."
+        },
+        {
+          "letra": "B",
+          "texto": "Alimentada pelo desejo de status e reconhecimento social, a compulsão por compras, especialmente de itens de luxo, TÊM-se intensificado, levando muitas pessoas a endividarem-se em busca de uma felicidade ilusória."
+        },
+        {
+          "letra": "C",
+          "texto": "A crescente influência da publicidade e o constante surgimento de novas tecnologias IMPULSIONOU o consumismo, fazendo com que as pessoas adquiram produtos desnecessários e acumulem dívidas."
+        },
+        {
+          "letra": "D",
+          "texto": "FOMENTAM o consumismo, de maneira desenfreada, a constante inovação tecnológica e a incessante busca por status, o que também cria um ciclo vicioso de insatisfação e desperdício."
+        },
+        {
+          "letra": "E",
+          "texto": "A necessidade de adquirir novos produtos, mesmo que desnecessários, estimulada por campanhas publicitárias e pelas redes sociais, ENRAIZARAM novas práticas de consumo na sociedade, o que criou um ciclo interminável de consumo e insatisfação."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Em qual o verbo destacado concorda certo? Letra D.\n\nD: o sujeito é composto e vem DEPOIS do verbo — 'a constante inovação tecnológica E a incessante busca por status'. Plural ('fomentam') está correto. (Com sujeito composto posposto, a norma também aceita concordar com o núcleo mais próximo; o plural nunca está errado.)\n\n| Alt. | Sujeito real | Forma certa |\n|---|---|---|\n| A | nenhum: 'haver' no sentido de existir é impessoal | haverá |\n| B | 'a compulsão' (singular); 'por compras' e 'de itens de luxo' só a especificam | tem-se |\n| C | 'a crescente influência [...] e o constante surgimento' — composto, ANTES do verbo | impulsionaram |\n| E | 'a necessidade' (singular); o resto é complemento e intercalação | enraizou |\n\nAtalho: ache o NÚCLEO do sujeito e jogue fora tudo que é preposicionado ou intercalado. B e E são a mesma armadilha: um plural perto do verbo ('itens', 'redes sociais') que não é o sujeito."
+    }
+  ]
+}

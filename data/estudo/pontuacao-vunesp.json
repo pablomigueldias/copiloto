@@ -1,0 +1,45 @@
+{
+  "_leia_me": "Emprego dos dois-pontos, VUNESP: Fundação CASA 2010, questão 8. Procedência: docs/avanca-sp/outras-bancas/vunesp-fundacao-casa-2010-especialista-informatica-rede.pdf, prova de 07/03/2010; gabarito lido em gabarito-vunesp-fundacao-casa-2010.pdf, no bloco 'Especialista em Desenvolvimento e Gestão (Informática - Rede)'. O PDF é o edital de divulgação dos gabaritos (Edital 005/2010) e não fala em recurso. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "VUNESP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 5
+  },
+  "topico": {
+    "nome": "Pontuação",
+    "ordem": 6
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · Fundação CASA 2010 · Especialista em Desenvolvimento e Gestão (Informática – Rede) · questão 8",
+      "enunciado": "Assinale a alternativa em que um dos asteriscos da frase deve ser substituído por dois pontos.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "No passado* Freud sentenciou* não pode haver progresso com um instinto de destruição."
+        },
+        {
+          "letra": "B",
+          "texto": "Os pensadores * em Roma* previram uma catástrofe e uma crise ecológica."
+        },
+        {
+          "letra": "C",
+          "texto": "Um amanhã * melhor ou pior* sempre é sonhado em cada época."
+        },
+        {
+          "letra": "D",
+          "texto": "Valores * ideologia * tudo se desmorona."
+        },
+        {
+          "letra": "E",
+          "texto": "Nós * brasileiros* ainda vamos acreditar em previsões?"
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Onde um asterisco vira dois-pontos? Letra A.\n\n'No passado, Freud sentenciou: não pode haver progresso com um instinto de destruição.' O verbo 'sentenciar' é verbo de dizer (dicendi), e o que vem depois é a fala dele. Dois-pontos introduzem citação ou discurso.\n\n| Alt. | Pontuação certa | Por quê |\n|---|---|---|\n| B | Os pensadores, em Roma, previram | adjunto adverbial intercalado |\n| C | Um amanhã, melhor ou pior, sempre é sonhado | termo explicativo intercalado |\n| D | Valores, ideologia, tudo se desmorona | enumeração + aposto resumitivo ('tudo') |\n| E | Nós, brasileiros, ainda vamos | aposto |\n\nEm B, C e E os dois asteriscos SE CORRESPONDEM (abrem e fecham um intercalado) — então ambos são vírgulas. Em A, os asteriscos fazem coisas diferentes: o primeiro separa o adjunto deslocado, o segundo anuncia a fala.\n\nAtalho: dois-pontos aparecem antes de citação, de enumeração anunciada ('são três: ...') e de explicação/conclusão. Verbo de dizer + fala = dois-pontos."
+    }
+  ]
+}

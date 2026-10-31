@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Matemática e Raciocínio Lógico, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa do edital CRECI-SP 01/2026 (Avança SP), com peso no que o acervo real tinha fino (diagramas lógicos, relações arbitrárias, média ponderada, MMC/MDC, sistemas, regra de três composta). TODA conta e todo problema de lógica é conferido por script no gerador (scripts/ineditas_bd/mat.py, `verificar`): os problemas de relações arbitrárias são resolvidos por força bruta e só entram se a solução for única.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico — inéditas",
+    "trilha": "concurso",
+    "ordem": 4
+  },
+  "topico": {
+    "nome": "Geometria",
+    "ordem": 8
+  },
+  "questoes": [
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Geometria · nº 01",
+      "enunciado": "Uma escada de 13 m de comprimento está apoiada em uma parede vertical, com o pé a 5 m da base da parede, em um piso horizontal. A altura, na parede, do ponto em que a escada se apoia é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "8 m."
+        },
+        {
+          "letra": "B",
+          "texto": "18 m."
+        },
+        {
+          "letra": "C",
+          "texto": "√194 m."
+        },
+        {
+          "letra": "D",
+          "texto": "12 m."
+        },
+        {
+          "letra": "E",
+          "texto": "10 m."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Escada 13 m, pé a 5 m da parede. Letra D: 12 m.\n\nA parede, o chão e a escada formam um triângulo RETÂNGULO, e a escada é a hipotenusa (o lado oposto ao ângulo reto).\n\n13² = 5² + h²\n169 = 25 + h²\nh² = 144 → h = 12.\n\n√194 vem de somar os quadrados (13² + 5²), tratando a escada como cateto.\n\nTriplas pitagóricas que mais caem: 3-4-5 (e múltiplos 6-8-10, 9-12-15), 5-12-13, 8-15-17. Reconhecê-las poupa a conta.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Noções de geometria: forma, perímetro, área, volume, ângulo, teorema de Pitágoras"
+    },
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Geometria · nº 02",
+      "enunciado": "Uma caixa-d'água tem a forma de um paralelepípedo reto retângulo, com medidas internas de 2 m de comprimento, 1,5 m de largura e 1 m de altura. Sua capacidade, em litros, é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "300 litros."
+        },
+        {
+          "letra": "B",
+          "texto": "30.000 litros."
+        },
+        {
+          "letra": "C",
+          "texto": "4.500 litros."
+        },
+        {
+          "letra": "D",
+          "texto": "3.000 litros."
+        },
+        {
+          "letra": "E",
+          "texto": "3 litros."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Paralelepípedo 2 m × 1,5 m × 1 m, em litros. Letra D: 3.000 L.\n\nVolume = comprimento × largura × altura = 2 × 1,5 × 1 = 3 m³.\n\nConversão: 1 m³ = 1.000 litros (1 dm³ = 1 L, e 1 m³ = 1.000 dm³). Logo, 3 m³ = 3.000 L.\n\n| Medida | Equivale a |\n|---|---|\n| 1 m³ | 1.000 L |\n| 1 dm³ | 1 L |\n| 1 cm³ | 1 mL |\n\nAs alternativas erradas são a mesma conta com a conversão errada por fatores de 10 — é exatamente o que a banca testa.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Noções de geometria: forma, perímetro, área, volume, ângulo, teorema de Pitágoras"
+    }
+  ]
+}

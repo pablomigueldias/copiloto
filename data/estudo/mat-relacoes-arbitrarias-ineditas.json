@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Matemática e Raciocínio Lógico, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa do edital CRECI-SP 01/2026 (Avança SP), com peso no que o acervo real tinha fino (diagramas lógicos, relações arbitrárias, média ponderada, MMC/MDC, sistemas, regra de três composta). TODA conta e todo problema de lógica é conferido por script no gerador (scripts/ineditas_bd/mat.py, `verificar`): os problemas de relações arbitrárias são resolvidos por força bruta e só entram se a solução for única.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico — inéditas",
+    "trilha": "concurso",
+    "ordem": 4
+  },
+  "topico": {
+    "nome": "Relações arbitrárias e dedução",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Relações arbitrárias e dedução · nº 01",
+      "enunciado": "Ana, Bruno e Carla trabalham em uma empresa de TI, um como DBA, outro como desenvolvedor e outro como gerente, e moram em cidades diferentes: Santos, Campinas e Sorocaba. Sabe-se que:\n\n• o DBA mora em Santos;\n• Bruno não mora em Santos e não é gerente;\n• Carla mora em Sorocaba;\n• Ana não é desenvolvedora.\n\nCom base nessas informações, é correto afirmar que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Ana é gerente e mora em Santos."
+        },
+        {
+          "letra": "B",
+          "texto": "Carla é DBA e mora em Sorocaba."
+        },
+        {
+          "letra": "C",
+          "texto": "Bruno é DBA e mora em Campinas."
+        },
+        {
+          "letra": "D",
+          "texto": "Ana é DBA e mora em Campinas."
+        },
+        {
+          "letra": "E",
+          "texto": "Bruno é desenvolvedor e mora em Campinas."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Quem é quem? Letra E.\n\nOrdem de dedução — comece pela pista que amarra duas categorias:\n\n1. O DBA mora em Santos. Carla mora em Sorocaba → Carla NÃO é DBA. Bruno não mora em Santos → Bruno NÃO é DBA. Logo, ANA é a DBA e mora em SANTOS.\n\n2. Bruno não é gerente e não é DBA → Bruno é DESENVOLVEDOR. Sobra GERENTE para Carla.\n\n3. Santos é de Ana e Sorocaba de Carla → Bruno mora em CAMPINAS.\n\n| Pessoa | Cargo | Cidade |\n|---|---|---|\n| Ana | DBA | Santos |\n| Bruno | desenvolvedor | Campinas |\n| Carla | gerente | Sorocaba |\n\nA pista 'Ana não é desenvolvedora' acabou sobrando — é comum a banca dar uma informação a mais, só para confirmar.\n\nAtalho: monte a tabela pessoa × atributo e marque X nas impossibilidades. Quando uma linha fica com uma só opção, ela se propaga.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Estrutura lógica das relações arbitrárias entre pessoas, lugares, coisas, eventos fictícios"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Relações arbitrárias e dedução · nº 02",
+      "enunciado": "Cinco servidores — Alfredo, Beatriz, Cláudio, Denise e Eduardo — formaram uma fila para o atendimento. Sabe-se que:\n\n• Alfredo é o primeiro da fila;\n• Eduardo é o último;\n• Beatriz está imediatamente à frente de Denise;\n• Cláudio não está ao lado de Alfredo.\n\nQuem ocupa a terceira posição da fila?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Beatriz."
+        },
+        {
+          "letra": "B",
+          "texto": "Denise."
+        },
+        {
+          "letra": "C",
+          "texto": "Cláudio."
+        },
+        {
+          "letra": "D",
+          "texto": "Alfredo."
+        },
+        {
+          "letra": "E",
+          "texto": "Eduardo."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Quem é o terceiro da fila? Letra B: Denise.\n\nPosições fixas: Alfredo na 1ª e Eduardo na 5ª. Sobram 2ª, 3ª e 4ª para Beatriz, Cláudio e Denise.\n\nCláudio não pode ficar ao lado de Alfredo → Cláudio não é o 2º.\n\nBeatriz e Denise são consecutivas, nessa ordem. Testando:\n\n| 2ª | 3ª | 4ª | Válido? |\n|---|---|---|---|\n| Beatriz | Denise | Cláudio | sim |\n| Cláudio | Beatriz | Denise | não: Cláudio ao lado de Alfredo |\n\nFila: Alfredo, Beatriz, Denise, Cláudio, Eduardo.\n\nAtalho: fixe primeiro quem tem posição absoluta (primeiro, último), depois encaixe os blocos ('imediatamente à frente' = bloco de dois).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Estrutura lógica das relações arbitrárias entre pessoas, lugares, coisas, eventos fictícios"
+    }
+  ]
+}

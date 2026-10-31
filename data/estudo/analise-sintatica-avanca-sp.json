@@ -1,10 +1,10 @@
 {
-  "_leia_me": "A única questão de análise sintática que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Análise sintática”.\n\nUma questão só. A banca quase não cobra análise sintática isolada; ela aparece embutida em regência, pontuação e colocação pronominal.\n\nDe onde vêm: Prefeitura de Juquitiba 2024 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n1 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "A única questão de análise sintática que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Análise sintática”.\n\nUma questão só. A banca quase não cobra análise sintática isolada; ela aparece embutida em regência, pontuação e colocação pronominal.\n\nDe onde vêm: Prefeitura de Juquitiba 2024 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n1 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Língua portuguesa",
     "trilha": "concurso",
-    "ordem": 2
+    "ordem": 5
   },
   "topico": {
     "nome": "Análise sintática",
@@ -41,6 +41,37 @@
           "texto": "“se”."
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 8",
+      "assunto": "Sujeito: tipos e oração sem sujeito",
+      "enunciado": "A única sentença em que o verbo não é impessoal se apresenta em:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Choveu a manhã inteira naquele dia."
+        },
+        {
+          "letra": "B",
+          "texto": "Já passava das nove da noite."
+        },
+        {
+          "letra": "C",
+          "texto": "Aqui não faz muito calor na primavera."
+        },
+        {
+          "letra": "D",
+          "texto": "Havia inúmeros problemas sem resolução."
+        },
+        {
+          "letra": "E",
+          "texto": "Evitava perguntas, mesmo com dúvidas em relação à matéria."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "'Evitava' tem sujeito oculto (ele/ela/eu evitava): letra E.\n\n| Frase | Por que é impessoal |\n|---|---|\n| Choveu | fenômeno da natureza |\n| passava das nove | tempo/hora com 'passar' |\n| faz calor | fenômeno atmosférico com 'fazer' |\n| Havia problemas | haver = existir |\n\nTeste: pergunte 'quem?' ao verbo. 'Quem evitava?' — alguém. 'Quem choveu?' — ninguém."
     }
   ]
 }

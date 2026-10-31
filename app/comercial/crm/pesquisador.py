@@ -31,7 +31,7 @@ from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.comercial.crm import leads, varredura
-from app.db.models.comercial.crm import Canal, Direcao, Interacao, Lead, Tarefa, TipoTarefa
+from app.db.models.comercial.crm import Canal, Direcao, Empresa, Interacao, Lead, Tarefa, TipoTarefa
 from app.llm import gateway
 from app.llm.tipos import LLMErro
 from app.utils.logger import get_logger
@@ -299,6 +299,12 @@ async def pesquisar(
 
     if da_clinica:
         lead.site = ficha.site
+        # A empresa ganha o site e o e-mail confirmados, se ainda não tinha.
+        empresa = await session.get(Empresa, lead.empresa_id) if lead.empresa_id else None
+        if empresa is not None:
+            empresa.site = empresa.site or ficha.site
+            if confirmado:
+                empresa.email = empresa.email or lead.email
     lead.pesquisado_em = datetime.now(UTC)
     session.add(
         Interacao(

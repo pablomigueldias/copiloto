@@ -1,0 +1,119 @@
+{
+ "account": {
+  "id": 1,
+  "name": "Pablo Ortiz · comercial"
+ },
+ "additional_attributes": {},
+ "content_attributes": {},
+ "content_type": "text",
+ "content": "nota interna",
+ "conversation": {
+  "additional_attributes": {},
+  "can_reply": true,
+  "channel": "Channel::Api",
+  "contact_inbox": {
+   "id": 2,
+   "contact_id": 2,
+   "inbox_id": 1,
+   "source_id": "ccbc2d30-af9b-4a74-b97d-1397fe0fd594",
+   "created_at": "2026-09-27T14:51:54.187Z",
+   "updated_at": "2026-09-27T14:51:54.187Z",
+   "hmac_verified": false,
+   "pubsub_token": "REMOVIDO"
+  },
+  "id": 2,
+  "inbox_id": 1,
+  "messages": [
+   {
+    "id": 6,
+    "content": "oi Bia, aqui é o Pablo",
+    "account_id": 1,
+    "inbox_id": 1,
+    "conversation_id": 2,
+    "message_type": 1,
+    "created_at": 1790520722,
+    "updated_at": "2026-09-27T14:52:02.432Z",
+    "private": false,
+    "status": "sent",
+    "source_id": null,
+    "content_type": "text",
+    "content_attributes": {},
+    "sender_type": "User",
+    "sender_id": 1,
+    "external_source_ids": {},
+    "additional_attributes": {},
+    "processed_message_content": "oi Bia, aqui é o Pablo",
+    "sentiment": {},
+    "conversation": {
+     "assignee_id": null,
+     "unread_count": 1,
+     "last_activity_at": 1790520722,
+     "contact_inbox": {
+      "source_id": "ccbc2d30-af9b-4a74-b97d-1397fe0fd594"
+     }
+    },
+    "sender": {
+     "id": 1,
+     "name": "Pablo",
+     "available_name": "Pablo",
+     "avatar_url": "",
+     "type": "user",
+     "availability_status": "offline",
+     "thumbnail": ""
+    }
+   }
+  ],
+  "labels": [],
+  "meta": {
+   "sender": {
+    "additional_attributes": {},
+    "custom_attributes": {},
+    "email": null,
+    "id": 2,
+    "identifier": null,
+    "name": "Bia Teste",
+    "phone_number": "+5511987654321",
+    "thumbnail": "",
+    "blocked": false,
+    "type": "contact"
+   },
+   "assignee": null,
+   "assignee_type": null,
+   "team": null,
+   "hmac_verified": false
+  },
+  "status": "open",
+  "custom_attributes": {},
+  "snoozed_until": null,
+  "unread_count": 1,
+  "first_reply_created_at": "2026-09-27T14:52:02.432Z",
+  "priority": null,
+  "waiting_since": 0,
+  "agent_last_seen_at": 0,
+  "contact_last_seen_at": 0,
+  "last_activity_at": 1790520722,
+  "timestamp": 1790520722,
+  "created_at": 1790520714,
+  "updated_at": 1790520722.525518,
+  "account": {
+   "id": 1,
+   "name": "Pablo Ortiz · comercial"
+  }
+ },
+ "created_at": "2026-09-27T14:52:02.519Z",
+ "id": 7,
+ "inbox": {
+  "id": 1,
+  "name": "WhatsApp (dev)"
+ },
+ "message_type": "outgoing",
+ "private": true,
+ "sender": {
+  "id": 1,
+  "name": "Pablo",
+  "email": "pablo@copiloto.local",
+  "type": "user"
+ },
+ "source_id": null,
+ "event": "message_created"
+}

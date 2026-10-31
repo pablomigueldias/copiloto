@@ -1,0 +1,45 @@
+{
+  "_leia_me": "Crase com regência e locução, VUNESP: Fundação CASA 2010, questão 7. Procedência: docs/avanca-sp/outras-bancas/vunesp-fundacao-casa-2010-especialista-informatica-rede.pdf, prova de 07/03/2010; gabarito lido em gabarito-vunesp-fundacao-casa-2010.pdf, no bloco 'Especialista em Desenvolvimento e Gestão (Informática - Rede)'. O PDF é o edital de divulgação dos gabaritos (Edital 005/2010) e não fala em recurso. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "VUNESP",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 5
+  },
+  "topico": {
+    "nome": "Crase",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · Fundação CASA 2010 · Especialista em Desenvolvimento e Gestão (Informática – Rede) · questão 7",
+      "enunciado": "As frases – ... é impossível escapar da tentação de fazer previsões./ ... vivendo-se ao ritmo das crises econômicas.../ ... pensadores fizeram coro ao pessimismo. – estão corretamente reescritas em:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "... é impossível furtar-se a tentação de fazer previsões./ ... vivendo-se à mercê das crises econômicas.../ ...pensadores fizeram coro a infelicidade."
+        },
+        {
+          "letra": "B",
+          "texto": "... é impossível furtar-se à tentação de fazer previsões./ ... vivendo-se à mercê das crises econômicas.../ ...pensadores fizeram coro à infelicidade."
+        },
+        {
+          "letra": "C",
+          "texto": "... é impossível furtar-se a tentação de fazer previsões./ ... vivendo-se a mercê das crises econômicas.../ ... pensadores fizeram coro a infelicidade."
+        },
+        {
+          "letra": "D",
+          "texto": "... é impossível furtar-se à tentação de fazer previsões./ ... vivendo-se à mercê das crises econômicas.../ ... pensadores fizeram coro a infelicidade."
+        },
+        {
+          "letra": "E",
+          "texto": "... é impossível furtar-se a tentação de fazer previsões./ ... vivendo-se à mercê das crises econômicas.../ ... pensadores fizeram coro à infelicidade."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Três lugares de crase, os três obrigatórios. Letra B.\n\n| Trecho | Preposição | Artigo | Resultado |\n|---|---|---|---|\n| furtar-se ___ tentação | 'furtar-se A algo' | A tentação | À |\n| vivendo-se ___ mercê | locução feminina 'à mercê de' | — | À (sempre) |\n| fazer coro ___ infelicidade | 'fazer coro A algo' | A infelicidade | À |\n\nA pista está no próprio original: 'fizeram coro AO pessimismo'. Troque por um masculino e veja se aparece 'ao' — se aparece, no feminino é 'à'. 'Escapar DA tentação' virou 'furtar-se À tentação' porque o verbo novo pede preposição 'a' (furtar-se a = esquivar-se de).\n\nD é a pegadinha: acerta duas e esquece a terceira ('coro a infelicidade').\n\nAtalho: troque a palavra feminina por uma masculina. 'Furtar-se AO perigo', 'fazer coro AO pessimismo' → no feminino, crase."
+    }
+  ]
+}

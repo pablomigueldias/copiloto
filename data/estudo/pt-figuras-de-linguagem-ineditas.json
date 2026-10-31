@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Língua Portuguesa, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa de Língua Portuguesa de nível superior do edital CRECI-SP 01/2026 (Avança SP), com peso nos tópicos que o acervo de prova real tinha finos em 02/10 (análise sintática, colocação pronominal, figuras, redação oficial, regência). Base: norma-padrão da gramática tradicional e o Manual de Redação da Presidência da República, 3ª ed. (2018). Interpretação de texto e coesão ficaram de fora desta leva por já terem muitas questões reais.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Língua portuguesa — inéditas",
+    "trilha": "concurso",
+    "ordem": 6
+  },
+  "topico": {
+    "nome": "Figuras de linguagem",
+    "ordem": 3
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Figuras de linguagem · nº 01",
+      "enunciado": "Em “Na biblioteca do órgão, li Machado de Assis inteiro durante as férias.”, ocorre a figura de linguagem denominada",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "metáfora, pois há comparação implícita entre o autor e a biblioteca."
+        },
+        {
+          "letra": "B",
+          "texto": "hipérbole, pois há exagero intencional."
+        },
+        {
+          "letra": "C",
+          "texto": "eufemismo, pois se suaviza uma ideia desagradável."
+        },
+        {
+          "letra": "D",
+          "texto": "metonímia, pois o autor é usado no lugar de sua obra."
+        },
+        {
+          "letra": "E",
+          "texto": "antítese, pois há oposição de ideias."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "“Li Machado de Assis”: letra D, metonímia.\n\nNinguém lê uma pessoa — lê os LIVROS dela. Metonímia é trocar um termo por outro com o qual mantém relação real, de proximidade:\n\n| Relação | Exemplo |\n|---|---|\n| autor pela obra | li Machado de Assis |\n| continente pelo conteúdo | bebeu dois copos |\n| marca pelo produto | comprei um Gillette |\n| parte pelo todo | não tem um teto onde morar |\n| lugar pelos habitantes | o Brasil votou |\n\nMetáfora é diferente: a relação é de SEMELHANÇA, uma comparação sem 'como' ('aquele servidor é uma máquina').\n\nAtalho: há ligação real e lógica entre os termos → metonímia; há só parecença → metáfora.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Figuras de Linguagem"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Figuras de linguagem · nº 02",
+      "enunciado": "Na frase “Já pedi um milhão de vezes que os arquivos sejam salvos na rede!”, predomina a figura de linguagem",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "hipérbole."
+        },
+        {
+          "letra": "B",
+          "texto": "eufemismo."
+        },
+        {
+          "letra": "C",
+          "texto": "ironia."
+        },
+        {
+          "letra": "D",
+          "texto": "prosopopeia."
+        },
+        {
+          "letra": "E",
+          "texto": "pleonasmo."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "“Um milhão de vezes”: letra A, hipérbole — exagero intencional para dar ênfase.\n\n| Figura | Mecanismo | Exemplo |\n|---|---|---|\n| hipérbole | exagero | morri de rir; esperei uma eternidade |\n| eufemismo | suavização | ele nos deixou (morreu); faltou com a verdade (mentiu) |\n| ironia | diz o contrário do que pensa | que pontualidade! (para quem chegou atrasado) |\n| prosopopeia | dá ação ou sentimento humano a seres inanimados | o sistema reclamou da carga |\n| pleonasmo | repetição de ideia | subir para cima (vicioso); vi com meus próprios olhos (de reforço) |\n\nHipérbole e eufemismo são opostos: um aumenta, o outro atenua.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Figuras de Linguagem"
+    }
+  ]
+}

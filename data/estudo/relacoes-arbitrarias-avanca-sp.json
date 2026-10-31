@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 3 questões de relações arbitrárias e dedução que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 3 questões de relações arbitrárias e dedução que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Relações arbitrárias e dedução",
@@ -97,6 +97,37 @@
           "texto": "BOLA"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 19",
+      "assunto": "Ordenação e posições",
+      "enunciado": "Uma senha de quatro dígitos foi criada usando os números 2, 3, 5 e 7, sem repetições. Sabe-se que:\n\n• O número 5 está em uma posição imediatamente à direita do número 7.\n• O número 3 não é o primeiro nem o último.\n• O número 2 está antes do número 3.\n\nIndique a senha corretamente ordenada:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2357."
+        },
+        {
+          "letra": "B",
+          "texto": "5237."
+        },
+        {
+          "letra": "C",
+          "texto": "2753."
+        },
+        {
+          "letra": "D",
+          "texto": "7532."
+        },
+        {
+          "letra": "E",
+          "texto": "2375."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Teste as alternativas contra as três regras: letra E.\n\n| Senha | 75 juntos? | 3 no meio? | 2 antes do 3? |\n|---|---|---|---|\n| 2357 | não (57) | sim | sim |\n| 5237 | não | sim | sim |\n| 2753 | sim | não (último) | sim |\n| 7532 | sim | sim | não |\n| 2375 | sim | sim | sim ✔ |\n\nEm questão de ordenação com alternativas prontas, testar é mais rápido que montar."
     }
   ]
 }

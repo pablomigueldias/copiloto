@@ -11,6 +11,11 @@ Plano em `docs/motor-comercial/fase-1/00-visao-geral.md`, passo 1. Três regras:
   também, com colunas próprias quando o bot chegar, e não numa segunda tabela.
 - **Estágio muda por regra de código** (`app/comercial/crm/leads.py`), e cada
   mudança fica em `comercial_transicao`, com o motivo.
+
+Empresa e contato (migration 0015) são o cadastro por trás do lead: a clínica e
+as pessoas dela. O lead é o **negócio** — a conversa que anda pelo funil — e
+aponta para os dois. Uma empresa tem vários contatos e, ao longo do tempo,
+vários negócios (o "não agora" que volta, o cliente que compra de novo).
 """
 from __future__ import annotations
 
@@ -20,12 +25,14 @@ from enum import StrEnum
 
 from sqlalchemy import (
     BigInteger,
+    Boolean,
     CheckConstraint,
     Date,
     DateTime,
     ForeignKey,
     Identity,
     Index,
+    Numeric,
     String,
     Text,
     func,
@@ -78,6 +85,17 @@ class TipoTarefa(StrEnum):
     LINKEDIN = "linkedin"
     RESPONDER = "responder"
     MARCAR_RAIOX = "marcar_raiox"
+    # As que eu crio à mão, fora da cadência (migration 0015).
+    LIGAR = "ligar"
+    REUNIAO = "reuniao"
+    OUTRO = "outro"
+
+
+class StatusEmpresa(StrEnum):
+    PROSPECT = "prospect"
+    CLIENTE = "cliente"
+    PARCEIRO = "parceiro"
+    INATIVA = "inativa"
 
 
 def _check(coluna: str, enum: type[StrEnum], nome: str) -> CheckConstraint:
@@ -89,6 +107,64 @@ def _agora() -> Mapped[datetime]:
     return mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
 
 
+class Empresa(Base):
+    __tablename__ = "comercial_empresa"
+    __table_args__ = (
+        _check("status", StatusEmpresa, "ck_comercial_empresa_status"),
+        # Um estabelecimento da base vira no máximo uma empresa do CRM.
+        Index(
+            "ux_comercial_empresa_estabelecimento",
+            "estabelecimento_id",
+            unique=True,
+            postgresql_where="estabelecimento_id IS NOT NULL",
+        ),
+    )
+
+    id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
+    nome: Mapped[str] = mapped_column(Text, nullable=False)
+    razao_social: Mapped[str | None] = mapped_column(Text)
+    cnpj: Mapped[str | None] = mapped_column(String(18))
+    estabelecimento_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("prospeccao_estabelecimento.id", ondelete="SET NULL")
+    )
+    status: Mapped[str] = mapped_column(String(10), nullable=False, default="prospect")
+    segmento: Mapped[str | None] = mapped_column(Text)
+    site: Mapped[str | None] = mapped_column(Text)
+    email: Mapped[str | None] = mapped_column(Text)
+    telefone: Mapped[str | None] = mapped_column(String(20))
+    instagram: Mapped[str | None] = mapped_column(Text)
+    bairro: Mapped[str | None] = mapped_column(Text)
+    cidade: Mapped[str | None] = mapped_column(Text)
+    uf: Mapped[str | None] = mapped_column(String(2))
+    notas: Mapped[str | None] = mapped_column(Text)
+    criado_em: Mapped[datetime] = _agora()
+    atualizado_em: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False
+    )
+
+
+class Contato(Base):
+    __tablename__ = "comercial_contato"
+
+    id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
+    # Apagar a empresa leva os contatos junto; pessoa sem empresa (o lead do
+    # WhatsApp, a indicação) fica com o campo nulo.
+    empresa_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("comercial_empresa.id", ondelete="CASCADE"), index=True
+    )
+    nome: Mapped[str] = mapped_column(Text, nullable=False)
+    cargo: Mapped[str | None] = mapped_column(Text)
+    decisor: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False, server_default="false")
+    email: Mapped[str | None] = mapped_column(Text)
+    telefone: Mapped[str | None] = mapped_column(String(20))
+    linkedin: Mapped[str | None] = mapped_column(Text)
+    notas: Mapped[str | None] = mapped_column(Text)
+    criado_em: Mapped[datetime] = _agora()
+    atualizado_em: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False
+    )
+
+
 class Lead(Base):
     __tablename__ = "comercial_lead"
     __table_args__ = (
@@ -96,6 +172,7 @@ class Lead(Base):
         _check("estagio", Estagio, "ck_comercial_lead_estagio"),
         Index("ix_comercial_lead_estagio", "estagio", "proxima_em"),
         Index("ix_comercial_lead_estabelecimento", "estabelecimento_id"),
+        Index("ix_comercial_lead_empresa", "empresa_id"),
     )
 
     id: Mapped[int] = mapped_column(BigInteger, Identity(), primary_key=True)
@@ -121,6 +198,16 @@ class Lead(Base):
     # `nao_agora` volta a ser prospect nesta data (90 dias, README §3).
     volta_em: Mapped[date | None] = mapped_column(Date)
     motivo_perda: Mapped[str | None] = mapped_column(Text)
+    # O negócio é da empresa, e fala com um contato dela. Os dois ficam nulos
+    # quando a empresa ou a pessoa sai do cadastro: a conversa não some junto.
+    empresa_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("comercial_empresa.id", ondelete="SET NULL")
+    )
+    contato_id: Mapped[int | None] = mapped_column(
+        BigInteger, ForeignKey("comercial_contato.id", ondelete="SET NULL")
+    )
+    valor_estimado: Mapped[float | None] = mapped_column(Numeric(12, 2))
+    notas: Mapped[str | None] = mapped_column(Text)
     criado_em: Mapped[datetime] = _agora()
     atualizado_em: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now(), onupdate=func.now(), nullable=False
@@ -179,6 +266,7 @@ class Tarefa(Base):
         BigInteger, ForeignKey("comercial_lead.id", ondelete="CASCADE"), nullable=False, index=True
     )
     tipo: Mapped[str] = mapped_column(String(16), nullable=False)
+    descricao: Mapped[str | None] = mapped_column(Text)
     vence_em: Mapped[date] = mapped_column(Date, nullable=False)
     feita_em: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     criado_em: Mapped[datetime] = _agora()

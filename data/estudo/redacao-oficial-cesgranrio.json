@@ -1,0 +1,45 @@
+{
+  "_leia_me": "Clareza e ambiguidade, CESGRANRIO: UNEMAT 2024 questão 7. As frases são da questão, não do texto. Procedência: cadernos e gabaritos em docs/avanca-sp/outras-bancas/ (ver o README de lá). BNDES 2024 = Seleção Pública 01/2024, provas de 13/10/2024, Prova 3 (Análise de Sistemas – Desenvolvimento) e Prova 4 (Suporte); o bloco básico (1 a 35) é o MESMO nos dois cadernos e entrou uma vez só, pelo de Desenvolvimento. UNEMAT 2024 = Edital 01/2023, provas de 03/03/2024, Prova 3 (Técnico Universitário – Analista de Sistemas). Gabarito lido no PDF da própria banca, no bloco do cargo; nenhum dos dois PDFs diz se é preliminar ou definitivo. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "CESGRANRIO",
+  "modulo": {
+    "nome": "Língua portuguesa",
+    "trilha": "concurso",
+    "ordem": 5
+  },
+  "topico": {
+    "nome": "Redação oficial",
+    "ordem": 15
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "CESGRANRIO · UNEMAT 2024 · Técnico Universitário – Analista de Sistemas · questão 7",
+      "enunciado": "A ambiguidade é considerada um problema grave na redação oficial, que tem como traço necessário a clareza.\n\nA frase que suscita duas leituras possíveis é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Os palpites dos familiares jamais a desanimaram."
+        },
+        {
+          "letra": "B",
+          "texto": "Um sonho que ela acalentava era uma sombra na varanda."
+        },
+        {
+          "letra": "C",
+          "texto": "A jabuticabeira é uma árvore frutífera nativa da Mata Atlântica."
+        },
+        {
+          "letra": "D",
+          "texto": "Poucas pessoas conseguem ficar contentes com a vitória do outro."
+        },
+        {
+          "letra": "E",
+          "texto": "O vizinho falou com a mulher que acorda muito cedo todos os dias."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Qual frase tem duas leituras? Letra E.\n\n'Todos os dias' pode se prender a dois verbos:\n\n1. o vizinho FALOU com ela todos os dias (a mulher acorda cedo);\n\n2. a mulher ACORDA cedo todos os dias (o vizinho falou com ela uma vez).\n\nÉ ambiguidade estrutural: a posição do adjunto adverbial no fim da frase não deixa claro a qual oração ele pertence. Para desfazer: 'Todos os dias, o vizinho falava com a mulher que acorda muito cedo' ou 'O vizinho falou com a mulher, que todos os dias acorda muito cedo'.\n\nAs outras têm um referente só. Em A, 'a' só pode ser 'ela'; em D, 'do outro' é genérico, não ambíguo.\n\nAtalho: procure adjunto adverbial no FIM de frase com duas orações, e pronome com dois candidatos do mesmo gênero e número. São as duas fontes de ambiguidade que a banca usa."
+    }
+  ]
+}

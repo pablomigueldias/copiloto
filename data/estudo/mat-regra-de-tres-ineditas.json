@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Matemática e Raciocínio Lógico, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa do edital CRECI-SP 01/2026 (Avança SP), com peso no que o acervo real tinha fino (diagramas lógicos, relações arbitrárias, média ponderada, MMC/MDC, sistemas, regra de três composta). TODA conta e todo problema de lógica é conferido por script no gerador (scripts/ineditas_bd/mat.py, `verificar`): os problemas de relações arbitrárias são resolvidos por força bruta e só entram se a solução for única.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico — inéditas",
+    "trilha": "concurso",
+    "ordem": 4
+  },
+  "topico": {
+    "nome": "Regra de três",
+    "ordem": 7
+  },
+  "questoes": [
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Regra de três · nº 01",
+      "enunciado": "Seis analistas, trabalhando 6 horas por dia, migram 480 tabelas de um banco de dados em 8 dias. Mantido o mesmo ritmo individual, quantos dias serão necessários para que 4 analistas, trabalhando 8 horas por dia, migrem 640 tabelas?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "8."
+        },
+        {
+          "letra": "B",
+          "texto": "9."
+        },
+        {
+          "letra": "C",
+          "texto": "12."
+        },
+        {
+          "letra": "D",
+          "texto": "16."
+        },
+        {
+          "letra": "E",
+          "texto": "6."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Regra de três composta. Letra C: 12 dias.\n\n| Analistas | Horas/dia | Tabelas | Dias |\n|---|---|---|---|\n| 6 | 6 | 480 | 8 |\n| 4 | 8 | 640 | x |\n\nCompare cada grandeza com DIAS:\n\n— mais tabelas → mais dias: DIRETA (640/480);\n\n— menos analistas → mais dias: INVERSA (6/4);\n\n— mais horas por dia → menos dias: INVERSA (6/8).\n\nx = 8 × (640/480) × (6/4) × (6/8) = 8 × 4/3 × 3/2 × 3/4 = 12.\n\nConferindo pelo trabalho total: 6 × 6 × 8 = 288 analista-horas para 480 tabelas = 0,6 h por tabela. 640 × 0,6 = 384 analista-horas ÷ (4 × 8) = 12 dias. ✓",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Regra de três simples e composta"
+    },
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Regra de três · nº 02",
+      "enunciado": "Dez impressoras iguais imprimem 2.000 páginas em 4 horas. Seis dessas impressoras, no mesmo ritmo, imprimirão 1.500 páginas em",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "5 horas."
+        },
+        {
+          "letra": "B",
+          "texto": "4 horas."
+        },
+        {
+          "letra": "C",
+          "texto": "3 horas e 36 minutos."
+        },
+        {
+          "letra": "D",
+          "texto": "6 horas."
+        },
+        {
+          "letra": "E",
+          "texto": "1 hora e 48 minutos."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "10 impressoras, 2.000 páginas, 4 h → 6 impressoras, 1.500 páginas. Letra A: 5 horas.\n\n— menos páginas → menos tempo: DIRETA (1.500/2.000);\n\n— menos impressoras → mais tempo: INVERSA (10/6).\n\nx = 4 × (1.500/2.000) × (10/6) = 4 × 3/4 × 5/3 = 5 h.\n\nPelo ritmo: cada impressora faz 2.000 ÷ 10 ÷ 4 = 50 páginas por hora. Seis fazem 300 por hora; 1.500 ÷ 300 = 5 h. ✓\n\n1h48 é de quem trata 'impressoras' como direta (4 × 3/4 × 6/10 = 1,8 h). Pergunte sempre: AUMENTANDO esta grandeza, o tempo aumenta ou diminui?",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Regra de três simples e composta"
+    }
+  ]
+}

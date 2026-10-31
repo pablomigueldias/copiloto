@@ -253,6 +253,17 @@ class Settings(BaseSettings):
     # **antes** de cada chamada: estourou, o botão recusa até o mês virar.
     blog_gemini_teto_usd_mes: float = 1.0
 
+    # ── Bot comercial: o Chatwoot (`docs/bot-comercial/07`, passo 1) ──
+    # O Chatwoot é a caixa de entrada; o Copiloto entra nele como Agent Bot.
+    # `scripts/comercial/chatwoot.py setup` preenche os três últimos no `.env`.
+    chatwoot_url: str = "http://127.0.0.1:3100"
+    chatwoot_conta_id: int = 0
+    # Token do Agent Bot: é com ele que o bot responde e passa a conversa.
+    chatwoot_bot_token: str = ""
+    # O Agent Bot não assina a chamada: o segredo vai na URL do webhook.
+    # Vazio, o webhook recusa tudo.
+    chatwoot_webhook_segredo: str = ""
+
     # ── CORS ──────────────────────────────────────────────────────
     cors_origins: str = "http://localhost:3010"
 

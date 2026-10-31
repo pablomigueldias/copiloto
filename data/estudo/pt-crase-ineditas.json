@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Língua Portuguesa, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa de Língua Portuguesa de nível superior do edital CRECI-SP 01/2026 (Avança SP), com peso nos tópicos que o acervo de prova real tinha finos em 02/10 (análise sintática, colocação pronominal, figuras, redação oficial, regência). Base: norma-padrão da gramática tradicional e o Manual de Redação da Presidência da República, 3ª ed. (2018). Interpretação de texto e coesão ficaram de fora desta leva por já terem muitas questões reais.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Língua portuguesa — inéditas",
+    "trilha": "concurso",
+    "ordem": 6
+  },
+  "topico": {
+    "nome": "Crase",
+    "ordem": 7
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Crase · nº 01",
+      "enunciado": "Assinale a alternativa em que o acento indicativo de crase está empregado corretamente.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "O relatório foi entregue à Vossa Senhoria antes do prazo."
+        },
+        {
+          "letra": "B",
+          "texto": "O sistema começou à funcionar ontem."
+        },
+        {
+          "letra": "C",
+          "texto": "O relatório foi entregue à diretora antes do prazo."
+        },
+        {
+          "letra": "D",
+          "texto": "Enviamos o documento à todos os setores."
+        },
+        {
+          "letra": "E",
+          "texto": "O pagamento será feito à prazo."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Crase: letra C.\n\n'Entregar algo A alguém' (preposição) + 'A diretora' (artigo feminino) = À diretora. Teste com masculino: 'entregue AO diretor' → no feminino, crase.\n\n| Frase errada | Regra |\n|---|---|\n| à Vossa Senhoria | não há crase antes de pronomes de tratamento (exceto senhora, senhorita, dona) |\n| à funcionar | nunca antes de VERBO |\n| à todos | nunca antes de pronome indefinido e de palavra masculina |\n| à prazo | nunca antes de palavra masculina ('a prazo', 'a pé', 'a cavalo') |\n\nAtalho: troque a palavra feminina por uma masculina. Se aparecer 'ao', há crase; se aparecer só 'a', não há.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Crase"
+    },
+    {
+      "formato": "negativa",
+      "origem": "Inédita (sem banca) · Português Avança SP · Crase · nº 02",
+      "enunciado": "Assinale a alternativa em que o acento indicativo de crase está empregado INCORRETAMENTE.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A reunião começará às 14h."
+        },
+        {
+          "letra": "B",
+          "texto": "À medida que os testes avançavam, os erros diminuíam."
+        },
+        {
+          "letra": "C",
+          "texto": "Os servidores dirigiram-se à sala de reuniões."
+        },
+        {
+          "letra": "D",
+          "texto": "O sistema estará disponível às segundas e quartas-feiras."
+        },
+        {
+          "letra": "E",
+          "texto": "A partir de segunda-feira, o atendimento será feito das 8h às 17h, de segunda à sexta-feira."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 3,
+      "explicacao": "Crase INCORRETA: letra E.\n\n'De segunda A sexta-feira': quando o primeiro termo vem sem artigo ('de', e não 'da'), o segundo também vem sem: só preposição, sem crase. Com artigo nos dois, há crase: 'DA segunda À sexta-feira'. A frase acerta em 'das 8h às 17h' (com artigo: das... às...).\n\nAs demais estão certas:\n\n— 'às 14h': hora determinada leva crase;\n\n— 'À medida que': locução conjuntiva feminina;\n\n— 'dirigiram-se à sala': dirigir-se A + A sala;\n\n— 'às segundas e quartas-feiras': dias da semana no plural com artigo, ideia de repetição.\n\n'A partir de' nunca tem crase: 'partir' é verbo.\n\nAtalho do paralelismo: de... a (sem crase); da... à (com crase).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Crase"
+    }
+  ]
+}

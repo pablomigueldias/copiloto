@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 11 questões de sinônimos, antônimos e sentido das palavras que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Sinônimos e antônimos. Sentido próprio e figurado das palavras”.\n\nDe onde vêm: Câmara de Taboão da Serra 2022 (1), Prefeitura de Americana 2022 (2), Prefeitura de Caçapava 2024 (2), Prefeitura de Paraty 2024 (2), Prefeitura de Rio Claro 2026 (1), Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n8 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 11 questões de sinônimos, antônimos e sentido das palavras que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Sinônimos e antônimos. Sentido próprio e figurado das palavras”.\n\nDe onde vêm: Câmara de Taboão da Serra 2022 (1), Prefeitura de Americana 2022 (2), Prefeitura de Caçapava 2024 (2), Prefeitura de Paraty 2024 (2), Prefeitura de Rio Claro 2026 (1), Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n8 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\nAs de Rio Claro 2026 vieram de OCR — o PDF é escaneado. Diferente da matemática, prosa o tesseract lê bem, e as dez foram conferidas contra a página renderizada a 300 dpi; o destaque de cada uma foi lido na imagem, porque o OCR não enxerga negrito.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Língua portuguesa",
     "trilha": "concurso",
-    "ordem": 2
+    "ordem": 5
   },
   "topico": {
     "nome": "Sinônimos, antônimos e sentido das palavras",
@@ -345,6 +345,101 @@
           "texto": "I. sentido próprio; II. sentido próprio; III. sentido próprio."
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 2",
+      "assunto": "Sinônimos, antônimos e reescrita com mesmo sentido",
+      "enunciado": "Considere o trecho do texto: “Em resumo, um líder deve inspirar confiança, ser inteligente, perceptivo e decisivo para ter condições de liderar com sucesso.” Assinale a alternativa em que as trocas dos termos foram responsáveis por alterar o sentido proposto pelo autor do texto.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Um líder deve inspirar segurança, ser sagaz, cognoscível e essencial para ter condições de liderar com sucesso."
+        },
+        {
+          "letra": "B",
+          "texto": "Um líder deve inspirar convicção, ser astuto, acessível e substancial para ter condições de liderar com sucesso."
+        },
+        {
+          "letra": "C",
+          "texto": "Um líder deve inspirar firmeza, ser capaz, nítido e basilar para ter condições de liderar com sucesso."
+        },
+        {
+          "letra": "D",
+          "texto": "Um líder deve inspirar resolução, ser arguto, evidente e primordial para ter condições de liderar com sucesso."
+        },
+        {
+          "letra": "E",
+          "texto": "Um líder deve inspirar arrepsia, ser perspicaz, intelígível e precípuo para ter condições de liderar com sucesso."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 3,
+      "explicacao": "Arrepsia = indecisão, hesitação — o contrário de confiança: letra E.\n\nNas outras, a troca de 'confiança' mantém o campo: segurança, convicção, firmeza, resolução.\n\nVocabulário que a questão cobra:\n\n| Palavra | Sentido |\n|---|---|\n| sagaz, astuto, arguto, perspicaz | inteligente, esperto |\n| precípuo | principal |\n| basilar | fundamental |\n| arrepsia | hesitação, irresolução |\n\n(As alternativas também trocam 'perceptivo' e 'decisivo' por palavras que não são sinônimas — a banca concentrou o erro decisivo em 'arrepsia'.)"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 2",
+      "assunto": "Sinônimos, antônimos e reescrita com mesmo sentido",
+      "enunciado": "Considere o seguinte excerto: “Não estou sentindo nada. Mas é o contrário de um torpor.” Neste contexto, a palavra “torpor” significa:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "indiferença."
+        },
+        {
+          "letra": "B",
+          "texto": "ânimo."
+        },
+        {
+          "letra": "C",
+          "texto": "sossego."
+        },
+        {
+          "letra": "D",
+          "texto": "esperança."
+        },
+        {
+          "letra": "E",
+          "texto": "vigor."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Torpor = entorpecimento, apatia, indiferença: letra A.\n\nA narradora não sente nada, mas avisa que não é o vazio da apatia — é uma calma viva.\n\nÂnimo e vigor são antônimos de torpor. Sossego é próximo, mas positivo; torpor é inércia.",
+      "texto_base": "Tanta mansidão\n\nPois a hora escura, talvez a mais escura, em pleno dia, precedeu essa coisa que não quero sequer tentar definir. Em pleno dia era noite, e essa coisa que não quero ainda definir é uma luz tranquila dentro de mim, e a ela chamariam de alegria, alegria mansa. Estou um pouco desnorteada como se um coração me tivesse sido tirado, e em lugar dele estivesse agora a súbita ausência, uma ausência quase palpável do que era antes um órgão banhado da escuridão da dor. Não estou sentindo nada. Mas é o contrário de um torpor. É um modo mais leve e mais silencioso de existir.\n\nMas estou também inquieta. Eu estava organizada para me consolar da angústia e da dor. Mas como é que me arrumo com essa simples e tranquila alegria. É que não estou habituada a não precisar de meu próprio consolo. A palavra consolo aconteceu sem eu sentir, e eu não notei, e quando fui procurá-la, ela já se havia transformado em carne e espírito, já não existia mais como pensamento. Vou então à janela, está chovendo muito. Por hábito estou procurando na chuva o que em outro momento me serviria de consolo. Mas não tenho dor a consolar. Ah, eu sei. Estou agora procurando na chuva uma alegria tão grande que se torne aguda, e que me ponha em contato com uma agudez que se pareça a agudez da dor. Mas é inútil a procura. Estou à janela e só acontece isto: vejo com olhos benéficos a chuva, e a chuva me vê de acordo comigo. Estamos ocupadas ambas em fluir.\n\nQuanto durará esse meu estado? Percebo que, com esta pergunta, estou apalpando meu pulso para sentir onde estará o latejar dolorido de antes. E vejo que não há o latejar da dor. Apenas isso: chove e estou vendo a chuva. Que simplicidade. Nunca pensei que o mundo e eu chegássemos a esse ponto de trigo. A chuva cai não porque está precisando de mim, e eu olho a chuva não porque preciso dela. Mas nós estamos tão juntas como a água da chuva está ligada à chuva. E eu não estou agradecendo nada. Não tivesse eu, logo depois de nascer, tomado involuntária e forçadamente o caminho que tomei – e teria sido sempre o que realmente estou sendo: uma camponesa que está num campo onde chove. Nem sequer agradecendo ao Deus ou à natureza. A chuva também não agradece nada. Não sou uma coisa que agradece ter se transformado em outra. Sou uma mulher, sou uma pessoa, sou uma atenção, sou um corpo olhando pela janela. Assim como a chuva não é grata por não ser uma pedra. Ela é uma chuva. Talvez seja isso ao que se poderia chamar de estar vivo. Não mais que isto, mas isto: vivo. E apenas vivo de uma alegria mansa.",
+      "texto_base_fonte": "LISPECTOR, Clarice. Onde estivestes de noite. Rio de Janeiro: Rocco, 1999."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de São Miguel Arcanjo 2023 · Analista Fiscal de Tributos Municipais · questão 3",
+      "assunto": "Sinônimos, antônimos e reescrita com mesmo sentido",
+      "enunciado": "Considere o seguinte trecho: “Comigo exerceu com calma FEROCIDADE o seu SADISMO.” As palavras em destaque podem ser substituídas, sem grande prejuízo de significado, pelas seguintes palavras, respectivamente:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pressa e perversidade."
+        },
+        {
+          "letra": "B",
+          "texto": "fereza e crueldade."
+        },
+        {
+          "letra": "C",
+          "texto": "velocidade e egoísmo."
+        },
+        {
+          "letra": "D",
+          "texto": "raiva e prazer."
+        },
+        {
+          "letra": "E",
+          "texto": "agressividade e satisfação."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Letra B.\n\n| Palavra | Sinônimos |\n|---|---|\n| ferocidade | fereza, crueldade, selvageria |\n| sadismo | crueldade, prazer em fazer sofrer |\n\n'Prazer' (D) e 'satisfação' (E) pegam só metade do sentido de sadismo — falta o fazer sofrer. 'Calma ferocidade' é oxímoro: a crueldade é fria, não agitada."
     }
   ]
 }

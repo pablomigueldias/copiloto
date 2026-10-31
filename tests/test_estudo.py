@@ -693,3 +693,27 @@ async def test_questao_com_imagem_inexistente_e_recusada():
                 "dificuldade": 2,
             }
         )
+
+
+# ── Tópico pausado ───────────────────────────────────────────────────────
+
+
+async def test_topico_pausado_sai_da_fila_e_dos_contadores_sem_perder_nada():
+    """O assunto fora do edital sai da fila; acervo, agenda e histórico ficam."""
+    q = await _semear(gabarito="C")
+    await servico.responder(q.id, resposta="E", tentativa_n=1)  # errada: vence logo
+
+    await servico.atualizar_topico(q.topico_id, {"ativo": False})
+
+    assert await servico.fila(todas=True) == []
+    topico = next(
+        t for m in await servico.modulos() for t in m["topicos"] if t["id"] == str(q.topico_id)
+    )
+    assert (topico["questoes"], topico["pausadas"], topico["ativo"]) == (0, 1, False)
+    # O acervo continua mostrando a questão — é onde eu confiro gabarito.
+    assert [x.id for x in (await servico.listar(topico_id=q.topico_id))[1]] == [q.id]
+    async with get_session() as s:
+        assert await s.scalar(select(func.count(Tentativa.id))) == 1
+
+    await servico.atualizar_topico(q.topico_id, {"ativo": True})
+    assert [x.id for x in await servico.fila(todas=True)] == [q.id]

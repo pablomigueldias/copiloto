@@ -23,11 +23,13 @@ def test_downgrade_remove_e_upgrade_recria():
             "comercial_transicao",
             "comercial_interacao",
             "comercial_tarefa",
+            "comercial_empresa",
+            "comercial_contato",
         }
         _alembic("downgrade", "0012_pendencia")
         assert _tabelas() == set()
         assert _psql("SELECT count(*) FROM prospeccao_fonte", BANCO) == "2"  # a base fica
         _alembic("upgrade", "head")
-        assert len(_tabelas()) == 4
+        assert len(_tabelas()) == 6
     finally:
         _psql(f"DROP DATABASE IF EXISTS {BANCO}")

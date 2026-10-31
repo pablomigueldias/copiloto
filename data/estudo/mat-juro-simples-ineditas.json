@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Matemática e Raciocínio Lógico, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa do edital CRECI-SP 01/2026 (Avança SP), com peso no que o acervo real tinha fino (diagramas lógicos, relações arbitrárias, média ponderada, MMC/MDC, sistemas, regra de três composta). TODA conta e todo problema de lógica é conferido por script no gerador (scripts/ineditas_bd/mat.py, `verificar`): os problemas de relações arbitrárias são resolvidos por força bruta e só entram se a solução for única.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico — inéditas",
+    "trilha": "concurso",
+    "ordem": 4
+  },
+  "topico": {
+    "nome": "Juro simples",
+    "ordem": 10
+  },
+  "questoes": [
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Juro simples · nº 01",
+      "enunciado": "Um capital aplicado a juro simples, à taxa de 2% ao mês, rendeu R$ 360,00 de juros em 6 meses. O valor do capital aplicado foi de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 3.000,00."
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 18.000,00."
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 30,00."
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 2.160,00."
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 3.360,00."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Juro de R$ 360 em 6 meses a 2% a.m. Letra A: R$ 3.000.\n\nJ = C × i × t, com a taxa em decimal e a mesma unidade de tempo da taxa:\n\n360 = C × 0,02 × 6 = C × 0,12 → C = 360 ÷ 0,12 = 3.000.\n\nConferindo: 2% de 3.000 = 60 por mês; × 6 = 360. ✓\n\nArmadilhas: 18.000 esquece o tempo (360 ÷ 0,02); 30 usa a taxa como 2 em vez de 0,02 (360 ÷ 12); 2.160 multiplica em vez de dividir (360 × 6); 3.360 é o montante (capital + juros), não o capital.\n\nJuro simples rende sempre o MESMO valor por período (aqui, R$ 60 por mês); por isso o crescimento é linear.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Juro simples"
+    },
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Juro simples · nº 02",
+      "enunciado": "Um servidor aplicou R$ 2.500,00 a juro simples, à taxa de 1,5% ao mês, por 8 meses. Ao final do período, o montante resgatado foi de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "R$ 300,00."
+        },
+        {
+          "letra": "B",
+          "texto": "R$ 2.800,00."
+        },
+        {
+          "letra": "C",
+          "texto": "R$ 2.537,50."
+        },
+        {
+          "letra": "D",
+          "texto": "R$ 2.875,00."
+        },
+        {
+          "letra": "E",
+          "texto": "R$ 5.500,00."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Montante de R$ 2.500 a 1,5% a.m. por 8 meses. Letra B: R$ 2.800.\n\nJ = C × i × t = 2.500 × 0,015 × 8 = 300.\n\nM = C + J = 2.500 + 300 = 2.800.\n\nArmadilhas: 300 é só o JURO (a pergunta pede montante); 2.537,50 aplica a taxa uma vez só (um mês); 2.875 usa 15% em vez de 1,5%, mas só por um período.\n\nAtalho: em juro simples, 1,5% × 8 meses = 12% sobre o capital. 12% de 2.500 = 300.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Juro simples"
+    }
+  ]
+}

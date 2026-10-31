@@ -15,12 +15,14 @@ from app.api.routers import auth as auth_router
 from app.api.routers import blog as blog_router
 from app.api.routers import candidatura as candidatura_router
 from app.api.routers import comercial as comercial_router
+from app.api.routers import comercial_bot as comercial_bot_router
 from app.api.routers import conhecimento as conhecimento_router
 from app.api.routers import estudo as estudo_router
 from app.api.routers import fila as fila_router
 from app.api.routers import observabilidade as observabilidade_router
 from app.api.routers import painel as painel_router
 from app.api.routers import pendencias as pendencias_router
+from app.api.routers import simulado as simulado_router
 from app.api.routers import transcricao as transcricao_router
 from app.api.services.auth.cookie import cookie_name
 from app.api.services.auth.csrf import valido as csrf_valido
@@ -89,6 +91,7 @@ app.include_router(auth_router.router)
 app.include_router(observabilidade_router.router)
 app.include_router(conhecimento_router.router)
 app.include_router(estudo_router.router)
+app.include_router(simulado_router.router)
 app.include_router(fila_router.router)
 app.include_router(blog_router.router)
 app.include_router(candidatura_router.router)
@@ -96,6 +99,7 @@ app.include_router(painel_router.router)
 app.include_router(transcricao_router.router)
 app.include_router(pendencias_router.router)
 app.include_router(comercial_router.router)
+app.include_router(comercial_bot_router.router)
 
 # ── As imagens das questões ───────────────────────────────────────────────
 #

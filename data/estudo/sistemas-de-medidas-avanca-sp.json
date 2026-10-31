@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 8 questões de sistemas de medidas que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 8 questões de sistemas de medidas que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Sistemas de medidas",
@@ -242,6 +242,99 @@
           "texto": "F – F – F – F"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 13",
+      "assunto": "Conversão de comprimento e área",
+      "enunciado": "O prédio Burj Khalifa, que fica em Dubai, Emirados Árabes, é atualmente o maior prédio do mundo, com 0,828 km de altura. Suponha que existe uma escada que leva do térreo até o topo do prédio. Cada degrau dessa escada tem altura de 18 cm. Quantos degraus há ao todo?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "460."
+        },
+        {
+          "letra": "B",
+          "texto": "4.600."
+        },
+        {
+          "letra": "C",
+          "texto": "46.000."
+        },
+        {
+          "letra": "D",
+          "texto": "4.600.000."
+        },
+        {
+          "letra": "E",
+          "texto": "46.000.000."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Mesma unidade antes de dividir: letra B.\n\n0,828 km = 828 m = 82.800 cm. 82.800 ÷ 18 = 4.600 degraus.\n\n| km | hm | dam | m | dm | cm | mm |\n|---|---|---|---|---|---|---|\n\nCada passo para a direita multiplica por 10: de km para cm são 5 passos, × 100.000.\n\nAs alternativas diferem só por potência de 10 — é questão de conversão, não de conta."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 17",
+      "assunto": "Conversão de comprimento e área",
+      "enunciado": "Considere que um retângulo possui um dos lados medindo vinte centímetros e o outro medindo cinquenta centímetros. Qual a área total deste retângulo, em metros quadrados?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "0,1"
+        },
+        {
+          "letra": "B",
+          "texto": "0,3"
+        },
+        {
+          "letra": "C",
+          "texto": "0,5"
+        },
+        {
+          "letra": "D",
+          "texto": "0,7"
+        },
+        {
+          "letra": "E",
+          "texto": "0,9"
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Converta os lados para metro antes de multiplicar: letra A.\n\n0,20 m × 0,50 m = 0,10 m².\n\nPelo outro caminho: 20 × 50 = 1.000 cm², e 1 m² = 10.000 cm² → 0,1 m².\n\nÁrea anda de 100 em 100 por unidade (1 m = 100 cm, mas 1 m² = 10.000 cm²)."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de São Miguel Arcanjo 2023 · Analista Fiscal de Tributos Municipais · questão 13",
+      "assunto": "Conversão de volume e capacidade (litro e m³)",
+      "enunciado": "Um metro cúbico de água equivale ao volume aproximado de 1.000 litros do mesmo líquido. Considerando uma família de 4 pessoas, onde cada indivíduo consome diariamente 30 litros de água, e considerando um mês contendo 30 (trinta) dias, o consumo de água desta família no referido mês, em m³, foi de:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "3,2"
+        },
+        {
+          "letra": "B",
+          "texto": "3,4"
+        },
+        {
+          "letra": "C",
+          "texto": "3,6"
+        },
+        {
+          "letra": "D",
+          "texto": "3,8"
+        },
+        {
+          "letra": "E",
+          "texto": "4,0"
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Litros no mês, depois ÷ 1.000: letra C.\n\n4 × 30 × 30 = 3.600 L = 3,6 m³.\n\n| Unidade | Equivale |\n|---|---|\n| 1 m³ | 1.000 L |\n| 1 dm³ | 1 L |\n| 1 cm³ | 1 mL |"
     }
   ]
 }

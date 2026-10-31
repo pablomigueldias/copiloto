@@ -1,0 +1,355 @@
+{
+  "_leia_me": "Questões INÉDITAS de Inglês técnico, escritas por mim (Claude) a pedido do Pablo em 07/10/2026 — sem banca; textos de apoio, gabarito e explicação são meus. A Avança SP não tem nenhuma questão de inglês nas 14 provas levantadas; o padrão vem da pesquisa em docs/avanca-sp/ingles-tecnico-padrao.md (Cesgranrio: texto + perguntas em inglês; FCC/Vunesp: perguntas em português) e o conteúdo, do programa de Inglês Técnico do edital CRECI-SP 01/2026. Cada questão traz o `assunto` do simulado. As normas citadas (RFC 2119, NIST SP 800-63B, NIST CSF 2.0, ISO/IEC 27001) foram conferidas como eu as conheço, sem fonte externa aberta na hora — desconfie e corrija.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Inglês técnico — inéditas",
+    "trilha": "concurso",
+    "ordem": 8
+  },
+  "topico": {
+    "nome": "Compreensão de texto técnico",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Compreensão de texto técnico · nº 01",
+      "enunciado": "The main purpose of the text is to",
+      "texto_base": "Transaction Isolation\n\n(1) Transactions allow several operations to be grouped so that they either all succeed or all fail. However, when many transactions run at the same time, the database must decide how much one transaction is allowed to see of the changes made by the others. This decision is controlled by the isolation level.\n\n(2) At the READ COMMITTED level, which is the default in PostgreSQL and SQL Server, a query sees only data that was committed before the query began. It never sees uncommitted changes from concurrent transactions. Nevertheless, two identical queries in the same transaction may return different results if another transaction commits changes between them. This phenomenon is known as a non-repeatable read.\n\n(3) The SERIALIZABLE level provides the strictest isolation. It guarantees that the result of concurrent transactions is the same as if they had been executed one after another. This protection comes at a cost: applications using this level must be prepared to retry transactions, since the server may abort them to prevent anomalies.\n\n(4) Developers should choose the lowest level that still guarantees correct results for their workload. Raising the isolation level unnecessarily may reduce throughput and increase the number of failed transactions.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo da documentação do PostgreSQL e do SQL Server.",
+      "assunto": "Ideia principal e finalidade do texto",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "convince developers to use the SERIALIZABLE level in every application."
+        },
+        {
+          "letra": "B",
+          "texto": "describe the steps required to install PostgreSQL and SQL Server."
+        },
+        {
+          "letra": "C",
+          "texto": "explain how isolation levels control what concurrent transactions can see of each other's changes."
+        },
+        {
+          "letra": "D",
+          "texto": "compare the prices of different database management systems."
+        },
+        {
+          "letra": "E",
+          "texto": "report a defect in the way READ COMMITTED is implemented."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Finalidade do texto: letra C.\n\nA pista está no fim do parágrafo 1: 'This decision is controlled by the isolation level'. O texto apresenta o problema (o que uma transação vê das outras) e depois explica dois níveis.\n\n| Distrator | Por que cai |\n|---|---|\n| convince ... every application | o parágrafo 4 diz o contrário: escolher o MENOR nível que garanta resultado correto |\n| install | não há passo de instalação |\n| prices | custo aparece como desempenho ('comes at a cost'), não preço |\n| defect | o texto descreve comportamento normal, não bug |\n\nAtalho de banca: a alternativa de finalidade certa cobre o texto inteiro; as erradas pegam uma palavra solta ('SERIALIZABLE', 'PostgreSQL').",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: manuais, documentação, guias de instalação, artigos técnicos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Compreensão de texto técnico · nº 02",
+      "enunciado": "According to paragraph 2, a non-repeatable read happens when",
+      "texto_base": "Transaction Isolation\n\n(1) Transactions allow several operations to be grouped so that they either all succeed or all fail. However, when many transactions run at the same time, the database must decide how much one transaction is allowed to see of the changes made by the others. This decision is controlled by the isolation level.\n\n(2) At the READ COMMITTED level, which is the default in PostgreSQL and SQL Server, a query sees only data that was committed before the query began. It never sees uncommitted changes from concurrent transactions. Nevertheless, two identical queries in the same transaction may return different results if another transaction commits changes between them. This phenomenon is known as a non-repeatable read.\n\n(3) The SERIALIZABLE level provides the strictest isolation. It guarantees that the result of concurrent transactions is the same as if they had been executed one after another. This protection comes at a cost: applications using this level must be prepared to retry transactions, since the server may abort them to prevent anomalies.\n\n(4) Developers should choose the lowest level that still guarantees correct results for their workload. Raising the isolation level unnecessarily may reduce throughput and increase the number of failed transactions.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo da documentação do PostgreSQL e do SQL Server.",
+      "assunto": "Informação específica (according to the text)",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "the same query, executed twice in one transaction, returns different results because another transaction committed changes in between."
+        },
+        {
+          "letra": "B",
+          "texto": "a query reads changes that another transaction has not committed yet."
+        },
+        {
+          "letra": "C",
+          "texto": "the server aborts a transaction to prevent anomalies."
+        },
+        {
+          "letra": "D",
+          "texto": "two transactions are executed one after another."
+        },
+        {
+          "letra": "E",
+          "texto": "the database is configured with the SERIALIZABLE level."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Leitura literal do parágrafo 2: letra A.\n\n'two identical queries in the same transaction may return different results if another transaction commits changes between them. This phenomenon is known as a non-repeatable read.'\n\n| Anomalia | O que é | Nível que já impede |\n|---|---|---|\n| dirty read | ler dado NÃO confirmado | READ COMMITTED |\n| non-repeatable read | reler a mesma linha e achar outro valor | REPEATABLE READ |\n| phantom read | repetir a consulta e aparecerem linhas novas | SERIALIZABLE |\n\nA primeira errada descreve a dirty read, que o texto diz que NUNCA acontece em READ COMMITTED ('It never sees uncommitted changes'). É a pegadinha.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: manuais, documentação, guias de instalação, artigos técnicos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Compreensão de texto técnico · nº 03",
+      "enunciado": "It can be inferred from the text that using the SERIALIZABLE level in a system with many concurrent updates",
+      "texto_base": "Transaction Isolation\n\n(1) Transactions allow several operations to be grouped so that they either all succeed or all fail. However, when many transactions run at the same time, the database must decide how much one transaction is allowed to see of the changes made by the others. This decision is controlled by the isolation level.\n\n(2) At the READ COMMITTED level, which is the default in PostgreSQL and SQL Server, a query sees only data that was committed before the query began. It never sees uncommitted changes from concurrent transactions. Nevertheless, two identical queries in the same transaction may return different results if another transaction commits changes between them. This phenomenon is known as a non-repeatable read.\n\n(3) The SERIALIZABLE level provides the strictest isolation. It guarantees that the result of concurrent transactions is the same as if they had been executed one after another. This protection comes at a cost: applications using this level must be prepared to retry transactions, since the server may abort them to prevent anomalies.\n\n(4) Developers should choose the lowest level that still guarantees correct results for their workload. Raising the isolation level unnecessarily may reduce throughput and increase the number of failed transactions.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo da documentação do PostgreSQL e do SQL Server.",
+      "assunto": "Inferência em texto técnico",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "eliminates the need for transactions."
+        },
+        {
+          "letra": "B",
+          "texto": "may cause more transactions to be aborted and retried."
+        },
+        {
+          "letra": "C",
+          "texto": "always increases throughput."
+        },
+        {
+          "letra": "D",
+          "texto": "is not supported by PostgreSQL."
+        },
+        {
+          "letra": "E",
+          "texto": "makes non-repeatable reads more frequent."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Inferência a partir dos parágrafos 3 e 4: letra B.\n\nO 3 diz que o servidor pode abortar transações no SERIALIZABLE; o 4 diz que subir o nível sem necessidade 'may ... increase the number of failed transactions'. Com muita concorrência, mais conflitos → mais abortos.\n\n| Distrator | Problema |\n|---|---|\n| eliminates transactions | o nível É de transação |\n| always increases throughput | o texto diz que pode REDUZIR |\n| not supported by PostgreSQL | o texto não diz; e é falso |\n| more non-repeatable reads | SERIALIZABLE é o mais estrito: impede |\n\nInferência de banca não inventa: ela junta dois trechos do texto. Alternativa com 'always' costuma estar errada.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: manuais, documentação, guias de instalação, artigos técnicos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Compreensão de texto técnico · nº 04",
+      "enunciado": "De acordo com o passo 5 do guia, a porta 3306",
+      "texto_base": "Installing MySQL Server on Ubuntu\n\n1. Update the package index:\n   $ sudo apt update\n2. Install the server package:\n   $ sudo apt install mysql-server\n3. Check whether the service is running:\n   $ sudo systemctl status mysql\n   If the output shows \"inactive (dead)\", start it with: sudo systemctl start mysql\n4. Run the security script, which removes anonymous users, disables remote root login and deletes the test database:\n   $ sudo mysql_secure_installation\n5. Make sure that port 3306 is not exposed to the internet unless remote access is strictly required. If it is, restrict incoming connections to known IP addresses in the firewall.\n\nNote: Do not edit the configuration files while the service is being upgraded. Back up /etc/mysql before making any changes.",
+      "texto_base_fonte": "Texto escrito para esta questão, no formato de um guia de instalação.",
+      "assunto": "Informação específica (according to the text)",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "deve ser aberta para qualquer endereço logo após a instalação."
+        },
+        {
+          "letra": "B",
+          "texto": "é usada apenas pelo script de segurança do passo 4."
+        },
+        {
+          "letra": "C",
+          "texto": "precisa ser fechada antes de atualizar a lista de pacotes."
+        },
+        {
+          "letra": "D",
+          "texto": "só pode ser usada quando o serviço estiver parado."
+        },
+        {
+          "letra": "E",
+          "texto": "não deve ficar exposta à internet, a menos que o acesso remoto seja estritamente necessário; nesse caso, o firewall deve aceitar apenas endereços IP conhecidos."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Leitura do passo 5: letra E.\n\n| Trecho | Tradução |\n|---|---|\n| Make sure that port 3306 is not exposed | garanta que a porta 3306 não fique exposta |\n| unless remote access is strictly required | a menos que o acesso remoto seja estritamente necessário |\n| If it is, restrict incoming connections | se for, restrinja as conexões de entrada |\n| to known IP addresses | a endereços IP conhecidos |\n\n3306 é a porta padrão do MySQL (SQL Server 1433, PostgreSQL 5432).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: manuais, documentação, guias de instalação, artigos técnicos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Compreensão de texto técnico · nº 05",
+      "enunciado": "The text mainly argues that password policies should",
+      "texto_base": "Password Policy — adapted from the NIST Digital Identity Guidelines (SP 800-63B)\n\n(1) For many years, organizations required users to create passwords containing uppercase letters, digits and symbols, and to change them every 90 days. Research has shown that these rules often backfire: users respond with predictable patterns, such as \"Password1!\" followed by \"Password2!\".\n\n(2) Current guidance therefore focuses on length rather than complexity. User-chosen passwords MUST be at least 8 characters long, and systems SHOULD accept passwords of at least 64 characters, so that users can adopt long passphrases. Every new password MUST be checked against a list of values known to be commonly used or previously compromised.\n\n(3) Verifiers SHOULD NOT require passwords to be changed periodically. A change MUST, however, be forced whenever there is evidence that the password has been compromised. Password hints and security questions such as \"What was the name of your first pet?\" MUST NOT be used, since their answers can often be found on social media.\n\n(4) Finally, passwords MUST be stored only as salted hashes computed with a function designed to be slow, which makes offline guessing attacks considerably more expensive.\n\nIn this text, the keywords MUST, MUST NOT, SHOULD and SHOULD NOT are to be interpreted as described in RFC 2119.",
+      "texto_base_fonte": "Texto escrito para esta questão, a partir das recomendações do NIST SP 800-63B.",
+      "assunto": "Ideia principal e finalidade do texto",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "require uppercase letters, digits and symbols in every password."
+        },
+        {
+          "letra": "B",
+          "texto": "force all users to change their passwords every 90 days."
+        },
+        {
+          "letra": "C",
+          "texto": "prioritize length and screening against compromised passwords over complexity rules and periodic changes."
+        },
+        {
+          "letra": "D",
+          "texto": "rely on security questions to recover forgotten passwords."
+        },
+        {
+          "letra": "E",
+          "texto": "store passwords in a reversible format to simplify recovery."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Tese do texto: letra C.\n\nParágrafo 1: as regras antigas (complexidade + troca a cada 90 dias) 'backfire'. Parágrafo 2: 'focuses on length rather than complexity' e checagem contra senhas vazadas. Parágrafo 3: SHOULD NOT exigir troca periódica.\n\nAs erradas 1 e 2 são exatamente as regras que o texto critica; a 3 é proibida (MUST NOT); a 4 contradiz o parágrafo 4 (hash não é reversível).\n\n'rather than' = em vez de — conectivo que entrega a tese.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: manuais, documentação, guias de instalação, artigos técnicos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Compreensão de texto técnico · nº 06",
+      "enunciado": "According to paragraph 3, a password change must be forced",
+      "texto_base": "Password Policy — adapted from the NIST Digital Identity Guidelines (SP 800-63B)\n\n(1) For many years, organizations required users to create passwords containing uppercase letters, digits and symbols, and to change them every 90 days. Research has shown that these rules often backfire: users respond with predictable patterns, such as \"Password1!\" followed by \"Password2!\".\n\n(2) Current guidance therefore focuses on length rather than complexity. User-chosen passwords MUST be at least 8 characters long, and systems SHOULD accept passwords of at least 64 characters, so that users can adopt long passphrases. Every new password MUST be checked against a list of values known to be commonly used or previously compromised.\n\n(3) Verifiers SHOULD NOT require passwords to be changed periodically. A change MUST, however, be forced whenever there is evidence that the password has been compromised. Password hints and security questions such as \"What was the name of your first pet?\" MUST NOT be used, since their answers can often be found on social media.\n\n(4) Finally, passwords MUST be stored only as salted hashes computed with a function designed to be slow, which makes offline guessing attacks considerably more expensive.\n\nIn this text, the keywords MUST, MUST NOT, SHOULD and SHOULD NOT are to be interpreted as described in RFC 2119.",
+      "texto_base_fonte": "Texto escrito para esta questão, a partir das recomendações do NIST SP 800-63B.",
+      "assunto": "Informação específica (according to the text)",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "every 90 days."
+        },
+        {
+          "letra": "B",
+          "texto": "whenever the user forgets the answer to a security question."
+        },
+        {
+          "letra": "C",
+          "texto": "whenever the password is shorter than 64 characters."
+        },
+        {
+          "letra": "D",
+          "texto": "whenever there is evidence that the password has been compromised."
+        },
+        {
+          "letra": "E",
+          "texto": "whenever the user adopts a long passphrase."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Parágrafo 3: 'A change MUST, however, be forced whenever there is evidence that the password has been compromised.' Letra D.\n\n| Situação | O texto diz |\n|---|---|\n| troca periódica (90 dias) | SHOULD NOT |\n| suspeita de comprometimento | MUST forçar a troca |\n| perguntas de segurança | MUST NOT usar |\n\n'compromised' = comprometida, vazada (não 'compromissada'). 'whenever' = sempre que.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: manuais, documentação, guias de instalação, artigos técnicos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Compreensão de texto técnico · nº 07",
+      "enunciado": "Infere-se do parágrafo 4 que armazenar senhas com uma função de hash rápida e sem salt",
+      "texto_base": "Password Policy — adapted from the NIST Digital Identity Guidelines (SP 800-63B)\n\n(1) For many years, organizations required users to create passwords containing uppercase letters, digits and symbols, and to change them every 90 days. Research has shown that these rules often backfire: users respond with predictable patterns, such as \"Password1!\" followed by \"Password2!\".\n\n(2) Current guidance therefore focuses on length rather than complexity. User-chosen passwords MUST be at least 8 characters long, and systems SHOULD accept passwords of at least 64 characters, so that users can adopt long passphrases. Every new password MUST be checked against a list of values known to be commonly used or previously compromised.\n\n(3) Verifiers SHOULD NOT require passwords to be changed periodically. A change MUST, however, be forced whenever there is evidence that the password has been compromised. Password hints and security questions such as \"What was the name of your first pet?\" MUST NOT be used, since their answers can often be found on social media.\n\n(4) Finally, passwords MUST be stored only as salted hashes computed with a function designed to be slow, which makes offline guessing attacks considerably more expensive.\n\nIn this text, the keywords MUST, MUST NOT, SHOULD and SHOULD NOT are to be interpreted as described in RFC 2119.",
+      "texto_base_fonte": "Texto escrito para esta questão, a partir das recomendações do NIST SP 800-63B.",
+      "assunto": "Inferência em texto técnico",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "impediria qualquer ataque de adivinhação, por ser irreversível."
+        },
+        {
+          "letra": "B",
+          "texto": "é a prática recomendada pelo texto para sistemas com muitos usuários."
+        },
+        {
+          "letra": "C",
+          "texto": "permitiria recuperar a senha original do usuário sem custo."
+        },
+        {
+          "letra": "D",
+          "texto": "só é proibida quando a senha tem menos de 8 caracteres."
+        },
+        {
+          "letra": "E",
+          "texto": "tornaria mais baratos os ataques de adivinhação offline, caso a base de senhas vazasse."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Inferência pelo contrário do que o texto manda: letra E.\n\nO texto exige hash com salt e função LENTA porque isso 'makes offline guessing attacks considerably more expensive'. Tirar as duas proteções faz o ataque ficar barato.\n\n| Proteção | Contra o quê |\n|---|---|\n| salt (valor aleatório por senha) | tabelas pré-calculadas (rainbow tables) e senhas iguais com o mesmo hash |\n| função lenta (bcrypt, scrypt, Argon2, PBKDF2) | força bruta offline: cada tentativa custa caro |\n\nHash não se 'descriptografa': o atacante testa candidatos e compara. Por isso a terceira errada cai.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: manuais, documentação, guias de instalação, artigos técnicos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Compreensão de texto técnico · nº 08",
+      "enunciado": "The text is mainly intended to",
+      "texto_base": "Containers and Virtual Machines\n\n(1) Virtual machines (VMs) and containers are both used to run applications in isolated environments, but they achieve isolation at different levels. A VM emulates a complete computer, including its own operating system kernel, on top of a hypervisor. Containers, on the other hand, share the kernel of the host and isolate only the application and its dependencies.\n\n(2) Because they do not boot a full operating system, containers start in seconds and consume less memory, which allows a single server to host many more of them. VMs, although heavier, offer stronger isolation. That is why they remain the preferred choice when workloads from different customers must run on the same physical hardware.\n\n(3) In cloud computing, the two technologies are frequently combined: providers run customer containers inside lightweight VMs, obtaining the density of containers together with the security boundary of a hypervisor.\n\n(4) For database servers, containers are widely adopted in development and testing environments. In production, however, administrators must ensure that data is written to persistent volumes; otherwise, it will be lost when the container is removed.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo de artigo técnico sobre cloud computing.",
+      "assunto": "Ideia principal e finalidade do texto",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "prove that containers have replaced virtual machines in cloud computing."
+        },
+        {
+          "letra": "B",
+          "texto": "compare virtual machines and containers and show how they can be used together."
+        },
+        {
+          "letra": "C",
+          "texto": "teach readers how to install a hypervisor."
+        },
+        {
+          "letra": "D",
+          "texto": "argue that databases should never run in containers."
+        },
+        {
+          "letra": "E",
+          "texto": "describe the history of operating system kernels."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Finalidade: letra B.\n\nParágrafo 1 compara; 2 mostra vantagens de cada um; 3 mostra os dois combinados; 4 aplica a banco de dados.\n\n| Distrator | Por que cai |\n|---|---|\n| replaced | o 3 diz que são COMBINADOS, e o 2 que VMs seguem preferidas em multi-cliente |\n| install a hypervisor | não há instrução |\n| never run in containers | o 4 diz que é comum em desenvolvimento e possível em produção com volume persistente |\n| history | não há história |",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: manuais, documentação, guias de instalação, artigos técnicos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Compreensão de texto técnico · nº 09",
+      "enunciado": "According to paragraph 1, the main difference between VMs and containers is that",
+      "texto_base": "Containers and Virtual Machines\n\n(1) Virtual machines (VMs) and containers are both used to run applications in isolated environments, but they achieve isolation at different levels. A VM emulates a complete computer, including its own operating system kernel, on top of a hypervisor. Containers, on the other hand, share the kernel of the host and isolate only the application and its dependencies.\n\n(2) Because they do not boot a full operating system, containers start in seconds and consume less memory, which allows a single server to host many more of them. VMs, although heavier, offer stronger isolation. That is why they remain the preferred choice when workloads from different customers must run on the same physical hardware.\n\n(3) In cloud computing, the two technologies are frequently combined: providers run customer containers inside lightweight VMs, obtaining the density of containers together with the security boundary of a hypervisor.\n\n(4) For database servers, containers are widely adopted in development and testing environments. In production, however, administrators must ensure that data is written to persistent volumes; otherwise, it will be lost when the container is removed.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo de artigo técnico sobre cloud computing.",
+      "assunto": "Informação específica (according to the text)",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "containers run their own kernel, while VMs share the kernel of the host."
+        },
+        {
+          "letra": "B",
+          "texto": "VMs do not provide any isolation between applications."
+        },
+        {
+          "letra": "C",
+          "texto": "each VM runs its own operating system kernel, while containers share the kernel of the host."
+        },
+        {
+          "letra": "D",
+          "texto": "containers can only run on physical servers, never in the cloud."
+        },
+        {
+          "letra": "E",
+          "texto": "VMs isolate only the application and its dependencies."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Parágrafo 1: letra C.\n\n| | VM | Container |\n|---|---|---|\n| kernel | próprio (SO completo) | compartilha o do host |\n| roda sobre | hypervisor | runtime de container (Docker, containerd) |\n| inicia em | minutos | segundos |\n| isolamento | mais forte | mais leve |\n\nA primeira errada inverte os dois — a troca preferida da banca. A última atribui à VM o que o texto diz do container ('isolate only the application and its dependencies').\n\n'on the other hand' = por outro lado (contraste).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: manuais, documentação, guias de instalação, artigos técnicos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Compreensão de texto técnico · nº 10",
+      "enunciado": "Based on paragraph 4, a database running in a container without a persistent volume",
+      "texto_base": "Containers and Virtual Machines\n\n(1) Virtual machines (VMs) and containers are both used to run applications in isolated environments, but they achieve isolation at different levels. A VM emulates a complete computer, including its own operating system kernel, on top of a hypervisor. Containers, on the other hand, share the kernel of the host and isolate only the application and its dependencies.\n\n(2) Because they do not boot a full operating system, containers start in seconds and consume less memory, which allows a single server to host many more of them. VMs, although heavier, offer stronger isolation. That is why they remain the preferred choice when workloads from different customers must run on the same physical hardware.\n\n(3) In cloud computing, the two technologies are frequently combined: providers run customer containers inside lightweight VMs, obtaining the density of containers together with the security boundary of a hypervisor.\n\n(4) For database servers, containers are widely adopted in development and testing environments. In production, however, administrators must ensure that data is written to persistent volumes; otherwise, it will be lost when the container is removed.",
+      "texto_base_fonte": "Texto escrito para esta questão, no estilo de artigo técnico sobre cloud computing.",
+      "assunto": "Inferência em texto técnico",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "will automatically copy its data to the host's kernel."
+        },
+        {
+          "letra": "B",
+          "texto": "cannot be used in development environments."
+        },
+        {
+          "letra": "C",
+          "texto": "becomes faster and keeps its data permanently."
+        },
+        {
+          "letra": "D",
+          "texto": "must run inside a virtual machine to start."
+        },
+        {
+          "letra": "E",
+          "texto": "will lose its data when the container is removed."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Parágrafo 4: 'data is written to persistent volumes; otherwise, it will be lost when the container is removed.' Letra E.\n\notherwise = caso contrário. Sem volume persistente, os dados moram na camada gravável do container, que some junto com ele.\n\n| Termo | Significado |\n|---|---|\n| persistent volume | armazenamento que sobrevive ao container |\n| ephemeral | efêmero, apagado com o container |\n| to remove a container | apagar o container (docker rm) |",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Compreensão de textos técnicos: manuais, documentação, guias de instalação, artigos técnicos"
+    }
+  ]
+}

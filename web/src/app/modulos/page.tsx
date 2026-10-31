@@ -10,7 +10,7 @@ import { Erro, Vazio, plural, quando } from "@/components/ui";
 import { api } from "@/lib/api";
 import { useAtualizar } from "@/lib/atualizar";
 import { useAvisos } from "@/lib/avisos";
-import type { ModuloResumo, Questao } from "@/lib/tipos";
+import type { ModuloResumo, Questao, TopicoResumo } from "@/lib/tipos";
 
 import { Bancas } from "./Bancas";
 import { GavetaQuestao } from "./GavetaQuestao";
@@ -31,10 +31,12 @@ const TRILHAS: { chave: string; titulo: string }[] = [
 function CardModulo({
   m,
   onAbrirTopico,
+  onPausarTopico,
   onModo,
 }: {
   m: ModuloResumo;
   onAbrirTopico: (id: string, nome: string) => void;
+  onPausarTopico: (t: TopicoResumo) => void;
   onModo: (modo: Modo) => void;
 }) {
   const [todos, setTodos] = useState(false);
@@ -82,7 +84,7 @@ function CardModulo({
 
       {m.topicos.length > 0 && m.questoes === 0 && m.pausadas > 0 && (
         <p className="m-0 text-[13px] leading-[1.5] text-neutral-500">
-          Tudo aqui é de banca pausada. As {m.pausadas} questões continuam no
+          Tudo aqui está pausado. As {m.pausadas} questões continuam no
           acervo, com o histórico — só não voltam na fila do dia.
         </p>
       )}
@@ -96,9 +98,22 @@ function CardModulo({
             <button
               type="button"
               onClick={() => onAbrirTopico(t.id, t.nome)}
-              className="min-w-0 flex-1 truncate text-left text-text hover:text-accent"
+              className={`min-w-0 flex-1 truncate text-left hover:text-accent ${
+                t.ativo ? "text-text" : "text-neutral-600 line-through"
+              }`}
             >
               {t.nome}
+            </button>
+            {/* Pausar é para o assunto que o edital não cobra: sai da fila, o
+                acervo e o histórico ficam. Não pergunta nada porque desfaz
+                no mesmo clique. */}
+            <button
+              type="button"
+              onClick={() => onPausarTopico(t)}
+              title={t.ativo ? "Tirar da fila (fora do edital)" : "Voltar para a fila"}
+              className="flex-none text-[11.5px] text-neutral-600 hover:text-accent"
+            >
+              {t.ativo ? "pausar" : "retomar"}
             </button>
             <span className="tnum flex-none text-[12px] text-neutral-600">
               {t.questoes}
@@ -187,6 +202,20 @@ function Modulos() {
     const id = params.get("questao");
     if (id) api.questao(id).then(setEmFoco).catch(() => {});
   }, [params]);
+
+  const pausarTopico = (t: TopicoResumo) => {
+    api
+      .editarTopico(t.id, { ativo: !t.ativo })
+      .then(() => {
+        ok(
+          t.ativo
+            ? `${t.nome} pausado — ${plural(t.questoes, "questão sai", "questões saem")} da fila, sem perder o histórico`
+            : `${t.nome} de volta à fila`,
+        );
+        void carregar();
+      })
+      .catch((e) => falhou(String(e.message ?? e)));
+  };
 
   const abrirTopico = (id: string, nome: string) => {
     setTopicoAberto({ id, nome });
@@ -308,6 +337,7 @@ function Modulos() {
                   key={m.id}
                   m={m}
                   onAbrirTopico={abrirTopico}
+                  onPausarTopico={pausarTopico}
                   onModo={setModo}
                 />
               ))}

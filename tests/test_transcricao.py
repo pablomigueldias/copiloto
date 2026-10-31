@@ -281,15 +281,17 @@ async def test_contexto_e_a_cauda_crua_e_nao_a_reescrita(espiao):
 # ── onde a nota mora (fase06 §6.6) ────────────────────────────────
 
 
-def test_pastas_do_vault_vai_ate_o_terceiro_nivel(tmp_path):
-    """Com profundidade 2, `Machine Learning/08 - LLMs` — o destino óbvio de uma
-    aula sobre LLM — nunca aparecia como opção, e o modelo escolhia a menos
-    errada entre as que via."""
+def test_pastas_do_vault_nao_tem_limite_de_profundidade(tmp_path):
+    """Com corte em 3 níveis, as pastas de aula de
+    `Pessoal/<curso>/<módulo>/<aula>` sumiam da tela, e a sugestão certa do
+    modelo era recusada como "não existe"."""
     (tmp_path / "Pessoal/Machine Learning/08 - LLMs e IA Generativa").mkdir(parents=True)
+    (tmp_path / "Pessoal/SQL/Fundamentos/Arquitetura de Banco de Dados").mkdir(parents=True)
     (tmp_path / "Pessoal/Bancos de Dados/IMG").mkdir(parents=True)
     pastas = tr.pastas_do_vault(tmp_path)
 
     assert "Pessoal/Machine Learning/08 - LLMs e IA Generativa" in pastas
+    assert "Pessoal/SQL/Fundamentos/Arquitetura de Banco de Dados" in pastas
     # Pasta de arquivo não é destino de nota de estudo.
     assert not any(p.endswith("IMG") for p in pastas)
 

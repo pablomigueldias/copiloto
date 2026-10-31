@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Matemática e Raciocínio Lógico, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa do edital CRECI-SP 01/2026 (Avança SP), com peso no que o acervo real tinha fino (diagramas lógicos, relações arbitrárias, média ponderada, MMC/MDC, sistemas, regra de três composta). TODA conta e todo problema de lógica é conferido por script no gerador (scripts/ineditas_bd/mat.py, `verificar`): os problemas de relações arbitrárias são resolvidos por força bruta e só entram se a solução for única.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico — inéditas",
+    "trilha": "concurso",
+    "ordem": 4
+  },
+  "topico": {
+    "nome": "Lógica de argumentação",
+    "ordem": 1
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Lógica de argumentação · nº 01",
+      "enunciado": "Considere verdadeiras as proposições:\n\nI. Todo analista é concursado.\nII. Nenhum concursado é terceirizado.\n\nA partir delas, conclui-se necessariamente que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "algum terceirizado é analista."
+        },
+        {
+          "letra": "B",
+          "texto": "todo concursado é analista."
+        },
+        {
+          "letra": "C",
+          "texto": "nenhum analista é terceirizado."
+        },
+        {
+          "letra": "D",
+          "texto": "algum analista não é concursado."
+        },
+        {
+          "letra": "E",
+          "texto": "todo terceirizado é concursado."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Todo analista é concursado; nenhum concursado é terceirizado. Letra C.\n\nDiagrama: o círculo dos ANALISTAS fica inteiro DENTRO do círculo dos CONCURSADOS; o círculo dos TERCEIRIZADOS fica inteiro FORA do dos concursados. Logo, analistas e terceirizados não se encostam: nenhum analista é terceirizado.\n\n| Alternativa | Por que cai |\n|---|---|\n| algum terceirizado é analista | contradiz o diagrama |\n| todo concursado é analista | inverte a premissa I: o círculo de dentro não cobre o de fora |\n| algum analista não é concursado | nega a premissa I |\n| todo terceirizado é concursado | contradiz a premissa II |\n\nAtalho: 'todo A é B' = A dentro de B. 'Nenhum B é C' = B e C separados. O que está dentro de B herda a separação.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Estruturas lógicas, lógicas de argumentação, diagramas lógicos"
+    },
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Lógica de argumentação · nº 02",
+      "enunciado": "Em um setor com 50 funcionários, 30 sabem programar em SQL, 25 sabem programar em Python e 10 sabem as duas linguagens. O número de funcionários desse setor que não sabem nenhuma das duas linguagens é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "5."
+        },
+        {
+          "letra": "B",
+          "texto": "10."
+        },
+        {
+          "letra": "C",
+          "texto": "0."
+        },
+        {
+          "letra": "D",
+          "texto": "15."
+        },
+        {
+          "letra": "E",
+          "texto": "45."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "50 funcionários, 30 SQL, 25 Python, 10 ambos. Letra A: 5.\n\nQuem sabe PELO MENOS uma: 30 + 25 − 10 = 45. O 10 é subtraído porque quem sabe as duas foi contado duas vezes — uma no SQL, outra no Python.\n\nNenhuma: 50 − 45 = 5.\n\nPelo diagrama: só SQL = 30 − 10 = 20; só Python = 25 − 10 = 15; ambos = 10; total dentro dos círculos = 45.\n\nPegadinhas: 0 é de quem soma 30 + 25 = 55 e acha que todo mundo sabe alguma; 45 é a resposta de 'pelo menos uma'.\n\nFórmula: n(A ∪ B) = n(A) + n(B) − n(A ∩ B).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Estruturas lógicas, lógicas de argumentação, diagramas lógicos"
+    }
+  ]
+}

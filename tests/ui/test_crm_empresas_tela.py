@@ -1,4 +1,4 @@
-"""A tela Empresas do CRM (Fase 1, passo 2), num navegador de verdade."""
+"""A base de prospecção e a página do negócio (Fase 1, passos 2 a 4), num navegador de verdade."""
 from __future__ import annotations
 
 import os

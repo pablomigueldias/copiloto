@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 5 questões de crase que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Crase”.\n\nO tópico já existia com questões do Quadrix (pausado). As do Avança SP entram no mesmo tópico e se separam pela banca.\n\nDe onde vêm: Câmara de Taboão da Serra 2022 (1), Prefeitura de Americana 2022 (1), Prefeitura de Paraty 2024 (1), Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 5 questões de crase que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Crase”.\n\nO tópico já existia com questões do Quadrix (pausado). As do Avança SP entram no mesmo tópico e se separam pela banca.\n\nDe onde vêm: Câmara de Taboão da Serra 2022 (1), Prefeitura de Americana 2022 (1), Prefeitura de Paraty 2024 (1), Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Língua portuguesa",
     "trilha": "concurso",
-    "ordem": 2
+    "ordem": 5
   },
   "topico": {
     "nome": "Crase",
@@ -155,6 +155,68 @@
           "texto": "Os moradores solicitaram à prefeitura um alvará."
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 9",
+      "assunto": "Crase",
+      "enunciado": "Assinale a alternativa que a crase foi empregada corretamente.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Fique à distância de pessoas problemáticas."
+        },
+        {
+          "letra": "B",
+          "texto": "O pescador foi à terra para trocar peixes por redes."
+        },
+        {
+          "letra": "C",
+          "texto": "Isso não se refere às alunas problemáticas."
+        },
+        {
+          "letra": "D",
+          "texto": "Cheguei à casa tarde, pois todos faltaram ao trabalho."
+        },
+        {
+          "letra": "E",
+          "texto": "Fui à São Paulo no último final de semana."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Referir-se A + AS alunas = às: letra C.\n\n| Frase | Por que NÃO tem crase |\n|---|---|\n| à distância | distância indeterminada não leva artigo (crase só com distância especificada: à distância de 10 m) |\n| à terra | 'terra' oposta a bordo/mar não leva artigo |\n| à casa | 'casa' = o próprio lar, sem determinante, não leva artigo |\n| à São Paulo | 'vou a São Paulo, volto DE São Paulo' → sem artigo |\n\nTeste: troque por masculino. 'Refere-se aos alunos' → AO → crase. 'Fui a Santos' — volto de Santos, não 'da' → sem crase."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 10",
+      "assunto": "Crase",
+      "enunciado": "Considere as seguintes sentenças:\n\nI. Fui à assembleia da universidade ontem.\nII. Ela entregou a carta à Pedro.\nIII. Não sei por que ela disse àquilo ao pai.\n\nO emprego da crase está correto apenas na(s) sentença(s):",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I e II."
+        },
+        {
+          "letra": "B",
+          "texto": "II."
+        },
+        {
+          "letra": "C",
+          "texto": "I."
+        },
+        {
+          "letra": "D",
+          "texto": "I e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Letra C, só a I.\n\n| Sentença | Análise |\n|---|---|\n| I | ir A + A assembleia → à ✔ |\n| II | Pedro é masculino: não há artigo 'a' → 'a Pedro' |\n| III | 'dizer' pede objeto direto (disse aquilo), não há preposição → 'disse aquilo' |\n\nTeste do masculino: 'fui ao congresso' → crase em 'à assembleia'. 'Àquilo' só leva crase quando o verbo pede 'a': 'refiro-me àquilo'."
     }
   ]
 }

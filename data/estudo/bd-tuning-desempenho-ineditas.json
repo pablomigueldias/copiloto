@@ -1,0 +1,645 @@
+{
+  "_leia_me": "Questões INÉDITAS, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — não são de banca nenhuma, e o gabarito e a explicação são meus. Moram num módulo separado ('Banco de dados — inéditas') para nunca se misturarem com as questões de prova real. Cada tópico é um item do programa de Conhecimentos Específicos do edital CRECI-SP 01/2026 (Instituto Avança SP), cargo PAS – Analista de TI – Banco de Dados, Anexo II; o item está no campo `fonte` de cada questão. FORMATO: imita o padrão das bancas que caem nessa prova — cinco alternativas (Avança SP, Cesgranrio, FCC, Vunesp), enunciado de cenário ('Considere que...', estilo Cesgranrio), afirmações I/II/III, NÃO/INCORRETO em caixa alta e questões de código SQL. O gabarito é distribuído entre A e E de propósito, para que a posição não dê pista. VERIFICAÇÃO: as questões de código SQL do tópico de SQL rodam contra um banco SQLite com as mesmas tabelas do enunciado, no gerador (scripts/ineditas_bd/gerar.py), e o resultado é conferido com o gabarito antes de gravar. As demais foram conferidas na documentação dos SGBDs como eu a conheço — sem fonte externa citada; desconfie e corrija se a prova real disser outra coisa. Para pedir mais: 'faz mais X questões' (ver a memória `questoes-ineditas-bd`).",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Banco de dados — inéditas",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Tuning e desempenho",
+    "ordem": 5
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 01",
+      "enunciado": "No MySQL e no PostgreSQL, o comando que exibe o plano de execução escolhido pelo otimizador para uma consulta — indicando, por exemplo, se haverá varredura completa da tabela ou uso de índice — é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "DESCRIBE TABLE."
+        },
+        {
+          "letra": "B",
+          "texto": "SHOW INDEXES."
+        },
+        {
+          "letra": "C",
+          "texto": "ANALYZE TABLE, que executa a consulta e devolve as linhas."
+        },
+        {
+          "letra": "D",
+          "texto": "EXPLAIN."
+        },
+        {
+          "letra": "E",
+          "texto": "OPTIMIZE QUERY."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Ver o plano de execução: letra D, EXPLAIN.\n\nEXPLAIN SELECT * FROM pedido WHERE cliente_id = 42;\n\nO que procurar na saída:\n\n| Sinal | MySQL | PostgreSQL |\n|---|---|---|\n| varredura completa (ruim em tabela grande) | type = ALL | Seq Scan |\n| uso de índice | type = ref / range / const; coluna key | Index Scan / Index Only Scan |\n| estimativa de linhas | rows | rows |\n\nEXPLAIN mostra o plano ESTIMADO sem executar. EXPLAIN ANALYZE (PostgreSQL e MySQL 8.0.18+) EXECUTA a consulta e mostra tempos reais — cuidado com UPDATE/DELETE: eles são executados de verdade.\n\nOPTIMIZE QUERY não existe. No SQL Server, o equivalente é o plano de execução do SSMS ou SET SHOWPLAN_XML ON.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 02",
+      "enunciado": "No PostgreSQL, ao executar EXPLAIN ANALYZE em uma consulta, o administrador obtém",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "apenas o plano estimado, sem executar a consulta."
+        },
+        {
+          "letra": "B",
+          "texto": "a lista de índices recomendados para a tabela, sem plano de execução."
+        },
+        {
+          "letra": "C",
+          "texto": "o plano de execução e as medições reais da execução, como tempo gasto e número real de linhas em cada etapa, pois a consulta é de fato executada."
+        },
+        {
+          "letra": "D",
+          "texto": "a atualização das estatísticas da tabela, sem exibir plano."
+        },
+        {
+          "letra": "E",
+          "texto": "o código-fonte da função que implementa a consulta."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "EXPLAIN ANALYZE no PostgreSQL: letra C.\n\n| Comando | Executa? | Mostra |\n|---|---|---|\n| EXPLAIN | não | plano e custos ESTIMADOS |\n| EXPLAIN ANALYZE | SIM | plano + tempo real + linhas reais por nó |\n\nO ponto de diagnóstico é comparar 'rows' estimado com 'actual rows'. Se o otimizador estimou 10 linhas e vieram 2 milhões, as estatísticas estão desatualizadas ou enganosas, e o plano escolhido provavelmente é ruim.\n\nAtualizar estatísticas é o comando ANALYZE sozinho (sem EXPLAIN) — confusão comum por causa do nome.\n\nPara testar UPDATE ou DELETE com EXPLAIN ANALYZE sem estragar dados: BEGIN; EXPLAIN ANALYZE ...; ROLLBACK;",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 03",
+      "enunciado": "A coluna data_venda da tabela VENDAS possui índice. A consulta SELECT * FROM VENDAS WHERE YEAR(data_venda) = 2025; está lenta e faz varredura completa. Uma reescrita que permite ao otimizador usar o índice é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "SELECT * FROM VENDAS WHERE YEAR(data_venda) LIKE '2025%';"
+        },
+        {
+          "letra": "B",
+          "texto": "SELECT * FROM VENDAS WHERE CAST(data_venda AS VARCHAR(10)) LIKE '2025%';"
+        },
+        {
+          "letra": "C",
+          "texto": "SELECT DISTINCT * FROM VENDAS WHERE YEAR(data_venda) = 2025;"
+        },
+        {
+          "letra": "D",
+          "texto": "SELECT * FROM VENDAS WHERE YEAR(data_venda) = 2025 ORDER BY data_venda;"
+        },
+        {
+          "letra": "E",
+          "texto": "SELECT * FROM VENDAS WHERE data_venda >= '2025-01-01' AND data_venda < '2026-01-01';"
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Função aplicada à coluna indexada: letra E, trocar por intervalo.\n\nO índice guarda os valores de data_venda ordenados, e não YEAR(data_venda). Ao aplicar uma função sobre a coluna, o SGBD precisa calcular a função em TODAS as linhas para comparar — varredura completa. A condição deixa de ser SARGABLE (Search ARGument ABLE).\n\nRegra: deixe a coluna 'nua' de um lado e mexa no OUTRO lado da comparação.\n\n| Não sargável | Sargável |\n|---|---|\n| YEAR(data) = 2025 | data >= '2025-01-01' AND data < '2026-01-01' |\n| salario * 1.1 > 5000 | salario > 5000 / 1.1 |\n| UPPER(nome) = 'ANA' | nome = 'ANA' (com collation CI) |\n| CAST(col AS VARCHAR) LIKE ... | comparação no tipo original |\n\nUsar < 1º de janeiro do ano seguinte, e não <= 31/12, não perde os registros de 31/12 com horário.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 04",
+      "enunciado": "A coluna nome da tabela CLIENTE possui índice B-tree. Entre as condições a seguir, a que pode se beneficiar desse índice para localizar as linhas é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "WHERE nome LIKE 'Silv%'"
+        },
+        {
+          "letra": "B",
+          "texto": "WHERE nome LIKE '%Silva'"
+        },
+        {
+          "letra": "C",
+          "texto": "WHERE nome LIKE '%ilv%'"
+        },
+        {
+          "letra": "D",
+          "texto": "WHERE LOWER(nome) LIKE 'silv%'"
+        },
+        {
+          "letra": "E",
+          "texto": "WHERE nome LIKE '_ilva%'"
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "LIKE com índice B-tree: letra A.\n\nO índice B-tree é como uma lista telefônica: ordenada pelo COMEÇO do texto. 'Silv%' tem prefixo fixo, e o SGBD vai direto ao trecho que começa com 'Silv' (index seek / range scan).\n\n| Padrão | Usa o índice para buscar? |\n|---|---|\n| 'Silv%' | sim (prefixo conhecido) |\n| '%Silva', '%ilv%' | não (o começo é desconhecido) |\n| '_ilva%' | não (o 1º caractere é curinga) |\n| LOWER(nome) LIKE ... | não (função na coluna), salvo índice de expressão |\n\nPara buscar texto no meio, o caminho é índice de texto completo (FULLTEXT no MySQL e no SQL Server; GIN com pg_trgm no PostgreSQL).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "negativa",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 05",
+      "enunciado": "Foi criado o índice composto CREATE INDEX ix_pedido ON PEDIDO (cliente_id, data_pedido). Esse índice NÃO é aproveitado para buscar diretamente as linhas na consulta com o filtro",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "WHERE cliente_id = 15"
+        },
+        {
+          "letra": "B",
+          "texto": "WHERE data_pedido = '2025-03-10'"
+        },
+        {
+          "letra": "C",
+          "texto": "WHERE cliente_id = 15 AND data_pedido = '2025-03-10'"
+        },
+        {
+          "letra": "D",
+          "texto": "WHERE cliente_id = 15 AND data_pedido >= '2025-01-01'"
+        },
+        {
+          "letra": "E",
+          "texto": "WHERE cliente_id IN (15, 16) AND data_pedido = '2025-03-10'"
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Índice (cliente_id, data_pedido) e filtro só por data: letra B.\n\nRegra do PREFIXO À ESQUERDA: o índice composto é ordenado primeiro por cliente_id e, dentro de cada cliente, por data. Ele serve a buscas que começam pela primeira coluna. Filtrar só pela segunda é como procurar na lista telefônica pelo PRIMEIRO nome: a ordenação não ajuda.\n\n| Filtro | Usa o índice? |\n|---|---|\n| cliente_id | sim |\n| cliente_id + data | sim, melhor caso |\n| cliente_id + intervalo de data | sim |\n| só data_pedido | não para seek (no máximo uma varredura do índice) |\n\nConsequência de projeto: a coluna mais usada sozinha em filtros vai PRIMEIRO no índice composto.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 06",
+      "enunciado": "Uma tabela de log recebe milhares de inserções por segundo e é raramente consultada. Um analista sugeriu criar índices em todas as suas colunas para melhorar o desempenho. Essa sugestão é inadequada porque",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "índices só podem ser criados em colunas de chave primária."
+        },
+        {
+          "letra": "B",
+          "texto": "índices tornam as consultas SELECT mais lentas em qualquer situação."
+        },
+        {
+          "letra": "C",
+          "texto": "cada índice adicional precisa ser atualizado a cada INSERT, UPDATE e DELETE, o que aumenta o custo de escrita e o espaço ocupado."
+        },
+        {
+          "letra": "D",
+          "texto": "o SGBD ignora índices em tabelas com mais de mil linhas."
+        },
+        {
+          "letra": "E",
+          "texto": "índices impedem a execução de comandos INSERT na tabela."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Índice em tudo numa tabela de escrita intensa: letra C.\n\nÍndice é troca: acelera a LEITURA que o usa e encarece toda ESCRITA, porque cada INSERT grava a linha e uma entrada em CADA índice. Numa tabela que quase só recebe inserção, índices extras só custam: CPU, I/O, espaço e mais bloqueio.\n\nCritério para criar índice:\n\n— a coluna aparece com frequência em WHERE, JOIN ou ORDER BY;\n\n— é seletiva (filtra poucas linhas);\n\n— a tabela é mais lida do que escrita.\n\nCriar índice em coluna de FK é quase sempre bom; criar em todas as colunas, quase nunca.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 07",
+      "enunciado": "Em uma tabela com 5 milhões de clientes, a coluna sexo possui apenas os valores 'F' e 'M', distribuídos de forma equilibrada. Um índice B-tree comum nessa coluna tende a ser pouco útil para a consulta WHERE sexo = 'F' porque",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a coluna tem baixa seletividade: o filtro retorna cerca de metade da tabela, e ler tudo sequencialmente costuma ser mais barato que acessar milhões de linhas pelo índice."
+        },
+        {
+          "letra": "B",
+          "texto": "índices B-tree não podem ser criados em colunas do tipo CHAR."
+        },
+        {
+          "letra": "C",
+          "texto": "a coluna tem alta cardinalidade, o que impede o uso do índice."
+        },
+        {
+          "letra": "D",
+          "texto": "o otimizador nunca usa índices em consultas com igualdade."
+        },
+        {
+          "letra": "E",
+          "texto": "índices só funcionam em colunas numéricas."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Índice em coluna com dois valores: letra A, baixa SELETIVIDADE.\n\nSeletividade = proporção de linhas que o filtro devolve. Quanto MENOR a fração devolvida, mais útil o índice.\n\nWHERE sexo = 'F' devolve ~50% da tabela. Ir ao índice e depois buscar 2,5 milhões de linhas espalhadas é mais caro que varrer a tabela em sequência — e o otimizador sabe disso: ignora o índice.\n\n| Coluna | Cardinalidade (valores distintos) | Índice B-tree |\n|---|---|---|\n| CPF | altíssima | ótimo |\n| cidade | média | depende do filtro |\n| sexo, status ativo/inativo | baixíssima | pouco útil |\n\nA alternativa 'alta cardinalidade' inverte o conceito. Para colunas de baixa cardinalidade em data warehouse, existe o índice BITMAP (Oracle).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 08",
+      "enunciado": "No SQL Server, a consulta SELECT nome, email FROM CLIENTE WHERE cidade = 'Santos' é muito frequente. Para que ela seja respondida inteiramente pelo índice, sem acessar a tabela, o DBA pode criar",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "CREATE INDEX ix_cidade ON CLIENTE (nome);"
+        },
+        {
+          "letra": "B",
+          "texto": "CREATE CLUSTERED INDEX ix_email ON CLIENTE (email);"
+        },
+        {
+          "letra": "C",
+          "texto": "CREATE INDEX ix_cidade ON CLIENTE (email, nome);"
+        },
+        {
+          "letra": "D",
+          "texto": "CREATE STATISTICS st_cidade ON CLIENTE (cidade);"
+        },
+        {
+          "letra": "E",
+          "texto": "CREATE INDEX ix_cidade ON CLIENTE (cidade) INCLUDE (nome, email);"
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 3,
+      "explicacao": "Índice que responde à consulta sozinho: letra E, índice de COBERTURA (covering index).\n\nA chave do índice é cidade (a coluna do WHERE); nome e email vão no INCLUDE, guardados só no nível folha. A consulta encontra as linhas pela cidade e já acha ali as colunas do SELECT — sem a ida extra à tabela (o 'key lookup' do plano do SQL Server).\n\nÍndice só em nome não ajuda o WHERE. (email, nome) não começa por cidade. Estatística não é índice. E um segundo índice CLUSTERED é impossível, se a tabela já tem o da chave primária.\n\nPor isso SELECT * atrapalha: nenhum índice cobre todas as colunas.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 09",
+      "enunciado": "Após uma carga que inseriu milhões de linhas em uma tabela, consultas que antes eram rápidas passaram a usar planos de execução ineficientes, embora os índices continuem existindo. Uma causa provável e a ação correspondente são",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "corrupção do log de transações; executar BACKUP LOG."
+        },
+        {
+          "letra": "B",
+          "texto": "estatísticas desatualizadas; atualizá-las com UPDATE STATISTICS (SQL Server) ou ANALYZE (PostgreSQL e MySQL)."
+        },
+        {
+          "letra": "C",
+          "texto": "excesso de permissões; executar REVOKE em todos os usuários."
+        },
+        {
+          "letra": "D",
+          "texto": "falta de chave estrangeira; executar DROP TABLE e recriar a tabela."
+        },
+        {
+          "letra": "E",
+          "texto": "collation incompatível; reinstalar o SGBD."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Plano piorou depois de grande carga, índices intactos: letra B.\n\nO otimizador decide com base em ESTATÍSTICAS: quantas linhas a tabela tem e como os valores se distribuem (histogramas). Depois de uma carga grande, elas descrevem a tabela antiga; o otimizador estima 1.000 linhas onde há 1 milhão e escolhe o plano errado.\n\n| SGBD | Atualizar estatísticas |\n|---|---|\n| SQL Server | UPDATE STATISTICS tabela; ou sp_updatestats |\n| PostgreSQL | ANALYZE tabela; (o autovacuum também faz) |\n| MySQL | ANALYZE TABLE tabela; |\n\nDiagnóstico: no plano real, comparar linhas estimadas com linhas reais. Diferença grande = estatística ruim.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 10",
+      "enunciado": "Ao analisar a fragmentação dos índices de um banco no Microsoft SQL Server, o DBA encontrou: índice A com 12% de fragmentação e índice B com 65%. Segundo a recomendação usual da Microsoft, as ações adequadas são, respectivamente,",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "reorganizar o índice A e reconstruir o índice B."
+        },
+        {
+          "letra": "B",
+          "texto": "reconstruir o índice A e reorganizar o índice B."
+        },
+        {
+          "letra": "C",
+          "texto": "reconstruir os dois índices."
+        },
+        {
+          "letra": "D",
+          "texto": "excluir os dois índices e recriá-los como heap."
+        },
+        {
+          "letra": "E",
+          "texto": "executar DBCC SHRINKDATABASE nos dois casos."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "12% e 65% de fragmentação: letra A — reorganizar o A e reconstruir o B.\n\n| Fragmentação | Ação | Comando |\n|---|---|---|\n| abaixo de ~5–10% | nada | — |\n| ~5–10% a 30% | REORGANIZE (leve, sempre online) | ALTER INDEX ix ON t REORGANIZE; |\n| acima de 30% | REBUILD (recria o índice; online só na Enterprise) | ALTER INDEX ix ON t REBUILD; |\n\nO REBUILD também atualiza as estatísticas do índice com amostragem completa; o REORGANIZE não.\n\nSHRINKDATABASE é o contrário de ajudar: ele FRAGMENTA os índices ao mover páginas.\n\nOs números de 5% e 30% são orientação antiga da Microsoft; a documentação atual recomenda medir o ganho antes. Para prova, vale a regra dos 30%.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 11",
+      "enunciado": "Ao revisar o código de uma aplicação, o DBA recomendou substituir SELECT * por uma lista explícita de colunas. Um benefício dessa mudança é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "garantir que a consulta use sempre o índice clusterizado."
+        },
+        {
+          "letra": "B",
+          "texto": "eliminar a necessidade de cláusula WHERE."
+        },
+        {
+          "letra": "C",
+          "texto": "tornar a consulta imune a SQL injection."
+        },
+        {
+          "letra": "D",
+          "texto": "reduzir o volume de dados lidos e transferidos e permitir o uso de índices de cobertura."
+        },
+        {
+          "letra": "E",
+          "texto": "impedir a ocorrência de deadlocks."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Trocar SELECT * por colunas explícitas: letra D.\n\nGanhos:\n\n— menos bytes lidos e trafegados pela rede (colunas grandes como texto e imagem ficam de fora);\n\n— chance de o índice COBRIR a consulta;\n\n— a aplicação não quebra nem muda de comportamento quando alguém acrescenta uma coluna à tabela.\n\nNão tem relação com SQL injection (o que protege é parametrizar) nem com deadlock, e não obriga o uso de nenhum índice específico.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 12",
+      "enunciado": "No plano de execução de uma consulta que junta a tabela pequena DEPARTAMENTO (20 linhas) com a tabela grande FUNCIONARIO (2 milhões de linhas), que possui índice na coluna depto_id, o algoritmo de junção mais provavelmente escolhido pelo otimizador é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "produto cartesiano completo seguido de filtro."
+        },
+        {
+          "letra": "B",
+          "texto": "nested loops, percorrendo a tabela pequena e buscando, para cada linha, os funcionários correspondentes pelo índice."
+        },
+        {
+          "letra": "C",
+          "texto": "merge join, exigindo ordenar previamente as 2 milhões de linhas."
+        },
+        {
+          "letra": "D",
+          "texto": "hash join, sempre obrigatório quando há índice."
+        },
+        {
+          "letra": "E",
+          "texto": "union all, combinando as duas tabelas."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 3,
+      "explicacao": "Tabela pequena + tabela grande com índice na coluna de junção: letra B, nested loops.\n\n| Algoritmo | Como | Bom quando |\n|---|---|---|\n| nested loops | para cada linha da tabela externa, busca as correspondentes na interna (idealmente por índice) | entrada externa PEQUENA e índice na interna |\n| hash join | monta tabela hash com a menor e varre a maior | duas entradas grandes, sem índice útil, igualdade |\n| merge join | percorre as duas já ORDENADAS pela chave | as duas entradas já vêm ordenadas (por índice) |\n\n20 buscas por índice são baratíssimas. Hash join nunca é 'obrigatório'; merge pagaria uma ordenação enorme. Produto cartesiano não é algoritmo de junção com condição.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 13",
+      "enunciado": "Para identificar quais consultas estão lentas em um servidor MySQL de produção, registrando aquelas que ultrapassam um tempo de execução configurado, o DBA deve habilitar o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "binary log."
+        },
+        {
+          "letra": "B",
+          "texto": "general query log, que registra apenas consultas lentas."
+        },
+        {
+          "letra": "C",
+          "texto": "error log."
+        },
+        {
+          "letra": "D",
+          "texto": "slow query log."
+        },
+        {
+          "letra": "E",
+          "texto": "relay log."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Registrar consultas lentas no MySQL: letra D, slow query log.\n\nLigado com slow_query_log = 1 e o limite em long_query_time (segundos). Opcionalmente, log_queries_not_using_indexes. A ferramenta mysqldumpslow (ou pt-query-digest) resume o arquivo.\n\n| Log do MySQL | Registra |\n|---|---|\n| slow query log | consultas acima do tempo limite |\n| general query log | TODA consulta recebida (pesado; só para depuração curta) |\n| binary log | alterações de dados — replicação e recuperação até um ponto no tempo |\n| error log | erros e eventos do servidor |\n| relay log | na réplica, eventos recebidos do primário |\n\nEquivalentes: no SQL Server, Query Store e Extended Events; no PostgreSQL, log_min_duration_statement e a extensão pg_stat_statements.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 14",
+      "enunciado": "No Microsoft SQL Server, o recurso que armazena automaticamente o histórico de consultas executadas, seus planos de execução e estatísticas de desempenho, permitindo identificar regressões de plano e forçar um plano anterior, é o",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Query Store."
+        },
+        {
+          "letra": "B",
+          "texto": "SQL Server Agent."
+        },
+        {
+          "letra": "C",
+          "texto": "Database Mail."
+        },
+        {
+          "letra": "D",
+          "texto": "Resource Governor."
+        },
+        {
+          "letra": "E",
+          "texto": "Log Shipping."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Histórico de consultas e planos, com opção de forçar plano: letra A, Query Store (desde o SQL Server 2016).\n\nUso típico: 'a consulta ficou lenta ontem'. O Query Store mostra que o plano mudou; o DBA compara os dois e pode FORÇAR o plano antigo, bom, sem mexer no código.\n\n| Recurso | Função |\n|---|---|\n| Query Store | histórico de planos e desempenho |\n| Resource Governor | limitar CPU e memória por grupo de carga |\n| Extended Events | capturar eventos (substitui o Profiler) |\n| Database Engine Tuning Advisor | sugerir índices |\n| Log Shipping | alta disponibilidade (não é desempenho) |",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 15",
+      "enunciado": "Sobre índices do tipo hash e B-tree, é correto afirmar que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o índice hash é o mais indicado para consultas com BETWEEN e ORDER BY."
+        },
+        {
+          "letra": "B",
+          "texto": "o B-tree só atende a buscas por igualdade."
+        },
+        {
+          "letra": "C",
+          "texto": "o índice hash é eficiente para buscas por igualdade, mas não atende a consultas por intervalo nem a ordenações, enquanto o B-tree atende a igualdade, intervalos e ORDER BY."
+        },
+        {
+          "letra": "D",
+          "texto": "os dois tipos mantêm os valores ordenados, por isso são equivalentes."
+        },
+        {
+          "letra": "E",
+          "texto": "o índice hash só pode ser criado em colunas de texto."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Hash × B-tree: letra C.\n\n| | B-tree | Hash |\n|---|---|---|\n| igualdade (=) | sim | sim, muito rápido |\n| intervalo (<, >, BETWEEN) | sim | NÃO |\n| ORDER BY, prefixo de LIKE | sim | NÃO |\n| estrutura | árvore balanceada, valores em ordem | função hash espalha os valores sem ordem |\n\nO hash embaralha os valores de propósito: 100 e 101 caem em lugares sem relação. Por isso não serve para faixa.\n\nO B-tree é o padrão em praticamente todo SGBD (CREATE INDEX sem tipo cria B-tree). Hash aparece no PostgreSQL (USING HASH) e no engine MEMORY do MySQL.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 16",
+      "enunciado": "A tabela MOVIMENTO armazena 10 anos de transações, com bilhões de linhas, e quase todas as consultas filtram pelo mês corrente. Para reduzir o volume lido por essas consultas e facilitar o expurgo de dados antigos, uma técnica adequada é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "remover a chave primária da tabela."
+        },
+        {
+          "letra": "B",
+          "texto": "converter todas as colunas para o tipo texto."
+        },
+        {
+          "letra": "C",
+          "texto": "desativar o log de transações do banco."
+        },
+        {
+          "letra": "D",
+          "texto": "criar uma view sobre a tabela, o que divide fisicamente os dados."
+        },
+        {
+          "letra": "E",
+          "texto": "particionar a tabela por intervalo de data, para que as consultas acessem apenas as partições envolvidas."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Tabela gigante consultada por período: letra E, particionamento por intervalo (range).\n\nA tabela continua sendo UMA para a aplicação, mas os dados ficam fisicamente separados por mês ou ano. Benefícios:\n\n— PARTITION PRUNING (eliminação de partição): a consulta do mês atual lê só a partição do mês;\n\n— expurgo barato: apagar um ano é remover ou trocar a partição (DROP/TRUNCATE PARTITION, SWITCH no SQL Server), em vez de um DELETE de bilhões de linhas;\n\n— manutenção de índice por partição.\n\nView não divide nada fisicamente. Tirar a chave primária ou o log degrada a integridade e a recuperação.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 17",
+      "enunciado": "Uma tela de relatório executa, a cada acesso, uma consulta pesada que soma milhões de vendas por região e mês; os dados de meses fechados não mudam. Para reduzir drasticamente o tempo de resposta, uma solução adequada é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "criar uma view comum, que guarda o resultado da consulta."
+        },
+        {
+          "letra": "B",
+          "texto": "aumentar o nível de isolamento das transações para SERIALIZABLE."
+        },
+        {
+          "letra": "C",
+          "texto": "remover os índices da tabela de vendas."
+        },
+        {
+          "letra": "D",
+          "texto": "trocar SUM por COUNT na consulta."
+        },
+        {
+          "letra": "E",
+          "texto": "armazenar o resultado agregado em uma visão materializada (ou tabela de resumo) atualizada periodicamente."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Agregação pesada sobre dados que não mudam: letra E.\n\nA visão MATERIALIZADA grava o resultado; a tela passa a ler poucas linhas prontas, em vez de somar milhões a cada acesso. O custo é mantê-la atualizada (REFRESH MATERIALIZED VIEW no PostgreSQL; indexed view no SQL Server, mantida automaticamente; tabela de resumo alimentada por job no MySQL).\n\nA view COMUM é a pegadinha: ela não guarda resultado nenhum, refaz a consulta toda vez.\n\nSERIALIZABLE só aumenta bloqueio; tirar índice piora; trocar SUM por COUNT muda o resultado.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 18",
+      "enunciado": "Sobre boas práticas de desempenho em bancos de dados, analise as afirmativas.",
+      "afirmacoes": [
+        "Manter as transações curtas reduz o tempo em que bloqueios ficam retidos e, com isso, a contenção entre sessões.",
+        "Criar índices nas colunas de chave estrangeira usadas em junções costuma melhorar o desempenho dessas junções.",
+        "Quanto maior o número de índices em uma tabela, melhor o desempenho de todas as operações sobre ela."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas II."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I e II."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Quais estão certas? Letra C: I e II.\n\nI — certa. Transação longa segura bloqueios por muito tempo e aumenta espera e deadlock. Faça a interação com o usuário FORA da transação.\n\nII — certa. O SQL Server indexa a PK automaticamente, mas NÃO a FK; o MySQL/InnoDB cria índice na FK; o PostgreSQL, não. Sem índice, JOINs e a verificação de integridade ao apagar o pai varrem a tabela filha.\n\nIII — errada. Índice acelera leitura e encarece escrita; a quantidade certa depende da carga. 'Quanto mais, melhor' é falso.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 19",
+      "enunciado": "Sobre o índice clusterizado no Microsoft SQL Server, analise as afirmativas.",
+      "afirmacoes": [
+        "Uma tabela pode ter no máximo um índice clusterizado, pois ele define a ordem física de armazenamento das linhas.",
+        "Ao criar uma PRIMARY KEY, o SQL Server cria por padrão um índice não clusterizado, nunca um clusterizado.",
+        "Usar como chave do índice clusterizado uma coluna crescente, como IDENTITY, tende a reduzir a fragmentação causada por inserções."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas III."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I e III."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Quais estão certas? Letra C: I e III.\n\nI — certa. O índice clusterizado É a tabela: as linhas ficam armazenadas na ordem da chave do índice. Por isso só pode existir um.\n\nII — errada. Ao criar PRIMARY KEY, o SQL Server cria por padrão um índice CLUSTERIZADO (se a tabela ainda não tiver um). Pode-se pedir NONCLUSTERED explicitamente.\n\nIII — certa. Chave do clusterizado crescente (IDENTITY) faz as inserções irem sempre para o fim, sem divisão de páginas. Chave aleatória como GUID gerado por NEWID() insere no meio e fragmenta — por isso existe NEWSEQUENTIALID().",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Tuning e desempenho · nº 20",
+      "enunciado": "O plano de execução real de uma consulta no SQL Server mostra o operador Table Scan sobre uma tabela de 8 milhões de linhas, embora o filtro WHERE retorne apenas 15 linhas. A interpretação mais adequada é que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a consulta usou o índice da forma mais eficiente possível."
+        },
+        {
+          "letra": "B",
+          "texto": "não há índice adequado para o filtro, ou ele não pôde ser usado, e o SGBD leu a tabela inteira; um índice apropriado permitiria um Index Seek."
+        },
+        {
+          "letra": "C",
+          "texto": "o Table Scan é sempre preferível ao Index Seek em tabelas grandes."
+        },
+        {
+          "letra": "D",
+          "texto": "o operador indica que a consulta retornou todas as 8 milhões de linhas."
+        },
+        {
+          "letra": "E",
+          "texto": "a tabela está corrompida e deve ser restaurada do backup."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Table Scan em 8 milhões de linhas para devolver 15: letra B.\n\n| Operador (SQL Server) | Significa |\n|---|---|\n| Table Scan | leu a tabela inteira (heap, sem índice clusterizado) |\n| Clustered Index Scan | leu o índice clusterizado inteiro — na prática, a tabela toda |\n| Index Seek | foi direto às linhas pelo índice |\n| Key Lookup | achou no índice não clusterizado e voltou à tabela buscar colunas que faltavam |\n\nScan não significa que todas as linhas foram DEVOLVIDAS: elas foram LIDAS e depois filtradas. Ler 8 milhões para devolver 15 é o sintoma clássico de índice faltando ou de condição não sargável (função na coluna, conversão de tipo implícita).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Tuning e desempenho: índices, otimização de consultas e análise de performance"
+    }
+  ]
+}

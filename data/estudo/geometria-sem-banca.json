@@ -1,0 +1,100 @@
+{
+  "_leia_me": "Questões de geometria que o Pablo resolveu em videoaula, sem banca identificada no material.\n\n    A questão 2 entrou em 06/10/2026 a partir de um print da aula: o Pablo a resolveu e respondeu E (66°). O gabarito é o dele, conferido por mim na conta (x = 66° fecha os 180° do triângulo ABC); não há gabarito de banca para conferir. A questão 3 entrou no mesmo dia, do mesmo jeito: o Pablo respondeu 130° (letra C), e a conta confere (θ = 90° + 80°/2). O print só mostra as alternativas a) a d); se houver uma e), ela ficou fora do quadro. A questão 4 (semelhança de triângulos: soldado e poste) também entrou em 06/10/2026: o Pablo respondeu 17,50 m (letra D), e a conta confere (31,50 ÷ 1,80 = 17,5); o print também só mostra a) a d). A explicação é minha, não do professor da aula.\n\n    Mora no tópico Geometria do módulo de prova, e não no de inéditas, porque não fui eu que escrevi a questão. Sem o campo `banca`, ela entra no grupo \"Sem banca\" e não é pausada junto com nenhum concurso.\n\n    A figura é o recorte do print da aula, em imagens/sem-banca/.",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Geometria",
+    "ordem": 15
+  },
+  "questoes": [
+    {
+      "formato": "calculo",
+      "origem": "Sem banca · videoaula de geometria · questão 2 (transcrita de print; gabarito aferido na mão, não conferido no PDF da banca)",
+      "enunciado": "A figura abaixo mostra um triângulo ABC e o ponto D sobre o lado AC.\n\nSabendo que AB = BC = CD e que o ângulo DBA = 18°, então o ângulo CBD mede:",
+      "imagem": "sem-banca/triangulo-abc-ponto-d.png",
+      "imagem_alt": "Triângulo com o vértice B no alto, C embaixo à esquerda e A embaixo à direita. O ponto D está sobre a base CA, mais perto de A, e um segmento liga B a D, dividindo o ângulo B em CBD (o maior, à esquerda) e DBA (o menor, à direita).",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "58°"
+        },
+        {
+          "letra": "B",
+          "texto": "60°"
+        },
+        {
+          "letra": "C",
+          "texto": "62°"
+        },
+        {
+          "letra": "D",
+          "texto": "64°"
+        },
+        {
+          "letra": "E",
+          "texto": "66°"
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Triângulo ABC com AB = BC = CD e ângulo DBA = 18°; pede-se CBD. Letra E: 66°.\n\nChame CBD de x.\n\nTriângulo BCD: BC = CD, então é isósceles com base BD. Os ângulos da base são iguais: CDB = CBD = x. Logo o ângulo C = 180° − 2x.\n\nTriângulo ABC: AB = BC, então é isósceles com base AC. Os ângulos da base são iguais: A = C = 180° − 2x. O ângulo B inteiro é x + 18°.\n\nSoma dos ângulos de ABC:\n(180 − 2x) + (180 − 2x) + (x + 18) = 180\n378 − 3x = 180\nx = 66°.\n\nConferindo: C = A = 48° e B = 66 + 18 = 84°; 48 + 48 + 84 = 180.\n\nO atalho: lado igual a lado é ângulo igual a ângulo, e cada igualdade de lados do enunciado vira um triângulo isósceles. Aqui são dois (BCD e ABC), e o ângulo C é a ponte entre eles. A pegadinha é achar que D é ponto médio ou que BD é bissetriz — o enunciado não diz nenhuma das duas."
+    },
+    {
+      "formato": "calculo",
+      "origem": "Sem banca · videoaula de geometria · questão 3 (transcrita de print; gabarito aferido na mão, não conferido no PDF da banca)",
+      "enunciado": "No triângulo ABC representado na figura abaixo, os segmentos BT e CT dividem os respectivos ângulos internos dos vértices B e C em partes iguais.\n\nSe o ângulo do vértice A mede 80°, a medida θ do ângulo assinalado é igual a:",
+      "imagem": "sem-banca/triangulo-abc-bissetrizes-t.png",
+      "imagem_alt": "Triângulo com A no alto, B embaixo à esquerda e C embaixo à direita; o ângulo em A está marcado como 80°. O ponto T fica dentro do triângulo, abaixo de A, ligado a B e a C. Os ângulos em B e em C têm marcas mostrando que BT e CT os dividem ao meio, e o ângulo BTC, em T, está assinalado como θ.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "110°"
+        },
+        {
+          "letra": "B",
+          "texto": "120°"
+        },
+        {
+          "letra": "C",
+          "texto": "130°"
+        },
+        {
+          "letra": "D",
+          "texto": "140°"
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Triângulo ABC com A = 80°; BT e CT são bissetrizes de B e C; pede-se θ = ângulo BTC. Letra C: 130°.\n\nNo triângulo ABC: B + C = 180° − 80° = 100°.\n\nAs bissetrizes pegam metade de cada um: B/2 + C/2 = 50°.\n\nNo triângulo BTC: θ = 180° − 50° = 130°.\n\nNão é preciso saber B e C separados — só a soma deles.\n\nO atalho: o ângulo entre duas bissetrizes internas é 90° + (ângulo do terceiro vértice)/2. Aqui, 90° + 40° = 130°. A pegadinha é responder 180° − 80° = 100° (que nem está nas alternativas) ou esquecer de dividir por 2."
+    },
+    {
+      "formato": "calculo",
+      "origem": "Sem banca · videoaula de geometria · questão 4 (transcrita de print; gabarito aferido na mão, não conferido no PDF da banca)",
+      "enunciado": "Um soldado de 1,80 m de altura, em pé em um terreno horizontal, vê sua sombra projetada no chão com 1,00 m de comprimento. Na mesma situação, a sombra de um poste de 31,50 m de altura será de:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1,50 m."
+        },
+        {
+          "letra": "B",
+          "texto": "1,75 m."
+        },
+        {
+          "letra": "C",
+          "texto": "15,00 m."
+        },
+        {
+          "letra": "D",
+          "texto": "17,50 m."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Soldado de 1,80 m faz sombra de 1,00 m; qual a sombra de um poste de 31,50 m? Letra D: 17,50 m.\n\nNa mesma hora, os raios de sol chegam com a mesma inclinação. Soldado + sombra e poste + sombra formam dois triângulos retângulos SEMELHANTES, e lados correspondentes são proporcionais:\n\naltura / sombra = 1,80 / 1,00 = 31,50 / s\n\ns = 31,50 × 1,00 / 1,80 = 31,50 / 1,80 = 17,5 m.\n\nPara dividir sem calculadora: 31,50 / 1,80 = 315 / 18 = 35 / 2 = 17,5.\n\nO atalho: aqui a sombra é sempre 1/1,8 da altura, então basta dividir a altura do poste por 1,8. A pegadinha é inverter a razão (31,50 × 1,80 = 56,7) ou errar a vírgula e marcar 1,75 m — por isso B está lá."
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Língua Portuguesa, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa de Língua Portuguesa de nível superior do edital CRECI-SP 01/2026 (Avança SP), com peso nos tópicos que o acervo de prova real tinha finos em 02/10 (análise sintática, colocação pronominal, figuras, redação oficial, regência). Base: norma-padrão da gramática tradicional e o Manual de Redação da Presidência da República, 3ª ed. (2018). Interpretação de texto e coesão ficaram de fora desta leva por já terem muitas questões reais.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Língua portuguesa — inéditas",
+    "trilha": "concurso",
+    "ordem": 6
+  },
+  "topico": {
+    "nome": "Pontuação",
+    "ordem": 6
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Pontuação · nº 01",
+      "enunciado": "Assinale a alternativa em que a pontuação está de acordo com a norma-padrão.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Senhores servidores a reunião sobre o novo sistema, começará às 14h."
+        },
+        {
+          "letra": "B",
+          "texto": "Os servidores do setor de TI, participarão da reunião às 14h."
+        },
+        {
+          "letra": "C",
+          "texto": "A reunião, sobre o novo sistema começará às 14h."
+        },
+        {
+          "letra": "D",
+          "texto": "Senhores servidores, a reunião sobre o novo sistema começará às 14h."
+        },
+        {
+          "letra": "E",
+          "texto": "Os servidores, que trabalham no setor de TI participarão da reunião."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Pontuação: letra D.\n\n'Senhores servidores' é VOCATIVO (chamamento); o vocativo é sempre separado por vírgula.\n\n| Frase errada | Erro |\n|---|---|\n| Senhores servidores a reunião..., começará | falta a vírgula do vocativo e há vírgula entre sujeito e verbo |\n| Os servidores do setor de TI, participarão | vírgula entre sujeito e verbo |\n| A reunião, sobre o novo sistema começará | separa o nome do seu complemento e, de quebra, o sujeito do verbo |\n| Os servidores, que trabalham no setor de TI participarão | abriu a oração explicativa e não fechou: falta a vírgula depois de 'TI' |\n\nRegras de ouro: nunca separar sujeito do verbo; termo intercalado abre e fecha; vocativo sempre entre vírgulas (ou seguido de vírgula, no início).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Pontuação"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Pontuação · nº 02",
+      "enunciado": "Considere as frases:\n\nI. Os analistas que concluíram o curso receberão certificado.\nII. Os analistas, que concluíram o curso, receberão certificado.\n\nSobre elas, é correto afirmar que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "as duas frases têm exatamente o mesmo sentido; as vírgulas são facultativas."
+        },
+        {
+          "letra": "B",
+          "texto": "em I, todos os analistas concluíram o curso; em II, apenas parte deles."
+        },
+        {
+          "letra": "C",
+          "texto": "a frase II está incorreta, pois não se usa vírgula antes de 'que'."
+        },
+        {
+          "letra": "D",
+          "texto": "em I, apenas parte dos analistas concluiu o curso; em II, todos os analistas concluíram o curso."
+        },
+        {
+          "letra": "E",
+          "texto": "a frase I está incorreta, pois a oração 'que concluíram o curso' exige vírgulas."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Com e sem vírgula antes do 'que': letra D.\n\n| Frase | Oração adjetiva | Sentido |\n|---|---|---|\n| I, sem vírgulas | RESTRITIVA | restringe: só os analistas que concluíram (há outros que não concluíram) |\n| II, com vírgulas | EXPLICATIVA | explica algo de TODOS: os analistas — todos eles — concluíram |\n\nAs duas estão gramaticalmente corretas; o que muda é o sentido. Por isso a vírgula aqui não é facultativa.\n\nTeste: a explicativa pode ser retirada sem mudar quem recebe o certificado ('Os analistas receberão certificado' — todos). A restritiva, não.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Pontuação"
+    }
+  ]
+}

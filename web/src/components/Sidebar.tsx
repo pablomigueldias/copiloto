@@ -14,6 +14,7 @@ type Item = { href: string; rotulo: string; icone: NomeIcone };
 
 const ESTUDO: Item[] = [
   { href: "/", rotulo: "Hoje", icone: "hoje" },
+  { href: "/simulado", rotulo: "Simulado", icone: "simulado" },
   { href: "/revisar", rotulo: "Revisar", icone: "revisar" },
   { href: "/modulos", rotulo: "Módulos", icone: "modulos" },
   { href: "/formatos", rotulo: "Formatos de questão", icone: "formatos" },
@@ -23,7 +24,7 @@ const RESTO: Item[] = [
   { href: "/conhecimento", rotulo: "Conhecimento", icone: "conhecimento" },
   { href: "/transcrever", rotulo: "Transcrever", icone: "transcrever" },
   { href: "/pendencias", rotulo: "Pendências", icone: "pendencias" },
-  { href: "/comercial/empresas", rotulo: "Comercial", icone: "comercial" },
+  { href: "/comercial", rotulo: "Comercial", icone: "comercial" },
   { href: "/posts", rotulo: "Redação", icone: "posts" },
   { href: "/fila", rotulo: "Fila", icone: "fila" },
   { href: "/candidaturas", rotulo: "Candidaturas", icone: "candidaturas" },
@@ -137,7 +138,9 @@ export function Sidebar() {
           <Link_
             key={i.href}
             item={i}
-            ativo={rota === i.href}
+            // O simulado tem subpáginas (prova, resultado, reforço) e o item
+            // continua aceso nelas; "/" não pode casar com tudo.
+            ativo={rota === i.href || (i.href !== "/" && rota.startsWith(`${i.href}/`))}
             contador={i.href === "/revisar" ? resumo?.hoje : undefined}
             destaque
           />

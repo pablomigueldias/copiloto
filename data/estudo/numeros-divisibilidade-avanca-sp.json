@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 7 questões de números e divisibilidade que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 7 questões de números e divisibilidade que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Números e divisibilidade",
@@ -213,6 +213,68 @@
           "texto": "10"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 12",
+      "assunto": "MDC: dividir em grupos iguais",
+      "enunciado": "Uma empresa vende cestas de frutas e quer padronizar o conteúdo de todas as cestas para que sejam idênticos. As cestas contêm morangos, peras e maçãs (cada cesta deve conter x morangos, y peras e z maçãs). Em um determinado dia o estoque dispõe de 60 morangos, 72 peras e 120 maçãs. Neste dia, quantas cestas no máximo poderão ser feitas sabendo-se que as cestas devem ser idênticas e a empresa deve utilizar todas as frutas dispostas no estoque.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "10."
+        },
+        {
+          "letra": "B",
+          "texto": "12."
+        },
+        {
+          "letra": "C",
+          "texto": "6."
+        },
+        {
+          "letra": "D",
+          "texto": "8."
+        },
+        {
+          "letra": "E",
+          "texto": "20."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Máximo de grupos iguais sem sobra = MDC: letra B.\n\n60 = 2² × 3 × 5\n72 = 2³ × 3²\n120 = 2³ × 3 × 5\n\nMDC = fatores comuns com o menor expoente = 2² × 3 = 12.\n\nCada cesta: 5 morangos, 6 peras, 10 maçãs.\n\n| Pergunta | Ferramenta |\n|---|---|\n| dividir em partes iguais, o maior possível | MDC |\n| quando voltam a coincidir | MMC |"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 16",
+      "assunto": "MMC: eventos que se repetem",
+      "enunciado": "Considere os seguintes números: 20, 45, 65 e 80. Qual o MMC – mínimo múltiplo comum – deles?",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "2.340"
+        },
+        {
+          "letra": "B",
+          "texto": "3.120"
+        },
+        {
+          "letra": "C",
+          "texto": "4.680"
+        },
+        {
+          "letra": "D",
+          "texto": "9.360"
+        },
+        {
+          "letra": "E",
+          "texto": "14.040"
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Fatore e pegue cada primo com o MAIOR expoente: letra D.\n\n20 = 2² × 5\n45 = 3² × 5\n65 = 5 × 13\n80 = 2⁴ × 5\n\nMMC = 2⁴ × 3² × 5 × 13 = 16 × 9 × 65 = 9.360.\n\nTeste rápido: o MMC tem de ser múltiplo de 80 → 9.360 ÷ 80 = 117. 4.680 ÷ 80 não dá inteiro, e 2.340 também não."
     }
   ]
 }

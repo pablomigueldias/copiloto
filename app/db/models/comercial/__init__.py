@@ -1,5 +1,5 @@
 """Os modelos do motor comercial: a base de prospecção (D9) e o CRM (Fase 1)."""
-from app.db.models.comercial.crm import Interacao, Lead, Tarefa, Transicao
+from app.db.models.comercial.crm import Contato, Empresa, Interacao, Lead, Tarefa, Transicao
 from app.db.models.comercial.prospeccao import (
     Atividade,
     Canal,
@@ -14,6 +14,8 @@ from app.db.models.comercial.prospeccao import (
 __all__ = [
     "Atividade",
     "Canal",
+    "Contato",
+    "Empresa",
     "Estabelecimento",
     "Fonte",
     "Identificador",

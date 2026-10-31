@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 4 questões de juro simples que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 4 questões de juro simples que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Juro simples",
@@ -126,6 +126,37 @@
           "texto": "5 anos e 6 meses"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de São Miguel Arcanjo 2023 · Analista Fiscal de Tributos Municipais · questão 14",
+      "assunto": "Juro simples: juros, montante, taxa e prazo",
+      "enunciado": "Um investidor necessita obter o valor de R$138.000,00 a fim de efetuar o pagamento de uma dívida. Nesta situação, considerando que ele possui o capital inicial de R$120.000,00, e que o valor deverá permanecer aplicado por 10 (dez) meses, e que após este prazo será efetuado o pagamento da referida dívida, qual a taxa de juros mensal, considerando o regime de juros simples, que ele deve obter a fim de saldar sua dívida sem que haja qualquer sobra:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "1,0%"
+        },
+        {
+          "letra": "B",
+          "texto": "1,5%"
+        },
+        {
+          "letra": "C",
+          "texto": "1,8%"
+        },
+        {
+          "letra": "D",
+          "texto": "2,0%"
+        },
+        {
+          "letra": "E",
+          "texto": "2,3%"
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "J = C × i × t, com J = montante − capital: letra B.\n\nJ = 138.000 − 120.000 = 18.000.\n18.000 = 120.000 × i × 10 → i = 18.000 ÷ 1.200.000 = 0,015 = 1,5% ao mês.\n\nAtalho: 18.000 é 15% de 120.000 em 10 meses → 1,5% por mês (no juro simples a taxa se divide pelo tempo)."
     }
   ]
 }

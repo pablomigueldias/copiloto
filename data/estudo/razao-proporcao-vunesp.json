@@ -1,0 +1,221 @@
+{
+  "_leia_me": "Razão e proporção, VUNESP. Questões enviadas pelo Pablo como print em 05/10/2026, sem o concurso, o ano nem o cargo; por isso a origem não diz de que prova são. Os prints não trazem gabarito: a letra é a da conta, não a do gabarito oficial (cabos e sargentos: C/S = 1,3 e C − S = 21 dão 161, B; professores: 18/x = 3/5 dá 30, B; lojas: 175 lojas na razão 1/6 dão 25 grandes, 5 novas, E; guardas: 1 guarda para 50 convidados e 5.250 convidados dão 105, A; homens e mulheres: razão 0,2 = 1/5 em 3.000 pessoas dá 2.500 mulheres, E; corda: 150 m em partes proporcionais a 2 e 3 dão 60 e 90, E; esportes: razão 0,4 = 2/5 em 2.800 alunos dá 2.000 que não praticam, D). O print da questão dos esportes não traz '(Vunesp)' como os outros; entrou aqui por vir na mesma série, mas a banca dela não está confirmada. As explicações são MINHAS, não da banca. Entram por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "VUNESP",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico",
+    "trilha": "concurso",
+    "ordem": 3
+  },
+  "topico": {
+    "nome": "Razão e proporção",
+    "ordem": 8
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · concurso não identificado · razão entre cabos e sargentos do efetivo de patrulhamento",
+      "enunciado": "Em determinada região, a razão entre o número de cabos e o número de sargentos do efetivo de patrulhamento é igual a 1,3. Se há 21 cabos a mais que o número de sargentos, o número total de cabos e sargentos que fazem parte desse efetivo é igual a",
+      "gabarito": "B",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "159."
+        },
+        {
+          "letra": "B",
+          "texto": "161."
+        },
+        {
+          "letra": "C",
+          "texto": "163."
+        },
+        {
+          "letra": "D",
+          "texto": "165."
+        }
+      ],
+      "explicacao": "Razão 1,3 quer dizer C = 1,3·S.\n\nA diferença é 21: C − S = 21 → 1,3S − S = 21 → 0,3S = 21 → S = 70.\n\nEntão C = 1,3 · 70 = 91, e o total é 91 + 70 = 161.\n\nAtalho: 1,3 = 13/10, então cabos e sargentos estão em 13 partes para 10. A diferença é 3 partes = 21, cada parte vale 7, e o total é 23 partes = 161."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · concurso não identificado · razão entre professores do Ensino Fundamental I e II",
+      "enunciado": "A razão entre o número de professores que atuam no Ensino Fundamental I e no Ensino Fundamental II, em certo município, é igual a 3/5. Se no Ensino Fundamental I atuam 18 professores, então o número de professores que atuam no Ensino Fundamental II é igual a",
+      "gabarito": "B",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "25."
+        },
+        {
+          "letra": "B",
+          "texto": "30."
+        },
+        {
+          "letra": "C",
+          "texto": "35."
+        },
+        {
+          "letra": "D",
+          "texto": "40."
+        },
+        {
+          "letra": "E",
+          "texto": "45."
+        }
+      ],
+      "explicacao": "A razão está na ordem do enunciado: Fundamental I / Fundamental II = 3/5.\n\n18 / x = 3/5 → 3x = 90 → x = 30.\n\nAtalho: 3 partes = 18, então cada parte vale 6 e o Fundamental II, com 5 partes, tem 30.\n\nPegadinha: inverter a razão (18/x = 5/3) dá 10,8, que não está nas alternativas, mas com outros números poderia estar."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · concurso não identificado · razão entre lojas grandes e pequenas do centro de compras",
+      "enunciado": "Um centro de compras possui 20 lojas grandes e 55 lojas pequenas. Um projeto prevê a construção de 100 novas lojas nesse centro, algumas grandes e as demais pequenas. Se o projeto prevê que, após a construção das novas lojas, a razão entre o número total de lojas grandes e o número total de lojas pequenas seja igual a 1/6, o número de novas lojas grandes será",
+      "gabarito": "E",
+      "dificuldade": 2,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "25."
+        },
+        {
+          "letra": "B",
+          "texto": "20."
+        },
+        {
+          "letra": "C",
+          "texto": "15."
+        },
+        {
+          "letra": "D",
+          "texto": "10."
+        },
+        {
+          "letra": "E",
+          "texto": "5."
+        }
+      ],
+      "explicacao": "Depois da obra o centro tem 20 + 55 + 100 = 175 lojas.\n\nGrandes/pequenas = 1/6 → de cada 7 lojas, 1 é grande. Grandes no total: 175 / 7 = 25.\n\nJá existiam 20 grandes, então as novas grandes são 25 − 20 = 5.\n\nPegadinha: 25 (letra A) é o total de grandes depois da obra, não o número de novas. A pergunta é 'o número de NOVAS lojas grandes' — sempre desconte o que já existia."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · concurso não identificado · guardas civis proporcionais aos convidados do evento",
+      "enunciado": "Para garantir a segurança dos 5.000 convidados de um evento patrocinado pelo Município, constatou-se que seria necessária, nesse evento, a presença de 100 guardas civis metropolitanos. Sabendo-se que o número de guardas é diretamente proporcional ao número de convidados, se o número de convidados aumentar em 250, o número de guardas civis metropolitanos necessários para garantir a segurança de todos os convidados seria de",
+      "gabarito": "A",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "105."
+        },
+        {
+          "letra": "B",
+          "texto": "104."
+        },
+        {
+          "letra": "C",
+          "texto": "103."
+        },
+        {
+          "letra": "D",
+          "texto": "102."
+        },
+        {
+          "letra": "E",
+          "texto": "101."
+        }
+      ],
+      "explicacao": "Diretamente proporcional: 100 guardas para 5.000 convidados = 1 guarda para cada 50 convidados.\n\nCom o aumento são 5.000 + 250 = 5.250 convidados → 5.250 / 50 = 105 guardas.\n\nAtalho: os 250 convidados a mais pedem 250 / 50 = 5 guardas a mais, então 100 + 5 = 105.\n\nPegadinha: a pergunta é o número de guardas para TODOS os convidados, não os guardas a mais (que seriam 5)."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · concurso não identificado · razão 0,2 entre homens e mulheres no evento",
+      "enunciado": "Em determinado evento, a razão entre o número de homens e o número de mulheres, nessa ordem, pode ser representada por 0,2. Sabendo-se que o número total de pessoas presentes nesse evento é 3 000, pode-se afirmar, corretamente, que o número de mulheres é",
+      "gabarito": "E",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "750."
+        },
+        {
+          "letra": "B",
+          "texto": "1 175."
+        },
+        {
+          "letra": "C",
+          "texto": "1 500."
+        },
+        {
+          "letra": "D",
+          "texto": "2 395."
+        },
+        {
+          "letra": "E",
+          "texto": "2 500."
+        }
+      ],
+      "explicacao": "0,2 = 2/10 = 1/5: para cada 1 homem há 5 mulheres.\n\nSão 1 + 5 = 6 partes para 3.000 pessoas → cada parte vale 500.\n\nMulheres = 5 · 500 = 2.500 (e homens = 500).\n\nConferência: 500 / 2.500 = 0,2 e 500 + 2.500 = 3.000.\n\nPegadinha: o decimal esconde a fração. Converter 0,2 para 1/5 antes de tudo transforma a questão em divisão em partes."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · concurso não identificado · corda de 150 metros dividida em partes proporcionais a 2 e 3",
+      "enunciado": "Uma corda com 150 metros de comprimento precisa ser cortada em duas partes, proporcionais aos números 2 e 3, para que duas regiões possam ser isoladas. O comprimento, em metros, do pedaço mais comprido de corda, será",
+      "gabarito": "E",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "50."
+        },
+        {
+          "letra": "B",
+          "texto": "60."
+        },
+        {
+          "letra": "C",
+          "texto": "70."
+        },
+        {
+          "letra": "D",
+          "texto": "80."
+        },
+        {
+          "letra": "E",
+          "texto": "90."
+        }
+      ],
+      "explicacao": "Divisão em partes diretamente proporcionais a 2 e 3: são 2 + 3 = 5 partes.\n\n150 / 5 = 30 metros por parte.\n\nPedaços: 2 · 30 = 60 m e 3 · 30 = 90 m. O mais comprido tem 90 m.\n\nConferência: 60 + 90 = 150 e 60/90 = 2/3.\n\nPegadinha: 60 (letra B) é o pedaço mais curto — a pergunta pede o mais comprido."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP? (banca não indicada no print) · concurso não identificado · razão 0,4 entre alunos que praticam e não praticam esportes",
+      "enunciado": "Em uma escola, a razão entre o número de alunos que praticam esportes e o número de alunos que não praticam, nessa ordem, é igual a 0,4. Sabendo-se que o total de alunos dessa escola é 2 800, pode-se afirmar corretamente que o número de alunos que não praticam esportes é:",
+      "gabarito": "D",
+      "dificuldade": 1,
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "800"
+        },
+        {
+          "letra": "B",
+          "texto": "1 200"
+        },
+        {
+          "letra": "C",
+          "texto": "1 600"
+        },
+        {
+          "letra": "D",
+          "texto": "2 000"
+        },
+        {
+          "letra": "E",
+          "texto": "2 400"
+        }
+      ],
+      "explicacao": "0,4 = 4/10 = 2/5: para cada 2 alunos que praticam há 5 que não praticam.\n\nSão 2 + 5 = 7 partes para 2.800 alunos → cada parte vale 400.\n\nNão praticam = 5 · 400 = 2.000 (praticam = 800).\n\nConferência: 800 / 2.000 = 0,4 e 800 + 2.000 = 2.800.\n\nPegadinha: 800 (letra A) é o número dos que praticam — a pergunta é sobre os que NÃO praticam."
+    }
+  ]
+}

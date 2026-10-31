@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 32 questões de classes de palavras que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Classes de palavras: substantivo, artigo, adjetivo, numeral, pronome, verbo, advérbio, preposição, conjunção e interjeição”.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (3), Prefeitura de Americana 2022 (1), Prefeitura de Amparo 2022 (5), Prefeitura de Caçapava 2024 (5), Prefeitura de Itatiba 2024 (4), Prefeitura de Juquitiba 2024 (4), Prefeitura de Paraty 2024 (3), Prefeitura de Rio Grande da Serra 2024 (5), Universidade de Taubaté 2025 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n18 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 32 questões de classes de palavras que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Classes de palavras: substantivo, artigo, adjetivo, numeral, pronome, verbo, advérbio, preposição, conjunção e interjeição”.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (3), Prefeitura de Americana 2022 (1), Prefeitura de Amparo 2022 (5), Prefeitura de Caçapava 2024 (5), Prefeitura de Itatiba 2024 (4), Prefeitura de Juquitiba 2024 (4), Prefeitura de Paraty 2024 (3), Prefeitura de Rio Grande da Serra 2024 (5), Universidade de Taubaté 2025 (2).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n18 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Língua portuguesa",
     "trilha": "concurso",
-    "ordem": 2
+    "ordem": 5
   },
   "topico": {
     "nome": "Classes de palavras",
@@ -974,6 +974,409 @@
           "texto": "Compraram salgadinhos **e** doces para o aniversário. (conjunção)"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 6",
+      "assunto": "Advérbio: classificação e circunstâncias",
+      "enunciado": "O valor que melhor descreve o sentido expresso pelo advérbio “já”, em “a facilidade que existia em 1989 já não existe mais”, é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "adição."
+        },
+        {
+          "letra": "B",
+          "texto": "possibilidade."
+        },
+        {
+          "letra": "C",
+          "texto": "negação."
+        },
+        {
+          "letra": "D",
+          "texto": "tempo."
+        },
+        {
+          "letra": "E",
+          "texto": "afirmação."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "'Já não existe mais' = a partir de agora não existe: letra D.\n\nO 'já' marca a mudança no tempo (antes existia, hoje não). A negação está no 'não', não no 'já'.\n\n| Advérbio | Valor comum |\n|---|---|\n| já, ainda, logo, agora | tempo |\n| talvez, provavelmente | dúvida/possibilidade |\n| sim, certamente | afirmação |\n| não, nunca | negação |"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · ITUPREV Itu 2024 · Analista Previdenciário · questão 7",
+      "assunto": "Morfologia: classificar palavras no contexto",
+      "enunciado": "Em todas as sentenças a seguir, que ocorrem no texto, os termos em destaque são preposições, exceto em:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“Mais músicas foram lançadas por dia EM 2024 do que em todo o ano de 1989”."
+        },
+        {
+          "letra": "B",
+          "texto": "“E não vai parar POR aí”."
+        },
+        {
+          "letra": "C",
+          "texto": "“Os artistas ganham CERCA de $0,003 e $0,005 dólares por reprodução no Spotify”."
+        },
+        {
+          "letra": "D",
+          "texto": "“artistas independentes lançaram 9,5 milhões de faixas, CONTRA 1,2 milhão de artistas de gravadoras”."
+        },
+        {
+          "letra": "E",
+          "texto": "“De acordo COM o Spotify, 80% dos artistas têm menos de 50 ouvintes mensais”."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "'Cerca' é advérbio (cerca de = aproximadamente): letra C.\n\nEm, por, contra e com são preposições — ligam termos. 'Cerca' modifica o numeral, indicando aproximação; 'de' é que é a preposição da locução.\n\nPreposições essenciais: a, ante, após, até, com, contra, de, desde, em, entre, para, perante, por, sem, sob, sobre, trás.\n\nNão confundir: 'acerca de' (= sobre) e 'há cerca de' (= existe aproximadamente / faz aproximadamente)."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 3",
+      "assunto": "Morfologia: classificar palavras no contexto",
+      "enunciado": "Assinale a alternativa em que, no excerto apresentado, a palavra ‘se’ atua como conectivo oracional.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "“Em missão histórica (...) a Índia se tornou o 1º país a pousar no polo sul da Lua”."
+        },
+        {
+          "letra": "B",
+          "texto": "“a Rússia tentou ser o 1º país a pousar no lado escuro da Lua (...) mas a sonda saiu de controle e se chocou contra a Lua.”"
+        },
+        {
+          "letra": "C",
+          "texto": "“Ainda precisamos de muito mais detalhes sobre onde e quanta água existe, e saber se toda ela está congelada”."
+        },
+        {
+          "letra": "D",
+          "texto": "“O objetivo do país se tornou explorar a Lua com o menor custo possível.”"
+        },
+        {
+          "letra": "E",
+          "texto": "“Índia se torna o 1º país a pousar no polo sul da Lua em missão histórica”."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "'Saber SE toda ela está congelada' — o 'se' liga a oração ao verbo saber: letra C.\n\nÉ conjunção subordinativa integrante: introduz oração que funciona como objeto (saber o quê? se está congelada).\n\nNas outras, 'se' é pronome: parte integrante do verbo pronominal (tornar-se, chocar-se).\n\n| 'se' | Teste |\n|---|---|\n| conjunção integrante | troca por 'isso': saber isso |\n| conjunção condicional | troca por 'caso' |\n| pronome reflexivo/parte do verbo | acompanha o verbo: tornou-se |\n| partícula apassivadora | 'vende-se casa' = casa é vendida |"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 4",
+      "assunto": "Advérbio: classificação e circunstâncias",
+      "enunciado": "Considere o excerto: “Essas características tornam MUITO difícil operar equipamentos de exploração na região.” No contexto apresentado, a classificação da palavra ‘muito’, considerado o sentido que imprime ao enunciado, é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "advérbio de intensidade."
+        },
+        {
+          "letra": "B",
+          "texto": "pronome indefinido de quantidade."
+        },
+        {
+          "letra": "C",
+          "texto": "adjetivo de grau."
+        },
+        {
+          "letra": "D",
+          "texto": "substantivo comum."
+        },
+        {
+          "letra": "E",
+          "texto": "advérbio de modo."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "'Muito' intensifica o adjetivo 'difícil': letra A.\n\n| 'muito' | Classe | Exemplo |\n|---|---|---|\n| antes de adjetivo, advérbio ou verbo | advérbio de intensidade (invariável) | muito difícil, corre muito |\n| antes de substantivo | pronome indefinido (varia) | muitas crateras |\n\nTeste: se dá para pôr no plural ('muitos difícil'?), é pronome; se não dá, é advérbio."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 6",
+      "assunto": "Morfologia: classificar palavras no contexto",
+      "enunciado": "Caso fosse ordinal, a escrita por extenso do numeral referente ao ano em “A primeira, em 2009, custou em torno de US$ 79 milhões.” seria:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "dois milésimo nono."
+        },
+        {
+          "letra": "B",
+          "texto": "ducentésimo nono."
+        },
+        {
+          "letra": "C",
+          "texto": "segundo milésimo nono."
+        },
+        {
+          "letra": "D",
+          "texto": "bilésimo nono."
+        },
+        {
+          "letra": "E",
+          "texto": "bilionésimo nono."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 3,
+      "explicacao": "Ordinal de 2009 = dois milésimo nono: letra A.\n\nNa formação dos ordinais de milhar, o multiplicador fica cardinal: 2000º = dois milésimo; 3000º = três milésimo.\n\n| Número | Ordinal |\n|---|---|\n| 200º | ducentésimo |\n| 1000º | milésimo |\n| 2000º | dois milésimo |\n| 1.000.000º | milionésimo |\n\nDucentésimo é 200º; bilionésimo é um bilhão. 'Segundo milésimo' não é a forma da norma-padrão."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 7",
+      "assunto": "Substantivo: classificação e flexão",
+      "enunciado": "Considerando o emprego do hífen, as formas pluralizadas corretas das palavras ‘ex-presidente’ e ‘primeiro-ministro’, que ocorrem no texto, são:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "exes-presidentes e primeiros-ministros."
+        },
+        {
+          "letra": "B",
+          "texto": "ex-presidentes e primeiros-ministro."
+        },
+        {
+          "letra": "C",
+          "texto": "ex-presidentes e primeiro-ministros."
+        },
+        {
+          "letra": "D",
+          "texto": "ex-presidentes e primeiros-ministros."
+        },
+        {
+          "letra": "E",
+          "texto": "exes-presidentes e primeiros-ministro."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Plural dos compostos: letra D.\n\n| Composto | Regra | Plural |\n|---|---|---|\n| prefixo + substantivo | só o substantivo varia | ex-presidentes, vice-reitores |\n| numeral/adjetivo + substantivo | os dois variam | primeiros-ministros, segundas-feiras |\n| substantivo + de + substantivo | só o primeiro | pés-de-moleque (com hífen), mulas sem cabeça |\n| verbo + substantivo | só o substantivo | guarda-chuvas |\n\nPrefixo (ex-, vice-, pré-) nunca vai para o plural."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 3",
+      "assunto": "Morfologia: classificar palavras no contexto",
+      "enunciado": "Considere a seguinte sentença, retirada do texto: “A chuva também não agradece nada.” Em relação às classes gramaticais, as palavras “chuva”, “também”, “não” e “nada” são, respectivamente:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "substantivo, advérbio, advérbio e pronome indefinido."
+        },
+        {
+          "letra": "B",
+          "texto": "adjetivo, advérbio, advérbio e pronome indefinido."
+        },
+        {
+          "letra": "C",
+          "texto": "substantivo, substantivo, advérbio e pronome indefinido."
+        },
+        {
+          "letra": "D",
+          "texto": "substantivo, advérbio, preposição e pronome indefinido."
+        },
+        {
+          "letra": "E",
+          "texto": "substantivo, advérbio, advérbio e substantivo."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Letra A.\n\n| Palavra | Classe | Por quê |\n|---|---|---|\n| chuva | substantivo | nomeia, vem com artigo |\n| também | advérbio (de inclusão/afirmação) | modifica o verbo |\n| não | advérbio de negação | |\n| nada | pronome indefinido | substitui 'coisa alguma' (objeto de agradecer) |"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 4",
+      "assunto": "Pronomes: classificação",
+      "enunciado": "Considere a seguinte sentença, retirada do texto: “Estou à janela e só acontece isto: vejo com olhos benéficos a chuva, e a chuva me vê de acordo comigo.” Os pronomes “isto”, “me” e “comigo” são, respectivamente, dos tipos:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pronome demonstrativo, pronome pessoal do caso oblíquo, pronome pessoal do caso oblíquo."
+        },
+        {
+          "letra": "B",
+          "texto": "pronome relativo, pronome pessoal do caso reto, pronome pessoal do caso oblíquo."
+        },
+        {
+          "letra": "C",
+          "texto": "pronome indefinido, pronome pessoal do caso reto, pronome pessoal do caso oblíquo."
+        },
+        {
+          "letra": "D",
+          "texto": "pronome demonstrativo, pronome possessivo, pronome pessoal do caso reto."
+        },
+        {
+          "letra": "E",
+          "texto": "pronome relativo, pronome pessoal do caso oblíquo, pronome pessoal do caso reto."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Letra A.\n\n| Pronome | Tipo |\n|---|---|\n| isto | demonstrativo (e aqui catafórico: anuncia o que vem após os dois-pontos) |\n| me | pessoal oblíquo átono (objeto de 'vê') |\n| comigo | pessoal oblíquo tônico (com + mim) |\n\nRetos: eu, tu, ele, nós, vós, eles — só funcionam como sujeito. Me, te, se, o, lhe, mim, comigo são oblíquos."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 8",
+      "assunto": "Morfologia: classificar palavras no contexto",
+      "enunciado": "Considere as seguintes palavras:\n\nI. esforçada.\nII. amanhecer.\nIII. pedante.\n\nApresenta(m) morfema flexional de gênero apenas a(s) palavra(s):",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "esforçada."
+        },
+        {
+          "letra": "B",
+          "texto": "amanhecer."
+        },
+        {
+          "letra": "C",
+          "texto": "pedante."
+        },
+        {
+          "letra": "D",
+          "texto": "esforçada e pedante."
+        },
+        {
+          "letra": "E",
+          "texto": "amanhecer e pedante."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Só 'esforçada' tem o '-a' de feminino (esforçado/esforçada): letra A.\n\n| Palavra | Gênero |\n|---|---|\n| esforçada | adjetivo biforme: -o / -a é flexão de gênero |\n| amanhecer | verbo: flexiona em tempo, modo, número e pessoa, não em gênero |\n| pedante | adjetivo uniforme: o homem pedante, a mulher pedante |\n\nUniformes comuns: -ante, -ente, -ista, -vel (pedante, inteligente, otimista, amável)."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de São Miguel Arcanjo 2023 · Analista Fiscal de Tributos Municipais · questão 4",
+      "assunto": "Morfologia: classificar palavras no contexto",
+      "enunciado": "As palavras destacadas no trecho “ELA era gorda, baixa, sardenta e de cabelos EXCESSIVAMENTE crespos, MEIO ARRUIVADOS” são, respectivamente, das seguintes categorias gramaticais:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pronome; advérbio; numeral; adjetivo."
+        },
+        {
+          "letra": "B",
+          "texto": "pronome; advérbio; advérbio; adjetivo."
+        },
+        {
+          "letra": "C",
+          "texto": "pronome; substantivo; substantivo; adjetivo."
+        },
+        {
+          "letra": "D",
+          "texto": "substantivo; adjetivo; substantivo; advérbio."
+        },
+        {
+          "letra": "E",
+          "texto": "pronome; advérbio; adjetivo; adjetivo."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Letra B.\n\n| Palavra | Classe |\n|---|---|\n| ela | pronome pessoal reto |\n| excessivamente | advérbio de intensidade (modifica 'crespos') |\n| meio | advérbio (= um pouco), invariável |\n| arruivados | adjetivo |\n\nPegadinha: 'meio' é numeral quando é metade de algo (meio quilo, meia hora). Antes de adjetivo, é advérbio e não varia: 'meio arruivados', 'meio cansada'."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de São Miguel Arcanjo 2023 · Analista Fiscal de Tributos Municipais · questão 5",
+      "assunto": "Pronomes: classificação",
+      "enunciado": "No trecho “continuava a implorar-LHE emprestados os livros que ela não lia”, a palavra em destaque se trata de um:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pronome pessoal de caso reto."
+        },
+        {
+          "letra": "B",
+          "texto": "pronome de tratamento."
+        },
+        {
+          "letra": "C",
+          "texto": "pronome demonstrativo."
+        },
+        {
+          "letra": "D",
+          "texto": "pronome pessoal de caso oblíquo."
+        },
+        {
+          "letra": "E",
+          "texto": "pronome indefinido."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "'Lhe' é oblíquo átono, objeto indireto (implorar a ela): letra D.\n\n| Caso | Pronomes |\n|---|---|\n| reto (sujeito) | eu, tu, ele, ela, nós, vós, eles |\n| oblíquo átono | me, te, se, o, a, lhe, nos, vos, os, as, lhes |\n| oblíquo tônico | mim, ti, si, ele, ela (com preposição), comigo |"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de São Miguel Arcanjo 2023 · Analista Fiscal de Tributos Municipais · questão 8",
+      "assunto": "Substantivo: classificação e flexão",
+      "enunciado": "Considere as seguintes palavras: funil, arroz, cidadão, fóssil, cútis, peixe-boi, bem-te-vi. Assinale a alternativa que apresenta corretamente cada uma dessas palavras em sua forma pluralizada:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "funils, arrozes, cidadões, fóssis, cútis, peixe-bois, bem-te-vis."
+        },
+        {
+          "letra": "B",
+          "texto": "funizes, arroz, cidadãos, fósseis, cútis, peixes-bois, bens-te-vis."
+        },
+        {
+          "letra": "C",
+          "texto": "funis, arroz, cidadãos, fóssis, cútis, peixes-boi, bem-te-vi."
+        },
+        {
+          "letra": "D",
+          "texto": "funis, arrozes, cidadãos, fósseis, cútis, peixes-boi, bem-te-vis."
+        },
+        {
+          "letra": "E",
+          "texto": "funis, arrozes, cidadões, fósseis, cútis, peixes-bois, bem-te-vi."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Letra D.\n\n| Singular | Plural | Regra |\n|---|---|---|\n| funil | funis | -il tônico → -is |\n| fóssil | fósseis | -il átono → -eis |\n| arroz | arrozes | -z → -zes |\n| cidadão | cidadãos | -ão: decorar (cidadãos, pães, leões) |\n| cútis | cútis | paroxítona em -s é invariável |\n| peixe-boi | peixes-boi (ou peixes-bois) | substantivo que especifica o outro: só o 1º varia |\n| bem-te-vi | bem-te-vis | composto com verbo: só o último |"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de São Miguel Arcanjo 2023 · Analista Fiscal de Tributos Municipais · questão 10",
+      "assunto": "Adjetivo e locução adjetiva",
+      "enunciado": "Considere as sentenças: 1) “Ela correu RÁPIDO em direção à casa”; 2) “A cerveja que desce REDONDO”. As palavras destacadas, embora funcionem como advérbios de modo, são, respectivamente, das seguintes categorias gramaticais:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "adjetivo e substantivo."
+        },
+        {
+          "letra": "B",
+          "texto": "adjetivo e adjetivo."
+        },
+        {
+          "letra": "C",
+          "texto": "substantivo e substantivo."
+        },
+        {
+          "letra": "D",
+          "texto": "verbo e substantivo."
+        },
+        {
+          "letra": "E",
+          "texto": "substantivo e adjetivo."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Adjetivos usados como advérbio: letra B.\n\nRápido e redondo são adjetivos de origem (carro rápido, mesa redonda). Aqui modificam o verbo e ficam invariáveis — é a adjetivação adverbial (ela correu rápido, não 'rápida').\n\nOutros: falar alto, custar caro, trabalhar duro, ver claro."
     }
   ]
 }

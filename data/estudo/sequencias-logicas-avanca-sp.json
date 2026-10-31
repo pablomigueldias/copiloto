@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 7 questões de sequências lógicas que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 7 questões de sequências lógicas que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Sequências lógicas",
@@ -217,6 +217,70 @@
           "texto": "683,64"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 18",
+      "assunto": "Sequência numérica: padrão e termo",
+      "enunciado": "Observe a seguinte sequência lógica numérica:\n\n7/3, 14/6, 21/9, …\n\nQuando o denominador for 27, em um determinado elemento da sequência, o numerador será:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "35."
+        },
+        {
+          "letra": "B",
+          "texto": "39."
+        },
+        {
+          "letra": "C",
+          "texto": "49."
+        },
+        {
+          "letra": "D",
+          "texto": "42."
+        },
+        {
+          "letra": "E",
+          "texto": "63."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "No termo n, a fração é 7n / 3n: letra E.\n\n| n | 1 | 2 | 3 | … | 9 |\n|---|---|---|---|---|---|\n| numerador | 7 | 14 | 21 | … | 63 |\n| denominador | 3 | 6 | 9 | … | 27 |\n\nDenominador 27 → n = 27 ÷ 3 = 9 → numerador 7 × 9 = 63.\n\nTodos os termos valem 7/3; o que muda é só a forma de escrever."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 19",
+      "assunto": "Sequência figural e ciclos (resto da divisão)",
+      "enunciado": "Observe a seguinte sequência lógica figural:\n\nDe acordo com as correspondências abaixo, indique o elemento que deve ser colocado na posição faltante (marcado com um ponto de interrogação):",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "I."
+        },
+        {
+          "letra": "B",
+          "texto": "II."
+        },
+        {
+          "letra": "C",
+          "texto": "III."
+        },
+        {
+          "letra": "D",
+          "texto": "IV."
+        },
+        {
+          "letra": "E",
+          "texto": "V."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "A matriz é simétrica em relação à diagonal principal: letra D.\n\n| | col 1 | col 2 | col 3 |\n|---|---|---|---|\n| linha 1 | ▲ | ● | ■ |\n| linha 2 | ● | ▲ | ✕ |\n| linha 3 | ■ | ? | ▲ |\n\nA diagonal é toda ▲, e cada posição (linha i, coluna j) repete a (linha j, coluna i): ● em (1,2) e (2,1), ■ em (1,3) e (3,1). Então (3,2) = (2,3) = ✕, a figura IV.\n\nEm sequência figural 3 × 3, teste as linhas, as colunas e a simetria antes de procurar regra complicada.",
+      "imagem": "avanca-sp/jaguariuna-2023-sequencia-figural.png",
+      "imagem_alt": "Matriz 3×3 de figuras. Linha 1: triângulo, círculo, quadrado. Linha 2: círculo, triângulo, X. Linha 3: quadrado, ponto de interrogação, triângulo. Opções: I triângulo, II círculo, III quadrado, IV X, V estrela."
     }
   ]
 }

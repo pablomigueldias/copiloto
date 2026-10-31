@@ -104,9 +104,11 @@ def _com_relacoes(stmt: Select) -> Select:
     )
 
 
-# ── Banca pausada ────────────────────────────────────────────────────────
+# ── Banca e tópico pausados ──────────────────────────────────────────────
 #
-# Uma banca pausada não sai do acervo: ela sai do **estudo**. A fila do dia, o
+# Uma banca pausada não sai do acervo: ela sai do **estudo**. O tópico pausado
+# segue a mesma regra, um nível abaixo — é o assunto que o edital não cobra
+# dentro de um concurso que eu estou fazendo. A fila do dia, o
 # resumo e os contadores dos módulos deixam de contá-la; o acervo (`listar`) a
 # mostra inteira, porque é lá que eu confiro gabarito e escrevo explicação, e
 # esconder questão de quem foi procurá-la seria mentir sobre o que existe.
@@ -116,22 +118,29 @@ def _com_relacoes(stmt: Select) -> Select:
 # `outerjoin` a mais em cada uma mudaria a cardinalidade dos `count()`.
 
 
-def _sem_banca_pausada():
-    """A questão entra na fila de hoje.
+def _em_estudo():
+    """A questão entra na fila de hoje: nem a banca nem o tópico dela pausados.
 
     `banca_id IS NULL` entra: é a questão inédita, que eu escrevi, e ela não
     pertence a concurso nenhum. O `or_` explícito existe porque `NULL NOT IN
     (...)` é `NULL` em SQL — sem ele, toda questão sem banca sumiria da fila.
+    `topico_id` é obrigatório, então o tópico dispensa esse cuidado.
     """
-    return or_(
-        Questao.banca_id.is_(None),
-        Questao.banca_id.notin_(select(Banca.id).where(Banca.ativa.is_(False))),
+    return and_(
+        or_(
+            Questao.banca_id.is_(None),
+            Questao.banca_id.notin_(select(Banca.id).where(Banca.ativa.is_(False))),
+        ),
+        Questao.topico_id.notin_(select(Topico.id).where(Topico.ativo.is_(False))),
     )
 
 
-def _de_banca_pausada():
+def _pausada():
     """O contrário — o que está parado, para a tela poder dizer quanto é."""
-    return Questao.banca_id.in_(select(Banca.id).where(Banca.ativa.is_(False)))
+    return or_(
+        Questao.banca_id.in_(select(Banca.id).where(Banca.ativa.is_(False))),
+        Questao.topico_id.in_(select(Topico.id).where(Topico.ativo.is_(False))),
+    )
 
 
 # ── A fila do dia ────────────────────────────────────────────────────────
@@ -185,7 +194,7 @@ async def _irmaos_por_bloco(
         _com_relacoes(select(Questao))
         .join(Agenda, Agenda.questao_id == Questao.id)
         .where(
-            _sem_banca_pausada(),
+            _em_estudo(),
             or_(
                 *[
                     and_(Questao.topico_id == topico, Questao.texto_base == texto)
@@ -261,7 +270,7 @@ async def fila(
         if questao_id:
             stmt = stmt.where(Questao.id == questao_id)
         else:
-            stmt = stmt.where(_sem_banca_pausada())
+            stmt = stmt.where(_em_estudo())
         if banca_id:
             stmt = stmt.where(Questao.banca_id == banca_id)
         if topico_id:
@@ -306,17 +315,17 @@ async def resumo() -> dict:
     h = hoje()
     async with get_session() as session:
         total = await session.scalar(
-            select(func.count(Questao.id)).where(_sem_banca_pausada())
+            select(func.count(Questao.id)).where(_em_estudo())
         ) or 0
         pausadas = await session.scalar(
-            select(func.count(Questao.id)).where(_de_banca_pausada())
+            select(func.count(Questao.id)).where(_pausada())
         ) or 0
 
         linhas = (
             await session.execute(
                 select(Agenda.estado, func.count(Agenda.id))
                 .join(Questao, Questao.id == Agenda.questao_id)
-                .where(Agenda.proxima_em <= h, _sem_banca_pausada())
+                .where(Agenda.proxima_em <= h, _em_estudo())
                 .group_by(Agenda.estado)
             )
         ).all()
@@ -326,12 +335,12 @@ async def resumo() -> dict:
         adiadas = await session.scalar(
             select(func.count(Agenda.id))
             .join(Questao, Questao.id == Agenda.questao_id)
-            .where(Agenda.estado == "adiada", _sem_banca_pausada())
+            .where(Agenda.estado == "adiada", _em_estudo())
         ) or 0
         dominadas = await session.scalar(
             select(func.count(Agenda.id))
             .join(Questao, Questao.id == Agenda.questao_id)
-            .where(Agenda.estado == "dominada", _sem_banca_pausada())
+            .where(Agenda.estado == "dominada", _em_estudo())
         ) or 0
         # `date(timestamptz)` no Postgres converte pelo `TimeZone` da sessão,
         # que é UTC — e a conta viraria às 21h de Brasília. `AT TIME ZONE`
@@ -371,7 +380,7 @@ async def modulos() -> list[dict]:
     """
     h = hoje()
     # Uma vez só: o predicado entra em cinco agregados da mesma consulta.
-    ativa = _sem_banca_pausada()
+    ativa = _em_estudo()
     async with get_session() as session:
         mods = list(
             (
@@ -390,7 +399,7 @@ async def modulos() -> list[dict]:
                     func.count(Questao.id).filter(ativa, Agenda.estado == "dominada"),
                     func.count(Questao.id).filter(ativa, Agenda.total_erros > 0),
                     func.min(Agenda.proxima_em).filter(ativa),
-                    func.count(Questao.id).filter(_de_banca_pausada()),
+                    func.count(Questao.id).filter(_pausada()),
                 )
                 .select_from(Topico)
                 .outerjoin(Questao, Questao.topico_id == Topico.id)
@@ -425,6 +434,7 @@ async def modulos() -> list[dict]:
                         "com_erro": d.get("com_erro", 0),
                         "proxima_em": d.get("proxima_em"),
                         "pausadas": d.get("pausadas", 0),
+                        "ativo": t.ativo,
                     }
                 )
             proximas = [t["proxima_em"] for t in topicos if t["proxima_em"]]

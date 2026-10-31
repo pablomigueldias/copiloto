@@ -1511,15 +1511,16 @@ def _anotar_no_indice(pasta: Path, nota: Path, ficha: Fichamento) -> None:
 _PASTAS_NAO_TEMATICAS = {"img", "imgs", "images", "anexos", "pdf", "pdfs", "assets"}
 
 
-def pastas_do_vault(raiz: Path, *, profundidade: int = 3) -> list[str]:
+def pastas_do_vault(raiz: Path) -> list[str]:
     """As pastas que já existem, relativas à raiz — o cardápio do fichamento.
 
-    Profundidade 3, e não 2, porque é aí que mora a pasta certa. Este vault tem
-    46 pastas; com profundidade 2 o modelo via 12, e
-    `Machine Learning/08 - LLMs e IA Generativa` — o destino óbvio de uma aula
-    sobre LLM — nunca aparecia como opção. Ele então escolhia a menos errada
-    entre as que via, que é como conteúdo sobre apostas foi parar em
-    "Bancos de Dados" no primeiro teste real.
+    **Sem limite de profundidade.** Com 2 níveis o modelo não via
+    `Machine Learning/08 - LLMs e IA Generativa`; com 3, depois de eu arrumar o
+    curso em `Pessoal/SQL Database Specialist/<módulo>/<aula>`, sumiram todas as
+    pastas de aula: a tela não as oferecia, e a que o modelo sugeriu certo —
+    `.../Fundamentos de Banco de Dados/Modelagem de Dados para Banco de Dados` —
+    foi recusada como "não existe". Qualquer corte fixo quebra no próximo nível
+    que eu criar, e o vault inteiro tem 70 pastas: cabe no prompt.
     """
     if not raiz.is_dir():
         return []
@@ -1529,9 +1530,7 @@ def pastas_do_vault(raiz: Path, *, profundidade: int = 3) -> list[str]:
             continue
         if caminho.name.lower() in _PASTAS_NAO_TEMATICAS:
             continue
-        rel = caminho.relative_to(raiz)
-        if len(rel.parts) <= profundidade:
-            saida.add(str(rel))
+        saida.add(str(caminho.relative_to(raiz)))
     return sorted(saida)
 
 

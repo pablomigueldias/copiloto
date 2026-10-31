@@ -1,0 +1,645 @@
+{
+  "_leia_me": "Questões INÉDITAS, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — não são de banca nenhuma, e o gabarito e a explicação são meus. Moram num módulo separado ('Banco de dados — inéditas') para nunca se misturarem com as questões de prova real. Cada tópico é um item do programa de Conhecimentos Específicos do edital CRECI-SP 01/2026 (Instituto Avança SP), cargo PAS – Analista de TI – Banco de Dados, Anexo II; o item está no campo `fonte` de cada questão. FORMATO: imita o padrão das bancas que caem nessa prova — cinco alternativas (Avança SP, Cesgranrio, FCC, Vunesp), enunciado de cenário ('Considere que...', estilo Cesgranrio), afirmações I/II/III, NÃO/INCORRETO em caixa alta e questões de código SQL. O gabarito é distribuído entre A e E de propósito, para que a posição não dê pista. VERIFICAÇÃO: as questões de código SQL do tópico de SQL rodam contra um banco SQLite com as mesmas tabelas do enunciado, no gerador (scripts/ineditas_bd/gerar.py), e o resultado é conferido com o gabarito antes de gravar. As demais foram conferidas na documentação dos SGBDs como eu a conheço — sem fonte externa citada; desconfie e corrija se a prova real disser outra coisa. Para pedir mais: 'faz mais X questões' (ver a memória `questoes-ineditas-bd`).",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Banco de dados — inéditas",
+    "trilha": "concurso",
+    "ordem": 2
+  },
+  "topico": {
+    "nome": "Modelagem de dados",
+    "ordem": 2
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 01",
+      "enunciado": "No modelo entidade-relacionamento, DEPARTAMENTO e FUNCIONÁRIO têm um relacionamento 1:N: um departamento possui vários funcionários, e cada funcionário pertence a um único departamento. Ao mapear esse relacionamento para o modelo relacional, deve-se",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "incluir na tabela DEPARTAMENTO uma chave estrangeira que referencia a chave primária de FUNCIONARIO."
+        },
+        {
+          "letra": "B",
+          "texto": "criar obrigatoriamente uma terceira tabela com as chaves primárias das duas entidades."
+        },
+        {
+          "letra": "C",
+          "texto": "fundir as duas entidades em uma única tabela, eliminando o relacionamento."
+        },
+        {
+          "letra": "D",
+          "texto": "incluir na tabela FUNCIONARIO uma chave estrangeira que referencia a chave primária de DEPARTAMENTO."
+        },
+        {
+          "letra": "E",
+          "texto": "incluir chaves estrangeiras cruzadas nas duas tabelas, uma apontando para a outra."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Relacionamento 1:N para tabelas: letra D — a chave estrangeira vai no lado N.\n\nCada funcionário tem UM departamento, então cabe uma coluna depto_id em FUNCIONARIO. O contrário não cabe: um departamento tem VÁRIOS funcionários, e uma coluna não guarda vários valores (violaria a 1FN).\n\n| Cardinalidade | Mapeamento |\n|---|---|\n| 1:1 | FK em qualquer um dos lados, com UNIQUE (de preferência no lado de participação total) |\n| 1:N | FK no lado N |\n| N:N | tabela associativa com duas FKs |\n\nAtalho: a FK vai para quem tem 'só um' do outro.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 02",
+      "enunciado": "Em um sistema acadêmico, um ALUNO pode se matricular em várias DISCIPLINAS, e cada DISCIPLINA pode ter vários ALUNOS; para cada matrícula registra-se a nota final. No modelo relacional, esse relacionamento é implementado com",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "uma tabela associativa MATRICULA, com chaves estrangeiras para ALUNO e DISCIPLINA e o atributo nota."
+        },
+        {
+          "letra": "B",
+          "texto": "uma chave estrangeira para DISCIPLINA na tabela ALUNO, com o atributo nota em ALUNO."
+        },
+        {
+          "letra": "C",
+          "texto": "uma chave estrangeira para ALUNO na tabela DISCIPLINA, com o atributo nota em DISCIPLINA."
+        },
+        {
+          "letra": "D",
+          "texto": "uma coluna multivalorada em ALUNO contendo os códigos de todas as disciplinas."
+        },
+        {
+          "letra": "E",
+          "texto": "duas chaves estrangeiras cruzadas, sem tabela adicional, e a nota guardada em ambas as tabelas."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Relacionamento N:N com atributo próprio (nota): letra A.\n\nN:N sempre vira uma TABELA ASSOCIATIVA:\n\nMATRICULA (aluno_id FK, disciplina_id FK, nota) — chave primária composta (aluno_id, disciplina_id).\n\nA nota é atributo do RELACIONAMENTO, não de uma das entidades: ela depende do par aluno + disciplina. Por isso mora na tabela associativa.\n\nFK em ALUNO só permitiria uma disciplina por aluno (vira 1:N). Coluna multivalorada viola a 1FN.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 03",
+      "enunciado": "Um atributo multivalorado do modelo entidade-relacionamento, como os vários telefones de um CLIENTE, deve ser mapeado para o modelo relacional por meio de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "uma única coluna em CLIENTE com os telefones separados por vírgula."
+        },
+        {
+          "letra": "B",
+          "texto": "várias colunas fixas em CLIENTE, como telefone1, telefone2 e telefone3, como solução normalizada."
+        },
+        {
+          "letra": "C",
+          "texto": "uma nova tabela contendo o atributo e uma chave estrangeira para a tabela CLIENTE."
+        },
+        {
+          "letra": "D",
+          "texto": "um atributo derivado calculado a partir dos demais atributos de CLIENTE."
+        },
+        {
+          "letra": "E",
+          "texto": "uma chave primária composta em CLIENTE formada pelo identificador e pelo telefone."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Atributo multivalorado no relacional: letra C — tabela própria.\n\nTELEFONE_CLIENTE (cliente_id FK, telefone) — PK composta (cliente_id, telefone).\n\nLista separada por vírgula viola a 1FN (valor não atômico) e impede buscar 'quem tem o telefone X' com eficiência.\n\ntelefone1, telefone2, telefone3 é grupo repetitivo: limita a três e desperdiça espaço — também é o que a 1FN proíbe.\n\nPK composta em CLIENTE com o telefone repetiria nome e endereço do cliente a cada telefone.\n\nSímbolo no MER (Chen): elipse DUPLA.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 04",
+      "enunciado": "Uma tabela está na primeira forma normal (1FN) quando",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "todo atributo não chave depende da chave primária inteira, e não de parte dela."
+        },
+        {
+          "letra": "B",
+          "texto": "não existem dependências transitivas entre atributos não chave."
+        },
+        {
+          "letra": "C",
+          "texto": "todo determinante é uma chave candidata."
+        },
+        {
+          "letra": "D",
+          "texto": "não há chaves estrangeiras referenciando outras tabelas."
+        },
+        {
+          "letra": "E",
+          "texto": "todos os seus atributos contêm apenas valores atômicos, sem grupos repetitivos nem atributos multivalorados."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Definição de 1FN: letra E — valores atômicos.\n\n| Forma normal | Exige (além da anterior) |\n|---|---|\n| 1FN | valores atômicos; sem grupos repetitivos e sem atributos multivalorados |\n| 2FN | sem dependência PARCIAL: atributo não chave depende da chave INTEIRA |\n| 3FN | sem dependência TRANSITIVA: não chave não depende de outro não chave |\n| FNBC (Boyce-Codd) | todo determinante é chave candidata |\n\nAs erradas são as definições das formas seguintes — a questão testa se você sabe a ORDEM.\n\nFrase para decorar (2FN e 3FN): o atributo depende 'da chave, da chave inteira e de nada além da chave'.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 05",
+      "enunciado": "Considere a tabela ITEM_PEDIDO (num_pedido, cod_produto, quantidade, descricao_produto), cuja chave primária é composta por num_pedido e cod_produto. Sabe-se que descricao_produto depende apenas de cod_produto. Essa tabela",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "está na 2FN, mas não na 3FN, pois há dependência transitiva."
+        },
+        {
+          "letra": "B",
+          "texto": "não está na 1FN, pois possui chave primária composta."
+        },
+        {
+          "letra": "C",
+          "texto": "está na 3FN, pois todos os atributos dependem de algum atributo da chave."
+        },
+        {
+          "letra": "D",
+          "texto": "está na FNBC, pois cod_produto faz parte da chave primária."
+        },
+        {
+          "letra": "E",
+          "texto": "está na 1FN, mas não na 2FN, pois há dependência parcial da chave primária."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "ITEM_PEDIDO com descricao_produto dependendo só de cod_produto: letra E.\n\nA chave é (num_pedido, cod_produto). descricao_produto depende só de PARTE dela (cod_produto) → dependência PARCIAL → viola a 2FN.\n\nConsequência prática: a descrição do produto se repete em cada pedido em que ele aparece; mudar o nome do produto exige atualizar milhares de linhas (anomalia de atualização).\n\nSolução: PRODUTO (cod_produto, descricao_produto) e ITEM_PEDIDO (num_pedido, cod_produto, quantidade).\n\nAtalho: dependência parcial só existe quando a chave é COMPOSTA. Chave simples → a tabela na 1FN já está automaticamente na 2FN.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 06",
+      "enunciado": "A tabela FUNCIONARIO (matricula, nome, cod_depto, nome_depto) tem matricula como chave primária. Sabe-se que cod_depto determina nome_depto. Para levar essa tabela à terceira forma normal, deve-se",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "transformar (matricula, cod_depto) em chave primária composta."
+        },
+        {
+          "letra": "B",
+          "texto": "separar DEPARTAMENTO (cod_depto, nome_depto) e manter cod_depto em FUNCIONARIO como chave estrangeira."
+        },
+        {
+          "letra": "C",
+          "texto": "remover cod_depto de FUNCIONARIO e manter nome_depto."
+        },
+        {
+          "letra": "D",
+          "texto": "criar uma tabela para cada departamento, com seus funcionários."
+        },
+        {
+          "letra": "E",
+          "texto": "manter a tabela como está, pois ela já atende à 3FN por ter chave primária simples."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "FUNCIONARIO com cod_depto → nome_depto: letra B.\n\nmatricula → cod_depto → nome_depto: nome_depto depende da chave através de outro atributo não chave. É dependência TRANSITIVA, o que viola a 3FN.\n\nCorreção: o determinante (cod_depto) vira chave de uma tabela nova com os atributos que ele determina, e fica em FUNCIONARIO como FK.\n\nA última alternativa confunde 3FN com 2FN: chave simples garante 2FN, não 3FN.\n\nAtalho: na 3FN, procure um atributo não chave que 'manda' em outro. Ele vira tabela.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 07",
+      "enunciado": "Em um banco de dados normalizado, a equipe decidiu armazenar na tabela PEDIDO o valor total do pedido, embora ele possa ser calculado somando os itens, para acelerar relatórios muito consultados. Essa decisão é um exemplo de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "normalização na forma normal de Boyce-Codd."
+        },
+        {
+          "letra": "B",
+          "texto": "integridade referencial em cascata."
+        },
+        {
+          "letra": "C",
+          "texto": "desnormalização, que introduz redundância controlada para melhorar o desempenho de leitura."
+        },
+        {
+          "letra": "D",
+          "texto": "independência física de dados."
+        },
+        {
+          "letra": "E",
+          "texto": "especialização total e disjunta."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Guardar um valor calculável para acelerar leitura: letra C, desnormalização.\n\nNormalização elimina redundância e protege contra anomalias; desnormalização reintroduz redundância DE PROPÓSITO, em troca de desempenho.\n\nO custo: manter o total coerente quando um item muda — normalmente com trigger ou na própria transação da aplicação. Sem isso, o total diverge da soma dos itens.\n\nOnde é comum: data warehouse (modelo dimensional é desnormalizado), colunas de total, contadores, tabelas de resumo.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "negativa",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 08",
+      "enunciado": "Sobre chaves estrangeiras no modelo relacional, é INCORRETO afirmar que",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "o valor de uma chave estrangeira deve ser único na tabela em que ela está definida."
+        },
+        {
+          "letra": "B",
+          "texto": "a chave estrangeira referencia a chave primária (ou uma chave candidata) de outra tabela ou da mesma tabela."
+        },
+        {
+          "letra": "C",
+          "texto": "uma chave estrangeira pode aceitar valor nulo, quando a participação no relacionamento é opcional."
+        },
+        {
+          "letra": "D",
+          "texto": "a restrição de integridade referencial impede inserir um valor de chave estrangeira que não exista na tabela referenciada."
+        },
+        {
+          "letra": "E",
+          "texto": "os domínios da chave estrangeira e da chave referenciada devem ser compatíveis."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Qual é a INCORRETA sobre chave estrangeira? Letra A.\n\nChave estrangeira REPETE: vários funcionários com o mesmo depto_id. Unicidade é propriedade de chave primária e de UNIQUE, não de FK. (FK com UNIQUE só aparece de propósito, para implementar um 1:1.)\n\nAs demais estão certas:\n\n— pode referenciar a própria tabela (autorrelacionamento: gerente_id em FUNCIONARIO);\n\n— pode ser NULL (funcionário ainda sem departamento);\n\n— integridade referencial barra FK 'órfã';\n\n— os tipos têm de ser compatíveis (INT com INT).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 09",
+      "enunciado": "A tabela ITEM_PEDIDO possui uma chave estrangeira para PEDIDO definida com a cláusula ON DELETE CASCADE. Ao executar a exclusão de um pedido que possui itens,",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a exclusão é rejeitada, pois existem itens referenciando o pedido."
+        },
+        {
+          "letra": "B",
+          "texto": "o pedido é excluído, e a chave estrangeira dos itens passa a conter NULL."
+        },
+        {
+          "letra": "C",
+          "texto": "os itens são excluídos, mas o pedido permanece na tabela."
+        },
+        {
+          "letra": "D",
+          "texto": "o pedido é excluído e todos os seus itens também são excluídos automaticamente."
+        },
+        {
+          "letra": "E",
+          "texto": "o pedido é excluído, e os itens permanecem referenciando um pedido inexistente."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "ON DELETE CASCADE: letra D — apagar o pai apaga os filhos.\n\n| Ação referencial | Ao apagar o pai |\n|---|---|\n| NO ACTION / RESTRICT (padrão) | REJEITA a exclusão se houver filhos |\n| CASCADE | apaga os filhos junto |\n| SET NULL | mantém os filhos, com a FK = NULL |\n| SET DEFAULT | mantém os filhos, com a FK = valor padrão |\n\nAs alternativas erradas descrevem NO ACTION, SET NULL e duas situações impossíveis — itens órfãos são exatamente o que a integridade referencial proíbe.\n\nQuando usar CASCADE: item que não existe sem o pai (itens do pedido). Quando NÃO usar: cliente → pedidos; apagar um cliente não deveria sumir com o histórico de vendas.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 10",
+      "enunciado": "Na tabela FUNCIONARIO, a coluna depto_id é chave estrangeira para DEPARTAMENTO, definida com ON DELETE SET NULL. Ao excluir um departamento que possui funcionários,",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "os funcionários do departamento são excluídos."
+        },
+        {
+          "letra": "B",
+          "texto": "a exclusão do departamento é rejeitada."
+        },
+        {
+          "letra": "C",
+          "texto": "o depto_id dos funcionários é alterado para o código do departamento padrão definido em DEFAULT."
+        },
+        {
+          "letra": "D",
+          "texto": "os funcionários permanecem cadastrados, com depto_id igual a NULL."
+        },
+        {
+          "letra": "E",
+          "texto": "os funcionários são transferidos automaticamente para o departamento de menor código."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "ON DELETE SET NULL: letra D.\n\nO departamento some, os funcionários ficam, agora 'sem departamento'. Para isso funcionar, a coluna depto_id precisa ACEITAR NULL — se for NOT NULL, a definição é inválida ou a exclusão falha.\n\nValor padrão é SET DEFAULT; exclusão em cadeia é CASCADE; rejeitar é NO ACTION/RESTRICT. A última alternativa não existe em SQL.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 11",
+      "enunciado": "Em vez de usar o CPF como chave primária de CLIENTE, o projetista criou uma coluna id numérica, gerada automaticamente pelo SGBD (IDENTITY no SQL Server, AUTO_INCREMENT no MySQL), e manteve o CPF com restrição UNIQUE. A coluna id é um exemplo de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "chave natural."
+        },
+        {
+          "letra": "B",
+          "texto": "chave estrangeira."
+        },
+        {
+          "letra": "C",
+          "texto": "chave substituta (surrogate key)."
+        },
+        {
+          "letra": "D",
+          "texto": "superchave não mínima."
+        },
+        {
+          "letra": "E",
+          "texto": "atributo derivado."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "id gerado pelo SGBD, sem significado de negócio: letra C, chave substituta (surrogate).\n\n| Tipo | Exemplo | Vantagem | Risco |\n|---|---|---|---|\n| natural | CPF, ISBN, placa | já existe, tem significado | pode mudar, ter formato variável, ser dado pessoal |\n| substituta | id IDENTITY / AUTO_INCREMENT | estável, pequena, numérica, boa para índice | não impede duplicata de negócio sozinha |\n\nPor isso o projetista manteve o CPF como UNIQUE: o id identifica a linha, e o UNIQUE impede dois clientes com o mesmo CPF. O CPF continua sendo chave CANDIDATA (alternativa).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 12",
+      "enunciado": "No modelo entidade-relacionamento, DEPENDENTE só existe vinculado a um FUNCIONÁRIO e é identificado pelo nome do dependente combinado com a matrícula do funcionário. DEPENDENTE é classificado como",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "entidade forte, pois possui o atributo nome."
+        },
+        {
+          "letra": "B",
+          "texto": "entidade associativa, pois resulta de um relacionamento N:N."
+        },
+        {
+          "letra": "C",
+          "texto": "atributo multivalorado de FUNCIONÁRIO."
+        },
+        {
+          "letra": "D",
+          "texto": "especialização de FUNCIONÁRIO."
+        },
+        {
+          "letra": "E",
+          "texto": "entidade fraca, cujo identificador combina sua chave parcial com a chave da entidade proprietária."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "DEPENDENTE identificado por nome + matrícula do funcionário: letra E, entidade fraca.\n\nEntidade fraca não tem chave própria suficiente; usa uma CHAVE PARCIAL (o nome do dependente, sublinhado tracejado) somada à chave da entidade PROPRIETÁRIA. O relacionamento que a liga ao dono é o relacionamento IDENTIFICADOR, e a participação dela é total.\n\n| Símbolo (Chen) | Significado |\n|---|---|\n| retângulo duplo | entidade fraca |\n| losango duplo | relacionamento identificador |\n\nNo relacional: DEPENDENTE (matricula FK, nome_dependente, parentesco), PK (matricula, nome_dependente), com ON DELETE CASCADE.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 13",
+      "enunciado": "Na tabela FUNCIONARIO (matricula, nome, matricula_gerente), a coluna matricula_gerente é chave estrangeira que referencia a própria tabela FUNCIONARIO. Essa estrutura implementa um",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "autorrelacionamento (relacionamento recursivo)."
+        },
+        {
+          "letra": "B",
+          "texto": "relacionamento ternário."
+        },
+        {
+          "letra": "C",
+          "texto": "relacionamento N:N obrigatoriamente."
+        },
+        {
+          "letra": "D",
+          "texto": "atributo derivado."
+        },
+        {
+          "letra": "E",
+          "texto": "especialização sobreposta."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "FK que aponta para a própria tabela: letra A, autorrelacionamento.\n\nA mesma entidade participa duas vezes, em PAPÉIS diferentes: gerente e subordinado. É um 1:N recursivo (um gerente, vários subordinados).\n\nPara listar cada funcionário com o nome do gerente, usa-se SELF JOIN:\n\nSELECT f.nome, g.nome AS gerente\nFROM FUNCIONARIO f\nLEFT JOIN FUNCIONARIO g ON g.matricula = f.matricula_gerente;\n\nLEFT JOIN porque o diretor não tem gerente (matricula_gerente NULL) e, com INNER, sumiria da lista.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 14",
+      "enunciado": "Sobre a cardinalidade mínima (participação) nos relacionamentos do modelo entidade-relacionamento, analise as afirmativas.",
+      "afirmacoes": [
+        "Cardinalidade mínima igual a zero indica participação opcional da entidade no relacionamento.",
+        "Cardinalidade mínima igual a um indica participação obrigatória (total) da entidade no relacionamento.",
+        "No modelo relacional, a participação obrigatória do lado que recebe a chave estrangeira pode ser implementada declarando essa chave estrangeira como NOT NULL."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas II."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I e II."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Todas as três estão certas — letra E.\n\nI — cardinalidade mínima 0 = participação OPCIONAL (parcial): pode existir cliente sem pedido.\n\nII — mínima 1 = participação OBRIGATÓRIA (total): todo pedido tem de ter um cliente. Na notação de Chen, linha dupla.\n\nIII — no relacional, a participação obrigatória do lado da FK se traduz em FK NOT NULL; a opcional, em FK que aceita NULL.\n\nPé de galinha (crow's foot): círculo = zero, traço = um, pé de galinha = muitos. '|o' perto da entidade lê-se 'zero ou um'.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 15",
+      "enunciado": "No diagrama entidade-relacionamento, a idade de um cliente pode ser calculada a partir de sua data de nascimento. Nesse caso, idade é um atributo",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "multivalorado, que deve ser mapeado para uma tabela própria."
+        },
+        {
+          "letra": "B",
+          "texto": "derivado, que normalmente não é armazenado, mas calculado quando necessário."
+        },
+        {
+          "letra": "C",
+          "texto": "composto, que deve ser decomposto em colunas simples."
+        },
+        {
+          "letra": "D",
+          "texto": "identificador, que deve compor a chave primária."
+        },
+        {
+          "letra": "E",
+          "texto": "chave estrangeira, que referencia a data de nascimento."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 1,
+      "explicacao": "Idade calculada a partir da data de nascimento: letra B, atributo derivado.\n\n| Tipo de atributo | Exemplo | No relacional |\n|---|---|---|\n| simples | nome | uma coluna |\n| composto | endereço (rua, número, CEP) | uma coluna por parte |\n| multivalorado | telefones | tabela própria |\n| derivado | idade, total do pedido | em geral calculado (view, coluna computada), não gravado |\n\nGravar a idade é erro clássico: ela fica errada no dia seguinte ao aniversário. Grava-se a data de nascimento e calcula-se a idade.\n\nSímbolo (Chen): elipse TRACEJADA.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 16",
+      "enunciado": "A entidade VEÍCULO foi especializada em CARRO e CAMINHÃO, com especialização total e disjunta. Uma forma válida de mapear essa hierarquia para o modelo relacional é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "criar apenas a tabela VEICULO, descartando os atributos específicos das subclasses."
+        },
+        {
+          "letra": "B",
+          "texto": "criar uma tabela CARRO_CAMINHAO com chave primária composta pelas duas subclasses."
+        },
+        {
+          "letra": "C",
+          "texto": "criar uma única tabela VEICULO com os atributos de todas as subclasses e uma coluna discriminadora de tipo."
+        },
+        {
+          "letra": "D",
+          "texto": "transformar CARRO e CAMINHÃO em atributos multivalorados de VEICULO."
+        },
+        {
+          "letra": "E",
+          "texto": "criar uma tabela associativa N:N entre CARRO e CAMINHÃO."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 3,
+      "explicacao": "Mapeamento de especialização: letra C (tabela única com discriminador).\n\nHá três estratégias válidas:\n\n| Estratégia | Como | Bom quando |\n|---|---|---|\n| tabela única | VEICULO com todas as colunas + tipo | poucas colunas específicas; aceita NULLs |\n| tabela por subclasse | VEICULO + CARRO + CAMINHAO, cada filha com PK = FK para VEICULO | muitas colunas específicas |\n| só as subclasses | CARRO e CAMINHAO com os atributos herdados repetidos | especialização TOTAL e DISJUNTA, sem consulta ao 'veículo genérico' |\n\nA tabela única funciona bem com disjunta: a coluna tipo guarda UM valor. Descartar atributos perde informação; as demais alternativas não representam herança.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 17",
+      "enunciado": "Uma tabela possui chave primária composta (A, B) e a dependência funcional C → B, em que C é um atributo não chave. Nessa situação, a tabela",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "pode estar na 3FN, mas não está na forma normal de Boyce-Codd, pois C é determinante sem ser chave candidata."
+        },
+        {
+          "letra": "B",
+          "texto": "está na FNBC, pois toda tabela na 3FN está na FNBC."
+        },
+        {
+          "letra": "C",
+          "texto": "não está na 1FN, pois um atributo não chave determina parte da chave."
+        },
+        {
+          "letra": "D",
+          "texto": "está na 4FN, pois não há dependências multivaloradas."
+        },
+        {
+          "letra": "E",
+          "texto": "não admite normalização, por ter chave composta."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 3,
+      "explicacao": "C → B, com C não sendo chave candidata: letra A.\n\nFNBC exige que TODO determinante seja chave candidata. C determina B e não é chave → viola a FNBC.\n\nPode ainda estar na 3FN porque a definição da 3FN tem uma exceção: aceita X → Y quando Y faz parte de alguma chave candidata (B é parte da chave). É exatamente essa brecha que a FNBC fecha.\n\nToda tabela em FNBC está em 3FN; o contrário não vale — a primeira errada inverte isso.\n\nAtalho: FNBC = 3FN sem exceção. Achou um determinante que não é chave → fora da FNBC.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 18",
+      "enunciado": "Em uma tabela não normalizada, alterar o endereço de um fornecedor exigiu atualizar dezenas de linhas, e uma delas ficou com o endereço antigo, gerando informação contraditória. Esse problema é conhecido como anomalia de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "inserção."
+        },
+        {
+          "letra": "B",
+          "texto": "exclusão."
+        },
+        {
+          "letra": "C",
+          "texto": "junção."
+        },
+        {
+          "letra": "D",
+          "texto": "concorrência."
+        },
+        {
+          "letra": "E",
+          "texto": "atualização (modificação)."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Mesmo dado repetido em várias linhas e uma delas ficou desatualizada: letra E, anomalia de atualização.\n\n| Anomalia | O que acontece |\n|---|---|\n| inserção | não dá para cadastrar um fato sem outro (fornecedor sem produto) |\n| exclusão | apagar uma linha leva junto informação que se queria manter (o último produto leva o fornecedor) |\n| atualização | o dado repetido precisa mudar em várias linhas; esquecer uma gera inconsistência |\n\nAs três nascem da redundância, e é para eliminá-las que se normaliza.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 19",
+      "enunciado": "No relacionamento 1:1 entre FUNCIONARIO e CRACHA, em que todo crachá pertence a exatamente um funcionário e nem todo funcionário possui crachá, a implementação relacional mais adequada é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "colocar em FUNCIONARIO uma chave estrangeira para CRACHA, declarada NOT NULL."
+        },
+        {
+          "letra": "B",
+          "texto": "colocar em CRACHA uma chave estrangeira para FUNCIONARIO, declarada NOT NULL e UNIQUE."
+        },
+        {
+          "letra": "C",
+          "texto": "criar uma tabela associativa com chave primária composta e sem restrição de unicidade."
+        },
+        {
+          "letra": "D",
+          "texto": "colocar em CRACHA uma chave estrangeira para FUNCIONARIO, sem restrição UNIQUE."
+        },
+        {
+          "letra": "E",
+          "texto": "unir as duas tabelas, tornando os atributos de crachá obrigatórios para todo funcionário."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 3,
+      "explicacao": "1:1 com participação total de CRACHA e parcial de FUNCIONARIO: letra B.\n\nA FK vai no lado de participação TOTAL (o crachá), porque lá ela nunca fica vazia:\n\n— NOT NULL: todo crachá tem dono;\n\n— UNIQUE: o mesmo funcionário não pode ter dois crachás — é o UNIQUE que transforma 1:N em 1:1.\n\nFK em FUNCIONARIO teria de aceitar NULL (nem todo funcionário tem crachá); declará-la NOT NULL obrigaria todos a ter. Sem UNIQUE, vira 1:N. Unir as tabelas obrigaria crachá para todos, contrariando o enunciado.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    },
+    {
+      "formato": "afirmacoes",
+      "origem": "Inédita (sem banca) · BD Avança SP · Modelagem de dados · nº 20",
+      "enunciado": "Analise as afirmativas a seguir sobre chaves no modelo relacional.",
+      "afirmacoes": [
+        "Uma chave candidata é uma superchave mínima, isto é, da qual nenhum atributo pode ser retirado sem perder a capacidade de identificar unicamente cada linha.",
+        "Uma tabela pode possuir várias chaves primárias, desde que cada uma seja formada por um único atributo.",
+        "A restrição de integridade de entidade determina que nenhum atributo que compõe a chave primária pode assumir valor nulo."
+      ],
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Apenas I."
+        },
+        {
+          "letra": "B",
+          "texto": "Apenas III."
+        },
+        {
+          "letra": "C",
+          "texto": "Apenas I e III."
+        },
+        {
+          "letra": "D",
+          "texto": "Apenas II e III."
+        },
+        {
+          "letra": "E",
+          "texto": "I, II e III."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Quais estão certas? Letra C: I e III.\n\nI — certa. Superchave é qualquer conjunto de atributos que identifica a linha; chave candidata é a superchave MÍNIMA.\n\nII — errada. Uma tabela tem UMA chave primária (que pode ser composta de vários atributos). As outras candidatas são chaves alternativas — implementadas com UNIQUE.\n\nIII — certa. A integridade de ENTIDADE proíbe NULL em qualquer atributo da chave primária: se a chave pudesse ser nula, a linha não seria identificável.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — PAS Analista de TI – Banco de Dados: Modelagem de dados: modelo entidade-relacionamento (MER) e modelo relacional, normalização, chaves e relacionamentos"
+    }
+  ]
+}

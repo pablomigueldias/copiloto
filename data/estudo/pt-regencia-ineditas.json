@@ -1,0 +1,108 @@
+{
+  "_leia_me": "Questões INÉDITAS de Língua Portuguesa, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa de Língua Portuguesa de nível superior do edital CRECI-SP 01/2026 (Avança SP), com peso nos tópicos que o acervo de prova real tinha finos em 02/10 (análise sintática, colocação pronominal, figuras, redação oficial, regência). Base: norma-padrão da gramática tradicional e o Manual de Redação da Presidência da República, 3ª ed. (2018). Interpretação de texto e coesão ficaram de fora desta leva por já terem muitas questões reais.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Língua portuguesa — inéditas",
+    "trilha": "concurso",
+    "ordem": 6
+  },
+  "topico": {
+    "nome": "Regência verbal e nominal",
+    "ordem": 5
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Regência verbal e nominal · nº 01",
+      "enunciado": "Assinale a alternativa em que a regência verbal está de acordo com a norma-padrão.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Os candidatos aspiram o cargo de analista de banco de dados."
+        },
+        {
+          "letra": "B",
+          "texto": "O novo sistema implica mudanças na rotina dos servidores."
+        },
+        {
+          "letra": "C",
+          "texto": "Esqueci do prazo de entrega do relatório."
+        },
+        {
+          "letra": "D",
+          "texto": "O técnico não obedeceu o manual de instalação."
+        },
+        {
+          "letra": "E",
+          "texto": "Chegamos no escritório às oito horas."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Regência verbal: letra B.\n\nIMPLICAR no sentido de 'acarretar' é transitivo DIRETO: implica mudanças (sem 'em'). 'Implicar em' é uso coloquial que as bancas condenam.\n\n| Frase errada | Regra | Correção |\n|---|---|---|\n| aspiram o cargo | aspirar = DESEJAR pede 'a' (aspirar = respirar é direto) | aspiram ao cargo |\n| Esqueci do prazo | esquecer sem pronome é direto; com pronome, pede 'de' | Esqueci o prazo / Esqueci-me do prazo |\n| obedeceu o manual | obedecer (e desobedecer) pede 'a' | obedeceu ao manual |\n| Chegamos no escritório | verbos de movimento pedem 'a' | Chegamos ao escritório |",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Regência verbal e nominal"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Regência verbal e nominal · nº 02",
+      "enunciado": "Considerando a regência do verbo “assistir”, a frase que está de acordo com a norma-padrão é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Todos os analistas assistiram o treinamento sobre o novo SGBD."
+        },
+        {
+          "letra": "B",
+          "texto": "O treinamento foi assistido por todos os analistas."
+        },
+        {
+          "letra": "C",
+          "texto": "Todos os analistas assistiram ao treinamento sobre o novo SGBD."
+        },
+        {
+          "letra": "D",
+          "texto": "Todos os analistas assistiram-no durante a manhã, referindo-se ao treinamento."
+        },
+        {
+          "letra": "E",
+          "texto": "Todos os analistas assistiram em um treinamento sobre o novo SGBD."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Assistir = ver, presenciar: letra C, assistiram AO treinamento.\n\n| Sentido de assistir | Regência | Exemplo |\n|---|---|---|\n| ver, presenciar | indireto, com 'a' | assisti ao jogo |\n| ajudar, dar assistência | direto (ou indireto) | o médico assistiu o paciente |\n| caber, ser direito de | indireto, com 'a' | esse direito assiste ao servidor |\n| morar (arcaico) | com 'em' | assistia em Santos |\n\nConsequências que caem em prova: como é transitivo indireto, no sentido de 'ver' não admite voz passiva ('foi assistido por' é condenado) e não aceita 'o/a' como complemento — usa-se 'a ele': 'assistiram a ele', não 'assistiram-no'.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Regência verbal e nominal"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Regência verbal e nominal · nº 03",
+      "enunciado": "Assinale a alternativa correta quanto à regência do verbo “preferir”.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A equipe prefere trabalhar remotamente a enfrentar o trânsito diário."
+        },
+        {
+          "letra": "B",
+          "texto": "A equipe prefere mais trabalhar remotamente do que enfrentar o trânsito diário."
+        },
+        {
+          "letra": "C",
+          "texto": "A equipe prefere trabalhar remotamente do que enfrentar o trânsito diário."
+        },
+        {
+          "letra": "D",
+          "texto": "A equipe prefere muito mais trabalhar remotamente que enfrentar o trânsito diário."
+        },
+        {
+          "letra": "E",
+          "texto": "A equipe prefere trabalhar remotamente em vez de que enfrentar o trânsito diário."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Preferir: letra A.\n\nNa norma-padrão, prefere-se uma coisa A outra: preferir algo A algo.\n\n— Não se usa 'do que': ele é termo de comparação, e 'preferir' já contém a ideia de 'mais'.\n\n— Não se usa 'mais' nem 'muito mais' antes: seria redundância (pleonasmo vicioso).\n\nPrefiro café a chá.\nPrefiro estudar a sair.\nPrefiro o PostgreSQL ao MySQL. (a + o = ao)\n\nAtalho: preferir combina com 'a', nunca com 'do que'.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Regência verbal e nominal"
+    }
+  ]
+}

@@ -197,6 +197,12 @@ export default function Transcrever() {
   const revisando = estado?.estado === "revisar";
   const ocioso = estado?.estado === "ocioso";
 
+  // A pasta da aula costuma nascer no Obsidian durante a gravação; o cardápio
+  // lido ao abrir a página não a teria na hora de salvar.
+  useEffect(() => {
+    if (revisando) api.destinosTranscricao().then(setDestinos).catch(() => {});
+  }, [revisando]);
+
   return (
     <div className="max-w-[900px] px-[clamp(24px,4vw,56px)] pb-14 pt-[34px]">
       <Cabecalho>Transcrever</Cabecalho>

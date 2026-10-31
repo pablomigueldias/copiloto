@@ -1,0 +1,108 @@
+{
+  "_leia_me": "Questões INÉDITAS de Língua Portuguesa, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa de Língua Portuguesa de nível superior do edital CRECI-SP 01/2026 (Avança SP), com peso nos tópicos que o acervo de prova real tinha finos em 02/10 (análise sintática, colocação pronominal, figuras, redação oficial, regência). Base: norma-padrão da gramática tradicional e o Manual de Redação da Presidência da República, 3ª ed. (2018). Interpretação de texto e coesão ficaram de fora desta leva por já terem muitas questões reais.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Língua portuguesa — inéditas",
+    "trilha": "concurso",
+    "ordem": 6
+  },
+  "topico": {
+    "nome": "Redação oficial",
+    "ordem": 4
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Redação oficial · nº 01",
+      "enunciado": "Em um ofício dirigido a um Ministro de Estado, tratado por Vossa Excelência, a concordância está de acordo com o Manual de Redação da Presidência da República em:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Informamos que Vossa Excelência sereis recebido pelo Diretor e podereis apresentar vosso parecer."
+        },
+        {
+          "letra": "B",
+          "texto": "Informamos que Vossa Excelência será recebido pelo Diretor e poderá apresentar vosso parecer."
+        },
+        {
+          "letra": "C",
+          "texto": "Informamos que Vossa Excelência será recebido pelo Diretor e poderá apresentar seu parecer."
+        },
+        {
+          "letra": "D",
+          "texto": "Informamos que Vossa Excelência serás recebido pelo Diretor e poderás apresentar teu parecer."
+        },
+        {
+          "letra": "E",
+          "texto": "Informamos que Vossa Excelência será recebida pelo Diretor e poderá apresentar seu parecer."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Concordância com pronome de tratamento: letra C.\n\nEmbora começados por 'Vossa', os pronomes de tratamento levam verbo e pronomes possessivos na 3ª PESSOA: 'Vossa Excelência será... SEU parecer' — nunca 'sereis', 'vosso', 'teu'.\n\nO adjetivo concorda com o SEXO da pessoa, não com 'Excelência': ao Ministro, 'Vossa Excelência está ocupado'; à Ministra, 'está ocupada'. Por isso 'será recebida' está errada aqui: o destinatário é um Ministro (homem).\n\nVossa × Sua: 'Vossa Excelência' quando se fala COM a autoridade; 'Sua Excelência' quando se fala DELA ('Sua Excelência, o Ministro, chegou').",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Redação oficial: atributos da redação oficial, pronomes de tratamento, tipos de documentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Redação oficial · nº 02",
+      "enunciado": "Segundo o Manual de Redação da Presidência da República (3ª edição), o fecho adequado para comunicações oficiais dirigidas a autoridade de hierarquia SUPERIOR à do remetente é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Atenciosamente,"
+        },
+        {
+          "letra": "B",
+          "texto": "Cordialmente,"
+        },
+        {
+          "letra": "C",
+          "texto": "Sem mais para o momento,"
+        },
+        {
+          "letra": "D",
+          "texto": "Cordiais saudações,"
+        },
+        {
+          "letra": "E",
+          "texto": "Respeitosamente,"
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Fecho para autoridade superior: letra E, Respeitosamente.\n\nO Manual prevê apenas dois fechos para as comunicações oficiais:\n\n| Destinatário | Fecho |\n|---|---|\n| hierarquia SUPERIOR (inclusive o Presidente da República) | Respeitosamente, |\n| MESMA hierarquia ou INFERIOR | Atenciosamente, |\n\nComunicações a autoridades estrangeiras seguem o rito do Ministério das Relações Exteriores.\n\n'Sem mais para o momento', 'Cordialmente' e 'Cordiais saudações' não estão previstos e ferem a concisão e a padronização.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Redação oficial: atributos da redação oficial, pronomes de tratamento, tipos de documentos"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Português Avança SP · Redação oficial · nº 03",
+      "enunciado": "O atributo da redação oficial que exige a ausência de impressões individuais de quem comunica, já que o texto é feito em nome do serviço público e se dirige ao público ou a outros órgãos, é a",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "concisão."
+        },
+        {
+          "letra": "B",
+          "texto": "clareza."
+        },
+        {
+          "letra": "C",
+          "texto": "formalidade."
+        },
+        {
+          "letra": "D",
+          "texto": "coesão."
+        },
+        {
+          "letra": "E",
+          "texto": "impessoalidade."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Sem impressões individuais, em nome do serviço público: letra E, impessoalidade.\n\nAtributos da redação oficial segundo o Manual (3ª ed.):\n\n| Atributo | Significa |\n|---|---|\n| clareza e precisão | o texto tem um só sentido, sem ambiguidade |\n| objetividade | ir direto ao ponto |\n| concisão | o máximo de informação com o mínimo de palavras |\n| coesão e coerência | ideias encadeadas e não contraditórias |\n| impessoalidade | quem fala é o serviço público; sem opinião pessoal nem tom íntimo |\n| formalidade e padronização | norma-padrão, tratamento adequado e formato uniforme |\n\nExemplo de falta de impessoalidade: 'Eu acho que o pedido do senhor é justo'. Impessoal: 'O pedido atende aos requisitos'.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Língua Portuguesa (nível superior): Redação oficial: atributos da redação oficial, pronomes de tratamento, tipos de documentos"
+    }
+  ]
+}

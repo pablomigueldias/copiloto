@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 5 questões de regência verbal e nominal que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Regência verbal e nominal”.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (1), Prefeitura de Caçapava 2024 (1), Prefeitura de Itatiba 2024 (1), Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n2 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 5 questões de regência verbal e nominal que o Instituto Avança SP aplicou nas provas de TI, na seção de Língua Portuguesa.\n\nLevantadas em 24/09/2026 dos PDFs das provas em docs/avanca-sp/Provas/ e agrupadas pelos assuntos do Anexo II do edital do CRECI/SP 01/2026, no bloco de EMPREGOS DE ENSINO SUPERIOR COMPLETO — a prova do Pablo, em 29/11/2026, onde Língua Portuguesa vale 10 das 60 questões e é o segundo critério de desempate. No Anexo II, bloco de nível superior: “Regência verbal e nominal”.\n\nDe onde vêm: Câmara de Embu-Guaçu 2023 (1), Prefeitura de Caçapava 2024 (1), Prefeitura de Itatiba 2024 (1), Prefeitura de Rio Grande da Serra 2024 (1), Universidade de Taubaté 2025 (1).\n\nO gabarito de cada uma é o que a banca publicou, lido por scripts/conferir_gabaritos_avanca_sp.py. Circuito das Águas 2024 e Sorocaba 2022 ficaram de fora por não terem gabarito em PDF; o bloco de português de Americana 2022 é o mesmo nos dois cargos e entrou uma vez só, pelo de Administração de Dados.\n\n2 dependem do texto da prova, que vai repetido no `texto_base` de cada uma — o agendamento devolve cada questão num dia diferente e ela precisa funcionar sozinha. Os parágrafos seguem os da prova, porque há questões que citam “o 7º parágrafo”. A palavra que a prova destaca (negrito sublinhado) vai em **negrito**.\n\n**Ainda não têm explicação.** Entraram assim de propósito, como a matemática: o acervo passa a cobrar o assunto hoje, e a explicação é o trabalho seguinte. A dificuldade está em 2 para todas porque não foi avaliada questão a questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Língua portuguesa",
     "trilha": "concurso",
-    "ordem": 2
+    "ordem": 5
   },
   "topico": {
     "nome": "Regência verbal e nominal",
@@ -159,6 +159,130 @@
           "texto": "Ela mostrou-se incansável em ajudar o companheiro."
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 7",
+      "assunto": "Regência nominal",
+      "enunciado": "Assinale a alternativa que não possui nenhum erro de regência.",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "A devoção à Deus é um exercício diário do cristão."
+        },
+        {
+          "letra": "B",
+          "texto": "Estou alheia sobre tudo."
+        },
+        {
+          "letra": "C",
+          "texto": "Não tenho dúvidas a cerca da sua inocência."
+        },
+        {
+          "letra": "D",
+          "texto": "Os alunos estão desgostosos por suas notas."
+        },
+        {
+          "letra": "E",
+          "texto": "Meu filho não tem nenhuma inclinação para o atletismo."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "Inclinação para/a: letra E.\n\n| Frase | Erro | Correção |\n|---|---|---|\n| devoção à Deus | Deus não aceita artigo → sem crase | devoção a Deus |\n| alheia sobre | alheio pede 'a' | alheia a tudo |\n| a cerca da | 'a cerca' é uma cerca; o certo é a locução 'acerca de' (= sobre) | acerca da sua inocência |\n| desgostosos por | desgostoso pede 'com' / 'de' | desgostosos com as notas |"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 8",
+      "assunto": "Regência verbal e transitividade",
+      "enunciado": "Considere a seguinte sentença: “Reintegraram-no ao pelotão sem mais perguntas”. O verbo \"reintegrar\", como consta na sentença dada, é:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "transitivo indireto."
+        },
+        {
+          "letra": "B",
+          "texto": "transitivo direto e indireto."
+        },
+        {
+          "letra": "C",
+          "texto": "intransitivo."
+        },
+        {
+          "letra": "D",
+          "texto": "pronominal."
+        },
+        {
+          "letra": "E",
+          "texto": "transitivo direto."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Reintegra-se alguém (OD) a algum lugar (OI): letra B.\n\n'no' = o (objeto direto, pronome oblíquo com 'n' por causa do -m do verbo); 'ao pelotão' = objeto indireto.\n\n| Pronome | Função |\n|---|---|\n| o, a, os, as (lo, no) | objeto direto |\n| lhe, lhes | objeto indireto |\n\nNão é pronominal: o pronome não é parte do verbo, é o complemento (reintegraram ELE)."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · SAAE Amparo 2023 · Analista Fiscalização · questão 6",
+      "assunto": "Regência verbal e transitividade",
+      "enunciado": "Considere as seguintes sentenças, retiradas do texto:\n\nI. “A palavra consolo aconteceu sem eu sentir.”\nII. “Em pleno dia era noite.”\n\nEm relação à regência, os verbos “aconteceu” e “era”, nas sentenças dadas, são, respectivamente:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "verbo transitivo direto e verbo de ligação."
+        },
+        {
+          "letra": "B",
+          "texto": "verbo intransitivo e verbo de ligação."
+        },
+        {
+          "letra": "C",
+          "texto": "verbo transitivo direto e verbo transitivo direto."
+        },
+        {
+          "letra": "D",
+          "texto": "verbo intransitivo e verbo intransitivo."
+        },
+        {
+          "letra": "E",
+          "texto": "verbo de ligação e verbo de ligação."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Letra B.\n\n'Acontecer' não pede complemento: intransitivo ('sem eu sentir' é adjunto).\n\n'Era' liga o sujeito a um estado ('noite' é predicativo): verbo de ligação.\n\nVerbos de ligação típicos: ser, estar, parecer, permanecer, ficar, continuar, andar (= estar), virar (= tornar-se).\n\nPegadinha: 'ser' também pode ser intransitivo (= existir), mas aqui atribui característica ao tempo."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Prefeitura de São Miguel Arcanjo 2023 · Analista Fiscal de Tributos Municipais · questão 7",
+      "assunto": "Regência verbal e transitividade",
+      "enunciado": "Considere o seguinte excerto: “Mas POSSUÍA o que qualquer criança devoradora de histórias GOSTARIA de ter: um pai dono de livraria.” Em relação à regência, os verbos destacados são, respectivamente:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "verbo transitivo direto; verbo transitivo indireto."
+        },
+        {
+          "letra": "B",
+          "texto": "verbo transitivo indireto; verbo intransitivo."
+        },
+        {
+          "letra": "C",
+          "texto": "verbo intransitivo; verbo transitivo indireto."
+        },
+        {
+          "letra": "D",
+          "texto": "verbo transitivo direto; verbo transitivo direto."
+        },
+        {
+          "letra": "E",
+          "texto": "verbo intransitivo; verbo intransitivo."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Possuir algo (sem preposição); gostar DE algo: letra A.\n\n'Possuía o que…' → objeto direto. 'Gostaria de ter' → objeto indireto (a oração 'de ter').\n\nTeste: a preposição é exigida pelo verbo? 'Gostar' sem 'de' não existe nesse sentido → transitivo indireto."
     }
   ]
 }

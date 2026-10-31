@@ -62,6 +62,7 @@ export function Dialogo({
   return (
     <div
       className="fixed inset-0 z-[60] grid place-items-center bg-[rgb(0_0_0/60%)] px-6"
+      data-dialogo
       onClick={onCancelar}
       role="presentation"
     >

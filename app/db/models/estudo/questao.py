@@ -118,6 +118,10 @@ class Topico(Base, UUIDPrimaryKeyMixin, TimestampMixin):
 
     É o par módulo+tópico que a revisão mostra no topo, e é por ele que o
     agendamento devolve a questão — nunca por questão solta.
+
+    `ativo=False` é a pausa da banca em escala menor: o tópico que o edital do
+    concurso não cobra sai da fila sem sair do acervo. A banca não serve para
+    isso porque o mesmo concurso traz tópico cobrado e tópico fora do edital.
     """
 
     __tablename__ = "estudo_topico"
@@ -129,6 +133,7 @@ class Topico(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     )
     nome: Mapped[str] = mapped_column(String(160), nullable=False)
     ordem: Mapped[int] = mapped_column(Integer, nullable=False, default=0)
+    ativo: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
 
     modulo: Mapped[Modulo] = relationship(back_populates="topicos")
 
@@ -204,6 +209,12 @@ class Questao(Base, UUIDPrimaryKeyMixin, TimestampMixin):
     # 1 a 3. Só ordena a fila do dia; o agendamento não usa.
     dificuldade: Mapped[int] = mapped_column(Integer, nullable=False, default=2)
 
+    # O assunto fino — "Trigger", "Crase" — do catálogo de
+    # `app/estudo/assuntos.py`. É ele que põe a questão no simulado e que dá
+    # nome ao erro no diagnóstico. Nulo = fora do simulado (julgue o item, ou
+    # questão que ainda não foi etiquetada).
+    assunto: Mapped[str | None] = mapped_column(String(160))
+
     topico: Mapped[Topico] = relationship(lazy="joined")
     banca: Mapped[Banca | None] = relationship(lazy="joined")
     agenda: Mapped[Agenda | None] = relationship(
@@ -218,6 +229,7 @@ class Questao(Base, UUIDPrimaryKeyMixin, TimestampMixin):
         Index("ix_estudo_questao_topico", "topico_id"),
         Index("ix_estudo_questao_formato", "formato"),
         Index("ix_estudo_questao_banca", "banca_id"),
+        Index("ix_estudo_questao_assunto", "assunto"),
     )
 
     def __repr__(self) -> str:

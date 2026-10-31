@@ -284,10 +284,17 @@ async def post_topico(
     )
 
 
-@router.patch("/topicos/{topico_id}", response_model=TopicoCriado, summary="Renomeia o tópico")
+@router.patch(
+    "/topicos/{topico_id}", response_model=TopicoCriado, summary="Renomeia ou pausa o tópico"
+)
 async def patch_topico(
     topico_id: UUID, req: TopicoPatch, _: UsuarioLogado
 ) -> TopicoCriado:
+    """`ativo: false` tira o tópico da fila do dia, como a pausa da banca.
+
+    É para o assunto que o edital não cobra: as questões ficam no acervo, com
+    agenda e histórico intactos, e `ativo: true` devolve no ponto em que parou.
+    """
     try:
         t = await servico.atualizar_topico(topico_id, req.model_dump(exclude_unset=True))
     except servico.QuestaoNaoEncontrada as e:
@@ -295,7 +302,7 @@ async def patch_topico(
     except (servico.NomeEmUso, servico.RespostaInvalida) as e:
         raise _erros_de_nome(e) from e
     return TopicoCriado(
-        id=str(t.id), modulo_id=str(t.modulo_id), nome=t.nome, ordem=t.ordem
+        id=str(t.id), modulo_id=str(t.modulo_id), nome=t.nome, ordem=t.ordem, ativo=t.ativo
     )
 
 

@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Matemática e Raciocínio Lógico, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa do edital CRECI-SP 01/2026 (Avança SP), com peso no que o acervo real tinha fino (diagramas lógicos, relações arbitrárias, média ponderada, MMC/MDC, sistemas, regra de três composta). TODA conta e todo problema de lógica é conferido por script no gerador (scripts/ineditas_bd/mat.py, `verificar`): os problemas de relações arbitrárias são resolvidos por força bruta e só entram se a solução for única.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico — inéditas",
+    "trilha": "concurso",
+    "ordem": 4
+  },
+  "topico": {
+    "nome": "Média aritmética",
+    "ordem": 4
+  },
+  "questoes": [
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Média aritmética · nº 01",
+      "enunciado": "Em um processo seletivo, o candidato obteve nota 6 na prova de Português (peso 2), 8 na de Matemática (peso 3) e 5 na de Conhecimentos Específicos (peso 5). Sua média ponderada final foi",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "6,3."
+        },
+        {
+          "letra": "B",
+          "texto": "6,0."
+        },
+        {
+          "letra": "C",
+          "texto": "6,5."
+        },
+        {
+          "letra": "D",
+          "texto": "6,1."
+        },
+        {
+          "letra": "E",
+          "texto": "7,0."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "Notas 6, 8 e 5 com pesos 2, 3 e 5. Letra D: 6,1.\n\nMédia ponderada = soma de (nota × peso) ÷ soma dos pesos.\n\n| Prova | Nota | Peso | Nota × peso |\n|---|---|---|---|\n| Português | 6 | 2 | 12 |\n| Matemática | 8 | 3 | 24 |\n| Específicos | 5 | 5 | 25 |\n| Total | | 10 | 61 |\n\n61 ÷ 10 = 6,1.\n\n6,3 é a média SIMPLES (19 ÷ 3), a armadilha de quem ignora os pesos. A nota mais baixa tem o maior peso, por isso a ponderada fica abaixo da simples.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Média aritmética simples e ponderada"
+    },
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Média aritmética · nº 02",
+      "enunciado": "Para ser aprovado em um curso, o aluno precisa de média ponderada mínima 7,0 em três avaliações, com pesos 2, 3 e 5, respectivamente. Ele tirou 7,0 na primeira e 6,0 na segunda. A nota mínima que precisa obter na terceira avaliação é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "7,6."
+        },
+        {
+          "letra": "B",
+          "texto": "8,0."
+        },
+        {
+          "letra": "C",
+          "texto": "7,0."
+        },
+        {
+          "letra": "D",
+          "texto": "7,8."
+        },
+        {
+          "letra": "E",
+          "texto": "8,2."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 2,
+      "explicacao": "Pesos 2, 3 e 5; notas 7 e 6; média mínima 7. Letra A: 7,6.\n\n(7 × 2 + 6 × 3 + 5x) ÷ 10 = 7\n14 + 18 + 5x = 70\n5x = 38 → x = 7,6.\n\nRaciocínio rápido: a soma ponderada precisa chegar a 7 × 10 = 70 pontos. Ele já tem 32; faltam 38, divididos pelo peso 5.\n\n8,0 é de quem acha que precisa compensar a nota 6 com média simples ((7 + 6 + x) ÷ 3 = 7).",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Média aritmética simples e ponderada"
+    }
+  ]
+}

@@ -45,6 +45,10 @@ TABELAS_DE_DADOS = (
     "blog_post_versao",
     "blog_post",
     # Ordem importa: a limpeza é feita nesta sequência e o FK aponta para trás.
+    "estudo_reforco_item",
+    "estudo_reforco",
+    "estudo_simulado_item",
+    "estudo_simulado",
     "estudo_tentativa",
     "estudo_agenda",
     "estudo_questao",
@@ -56,6 +60,8 @@ TABELAS_DE_DADOS = (
     "comercial_interacao",
     "comercial_transicao",
     "comercial_lead",
+    "comercial_contato",
+    "comercial_empresa",
     # A fonte fica: é cadastro da migration, não dado de teste.
     "prospeccao_origem",
     "prospeccao_canal",

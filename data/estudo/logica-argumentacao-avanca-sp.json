@@ -1,10 +1,10 @@
 {
-  "_leia_me": "As 5 questões de lógica de argumentação que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.",
+  "_leia_me": "As 5 questões de lógica de argumentação que o Instituto Avança SP aplicou nas provas de TI, na seção de Matemática e Raciocínio Lógico.\n\n    Levantadas em 16/09/2026 de docs/avanca-sp/avanca-sp-matematica.md, que\n    as tirou dos PDFs das provas em docs/avanca-sp/Provas/ e as agrupou pelos\n    assuntos do Anexo II do edital do CRECI/SP 01/2026 — a prova do Pablo,\n    em 29/11/2026, onde Matemática e Raciocínio Lógico vale 10 das 60\n    questões.\n\n    O gabarito de cada uma é o que a banca publicou, lido por\n    scripts/conferir_gabaritos_avanca_sp.py. As questões das duas provas sem\n    gabarito em PDF (Circuito das Águas 2024 e Sorocaba 2022) ficaram de\n    fora: sem gabarito oficial a resposta seria minha.\n\n    **Ainda não têm explicação.** Entraram assim de propósito, para o acervo\n    começar a cobrar o assunto; a explicação é o trabalho seguinte. A\n    dificuldade está em 2 para todas porque não foi avaliada questão a\n    questão — ela não entra no agendamento, então não distorce a fila.\n\nEm 07/10/2026 entrou o bloco comum (Português e Matemática) de seis provas da Avança SP de cargos que não são de TI — Embu-Guaçu 2022, Jaguariúna 2023, SAAE Amparo 2023, São Miguel Arcanjo 2023, Itupeva 2024 e ITUPREV 2024 —, pelo scripts/avanca_sp/bloco_comum.py: gabarito lido no PDF da banca, no bloco do cargo; explicações MINHAS, não da banca.",
   "banca": "Instituto Avança SP",
   "modulo": {
     "nome": "Matemática e raciocínio lógico",
     "trilha": "concurso",
-    "ordem": 1
+    "ordem": 3
   },
   "topico": {
     "nome": "Lógica de argumentação",
@@ -155,6 +155,68 @@
           "texto": "Todas as pessoas que tiveram seu problema resolvido deram nota 10 para o atendimento"
         }
       ]
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Itupeva 2024 · Analista Legislativo - Contabilidade Pública · questão 14",
+      "assunto": "Quantificadores e diagramas (todo, algum, nenhum)",
+      "enunciado": "Considere verdadeiras as seguintes afirmativas:\n\n• Há músicos que também são pintores;\n• Todo escultor também é músico;\n• Há pintores que também são escultores.\n\nCom base nas alternativas, podemos afirmar que:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Todo músico também é escultor."
+        },
+        {
+          "letra": "B",
+          "texto": "Todo músico é escultor e pintor."
+        },
+        {
+          "letra": "C",
+          "texto": "Todos os pintores que são escultores também são músicos."
+        },
+        {
+          "letra": "D",
+          "texto": "Todos os músicos que são escultores também são pintores."
+        },
+        {
+          "letra": "E",
+          "texto": "Todos os pintores que são músicos também são escultores."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Diagrama: o círculo dos escultores fica INTEIRO dentro do dos músicos. Letra C.\n\nQuem é pintor E escultor está dentro de escultores, e escultores está dentro de músicos — então também é músico. Isso vale sempre.\n\n| Alternativa | Por que não é obrigatória |\n|---|---|\n| todo músico é escultor | 'todo escultor é músico' não se inverte |\n| todo músico é escultor e pintor | idem, e pior |\n| músicos escultores são pintores | só ALGUNS pintores são escultores |\n| pintores músicos são escultores | 'algum' não garante 'todos' |\n\nRegra: 'Todo A é B' não permite concluir 'Todo B é A'. 'Algum' nunca vira 'todo'."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Instituto Avança SP · Câmara de Jaguariúna 2023 · Analista Legislativo · questão 15",
+      "assunto": "Negação de proposições (De Morgan)",
+      "enunciado": "Observe a seguinte sentença:\n\n“Nesta selva, um animal é caçador ou presa.”\n\nIndique a alternativa que apresenta a negação lógica da sentença:",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "Nesta selva, um animal é caçador mas não é presa."
+        },
+        {
+          "letra": "B",
+          "texto": "Nesta selva, um animal não é caçador ou não é presa."
+        },
+        {
+          "letra": "C",
+          "texto": "Nesta selva, um animal não é caçador, mas é presa."
+        },
+        {
+          "letra": "D",
+          "texto": "Nesta selva, um animal não é caçador e nem presa."
+        },
+        {
+          "letra": "E",
+          "texto": "Nesta selva, um animal não é caçador se e somente se não for presa."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 1,
+      "explicacao": "De Morgan: ~(p ∨ q) = ~p ∧ ~q. Letra D.\n\nNegar 'é caçador OU presa' é dizer que não é nenhum dos dois: não é caçador E não é presa.\n\n| Proposição | Negação |\n|---|---|\n| p ou q | não p e não q |\n| p e q | não p ou não q |\n| se p então q | p e não q |\n\nA alternativa B nega as partes mas não troca o conectivo — é a negação de 'p E q', o par que a banca usa para confundir."
     }
   ]
 }

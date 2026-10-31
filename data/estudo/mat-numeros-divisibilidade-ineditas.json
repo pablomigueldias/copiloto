@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Matemática e Raciocínio Lógico, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa do edital CRECI-SP 01/2026 (Avança SP), com peso no que o acervo real tinha fino (diagramas lógicos, relações arbitrárias, média ponderada, MMC/MDC, sistemas, regra de três composta). TODA conta e todo problema de lógica é conferido por script no gerador (scripts/ineditas_bd/mat.py, `verificar`): os problemas de relações arbitrárias são resolvidos por força bruta e só entram se a solução for única.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico — inéditas",
+    "trilha": "concurso",
+    "ordem": 4
+  },
+  "topico": {
+    "nome": "Números e divisibilidade",
+    "ordem": 5
+  },
+  "questoes": [
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Números e divisibilidade · nº 01",
+      "enunciado": "Em um servidor, três rotinas automáticas são executadas a cada 6 horas, 8 horas e 12 horas, respectivamente. Se as três foram executadas juntas à 0h de uma segunda-feira, elas voltarão a ser executadas juntas pela primeira vez",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "às 12h de segunda-feira."
+        },
+        {
+          "letra": "B",
+          "texto": "às 8h de terça-feira."
+        },
+        {
+          "letra": "C",
+          "texto": "à 0h de terça-feira."
+        },
+        {
+          "letra": "D",
+          "texto": "à 0h de quarta-feira."
+        },
+        {
+          "letra": "E",
+          "texto": "às 18h de segunda-feira."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "Rotinas a cada 6, 8 e 12 h, juntas à 0h de segunda. Letra C.\n\nCoincidem a cada MMC(6, 8, 12):\n\n6 = 2 × 3\n8 = 2³\n12 = 2² × 3\n\nMMC = 2³ × 3 = 24 horas.\n\n0h de segunda + 24 h = 0h de terça.\n\nAtalho: 'voltam a coincidir', 'ao mesmo tempo de novo' → MMC. 'Dividir em partes iguais, as maiores possíveis' → MDC.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Mínimo múltiplo comum e máximo divisor comum"
+    },
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Números e divisibilidade · nº 02",
+      "enunciado": "Um almoxarifado tem 72 resmas de papel A4 e 120 resmas de papel ofício. Elas serão distribuídas em lotes com a mesma quantidade de resmas, a maior possível, sem misturar os tipos de papel em um mesmo lote e sem sobras. O número total de lotes formados será",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "24."
+        },
+        {
+          "letra": "B",
+          "texto": "6."
+        },
+        {
+          "letra": "C",
+          "texto": "12."
+        },
+        {
+          "letra": "D",
+          "texto": "16."
+        },
+        {
+          "letra": "E",
+          "texto": "8."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 2,
+      "explicacao": "72 e 120 resmas, lotes iguais, os maiores possíveis. Letra E: 8 lotes.\n\nTamanho do lote = MDC(72, 120):\n\n72 = 2³ × 3²\n120 = 2³ × 3 × 5\n\nMDC = 2³ × 3 = 24 resmas por lote.\n\nNúmero de lotes: 72 ÷ 24 = 3 de A4 e 120 ÷ 24 = 5 de ofício → 3 + 5 = 8.\n\n24 é a pegadinha: é o TAMANHO de cada lote, não a quantidade de lotes. Leia o que a pergunta pede.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Mínimo múltiplo comum e máximo divisor comum"
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "_leia_me": "Questões INÉDITAS de Inglês técnico, escritas por mim (Claude) a pedido do Pablo em 07/10/2026 — sem banca; textos de apoio, gabarito e explicação são meus. A Avança SP não tem nenhuma questão de inglês nas 14 provas levantadas; o padrão vem da pesquisa em docs/avanca-sp/ingles-tecnico-padrao.md (Cesgranrio: texto + perguntas em inglês; FCC/Vunesp: perguntas em português) e o conteúdo, do programa de Inglês Técnico do edital CRECI-SP 01/2026. Cada questão traz o `assunto` do simulado. As normas citadas (RFC 2119, NIST SP 800-63B, NIST CSF 2.0, ISO/IEC 27001) foram conferidas como eu as conheço, sem fonte externa aberta na hora — desconfie e corrija.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Inglês técnico — inéditas",
+    "trilha": "concurso",
+    "ordem": 8
+  },
+  "topico": {
+    "nome": "Comandos, mensagens de erro e logs",
+    "ordem": 4
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Comandos, mensagens de erro e logs · nº 01",
+      "enunciado": "According to the guide, the command in step 3 is used to",
+      "texto_base": "Installing MySQL Server on Ubuntu\n\n1. Update the package index:\n   $ sudo apt update\n2. Install the server package:\n   $ sudo apt install mysql-server\n3. Check whether the service is running:\n   $ sudo systemctl status mysql\n   If the output shows \"inactive (dead)\", start it with: sudo systemctl start mysql\n4. Run the security script, which removes anonymous users, disables remote root login and deletes the test database:\n   $ sudo mysql_secure_installation\n5. Make sure that port 3306 is not exposed to the internet unless remote access is strictly required. If it is, restrict incoming connections to known IP addresses in the firewall.\n\nNote: Do not edit the configuration files while the service is being upgraded. Back up /etc/mysql before making any changes.",
+      "texto_base_fonte": "Texto escrito para esta questão, no formato de um guia de instalação.",
+      "assunto": "Comandos de sistema e instruções de instalação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "verify whether the MySQL service is running."
+        },
+        {
+          "letra": "B",
+          "texto": "install the MySQL server package."
+        },
+        {
+          "letra": "C",
+          "texto": "update the list of available packages."
+        },
+        {
+          "letra": "D",
+          "texto": "remove anonymous users from the server."
+        },
+        {
+          "letra": "E",
+          "texto": "open port 3306 in the firewall."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Passo 3: 'Check whether the service is running' → systemctl status mysql. Letra A.\n\n| Comando | Faz |\n|---|---|\n| systemctl status X | mostra se o serviço está ativo (active/running) ou parado (inactive/dead) |\n| systemctl start / stop / restart X | inicia / para / reinicia |\n| systemctl enable X | faz subir no boot |\n| apt update | atualiza a LISTA de pacotes (não instala nada) |\n| apt install X | instala |\n\n'Check whether' = verificar se.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Instruções e comandos; interpretação de mensagens de erro e logs de sistemas"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Comandos, mensagens de erro e logs · nº 02",
+      "enunciado": "According to step 4, the script mysql_secure_installation does all of the following, EXCEPT",
+      "texto_base": "Installing MySQL Server on Ubuntu\n\n1. Update the package index:\n   $ sudo apt update\n2. Install the server package:\n   $ sudo apt install mysql-server\n3. Check whether the service is running:\n   $ sudo systemctl status mysql\n   If the output shows \"inactive (dead)\", start it with: sudo systemctl start mysql\n4. Run the security script, which removes anonymous users, disables remote root login and deletes the test database:\n   $ sudo mysql_secure_installation\n5. Make sure that port 3306 is not exposed to the internet unless remote access is strictly required. If it is, restrict incoming connections to known IP addresses in the firewall.\n\nNote: Do not edit the configuration files while the service is being upgraded. Back up /etc/mysql before making any changes.",
+      "texto_base_fonte": "Texto escrito para esta questão, no formato de um guia de instalação.",
+      "assunto": "Comandos de sistema e instruções de instalação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "remove anonymous users."
+        },
+        {
+          "letra": "B",
+          "texto": "disable remote login for the root user."
+        },
+        {
+          "letra": "C",
+          "texto": "open port 3306 to remote connections."
+        },
+        {
+          "letra": "D",
+          "texto": "delete the test database."
+        },
+        {
+          "letra": "E",
+          "texto": "run with administrative privileges through sudo."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "EXCEPT = exceto: procure a que o passo 4 NÃO diz. Letra C.\n\nO passo 4 lista: removes anonymous users, disables remote root login, deletes the test database — e o comando começa com sudo (privilégio de administrador).\n\nAbrir a porta 3306 é o contrário do que o guia quer: o passo 5 manda NÃO expor a porta.\n\nComando negativo (EXCEPT, NOT, INCORRECT) é 1 em cada 10 questões da Avança SP. Leia o comando duas vezes.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Instruções e comandos; interpretação de mensagens de erro e logs de sistemas"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Comandos, mensagens de erro e logs · nº 03",
+      "enunciado": "A MySQL client displays the following message:\n\nERROR 1045 (28000): Access denied for user 'app'@'10.0.0.5' (using password: YES)\n\nThis message indicates that",
+      "assunto": "Mensagens de erro e logs",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "user app is logged in but has no permission to read a specific table."
+        },
+        {
+          "letra": "B",
+          "texto": "the server rejected the login of user app connecting from host 10.0.0.5, even though a password was supplied."
+        },
+        {
+          "letra": "C",
+          "texto": "the password field was left empty when connecting."
+        },
+        {
+          "letra": "D",
+          "texto": "the server at 10.0.0.5 has run out of disk space."
+        },
+        {
+          "letra": "E",
+          "texto": "the database named app does not exist on the server."
+        }
+      ],
+      "gabarito": "B",
+      "dificuldade": 2,
+      "explicacao": "Leitura da mensagem: letra B.\n\n| Pedaço | Significado |\n|---|---|\n| Access denied for user | autenticação recusada |\n| 'app'@'10.0.0.5' | no MySQL a conta é usuário + host de ORIGEM |\n| using password: YES | uma senha foi enviada (NO = sem senha) |\n\nCausas típicas: senha errada, ou a conta existe só como 'app'@'localhost' e não para aquele host.\n\nA primeira errada é o erro de AUTORIZAÇÃO (o MySQL responde com 'command denied ... for table'), não de login. Banco inexistente dá 'Unknown database'.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Instruções e comandos; interpretação de mensagens de erro e logs de sistemas"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Comandos, mensagens de erro e logs · nº 04",
+      "enunciado": "A PostgreSQL application logged the following error:\n\nERROR: duplicate key value violates unique constraint \"cliente_email_key\"\nDETAIL: Key (email)=(ana@exemplo.com) already exists.\n\nThe most accurate interpretation is that",
+      "assunto": "Mensagens de erro e logs",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "the table cliente was deleted while the command was running."
+        },
+        {
+          "letra": "B",
+          "texto": "the e-mail column accepts duplicates, but the key was too long."
+        },
+        {
+          "letra": "C",
+          "texto": "the user does not have permission to write to the table cliente."
+        },
+        {
+          "letra": "D",
+          "texto": "the INSERT or UPDATE failed because another row already has the e-mail ana@exemplo.com."
+        },
+        {
+          "letra": "E",
+          "texto": "the database ran out of space to create a new index."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Leitura: letra D.\n\n| Pedaço | Significado |\n|---|---|\n| duplicate key value | valor de chave repetido |\n| violates unique constraint | viola a restrição UNIQUE |\n| \"cliente_email_key\" | nome da restrição (padrão do PostgreSQL: tabela_coluna_key) |\n| DETAIL: Key (email)=(...) already exists | qual valor já existe |\n\nCorreções possíveis: não inserir o repetido, ou usar INSERT ... ON CONFLICT (email) DO NOTHING / DO UPDATE.\n\nPermissão negada no PostgreSQL é 'permission denied for table cliente'.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Instruções e comandos; interpretação de mensagens de erro e logs de sistemas"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Comandos, mensagens de erro e logs · nº 05",
+      "enunciado": "Consider the following line from a server log:\n\n2026-10-07 03:12:44 WARN [backup-job] Disk usage at 92% on /var/lib/mysql; job will be skipped if usage exceeds 95%.\n\nAccording to the log entry,",
+      "assunto": "Mensagens de erro e logs",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "the backup has not been skipped yet, but it will be if disk usage goes above 95%."
+        },
+        {
+          "letra": "B",
+          "texto": "the backup failed because the disk is completely full."
+        },
+        {
+          "letra": "C",
+          "texto": "disk usage on /var/lib/mysql has reached 95%."
+        },
+        {
+          "letra": "D",
+          "texto": "the backup job was cancelled at 03:12:44."
+        },
+        {
+          "letra": "E",
+          "texto": "the warning refers to memory usage, not to disk usage."
+        }
+      ],
+      "gabarito": "A",
+      "dificuldade": 1,
+      "explicacao": "Leitura do log: letra A.\n\n| Pedaço | Significado |\n|---|---|\n| WARN | aviso — abaixo de ERROR e de FATAL/CRITICAL |\n| Disk usage at 92% | uso de disco em 92% |\n| will be skipped if usage exceeds 95% | SERÁ pulado SE passar de 95% (condição futura) |\n\nNíveis de log, do menos ao mais grave: TRACE, DEBUG, INFO, WARN, ERROR, FATAL.\n\n'skip' = pular; 'exceed' = exceder. Todas as erradas afirmam como fato o que o log põe como condição.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Instruções e comandos; interpretação de mensagens de erro e logs de sistemas"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Comandos, mensagens de erro e logs · nº 06",
+      "enunciado": "In a Linux terminal, the command df -h is used to",
+      "assunto": "Comandos de sistema e instruções de instalação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "delete a directory and all of its files."
+        },
+        {
+          "letra": "B",
+          "texto": "list the processes that are running."
+        },
+        {
+          "letra": "C",
+          "texto": "display used and available disk space per file system, in human-readable units such as M and G."
+        },
+        {
+          "letra": "D",
+          "texto": "change the permissions of a file."
+        },
+        {
+          "letra": "E",
+          "texto": "show the configuration of the network interfaces."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 1,
+      "explicacao": "df = disk free; -h = human-readable. Letra C.\n\n| Comando | Faz |\n|---|---|\n| df -h | espaço livre/usado por sistema de arquivos |\n| du -sh pasta | tamanho de uma pasta |\n| rm -r pasta | apaga recursivamente |\n| ps aux / top | processos |\n| chmod / chown | permissões / dono |\n| ip a (antigo: ifconfig) | interfaces de rede |\n\nNo Windows, o equivalente de 'ver interfaces' é ipconfig.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Instruções e comandos; interpretação de mensagens de erro e logs de sistemas"
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "Inédita (sem banca) · Inglês técnico Avança SP · Comandos, mensagens de erro e logs · nº 07",
+      "enunciado": "On Windows, the command ipconfig /all displays",
+      "assunto": "Comandos de sistema e instruções de instalação",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "the list of running processes and their memory usage."
+        },
+        {
+          "letra": "B",
+          "texto": "the result of a disk integrity check."
+        },
+        {
+          "letra": "C",
+          "texto": "the rules configured in the Windows firewall."
+        },
+        {
+          "letra": "D",
+          "texto": "the route that packets take to reach a remote host."
+        },
+        {
+          "letra": "E",
+          "texto": "detailed network configuration of each adapter, such as IP address, DNS servers and physical (MAC) address."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "ipconfig /all: letra E.\n\n| Windows | Linux | Faz |\n|---|---|---|\n| ipconfig /all | ip a | configuração de rede |\n| tasklist | ps | processos |\n| chkdsk | fsck | verifica o disco |\n| tracert | traceroute | rota até um host |\n| ping | ping | testa se o host responde |\n| netstat -an | ss -tan | conexões e portas |\n\n'Physical address' é o nome que o ipconfig dá ao endereço MAC.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Inglês técnico (PAS – Analista de TI): Instruções e comandos; interpretação de mensagens de erro e logs de sistemas"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "_leia_me": "Questões INÉDITAS de Matemática e Raciocínio Lógico, escritas por mim (Claude) a pedido do Pablo em 02/10/2026 — sem banca; gabarito e explicação são meus. Seguem o programa do edital CRECI-SP 01/2026 (Avança SP), com peso no que o acervo real tinha fino (diagramas lógicos, relações arbitrárias, média ponderada, MMC/MDC, sistemas, regra de três composta). TODA conta e todo problema de lógica é conferido por script no gerador (scripts/ineditas_bd/mat.py, `verificar`): os problemas de relações arbitrárias são resolvidos por força bruta e só entram se a solução for única.",
+  "banca": "Inéditas",
+  "modulo": {
+    "nome": "Matemática e raciocínio lógico — inéditas",
+    "trilha": "concurso",
+    "ordem": 4
+  },
+  "topico": {
+    "nome": "Grandezas, tabelas e gráficos",
+    "ordem": 9
+  },
+  "questoes": [
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Grandezas, tabelas e gráficos · nº 01",
+      "enunciado": "A tabela mostra o número de chamados técnicos abertos em um setor de TI, por mês.\n\n| Mês | Chamados |\n|---|---|\n| Janeiro | 80 |\n| Fevereiro | 100 |\n| Março | 90 |\n| Abril | 120 |\n\nConsiderando os meses consecutivos, o maior aumento percentual no número de chamados ocorreu",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "de janeiro para fevereiro, com aumento de 25%."
+        },
+        {
+          "letra": "B",
+          "texto": "de janeiro para fevereiro, com aumento de 20%."
+        },
+        {
+          "letra": "C",
+          "texto": "de março para abril, com aumento de aproximadamente 33%."
+        },
+        {
+          "letra": "D",
+          "texto": "de março para abril, com aumento de 30%."
+        },
+        {
+          "letra": "E",
+          "texto": "de fevereiro para março, com aumento de 10%."
+        }
+      ],
+      "gabarito": "C",
+      "dificuldade": 2,
+      "explicacao": "Maior aumento PERCENTUAL entre meses consecutivos. Letra C.\n\nVariação percentual = (novo − antigo) ÷ ANTIGO × 100.\n\n| Período | Variação absoluta | Percentual |\n|---|---|---|\n| jan → fev | +20 | 20 ÷ 80 = 25% |\n| fev → mar | −10 | −10% (queda) |\n| mar → abr | +30 | 30 ÷ 90 ≈ 33,3% |\n\nArmadilhas:\n\n— dividir pelo valor NOVO: 20 ÷ 100 = 20% e 30 ÷ 120 = 25%;\n\n— 30% é de quem divide 30 por 100;\n\n— fev → mar foi QUEDA, não aumento.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Relação entre grandezas: tabelas e gráficos"
+    },
+    {
+      "formato": "calculo",
+      "origem": "Inédita (sem banca) · Matemática Avança SP · Grandezas, tabelas e gráficos · nº 02",
+      "enunciado": "A tabela mostra o número de chamados técnicos abertos em um setor de TI, por mês.\n\n| Mês | Chamados |\n|---|---|\n| Janeiro | 80 |\n| Fevereiro | 100 |\n| Março | 90 |\n| Abril | 120 |\n\nA média mensal de chamados no período apresentado foi de",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "95 chamados."
+        },
+        {
+          "letra": "B",
+          "texto": "100 chamados."
+        },
+        {
+          "letra": "C",
+          "texto": "105 chamados."
+        },
+        {
+          "letra": "D",
+          "texto": "390 chamados."
+        },
+        {
+          "letra": "E",
+          "texto": "97,5 chamados."
+        }
+      ],
+      "gabarito": "E",
+      "dificuldade": 1,
+      "explicacao": "Média de 80, 100, 90 e 120. Letra E: 97,5.\n\nSoma: 80 + 100 + 90 + 120 = 390. Média: 390 ÷ 4 = 97,5.\n\n390 é o total do período, não a média. 100 é a mediana arredondada — a média é que se pede.\n\nConferência rápida: a média tem de ficar entre o menor (80) e o maior (120) valor. Alternativa fora desse intervalo já cai.",
+      "fonte": "Edital CRECI-SP 01/2026 (Instituto Avança SP), Anexo II — Matemática e Raciocínio Lógico (nível superior): Relação entre grandezas: tabelas e gráficos"
+    }
+  ]
+}

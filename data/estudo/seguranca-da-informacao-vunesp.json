@@ -1,0 +1,75 @@
+{
+  "_leia_me": "Criptografia simétrica e assimétrica, VUNESP: Fundação CASA 2010, questões 29 e 56. Cobrem a linha 'Segurança de dados: criptografia' do edital de BD. O resto dos específicos dessa prova é de redes, Windows Server e cabeamento — fora do edital de BD, ficou de fora. Procedência: docs/avanca-sp/outras-bancas/vunesp-fundacao-casa-2010-especialista-informatica-rede.pdf, prova de 07/03/2010; gabarito lido em gabarito-vunesp-fundacao-casa-2010.pdf, no bloco 'Especialista em Desenvolvimento e Gestão (Informática - Rede)'. O PDF é o edital de divulgação dos gabaritos (Edital 005/2010) e não fala em recurso. As explicações são MINHAS, não da banca. Entram aqui por cobrir o edital do CRECI-SP 01/2026 (Avança SP), PAS – Analista de TI – Banco de Dados.",
+  "banca": "VUNESP",
+  "modulo": {
+    "nome": "Conhecimentos específicos de TI",
+    "trilha": "concurso",
+    "ordem": 1
+  },
+  "topico": {
+    "nome": "Segurança da informação e LGPD",
+    "ordem": 7
+  },
+  "questoes": [
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · Fundação CASA 2010 · Especialista em Desenvolvimento e Gestão (Informática – Rede) · questão 29",
+      "enunciado": "A VPN (Virtual Private Network) utiliza o túnel de comunicação seguro implementado com um esquema de criptografia de chaves simétricas em que uma das vantagens é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "a maior complexidade do algoritmo de criptografia se comparada com a que utiliza chaves assimétricas."
+        },
+        {
+          "letra": "B",
+          "texto": "a diferença existente entre os algoritmos de criptografia e descriptografia da informação, o que dificulta a sua quebra."
+        },
+        {
+          "letra": "C",
+          "texto": "o uso de chaves complementares entre os interlocutores, o que dificulta a sua quebra."
+        },
+        {
+          "letra": "D",
+          "texto": "o menor tempo gasto na criptografia, se comparado com o que utiliza chaves assimétricas."
+        },
+        {
+          "letra": "E",
+          "texto": "o pequeno tamanho das chaves de 32 bits, o que facilita a sua implementação."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "Vantagem da criptografia SIMÉTRICA? Letra D: é muito mais RÁPIDA que a assimétrica.\n\n| | Simétrica | Assimétrica |\n|---|---|---|\n| chaves | UMA, a mesma nos dois lados | um PAR: pública + privada |\n| velocidade | rápida — serve para volume grande de dados | lenta (centenas de vezes) |\n| problema | distribuir a chave com segurança | custo computacional |\n| exemplos | AES, 3DES, ChaCha20 | RSA, ECC, Diffie-Hellman |\n\nPor isso VPN e HTTPS usam as duas: a assimétrica só para combinar uma chave de sessão, e a simétrica para cifrar o tráfego.\n\nA — é o contrário: o simétrico é o mais simples e leve.\n\nB e C descrevem o ASSIMÉTRICO ('chaves complementares' = par pública/privada).\n\nE — chave de 32 bits é quebrável por força bruta; o AES usa 128, 192 ou 256 bits.\n\nNo banco de dados: a criptografia de dados em repouso (TDE no SQL Server, criptografia de tablespace no MySQL) é simétrica, pelo mesmo motivo de desempenho."
+    },
+    {
+      "formato": "multipla_escolha",
+      "origem": "VUNESP · Fundação CASA 2010 · Especialista em Desenvolvimento e Gestão (Informática – Rede) · questão 56",
+      "enunciado": "Para melhorar a segurança na transmissão da informação em redes de computadores, pode-se utilizar a criptografia. Nesse contexto, uma chave pública é",
+      "alternativas": [
+        {
+          "letra": "A",
+          "texto": "utilizada pelo receptor da informação."
+        },
+        {
+          "letra": "B",
+          "texto": "utilizada para criptografar e descriptografar a informação."
+        },
+        {
+          "letra": "C",
+          "texto": "pouco utilizada, pois é de conhecimento público."
+        },
+        {
+          "letra": "D",
+          "texto": "distribuída livremente e utilizada apenas para criptografar a informação."
+        },
+        {
+          "letra": "E",
+          "texto": "um exemplo do esquema de criptografia utilizando chave simétrica."
+        }
+      ],
+      "gabarito": "D",
+      "dificuldade": 2,
+      "explicacao": "O que é a chave pública? Letra D: distribuída a qualquer um e usada para CIFRAR o que só o dono da privada vai ler.\n\nPara mandar algo sigiloso a Maria:\n\n1. eu cifro com a chave PÚBLICA de Maria (que ela divulga para todo mundo);\n\n2. só a chave PRIVADA de Maria decifra.\n\nA — quem usa a pública de Maria é o EMISSOR; a receptora usa a privada.\n\nB — cifrar e decifrar com a mesma chave é o simétrico (E também descreve o simétrico).\n\nC — ser pública é justamente o que a torna útil.\n\nRessalva: na ASSINATURA DIGITAL os papéis se invertem — o autor assina com a PRIVADA e qualquer um confere com a PÚBLICA. O 'apenas para criptografar' da D vale para o sigilo, que é o contexto da questão ('segurança na transmissão').\n\n| Objetivo | Cifra / assina com | Abre / confere com |\n|---|---|---|\n| SIGILO | pública do destinatário | privada do destinatário |\n| AUTENTICIDADE (assinatura) | privada do autor | pública do autor |"
+    }
+  ]
+}
